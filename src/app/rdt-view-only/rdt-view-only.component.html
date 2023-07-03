@@ -1,0 +1,84 @@
+<a *ngIf="idusuario=='admin'" [routerLink]="'/admin-rdt'">
+  <i class="bi bi-reply-fill"></i>
+  Inicio
+</a>
+
+<a *ngIf="idusuario!='admin'" [routerLink]="'/colaborador-rdt'">
+  <i class="bi bi-reply-fill"></i>
+  Inicio
+</a>
+
+<h4>RDT {{ idrdt }}</h4>
+
+<table class="table table-striped" id="tareas_rdt">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" class="vertical">Cliente</th>
+      <th scope="col" class="vertical">Atención</th>
+      <th scope="col" class="vertical">Delegado por</th>
+      <th scope="col" class="vertical">Expediente</th>
+      <th scope="col" class="vertical">Tipo de proceso</th>
+      <th scope="col" class="vertical">Mención de la tarea</th>
+      <th scope="col" class="vertical">Cliente</th>
+      <th scope="col" class="vertical">Demandado</th>
+      <th scope="col" class="vertical">ITER</th>
+      <th scope="col" class="vertical">Avance(%)</th>
+      <th scope="col" class="vertical">F. culminación</th>
+      <th scope="col" class="vertical">T. Atención</th>
+      <th scope="col" class="vertical">Código</th>
+      <th scope="col" class="vertical">Descripción</th>
+      <th scope="col" class="vertical">Acciones a realizar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tarea of lstTareas; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td class="vertical">
+        {{ tarea.ntipocliente }}
+      </td>
+      <td class="vertical">
+        {{ tarea.ntipoatencion }}
+      </td>
+      <td class="vertical">
+        {{ tarea.sdelegadopor }}
+      </td>
+      <td class="vertical">
+        {{ tarea.sexpediente }}
+      </td>
+      <td class="vertical">
+        {{ tarea.ntipoproceso }}
+      </td>
+      <td>
+        {{ tarea.sdestarea }}
+      </td>
+      <td class="vertical">
+        {{ tarea.scliente }}
+      </td>
+      <td class="vertical">
+        {{ tarea.sdemandado }}
+      </td>
+      <td>
+        {{ tarea.niter }}
+      </td>
+      <td>
+        {{ tarea.navance }}
+      </td>
+      <td class="vertical">
+        {{ tarea.fculminacion }}
+      </td>
+      <td>
+        {{ tarea.stiempoatencion }}
+      </td>
+      <td>
+        {{ tarea.ncodeje }}
+      </td>
+      <td>
+        {{ tarea.sdeseje }}
+      </td>
+      <td>
+        {{ tarea.sacceje }}
+      </td>
+    </tr>
+  </tbody>
+</table>

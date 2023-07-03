@@ -1,0 +1,69 @@
+<h3>REPORTE DIARIO DE TRABAJO</h3>
+
+<div>
+  <b>Fecha de Hoy: </b>
+  {{ sFechaHoy }}
+</div>
+
+<hr />
+
+<!-- <div>Filtro: Día</div>
+<div>Filtro: colaborador</div> -->
+
+<h4>Listado de RTDs</h4>
+
+<div class="alert alert-warning" *ngIf="lPermitirGenerarRtd">
+  Aún no se han generado RDTs para el día {{ sFechaHoy }}.
+  <button class="btn btn-warning" (click)="crearRdts()">Generar RDTs</button>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Colaborador</th>
+      <th>Fecha</th>
+      <th>Hora entrada</th>
+      <th>Hora salida</th>
+      <th>Editable</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rdt of lstRdts; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ rdt.idcolaborador }}</td>
+      <td>{{ rdt.dfecha }}</td>
+      <td>{{ rdt.shoraingreso + ":" + rdt.sminutoingreso }}</td>
+      <td>{{ rdt.shorasalida + ":" + rdt.sminutosalida }}</td>
+      <td>
+        <div class="form-check form-switch">
+          <input
+            mdbCheckbox
+            class="form-check-input"
+            type="checkbox"
+            [checked]="rdt.leditable"
+            (click)="toggleEditable(rdt.idrdt, rdt.leditable)"
+          />
+        </div>
+      </td>
+      <td>
+        <a class="btn btn-outline-success" [routerLink]="'/rdt/' + rdt.idrdt">
+          Ver
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<div class="container">
+  <span>Listado de Colaboradores que deben realizar su RDT:</span>
+
+  <ol>
+    <li *ngFor="let colaborador of lstColaboradores">
+      {{ colaborador.snombre }}
+    </li>
+  </ol>
+</div>
