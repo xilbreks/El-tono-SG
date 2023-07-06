@@ -9,6 +9,7 @@ import { RdtViewOnlyComponent } from './rdt-view-only/rdt-view-only.component';
 import { RdtViewEditComponent } from './rdt-view-edit/rdt-view-edit.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { StatsRdtComponent } from './stats-rdt/stats-rdt.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -47,6 +48,11 @@ const routes: Routes = [
   {
     path: 'rdt-edit/:id',
     component: RdtViewEditComponent,
+    canActivate: [autenticacionGuard]
+  },
+  {
+    path: 'stats-rdt',
+    component: StatsRdtComponent,
     canActivate: [autenticacionGuard]
   },
   {

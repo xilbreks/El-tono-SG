@@ -18,6 +18,7 @@ import { RdtViewOnlyComponent } from './rdt-view-only/rdt-view-only.component';
 import { RdtViewEditComponent } from './rdt-view-edit/rdt-view-edit.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { StatsRdtComponent } from './stats-rdt/stats-rdt.component';
 
 const environment = {
   production: false,
@@ -43,6 +44,7 @@ const environment = {
     RdtViewEditComponent,
     LoginComponent,
     LogoutComponent,
+    StatsRdtComponent,
   ],
   imports: [
     BrowserModule,
