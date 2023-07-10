@@ -10,6 +10,7 @@ class ObjRdt {
   public sminutoingreso: string = '';
   public sminutosalida: string = '';
   public leditable: boolean = true;
+  public nsemana: number = 0;
   constructor() {}
 }
 

@@ -34,7 +34,7 @@
               (change)="updateHoraIngreso($event.target, rdt.idrdt)"
               [value]="rdt.shoraingreso"
             >
-              <option value="00">--</option>
+              <option value="--">--</option>
               <option value="07">07h</option>
               <option value="08">08h</option>
               <option value="09">09h</option>
@@ -54,7 +54,7 @@
               (change)="updateMinutoIngreso($event.target, rdt.idrdt)"
               [value]="rdt.sminutoingreso"
             >
-              <option value="-1">--</option>
+              <option value="--">--</option>
               <option value="00">00m</option>
               <option value="01">01m</option>
               <option value="02">02m</option>
@@ -129,7 +129,7 @@
               (change)="updateHoraSalida($event.target, rdt.idrdt)"
               [value]="rdt.shorasalida"
             >
-              <option value="00">--</option>
+              <option value="--">--</option>
               <option value="07">07h</option>
               <option value="08">08h</option>
               <option value="09">09h</option>
@@ -142,6 +142,9 @@
               <option value="16">16h</option>
               <option value="17">17h</option>
               <option value="18">18h</option>
+              <option value="19">19h</option>
+              <option value="20">20h</option>
+              <option value="21">21h</option>
             </select>
             <select
               class="form-control"
@@ -149,7 +152,7 @@
               (change)="updateMinutoSalida($event.target, rdt.idrdt)"
               [value]="rdt.sminutosalida"
             >
-              <option value="-1">--</option>
+              <option value="--">--</option>
               <option value="00">00m</option>
               <option value="01">01m</option>
               <option value="02">02m</option>

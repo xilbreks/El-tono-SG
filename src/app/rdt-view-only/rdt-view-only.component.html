@@ -10,6 +10,13 @@
 
 <h4>RDT {{ idrdt }}</h4>
 
+<div>
+  Tiempo desde entrada hasta salida = {{nTiempoTrabajo}} minutos
+</div>
+<div>
+  Suma de tiempo usado en tareas = {{nSumaTiempoTareas}} minutos
+</div>
+
 <table class="table table-striped" id="tareas_rdt">
   <thead>
     <tr>
@@ -68,7 +75,12 @@
         {{ tarea.fculminacion }}
       </td>
       <td>
-        {{ tarea.stiempoatencion }}
+        <span *ngIf="tarea.stiempoatencion">
+          {{tarea.stiempoatencion}}
+        </span>
+        <span *ngIf="!tarea.stiempoatencion">
+          {{tarea.nhorasatencion}}:{{tarea.nminutosatencion}}
+        </span>
       </td>
       <td>
         {{ tarea.ncodeje }}

@@ -5,6 +5,19 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+class ObjRdt {
+  public idrdt: string = '';
+  public idcolaborador: string = '';
+  public dfecha: string = '';
+  public shoraingreso: string = '';
+  public shorasalida: string = '';
+  public sminutoingreso: string = '';
+  public sminutosalida: string = '';
+  public leditable: boolean = true;
+  public nsemana: number = 0;
+  constructor() {}
+}
+
 class ObjTarea {
   idtarea: string = '';
   idrdt: string = '';
@@ -19,10 +32,13 @@ class ObjTarea {
   niter: string = '';
   navance: string = '';
   fculminacion: string = '';
-  stiempoatencion: string = '';
+  stiempoatencion: string = ''; // deprecated
   ncodeje: string = '';
   sdeseje: string = '';
   sacceje: string = '';
+  nsemana: number = 0;
+  nhorasatencion: string = '';
+  nminutosatencion: string = '';
   constructor() {}
 }
 
@@ -33,6 +49,7 @@ class ObjTarea {
 })
 export class RdtViewEditComponent {
   idrdt: string;
+  objRdt: ObjRdt = new ObjRdt();
   lstTareas: ObjTarea[] = [];
   frmTarea: FormGroup;
   lstIter: any[] = [];
@@ -45,6 +62,7 @@ export class RdtViewEditComponent {
   ) {
     this.idrdt = '' + route.snapshot.paramMap.get('id');
     this.titleService.setTitle('RDT ' + this.idrdt);
+    this.getObjRdt();
     this.getTareas();
     this.frmTarea = new FormGroup({
       ntipocliente: new FormControl(null, Validators.required),
@@ -58,10 +76,21 @@ export class RdtViewEditComponent {
       niter: new FormControl(null, Validators.required),
       navance: new FormControl(null, Validators.required),
       fculminacion: new FormControl(null, Validators.required),
-      stiempoatencion: new FormControl(null, Validators.required),
+      stiempoatencion: new FormControl(null), // deprecated
       ncodeje: new FormControl(null, Validators.required),
       sdeseje: new FormControl(null, Validators.required),
       sacceje: new FormControl(null, Validators.required),
+      nhorasatencion: new FormControl(null, Validators.required),
+      nminutosatencion: new FormControl(null, Validators.required),
+    });
+  }
+
+  public getObjRdt(): void {
+    this.db.collection('rdts', ref => {
+      return ref.where('idrdt', '==', this.idrdt)
+    }).valueChanges()
+    .subscribe((rdt: any)=>{
+      this.objRdt = rdt[0];
     });
   }
 
@@ -73,7 +102,6 @@ export class RdtViewEditComponent {
       .valueChanges()
       .subscribe((val: any) => {
         this.lstTareas = val;
-        console.log(val);
       });
   }
 
@@ -85,7 +113,11 @@ export class RdtViewEditComponent {
     this.db
       .collection('tareas')
       .doc(id)
-      .set({ ...objTarea, idtarea: id, idrdt: this.idrdt })
+      .set({ ...objTarea, 
+        idtarea: id, 
+        idrdt: this.idrdt,
+        nsemana: this.objRdt.nsemana 
+      })
       .then((x) => {
         console.log('se agregó la tarea');
         this.modalService.dismissAll();

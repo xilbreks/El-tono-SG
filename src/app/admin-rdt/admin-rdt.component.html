@@ -1,14 +1,31 @@
 <h3>REPORTE DIARIO DE TRABAJO</h3>
 
+<a routerLink="/stats-rdt">
+  <i class="bi bi-activity"></i>
+  Ir a estadisticas
+</a>
+
 <div>
   <b>Fecha de Hoy: </b>
   {{ sFechaHoy }}
 </div>
 
-<hr />
+<div>
+  Ver semana
+  <select #numeroSemana (change)="cambiarSemana($event.target)" [value]="nSemana">
+    <option value="27">
+      27
+    </option>
+    <option value="28">
+      28
+    </option>
+    <option value="29">
+      29
+    </option>
+  </select>
+</div>
 
-<!-- <div>Filtro: Día</div>
-<div>Filtro: colaborador</div> -->
+<hr />
 
 <h4>Listado de RTDs</h4>
 
@@ -55,6 +72,14 @@
     </tr>
   </tbody>
 </table>
+
+<hr />
+
+<div>
+  <button class="btn btn-primary" (click)="descargarExcel()">
+    Descargar EXCEL
+  </button>
+</div>
 
 <hr />
 
