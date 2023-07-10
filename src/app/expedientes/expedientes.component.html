@@ -1,3 +1,18 @@
+<div class="container">
+    <h3 style="text-align: center;">
+        Busqueda de Expedientes
+    </h3>
+    <div class="input-group">
+        <div class="input-group-text" id="btnGroupAddon">
+            <i class="bi bi-search"></i>
+        </div>
+        <input type="text" class="form-control" placeholder="Termino de busqueda">
+        <div class="input-group-text" id="btnGroupAddon">
+            <i class="bi bi-search"></i>
+        </div>
+    </div>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -5,55 +20,19 @@
                 #
             </th>
             <th>
-                Demandado
-            </th>
-            <th>
-                Demandante
-            </th>
-            <th>
-                Distrito
-            </th>
-            <th>
-                Especialidad
-            </th>
-            <th>
-                Estado
-            </th>
-            <th>
-                Etapa Procesal
-            </th>
-            <th>
                 Expediente
-            </th>
-            <th>
-                Fecha Conclusion
-            </th>
-            <th>
-                Fecha inicio
-            </th>
-            <th>
-                Juez
             </th>
             <th>
                 Materia
             </th>
             <th>
-                Motivo Conclusion
+                Demandante
             </th>
             <th>
-                Observacion
+                Demandado
             </th>
             <th>
-                Proceso
-            </th>
-            <th>
-                Sumilla
-            </th>
-            <th>
-                Ubicacion
-            </th>
-            <th>
-                Organo Jurisdiccional
+                Accion
             </th>
         </tr>
     </thead>
@@ -63,55 +42,21 @@
                 {{i+1}}
             </td>
             <td>
-                {{expediente.sDemandado}}
+                {{expediente.sexpediente}}
             </td>
             <td>
-                {{expediente.sDemandante}}
+                {{expediente.smateria}}
             </td>
             <td>
-                {{expediente.sDistritoJuris}}
+                {{expediente.sdemandante}}
             </td>
             <td>
-                {{expediente.sEspecialidad}}
+                {{expediente.sdemandado}}
             </td>
             <td>
-                {{expediente.sEstado}}
-            </td>
-            <td>
-                {{expediente.sEtapaProcesal}}
-            </td>
-            <td>
-                {{expediente.sExpediente}}
-            </td>
-            <td>
-                {{expediente.fConclusion}}
-            </td>
-            <td>
-                {{expediente.fInicio}}
-            </td>
-            <td>
-                {{expediente.sJuez}}
-            </td>
-            <td>
-                {{expediente.sMateria}}
-            </td>
-            <td>
-                {{expediente.sMotivoConclusion}}
-            </td>
-            <td>
-                {{expediente.sObservacion}}
-            </td>
-            <td>
-                {{expediente.sProceso}}
-            </td>
-            <td>
-                {{expediente.sSumilla}}
-            </td>
-            <td>
-                {{expediente.sUbicacion}}
-            </td>
-            <td>
-                {{expediente.sOrganoJuris}}
+                <button class="btn btn-success">
+                    Ver
+                </button>
             </td>
         </tr>
     </tbody>

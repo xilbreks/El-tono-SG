@@ -14,14 +14,14 @@ import { StatsRdtComponent } from './stats-rdt/stats-rdt.component';
 import { autenticacionGuard } from './autenticacion.guard';
 
 const routes: Routes = [
-  // {
-  //   path: 'expedientes',
-  //   component: ExpedientesComponent
-  // },
-  // {
-  //   path: 'expediente',
-  //   component: ExpedienteComponent
-  // },
+  {
+    path: 'expedientes',
+    component: ExpedientesComponent
+  },
+  {
+    path: 'expediente/:id',
+    component: ExpedienteComponent
+  },
   {
     path: 'login',
     component: LoginComponent
