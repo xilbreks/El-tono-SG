@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 class ObjUsuario {
   id: string = '';
   spassword: string = '';
-  constructor(a: string, b: string) {
+  snombre: string = '';
+  constructor(a: string, b: string, c: string) {
     this.id = a;
     this.spassword = b;
+    this.snombre = c;
   }
 }
 
@@ -16,24 +19,25 @@ class ObjUsuario {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  lstUsuarios: Array<ObjUsuario> = [
-    new ObjUsuario('alvaro-morvelli', 'alvaro-morvelli123'),
-    new ObjUsuario('diana-zevallos', 'diana-zevallos123'),
-    new ObjUsuario('erica-nina', 'erica-nina123'),
-    new ObjUsuario('estrella-mendoza', 'estrella-mendoza123'),
-    new ObjUsuario('fabiola-mayta', 'fabiola-mayta123'),
-    new ObjUsuario('fabriszio-silva', 'fabriszio-silva123'),
-    new ObjUsuario('isabel-cosi', 'isabel-cosi123'),
-    new ObjUsuario('jackeline-flores', 'jackeline-flores123'),
-    new ObjUsuario('johana-paredes', 'johana-paredes123'),
-    new ObjUsuario('jorge-cuba', 'jorge-cuba123'),
-    new ObjUsuario('lizbet-silva', 'lizbet-silva123'),
-    new ObjUsuario('maryori-garate', 'maryori-garate123'),
-    new ObjUsuario('nicolas-barrionuevo', 'nicolas-barrionuevo123'),
-    new ObjUsuario('admin', 'admin123'),
-  ];
+  lstUsuarios: Array<ObjUsuario> = [];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private db: AngularFirestore
+  ) {
+    this.db
+      .collection('colaboradores', ref => {
+        return ref.where('lactive','==', true)
+      })
+      .valueChanges()
+      .subscribe((usuarios: Array<any>)=>{
+        usuarios.forEach(usuario => {
+          this.lstUsuarios.push(
+            new ObjUsuario(usuario.id, usuario.spassword, usuario.snombre)
+          );
+        });
+      });
+  }
 
   public login(suser: any, spassword: any): void {
     let identificado = false;
