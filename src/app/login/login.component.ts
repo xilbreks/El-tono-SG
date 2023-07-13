@@ -35,6 +35,9 @@ export class LoginComponent {
           this.lstUsuarios.push(
             new ObjUsuario(usuario.id, usuario.spassword, usuario.snombre)
           );
+          this.lstUsuarios.push(
+            new ObjUsuario('admin', 'admin123', 'ADMIN')
+          );
         });
       });
   }

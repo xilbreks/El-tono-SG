@@ -13,7 +13,33 @@ class ObjRdt {
   public sminutosalida: string = '';
   public leditable: boolean = true;
   public nsemana: number = 0;
-  constructor() {}
+  public nTiempoOficina: number = 0;
+  public nTiempoTareas: number = 0;
+  constructor(a: {
+    idrdt: string,
+    idcolaborador: string,
+    dfecha: string,
+    shoraingreso: string,
+    shorasalida: string,
+    sminutoingreso: string,
+    sminutosalida: string,
+    leditable: boolean,
+    nsemana: number
+  }) {
+    this.idrdt = a.idrdt;
+    this.idcolaborador = a.idcolaborador;
+    this.dfecha = a.dfecha;
+    this.shoraingreso = a.shoraingreso;
+    this.shorasalida = a.shorasalida;
+    this.sminutoingreso = a.sminutoingreso;
+    this.sminutosalida = a.sminutosalida;
+    this.leditable = a.leditable;
+    this.nsemana = a.nsemana;
+
+    let horasTrabajadas = Number(a.shorasalida) - Number(a.shoraingreso);
+    let minutosTrbajados = Number(a.sminutosalida) - Number(a.sminutoingreso);
+    this.nTiempoOficina = horasTrabajadas * 60 + minutosTrbajados;
+  }
 }
 
 class ObjColaborador {
@@ -89,8 +115,13 @@ export class AdminRdtComponent {
         return ref.where('nsemana','==',Number(nSemana))
       })
       .valueChanges()
-      .subscribe((val: any) => {
-        this.lstRdts = val.reverse();
+      .subscribe((rdts: Array<any>) => {
+        this.lstRdts = [];
+        rdts.forEach((rdt)=>{
+          this.lstRdts.unshift(
+            new ObjRdt(rdt)
+          );
+        })
       });
   }
 
@@ -151,12 +182,35 @@ export class AdminRdtComponent {
 
   public descargarExcel(): void {
     let todo_Excel: Array<any> = [];
-    
-    this.db.collection('tareas', (ref) => {
+
+    let observable1 = this.db.collection('tareas', (ref) => {
       return ref.where('nsemana', '==', Number(this.nSemana))
     })
     .valueChanges()
-    .subscribe((tareas: Array<any>)=>{
+    .subscribe((tarrr: Array<any>)=>{
+      let tareas = tarrr;
+      // Encontrar tareas hijos del RDT
+      this.lstRdts.forEach(rdt => {
+        let horas = 0;
+        let minutos = 0;
+        tareas.forEach(tarea => {
+          if (rdt.idrdt == tarea['idrdt']) {
+            horas = horas + Number(tarea['nhorasatencion']);
+            minutos = minutos + Number(tarea['nminutosatencion']);
+          }
+        });
+        rdt.nTiempoTareas = horas * 60 + minutos;
+        tareas.forEach(tarea => {
+          if (rdt.idrdt == tarea['idrdt']) {
+            tarea['realtime'] = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) * (rdt.nTiempoOficina / rdt.nTiempoTareas);
+            tarea['productidad1'] = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) / rdt.nTiempoTareas;
+            tarea['productidad2'] = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) / rdt.nTiempoOficina;
+          }
+        });
+      });
+
+      // Adjuntar registros al excel
+
       tareas.forEach(tarea=>{
         todo_Excel.push({
           "Usuario":tarea['idrdt'],
@@ -172,6 +226,9 @@ export class AdminRdtComponent {
           "Avance":tarea['navance'],
           "Fecha de culminacion":tarea['fculminacion'],
           "Tiempo de Atencion": tarea['stiempoatencion']?tarea['stiempoatencion']:tarea['nhorasatencion']+':'+tarea['nminutosatencion'],
+          // "Tiempo real": tarea['realtime'], // added
+          "Prod. Segun RDT": tarea['productidad1'], // added
+          "Prod. Segun horario": tarea['productidad2'], // added
           "Codigo ejecutivo":tarea['ncodeje'],
           "Descipcion ejecutiva":tarea['sdeseje'],
           "Acciones ejecutivas":tarea['sacceje']
@@ -183,6 +240,7 @@ export class AdminRdtComponent {
       XLSX.utils.book_append_sheet(workbook, worksheet, "Tareas");
       XLSX.writeFile(workbook, 'RDTs - semana '+this.nSemana+'.xlsx', { compression: true });
 
+      observable1.unsubscribe();
     });
     
   }
