@@ -69,7 +69,7 @@ export class AdminRdtComponent {
   lstColaboradores: Array<ObjColaborador> = [];
   lstRdts: Array<ObjRdt> = [];
   lPermitirGenerarRtd: boolean = false;
-
+  
   constructor(private db: AngularFirestore) {
     this.sFechaHoy = this.getFechaHoy();
     this.nSemana = this.getSemanaHoy();
@@ -202,9 +202,29 @@ export class AdminRdtComponent {
         rdt.nTiempoTareas = horas * 60 + minutos;
         tareas.forEach(tarea => {
           if (rdt.idrdt == tarea['idrdt']) {
-            tarea['realtime'] = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) * (rdt.nTiempoOficina / rdt.nTiempoTareas);
+            // tarea['nTiempoOficina'] = rdt.nTiempoOficina;
+            // tarea['nTiempoTareas'] = rdt.nTiempoTareas;
+
+            let minutosReales = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) * (rdt.nTiempoOficina / rdt.nTiempoTareas);
+            let sHorasReales = Math.floor(minutosReales / 60);
+            let sMinutosReales = Math.round(minutosReales - sHorasReales * 60);
+            tarea['srealtime'] = '';
+            if (sHorasReales < 10) {
+              tarea['srealtime'] = '0' + sHorasReales;
+            } else {
+              tarea['srealtime'] = '' + sHorasReales;
+            }
+            if (sMinutosReales < 10) {
+              tarea['srealtime'] += ':0' + sMinutosReales;
+            } else {
+              tarea['srealtime'] += ':' + sMinutosReales;
+            }
+
             tarea['productidad1'] = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) / rdt.nTiempoTareas;
             tarea['productidad2'] = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) / rdt.nTiempoOficina;
+          
+            tarea['productidad1'] = Number.parseFloat(tarea['productidad1']).toFixed(2);
+            tarea['productidad2'] = Number.parseFloat(tarea['productidad2']).toFixed(2);
           }
         });
       });
@@ -226,13 +246,13 @@ export class AdminRdtComponent {
           "Avance":tarea['navance'],
           "Fecha de culminacion":tarea['fculminacion'],
           "Tiempo de Atencion": tarea['stiempoatencion']?tarea['stiempoatencion']:tarea['nhorasatencion']+':'+tarea['nminutosatencion'],
-          // "Tiempo real": tarea['realtime'], // added
+          "Tiempo real": tarea['srealtime'], // added
           "Prod. Segun RDT": tarea['productidad1'], // added
           "Prod. Segun horario": tarea['productidad2'], // added
           "Codigo ejecutivo":tarea['ncodeje'],
           "Descipcion ejecutiva":tarea['sdeseje'],
           "Acciones ejecutivas":tarea['sacceje']
-        })
+        })        
       });
 
       const worksheet = XLSX.utils.json_to_sheet(todo_Excel);
