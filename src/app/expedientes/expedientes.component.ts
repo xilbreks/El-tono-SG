@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-import {
-  Firestore,
-  collection,
-  addDoc,
-  collectionData,
-} from '@angular/fire/firestore';
-
 class ObjExpediente {
   sfechainicio: string = '';
   sexpediente: string = '';

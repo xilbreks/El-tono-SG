@@ -38,9 +38,11 @@ export class StatsRdtComponent implements OnInit {
   tipoAtencionChart: any;
   tipoProcesoChart: any;
   tipoClienteChart: any;
+  tipoTareaChart: any;
   tipoAtencionChart2: any;
   tipoProcesoChart2: any;
   tipoClienteChart2: any;
+  tipoTareaChart2: any;
   nSemana: number = 0;
 
   constructor(
@@ -70,7 +72,7 @@ export class StatsRdtComponent implements OnInit {
   }
 
   public getTareas(nSemana: number): void {
-    this.db
+    let observando =  this.db
       .collection('tareas', ref => {
         return ref.where('nsemana','==', Number(nSemana))
       })
@@ -83,6 +85,9 @@ export class StatsRdtComponent implements OnInit {
         this.crearTipoProcesoChart2();
         this.crearTipoAtencionChart2();
         this.crearTipoClienteChart2();
+        this.crearTipoTareaChart();
+
+        observando.unsubscribe();
       });
   }
 
@@ -962,6 +967,65 @@ export class StatsRdtComponent implements OnInit {
     });
   }
   
+  /**********************************************
+   * ********************************************
+   *********************************************/
   
+  crearTipoTareaChart(){
+    let lstCantTipoTarea = [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    ];
+    this.lstTareas.forEach((tarea) => {
+      if (tarea.ncodeje == 'nc') {
+        lstCantTipoTarea[0]++;
+      } else {
+        lstCantTipoTarea[Number(tarea.ncodeje)]++;
+      }
+    });
+    
+    let lstTipoTareaUsadas: Array<any> = [];
+
+    lstCantTipoTarea.forEach((cantTipoTarea, index) => {
+      if (cantTipoTarea > 0) {
+        let color = '';
+        if (index == 0) color = 'black';
+        else if (index < 29) color = 'blue';
+        else color = 'yellow';
+        lstTipoTareaUsadas.push({
+          codigo: index == 0 ? 'nc' : index,
+          cantidad: cantTipoTarea,
+          color: color
+        });
+      }
+    });
+    
+    if (this.tipoTareaChart2) this.tipoTareaChart2.destroy();
+    this.tipoTareaChart2 = new Chart("TipoTareaChart2", {
+      type: 'bar',
+      data: {
+        labels: lstTipoTareaUsadas.map(x => x.codigo), 
+	       datasets: [
+          {
+            label: 'Cantidad de tareas realizadas',
+            data: lstTipoTareaUsadas.map(x => x.cantidad),
+            backgroundColor: lstTipoTareaUsadas.map(x => x.color)
+          }
+        ]
+      },
+      options: {
+        aspectRatio:2.5,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Listado de tareas - diligencias'
+          },
+        },
+        responsive: true,
+      }
+    });
+
+  }
 
 }

@@ -20,6 +20,8 @@
   </select>
 </div>
 
+<h4>Total de tareas registradas: {{lstTareas.length}}</h4>
+
 <hr/>
 
 <div class="chart-container">
@@ -43,8 +45,16 @@
   <canvas  id="TipoClienteChart2" >{{ tipoClienteChart2 }}</canvas>
 </div>
 <hr/>
+<div class="chart-container">
+  <canvas  id="TipoTareaChart" >{{ tipoTareaChart }}</canvas>
+</div>
+<div class="chart-container">
+<canvas  id="TipoTareaChart2" >{{ tipoClienteChart2 }}</canvas>
+</div>
+<hr/>
 
-<!-- <div style="display: flex; overflow: scroll;">
+
+<!--<div style="display: flex; overflow: scroll;">
   <table class="table table-striped" id="tareas_rdt">
     <thead>
       <tr>

@@ -1,0 +1,13 @@
+.expediente {
+    border-radius: 5px; 
+    border: 1px solid #ccc;
+    padding: 24px;
+    max-width: 720px;
+    h4, h6 {
+        text-align: center;
+    }
+    table {
+        border-collapse: separate;
+        border-spacing: 10px;
+    }
+}
