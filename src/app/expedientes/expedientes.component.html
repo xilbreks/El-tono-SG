@@ -1,19 +1,50 @@
 <div class="container">
     <h3 style="text-align: center;">
-        Busqueda de Expedientes
+        Expedientes
     </h3>
     <div class="input-group">
-        <div class="input-group-text" id="btnGroupAddon">
-            <i class="bi bi-search"></i>
-        </div>
-        <input type="text" class="form-control" placeholder="Termino de busqueda">
-        <div class="input-group-text" id="btnGroupAddon">
-            <i class="bi bi-search"></i>
-        </div>
+        <button class="input-group-text" 
+            id="btnGroupAddon"
+            (click)="buscarExpediente(searchTerm.value)"
+            [disabled]="lSearching"
+        >
+            <i class="bi bi-search" *ngIf="!lSearching">
+            </i>
+            <span class="spinner-border spinner-border-sm" 
+                role="status" 
+                aria-hidden="true"
+                *ngIf="lSearching"
+            ></span>
+        </button>
+        <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Termino de busqueda"
+            #searchTerm
+            (keyup.enter)="buscarExpediente(searchTerm.value)"
+        >
+        <button class="input-group-text" 
+            id="btnGroupAddon"
+            (click)="buscarExpediente(searchTerm.value)"
+            [disabled]="lSearching"
+        >
+            <i class="bi bi-search" *ngIf="!lSearching">
+            </i>
+            <span class="spinner-border spinner-border-sm" 
+                role="status" 
+                aria-hidden="true"
+                *ngIf="lSearching"
+            ></span>
+        </button>
+    </div>
+    <div class="alert alert-warning" role="alert" *ngIf="lNotFound">
+        No se encuentra expediente
     </div>
 </div>
 
-<table class="table table-striped">
+<br/>
+
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>

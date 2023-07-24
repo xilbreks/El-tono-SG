@@ -68,7 +68,12 @@ export class RdtViewEditComponent {
       ntipocliente: new FormControl(null, Validators.required),
       ntipoatencion: new FormControl(null, Validators.required),
       sdelegadopor: new FormControl(null, Validators.required),
-      sexpediente: new FormControl(null, Validators.required),
+      sexpediente: new FormControl(null, 
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^\S*$/)
+        ])
+      ),
       ntipoproceso: new FormControl(null, Validators.required),
       sdestarea: new FormControl(null, Validators.required),
       scliente: new FormControl(null, Validators.required),

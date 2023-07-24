@@ -1,0 +1,63 @@
+<br/>
+
+<div class="container">
+    <h3 style="text-align: center;">
+        Buscar Expediente
+    </h3>
+    <br/>
+    <div class="input-group">
+        <div class="input-group-text">
+            <i class="bi bi-search" *ngIf="!lSearching">
+            </i>
+            <span class="spinner-border spinner-border-sm" 
+                role="status" 
+                aria-hidden="true"
+                *ngIf="lSearching"
+            ></span>
+        </div>
+        <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Numero de Expediente"
+            #searchTerm
+            (keyup.enter)="buscarExpediente(searchTerm.value)"
+        >
+        <div class="input-group-text">
+            <i class="bi bi-search" *ngIf="!lSearching">
+            </i>
+            <span class="spinner-border spinner-border-sm" 
+                role="status" 
+                aria-hidden="true"
+                *ngIf="lSearching"
+            ></span>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-3">
+
+        </div>
+        <div class="col-6">
+            <button 
+                class="btn btn-primary"
+                style="width: 100%;"
+                (click)="buscarExpediente(searchTerm.value)"
+                [disabled]="lSearching"
+            >
+                <span *ngIf="!lSearching">
+                    Buscar
+                </span>
+                <span *ngIf="lSearching">
+                    Buscando...
+                </span>
+            </button>
+        </div>
+        <div class="col-3">
+
+        </div>
+    </div>
+    <br/>
+    <div class="alert alert-warning" role="alert" *ngIf="lNotFound">
+        No se encuentra el expediente: {{searchTerm.value}}
+    </div>
+</div>

@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ExpedientesComponent } from './expedientes/expedientes.component';
-import { ExpedienteComponent } from './expediente/expediente.component';
 import { AdminRdtComponent } from './admin-rdt/admin-rdt.component';
 import { ColaboradorRdtComponent } from './colaborador-rdt/colaborador-rdt.component';
 import { RdtViewOnlyComponent } from './rdt-view-only/rdt-view-only.component';
@@ -19,6 +18,10 @@ import { RdtViewEditComponent } from './rdt-view-edit/rdt-view-edit.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { StatsRdtComponent } from './stats-rdt/stats-rdt.component';
+import { ExpedienteViewComponent } from './expediente-view/expediente-view.component';
+import { ExpedienteEditComponent } from './expediente-edit/expediente-edit.component';
+import { ExpedienteNewComponent } from './expediente-new/expediente-new.component';
+import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
 
 const environment = {
   production: false,
@@ -37,7 +40,6 @@ const environment = {
   declarations: [
     AppComponent,
     ExpedientesComponent,
-    ExpedienteComponent,
     AdminRdtComponent,
     ColaboradorRdtComponent,
     RdtViewOnlyComponent,
@@ -45,6 +47,10 @@ const environment = {
     LoginComponent,
     LogoutComponent,
     StatsRdtComponent,
+    ExpedienteViewComponent,
+    ExpedienteEditComponent,
+    ExpedienteNewComponent,
+    ExpedienteSearchComponent,
   ],
   imports: [
     BrowserModule,
