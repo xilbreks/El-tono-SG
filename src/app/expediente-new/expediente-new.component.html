@@ -113,18 +113,18 @@
                     (click)="crearExpediente()"
                     [disabled]="!(frmExpediente.valid && !lCreating)"
                 >
-                <span class="spinner-border spinner-border-sm" 
-                    role="status" 
-                    aria-hidden="true"
-                    *ngIf="lCreating"
-                >
-                </span>
-                <span class="sr-only" *ngIf="!lCreating">
-                    Registrar
-                </span>
-                <span class="sr-only" *ngIf="lCreating">
-                    Registrando...
-                </span>
+                    <span class="spinner-border spinner-border-sm" 
+                        role="status" 
+                        aria-hidden="true"
+                        *ngIf="lCreating"
+                    >
+                    </span>
+                    <span class="sr-only" *ngIf="!lCreating">
+                        Registrar
+                    </span>
+                    <span class="sr-only" *ngIf="lCreating">
+                        Registrando...
+                    </span>
                 </button>
             </div>
         </div>
@@ -133,6 +133,3 @@
 
 <br/>
 
-<pre>
-    {{frmExpediente.value | json }}
-</pre>

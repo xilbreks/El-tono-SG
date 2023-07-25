@@ -6,7 +6,7 @@
 <h4>RDT {{ idrdt }}</h4>
 
 <div>
-  <button class="btn btn-outline-success" (click)="openModal(addTareaModal)">
+  <button class="btn btn-outline-success" (click)="openNewTaskModal(newTaskModal)">
     + Agregar tarea
   </button>
 </div>
@@ -30,6 +30,7 @@
       <th scope="col" class="vertical">Código</th>
       <th scope="col" class="vertical">Descripción</th>
       <th scope="col" class="vertical">Acciones a realizar</th>
+      <th>-</th>
       <th>-</th>
     </tr>
   </thead>
@@ -87,6 +88,11 @@
         {{ tarea.sacceje }}
       </td>
       <td>
+        <button class="btn btn-outline-dark" (click)="openEditTaskModal(tarea, editTaskModal)">
+          <i class="bi bi-pencil"></i>
+        </button>
+      </td>
+      <td>
         <button class="btn btn-outline-dark" (click)="eliminarTarea(tarea.idtarea)">
           <i class="bi bi-trash"></i>
         </button>
@@ -96,10 +102,9 @@
 </table>
 
 <!-----------------------------------------------
-  --------------- ADD MODAL 1 ------------------
- ----------------------------------------------->
-
-<ng-template #addTareaModal let-modal>
+  --------------- ADD TASK MODAL ----------------
+  ----------------------------------------------->
+<ng-template #newTaskModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Agregar Tarea</h4>
     <button
@@ -111,7 +116,7 @@
     ></button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="frmTarea" autocomplete="off">
+    <form [formGroup]="frmNewTask" autocomplete="off">
       <div class="row mb-3">
         <div class="col">
           <label for="tipoCliente" class="form-label">Cliente</label>
@@ -434,10 +439,10 @@
         </div>
       </div>
     </form>
-    <div *ngIf="frmTarea.invalid" class="alert alert-warning">
+    <div *ngIf="frmNewTask.invalid" class="alert alert-warning">
       Complete todos los campos
     </div>
-    <div *ngIf="!frmTarea.invalid" class="alert alert-success">
+    <div *ngIf="!frmNewTask.invalid" class="alert alert-success">
       Formulario válido
     </div>
   </div>
@@ -445,23 +450,31 @@
     <button
       type="button"
       class="btn btn-primary"
-      (click)="agregarTarea(addTareaModal)"
-      [disabled]="frmTarea.invalid"
+      (click)="agregarTarea()"
+      [disabled]="!(frmNewTask.valid && !lCreating)"
     >
-      Agregar tarea
+      <span class="spinner-border spinner-border-sm" 
+        role="status" 
+        aria-hidden="true"
+        *ngIf="lCreating"
+      >
+      </span>
+      <span class="sr-only" *ngIf="!lCreating">
+          Agregar Tarea
+      </span>
+      <span class="sr-only" *ngIf="lCreating">
+          Agregando...
+      </span>
     </button>
   </div>
 </ng-template>
 
 <!-----------------------------------------------
-  ------------- DELETE MODAL 1 -----------------
- ----------------------------------------------->
-
-<ng-template #deleteTareaModal let-modal>
+  ------------- EDIT TASK MODAL -----------------
+  ----------------------------------------------->
+<ng-template #editTaskModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">
-      Eliminar Tarea  
-    </h4>
+    <h4 class="modal-title" id="modal-basic-title">Editar Tarea</h4>
     <button
       type="button"
       class="btn-close"
@@ -471,15 +484,358 @@
     ></button>
   </div>
   <div class="modal-body">
-    ¿Está seguro de eliminar la tarea?
+    <form [formGroup]="frmEditTask" autocomplete="off">
+      <div class="row mb-3">
+        <div class="col">
+          <label for="tipoCliente" class="form-label">Cliente</label>
+          <select class="form-select" formControlName="ntipocliente">
+            <option value="nc">No corresponde</option>
+            <option value="nuevo">Nuevo</option>
+            <option value="antiguo">Antiguo</option>
+            <option value="varios">Varios</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="tipoAtencion" class="form-label">Atención</label>
+          <select class="form-select" formControlName="ntipoatencion">
+            <option value="nc">No corresponde</option>
+            <option value="por-expediente">Por expediente</option>
+            <option value="presencial">Presencial</option>
+            <option value="via-celular">Vía celular</option>
+            <option value="via-internet">Vía internet</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="nexpediente" class="form-label">Expediente</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nexpediente"
+            formControlName="sexpediente"
+          />
+        </div>
+        <div class="col">
+          <label for="especialidad" class="form-label">Tipo de proceso</label>
+          <select
+            class="form-select"
+            id="especialidad"
+            formControlName="ntipoproceso"
+          >
+            <option value="nc">No corresponde</option>
+            <option value="laboral">Laboral</option>
+            <option value="civil">Civil</option>
+            <option value="penal">Penal</option>
+            <option value="familia">Familia</option>
+            <option value="constitucional">Constitucional</option>
+            <option value="tramite-adm">Trámite Adm.</option>
+            <option value="tramite-not">Trámite Notarial</option>
+            <option value="varios">Varios</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label for="delegadoPor" class="form-label"> Delegado por </label>
+          <select
+            class="form-select"
+            id="delegadoPor"
+            formControlName="sdelegadopor"
+          >
+            <option value="nc">No corresponde</option>
+            <option value="dra-lizbet">Dra. Lizbet</option>
+            <option value="dra-erica">Dra. Erica</option>
+            <option value="dr-alvaro">Dr. Alvaro</option>
+            <option value="dra-estrella">Dra. Estrella</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="descTarea" class="form-label">
+            Mención del caso, tarea, trabajo
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="descTarea"
+            formControlName="sdestarea"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label for="nombreCliente" class="form-label">
+            Nombre CLIENTE (DTE-DDO)
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombreCliente"
+            formControlName="scliente"
+          />
+        </div>
+        <div class="col">
+          <label for="nombreDemandado" class="form-label">
+            Nombre Demandado(DTE-DDO)
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombreDemandado"
+            formControlName="sdemandado"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label for="iteractividad" class="form-label"> ITER Procesal </label>
+          <select
+            class="form-select"
+            id="iteractividad"
+            formControlName="niter"
+          >
+            <option value="nc">No corresponde</option>
+            <option value="1">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="cumplimiento" class="form-label"> Cumplimiento(%) </label>
+          <select
+            class="form-select"
+            id="cumplimiento"
+            formControlName="navance"
+          >
+            <option value="nc">No corresponde</option>
+            <option value="10%">10%</option>
+            <option value="20%">20%</option>
+            <option value="30%">30%</option>
+            <option value="40%">40%</option>
+            <option value="50%">50%</option>
+            <option value="60%">60%</option>
+            <option value="70%">70%</option>
+            <option value="80%">80%</option>
+            <option value="90%">90%</option>
+            <option value="100%">100%</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="fechaCulminacion" class="form-label">
+            Fecha culminación
+          </label>
+          <input type="text" class="form-control" id="fechaCulminacion" formControlName="fculminacion"/>
+          <!-- <div class="input-group">
+            <input
+              id="fechaCulminacion"
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              ngbDatepicker
+              #dp="ngbDatepicker"
+              formControlName="fculminacion"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-secondary bi bi-calendar"
+              (click)="dp.toggle()"
+            ></button>
+          </div> -->
+        </div>
+        <div class="col">
+          <label for="tiempoAtencion" class="form-label">
+            Tiempo de Atención
+          </label>
+          <br/>
+          <div style="display: flex;">
+            <select
+            class="form-control" style="display: inline-block;"
+            id="tiempoAtencion"
+            formControlName="nhorasatencion"
+          >
+            <option value="00">0h</option>
+            <option value="01">1h</option>
+            <option value="02">2h</option>
+            <option value="03">3h</option>
+            <option value="04">4h</option>
+            <option value="05">5h</option>
+            <option value="06">6h</option>
+            <option value="07">7h</option>
+            <option value="08">8h</option>
+            <option value="09">9h</option>
+            <option value="10">10h</option>
+            <option value="11">11h</option>
+            <option value="12">12h</option>
+            </select>
+            <select
+            class="form-control" style="display: inline-block;"
+              formControlName="nminutosatencion"
+            >
+              <option value="00">00m</option>
+              <option value="05">05m</option>
+              <option value="10">10m</option>
+              <option value="15">15m</option>
+              <option value="20">20m</option>
+              <option value="25">25m</option>
+              <option value="30">30m</option>
+              <option value="35">35m</option>
+              <option value="40">40m</option>
+              <option value="45">45m</option>
+              <option value="50">50m</option>
+              <option value="55">55m</option>
+            </select>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label for="codigoEjecutivo" class="form-label"> Código </label>
+          <select
+            class="form-select"
+            id="codigoEjecutivo"
+            formControlName="ncodeje"
+          >
+            <option value="nc">No corresponde</option>
+            <option value="1">1: INFORMES - INICIALES</option>
+            <option value="2">2: INFORMES - DE 1RA INSTANCIA</option>
+            <option value="3">3: INFORMES - DE 2DA INSTANCIA</option>
+            <option value="4">4: INFORMES - DE CASACIÓN (EJECUTORIAS SUPREMAS)</option>
+            <option value="5">5: INFORMES - FINALES</option>
+            <option value="6">6: REDACCIÓN DE ESCRITOS DE MERO TRÁMITE SEGÚN SINOE E IMPULSO DE PARTE</option>
+            <option value="7">7: IMPRIMIR ANEXOS RESOLUCIONES</option>
+            <option value="8">8: REDACCIÓN DE ACTAS DE ACUERDOS, TRANSACCIONES, CONCILIACIONES</option>
+            <option value="9">9: REDACCIÓN CONTRATOS PARA CLIENTES</option>
+            <option value="10">10: BORRADORES DE DEMANDAS, CONTESTACIONES, RECONVENCIONES, EXCEPCIONES, TACHAS Y OPOSICIONES</option>
+            <option value="11">11: PROPUESTAS ECONÓMICAS CLIENTES E INFORMES</option>
+            <option value="12">12: TRÁMITES - NOTARIALES Y REGISTRALES</option>
+            <option value="13">13: REDACCIÓN CARTAS, SOLICITUDES Y MINUTAS</option>
+            <option value="14">14: BORRADORES - MEDIDAS CAUTELARES</option>
+            <option value="15">15: ASISTIR CENTROS DE CONCILIACIÓN</option>
+            <option value="16">16: PREPARAR ALEGATOS, DIAPOSITIVAS, PLIEGOS INTERROGATORIOS</option>
+            <option value="17">17: ASISTIR A LOS CLIENTES EN AUDIENCIAS</option>
+            <option value="18">18: ASISTIR AL PJ Y/O MP PARA CONVERSAR CON JUECES, FISCALES, ESPECIALISTAS</option>
+            <option value="19">19: TRÁMITES ADMINISTRATIVOS PAGAR ARANCELES JUDICIALES, TASAS Y OTROS</option>
+            <option value="20">20: APOYAR EN COBRANZAS (HACERLAS EFECTIVAS)</option>
+            <option value="21">21: BÚSQUEDA DE EXPEDIENTE</option>
+            <option value="22">22: DESARCHIVAR EXPEDIENTES DEL ARCHIVO CENTRAL DEL PJ</option>
+            <option value="23">23: REVISAR, ORDENAR Y ACTUALIZACIÓN DE EXPEDIENTE</option>
+            <option value="24">24: COORDINAR AUDIENCIAS</option>
+            <option value="25">25: SIMULACIÓN DE AUDIENCIAS</option>
+            <option value="26">26: SEGUIMIENTO DEL PROCESO (CEJ Y SINOE)</option>
+            <option value="27">27: RECABAR MEDIOS PROBATORIOS</option>
+            <option value="28">28: RECEPCIÓN-REGISTRO Y/O ATENCIÓN DE CLIENTES VÍA CELULAR</option>
+            <option value="--" disabled>---------------------------</option>
+            <option value="30">30: ATENDER CLIENTES ANTIGUOS, NUEVOS Y CAPTAR CLIENTES</option>
+            <option value="31">31: ANALIZAR Y REVISAR DOCUMENTOS (MEDIOS PROBATORIOS)</option>
+            <option value="32">32: ASIGNACIÓN Y SUPERVISIÓN DEL SINOE DE ESCRITOS DE MERO TRÁMITE Y COMPLEJOS REALIZADOS POR LOS ASISTENTES Y PRACTICANTES</option>
+            <option value="33">33: SUPERVISAR ESCRITO DE MERO TRÁMITE E IMPULSO DE PARTE</option>
+            <option value="34">34: SUPERVISAR ESCRITOS COMPLEJOS SEAN DEMANDAS, DENUNCIAS, APELACIONES, CASACIONES, ETC.</option>
+            <option value="35">35: DILIGENCIAS EXTERNAS, VISUALIZACIONES, DECLARACIONES, CÁMARAS GESSEL</option>
+            <option value="36">36: REVISAR Y ELABORAR INFORMES LEGALES DE LOS EXPEDIENTES</option>
+            <option value="37">37: REVISAR DEMANDAS QUE ESTÉN AL 100%</option>
+            <option value="38">38: REVISAR REDACCIÓN DE DENUNCIAS, QUERELLAS AL 100% Y OTROS</option>
+            <option value="39">39: REVISIÓN DE MEDIDAS CAUTELARES</option>
+            <option value="40">40: REVISIÓN DE CONTESTACIÓN DE DEMANDAS Y RECONVENCIONES</option>
+            <option value="41">41: REVISIÓN/MODIFICACIÓN DE ABSOLUCIÓN DE DENUNCIAS Y QUERELLAS</option>
+            <option value="42">42: REVISIÓN/MODIFICACIÓN DE RECURSO APELACIÓN</option>
+            <option value="43">43: REVISIÓN DE RECURSOS DE CASACIÓN</option>
+            <option value="44">44: REVISIÓN DE ALEGATOS, DISPOSITIVAS Y PLIEGOS INTERROGATORIOS</option>
+            <option value="45">45: REVISAR QUE LAS DEMANDAS, MC Y OTROS ESCRITOS SEAN PRESENTADOS CON ARANCELES JUDICIALES</option>
+            <option value="46">46: PREPARACIÓN DE CLIENTES, TESTIGOS PARA AUDIENCIAS</option>
+            <option value="47">47: ORALIZAR AUDIENCIAS DE CONCILIACIÓN Y JUZGAMIENTO</option>
+            <option value="48">48: ORALIZAR VISTAS DE CAUSA ANTE SALAS SUPERIORES</option>
+            <option value="49">49: ORALIZAR VISTAS DE LA CAUSA ANTE CORTE SUPREMA</option>
+            <option value="50">50: ENTREVISTAS CON JUECES, FISCALES, ESPECIALISTAS</option>
+            <option value="51">51: CONFERENCIAR CON LA CONTRA PARTE Y ABOGADOS</option>
+            <option value="52">52: ATENCIÓN CLIENTES VÍA CELULAR</option>
+            <option value="53">53: ORGANIZAR ASAMBLEAS, REUNIONES VIRTUALES</option>
+            <option value="54">54: COBRAR CLIENTES (HACERLAS EFECTIVAS)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label for="descripcionEjecutiva" class="form-label">
+            Descripción Ejecutiva
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="descripcionEjecutiva"
+            formControlName="sdeseje"
+          />
+        </div>
+        <div class="col">
+          <label for="accionesEjecutivas" class="form-label">
+            Acciones a Realizar
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="accionesEjecutivas"
+            formControlName="sacceje"
+          />
+        </div>
+      </div>
+    </form>
+    <div *ngIf="frmEditTask.invalid" class="alert alert-warning">
+      Complete todos los campos
+    </div>
+    <div *ngIf="!frmEditTask.invalid" class="alert alert-success">
+      Formulario válido
+    </div>
+    <pre>
+      {{frmEditTask.value | json}}
+    </pre>
   </div>
   <div class="modal-footer">
     <button
       type="button"
-      class="btn btn-outline-dark"
-      (click)="eliminarTarea('')"
+      class="btn btn-primary"
+      (click)="editarTarea()"
+      [disabled]="!(frmEditTask.valid && !lUpdating)"
     >
-      Eliminar
+      <span class="spinner-border spinner-border-sm" 
+        role="status" 
+        aria-hidden="true"
+        *ngIf="lUpdating"
+      >
+      </span>
+      <span class="sr-only" *ngIf="!lUpdating">
+          Actualizar tarea
+      </span>
+      <span class="sr-only" *ngIf="lUpdating">
+          Actualizando...
+      </span>
     </button>
   </div>
 </ng-template>

@@ -51,8 +51,11 @@ export class RdtViewEditComponent {
   idrdt: string;
   objRdt: ObjRdt = new ObjRdt();
   lstTareas: ObjTarea[] = [];
-  frmTarea: FormGroup;
+  frmNewTask: FormGroup;
+  frmEditTask: FormGroup;
   lstIter: any[] = [];
+  lCreating: boolean = false;
+  lUpdating: boolean = false;
 
   constructor(
     private db: AngularFirestore,
@@ -64,7 +67,40 @@ export class RdtViewEditComponent {
     this.titleService.setTitle('RDT ' + this.idrdt);
     this.getObjRdt();
     this.getTareas();
-    this.frmTarea = new FormGroup({
+
+    /**********************
+     * INIT FORM NEW TASK *
+     **********************/
+    this.frmNewTask = new FormGroup({
+      ntipocliente: new FormControl(null, Validators.required),
+      ntipoatencion: new FormControl(null, Validators.required),
+      sdelegadopor: new FormControl(null, Validators.required),
+      sexpediente: new FormControl(null, 
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^\S*$/)
+        ])
+      ),
+      ntipoproceso: new FormControl(null, Validators.required),
+      sdestarea: new FormControl(null, Validators.required),
+      scliente: new FormControl(null, Validators.required),
+      sdemandado: new FormControl(null, Validators.required),
+      niter: new FormControl(null, Validators.required),
+      navance: new FormControl(null, Validators.required),
+      fculminacion: new FormControl(null, Validators.required),
+      stiempoatencion: new FormControl(null), // deprecated
+      ncodeje: new FormControl(null, Validators.required),
+      sdeseje: new FormControl(null, Validators.required),
+      sacceje: new FormControl(null, Validators.required),
+      nhorasatencion: new FormControl(null, Validators.required),
+      nminutosatencion: new FormControl(null, Validators.required),
+    });
+
+    /***********************
+     * INIT FORM EDIT TASK *
+     ***********************/
+    this.frmEditTask = new FormGroup({
+      idtarea: new FormControl(null, Validators.required),
       ntipocliente: new FormControl(null, Validators.required),
       ntipoatencion: new FormControl(null, Validators.required),
       sdelegadopor: new FormControl(null, Validators.required),
@@ -110,9 +146,9 @@ export class RdtViewEditComponent {
       });
   }
 
-  public agregarTarea(modal: any): void {
-    var objTarea = this.frmTarea.value;
-
+  public agregarTarea(): void {
+    this.lCreating = true;
+    var objTarea = this.frmNewTask.value;
     const id = new Date().getTime().toString();
 
     this.db
@@ -124,10 +160,36 @@ export class RdtViewEditComponent {
         nsemana: this.objRdt.nsemana 
       })
       .then((x) => {
-        console.log('se agregó la tarea');
         this.modalService.dismissAll();
-        this.frmTarea.reset();
+        this.frmNewTask.reset();
+      })
+      .catch(()=>{
+        window.alert('ERROR al crear tarea')
+      })
+      .finally(()=>{
+        this.lCreating = false;
       });
+  }
+
+  public editarTarea(): void {
+    this.lUpdating = true;
+    var objTarea = this.frmEditTask.value;
+    const id = objTarea['idtarea'];
+
+    this.db
+      .collection('tareas')
+      .doc(id)
+      .update(objTarea)
+      .then((x) => {
+        this.modalService.dismissAll();
+        this.frmEditTask.reset();
+      })
+      .catch(()=>{
+        window.alert('ERROR al actualizar tarea')
+      })
+      .finally(()=>{
+        this.lUpdating = false;
+      })
   }
 
   public eliminarTarea(idtarea: string): void {
@@ -136,18 +198,41 @@ export class RdtViewEditComponent {
     }
   }
 
-  public openModal(modal: any): void {
+  public openNewTaskModal(modal: any): void {
     this.modalService.open(modal, {
       windowClass: 'modal-xl',
       modalDialogClass: 'modal-fullscreen',
     });
   }
 
-  public openModal2(modal: any): void {
+  public openEditTaskModal(tarea: ObjTarea, modal: any): void {
+    this.frmEditTask.setValue({
+      idtarea: tarea.idtarea,
+      ntipocliente: tarea.ntipocliente,
+      ntipoatencion: tarea.ntipoatencion,
+      sdelegadopor: tarea.sdelegadopor,
+      sexpediente: tarea.sexpediente,
+      ntipoproceso: tarea.ntipoproceso,
+      sdestarea: tarea.sdestarea,
+      scliente: tarea.scliente,
+      sdemandado: tarea.sdemandado,
+      niter: tarea.niter,
+      navance: tarea.navance,
+      fculminacion: tarea.fculminacion,
+      stiempoatencion: tarea.stiempoatencion,
+      ncodeje: tarea.ncodeje,
+      sdeseje: tarea.sdeseje,
+      sacceje: tarea.sacceje,
+      nhorasatencion: tarea.nhorasatencion,
+      nminutosatencion: tarea.nminutosatencion,
+    });
     this.modalService.open(modal, {
-      windowClass: 'modal-sm',
+      windowClass: 'modal-xl',
+      modalDialogClass: 'modal-fullscreen',
     });
   }
+
+  ////////////////////////////////////////////////////
 
   public asignarValoresIter(): void {
     this.lstIter = [

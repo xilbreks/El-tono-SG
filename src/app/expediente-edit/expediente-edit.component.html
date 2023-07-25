@@ -117,20 +117,20 @@
                 <button 
                     class="btn btn-success" 
                     (click)="updateExpediente()"
-                    [disabled]="lUpdating"
+                    [disabled]="!(frmExpediente.valid && !lUpdating)"
                 >
-                <span class="spinner-border spinner-border-sm" 
-                    role="status" 
-                    aria-hidden="true"
-                    *ngIf="lUpdating"
-                >
-                </span>
-                <span class="sr-only" *ngIf="!lUpdating">
-                    Guardar
-                </span>
-                <span class="sr-only" *ngIf="lUpdating">
-                    Guardando...
-                </span>
+                    <span class="spinner-border spinner-border-sm" 
+                        role="status" 
+                        aria-hidden="true"
+                        *ngIf="lUpdating"
+                    >
+                    </span>
+                    <span class="sr-only" *ngIf="!lUpdating">
+                        Guardar
+                    </span>
+                    <span class="sr-only" *ngIf="lUpdating">
+                        Guardando...
+                    </span>
                 </button>
             </div>
         </div>
