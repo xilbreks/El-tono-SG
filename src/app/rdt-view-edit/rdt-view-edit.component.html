@@ -30,8 +30,9 @@
       <th scope="col" class="vertical">Código</th>
       <th scope="col" class="vertical">Descripción</th>
       <th scope="col" class="vertical">Acciones a realizar</th>
-      <th>-</th>
-      <th>-</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -88,12 +89,29 @@
         {{ tarea.sacceje }}
       </td>
       <td>
-        <button class="btn btn-outline-dark" (click)="openEditTaskModal(tarea, editTaskModal)">
+        <button 
+          class="btn btn-outline-dark" 
+          (click)="duplicarTarea(tarea)"
+          ngbTooltip="Duplicar"
+        >
+          <i class="bi bi-files"></i>
+        </button>
+      </td>
+      <td>
+        <button 
+          class="btn btn-outline-dark" 
+          (click)="openEditTaskModal(tarea, editTaskModal)"
+          ngbTooltip="Editar"
+        >
           <i class="bi bi-pencil"></i>
         </button>
       </td>
       <td>
-        <button class="btn btn-outline-dark" (click)="eliminarTarea(tarea.idtarea)">
+        <button 
+          class="btn btn-outline-dark" 
+          (click)="eliminarTarea(tarea.idtarea)"
+          ngbTooltip="Eliminar"
+        >
           <i class="bi bi-trash"></i>
         </button>
       </td>
@@ -813,9 +831,6 @@
     <div *ngIf="!frmEditTask.invalid" class="alert alert-success">
       Formulario válido
     </div>
-    <pre>
-      {{frmEditTask.value | json}}
-    </pre>
   </div>
   <div class="modal-footer">
     <button

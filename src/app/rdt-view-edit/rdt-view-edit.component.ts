@@ -75,12 +75,13 @@ export class RdtViewEditComponent {
       ntipocliente: new FormControl(null, Validators.required),
       ntipoatencion: new FormControl(null, Validators.required),
       sdelegadopor: new FormControl(null, Validators.required),
-      sexpediente: new FormControl(null, 
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^\S*$/)
-        ])
-      ),
+      sexpediente: new FormControl(null, Validators.required),
+      // sexpediente: new FormControl(null, 
+      //   Validators.compose([
+      //     Validators.required,
+      //     Validators.pattern(/^\S*$/)
+      //   ])
+      // ),
       ntipoproceso: new FormControl(null, Validators.required),
       sdestarea: new FormControl(null, Validators.required),
       scliente: new FormControl(null, Validators.required),
@@ -104,12 +105,13 @@ export class RdtViewEditComponent {
       ntipocliente: new FormControl(null, Validators.required),
       ntipoatencion: new FormControl(null, Validators.required),
       sdelegadopor: new FormControl(null, Validators.required),
-      sexpediente: new FormControl(null, 
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^\S*$/)
-        ])
-      ),
+      sexpediente: new FormControl(null, Validators.required),
+      // sexpediente: new FormControl(null, 
+      //   Validators.compose([
+      //     Validators.required,
+      //     Validators.pattern(/^\S*$/)
+      //   ])
+      // ),
       ntipoproceso: new FormControl(null, Validators.required),
       sdestarea: new FormControl(null, Validators.required),
       scliente: new FormControl(null, Validators.required),
@@ -190,6 +192,25 @@ export class RdtViewEditComponent {
       .finally(()=>{
         this.lUpdating = false;
       })
+  }
+
+  public duplicarTarea(tarea: ObjTarea): void {
+    if (!window.confirm('¿Esta seguro de duplicar?')) return;
+    
+    const id = new Date().getTime().toString();
+    this.db
+      .collection('tareas')
+      .doc(id)
+      .set({ 
+        ...tarea, 
+        idtarea: id, 
+      })
+      .then((x) => {
+        console.log('duplicado');
+      })
+      .catch(()=>{
+        window.alert('ERROR al duplicar')
+      });
   }
 
   public eliminarTarea(idtarea: string): void {
