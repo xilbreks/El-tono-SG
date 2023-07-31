@@ -160,7 +160,7 @@ export class RdtViewEditComponent {
         idtarea: id, 
         idrdt: this.idrdt,
         nsemana: this.objRdt.nsemana,
-        sexpediente: objTarea['sexpediente'].trim()
+        sexpediente: objTarea['sexpediente'].trim().toUpperCase()
       })
       .then((x) => {
         this.modalService.dismissAll();
@@ -184,7 +184,7 @@ export class RdtViewEditComponent {
       .doc(id)
       .update({
         ...objTarea,
-        sexpediente: objTarea['sexpediente'].trim()
+        sexpediente: objTarea['sexpediente'].trim().toUpperCase()
       })
       .then((x) => {
         this.modalService.dismissAll();
