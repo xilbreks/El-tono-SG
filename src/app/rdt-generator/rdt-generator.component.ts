@@ -12,11 +12,12 @@ export class RdtGeneratorComponent {
   lstColaboradores: Array<any> = [];
 
   constructor(private db: AngularFirestore) {
+    this.nSemana = this.getSemanaHoy();
+    this.sFechaHoy = this.getFechaHoy();
+    this.getColaboradores();
   }
   
-  public crearRdts(): void {
-    let nSemanaHoy = this.getSemanaHoy();
-    
+  public crearRdts(): void {    
     this.lstColaboradores.forEach((colaborador) => {
       this.db
         .collection('rdts')
@@ -30,9 +31,20 @@ export class RdtGeneratorComponent {
           shorasalida: '--',
           sminutoingreso: '--',
           sminutosalida: '--',
-          nsemana: nSemanaHoy
+          nsemana: this.nSemana
         });
     });
+  }
+
+  public getColaboradores(): void {
+    this.db
+      .collection('colaboradores', (ref) => {
+        return ref.where('lactive', '==', true);
+      })
+      .valueChanges()
+      .subscribe((val: Array<any>) => {
+        this.lstColaboradores = val;
+      });
   }
 
   public getFechaHoy(): string {

@@ -1,1 +1,24 @@
 <p>rdt-generator works!</p>
+
+<span>
+    nsemana: {{nSemana}}
+</span>
+<br>
+<span>
+    sFechaHoy: {{sFechaHoy}}
+</span>
+<br>
+<button (click)="crearRdts()">
+    generar RDTs
+</button>
+<br>
+<div class="container">
+    <span>Listado de Colaboradores que deben realizar su RDT:</span>
+
+    <ol>
+        <li *ngFor="let colaborador of lstColaboradores">
+        {{ colaborador.snombre }}: [{{colaborador.id}}]
+        </li>
+    </ol>
+</div>
+  

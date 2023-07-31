@@ -75,7 +75,6 @@ export class AdminRdtComponent {
     this.nSemana = this.getSemanaHoy();
     this.getColaboradores();
     this.getRdts(this.nSemana);
-    this.verificarRdtsHoy();
   }
 
   public getFechaHoy(): string {
@@ -142,23 +141,6 @@ export class AdminRdtComponent {
       });
   }
 
-  public verificarRdtsHoy(): void {
-    // Funcion destinada a verificar si se han generado RDT para el día de hoy
-    this.db
-      .collection('rdts', (ref) => {
-        return ref.orderBy('dfecha', 'desc').limit(1);
-      })
-      .valueChanges()
-      .subscribe((val: any) => {
-        const sFechaUltimoRdt = val[0].dfecha;
-        if (this.sFechaHoy == sFechaUltimoRdt) {
-          this.lPermitirGenerarRtd = false;
-        } else {
-          this.lPermitirGenerarRtd = true;
-        }
-      });
-  }
-
   public descargarExcel(): void {
     let todo_Excel: Array<any> = [];
 
@@ -181,8 +163,17 @@ export class AdminRdtComponent {
         rdt.nTiempoTareas = horas * 60 + minutos;
         tareas.forEach(tarea => {
           if (rdt.idrdt == tarea['idrdt']) {
-            // tarea['nTiempoOficina'] = rdt.nTiempoOficina;
-            // tarea['nTiempoTareas'] = rdt.nTiempoTareas;
+
+            // Calcular el tiempo en oficina pero en formato horas
+            let sHorasOficina = Math.floor(rdt.nTiempoOficina / 60);
+            let sMinutosOficina = rdt.nTiempoOficina - (sHorasOficina * 60);
+            // tarea['nTiempoOficina'] = sHorasOficina + ':' + sMinutosOficina;
+            tarea['nTiempoOficina'] = rdt.nTiempoOficina;
+
+            let sHorasTarea = Math.floor(rdt.nTiempoTareas / 60);
+            let sMinutosTarea = rdt.nTiempoTareas - (sHorasTarea * 60);
+            // tarea['nTiempoTareas'] = sHorasTarea + ':' + sMinutosTarea;
+            tarea['nTiempoTareas'] = rdt.nTiempoTareas;
 
             let minutosReales = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) * (rdt.nTiempoOficina / rdt.nTiempoTareas);
             let sHorasReales = Math.floor(minutosReales / 60);
@@ -210,7 +201,10 @@ export class AdminRdtComponent {
 
       // Adjuntar registros al excel
 
-      tareas.forEach(tarea=>{
+      tareas.sort((a,b)=>{
+        if (a.idrdt > b.idrdt) return 1;
+        else return -1;
+      }).forEach(tarea=>{
         todo_Excel.push({
           "Usuario":tarea['idrdt'],
           "Tipo cliente":tarea['ntipocliente'],
@@ -224,11 +218,13 @@ export class AdminRdtComponent {
           "ITER":tarea['niter'],
           "Avance":tarea['navance'],
           "Fecha de culminacion":tarea['fculminacion'],
-          "Tiempo de Atencion": tarea['stiempoatencion']?tarea['stiempoatencion']:tarea['nhorasatencion']+':'+tarea['nminutosatencion'],
-          "Tiempo real": tarea['srealtime'], // added
-          "Prod. Segun RDT": tarea['productidad1'], // added
-          "Prod. Segun horario": tarea['productidad2'], // added
+          "Suma Tiempo Atencion": {t: 'n', f: '='+tarea['nTiempoTareas']+'/1440'},
+          "Tiempo de Atencion": tarea['nhorasatencion']+':'+tarea['nminutosatencion'],
           "Codigo ejecutivo":tarea['ncodeje'],
+          "Horas en el estudio": {t: 'n', f: '='+tarea['nTiempoOficina']+'/1440'},
+          "Tiempo real": tarea['srealtime'],
+          "Prod. Segun RDT": tarea['productidad1'],
+          "Prod. Segun horario": tarea['productidad2'],
           "Descipcion ejecutiva":tarea['sdeseje'],
           "Acciones ejecutivas":tarea['sacceje']
         })        
