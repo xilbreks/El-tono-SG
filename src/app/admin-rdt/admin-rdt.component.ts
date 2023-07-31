@@ -159,27 +159,6 @@ export class AdminRdtComponent {
       });
   }
 
-  // public crearRdts(): void {
-  //   let nSemanaHoy = this.getSemanaHoy();
-  //   this.lPermitirGenerarRtd = false;
-  //   this.lstColaboradores.forEach((colaborador) => {
-  //     this.db
-  //       .collection('rdts')
-  //       .doc(this.sFechaHoy + '-' + colaborador.id)
-  //       .set({
-  //         dfecha: this.sFechaHoy,
-  //         idcolaborador: colaborador.id,
-  //         idrdt: this.sFechaHoy + '-' + colaborador.id,
-  //         leditable: true,
-  //         shoraingreso: '--',
-  //         shorasalida: '--',
-  //         sminutoingreso: '--',
-  //         sminutosalida: '--',
-  //         nsemana: nSemanaHoy
-  //       });
-  //   });
-  // }
-
   public descargarExcel(): void {
     let todo_Excel: Array<any> = [];
 

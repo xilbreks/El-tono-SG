@@ -13,29 +13,15 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { StatsRdtComponent } from './stats-rdt/stats-rdt.component';
 import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
+import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
 const routes: Routes = [
   {
-    path: 'expedientes',
-    component: ExpedientesComponent
-  },
-  {
-    path: 'expediente-new',
-    component: ExpedienteNewComponent
-  },
-  {
-    path: 'expediente-search',
-    component: ExpedienteSearchComponent
-  },
-  {
-    path: 'expediente/:id',
-    component: ExpedienteViewComponent
-  },
-  {
-    path: 'expediente-edit/:id',
-    component: ExpedienteEditComponent
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -44,6 +30,30 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
+  },
+  {
+    path: 'expedientes',
+    component: ExpedientesComponent
+  },
+  {
+    path: 'expediente-new',
+    component: ExpedienteNewComponent,
+    canActivate: [autenticacionGuard]
+  },
+  {
+    path: 'expediente-search',
+    component: ExpedienteSearchComponent,
+    canActivate: [autenticacionGuard]
+  },
+  {
+    path: 'expediente/:id',
+    component: ExpedienteViewComponent,
+    canActivate: [autenticacionGuard]
+  },
+  {
+    path: 'expediente-edit/:id',
+    component: ExpedienteEditComponent,
+    canActivate: [autenticacionGuard]
   },
   {
     path: 'admin-rdt',
@@ -66,14 +76,14 @@ const routes: Routes = [
     canActivate: [autenticacionGuard]
   },
   {
-    path: 'stats-rdt',
-    component: StatsRdtComponent,
+    path: 'rdt-generator',
+    component: RdtGeneratorComponent,
     canActivate: [autenticacionGuard]
   },
   {
-    path: '',
-    redirectTo: 'colaborador-rdt',
-    pathMatch: 'full'
+    path: 'stats-rdt',
+    component: StatsRdtComponent,
+    canActivate: [autenticacionGuard]
   },
   {
     path: '**',

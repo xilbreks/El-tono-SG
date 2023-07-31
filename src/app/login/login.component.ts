@@ -1,17 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-
-class ObjUsuario {
-  id: string = '';
-  spassword: string = '';
-  snombre: string = '';
-  constructor(a: string, b: string, c: string) {
-    this.id = a;
-    this.spassword = b;
-    this.snombre = c;
-  }
-}
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -19,45 +8,34 @@ class ObjUsuario {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  lstUsuarios: Array<ObjUsuario> = [];
+  lLoggin: boolean = false;
+  sError  = null;
 
   constructor(
     private router: Router,
-    private db: AngularFirestore
+    public afAuth: AngularFireAuth,
   ) {
-    this.db
-      .collection('colaboradores', ref => {
-        return ref.where('lactive','==', true)
-      })
-      .valueChanges()
-      .subscribe((usuarios: Array<any>)=>{
-        usuarios.forEach(usuario => {
-          this.lstUsuarios.push(
-            new ObjUsuario(usuario.id, usuario.spassword, usuario.snombre)
-          );
-          this.lstUsuarios.push(
-            new ObjUsuario('admin', 'admin123', 'ADMIN')
-          );
-        });
-      });
   }
 
-  public login(suser: any, spassword: any): void {
-    let identificado = false;
-    this.lstUsuarios.forEach((usuario) => {
-      if (usuario.id == suser && usuario.spassword == spassword) {
-        identificado = true;
-      }
-    });
-    if (identificado) {
-      localStorage.setItem('idusuario', suser);
-      if (suser == 'admin') {
-        this.router.navigate(['/', 'admin-rdt']);
-      } else {
-        this.router.navigate(['/', 'colaborador-rdt']);
-      }
-    } else {
-      window.alert('Usuario o contraseña incorrecto');
-    }
+  login(suser: any, spassword: any): boolean {
+    this.lLoggin = true;
+    this.afAuth
+      .signInWithEmailAndPassword(suser + '@silvaguillenabogados.com', spassword)
+      .then((result)=>{
+        this.sError = null;
+        localStorage.setItem('idusuario', suser);
+        if (suser == 'admin') {
+          this.router.navigate(['/', 'admin-rdt']);
+        } else {
+          this.router.navigate(['/', 'colaborador-rdt']);
+        }
+      })
+      .catch((error)=>{
+        this.sError = error.code;
+      })
+      .finally(()=>{
+        this.lLoggin = false;
+      });
+      return false;
   }
 }

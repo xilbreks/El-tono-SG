@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { HttpClientModule } from '@angular/common/http';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { ExpedienteViewComponent } from './expediente-view/expediente-view.compo
 import { ExpedienteEditComponent } from './expediente-edit/expediente-edit.component';
 import { ExpedienteNewComponent } from './expediente-new/expediente-new.component';
 import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
+import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
 
 const environment = {
   production: false,
@@ -51,6 +53,7 @@ const environment = {
     ExpedienteEditComponent,
     ExpedienteNewComponent,
     ExpedienteSearchComponent,
+    RdtGeneratorComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ const environment = {
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
+    AngularFireAuthModule,
     AppRoutingModule,
     HttpClientModule
   ],
