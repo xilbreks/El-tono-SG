@@ -159,7 +159,8 @@ export class RdtViewEditComponent {
       .set({ ...objTarea, 
         idtarea: id, 
         idrdt: this.idrdt,
-        nsemana: this.objRdt.nsemana 
+        nsemana: this.objRdt.nsemana,
+        sexpediente: objTarea['sexpediente'].trim()
       })
       .then((x) => {
         this.modalService.dismissAll();
@@ -181,7 +182,10 @@ export class RdtViewEditComponent {
     this.db
       .collection('tareas')
       .doc(id)
-      .update(objTarea)
+      .update({
+        ...objTarea,
+        sexpediente: objTarea['sexpediente'].trim()
+      })
       .then((x) => {
         this.modalService.dismissAll();
         this.frmEditTask.reset();
