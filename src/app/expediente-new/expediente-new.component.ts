@@ -18,7 +18,7 @@ export class ExpedienteNewComponent {
     private titleService: Title,
     private router: Router,
   ) {
-    this.titleService.setTitle('Crear Expediente');
+    this.titleService.setTitle('Registrar Expediente');
 
     this.frmExpediente = new FormGroup({
       sorganojuris: new FormControl(null, Validators.required),

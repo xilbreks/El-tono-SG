@@ -33,7 +33,8 @@ const routes: Routes = [
   },
   {
     path: 'expedientes',
-    component: ExpedientesComponent
+    component: ExpedientesComponent,
+    canActivate: [autenticacionGuard]
   },
   {
     path: 'expediente-new',

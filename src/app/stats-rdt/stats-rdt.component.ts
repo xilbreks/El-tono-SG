@@ -364,7 +364,7 @@ export class StatsRdtComponent implements OnInit {
         varios: 0
       },
       {
-        id: 'fabriszio-silva',
+        id: 'valesca-lopez',
         nc: 0,
         laboral: 0,
         civil: 0,
@@ -508,7 +508,7 @@ export class StatsRdtComponent implements OnInit {
           'erica',
           'estrella',
           'fabiola',
-          'fabriszio',
+          'valesca',
           'isabel',
           'jackeline',
           'johana',
@@ -629,7 +629,7 @@ export class StatsRdtComponent implements OnInit {
         viaInternet: 0,
       },
       {
-        id: 'fabriszio-silva',
+        id: 'valesca-lopez',
         nc: 0,
         porExpediente: 0,
         presencial: 0,
@@ -729,7 +729,7 @@ export class StatsRdtComponent implements OnInit {
           'erica',
           'estrella',
           'fabiola',
-          'fabriszio',
+          'valesca',
           'isabel',
           'jackeline',
           'johana',
@@ -825,7 +825,7 @@ export class StatsRdtComponent implements OnInit {
         varios: 0,
       },
       {
-        id: 'fabriszio-silva',
+        id: 'valesca-lopez',
         nc: 0,
         nuevo: 0,
         antiguo: 0,
@@ -914,7 +914,7 @@ export class StatsRdtComponent implements OnInit {
           'erica',
           'estrella',
           'fabiola',
-          'fabriszio',
+          'valesca',
           'isabel',
           'jackeline',
           'johana',

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,13 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  usuario = '';
-  constructor() {
-    let usuario = localStorage.getItem('idusuario');
-    if (usuario) {
-      this.usuario = usuario;
-    } else {
-      this.usuario = 'USER';
-    }
+  user: any;
+  constructor(
+    private router: Router, 
+    public afAuth: AngularFireAuth
+  ) {
+    this.afAuth.authState.subscribe((user)=>{
+      this.user = user;
+      if (!user) this.router.navigate(['/', 'login']);
+    })
   }
 }

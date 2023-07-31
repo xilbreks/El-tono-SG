@@ -1,12 +1,5 @@
 <h1 style="text-align: center">REPORTE DIARIO DE TRABAJO</h1>
 
-<div>
-  <span>Usuario: </span>
-  <span>
-    <b>{{ idColaborador }}</b>
-  </span>
-</div>
-
 <hr />
 
 <div>
@@ -47,8 +40,8 @@
           </span>
         </td>
         <td>
-          <a class="btn btn-outline-dark" *ngIf="!rdt.leditable" [routerLink]="'/rdt/'+rdt.idrdt" ngbTooltip="Ver">
-            <i class="bi bi-eye"></i>
+          <a class="btn btn-outline-dark" *ngIf="!rdt.leditable" [routerLink]="'/rdt/'+rdt.idrdt">
+            Ver
           </a>
           <a class="btn btn-success" *ngIf="rdt.leditable" [routerLink]="'/rdt-edit/'+rdt.idrdt">
             Completar

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand">
+    <a class="navbar-brand" [routerLink]="user?(user.displayName=='ADMIN'?'admin-rdt':'colaborador-rdt'):'/login'">
       <h1>Silva Guillén</h1>
     </a>
     <button
@@ -16,22 +16,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- <li class="nav-item">
-          <a class="nav-link" routerLink="/colaborador-rdt">Colaborador RDT </a>
-        </li> -->
-        <!-- <li class="nav-item">
-          <a class="nav-link" routerLink="/admin-rdt"> Admin RDT</a>
-        </li> -->
-        <!-- <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/expedientes"
-            >Expedientes</a
-          >
-        </li> -->
-
         
-        <!-- <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="!!user">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -50,7 +36,18 @@
               <a class="dropdown-item" routerLink="/expediente-new"> Registrar Expediente </a>
             </li>
           </ul>
-        </li> -->
+        </li>
+
+        <li class="nav-item" *ngIf="!!user">
+          <a routerLink="/stats-rdt" class="nav-link">Stadisticas</a>
+        </li>
+
+        <li>
+          
+        </li>
+      </ul>
+
+      <ul class="navbar-nav d-flex flex-row ms-auto me-3">
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -60,7 +57,8 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            USER
+            <i class="bi bi-person-circle"></i>
+            {{user?user.displayName:'Identificarse'}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
@@ -69,21 +67,8 @@
             <li>
               <a class="dropdown-item" routerLink="/logout"> Log-out </a>
             </li>
-            <!-- <li>
-              <hr class="dropdown-divider" />
-            </li> -->
-            <!-- <li>
-              <a class="dropdown-item" routerLink="/penal"> Penal </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/Familia"> Familia </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/Constitucional"> Constitucional </a>
-            </li> -->
           </ul>
         </li>
-        
       </ul>
     </div>
   </div>
@@ -91,3 +76,6 @@
 
 <router-outlet></router-outlet>
 
+<!-- <div style="height: 50px; background-color: #087060;">
+
+</div> -->
