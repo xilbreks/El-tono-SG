@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 class ObjExpediente {
   sfechainicio: string = '';
@@ -32,6 +33,7 @@ export class ExpedienteViewComponent {
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
+    private modalService: NgbModal,
     route: ActivatedRoute
   ) {
     this.sexpediente = '' + route.snapshot.paramMap.get('id');
@@ -83,4 +85,11 @@ export class ExpedienteViewComponent {
         observando.unsubscribe();
       });
   }
+
+  public openNewTaskModal(modal: any): void {
+    this.modalService.open(modal, {
+      windowClass: 'modal'
+    });
+  }
+
 }

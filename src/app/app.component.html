@@ -38,7 +38,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" *ngIf="!!user">
+        <li class="nav-item" *ngIf="user?.displayName=='ADMIN'">
           <a routerLink="/stats-rdt" class="nav-link">Stadisticas</a>
         </li>
 

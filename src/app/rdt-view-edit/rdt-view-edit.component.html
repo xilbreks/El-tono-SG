@@ -167,11 +167,12 @@
             class="form-select"
             id="especialidad"
             formControlName="ntipoproceso"
+            (change)="setLstIterNewTask()"
           >
             <option value="nc">No corresponde</option>
             <option value="laboral">Laboral</option>
-            <option value="civil">Civil</option>
             <option value="penal">Penal</option>
+            <option value="civil">Civil</option>
             <option value="familia">Familia</option>
             <option value="constitucional">Constitucional</option>
             <option value="tramite-adm">Trámite Adm.</option>
@@ -242,36 +243,9 @@
             id="iteractividad"
             formControlName="niter"
           >
-            <option value="nc">No corresponde</option>
-            <option value="1">01</option>
-            <option value="2">02</option>
-            <option value="3">03</option>
-            <option value="4">04</option>
-            <option value="5">05</option>
-            <option value="6">06</option>
-            <option value="7">07</option>
-            <option value="8">08</option>
-            <option value="9">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
+            <option *ngFor="let iter of lstIter" [value]="iter.id" [disabled]="!iter.pick">
+              {{iter.desc}}
+            </option>
           </select>
         </div>
         <div class="col">
@@ -370,61 +344,9 @@
             id="codigoEjecutivo"
             formControlName="ncodeje"
           >
-            <option value="nc">No corresponde</option>
-            <option value="1">1: INFORMES - INICIALES</option>
-            <option value="2">2: INFORMES - DE 1RA INSTANCIA</option>
-            <option value="3">3: INFORMES - DE 2DA INSTANCIA</option>
-            <option value="4">4: INFORMES - DE CASACIÓN (EJECUTORIAS SUPREMAS)</option>
-            <option value="5">5: INFORMES - FINALES</option>
-            <option value="6">6: REDACCIÓN DE ESCRITOS DE MERO TRÁMITE SEGÚN SINOE E IMPULSO DE PARTE</option>
-            <option value="7">7: IMPRIMIR ANEXOS RESOLUCIONES</option>
-            <option value="8">8: REDACCIÓN DE ACTAS DE ACUERDOS, TRANSACCIONES, CONCILIACIONES</option>
-            <option value="9">9: REDACCIÓN CONTRATOS PARA CLIENTES</option>
-            <option value="10">10: BORRADORES DE DEMANDAS, CONTESTACIONES, RECONVENCIONES, EXCEPCIONES, TACHAS Y OPOSICIONES</option>
-            <option value="11">11: PROPUESTAS ECONÓMICAS CLIENTES E INFORMES</option>
-            <option value="12">12: TRÁMITES - NOTARIALES Y REGISTRALES</option>
-            <option value="13">13: REDACCIÓN CARTAS, SOLICITUDES Y MINUTAS</option>
-            <option value="14">14: BORRADORES - MEDIDAS CAUTELARES</option>
-            <option value="15">15: ASISTIR CENTROS DE CONCILIACIÓN</option>
-            <option value="16">16: PREPARAR ALEGATOS, DIAPOSITIVAS, PLIEGOS INTERROGATORIOS</option>
-            <option value="17">17: ASISTIR A LOS CLIENTES EN AUDIENCIAS</option>
-            <option value="18">18: ASISTIR AL PJ Y/O MP PARA CONVERSAR CON JUECES, FISCALES, ESPECIALISTAS</option>
-            <option value="19">19: TRÁMITES ADMINISTRATIVOS PAGAR ARANCELES JUDICIALES, TASAS Y OTROS</option>
-            <option value="20">20: APOYAR EN COBRANZAS (HACERLAS EFECTIVAS)</option>
-            <option value="21">21: BÚSQUEDA DE EXPEDIENTE</option>
-            <option value="22">22: DESARCHIVAR EXPEDIENTES DEL ARCHIVO CENTRAL DEL PJ</option>
-            <option value="23">23: REVISAR, ORDENAR Y ACTUALIZACIÓN DE EXPEDIENTE</option>
-            <option value="24">24: COORDINAR AUDIENCIAS</option>
-            <option value="25">25: SIMULACIÓN DE AUDIENCIAS</option>
-            <option value="26">26: SEGUIMIENTO DEL PROCESO (CEJ Y SINOE)</option>
-            <option value="27">27: RECABAR MEDIOS PROBATORIOS</option>
-            <option value="28">28: RECEPCIÓN-REGISTRO Y/O ATENCIÓN DE CLIENTES VÍA CELULAR</option>
-            <option value="--" disabled>---------------------------</option>
-            <option value="30">30: ATENDER CLIENTES ANTIGUOS, NUEVOS Y CAPTAR CLIENTES</option>
-            <option value="31">31: ANALIZAR Y REVISAR DOCUMENTOS (MEDIOS PROBATORIOS)</option>
-            <option value="32">32: ASIGNACIÓN Y SUPERVISIÓN DEL SINOE DE ESCRITOS DE MERO TRÁMITE Y COMPLEJOS REALIZADOS POR LOS ASISTENTES Y PRACTICANTES</option>
-            <option value="33">33: SUPERVISAR ESCRITO DE MERO TRÁMITE E IMPULSO DE PARTE</option>
-            <option value="34">34: SUPERVISAR ESCRITOS COMPLEJOS SEAN DEMANDAS, DENUNCIAS, APELACIONES, CASACIONES, ETC.</option>
-            <option value="35">35: DILIGENCIAS EXTERNAS, VISUALIZACIONES, DECLARACIONES, CÁMARAS GESSEL</option>
-            <option value="36">36: REVISAR Y ELABORAR INFORMES LEGALES DE LOS EXPEDIENTES</option>
-            <option value="37">37: REVISAR DEMANDAS QUE ESTÉN AL 100%</option>
-            <option value="38">38: REVISAR REDACCIÓN DE DENUNCIAS, QUERELLAS AL 100% Y OTROS</option>
-            <option value="39">39: REVISIÓN DE MEDIDAS CAUTELARES</option>
-            <option value="40">40: REVISIÓN DE CONTESTACIÓN DE DEMANDAS Y RECONVENCIONES</option>
-            <option value="41">41: REVISIÓN/MODIFICACIÓN DE ABSOLUCIÓN DE DENUNCIAS Y QUERELLAS</option>
-            <option value="42">42: REVISIÓN/MODIFICACIÓN DE RECURSO APELACIÓN</option>
-            <option value="43">43: REVISIÓN DE RECURSOS DE CASACIÓN</option>
-            <option value="44">44: REVISIÓN DE ALEGATOS, DISPOSITIVAS Y PLIEGOS INTERROGATORIOS</option>
-            <option value="45">45: REVISAR QUE LAS DEMANDAS, MC Y OTROS ESCRITOS SEAN PRESENTADOS CON ARANCELES JUDICIALES</option>
-            <option value="46">46: PREPARACIÓN DE CLIENTES, TESTIGOS PARA AUDIENCIAS</option>
-            <option value="47">47: ORALIZAR AUDIENCIAS DE CONCILIACIÓN Y JUZGAMIENTO</option>
-            <option value="48">48: ORALIZAR VISTAS DE CAUSA ANTE SALAS SUPERIORES</option>
-            <option value="49">49: ORALIZAR VISTAS DE LA CAUSA ANTE CORTE SUPREMA</option>
-            <option value="50">50: ENTREVISTAS CON JUECES, FISCALES, ESPECIALISTAS</option>
-            <option value="51">51: CONFERENCIAR CON LA CONTRA PARTE Y ABOGADOS</option>
-            <option value="52">52: ATENCIÓN CLIENTES VÍA CELULAR</option>
-            <option value="53">53: ORGANIZAR ASAMBLEAS, REUNIONES VIRTUALES</option>
-            <option value="54">54: COBRAR CLIENTES (HACERLAS EFECTIVAS)</option>
+            <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
+              {{dil.desc}}
+            </option>
           </select>
         </div>
       </div>
@@ -535,6 +457,7 @@
             class="form-select"
             id="especialidad"
             formControlName="ntipoproceso"
+            (change)="setLstIterEditTask()"
           >
             <option value="nc">No corresponde</option>
             <option value="laboral">Laboral</option>
@@ -610,36 +533,9 @@
             id="iteractividad"
             formControlName="niter"
           >
-            <option value="nc">No corresponde</option>
-            <option value="1">01</option>
-            <option value="2">02</option>
-            <option value="3">03</option>
-            <option value="4">04</option>
-            <option value="5">05</option>
-            <option value="6">06</option>
-            <option value="7">07</option>
-            <option value="8">08</option>
-            <option value="9">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
+            <option *ngFor="let iter of lstIter" [value]="iter.id" [disabled]="!iter.pick">
+              {{iter.desc}}
+            </option>
           </select>
         </div>
         <div class="col">
@@ -738,61 +634,9 @@
             id="codigoEjecutivo"
             formControlName="ncodeje"
           >
-            <option value="nc">No corresponde</option>
-            <option value="1">1: INFORMES - INICIALES</option>
-            <option value="2">2: INFORMES - DE 1RA INSTANCIA</option>
-            <option value="3">3: INFORMES - DE 2DA INSTANCIA</option>
-            <option value="4">4: INFORMES - DE CASACIÓN (EJECUTORIAS SUPREMAS)</option>
-            <option value="5">5: INFORMES - FINALES</option>
-            <option value="6">6: REDACCIÓN DE ESCRITOS DE MERO TRÁMITE SEGÚN SINOE E IMPULSO DE PARTE</option>
-            <option value="7">7: IMPRIMIR ANEXOS RESOLUCIONES</option>
-            <option value="8">8: REDACCIÓN DE ACTAS DE ACUERDOS, TRANSACCIONES, CONCILIACIONES</option>
-            <option value="9">9: REDACCIÓN CONTRATOS PARA CLIENTES</option>
-            <option value="10">10: BORRADORES DE DEMANDAS, CONTESTACIONES, RECONVENCIONES, EXCEPCIONES, TACHAS Y OPOSICIONES</option>
-            <option value="11">11: PROPUESTAS ECONÓMICAS CLIENTES E INFORMES</option>
-            <option value="12">12: TRÁMITES - NOTARIALES Y REGISTRALES</option>
-            <option value="13">13: REDACCIÓN CARTAS, SOLICITUDES Y MINUTAS</option>
-            <option value="14">14: BORRADORES - MEDIDAS CAUTELARES</option>
-            <option value="15">15: ASISTIR CENTROS DE CONCILIACIÓN</option>
-            <option value="16">16: PREPARAR ALEGATOS, DIAPOSITIVAS, PLIEGOS INTERROGATORIOS</option>
-            <option value="17">17: ASISTIR A LOS CLIENTES EN AUDIENCIAS</option>
-            <option value="18">18: ASISTIR AL PJ Y/O MP PARA CONVERSAR CON JUECES, FISCALES, ESPECIALISTAS</option>
-            <option value="19">19: TRÁMITES ADMINISTRATIVOS PAGAR ARANCELES JUDICIALES, TASAS Y OTROS</option>
-            <option value="20">20: APOYAR EN COBRANZAS (HACERLAS EFECTIVAS)</option>
-            <option value="21">21: BÚSQUEDA DE EXPEDIENTE</option>
-            <option value="22">22: DESARCHIVAR EXPEDIENTES DEL ARCHIVO CENTRAL DEL PJ</option>
-            <option value="23">23: REVISAR, ORDENAR Y ACTUALIZACIÓN DE EXPEDIENTE</option>
-            <option value="24">24: COORDINAR AUDIENCIAS</option>
-            <option value="25">25: SIMULACIÓN DE AUDIENCIAS</option>
-            <option value="26">26: SEGUIMIENTO DEL PROCESO (CEJ Y SINOE)</option>
-            <option value="27">27: RECABAR MEDIOS PROBATORIOS</option>
-            <option value="28">28: RECEPCIÓN-REGISTRO Y/O ATENCIÓN DE CLIENTES VÍA CELULAR</option>
-            <option value="--" disabled>---------------------------</option>
-            <option value="30">30: ATENDER CLIENTES ANTIGUOS, NUEVOS Y CAPTAR CLIENTES</option>
-            <option value="31">31: ANALIZAR Y REVISAR DOCUMENTOS (MEDIOS PROBATORIOS)</option>
-            <option value="32">32: ASIGNACIÓN Y SUPERVISIÓN DEL SINOE DE ESCRITOS DE MERO TRÁMITE Y COMPLEJOS REALIZADOS POR LOS ASISTENTES Y PRACTICANTES</option>
-            <option value="33">33: SUPERVISAR ESCRITO DE MERO TRÁMITE E IMPULSO DE PARTE</option>
-            <option value="34">34: SUPERVISAR ESCRITOS COMPLEJOS SEAN DEMANDAS, DENUNCIAS, APELACIONES, CASACIONES, ETC.</option>
-            <option value="35">35: DILIGENCIAS EXTERNAS, VISUALIZACIONES, DECLARACIONES, CÁMARAS GESSEL</option>
-            <option value="36">36: REVISAR Y ELABORAR INFORMES LEGALES DE LOS EXPEDIENTES</option>
-            <option value="37">37: REVISAR DEMANDAS QUE ESTÉN AL 100%</option>
-            <option value="38">38: REVISAR REDACCIÓN DE DENUNCIAS, QUERELLAS AL 100% Y OTROS</option>
-            <option value="39">39: REVISIÓN DE MEDIDAS CAUTELARES</option>
-            <option value="40">40: REVISIÓN DE CONTESTACIÓN DE DEMANDAS Y RECONVENCIONES</option>
-            <option value="41">41: REVISIÓN/MODIFICACIÓN DE ABSOLUCIÓN DE DENUNCIAS Y QUERELLAS</option>
-            <option value="42">42: REVISIÓN/MODIFICACIÓN DE RECURSO APELACIÓN</option>
-            <option value="43">43: REVISIÓN DE RECURSOS DE CASACIÓN</option>
-            <option value="44">44: REVISIÓN DE ALEGATOS, DISPOSITIVAS Y PLIEGOS INTERROGATORIOS</option>
-            <option value="45">45: REVISAR QUE LAS DEMANDAS, MC Y OTROS ESCRITOS SEAN PRESENTADOS CON ARANCELES JUDICIALES</option>
-            <option value="46">46: PREPARACIÓN DE CLIENTES, TESTIGOS PARA AUDIENCIAS</option>
-            <option value="47">47: ORALIZAR AUDIENCIAS DE CONCILIACIÓN Y JUZGAMIENTO</option>
-            <option value="48">48: ORALIZAR VISTAS DE CAUSA ANTE SALAS SUPERIORES</option>
-            <option value="49">49: ORALIZAR VISTAS DE LA CAUSA ANTE CORTE SUPREMA</option>
-            <option value="50">50: ENTREVISTAS CON JUECES, FISCALES, ESPECIALISTAS</option>
-            <option value="51">51: CONFERENCIAR CON LA CONTRA PARTE Y ABOGADOS</option>
-            <option value="52">52: ATENCIÓN CLIENTES VÍA CELULAR</option>
-            <option value="53">53: ORGANIZAR ASAMBLEAS, REUNIONES VIRTUALES</option>
-            <option value="54">54: COBRAR CLIENTES (HACERLAS EFECTIVAS)</option>
+            <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
+              {{dil.desc}}
+            </option>
           </select>
         </div>
       </div>
