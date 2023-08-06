@@ -7,11 +7,11 @@ import { ExpedienteEditComponent } from './expediente-edit/expediente-edit.compo
 import { ExpedienteNewComponent } from './expediente-new/expediente-new.component';
 import { AdminRdtComponent } from './admin-rdt/admin-rdt.component';
 import { ColaboradorRdtComponent } from './colaborador-rdt/colaborador-rdt.component';
-import { RdtViewOnlyComponent } from './rdt-view-only/rdt-view-only.component';
-import { RdtViewEditComponent } from './rdt-view-edit/rdt-view-edit.component';
+import { RdtViewComponent } from './rdt-view/rdt-view.component';
+import { RdtEditComponent } from './rdt-edit/rdt-edit.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { StatsRdtComponent } from './stats-rdt/stats-rdt.component';
+import { RdtStatsComponent } from './rdt-stats/rdt-stats.component';
 import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
 import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
 
@@ -68,12 +68,12 @@ const routes: Routes = [
   },
   {
     path: 'rdt/:id',
-    component: RdtViewOnlyComponent,
+    component: RdtViewComponent,
     canActivate: [autenticacionGuard]
   },
   {
     path: 'rdt-edit/:id',
-    component: RdtViewEditComponent,
+    component: RdtEditComponent,
     canActivate: [autenticacionGuard]
   },
   {
@@ -83,7 +83,7 @@ const routes: Routes = [
   },
   {
     path: 'stats-rdt',
-    component: StatsRdtComponent,
+    component: RdtStatsComponent,
     canActivate: [autenticacionGuard]
   },
   {

@@ -1,125 +1,20 @@
 <br/>
 
-<div class="container expediente">
-    <h4>
-        {{objExpediente.sorganojuris}}
-    </h4>
-    <h4 style="background-color: #f1f1f1; border-radius: 5px; padding: 5px 0;">
-        {{objExpediente.sexpediente}}
-    </h4>
-    <hr/>
-    <table style="width: 100%;">
-        <tr>
-            <td>
-                <b>MATERIA:</b>
-            </td>
-            <td>
-                {{objExpediente.smateria}}
-                <!-- <input 
-                    type="text" 
-                    class="form-control"
-                    [value]="objExpediente.smateria"
-                    readonly
-                > -->
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>TIPO:</b>
-            </td>
-            <td>
-                {{objExpediente.sespecialidad}}
-                <!-- <input 
-                    type="text" 
-                    class="form-control"
-                    [value]="objExpediente.sespecialidad"
-                    readonly
-                > -->
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>ESPECIALISTA:</b>
-            </td>
-            <td>
-                {{objExpediente.sespecialista}}
-                <!-- <input 
-                    type="text" 
-                    class="form-control"
-                    [value]="objExpediente.sespecialista"
-                    readonly
-                > -->
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>DEMANDANTE:</b>
-            </td>
-            <td>
-                {{objExpediente.sdemandante}}
-                <!-- <input 
-                    type="text" 
-                    class="form-control"
-                    [value]="objExpediente.sdemandante"
-                    readonly
-                > -->
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>DEMANDADO:</b>
-            </td>
-            <td>
-                {{objExpediente.sdemandado}}
-                <!-- <input 
-                    type="text" 
-                    class="form-control"
-                    [value]="objExpediente.sdemandado"
-                    readonly
-                > -->
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>INICIO:</b>
-            </td>
-            <td>
-                {{objExpediente.sfechainicio}}
-                <!-- <input 
-                    type="text" 
-                    class="form-control"
-                    [value]="objExpediente.sfechainicio"
-                    readonly
-                > -->
-            </td>
-        </tr>
-    </table>
-    <hr/>
-    <div class="row">
-        <div class="col-3">
-        </div>
-        <div class="col-6">
-            <h6>
-                AREQUIPA
-            </h6>
-        </div>
-        <div class="col-3">
-            <div style="padding: 0; display: flex; flex-direction: row-reverse;">
-                <a [routerLink]="'/expediente-edit/'+sexpediente" class="btn btn-primary">
-                    <i class="bi bi-pencil"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<br/>
-
 <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+            <button class="nav-link active" id="expediente-tab" data-bs-toggle="tab" data-bs-target="#expediente-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                Expediente
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="historial-tab" data-bs-toggle="tab" data-bs-target="#historial-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
                 Historial RDT
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contrato-tab" data-bs-toggle="tab" data-bs-target="#contrato-tab-pane" type="button" role="tab" aria-controls="contrato-tab-pane" aria-selected="false">
+                Contrato
             </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -127,9 +22,128 @@
                 Pagos/cuotas
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                Cliente
+            </button>
+        </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <div class="tab-pane fade show active" id="expediente-tab-pane" role="tabpanel" aria-labelledby="expediente-tab" tabindex="0">
+            <div class="container expediente">
+                <h4>
+                    {{objExpediente.sorganojuris}}
+                </h4>
+                <h4 style="background-color: #f1f1f1; border-radius: 5px; padding: 5px 0;">
+                    {{objExpediente.sexpediente}}
+                </h4>
+                <hr/>
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <b>MATERIA:</b>
+                        </td>
+                        <td>
+                            {{objExpediente.smateria}}
+                            <!-- <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="objExpediente.smateria"
+                                readonly
+                            > -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>TIPO:</b>
+                        </td>
+                        <td>
+                            {{objExpediente.sespecialidad}}
+                            <!-- <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="objExpediente.sespecialidad"
+                                readonly
+                            > -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>ESPECIALISTA:</b>
+                        </td>
+                        <td>
+                            {{objExpediente.sespecialista}}
+                            <!-- <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="objExpediente.sespecialista"
+                                readonly
+                            > -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>DEMANDANTE:</b>
+                        </td>
+                        <td>
+                            {{objExpediente.sdemandante}}
+                            <!-- <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="objExpediente.sdemandante"
+                                readonly
+                            > -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>DEMANDADO:</b>
+                        </td>
+                        <td>
+                            {{objExpediente.sdemandado}}
+                            <!-- <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="objExpediente.sdemandado"
+                                readonly
+                            > -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>INICIO:</b>
+                        </td>
+                        <td>
+                            {{objExpediente.sfechainicio}}
+                            <!-- <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="objExpediente.sfechainicio"
+                                readonly
+                            > -->
+                        </td>
+                    </tr>
+                </table>
+                <hr/>
+                <div class="row">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-6">
+                        <h6>
+                            AREQUIPA
+                        </h6>
+                    </div>
+                    <div class="col-3">
+                        <div style="padding: 0; display: flex; flex-direction: row-reverse;">
+                            <a [routerLink]="'/expediente-edit/'+sexpediente" class="btn btn-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="historial-tab-pane" role="tabpanel" aria-labelledby="historial-tab" tabindex="0">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let h of lstHistorial">
                     <u>{{h.fech}}, {{h.user}}</u>.- 
@@ -139,6 +153,13 @@
                     <i>ITER: {{h.iter}}</i>
                 </li>
             </ul>
+        </div>
+        <div class="tab-pane fade" id="contrato-tab-pane" role="tabpanel" aria-labelledby="contrato-tab" tabindex="0">
+            <br/>
+            <p>
+                <b>CONTRATO:</b>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima voluptatibus, sequi aliquam quaerat cupiditate tempore ad exercitationem ipsum consectetur magni, ipsam pariatur ratione assumenda fugit officiis debitis, eum consequatur quia.
+            </p>
         </div>
         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
             <br/>
@@ -168,6 +189,16 @@
                 Saldo: 3000.00
             </p>
 
+        </div>
+        <div class="tab-pane fade" id="cliente-tab-pane" role="tabpanel" aria-labelledby="cliente-tab" tabindex="0">
+            <br/>
+            <p>
+                <b>DATOS CLIENTE:</b>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sapiente quos aperiam exercitationem temporibus harum, fugiat nemo cupiditate fuga ducimus impedit veniam neque, assumenda tempora, esse reprehenderit. Vero, assumenda ad.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat ratione illum repellat alias sed nulla consectetur vel, blanditiis incidunt totam autem eos esse, qui quo error omnis, sint earum? Sunt!
+            </p>
         </div>
     </div>
 </div>

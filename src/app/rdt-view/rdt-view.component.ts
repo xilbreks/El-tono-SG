@@ -40,12 +40,13 @@ class ObjTarea {
   constructor() {}
 }
 
+
 @Component({
-  selector: 'app-rdt-view-only',
-  templateUrl: './rdt-view-only.component.html',
-  styleUrls: ['./rdt-view-only.component.scss'],
+  selector: 'app-rdt-view',
+  templateUrl: './rdt-view.component.html',
+  styleUrls: ['./rdt-view.component.scss']
 })
-export class RdtViewOnlyComponent {
+export class RdtViewComponent {
   idrdt: string;
   lstTareas: ObjTarea[] = [];
   idusuario: any = localStorage.getItem('idusuario');

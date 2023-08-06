@@ -3,7 +3,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
 import { Chart } from 'chart.js/auto';
 
-
 class ObjTarea {
   idtarea: string = '';
   idrdt: string = '';
@@ -26,13 +25,12 @@ class ObjTarea {
   constructor() {}
 }
 
-
 @Component({
-  selector: 'app-stats-rdt',
-  templateUrl: './stats-rdt.component.html',
-  styleUrls: ['./stats-rdt.component.scss']
+  selector: 'app-rdt-stats',
+  templateUrl: './rdt-stats.component.html',
+  styleUrls: ['./rdt-stats.component.scss']
 })
-export class StatsRdtComponent implements OnInit {
+export class RdtStatsComponent {
   lstTareas: ObjTarea[] = [];
   idusuario: any = localStorage.getItem('idusuario');
   tipoAtencionChart: any;
@@ -1027,5 +1025,4 @@ export class StatsRdtComponent implements OnInit {
     });
 
   }
-
 }

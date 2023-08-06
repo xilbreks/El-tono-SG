@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatsRdtComponent } from './stats-rdt.component';
+import { RdtEditComponent } from './rdt-edit.component';
 
-describe('StatsRdtComponent', () => {
-  let component: StatsRdtComponent;
-  let fixture: ComponentFixture<StatsRdtComponent>;
+describe('RdtEditComponent', () => {
+  let component: RdtEditComponent;
+  let fixture: ComponentFixture<RdtEditComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [StatsRdtComponent]
+      declarations: [RdtEditComponent]
     });
-    fixture = TestBed.createComponent(StatsRdtComponent);
+    fixture = TestBed.createComponent(RdtEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -43,11 +43,11 @@ class ObjTarea {
 }
 
 @Component({
-  selector: 'app-rdt-view-edit',
-  templateUrl: './rdt-view-edit.component.html',
-  styleUrls: ['./rdt-view-edit.component.scss'],
+  selector: 'app-rdt-edit',
+  templateUrl: './rdt-edit.component.html',
+  styleUrls: ['./rdt-edit.component.scss']
 })
-export class RdtViewEditComponent {
+export class RdtEditComponent {
   idrdt: string;
   objRdt: ObjRdt = new ObjRdt();
   lstTareas: ObjTarea[] = [];
@@ -494,5 +494,5 @@ export class RdtViewEditComponent {
     if (dontReset) return;
     this.frmEditTask.controls['niter'].reset();
   }
-  
+
 }
