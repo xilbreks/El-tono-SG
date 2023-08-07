@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,7 +18,7 @@ class ObjExpediente {
   smateria: string = '';
   ssumilla: string = '';
   sfechamodificacion: string = '';
-  constructor() {}
+  urlcontrato: string = '';
 }
 
 @Component({
@@ -29,11 +30,15 @@ export class ExpedienteViewComponent {
   sexpediente: string = '';
   objExpediente: ObjExpediente;
   lstHistorial: Array<any> = [];
+  lUploadingContrato: boolean = false;
+  urlDownloadContrato = null;
+  lGeneratingUrlContrato = false;
 
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
     private modalService: NgbModal,
+    private storage: AngularFireStorage,
     route: ActivatedRoute
   ) {
     this.sexpediente = '' + route.snapshot.paramMap.get('id');
@@ -56,6 +61,7 @@ export class ExpedienteViewComponent {
         } else {
           window.alert('expediente no existe')
         }
+        this.urlDownloadContrato = null;
         observando.unsubscribe();
       });
   }
@@ -91,5 +97,60 @@ export class ExpedienteViewComponent {
       windowClass: 'modal'
     });
   }
+
+  /**********************************************
+   ************* BEGIN CONTRATO *****************
+   *********************************************/
+
+  openModalContrato(modal: any) {
+    this.modalService.open(modal);
+  }
+
+  uploadContrato(file: any) {
+    const contrato = file.files[0];
+    console.log(contrato);
+    if (!contrato) {
+      window.alert('Seleccione un PDF');
+      return;
+    }
+    if (contrato.type != 'application/pdf') {
+      window.alert('Solo se puede subir PDF');
+      return;
+    }
+    this.lUploadingContrato = true;
+    this.storage.upload('contratos/'+this.sexpediente+'.pdf',contrato)
+      .then((res)=>{
+        this.db
+          .collection('expedientes')
+          .doc(this.sexpediente)
+          .update({
+            urlcontrato: res.metadata.fullPath
+          });
+        this.modalService.dismissAll();
+        this.getExpediente();
+      })
+      .catch((err)=>{
+        window.alert('Error al subir')
+      })
+      .finally(()=>{
+        this.lUploadingContrato = false;
+      });
+  }
+
+  crearDownloadUrlContrato() {
+    this.lGeneratingUrlContrato = true;
+    let observer = this.storage.ref(this.objExpediente.urlcontrato)
+      .getDownloadURL()
+      .subscribe((url)=>{
+        this.urlDownloadContrato = url;
+        this.lGeneratingUrlContrato = false;
+        observer.unsubscribe();
+      });
+  }
+
+  /**********************************************
+   ************** ############ ******************
+   *********************************************/
+
 
 }
