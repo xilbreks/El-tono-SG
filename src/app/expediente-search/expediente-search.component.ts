@@ -23,7 +23,7 @@ export class ExpedienteSearchComponent {
   buscarExpediente(sinput: any): void {
     if(!sinput) return;
 
-    let sexpediente = sinput.trim();
+    let sexpediente = sinput.trim().toUpperCase();
     this.lSearching = true;
     this.lNotFound = false;
     
