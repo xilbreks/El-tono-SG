@@ -1,0 +1,40 @@
+<br/>
+
+<h5>Cuadro de Pagos:</h5>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Monto(S/)
+                </th>
+                <th>
+                    Medio
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pago of lstPagos; let i = index">
+                <td>
+                    {{i+1}}
+                </td>
+                <td>
+                    {{pago.sfecha}}
+                </td>
+                <td>
+                    {{pago.nmonto | number:'2.2-2'}}
+                </td>
+                <td>
+                    {{pago.smedio}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

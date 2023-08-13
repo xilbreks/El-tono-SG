@@ -1,0 +1,84 @@
+<div class="container expediente">
+    <h4>
+        {{objExpediente.sorganojuris}}
+    </h4>
+    <h4 style="background-color: #f1f1f1; border-radius: 5px; padding: 5px 0;">
+        {{objExpediente.sexpediente}}
+    </h4>
+    <hr/>
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                <b>MATERIA:</b>
+            </td>
+            <td>
+                {{objExpediente.smateria}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>TIPO:</b>
+            </td>
+            <td>
+                {{objExpediente.sespecialidad}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>JUEZ:</b>
+            </td>
+            <td>
+                {{objExpediente.sjuez}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>ESPECIALISTA:</b>
+            </td>
+            <td>
+                {{objExpediente.sespecialista}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>DEMANDANTE:</b>
+            </td>
+            <td>
+                {{objExpediente.sdemandante}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>DEMANDADO:</b>
+            </td>
+            <td>
+                {{objExpediente.sdemandado}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>INICIO:</b>
+            </td>
+            <td>
+                {{objExpediente.sfechainicio}}
+            </td>
+        </tr>
+    </table>
+    <hr/>
+    <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-6">
+            <h6>
+                AREQUIPA
+            </h6>
+        </div>
+        <div class="col-3">
+            <!-- <div style="padding: 0; display: flex; flex-direction: row-reverse;">
+                <a [routerLink]="'/expediente-edit/'+sexpediente" class="btn btn-primary">
+                    <i class="bi bi-pencil"></i>
+                </a>
+            </div> -->
+        </div>
+    </div>
+</div>

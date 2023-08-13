@@ -24,6 +24,12 @@ import { ExpedienteEditComponent } from './expediente-edit/expediente-edit.compo
 import { ExpedienteNewComponent } from './expediente-new/expediente-new.component';
 import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
 import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
+import { ExpedienteItemComponent } from './expediente-item/expediente-item.component';
+import { ExpedienteItemCoverComponent } from './expediente-item-cover/expediente-item-cover.component';
+import { ExpedienteItemContractComponent } from './expediente-item-contract/expediente-item-contract.component';
+import { ExpedienteItemPaymentComponent } from './expediente-item-payment/expediente-item-payment.component';
+import { ExpedienteItemTasksComponent } from './expediente-item-tasks/expediente-item-tasks.component';
+import { ExpedienteItemClientComponent } from './expediente-item-client/expediente-item-client.component';
 
 
 const environment = {
@@ -55,6 +61,12 @@ const environment = {
     ExpedienteNewComponent,
     ExpedienteSearchComponent,
     RdtGeneratorComponent,
+    ExpedienteItemComponent,
+    ExpedienteItemCoverComponent,
+    ExpedienteItemContractComponent,
+    ExpedienteItemPaymentComponent,
+    ExpedienteItemTasksComponent,
+    ExpedienteItemClientComponent,
   ],
   imports: [
     BrowserModule,
