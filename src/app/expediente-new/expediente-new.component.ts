@@ -28,6 +28,7 @@ export class ExpedienteNewComponent {
       ])),
       smateria: new FormControl(null, Validators.required),
       sespecialidad: new FormControl(null, Validators.required),
+      sjuez: new FormControl(null, Validators.required),
       sespecialista: new FormControl(null, Validators.required),
       sdemandante: new FormControl(null, Validators.required),
       sdemandado: new FormControl(null, Validators.required),
@@ -46,6 +47,7 @@ export class ExpedienteNewComponent {
         ...this.frmExpediente.value,
         sfechacreacion: new Date().getTime().toString(), 
         sfechamodificacion: new Date().getTime().toString(),
+        salias: sexpediente.slice(0,10),
       })
       .then((x) => {
         this.router.navigate(['/expediente/',sexpediente]);

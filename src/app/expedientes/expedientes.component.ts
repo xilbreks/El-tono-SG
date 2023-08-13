@@ -33,14 +33,53 @@ export class ExpedientesComponent {
   }
 
   getExpedientes(): void {
-    this.db.collection('expedientes', ref => {
-      return ref.where('sespecialidad','!=','LABORAL')
-      // return ref.orderBy('sfechamodificacion','desc').limit(10);
-    })
+    let obs = this.db.collection('expedientes')
     .valueChanges()
     .subscribe((val: Array<any>) => {
+      console.log('Total de expedientes:', val.length);
+
+      let nLaboral = 0;
+      let nCivil = 0;
+      let nPenal = 0;
+      let nFamilia = 0;
+      let nConstitucional = 0;
+      let nOtros = 0;
+
+      val.forEach(e => {
+        switch(e.sespecialidad) {
+          case 'LABORAL':
+            nLaboral++;
+            break;
+          case 'CIVIL':
+            nCivil++;
+            break;
+          case 'PENAL':
+            nPenal++;
+            break;
+          case 'FAMILIA':
+            nFamilia++;
+            break;
+          case 'CONSTITUCIONAL':
+            nConstitucional++;
+            break;
+          default:
+            nOtros++;
+            console.log(e)
+        }
+      });
+
+      console.log({
+        nLaboral: nLaboral,
+        nCivil: nCivil,
+        nPenal: nPenal,
+        nFamilia: nFamilia,
+        nConstitucional: nConstitucional,
+        nOtros: nOtros
+      })
+
       this.lstExpedientes = val;
-      console.log(val);
+
+      obs.unsubscribe();
     });
   }
 

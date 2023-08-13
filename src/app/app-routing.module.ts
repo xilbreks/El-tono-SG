@@ -49,11 +49,6 @@ const routes: Routes = [
   },
   {
     path: 'expediente/:id',
-    component: ExpedienteViewComponent,
-    canActivate: [autenticacionGuard]
-  },
-  {
-    path: 'item/:id',
     component: ExpedienteItemComponent,
     canActivate: [autenticacionGuard]
   },

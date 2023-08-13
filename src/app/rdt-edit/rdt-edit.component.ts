@@ -258,7 +258,6 @@ export class RdtEditComponent {
 
   get lstDiligencias() {
     return [
-    {id: 'nc', pick: true, desc: 'No Corresponde'},
     {id: 1, pick: true, desc: '1.- INFORMES - INICIALES'},
     {id: 2, pick: true, desc: '2.- INFORMES - DE 1RA INSTANCIA'},
     {id: 3, pick: true, desc: '3.- INFORMES - DE 2DA INSTANCIA'},
@@ -287,7 +286,8 @@ export class RdtEditComponent {
     {id: 26, pick: true, desc: '26.- SEGUIMIENTO DEL PROCESO (CEJ Y SINOE)'},
     {id: 27, pick: true, desc: '27.- RECABAR MEDIOS PROBATORIOS'},
     {id: 28, pick: true, desc: '28.- RECEPCIÓN-REGISTRO Y/O ATENCIÓN DE CLIENTES VÍA CELULAR'},
-    {id: 0, pick: false, desc: '--------------------'},
+    {id: 29, pick: true, desc: '29.- ASISTIR A MUNICIPALIDADES, MINISTERIOS U OTRAS INSTITUCIONES'},
+    {id: 0, pick: false, desc: '------------------------------'},
     {id: 30, pick: true, desc: '30.- ATENDER CLIENTES ANTIGUOS, NUEVOS Y CAPTAR CLIENTES'},
     {id: 31, pick: true, desc: '31.- ANALIZAR Y REVISAR DOCUMENTOS (MEDIOS PROBATORIOS)'},
     {id: 32, pick: true, desc: '32.- ASIGNACIÓN Y SUPERVISIÓN DEL SINOE DE ESCRITOS DE MERO TRÁMITE Y COMPLEJOS REALIZADOS POR LOS ASISTENTES Y PRACTICANTES'},
@@ -313,6 +313,13 @@ export class RdtEditComponent {
     {id: 52, pick: true, desc: '52.- ATENCIÓN CLIENTES VÍA CELULAR'},
     {id: 53, pick: true, desc: '53.- ORGANIZAR ASAMBLEAS, REUNIONES VIRTUALES'},
     {id: 54, pick: true, desc: '54.- COBRAR CLIENTES (HACERLAS EFECTIVAS)'},
+    {id: 0, pick: false, desc: '------------------------------'},
+    {id: 100, pick: true, desc: '100.- SESIONES SEMANALES'},
+    {id: 101, pick: true, desc: '101.- ALMUERZO'},
+    {id: 102, pick: true, desc: '102.- ORDEN Y LIMPIEZA'},
+    {id: 103, pick: true, desc: '103.- ACTUALIZACION DEL PLANER'},
+    {id: 104, pick: true, desc: '104.- SESIONES DE COMPARTIR(ANIVERSARIOS, CUMPLEAÑOS, FESTIVIDADES, ETC)'},
+    {id: 105, pick: true, desc: '105.- OTRO'},
     ]
   }
 
