@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Router } from '@angular/router';
 
 class ObjExpediente {
   sfechainicio: string = '';
@@ -25,10 +24,8 @@ class ObjExpediente {
 })
 export class ExpedientesComponent {
   lstExpedientes: Array<ObjExpediente> = [];
-  lSearching: boolean = false;
-  lNotFound: boolean = false;
 
-  constructor(private db: AngularFirestore, private router: Router) {
+  constructor(private db: AngularFirestore) {
     this.getExpedientes();
   }
 
@@ -81,29 +78,6 @@ export class ExpedientesComponent {
 
       obs.unsubscribe();
     });
-  }
-
-  buscarExpediente(sinput: any): void {
-    if(!sinput) return;
-
-    let sexpediente = sinput.trim();
-    this.lSearching = true;
-    
-    let observando = this.db.collection('expedientes')
-      .doc(sexpediente)
-      .valueChanges()
-      .subscribe((obj: any) => {
-        this.lSearching = false;
-        if (!!obj) {
-          this.router.navigate(['/expediente/',sexpediente]);
-        } else {
-          this.lNotFound = true;
-          setTimeout(()=>{
-            this.lNotFound = false;
-          }, 5000);
-        }
-        observando.unsubscribe();
-      });
   }
 
 }

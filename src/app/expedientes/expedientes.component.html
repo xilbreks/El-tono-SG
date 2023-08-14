@@ -2,93 +2,85 @@
     <h3 style="text-align: center;">
         Expedientes
     </h3>
-    <div class="input-group">
-        <button class="input-group-text" 
-            id="btnGroupAddon"
-            (click)="buscarExpediente(searchTerm.value)"
-            [disabled]="lSearching"
-        >
-            <i class="bi bi-search" *ngIf="!lSearching">
-            </i>
-            <span class="spinner-border spinner-border-sm" 
-                role="status" 
-                aria-hidden="true"
-                *ngIf="lSearching"
-            ></span>
-        </button>
-        <input 
-            type="text" 
-            class="form-control" 
-            placeholder="Termino de busqueda"
-            #searchTerm
-            (keyup.enter)="buscarExpediente(searchTerm.value)"
-        >
-        <button class="input-group-text" 
-            id="btnGroupAddon"
-            (click)="buscarExpediente(searchTerm.value)"
-            [disabled]="lSearching"
-        >
-            <i class="bi bi-search" *ngIf="!lSearching">
-            </i>
-            <span class="spinner-border spinner-border-sm" 
-                role="status" 
-                aria-hidden="true"
-                *ngIf="lSearching"
-            ></span>
-        </button>
-    </div>
-    <div class="alert alert-warning" role="alert" *ngIf="lNotFound">
-        No se encuentra expediente
-    </div>
 </div>
 
-<br/>
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>
-                #
-            </th>
-            <th>
-                Expediente
-            </th>
-            <th>
-                Materia
-            </th>
-            <th>
-                Demandante
-            </th>
-            <th>
-                Demandado
-            </th>
-            <th>
-                Accion
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let expediente of lstExpedientes; let i = index">
-            <td>
-                {{i+1}}
-            </td>
-            <td>
-                {{expediente.sexpediente}}
-            </td>
-            <td>
-                {{expediente.smateria}}
-            </td>
-            <td>
-                {{expediente.sdemandante}}
-            </td>
-            <td>
-                {{expediente.sdemandado}}
-            </td>
-            <td>
-                <a class="btn btn-success" [routerLink]="'/expediente/'+expediente.sexpediente">
-                    Ver
-                </a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Expediente
+                </th>
+                <th>
+                    Materia
+                </th>
+                <th>
+                    Especialidad
+                </th>
+                <th>
+                    Demandante
+                </th>
+                <th>
+                    Demandado
+                </th>
+                <th>
+                    Organo Jurisdiccional
+                </th>
+                <th>
+                    Juez
+                </th>
+                <th>
+                    Especialista
+                </th>
+                <th>
+                    Inicio
+                </th>
+                <th>
+                    Accion
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let expediente of lstExpedientes; let i = index">
+                <td>
+                    {{i+1}}
+                </td>
+                <td>
+                    {{expediente.sexpediente}}
+                </td>
+                <td>
+                    {{expediente.smateria}}
+                </td>
+                <td>
+                    {{expediente.sespecialidad}}
+                </td>
+                <td>
+                    {{expediente.sdemandante}}
+                </td>
+                <td>
+                    {{expediente.sdemandado}}
+                </td>
+                <td>
+                    {{expediente.sorganojuris}}
+                </td>
+                <td>
+                    {{expediente.sjuez}}
+                </td>
+                <td>
+                    {{expediente.sespecialista}}
+                </td>
+                <td>
+                    {{expediente.sfechainicio}}
+                </td>
+                <td>
+                    <a class="btn btn-success" [routerLink]="'/expediente/'+expediente.sexpediente">
+                        Ver
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

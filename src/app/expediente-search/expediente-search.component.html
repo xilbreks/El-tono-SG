@@ -57,7 +57,54 @@
         </div>
     </div>
     <br/>
-    <div class="alert alert-warning" role="alert" *ngIf="lNotFound">
-        No se encuentra el expediente: {{searchTerm.value}}
+    <div *ngIf="lstHits.length != 0" class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Expediente
+                    </th>
+                    <th>
+                        Materia
+                    </th>
+                    <th>
+                        Demandante
+                    </th>
+                    <th>
+                        Demandado
+                    </th>
+                    <th>
+                        Accion
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let expediente of lstHits; let i = index">
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td>
+                        {{expediente.sexpediente}}
+                    </td>
+                    <td>
+                        {{expediente.smateria}}
+                    </td>
+                    <td>
+                        {{expediente.sdemandante}}
+                    </td>
+                    <td>
+                        {{expediente.sdemandado}}
+                    </td>
+                    <td>
+                        <a class="btn btn-success" [routerLink]="'/expediente/'+expediente.sexpediente">
+                            Ver
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

@@ -56,6 +56,7 @@ export class RdtEditComponent {
   lstIter: any[] = [];
   lCreating: boolean = false;
   lUpdating: boolean = false;
+  lSearching: boolean = false;
 
   constructor(
     private db: AngularFirestore,
@@ -83,7 +84,7 @@ export class RdtEditComponent {
       //   ])
       // ),
       ntipoproceso: new FormControl(null, Validators.required),
-      sdestarea: new FormControl(null, Validators.required),
+      sdestarea: new FormControl(null), // deprecated
       scliente: new FormControl(null, Validators.required),
       sdemandado: new FormControl(null, Validators.required),
       niter: new FormControl(null, Validators.required),
@@ -319,7 +320,7 @@ export class RdtEditComponent {
     {id: 102, pick: true, desc: '102.- ORDEN Y LIMPIEZA'},
     {id: 103, pick: true, desc: '103.- ACTUALIZACION DEL PLANER'},
     {id: 104, pick: true, desc: '104.- SESIONES DE COMPARTIR(ANIVERSARIOS, CUMPLEAÑOS, FESTIVIDADES, ETC)'},
-    {id: 105, pick: true, desc: '105.- OTRO'},
+    {id: 110, pick: true, desc: '110.- OTRO'},
     ]
   }
 
@@ -355,7 +356,8 @@ export class RdtEditComponent {
         idtarea: id, 
         idrdt: this.idrdt,
         nsemana: this.objRdt.nsemana,
-        sexpediente: objTarea['sexpediente'].trim().toUpperCase()
+        sexpediente: objTarea['sexpediente'].trim().toUpperCase(),
+        sdestarea: objTarea['sdeseje']
       })
       .then((x) => {
         this.modalService.dismissAll();
@@ -500,6 +502,35 @@ export class RdtEditComponent {
 
     if (dontReset) return;
     this.frmEditTask.controls['niter'].reset();
+  }
+
+  ///////////////////////////////////////////////
+
+  buscarExpedienteAlias() {
+    let sTermino: string = this.frmNewTask.value.sexpediente;
+    sTermino = sTermino.trim().toUpperCase();
+    if(sTermino.length < 10) return;
+    this.lSearching = true;
+    let sAtributo = sTermino.length == 10 ? 'salias' : 'sexpediente';
+    let obs = this.db.collection('expedientes', ref => {
+      return ref.where(sAtributo, '==', sTermino)
+    }).valueChanges()
+    .subscribe((res: Array<any>)=>{
+      if(res.length == 1) {
+        // completar datos al formulario
+        console.log(res[0])
+        this.frmNewTask.controls['sexpediente'].setValue(res[0].sexpediente);
+        this.frmNewTask.controls['sdemandado'].setValue(res[0].sdemandado);
+        this.frmNewTask.controls['scliente'].setValue(res[0].sdemandante);
+        this.frmNewTask.controls['ntipoproceso'].setValue(res[0].sespecialidad.toLowerCase());
+
+        this.setLstIterNewTask();
+      } else if(res.length > 1) {
+        window.alert('Hay mas de un cuaderno con ese numero. Escriba completo');
+      }
+      this.lSearching = false;
+      obs.unsubscribe();
+    })
   }
 
 }

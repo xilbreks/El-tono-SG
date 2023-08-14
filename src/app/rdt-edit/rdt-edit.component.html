@@ -121,7 +121,7 @@
   ----------------------------------------------->
 <ng-template #newTaskModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Agregar Tarea</h4>
+    <h4 class="modal-title" id="modal-basic-title">Informar lo que hice hoy</h4>
     <button
       type="button"
       class="btn-close"
@@ -154,12 +154,25 @@
         </div>
         <div class="col">
           <label for="nexpediente" class="form-label">Expediente</label>
-          <input
-            type="text"
-            class="form-control"
-            id="nexpediente"
-            formControlName="sexpediente"
-          />
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="nexpediente"
+              formControlName="sexpediente"
+              aria-describedby="exp-addon1"
+            />
+            <div class="input-group-append">
+              <button (click)="buscarExpedienteAlias()" class="input-group-text" id="exp-addon1">
+                <i class="bi bi-search" *ngIf="!lSearching"></i>
+                <span class="spinner-border spinner-border-sm" 
+                  role="status" 
+                  aria-hidden="true"
+                  *ngIf="lSearching"
+                ></span>
+              </button>
+            </div>
+          </div>
         </div>
         <div class="col">
           <label for="especialidad" class="form-label">Tipo de proceso</label>
@@ -184,36 +197,8 @@
 
       <div class="row mb-3">
         <div class="col">
-          <label for="delegadoPor" class="form-label"> Delegado por </label>
-          <select
-            class="form-select"
-            id="delegadoPor"
-            formControlName="sdelegadopor"
-          >
-            <option value="nc">No corresponde</option>
-            <option value="dra-lizbet">Dra. Lizbet</option>
-            <option value="dra-erica">Dra. Erica</option>
-            <option value="dr-alvaro">Dr. Alvaro</option>
-            <option value="dra-estrella">Dra. Estrella</option>
-          </select>
-        </div>
-        <div class="col">
-          <label for="descTarea" class="form-label">
-            Mención del caso, tarea, trabajo
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="descTarea"
-            formControlName="sdestarea"
-          />
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col">
           <label for="nombreCliente" class="form-label">
-            Nombre CLIENTE (DTE-DDO)
+            Demandante
           </label>
           <input
             type="text"
@@ -224,7 +209,7 @@
         </div>
         <div class="col">
           <label for="nombreDemandado" class="form-label">
-            Nombre Demandado(DTE-DDO)
+            Demandado
           </label>
           <input
             type="text"
@@ -249,6 +234,63 @@
           </select>
         </div>
         <div class="col">
+          <label for="delegadoPor" class="form-label"> Delegado por </label>
+          <select
+            class="form-select"
+            id="delegadoPor"
+            formControlName="sdelegadopor"
+          >
+            <option value="nc">No corresponde</option>
+            <option value="dra-lizbet">Dra. Lizbet</option>
+            <option value="dra-erica">Dra. Erica</option>
+            <option value="dr-alvaro">Dr. Alvaro</option>
+            <option value="dra-estrella">Dra. Estrella</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label for="codigoEjecutivo" class="form-label"> Código </label>
+          <select
+            class="form-select"
+            id="codigoEjecutivo"
+            formControlName="ncodeje"
+          >
+            <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
+              {{dil.desc}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label for="descripcionEjecutiva" class="form-label">
+            Mención del caso, tarea, trabajo
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="descripcionEjecutiva"
+            formControlName="sdeseje"
+          />
+        </div>
+        <div class="col">
+          <label for="accionesEjecutivas" class="form-label">
+            Acciones a Realizar
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="accionesEjecutivas"
+            formControlName="sacceje"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
           <label for="cumplimiento" class="form-label"> Cumplimiento(%) </label>
           <select
             class="form-select"
@@ -267,27 +309,6 @@
             <option value="90%">90%</option>
             <option value="100%">100%</option>
           </select>
-        </div>
-        <div class="col">
-          <label for="fechaCulminacion" class="form-label">
-            Fecha culminación
-          </label>
-          <input type="text" class="form-control" id="fechaCulminacion" formControlName="fculminacion"/>
-          <!-- <div class="input-group">
-            <input
-              id="fechaCulminacion"
-              class="form-control"
-              placeholder="yyyy-mm-dd"
-              ngbDatepicker
-              #dp="ngbDatepicker"
-              formControlName="fculminacion"
-            />
-            <button
-              type="button"
-              class="btn btn-outline-secondary bi bi-calendar"
-              (click)="dp.toggle()"
-            ></button>
-          </div> -->
         </div>
         <div class="col">
           <label for="tiempoAtencion" class="form-label">
@@ -334,45 +355,29 @@
           </div>
           
         </div>
-      </div>
-
-      <div class="row mb-3">
         <div class="col">
-          <label for="codigoEjecutivo" class="form-label"> Código </label>
-          <select
-            class="form-select"
-            id="codigoEjecutivo"
-            formControlName="ncodeje"
-          >
-            <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
-              {{dil.desc}}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col">
-          <label for="descripcionEjecutiva" class="form-label">
-            Descripción Ejecutiva
+          <label for="fechaCulminacion" class="form-label">
+            Fecha culminación
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="descripcionEjecutiva"
-            formControlName="sdeseje"
-          />
+          <input type="text" class="form-control" id="fechaCulminacion" formControlName="fculminacion"/>
+          <!-- <div class="input-group">
+            <input
+              id="fechaCulminacion"
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              ngbDatepicker
+              #dp="ngbDatepicker"
+              formControlName="fculminacion"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-secondary bi bi-calendar"
+              (click)="dp.toggle()"
+            ></button>
+          </div> -->
         </div>
         <div class="col">
-          <label for="accionesEjecutivas" class="form-label">
-            Acciones a Realizar
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="accionesEjecutivas"
-            formControlName="sacceje"
-          />
+          
         </div>
       </div>
     </form>
@@ -397,10 +402,10 @@
       >
       </span>
       <span class="sr-only" *ngIf="!lCreating">
-          Agregar Tarea
+          Guardar
       </span>
       <span class="sr-only" *ngIf="lCreating">
-          Agregando...
+          Guardando...
       </span>
     </button>
   </div>

@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class ExpedienteSearchComponent {
   lSearching: boolean = false;
-  lNotFound: boolean = false;
+  lstHits: Array<any> = [];
 
   constructor(
     private db: AngularFirestore, 
@@ -20,24 +20,29 @@ export class ExpedienteSearchComponent {
     this.titleService.setTitle('Buscar expediente');
   }
 
-  buscarExpediente(sinput: any): void {
-    if(!sinput) return;
+  buscarExpediente(sSearchTerm: any): void {
+    if(!sSearchTerm) return;
 
-    let sexpediente = sinput.trim().toUpperCase();
+    let sexpediente = sSearchTerm.trim().toUpperCase();
+
+    if(sexpediente.length < 10) return;
     this.lSearching = true;
-    this.lNotFound = false;
-    
-    let observando = this.db.collection('expedientes')
-      .doc(sexpediente)
+    let sAtributo = sexpediente.length == 10 ? 'salias' : 'sexpediente';
+
+    let obs = this.db.collection('expedientes', ref => {
+      return ref.where(sAtributo, '==', sexpediente)
+    })
       .valueChanges()
-      .subscribe((obj: any) => {
-        this.lSearching = false;
-        if (!!obj) {
-          this.router.navigate(['/expediente/',sexpediente]);
+      .subscribe((data: Array<any>) => {
+        if (data.length == 0) {
+          window.alert('No se encontro expediente');
+        } else if (data.length == 1) {
+          this.router.navigate(['/expediente/',data[0].sexpediente]);
         } else {
-          this.lNotFound = true;
+          this.lstHits = data;
         }
-        observando.unsubscribe();
+        this.lSearching = false;
+        obs.unsubscribe();
       });
   }
 }
