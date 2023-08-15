@@ -1,0 +1,34 @@
+<br/>
+
+<h5>Registro de llamadas al celular rojo:</h5>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Tipo
+                </th>
+                <th>
+                    Duración
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of lstCalls">
+                <td>
+                    {{c.sfecha}}
+                </td>
+                <td>
+                    {{c.stipo}}
+                </td>
+                <td>
+                    {{c.sduracion}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

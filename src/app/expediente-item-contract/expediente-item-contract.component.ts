@@ -27,7 +27,6 @@ export class ExpedienteItemContractComponent implements OnInit {
   objContrato: Contrato = new Contrato({});
   lUploadingContrato: boolean = false;
   urlDownloadContrato = null;
-  lGeneratingUrlContrato = false;
 
   constructor(
     private db: AngularFirestore,
@@ -49,6 +48,7 @@ export class ExpedienteItemContractComponent implements OnInit {
       if (data.length > 0) {
         this.lContrato = true;
         this.objContrato = new Contrato(data[0]);
+        this.getUrlContrato();
       } else {
         this.lContrato = false;
       }
@@ -92,15 +92,15 @@ export class ExpedienteItemContractComponent implements OnInit {
     //   });
   }
 
-  crearDownloadUrlContrato() {
-    // this.lGeneratingUrlContrato = true;
-    // let observer = this.storage.ref(this.objExpediente.urlcontrato)
-    //   .getDownloadURL()
-    //   .subscribe((url)=>{
-    //     this.urlDownloadContrato = url;
-    //     this.lGeneratingUrlContrato = false;
-    //     observer.unsubscribe();
-    //   });
+  getUrlContrato() {
+    let obs = this.storage.ref('contratos/'+this.sexpediente+'.pdf')
+      .getDownloadURL()
+      .subscribe((url)=>{
+        
+        this.urlDownloadContrato = url;
+        console.log(this.urlDownloadContrato)
+        obs.unsubscribe();
+      });
   }
 
 }

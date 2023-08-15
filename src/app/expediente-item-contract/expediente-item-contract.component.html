@@ -16,8 +16,10 @@
             {{objContrato.sdetalle}}
         </span>
     </div>
-    <div>
-        <a [href]="'https://google.com'">Ver contrato aqui</a>
+    <div *ngIf="urlDownloadContrato">
+        <a [href]="urlDownloadContrato" target="_blank">
+            Ver contrato aqui
+        </a>
     </div>
 </div>
 

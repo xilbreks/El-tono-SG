@@ -1,20 +1,41 @@
 <br/>
 
 <div *ngIf="!!lCliente">
-    <b>
+    <!-- <b>
         {{objCliente.spaterno + ' ' + objCliente.smaterno + ', ' + objCliente.snombres}}
-        (
-            {{27}}
-        )
         <span *ngIf="objCliente.sgenero=='masculino'">
             <i class="bi bi-gender-male"></i>
         </span>
         <span *ngIf="objCliente.sgenero=='femenino'">
             <i class="bi bi-gender-female"></i>
         </span>
-    </b>
+    </b> -->
 
-    <table class="table">
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                Nombres:
+            </td>
+            <td>
+                {{objCliente.snombres}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Apellido Paterno:
+            </td>
+            <td>
+                {{objCliente.spaterno}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Apellido Materno:
+            </td>
+            <td>
+                {{objCliente.smaterno}}
+            </td>
+        </tr>
         <tr>
             <td>
                 Celular:
@@ -23,14 +44,14 @@
                 {{objCliente.scelular}}
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>
                 Correo:
             </td>
             <td>
                 {{objCliente.scorreo}}
             </td>
-        </tr>
+        </tr> -->
         <tr>
             <td>
                 Direccion:
@@ -47,7 +68,7 @@
                 {{objCliente.sdni}}
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>
                 Estado civil:
             </td>
@@ -62,7 +83,7 @@
             <td>
                 {{objCliente.socupacion}}
             </td>
-        </tr>
+        </tr> -->
         <tr>
             <td>
                 Observacion:

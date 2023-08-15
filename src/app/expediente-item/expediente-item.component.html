@@ -13,6 +13,11 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
+            <button class="nav-link" id="llamadas-tab" data-bs-toggle="tab" data-bs-target="#llamadas-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
+                Llamadas
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
             <button class="nav-link" id="contrato-tab" data-bs-toggle="tab" data-bs-target="#contrato-tab-pane" type="button" role="tab" aria-controls="contrato-tab-pane" aria-selected="false">
                 Contrato
             </button>
@@ -34,6 +39,9 @@
         </div>
         <div class="tab-pane fade" id="historial-tab-pane" role="tabpanel" aria-labelledby="historial-tab" tabindex="0">
             <app-expediente-item-tasks [sexpediente]="sexpediente"></app-expediente-item-tasks>
+        </div>
+        <div class="tab-pane fade" id="llamadas-tab-pane" role="tabpanel" aria-labelledby="llamadas-tab" tabindex="0">
+            <app-expediente-item-calls [sexpediente]="sexpediente"></app-expediente-item-calls>
         </div>
         <div class="tab-pane fade" id="contrato-tab-pane" role="tabpanel" aria-labelledby="contrato-tab" tabindex="0">
             <app-expediente-item-contract [sexpediente]="sexpediente"></app-expediente-item-contract>

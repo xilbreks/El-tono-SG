@@ -30,6 +30,7 @@ import { ExpedienteItemContractComponent } from './expediente-item-contract/expe
 import { ExpedienteItemPaymentComponent } from './expediente-item-payment/expediente-item-payment.component';
 import { ExpedienteItemTasksComponent } from './expediente-item-tasks/expediente-item-tasks.component';
 import { ExpedienteItemClientComponent } from './expediente-item-client/expediente-item-client.component';
+import { ExpedienteItemCallsComponent } from './expediente-item-calls/expediente-item-calls.component';
 
 
 const environment = {
@@ -67,6 +68,7 @@ const environment = {
     ExpedienteItemPaymentComponent,
     ExpedienteItemTasksComponent,
     ExpedienteItemClientComponent,
+    ExpedienteItemCallsComponent,
   ],
   imports: [
     BrowserModule,
