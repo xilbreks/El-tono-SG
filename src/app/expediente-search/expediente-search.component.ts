@@ -30,7 +30,16 @@ export class ExpedienteSearchComponent implements AfterViewInit {
 
     let sexpediente = sSearchTerm.trim().toUpperCase();
 
-    if(sexpediente.length < 10) return;
+    if (sexpediente.length <= 10) {
+      if (!sexpediente.match(/^\d{1,5}[-]\d{4}$/)) {
+        return;
+      }
+      let nCeros = 10 - sexpediente.length;
+      for (let i = 0; i < nCeros; i++) {
+        sexpediente = '0' + sexpediente;
+      }
+    }
+
     this.lSearching = true;
     let sAtributo = sexpediente.length == 10 ? 'salias' : 'sexpediente';
 
