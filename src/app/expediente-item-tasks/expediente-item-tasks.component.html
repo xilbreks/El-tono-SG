@@ -1,7 +1,8 @@
-<li class="list-group-item" *ngFor="let h of lstHistorial">
-    <u>{{h.fech}}, {{h.user}}</u>.- 
-    <b>Tarea:</b> {{h.task}}
-    <b>Accion realizada:</b> {{h.desc}}
-    <b>Accion por realizar:</b> {{h.pend}}
-    <i>ITER: {{h.iter}}</i>
-</li>
+<ul>
+    <li *ngFor="let h of lstHistorial">
+        <u>{{h.fech}}, {{h.user}}</u>.- 
+        <b>Tarea:</b> {{h.desc}}
+        <b>Por realizar:</b> {{h.pend}}
+        <i>ITER: {{h.iter}}</i>
+    </li>
+</ul>

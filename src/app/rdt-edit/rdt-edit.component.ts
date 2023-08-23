@@ -502,7 +502,16 @@ export class RdtEditComponent {
   buscarExpedienteAlias() {
     let sTermino: string = this.frmNewTask.value.sexpediente;
     sTermino = sTermino.trim().toUpperCase();
-    if (sTermino.length < 10) return;
+    if (sTermino.length <= 10) {
+      if (!sTermino.match(/^\d{1,5}[-]\d{4}$/)) {
+        return;
+      }
+      let nCeros = 10 - sTermino.length;
+      for (let i = 0; i < nCeros; i++) {
+        sTermino = '0' + sTermino;
+      }
+    }
+
     this.lSearching = true;
     let sAtributo = sTermino.length == 10 ? 'salias' : 'sexpediente';
     let obs = this.db.collection('expedientes', ref => {

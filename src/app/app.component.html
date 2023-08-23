@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
-        <li class="nav-item dropdown" *ngIf="!!user">
+        <li class="nav-item dropdown" *ngIf="false">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -38,8 +38,16 @@
           </ul>
         </li>
 
+        <li class="nav-item" *ngIf="!!user">
+          <a class="nav-link" routerLink="/expediente-search"> Buscar </a>
+        </li>
+
         <li class="nav-item" *ngIf="user?.displayName=='ADMIN'">
-          <a routerLink="/stats-rdt" class="nav-link">Stadisticas</a>
+          <a class="nav-link" routerLink="/expediente-new"> Registrar Expediente </a>
+        </li>
+
+        <li class="nav-item" *ngIf="user?.displayName=='ADMIN'">
+          <a class="nav-link" routerLink="/stats-rdt">Stadisticas</a>
         </li>
 
         <li>

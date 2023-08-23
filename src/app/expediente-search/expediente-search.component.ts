@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -8,7 +8,8 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './expediente-search.component.html',
   styleUrls: ['./expediente-search.component.scss']
 })
-export class ExpedienteSearchComponent {
+export class ExpedienteSearchComponent implements AfterViewInit {
+  @ViewChild('searchTerm') searchTerm: any;
   lSearching: boolean = false;
   lstHits: Array<any> = [];
 
@@ -18,6 +19,10 @@ export class ExpedienteSearchComponent {
     private titleService: Title,
   ) {
     this.titleService.setTitle('Buscar expediente');
+  }
+
+  ngAfterViewInit(): void {
+    this.searchTerm.nativeElement.focus();
   }
 
   buscarExpediente(sSearchTerm: any): void {
