@@ -17,15 +17,14 @@
         <th scope="col" class="vertical">Delegado por</th>
         <th scope="col" class="vertical">Expediente</th>
         <th scope="col" class="vertical">Tipo de proceso</th>
-        <th scope="col" class="vertical">Mención de la tarea</th>
         <th scope="col" class="vertical">Cliente</th>
         <th scope="col" class="vertical">Demandado</th>
         <th scope="col" class="vertical">ITER</th>
         <th scope="col" class="vertical">Avance(%)</th>
         <th scope="col" class="vertical">F. culminación</th>
         <th scope="col" class="vertical">T. Atención</th>
-        <th scope="col" class="vertical">Código</th>
-        <th scope="col" class="vertical">Descripción</th>
+        <th scope="col" class="vertical">Código de tarea</th>
+        <th scope="col" class="vertical">Mención de la tarea</th>
         <th scope="col" class="vertical">Acciones a realizar</th>
       </tr>
     </thead>
@@ -47,9 +46,6 @@
         <td class="vertical">
           {{ tarea.ntipoproceso }}
         </td>
-        <td>
-          {{ tarea.sdestarea }}
-        </td>
         <td class="vertical">
           {{ tarea.scliente }}
         </td>
@@ -66,12 +62,7 @@
           {{ tarea.fculminacion }}
         </td>
         <td>
-          <span *ngIf="tarea.stiempoatencion">
-            {{tarea.stiempoatencion}}
-          </span>
-          <span *ngIf="!tarea.stiempoatencion">
-            {{tarea.nhorasatencion}}:{{tarea.nminutosatencion}}
-          </span>
+          {{tarea.nhorasatencion}}:{{tarea.nminutosatencion}}
         </td>
         <td>
           {{ tarea.ncodeje }}

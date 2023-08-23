@@ -24,13 +24,11 @@ class ObjTarea {
   sdelegadopor: string = '';
   sexpediente: string = '';
   ntipoproceso: string = '';
-  sdestarea: string = '';
   scliente: string = '';
   sdemandado: string = '';
   niter: string = '';
   navance: string = '';
   fculminacion: string = '';
-  stiempoatencion: string = ''; // deprecated
   ncodeje: string = '';
   sdeseje: string = '';
   sacceje: string = '';

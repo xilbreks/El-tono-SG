@@ -16,15 +16,14 @@
         <th scope="col" class="vertical">Delegado por</th>
         <th scope="col" class="vertical">Expediente</th>
         <th scope="col" class="vertical">Tipo de proceso</th>
-        <th scope="col" class="vertical">Mención de la tarea</th>
         <th scope="col" class="vertical">Cliente</th>
         <th scope="col" class="vertical">Demandado</th>
         <th scope="col" class="vertical">ITER</th>
         <th scope="col" class="vertical">Avance(%)</th>
         <th scope="col" class="vertical">F. culminación</th>
         <th scope="col" class="vertical">T. Atención</th>
-        <th scope="col" class="vertical">Código</th>
-        <th scope="col" class="vertical">Descripción</th>
+        <th scope="col" class="vertical">Código de tarea</th>
+        <th scope="col" class="vertical">Mención de la tarea</th>
         <th scope="col" class="vertical">Acciones a realizar</th>
         <th></th>
         <th></th>
@@ -49,9 +48,6 @@
         <td class="vertical">
           {{ tarea.ntipoproceso }}
         </td>
-        <td>
-          {{ tarea.sdestarea }}
-        </td>
         <td class="vertical">
           {{ tarea.scliente }}
         </td>
@@ -68,12 +64,7 @@
           {{ tarea.fculminacion }}
         </td>
         <td>
-          <span *ngIf="tarea.stiempoatencion">
-            {{tarea.stiempoatencion}}
-          </span>
-          <span *ngIf="!tarea.stiempoatencion">
-            {{tarea.nhorasatencion}}:{{tarea.nminutosatencion}}
-          </span>
+          {{tarea.nhorasatencion}}:{{tarea.nminutosatencion}}
         </td>
         <td>
           {{ tarea.ncodeje }}
@@ -85,29 +76,17 @@
           {{ tarea.sacceje }}
         </td>
         <td>
-          <button 
-            class="btn btn-outline-dark" 
-            (click)="duplicarTarea(tarea)"
-            ngbTooltip="Duplicar"
-          >
+          <button class="btn btn-outline-dark" (click)="duplicarTarea(tarea)" ngbTooltip="Duplicar">
             <i class="bi bi-files"></i>
           </button>
         </td>
         <td>
-          <button 
-            class="btn btn-outline-dark" 
-            (click)="openEditTaskModal(tarea, editTaskModal)"
-            ngbTooltip="Editar"
-          >
+          <button class="btn btn-outline-dark" (click)="openEditTaskModal(tarea, editTaskModal)" ngbTooltip="Editar">
             <i class="bi bi-pencil"></i>
           </button>
         </td>
         <td>
-          <button 
-            class="btn btn-outline-dark" 
-            (click)="eliminarTarea(tarea.idtarea)"
-            ngbTooltip="Eliminar"
-          >
+          <button class="btn btn-outline-dark" (click)="eliminarTarea(tarea.idtarea)" ngbTooltip="Eliminar">
             <i class="bi bi-trash"></i>
           </button>
         </td>
@@ -122,13 +101,8 @@
 <ng-template #newTaskModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Informar lo que hice hoy</h4>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="modal"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="frmNewTask" autocomplete="off">
@@ -155,33 +129,20 @@
         <div class="col">
           <label for="nexpediente" class="form-label">Expediente</label>
           <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="nexpediente"
-              formControlName="sexpediente"
-              aria-describedby="exp-addon1"
-            />
+            <input type="text" class="form-control" id="nexpediente" formControlName="sexpediente"
+              aria-describedby="exp-addon1" />
             <div class="input-group-append">
               <button (click)="buscarExpedienteAlias()" class="input-group-text" id="exp-addon1">
                 <i class="bi bi-search" *ngIf="!lSearching"></i>
-                <span class="spinner-border spinner-border-sm" 
-                  role="status" 
-                  aria-hidden="true"
-                  *ngIf="lSearching"
-                ></span>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                  *ngIf="lSearching"></span>
               </button>
             </div>
           </div>
         </div>
         <div class="col">
           <label for="especialidad" class="form-label">Tipo de proceso</label>
-          <select
-            class="form-select"
-            id="especialidad"
-            formControlName="ntipoproceso"
-            (change)="setLstIterNewTask()"
-          >
+          <select class="form-select" id="especialidad" formControlName="ntipoproceso" (change)="setLstIterNewTask()">
             <option value="nc">No corresponde</option>
             <option value="laboral">Laboral</option>
             <option value="penal">Penal</option>
@@ -200,34 +161,20 @@
           <label for="nombreCliente" class="form-label">
             Demandante
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="nombreCliente"
-            formControlName="scliente"
-          />
+          <input type="text" class="form-control" id="nombreCliente" formControlName="scliente" />
         </div>
         <div class="col">
           <label for="nombreDemandado" class="form-label">
             Demandado
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="nombreDemandado"
-            formControlName="sdemandado"
-          />
+          <input type="text" class="form-control" id="nombreDemandado" formControlName="sdemandado" />
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col">
           <label for="iteractividad" class="form-label"> ITER Procesal </label>
-          <select
-            class="form-select"
-            id="iteractividad"
-            formControlName="niter"
-          >
+          <select class="form-select" id="iteractividad" formControlName="niter">
             <option *ngFor="let iter of lstIter" [value]="iter.id" [disabled]="!iter.pick">
               {{iter.desc}}
             </option>
@@ -235,16 +182,14 @@
         </div>
         <div class="col">
           <label for="delegadoPor" class="form-label"> Delegado por </label>
-          <select
-            class="form-select"
-            id="delegadoPor"
-            formControlName="sdelegadopor"
-          >
-            <option value="nc">No corresponde</option>
+          <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
             <option value="dra-lizbet">Dra. Lizbet</option>
             <option value="dra-erica">Dra. Erica</option>
             <option value="dr-alvaro">Dr. Alvaro</option>
             <option value="dra-estrella">Dra. Estrella</option>
+            <option value="dr-huander">Dr. Huander</option>
+            <option value="ing-wilber">Ing. Wilber</option>
+            <option value="proactividad">Iniciativa Propia</option>
           </select>
         </div>
       </div>
@@ -252,11 +197,7 @@
       <div class="row mb-3">
         <div class="col">
           <label for="codigoEjecutivo" class="form-label"> Código </label>
-          <select
-            class="form-select"
-            id="codigoEjecutivo"
-            formControlName="ncodeje"
-          >
+          <select class="form-select" id="codigoEjecutivo" formControlName="ncodeje">
             <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
               {{dil.desc}}
             </option>
@@ -269,34 +210,22 @@
           <label for="descripcionEjecutiva" class="form-label">
             Mención del caso, tarea, trabajo
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="descripcionEjecutiva"
-            formControlName="sdeseje"
-          />
+          <textarea class="form-control" id="descripcionEjecutiva" formControlName="sdeseje">
+          </textarea>
         </div>
         <div class="col">
           <label for="accionesEjecutivas" class="form-label">
             Acciones a Realizar
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="accionesEjecutivas"
-            formControlName="sacceje"
-          />
+          <textarea class="form-control" id="accionesEjecutivas" formControlName="sacceje">
+          </textarea>
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col">
           <label for="cumplimiento" class="form-label"> Cumplimiento(%) </label>
-          <select
-            class="form-select"
-            id="cumplimiento"
-            formControlName="navance"
-          >
+          <select class="form-select" id="cumplimiento" formControlName="navance">
             <option value="nc">No corresponde</option>
             <option value="10%">10%</option>
             <option value="20%">20%</option>
@@ -314,31 +243,25 @@
           <label for="tiempoAtencion" class="form-label">
             Tiempo de Atención
           </label>
-          <br/>
+          <br />
           <div style="display: flex;">
-            <select
-            class="form-control" style="display: inline-block;"
-            id="tiempoAtencion"
-            formControlName="nhorasatencion"
-          >
-            <option value="00">0h</option>
-            <option value="01">1h</option>
-            <option value="02">2h</option>
-            <option value="03">3h</option>
-            <option value="04">4h</option>
-            <option value="05">5h</option>
-            <option value="06">6h</option>
-            <option value="07">7h</option>
-            <option value="08">8h</option>
-            <option value="09">9h</option>
-            <option value="10">10h</option>
-            <option value="11">11h</option>
-            <option value="12">12h</option>
+            <select class="form-control" style="display: inline-block;" id="tiempoAtencion"
+              formControlName="nhorasatencion">
+              <option value="00">0h</option>
+              <option value="01">1h</option>
+              <option value="02">2h</option>
+              <option value="03">3h</option>
+              <option value="04">4h</option>
+              <option value="05">5h</option>
+              <option value="06">6h</option>
+              <option value="07">7h</option>
+              <option value="08">8h</option>
+              <option value="09">9h</option>
+              <option value="10">10h</option>
+              <option value="11">11h</option>
+              <option value="12">12h</option>
             </select>
-            <select
-            class="form-control" style="display: inline-block;"
-              formControlName="nminutosatencion"
-            >
+            <select class="form-control" style="display: inline-block;" formControlName="nminutosatencion">
               <option value="00">00m</option>
               <option value="05">05m</option>
               <option value="10">10m</option>
@@ -353,13 +276,13 @@
               <option value="55">55m</option>
             </select>
           </div>
-          
+
         </div>
         <div class="col">
           <label for="fechaCulminacion" class="form-label">
             Fecha culminación
           </label>
-          <input type="text" class="form-control" id="fechaCulminacion" formControlName="fculminacion"/>
+          <input type="text" class="form-control" id="fechaCulminacion" formControlName="fculminacion" />
           <!-- <div class="input-group">
             <input
               id="fechaCulminacion"
@@ -377,7 +300,7 @@
           </div> -->
         </div>
         <div class="col">
-          
+
         </div>
       </div>
     </form>
@@ -389,23 +312,15 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="agregarTarea()"
-      [disabled]="!(frmNewTask.valid && !lCreating)"
-    >
-      <span class="spinner-border spinner-border-sm" 
-        role="status" 
-        aria-hidden="true"
-        *ngIf="lCreating"
-      >
+    <button type="button" class="btn btn-primary" (click)="agregarTarea()"
+      [disabled]="!(frmNewTask.valid && !lCreating)">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreating">
       </span>
       <span class="sr-only" *ngIf="!lCreating">
-          Guardar
+        Guardar
       </span>
       <span class="sr-only" *ngIf="lCreating">
-          Guardando...
+        Guardando...
       </span>
     </button>
   </div>
@@ -417,13 +332,8 @@
 <ng-template #editTaskModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Editar Tarea</h4>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="modal"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="frmEditTask" autocomplete="off">
@@ -449,21 +359,11 @@
         </div>
         <div class="col">
           <label for="nexpediente" class="form-label">Expediente</label>
-          <input
-            type="text"
-            class="form-control"
-            id="nexpediente"
-            formControlName="sexpediente"
-          />
+          <input type="text" class="form-control" id="nexpediente" formControlName="sexpediente" />
         </div>
         <div class="col">
           <label for="especialidad" class="form-label">Tipo de proceso</label>
-          <select
-            class="form-select"
-            id="especialidad"
-            formControlName="ntipoproceso"
-            (change)="setLstIterEditTask()"
-          >
+          <select class="form-select" id="especialidad" formControlName="ntipoproceso" (change)="setLstIterEditTask()">
             <option value="nc">No corresponde</option>
             <option value="laboral">Laboral</option>
             <option value="penal">Penal</option>
@@ -479,77 +379,74 @@
 
       <div class="row mb-3">
         <div class="col">
-          <label for="delegadoPor" class="form-label"> Delegado por </label>
-          <select
-            class="form-select"
-            id="delegadoPor"
-            formControlName="sdelegadopor"
-          >
-            <option value="nc">No corresponde</option>
-            <option value="dra-lizbet">Dra. Lizbet</option>
-            <option value="dra-erica">Dra. Erica</option>
-            <option value="dr-alvaro">Dr. Alvaro</option>
-            <option value="dra-estrella">Dra. Estrella</option>
-          </select>
-        </div>
-        <div class="col">
-          <label for="descTarea" class="form-label">
-            Mención del caso, tarea, trabajo
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="descTarea"
-            formControlName="sdestarea"
-          />
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col">
           <label for="nombreCliente" class="form-label">
-            Nombre CLIENTE (DTE-DDO)
+            Demandante
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="nombreCliente"
-            formControlName="scliente"
-          />
+          <input type="text" class="form-control" id="nombreCliente" formControlName="scliente" />
         </div>
         <div class="col">
           <label for="nombreDemandado" class="form-label">
-            Nombre Demandado(DTE-DDO)
+            Demandado
           </label>
-          <input
-            type="text"
-            class="form-control"
-            id="nombreDemandado"
-            formControlName="sdemandado"
-          />
+          <input type="text" class="form-control" id="nombreDemandado" formControlName="sdemandado" />
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col">
           <label for="iteractividad" class="form-label"> ITER Procesal </label>
-          <select
-            class="form-select"
-            id="iteractividad"
-            formControlName="niter"
-          >
+          <select class="form-select" id="iteractividad" formControlName="niter">
             <option *ngFor="let iter of lstIter" [value]="iter.id" [disabled]="!iter.pick">
               {{iter.desc}}
             </option>
           </select>
         </div>
         <div class="col">
+          <label for="delegadoPor" class="form-label"> Delegado por </label>
+          <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
+            <option value="dra-lizbet">Dra. Lizbet</option>
+            <option value="dra-erica">Dra. Erica</option>
+            <option value="dr-alvaro">Dr. Alvaro</option>
+            <option value="dra-estrella">Dra. Estrella</option>
+            <option value="dr-huander">Dr. Huander</option>
+            <option value="ing-wilber">Ing. Wilber</option>
+            <option value="proactividad">Iniciativa Propia</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label for="codigoEjecutivo" class="form-label"> Código </label>
+          <select class="form-select" id="codigoEjecutivo" formControlName="ncodeje">
+            <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
+              {{dil.desc}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label for="descripcionEjecutiva" class="form-label">
+            Mención del caso, tarea, trabajo
+          </label>
+          <textarea class="form-control" id="descripcionEjecutiva" formControlName="sdeseje">
+          </textarea>
+        </div>
+        <div class="col">
+          <label for="accionesEjecutivas" class="form-label">
+            Acciones a Realizar
+          </label>
+          <textarea class="form-control" id="accionesEjecutivas" formControlName="sacceje">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
           <label for="cumplimiento" class="form-label"> Cumplimiento(%) </label>
-          <select
-            class="form-select"
-            id="cumplimiento"
-            formControlName="navance"
-          >
+          <select class="form-select" id="cumplimiento" formControlName="navance">
             <option value="nc">No corresponde</option>
             <option value="10%">10%</option>
             <option value="20%">20%</option>
@@ -564,10 +461,49 @@
           </select>
         </div>
         <div class="col">
+          <label for="tiempoAtencion" class="form-label">
+            Tiempo de Atención
+          </label>
+          <br />
+          <div style="display: flex;">
+            <select class="form-control" style="display: inline-block;" id="tiempoAtencion"
+              formControlName="nhorasatencion">
+              <option value="00">0h</option>
+              <option value="01">1h</option>
+              <option value="02">2h</option>
+              <option value="03">3h</option>
+              <option value="04">4h</option>
+              <option value="05">5h</option>
+              <option value="06">6h</option>
+              <option value="07">7h</option>
+              <option value="08">8h</option>
+              <option value="09">9h</option>
+              <option value="10">10h</option>
+              <option value="11">11h</option>
+              <option value="12">12h</option>
+            </select>
+            <select class="form-control" style="display: inline-block;" formControlName="nminutosatencion">
+              <option value="00">00m</option>
+              <option value="05">05m</option>
+              <option value="10">10m</option>
+              <option value="15">15m</option>
+              <option value="20">20m</option>
+              <option value="25">25m</option>
+              <option value="30">30m</option>
+              <option value="35">35m</option>
+              <option value="40">40m</option>
+              <option value="45">45m</option>
+              <option value="50">50m</option>
+              <option value="55">55m</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="col">
           <label for="fechaCulminacion" class="form-label">
             Fecha culminación
           </label>
-          <input type="text" class="form-control" id="fechaCulminacion" formControlName="fculminacion"/>
+          <input type="text" class="form-control" id="fechaCulminacion" formControlName="fculminacion" />
           <!-- <div class="input-group">
             <input
               id="fechaCulminacion"
@@ -585,89 +521,7 @@
           </div> -->
         </div>
         <div class="col">
-          <label for="tiempoAtencion" class="form-label">
-            Tiempo de Atención
-          </label>
-          <br/>
-          <div style="display: flex;">
-            <select
-            class="form-control" style="display: inline-block;"
-            id="tiempoAtencion"
-            formControlName="nhorasatencion"
-          >
-            <option value="00">0h</option>
-            <option value="01">1h</option>
-            <option value="02">2h</option>
-            <option value="03">3h</option>
-            <option value="04">4h</option>
-            <option value="05">5h</option>
-            <option value="06">6h</option>
-            <option value="07">7h</option>
-            <option value="08">8h</option>
-            <option value="09">9h</option>
-            <option value="10">10h</option>
-            <option value="11">11h</option>
-            <option value="12">12h</option>
-            </select>
-            <select
-            class="form-control" style="display: inline-block;"
-              formControlName="nminutosatencion"
-            >
-              <option value="00">00m</option>
-              <option value="05">05m</option>
-              <option value="10">10m</option>
-              <option value="15">15m</option>
-              <option value="20">20m</option>
-              <option value="25">25m</option>
-              <option value="30">30m</option>
-              <option value="35">35m</option>
-              <option value="40">40m</option>
-              <option value="45">45m</option>
-              <option value="50">50m</option>
-              <option value="55">55m</option>
-            </select>
-          </div>
-          
-        </div>
-      </div>
 
-      <div class="row mb-3">
-        <div class="col">
-          <label for="codigoEjecutivo" class="form-label"> Código </label>
-          <select
-            class="form-select"
-            id="codigoEjecutivo"
-            formControlName="ncodeje"
-          >
-            <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
-              {{dil.desc}}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col">
-          <label for="descripcionEjecutiva" class="form-label">
-            Descripción Ejecutiva
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="descripcionEjecutiva"
-            formControlName="sdeseje"
-          />
-        </div>
-        <div class="col">
-          <label for="accionesEjecutivas" class="form-label">
-            Acciones a Realizar
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="accionesEjecutivas"
-            formControlName="sacceje"
-          />
         </div>
       </div>
     </form>
@@ -679,23 +533,15 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="editarTarea()"
-      [disabled]="!(frmEditTask.valid && !lUpdating)"
-    >
-      <span class="spinner-border spinner-border-sm" 
-        role="status" 
-        aria-hidden="true"
-        *ngIf="lUpdating"
-      >
+    <button type="button" class="btn btn-primary" (click)="editarTarea()"
+      [disabled]="!(frmEditTask.valid && !lUpdating)">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
       </span>
       <span class="sr-only" *ngIf="!lUpdating">
-          Actualizar tarea
+        Actualizar tarea
       </span>
       <span class="sr-only" *ngIf="lUpdating">
-          Actualizando...
+        Actualizando...
       </span>
     </button>
   </div>
