@@ -6,7 +6,7 @@ import * as XLSX from 'xlsx';
 class ObjRdt {
   public idrdt: string = '';
   public idcolaborador: string = '';
-  public dfecha: string = '';
+  public sfecha: string = '';
   public shoraingreso: string = '';
   public shorasalida: string = '';
   public sminutoingreso: string = '';
@@ -18,7 +18,7 @@ class ObjRdt {
   constructor(a: {
     idrdt: string,
     idcolaborador: string,
-    dfecha: string,
+    sfecha: string,
     shoraingreso: string,
     shorasalida: string,
     sminutoingreso: string,
@@ -28,7 +28,7 @@ class ObjRdt {
   }) {
     this.idrdt = a.idrdt;
     this.idcolaborador = a.idcolaborador;
-    this.dfecha = a.dfecha;
+    this.sfecha = a.sfecha;
     this.shoraingreso = a.shoraingreso;
     this.shorasalida = a.shorasalida;
     this.sminutoingreso = a.sminutoingreso;

@@ -18,7 +18,7 @@
       <tr *ngFor="let rdt of lstRDTs; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ rdt.idcolaborador }}</td>
-        <td>{{ rdt.dfecha }}</td>
+        <td>{{ rdt.sfecha }}</td>
         <td>
           <span *ngIf="rdt.leditable">
             <button class="btn btn-outline-dark" (click)="openEntradaModal(rdt.idrdt, modalEntrada)">

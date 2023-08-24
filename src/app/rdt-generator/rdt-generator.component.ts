@@ -1,60 +1,74 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
+class clsUser {
+  id: string;
+  snombre: string;
+  constructor(data: {
+    id: string,
+    snombre: string
+  }) {
+    this.id = data.id;
+    this.snombre = data.snombre;
+  }
+}
+
 @Component({
   selector: 'app-rdt-generator',
   templateUrl: './rdt-generator.component.html',
   styleUrls: ['./rdt-generator.component.scss']
 })
 export class RdtGeneratorComponent {
-  sFechaHoy: string = '';
-  nSemana: number = 0;
-  lstColaboradores: Array<any> = [];
+  lstUsers: Array<clsUser> = [];
+  lLoadingUsers = false;
+
+  dDate: Date;
+  nDate: number = 0;
+  sDate: string = '';
+  nWeek: number = 0;
+  nDay: number = 0;
+
+  lGeneratingRDTs = false;
 
   constructor(private db: AngularFirestore) {
-    this.nSemana = this.getSemanaHoy();
-    this.sFechaHoy = this.getFechaHoy();
     this.getColaboradores();
+    this.dDate = new Date();
+    this.setNDate();
+    this.setSDate();
+    this.setNWeek();
+    this.setNDay();
   }
 
-  public crearRdts(): void {
-
-
-    this.lstColaboradores.forEach((colaborador) => {
-      this.db
-        .collection('rdts')
-        .doc(this.sFechaHoy + '-' + colaborador.id)
-        .set({
-          dfecha: this.sFechaHoy,
-          idcolaborador: colaborador.id,
-          idrdt: this.sFechaHoy + '-' + colaborador.id,
-          leditable: true,
-          shoraingreso: '--',
-          shorasalida: '--',
-          sminutoingreso: '--',
-          sminutosalida: '--',
-          nsemana: this.nSemana,
-          nday: this.nDay
-        });
-    });
-  }
-
-  public getColaboradores(): void {
-    this.db
+  getColaboradores(): void {
+    this.lLoadingUsers = true;
+    let obs = this.db
       .collection('colaboradores', (ref) => {
         return ref.where('lactive', '==', true);
       })
       .valueChanges()
-      .subscribe((val: Array<any>) => {
-        this.lstColaboradores = val;
+      .subscribe((users: Array<any>) => {
+        users.forEach((u) => {
+          this.lstUsers.push(
+            new clsUser({
+              id: u.id,
+              snombre: u.snombre
+            })
+          );
+        })
+        this.lLoadingUsers = false;
+        obs.unsubscribe();
       });
   }
 
-  public getFechaHoy(): string {
-    const d = new Date();
+  setNDate() {
+    this.nDate = this.dDate.getTime();
+  }
+
+  setSDate() {
+    let d = this.dDate;
+    var year = '' + d.getFullYear();
     var month = '' + (d.getMonth() + 1);
     var day = '' + d.getDate();
-    var year = '' + d.getFullYear();
 
     if (month.length < 2) {
       month = '0' + month;
@@ -64,23 +78,56 @@ export class RdtGeneratorComponent {
       day = '0' + day;
     }
 
-    return [year, month, day].join('-');
+    this.sDate = [year, month, day].join('-');
   }
 
-  public getSemanaHoy(): number {
-    let currentDate: any = new Date();
-    let startDate: any = new Date(currentDate.getFullYear(), 0, 1);
-    var days = Math.floor((currentDate - startDate) /
+  setNWeek() {
+    let d: any = this.dDate;
+    let startDate: any = new Date(d.getFullYear(), 0, 1);
+    var days = Math.floor((d - startDate) /
       (24 * 60 * 60 * 1000));
 
-    return Math.ceil(days / 7);
+    this.nWeek = Math.ceil(days / 7);
   }
 
-  get nDay(): number {
-    let date = new Date();
-    return Math.floor(
-      (date.getTime() - (new Date(date.getFullYear(), 0, 0)).getTime()) / (1000 * 60 * 60 * 24)
+  setNDay() {
+    let d = this.dDate;
+    this.nDay = Math.floor(
+      (d.getTime() - (new Date(d.getFullYear(), 0, 0)).getTime()) / (1000 * 60 * 60 * 24)
     );
+  }
+
+  crearRdts(): void {
+    this.lGeneratingRDTs = true;
+    this.lstUsers.forEach((user) => {
+      let idrdt = this.sDate + '-' + user.id;
+      this.db
+        .collection('rdts')
+        .doc(idrdt)
+        .set({
+          idrdt: idrdt,
+          nfecha: this.nDate,
+          sfecha: this.sDate,
+          nsemana: this.nWeek,
+          ndia: this.nDay,
+          idcolaborador: user.id,
+          scolaborador: user.snombre,
+          leditable: true,
+          shoraingreso: '--',
+          shorasalida: '--',
+          sminutoingreso: '--',
+          sminutosalida: '--',
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch(() => {
+          window.alert('Ocurrió un ERROR');
+        })
+        .finally(() => {
+          this.lGeneratingRDTs = false;
+        });
+    });
   }
 
 }

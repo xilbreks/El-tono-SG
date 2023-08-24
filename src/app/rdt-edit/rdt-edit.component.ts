@@ -5,17 +5,106 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-class ObjRdt {
-  public idrdt: string = '';
-  public idcolaborador: string = '';
-  public dfecha: string = '';
-  public shoraingreso: string = '';
-  public shorasalida: string = '';
-  public sminutoingreso: string = '';
-  public sminutosalida: string = '';
-  public leditable: boolean = true;
-  public nsemana: number = 0;
-  constructor() { }
+class clsRdt {
+  private idrdt: string = '';
+  private idcolaborador: string = '';
+  private scolaborador: string = '';
+  private nfecha: number = 0;
+  private sfecha: string = '';
+  private nsemana: number = 0;
+  private ndia: number = 0;
+  private leditable: boolean = true;
+  private shoraingreso: string = '';
+  private shorasalida: string = '';
+  private sminutoingreso: string = '';
+  private sminutosalida: string = '';
+
+  constructor() {
+  }
+
+  /**
+   * SETTERS FUNCTIONS
+   * @returns 
+   */
+
+  set_idrdt(arg: string) {
+    this.idrdt = arg;
+  }
+  set_idcolaborador(arg: string) {
+    this.idcolaborador = arg;
+  }
+  set_scolaborador(arg: string) {
+    this.scolaborador = arg;
+  }
+  set_nfecha(arg: number) {
+    this.nfecha = arg;
+  }
+  set_sfecha(arg: string) {
+    this.sfecha = arg;
+  }
+  set_nsemana(arg: number) {
+    this.nsemana = arg;
+  }
+  set_ndia(arg: number) {
+    this.ndia = arg;
+  }
+  set_leditable(arg: boolean) {
+    this.leditable = arg;
+  }
+  set_shoraingreso(arg: string) {
+    this.shoraingreso = arg;
+  }
+  set_shorasalida(arg: string) {
+    this.shorasalida = arg;
+  }
+  set_sminutoingreso(arg: string) {
+    this.sminutoingreso = arg;
+  }
+  set_sminutosalida(arg: string) {
+    this.sminutosalida = arg;
+  }
+
+  /**
+   * GETTERS FUNCTIONS
+   * @returns 
+   */
+
+  get_idrdt(): string {
+    return this.idrdt;
+  }
+  get_idcolaborador(): string {
+    return this.idcolaborador;
+  }
+  get_scolaborador(): string {
+    return this.scolaborador;
+  }
+  get_nfecha(): number {
+    return this.nfecha;
+  }
+  get_sfecha(): string {
+    return this.sfecha;
+  }
+  get_nsemana(): number {
+    return this.nsemana;
+  }
+  get_ndia(): number {
+    return this.ndia;
+  }
+  get_leditable(): boolean {
+    return this.leditable;
+  }
+  get_shoraingreso(): string {
+    return this.shoraingreso;
+  }
+  get_shorasalida(): string {
+    return this.shorasalida;
+  }
+  get_sminutoingreso(): string {
+    return this.sminutoingreso;
+  }
+  get_sminutosalida(): string {
+    return this.sminutosalida;
+  }
 }
 
 class ObjTarea {
@@ -47,7 +136,7 @@ class ObjTarea {
 })
 export class RdtEditComponent {
   idrdt: string;
-  objRdt: ObjRdt = new ObjRdt();
+  objRdt: clsRdt = new clsRdt();
   lstTareas: ObjTarea[] = [];
   frmNewTask: FormGroup;
   frmEditTask: FormGroup;
@@ -323,7 +412,18 @@ export class RdtEditComponent {
       .doc(this.idrdt)
       .valueChanges()
       .subscribe((rdt: any) => {
-        this.objRdt = rdt;
+        this.objRdt.set_idrdt(rdt.idrdt);
+        this.objRdt.set_idcolaborador(rdt.idcolaborador);
+        this.objRdt.set_scolaborador(rdt.scolaborador);
+        this.objRdt.set_nfecha(rdt.nfecha);
+        this.objRdt.set_sfecha(rdt.sfecha);
+        this.objRdt.set_nsemana(rdt.nsemana);
+        this.objRdt.set_ndia(rdt.ndia);
+        this.objRdt.set_leditable(rdt.leditable);
+        this.objRdt.set_shoraingreso(rdt.shoraingreso);
+        this.objRdt.set_shorasalida(rdt.shorasalida);
+        this.objRdt.set_sminutoingreso(rdt.sminutoingreso);
+        this.objRdt.set_sminutosalida(rdt.sminutosalida);
       });
   }
 
@@ -341,15 +441,7 @@ export class RdtEditComponent {
   public agregarTarea(): void {
     this.lCreating = true;
     var objTarea = this.frmNewTask.value;
-    const id = new Date().getTime().toString();
-
-    let year = Number(this.objRdt.idrdt.slice(0, 4));
-    let month = Number(this.objRdt.idrdt.slice(5, 7)) - 1;
-    let day = Number(this.objRdt.idrdt.slice(8, 10));
-    let date = new Date(year, month, day);
-    let dia = Math.floor(
-      (date.getTime() - (new Date(date.getFullYear(), 0, 0)).getTime()) / (1000 * 60 * 60 * 24)
-    );
+    const id = new Date().getTime().toString();    
 
     this.db
       .collection('tareas')
@@ -358,8 +450,8 @@ export class RdtEditComponent {
         ...objTarea,
         idtarea: id,
         idrdt: this.idrdt,
-        nsemana: this.objRdt.nsemana,
-        nday: dia,
+        nsemana: this.objRdt.get_nsemana(),
+        nday: this.objRdt.get_ndia(),
         sexpediente: objTarea['sexpediente'].trim().toUpperCase(),
       })
       .then((x) => {

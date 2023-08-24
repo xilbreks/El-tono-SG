@@ -6,14 +6,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 class ObjRdt {
   public idrdt: string = '';
   public idcolaborador: string = '';
-  public dfecha: string = '';
+  public scolaborador: string = '';
+  public nfecha: number = 0;
+  public sfecha: string = '';
+  public nsemana: number = 0;
+  public ndia: number = 0;
+  public leditable: boolean = true;
   public shoraingreso: string = '';
   public shorasalida: string = '';
   public sminutoingreso: string = '';
   public sminutosalida: string = '';
-  public leditable: boolean = true;
-  public nsemana: number = 0;
-  constructor() {}
 }
 
 @Component({
@@ -53,7 +55,9 @@ export class ColaboradorRdtComponent {
   public getRdts(): void {
     this.db
       .collection('rdts', (ref) => {
-        return ref.where('idcolaborador', '==', this.idColaborador).orderBy('dfecha','desc').limit(10);
+        return ref.where('idcolaborador', '==', this.idColaborador)
+          .orderBy('sfecha', 'desc')
+          .limit(5);
       })
       .valueChanges()
       .subscribe((val: Array<any>) => {
@@ -72,13 +76,13 @@ export class ColaboradorRdtComponent {
         shoraingreso: this.frmEntrada.value['shoraingreso'],
         sminutoingreso: this.frmEntrada.value['sminutoingreso'],
       })
-      .then(()=>{
+      .then(() => {
         this.frmEntrada.reset();
       })
-      .catch(()=>{
+      .catch(() => {
         window.alert('ERROR al marcar entrada')
       })
-      .finally(()=>{
+      .finally(() => {
         this.modalService.dismissAll();
         this.lUpdating = false;
       });
@@ -95,13 +99,13 @@ export class ColaboradorRdtComponent {
         shorasalida: this.frmSalida.value['shorasalida'],
         sminutosalida: this.frmSalida.value['sminutosalida'],
       })
-      .then(()=>{
+      .then(() => {
         this.frmSalida.reset();
       })
-      .catch(()=>{
+      .catch(() => {
         window.alert('ERROR al marcar salida')
       })
-      .finally(()=>{
+      .finally(() => {
         this.modalService.dismissAll();
         this.lUpdating = false;
       });
