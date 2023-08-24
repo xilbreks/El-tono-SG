@@ -323,7 +323,7 @@ export class RdtEditComponent {
       .doc(this.idrdt)
       .valueChanges()
       .subscribe((rdt: any) => {
-        this.objRdt = rdt[0];
+        this.objRdt = rdt;
       });
   }
 
@@ -343,6 +343,14 @@ export class RdtEditComponent {
     var objTarea = this.frmNewTask.value;
     const id = new Date().getTime().toString();
 
+    let year = Number(this.objRdt.idrdt.slice(0, 4));
+    let month = Number(this.objRdt.idrdt.slice(5, 7)) - 1;
+    let day = Number(this.objRdt.idrdt.slice(8, 10));
+    let date = new Date(year, month, day);
+    let dia = Math.floor(
+      (date.getTime() - (new Date(date.getFullYear(), 0, 0)).getTime()) / (1000 * 60 * 60 * 24)
+    );
+
     this.db
       .collection('tareas')
       .doc(id)
@@ -351,8 +359,8 @@ export class RdtEditComponent {
         idtarea: id,
         idrdt: this.idrdt,
         nsemana: this.objRdt.nsemana,
+        nday: dia,
         sexpediente: objTarea['sexpediente'].trim().toUpperCase(),
-        sdestarea: objTarea['sdeseje']
       })
       .then((x) => {
         this.modalService.dismissAll();

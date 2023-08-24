@@ -1,42 +1,27 @@
-<br/>
+<br />
 
 <form class="container expediente" [formGroup]="frmExpediente">
     <h4>
-        <input 
-            type="text" 
-            placeholder="ÓRGANO JURISDICCIONAL" 
-            class="form-control"
-            style="text-align: center;"
-            autocapitalize="characters"
-            formControlName="sorganojuris"
-        >
+        <input type="text" placeholder="ÓRGANO JURISDICCIONAL" class="form-control" style="text-align: center;"
+            autocapitalize="characters" formControlName="sorganojuris">
     </h4>
     <h4>
-        <input 
-            type="text" 
-            placeholder="00000-0000-0-0000-00-00-00" 
-            class="form-control"
-            formControlName="sexpediente"
-            style="text-align: center; background-color: lightgrey; border-color: #c1c1c1;"
-        >
+        <input type="text" placeholder="00000-0000-0-0000-00-00-00" class="form-control" formControlName="sexpediente"
+            style="text-align: center; background-color: lightgrey; border-color: #c1c1c1;">
     </h4>
-    <hr/>
+    <hr />
     <table style="width:100%">
         <tr>
             <td>
                 <b>MATERIA:</b>
             </td>
             <td>
-                <input 
-                    type="text" 
-                    class="form-control"
-                    formControlName="smateria"
-                >
+                <input type="text" class="form-control" formControlName="smateria">
             </td>
         </tr>
         <tr>
             <td>
-                <b>TIPO:</b>
+                <b>RAMA:</b>
             </td>
             <td>
                 <select class="form-select" formControlName="sespecialidad">
@@ -53,11 +38,7 @@
                 <b>JUEZ:</b>
             </td>
             <td>
-                <input 
-                    type="text" 
-                    class="form-control"
-                    formControlName="sjuez"
-                >
+                <input type="text" class="form-control" formControlName="sjuez">
             </td>
         </tr>
         <tr>
@@ -65,11 +46,7 @@
                 <b>ESPECIALISTA:</b>
             </td>
             <td>
-                <input 
-                    type="text" 
-                    class="form-control"
-                    formControlName="sespecialista"
-                >
+                <input type="text" class="form-control" formControlName="sespecialista">
             </td>
         </tr>
         <tr>
@@ -77,11 +54,7 @@
                 <b>DEMANDANTE:</b>
             </td>
             <td>
-                <input 
-                    type="text" 
-                    class="form-control"
-                    formControlName="sdemandante"
-                >
+                <input type="text" class="form-control" formControlName="sdemandante">
             </td>
         </tr>
         <tr>
@@ -89,11 +62,7 @@
                 <b>DEMANDADO:</b>
             </td>
             <td>
-                <input 
-                    type="text" 
-                    class="form-control"
-                    formControlName="sdemandado"
-                >
+                <input type="text" class="form-control" formControlName="sdemandado">
             </td>
         </tr>
         <tr>
@@ -101,16 +70,11 @@
                 <b>INICIO:</b>
             </td>
             <td>
-                <input 
-                    type="text" 
-                    placeholder="DD/MM/YYYY"
-                    class="form-control"
-                    formControlName="sfechainicio"
-                >
+                <input type="text" placeholder="DD/MM/YYYY" class="form-control" formControlName="sfechainicio">
             </td>
         </tr>
     </table>
-    <hr/>
+    <hr />
     <div class="row">
         <div class="col-3"></div>
         <div class="col-6">
@@ -120,16 +84,9 @@
         </div>
         <div class="col-3">
             <div style="display: flex; flex-direction: row-reverse;">
-                <button 
-                    class="btn btn-success" 
-                    (click)="crearExpediente()"
-                    [disabled]="!(frmExpediente.valid && !lCreating)"
-                >
-                    <span class="spinner-border spinner-border-sm" 
-                        role="status" 
-                        aria-hidden="true"
-                        *ngIf="lCreating"
-                    >
+                <button class="btn btn-success" (click)="crearExpediente()"
+                    [disabled]="!(frmExpediente.valid && !lCreating)">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreating">
                     </span>
                     <span class="sr-only" *ngIf="!lCreating">
                         Registrar
@@ -143,5 +100,4 @@
     </div>
 </form>
 
-<br/>
-
+<br />

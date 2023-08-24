@@ -16,8 +16,10 @@ export class RdtGeneratorComponent {
     this.sFechaHoy = this.getFechaHoy();
     this.getColaboradores();
   }
-  
-  public crearRdts(): void {    
+
+  public crearRdts(): void {
+
+
     this.lstColaboradores.forEach((colaborador) => {
       this.db
         .collection('rdts')
@@ -31,7 +33,8 @@ export class RdtGeneratorComponent {
           shorasalida: '--',
           sminutoingreso: '--',
           sminutosalida: '--',
-          nsemana: this.nSemana
+          nsemana: this.nSemana,
+          nday: this.nDay
         });
     });
   }
@@ -68,9 +71,16 @@ export class RdtGeneratorComponent {
     let currentDate: any = new Date();
     let startDate: any = new Date(currentDate.getFullYear(), 0, 1);
     var days = Math.floor((currentDate - startDate) /
-        (24 * 60 * 60 * 1000));
-    
+      (24 * 60 * 60 * 1000));
+
     return Math.ceil(days / 7);
+  }
+
+  get nDay(): number {
+    let date = new Date();
+    return Math.floor(
+      (date.getTime() - (new Date(date.getFullYear(), 0, 0)).getTime()) / (1000 * 60 * 60 * 24)
+    );
   }
 
 }

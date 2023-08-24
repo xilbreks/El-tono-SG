@@ -19,9 +19,7 @@ import { RdtEditComponent } from './rdt-edit/rdt-edit.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RdtStatsComponent } from './rdt-stats/rdt-stats.component';
-import { ExpedienteViewComponent } from './expediente-view/expediente-view.component';
 import { ExpedienteEditComponent } from './expediente-edit/expediente-edit.component';
-import { ExpedienteNewComponent } from './expediente-new/expediente-new.component';
 import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
 import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
 import { ExpedienteItemComponent } from './expediente-item/expediente-item.component';
@@ -32,6 +30,7 @@ import { ExpedienteItemTasksComponent } from './expediente-item-tasks/expediente
 import { ExpedienteItemClientComponent } from './expediente-item-client/expediente-item-client.component';
 import { ExpedienteItemCallsComponent } from './expediente-item-calls/expediente-item-calls.component';
 import { SinoeComponent } from './sinoe/sinoe.component';
+import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
 
 
 const environment = {
@@ -58,9 +57,7 @@ const environment = {
     LoginComponent,
     LogoutComponent,
     RdtStatsComponent,
-    ExpedienteViewComponent,
     ExpedienteEditComponent,
-    ExpedienteNewComponent,
     ExpedienteSearchComponent,
     RdtGeneratorComponent,
     ExpedienteItemComponent,
@@ -71,6 +68,7 @@ const environment = {
     ExpedienteItemClientComponent,
     ExpedienteItemCallsComponent,
     SinoeComponent,
+    ExpedienteRegisterComponent,
   ],
   imports: [
     BrowserModule,

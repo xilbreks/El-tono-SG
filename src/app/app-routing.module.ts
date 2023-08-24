@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ExpedientesComponent } from './expedientes/expedientes.component';
-import { ExpedienteViewComponent } from './expediente-view/expediente-view.component';
 import { ExpedienteEditComponent } from './expediente-edit/expediente-edit.component';
-import { ExpedienteNewComponent } from './expediente-new/expediente-new.component';
+import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
 import { AdminRdtComponent } from './admin-rdt/admin-rdt.component';
 import { ColaboradorRdtComponent } from './colaborador-rdt/colaborador-rdt.component';
 import { RdtViewComponent } from './rdt-view/rdt-view.component';
@@ -40,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'expediente-new',
-    component: ExpedienteNewComponent,
+    component: ExpedienteRegisterComponent,
     canActivate: [autenticacionGuard]
   },
   {

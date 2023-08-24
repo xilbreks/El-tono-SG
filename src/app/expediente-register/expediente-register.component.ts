@@ -5,11 +5,11 @@ import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-expediente-new',
-  templateUrl: './expediente-new.component.html',
-  styleUrls: ['./expediente-new.component.scss']
+  selector: 'app-expediente-register',
+  templateUrl: './expediente-register.component.html',
+  styleUrls: ['./expediente-register.component.scss']
 })
-export class ExpedienteNewComponent {
+export class ExpedienteRegisterComponent {
   frmExpediente: FormGroup;
   lCreating: boolean = false;
 
@@ -39,23 +39,23 @@ export class ExpedienteNewComponent {
   crearExpediente(): void {
     this.lCreating = true;
     let sexpediente = this.frmExpediente.value['sexpediente'];
-    
+
     this.db
       .collection('expedientes')
       .doc(sexpediente)
       .set({
         ...this.frmExpediente.value,
-        sfechacreacion: new Date().getTime().toString(), 
+        sfechacreacion: new Date().getTime().toString(),
         sfechamodificacion: new Date().getTime().toString(),
-        salias: sexpediente.slice(0,10),
+        salias: sexpediente.slice(0, 10),
       })
       .then((x) => {
-        this.router.navigate(['/expediente/',sexpediente]);
+        this.router.navigate(['/expediente/', sexpediente]);
       })
-      .catch(()=>{
+      .catch(() => {
         window.alert('ERROR al crear expediente');
       })
-      .finally(()=>{
+      .finally(() => {
         this.lCreating = false;
       });
   }
