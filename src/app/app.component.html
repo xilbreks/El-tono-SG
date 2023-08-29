@@ -42,6 +42,10 @@
           <a class="nav-link" routerLink="/expediente-search"> Buscar </a>
         </li>
 
+        <li class="nav-item" *ngIf="!!user">
+          <a class="nav-link" routerLink="/recursos"> Recursos </a>
+        </li>
+
         <li class="nav-item" *ngIf="user?.displayName=='ADMIN'">
           <a class="nav-link" routerLink="/expediente-new"> Registrar Expediente </a>
         </li>

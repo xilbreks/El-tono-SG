@@ -15,6 +15,7 @@ import { ExpedienteSearchComponent } from './expediente-search/expediente-search
 import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
 import { ExpedienteItemComponent } from './expediente-item/expediente-item.component';
 import { SinoeComponent } from './sinoe/sinoe.component';
+import { RecursosComponent } from './recursos/recursos.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -85,6 +86,10 @@ const routes: Routes = [
   {
     path: 'sinoe',
     component: SinoeComponent
+  },
+  {
+    path: 'recursos',
+    component: RecursosComponent
   },
   {
     path: 'stats-rdt',

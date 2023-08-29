@@ -1,0 +1,24 @@
+<!-- <img src="/assets/bitmap.svg" alt="road map" style="width: 100%;"> -->
+<br>
+<div class="container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="iters-tab" data-bs-toggle="tab" data-bs-target="#iters-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                ITER'S PROCESAL
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tareas-tab" data-bs-toggle="tab" data-bs-target="#tareas-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
+                TAREAS - DILIGENCIAS
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="iters-tab-pane" role="tabpanel" aria-labelledby="iters-tab" tabindex="0">
+            <app-recursos-iters></app-recursos-iters>
+        </div>
+        <div class="tab-pane fade" id="tareas-tab-pane" role="tabpanel" aria-labelledby="tareas-tab" tabindex="0">
+            <app-recursos-tareas></app-recursos-tareas>
+        </div>
+    </div>
+</div>

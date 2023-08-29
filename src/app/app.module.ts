@@ -31,6 +31,9 @@ import { ExpedienteItemClientComponent } from './expediente-item-client/expedien
 import { ExpedienteItemCallsComponent } from './expediente-item-calls/expediente-item-calls.component';
 import { SinoeComponent } from './sinoe/sinoe.component';
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
+import { RecursosComponent } from './recursos/recursos.component';
+import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
+import { RecursosTareasComponent } from './recursos-tareas/recursos-tareas.component';
 
 
 const environment = {
@@ -69,6 +72,9 @@ const environment = {
     ExpedienteItemCallsComponent,
     SinoeComponent,
     ExpedienteRegisterComponent,
+    RecursosComponent,
+    RecursosItersComponent,
+    RecursosTareasComponent,
   ],
   imports: [
     BrowserModule,
