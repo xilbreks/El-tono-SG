@@ -1,51 +1,11 @@
 <h3>REPORTE DIARIO DE TRABAJO</h3>
 
-<div>
-  <b>Fecha de Hoy: </b>
-  {{ sFechaHoy }}
-</div>
-
-<div>
-  Ver semana
-  <select #numeroSemana (change)="cambiarSemana($event.target)" [value]="nSemana">
-    <!-- <option value="27">
-      27
-    </option>
-    <option value="28">
-      28
-    </option>
-    <option value="29">
-      29
-    </option>
-    <option value="30">
-      30
-    </option>
-    <option value="31">
-      31
-    </option> -->
-    <option value="32">
-      32
-    </option>
-    <option value="33">
-      33
-    </option>
-    <option value="34">
-      34
-    </option>
-    <option value="35">
-      35
-    </option>
-  </select>
-</div>
+<label>Ver: </label>
+<input type="date" [formControl]="dFechaBusqueda" (change)="getRdts()">
 
 <hr />
 
 <h4>Listado de RTDs</h4>
-
-<!-- <div class="alert alert-warning" *ngIf="lPermitirGenerarRtd">
-  Aún no se han generado RDTs para el día {{ sFechaHoy }}.
-  <button class="btn btn-warning" (click)="crearRdts()">Generar RDTs</button>
-</div> -->
 
 <table class="table table-striped">
   <thead>
@@ -62,7 +22,7 @@
   <tbody>
     <tr *ngFor="let rdt of lstRdts; let i = index">
       <td>{{ i + 1 }}</td>
-      <td>{{ rdt.idcolaborador }}</td>
+      <td>{{ rdt.scolaborador }}</td>
       <td>{{ rdt.sfecha }}</td>
       <td>{{ rdt.shoraingreso + ":" + rdt.sminutoingreso }}</td>
       <td>{{ rdt.shorasalida + ":" + rdt.sminutosalida }}</td>
@@ -95,13 +55,3 @@
 </div>
 
 <hr />
-
-<div class="container">
-  <span>Listado de Colaboradores que deben realizar su RDT:</span>
-
-  <ol>
-    <li *ngFor="let colaborador of lstColaboradores">
-      {{ colaborador.snombre }}
-    </li>
-  </ol>
-</div>

@@ -457,6 +457,7 @@ export class RdtEditComponent {
         scolaborador: this.objRdt.get_scolaborador(),
         nsemana: this.objRdt.get_nsemana(),
         nday: this.objRdt.get_ndia(),
+        sfecha: this.objRdt.get_sfecha(),
         sexpediente: objTarea['sexpediente'].trim().toUpperCase(),
       })
       .then((x) => {
