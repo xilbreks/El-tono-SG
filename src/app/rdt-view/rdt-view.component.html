@@ -1,55 +1,61 @@
-<h4>RDT {{ idrdt }}</h4>
+<h4>
+  REPORTE DIARIO DE TRABAJO
+</h4>
 
-<div>
-  Tiempo desde entrada hasta salida = {{nTiempoTrabajo}} minutos
-</div>
-<div>
-  Suma de tiempo usado en tareas = {{nSumaTiempoTareas}} minutos
-</div>
+<table class="tbl-cabecera">
+  <tr>
+    <td>Realizado por:</td>
+    <td class="objrdt">{{objRdt.scolaborador}}</td>
+  </tr>
+  <tr>
+    <td>Fecha:</td>
+    <td class="objrdt">{{objRdt.sfecha2}}</td>
+  </tr>
+</table>
 
-<div style="display: flex; overflow-x: scroll;">
-  <table class="table table-striped" id="tareas_rdt">
+<div class="table-responsive">
+  <table class="table table-bordered" id="tareas_rdt">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col" class="vertical">Cliente</th>
-        <th scope="col" class="vertical">Atención</th>
-        <th scope="col" class="vertical">Delegado por</th>
-        <th scope="col" class="vertical">Expediente</th>
-        <th scope="col" class="vertical">Tipo de proceso</th>
-        <th scope="col" class="vertical">DTE</th>
-        <th scope="col" class="vertical">DDO</th>
-        <th scope="col" class="vertical">ITER</th>
-        <th scope="col" class="vertical">Avance(%)</th>
-        <th scope="col" class="vertical">F. culminación</th>
-        <th scope="col" class="vertical">T. Atención</th>
-        <th scope="col" class="vertical">Código de tarea</th>
-        <th scope="col" class="vertical">Mención de la tarea</th>
-        <th scope="col" class="vertical">Acciones a realizar</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Atención</th>
+        <th scope="col">Delegado por</th>
+        <th scope="col">Expediente</th>
+        <th scope="col">Tipo de proceso</th>
+        <th scope="col">DTE</th>
+        <th scope="col">DDO</th>
+        <th scope="col">ITER</th>
+        <th scope="col">Avance(%)</th>
+        <th scope="col">F. culminación</th>
+        <th scope="col">T. Atención</th>
+        <th scope="col">Código de tarea</th>
+        <th scope="col">Mención de la tarea</th>
+        <th scope="col">Acciones a realizar</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="!lLoading">
       <tr *ngFor="let tarea of lstTareas; let i = index">
         <th scope="row">{{ i + 1 }}</th>
-        <td class="vertical">
-          {{ tarea.ntipocliente }}
+        <td>
+          {{ tarea.stipocliente }}
         </td>
-        <td class="vertical">
-          {{ tarea.ntipoatencion }}
+        <td>
+          {{ tarea.stipoatencion }}
         </td>
-        <td class="vertical">
+        <td>
           {{ tarea.sdelegadopor }}
         </td>
-        <td class="vertical">
+        <td>
           {{ tarea.sexpediente }}
         </td>
-        <td class="vertical">
-          {{ tarea.ntipoproceso }}
+        <td>
+          {{ tarea.sespecialidad }}
         </td>
-        <td class="vertical">
-          {{ tarea.scliente }}
+        <td>
+          {{ tarea.sdemandante}}
         </td>
-        <td class="vertical">
+        <td>
           {{ tarea.sdemandado }}
         </td>
         <td>
@@ -58,11 +64,11 @@
         <td>
           {{ tarea.navance }}
         </td>
-        <td class="vertical">
-          {{ tarea.fculminacion }}
+        <td>
+          {{ tarea.sfculminacion }}
         </td>
         <td>
-          {{tarea.nhorasatencion}}:{{tarea.nminutosatencion}}
+          {{tarea.shorasatencion}}:{{tarea.sminutosatencion}}
         </td>
         <td>
           {{ tarea.ncodeje }}
@@ -75,5 +81,18 @@
         </td>
       </tr>
     </tbody>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
+    <tfoot>
+      <tr>
+        <th colspan="11" style="text-align: right;">
+          SUMA TOTAL DE TIEMPO UTILIZADO
+        </th>
+        <th>
+          {{nSumaTiempoTareas}}
+        </th>
+        <th colspan="3">
+        </th>
+      </tr>
+    </tfoot>
   </table>
 </div>

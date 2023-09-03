@@ -6,36 +6,40 @@ import { Title } from '@angular/platform-browser';
 class ObjRdt {
   public idrdt: string = '';
   public idcolaborador: string = '';
-  public dfecha: string = '';
+  public scolaborador: string = '';
+  public sfecha2: string = '';
+  public nfecha: number = 0;
+  public nsemana: number = 0;
+  public ndia: number = 0;
   public shoraingreso: string = '';
   public shorasalida: string = '';
   public sminutoingreso: string = '';
   public sminutosalida: string = '';
   public leditable: boolean = true;
-  public nsemana: number = 0;
-  constructor() {}
+
+  constructor() { }
 }
 
 class ObjTarea {
-  idtarea: string = '';
-  idrdt: string = '';
-  ntipocliente: string = '';
-  ntipoatencion: string = '';
-  sdelegadopor: string = '';
-  sexpediente: string = '';
-  ntipoproceso: string = '';
-  scliente: string = '';
-  sdemandado: string = '';
-  niter: string = '';
-  navance: string = '';
-  fculminacion: string = '';
-  ncodeje: string = '';
-  sdeseje: string = '';
-  sacceje: string = '';
-  nsemana: number = 0;
-  nhorasatencion: string = '';
-  nminutosatencion: string = '';
-  constructor() {}
+  public idrdt: string = '';
+  public idtarea: string = '';
+  public stipocliente: string = '';
+  public stipoatencion: string = '';
+  public sdelegadopor: string = '';
+  public sexpediente: string = '';
+  public sespecialidad: string = '';
+  public sdemandante: string = '';
+  public sdemandado: string = '';
+  public niter: number = 0;
+  public navance: number = 0;
+  public sfculminacion: string = '';
+  public ncodeje: number = 0;
+  public sdeseje: string = '';
+  public sacceje: string = '';
+  public shorasatencion: string = '';
+  public sminutosatencion: string = '';
+
+  constructor() { }
 }
 
 
@@ -46,11 +50,10 @@ class ObjTarea {
 })
 export class RdtViewComponent {
   idrdt: string;
-  lstTareas: ObjTarea[] = [];
-  idusuario: any = localStorage.getItem('idusuario');
   objRdt: ObjRdt = new ObjRdt();
-  nTiempoTrabajo: any = '--';
-  nSumaTiempoTareas: any = '--';
+  lstTareas: ObjTarea[] = [];
+  nSumaTiempoTareas: string = '--:--';
+  lLoading: boolean = false;
 
   constructor(
     private db: AngularFirestore,
@@ -64,59 +67,67 @@ export class RdtViewComponent {
   }
 
   public getObjRdt(): void {
-    this.db.collection('rdts', ref => {
-      return ref.where('idrdt', '==', this.idrdt)
-    }).valueChanges()
-    .subscribe((rdt: any)=>{
-      this.objRdt = rdt[0];
-      this.nTiempoTrabajo = this.calcularTiempoTrabajo();
-    });
+    this.db.collection('rdts')
+      .doc(this.idrdt)
+      .valueChanges()
+      .subscribe((rdt: any) => {
+        this.objRdt.scolaborador = rdt.scolaborador;
+        this.objRdt.sfecha2 = (new Date(rdt.nfecha)).toLocaleDateString();
+        this.objRdt.shoraingreso = rdt.shoraingreso;
+        this.objRdt.shorasalida = rdt.shorasalida;
+        this.objRdt.sminutoingreso = rdt.sminutoingreso;
+        this.objRdt.sminutosalida = rdt.sminutosalida;
+      });
   }
 
   public getTareas(): void {
+    this.lLoading = true;
     this.db
       .collection('tareas', (ref) => {
         return ref.where('idrdt', '==', this.idrdt);
       })
       .valueChanges()
-      .subscribe((val: any) => {
-        this.lstTareas = val;
+      .subscribe((val: Array<any>) => {
+        this.lstTareas = [];
         let horas = 0;
         let minutos = 0;
+
         val.forEach((tarea: any) => {
-          horas = horas + Number(tarea.nhorasatencion);
-          minutos = minutos + Number(tarea.nminutosatencion);
+          let objTarea = new ObjTarea();
+          objTarea.idrdt = tarea.idrdt;
+          objTarea.idtarea = tarea.idtarea;
+          objTarea.stipocliente = tarea.stipocliente;
+          objTarea.stipoatencion = tarea.stipoatencion;
+          objTarea.sdelegadopor = tarea.sdelegadopor;
+          objTarea.sexpediente = tarea.sexpediente;
+          objTarea.sespecialidad = tarea.sespecialidad;
+          objTarea.sdemandante = tarea.sdemandante;
+          objTarea.sdemandado = tarea.sdemandado;
+          objTarea.niter = tarea.niter;
+          objTarea.navance = tarea.navance;
+          objTarea.sfculminacion = tarea.sfculminacion;
+          objTarea.ncodeje = tarea.ncodeje;
+          objTarea.sdeseje = tarea.sdeseje;
+          objTarea.sacceje = tarea.sacceje;
+          objTarea.shorasatencion = tarea.shorasatencion;
+          objTarea.sminutosatencion = tarea.sminutosatencion;
+
+          this.lstTareas.push(objTarea);
+          horas = horas + Number(tarea.shorasatencion);
+          minutos = minutos + Number(tarea.sminutosatencion);
         });
-        this.nSumaTiempoTareas = horas * 60 + minutos;
+
+        let nTotalMinutos = horas * 60 + minutos;
+        let sHoras = '';
+        let sMinutos = '';
+
+        sHoras = Math.floor(nTotalMinutos / 60).toString();
+        sMinutos = (nTotalMinutos - Math.floor(nTotalMinutos / 60) * 60).toString();
+
+        this.nSumaTiempoTareas = sHoras + 'h ' + sMinutos + 'm';
+
+        this.lLoading = false;
       });
   }
 
-  public calcularTiempoTrabajo(): number | string {
-    if(
-      this.objRdt.shoraingreso != '--' &&
-      this.objRdt.sminutoingreso != '--' &&
-      this.objRdt.shorasalida != '--' &&
-      this.objRdt.sminutosalida != '--'
-    ) {
-      let horasTrabajadas = Number(this.objRdt.shorasalida) - Number(this.objRdt.shoraingreso);
-      let minutosTrbajados = Number(this.objRdt.sminutosalida) - Number(this.objRdt.sminutoingreso);
-      let totalMinutos = horasTrabajadas * 60 + minutosTrbajados;
-      return totalMinutos;
-    } else {
-      return 'ERROR';
-    }
-  }
-
-  public downloadCSV(): void {
-    let csv: string = '';
-    csv = '#,Cliente,Atención,Delegado por,Expediente,Tipo de proceso, Mención de la tarea,cliente,demandado,ITER,Avance(%),Fecha culminación,Tiempo de Atención,Código,Descripción,Acciones a Realizar\r\n';
-    this.lstTareas.forEach((tarea, index)=>{
-      csv = csv + index + ',';
-      csv = csv + tarea.ntipocliente + ',';
-      csv = csv + index + ',';
-      csv = csv + index + ',';
-      csv = csv + index + ',';
-      csv = csv + index + ',';
-    });
-  }
 }

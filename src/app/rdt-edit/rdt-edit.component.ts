@@ -5,127 +5,38 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-class clsRdt {
-  private idrdt: string = '';
-  private idcolaborador: string = '';
-  private scolaborador: string = '';
-  private nfecha: number = 0;
-  private sfecha: string = '';
-  private nsemana: number = 0;
-  private ndia: number = 0;
-  private leditable: boolean = true;
-  private shoraingreso: string = '';
-  private shorasalida: string = '';
-  private sminutoingreso: string = '';
-  private sminutosalida: string = '';
-
-  constructor() {
-  }
-
-  /**
-   * SETTERS FUNCTIONS
-   * @returns 
-   */
-
-  set_idrdt(arg: string) {
-    this.idrdt = arg;
-  }
-  set_idcolaborador(arg: string) {
-    this.idcolaborador = arg;
-  }
-  set_scolaborador(arg: string) {
-    this.scolaborador = arg;
-  }
-  set_nfecha(arg: number) {
-    this.nfecha = arg;
-  }
-  set_sfecha(arg: string) {
-    this.sfecha = arg;
-  }
-  set_nsemana(arg: number) {
-    this.nsemana = arg;
-  }
-  set_ndia(arg: number) {
-    this.ndia = arg;
-  }
-  set_leditable(arg: boolean) {
-    this.leditable = arg;
-  }
-  set_shoraingreso(arg: string) {
-    this.shoraingreso = arg;
-  }
-  set_shorasalida(arg: string) {
-    this.shorasalida = arg;
-  }
-  set_sminutoingreso(arg: string) {
-    this.sminutoingreso = arg;
-  }
-  set_sminutosalida(arg: string) {
-    this.sminutosalida = arg;
-  }
-
-  /**
-   * GETTERS FUNCTIONS
-   * @returns 
-   */
-
-  get_idrdt(): string {
-    return this.idrdt;
-  }
-  get_idcolaborador(): string {
-    return this.idcolaborador;
-  }
-  get_scolaborador(): string {
-    return this.scolaborador;
-  }
-  get_nfecha(): number {
-    return this.nfecha;
-  }
-  get_sfecha(): string {
-    return this.sfecha;
-  }
-  get_nsemana(): number {
-    return this.nsemana;
-  }
-  get_ndia(): number {
-    return this.ndia;
-  }
-  get_leditable(): boolean {
-    return this.leditable;
-  }
-  get_shoraingreso(): string {
-    return this.shoraingreso;
-  }
-  get_shorasalida(): string {
-    return this.shorasalida;
-  }
-  get_sminutoingreso(): string {
-    return this.sminutoingreso;
-  }
-  get_sminutosalida(): string {
-    return this.sminutosalida;
-  }
+class ObjRdt {
+  public idrdt: string = '';
+  public idcolaborador: string = '';
+  public scolaborador: string = '';
+  public sfecha: string = '';
+  public sfecha2: string = '';
+  public nfecha: number = 0;
+  public nsemana: number = 0;
+  public ndia: number = 0;
+  
+  constructor() { }
 }
 
 class ObjTarea {
-  idtarea: string = '';
-  idrdt: string = '';
-  ntipocliente: string = '';
-  ntipoatencion: string = '';
-  sdelegadopor: string = '';
-  sexpediente: string = '';
-  ntipoproceso: string = '';
-  scliente: string = '';
-  sdemandado: string = '';
-  niter: string = '';
-  navance: string = '';
-  fculminacion: string = '';
-  ncodeje: string = '';
-  sdeseje: string = '';
-  sacceje: string = '';
-  nsemana: number = 0;
-  nhorasatencion: string = '';
-  nminutosatencion: string = '';
+  public idrdt: string = '';
+  public idtarea: string = '';
+  public stipocliente: string = '';
+  public stipoatencion: string = '';
+  public sdelegadopor: string = '';
+  public sexpediente: string = '';
+  public sespecialidad: string = '';
+  public sdemandante: string = '';
+  public sdemandado: string = '';
+  public niter: number = 0;
+  public navance: number = 0;
+  public sfculminacion: string = '';
+  public ncodeje: number = 0;
+  public sdeseje: string = '';
+  public sacceje: string = '';
+  public shorasatencion: string = '';
+  public sminutosatencion: string = '';
+
   constructor() { }
 }
 
@@ -136,8 +47,11 @@ class ObjTarea {
 })
 export class RdtEditComponent {
   idrdt: string;
-  objRdt: clsRdt = new clsRdt();
+  objRdt: ObjRdt = new ObjRdt();
   lstTareas: ObjTarea[] = [];
+  nSumaTiempoTareas: string = '--:--';
+  lLoading: boolean = false;
+
   frmNewTask: FormGroup;
   frmEditTask: FormGroup;
   lstIter: any[] = [];
@@ -160,27 +74,21 @@ export class RdtEditComponent {
      * INIT FORM NEW TASK *
      **********************/
     this.frmNewTask = new FormGroup({
-      ntipocliente: new FormControl(null, Validators.required),
-      ntipoatencion: new FormControl(null, Validators.required),
+      stipocliente: new FormControl(null, Validators.required),
+      stipoatencion: new FormControl(null, Validators.required),
       sdelegadopor: new FormControl(null, Validators.required),
       sexpediente: new FormControl(null, Validators.required),
-      // sexpediente: new FormControl(null, 
-      //   Validators.compose([
-      //     Validators.required,
-      //     Validators.pattern(/^\S*$/)
-      //   ])
-      // ),
-      ntipoproceso: new FormControl(null, Validators.required),
-      scliente: new FormControl(null, Validators.required),
+      sespecialidad: new FormControl(null, Validators.required),
+      sdemandante: new FormControl(null, Validators.required),
       sdemandado: new FormControl(null, Validators.required),
       niter: new FormControl(null, Validators.required),
       navance: new FormControl(null, Validators.required),
-      fculminacion: new FormControl(null, Validators.required),
+      sfculminacion: new FormControl(null, Validators.required),
       ncodeje: new FormControl(null, Validators.required),
       sdeseje: new FormControl(null, Validators.required),
       sacceje: new FormControl(null, Validators.required),
-      nhorasatencion: new FormControl(null, Validators.required),
-      nminutosatencion: new FormControl(null, Validators.required),
+      shorasatencion: new FormControl(null, Validators.required),
+      sminutosatencion: new FormControl(null, Validators.required),
     });
 
     /***********************
@@ -188,27 +96,21 @@ export class RdtEditComponent {
      ***********************/
     this.frmEditTask = new FormGroup({
       idtarea: new FormControl(null, Validators.required),
-      ntipocliente: new FormControl(null, Validators.required),
-      ntipoatencion: new FormControl(null, Validators.required),
+      stipocliente: new FormControl(null, Validators.required),
+      stipoatencion: new FormControl(null, Validators.required),
       sdelegadopor: new FormControl(null, Validators.required),
       sexpediente: new FormControl(null, Validators.required),
-      // sexpediente: new FormControl(null, 
-      //   Validators.compose([
-      //     Validators.required,
-      //     Validators.pattern(/^\S*$/)
-      //   ])
-      // ),
-      ntipoproceso: new FormControl(null, Validators.required),
-      scliente: new FormControl(null, Validators.required),
+      sespecialidad: new FormControl(null, Validators.required),
+      sdemandante: new FormControl(null, Validators.required),
       sdemandado: new FormControl(null, Validators.required),
       niter: new FormControl(null, Validators.required),
       navance: new FormControl(null, Validators.required),
-      fculminacion: new FormControl(null, Validators.required),
+      sfculminacion: new FormControl(null, Validators.required),
       ncodeje: new FormControl(null, Validators.required),
       sdeseje: new FormControl(null, Validators.required),
       sacceje: new FormControl(null, Validators.required),
-      nhorasatencion: new FormControl(null, Validators.required),
-      nminutosatencion: new FormControl(null, Validators.required),
+      shorasatencion: new FormControl(null, Validators.required),
+      sminutosatencion: new FormControl(null, Validators.required),
     });
   }
 
@@ -410,37 +312,79 @@ export class RdtEditComponent {
     ]
   }
 
+  /**
+   * Obtiene los datos importantes del RDT
+   */
   public getObjRdt(): void {
     this.db.collection('rdts')
       .doc(this.idrdt)
       .valueChanges()
       .subscribe((rdt: any) => {
-        this.objRdt.set_idrdt(rdt.idrdt);
-        this.objRdt.set_idcolaborador(rdt.idcolaborador);
-        this.objRdt.set_scolaborador(rdt.scolaborador);
-        this.objRdt.set_nfecha(rdt.nfecha);
-        this.objRdt.set_sfecha(rdt.sfecha);
-        this.objRdt.set_nsemana(rdt.nsemana);
-        this.objRdt.set_ndia(rdt.ndia);
-        this.objRdt.set_leditable(rdt.leditable);
-        this.objRdt.set_shoraingreso(rdt.shoraingreso);
-        this.objRdt.set_shorasalida(rdt.shorasalida);
-        this.objRdt.set_sminutoingreso(rdt.sminutoingreso);
-        this.objRdt.set_sminutosalida(rdt.sminutosalida);
+        this.objRdt.idcolaborador = rdt.idcolaborador;
+        this.objRdt.scolaborador = rdt.scolaborador;
+        this.objRdt.sfecha = rdt.sfecha;
+        this.objRdt.nsemana = rdt.nsemana;
+        this.objRdt.ndia = rdt.ndia;
+        this.objRdt.sfecha2 = (new Date(rdt.nfecha)).toLocaleDateString();
       });
   }
 
+  /**
+   * Obtiene las tareas correspondientes al RDT
+   */
   public getTareas(): void {
+    this.lLoading = true;
     this.db
       .collection('tareas', (ref) => {
         return ref.where('idrdt', '==', this.idrdt);
       })
       .valueChanges()
-      .subscribe((val: any) => {
-        this.lstTareas = val;
+      .subscribe((val: Array<any>) => {
+        this.lstTareas = [];
+        let horas = 0;
+        let minutos = 0;
+
+        val.forEach((tarea: any) => {
+          let objTarea = new ObjTarea();
+          objTarea.idrdt = tarea.idrdt;
+          objTarea.idtarea = tarea.idtarea;
+          objTarea.stipocliente = tarea.stipocliente;
+          objTarea.stipoatencion = tarea.stipoatencion;
+          objTarea.sdelegadopor = tarea.sdelegadopor;
+          objTarea.sexpediente = tarea.sexpediente;
+          objTarea.sespecialidad = tarea.sespecialidad;
+          objTarea.sdemandante = tarea.sdemandante;
+          objTarea.sdemandado = tarea.sdemandado;
+          objTarea.niter = tarea.niter;
+          objTarea.navance = tarea.navance;
+          objTarea.sfculminacion = tarea.sfculminacion;
+          objTarea.ncodeje = tarea.ncodeje;
+          objTarea.sdeseje = tarea.sdeseje;
+          objTarea.sacceje = tarea.sacceje;
+          objTarea.shorasatencion = tarea.shorasatencion;
+          objTarea.sminutosatencion = tarea.sminutosatencion;
+          this.lstTareas.push(objTarea);
+
+          horas = horas + Number(tarea.shorasatencion);
+          minutos = minutos + Number(tarea.sminutosatencion);
+        });
+
+        let nTotalMinutos = horas * 60 + minutos;
+        let sHoras = '';
+        let sMinutos = '';
+
+        sHoras = Math.floor(nTotalMinutos / 60).toString();
+        sMinutos = (nTotalMinutos - Math.floor(nTotalMinutos / 60) * 60).toString();
+
+        this.nSumaTiempoTareas = sHoras + 'h ' + sMinutos + 'm';
+
+        this.lLoading = false;
       });
   }
 
+  /**
+   * Registra una tarea en un RDT
+   */
   public agregarTarea(): void {
     this.lCreating = true;
     var objTarea = this.frmNewTask.value;
@@ -453,11 +397,11 @@ export class RdtEditComponent {
         ...objTarea,
         idtarea: id,
         idrdt: this.idrdt,
-        idcolaborador: this.objRdt.get_idcolaborador(),
-        scolaborador: this.objRdt.get_scolaborador(),
-        nsemana: this.objRdt.get_nsemana(),
-        nday: this.objRdt.get_ndia(),
-        sfecha: this.objRdt.get_sfecha(),
+        idcolaborador: this.objRdt.idcolaborador,
+        scolaborador: this.objRdt.scolaborador,
+        sfecha: this.objRdt.sfecha,
+        nsemana: this.objRdt.nsemana,
+        nday: this.objRdt.ndia,
         sexpediente: objTarea['sexpediente'].trim().toUpperCase(),
       })
       .then((x) => {
@@ -472,6 +416,9 @@ export class RdtEditComponent {
       });
   }
 
+  /**
+   * Actualiza una tarea registrada en un RDT
+   */
   public editarTarea(): void {
     this.lUpdating = true;
     var objTarea = this.frmEditTask.value;
@@ -496,25 +443,9 @@ export class RdtEditComponent {
       })
   }
 
-  public duplicarTarea(tarea: ObjTarea): void {
-    if (!window.confirm('¿Esta seguro de duplicar?')) return;
-
-    const id = new Date().getTime().toString();
-    this.db
-      .collection('tareas')
-      .doc(id)
-      .set({
-        ...tarea,
-        idtarea: id,
-      })
-      .then((x) => {
-        console.log('duplicado');
-      })
-      .catch(() => {
-        window.alert('ERROR al duplicar')
-      });
-  }
-
+  /**
+   * Quita una tarea registrada en un RDT
+   */
   public eliminarTarea(idtarea: string): void {
     if (window.confirm('¿Esta seguro de borrar?')) {
       this.db.collection('tareas').doc(idtarea).delete();
@@ -531,21 +462,21 @@ export class RdtEditComponent {
   public openEditTaskModal(tarea: ObjTarea, modal: any): void {
     this.frmEditTask.setValue({
       idtarea: tarea.idtarea,
-      ntipocliente: tarea.ntipocliente,
-      ntipoatencion: tarea.ntipoatencion,
+      stipocliente: tarea.stipocliente,
+      stipoatencion: tarea.stipoatencion,
       sdelegadopor: tarea.sdelegadopor,
       sexpediente: tarea.sexpediente,
-      ntipoproceso: tarea.ntipoproceso,
-      scliente: tarea.scliente,
+      sespecialidad: tarea.sespecialidad,
+      sdemandante: tarea.sdemandante,
       sdemandado: tarea.sdemandado,
       niter: tarea.niter,
       navance: tarea.navance,
-      fculminacion: tarea.fculminacion,
+      sfculminacion: tarea.sfculminacion,
       ncodeje: tarea.ncodeje,
       sdeseje: tarea.sdeseje,
       sacceje: tarea.sacceje,
-      nhorasatencion: tarea.nhorasatencion,
-      nminutosatencion: tarea.nminutosatencion,
+      shorasatencion: tarea.shorasatencion,
+      sminutosatencion: tarea.sminutosatencion,
     });
     this.setLstIterEditTask(true);
     this.modalService.open(modal, {
@@ -557,7 +488,7 @@ export class RdtEditComponent {
   ////////////////////////////////////////////////////
 
   public setLstIterNewTask(): void {
-    let proceso = this.frmNewTask.value['ntipoproceso'];
+    let proceso = this.frmNewTask.value['sespecialidad'];
 
     switch (proceso) {
       case 'laboral':
@@ -580,7 +511,7 @@ export class RdtEditComponent {
   }
 
   public setLstIterEditTask(dontReset?: boolean): void {
-    let proceso = this.frmEditTask.value['ntipoproceso'];
+    let proceso = this.frmEditTask.value['sespecialidad'];
 
     switch (proceso) {
       case 'laboral':
@@ -626,11 +557,10 @@ export class RdtEditComponent {
       .subscribe((res: Array<any>) => {
         if (res.length == 1) {
           // completar datos al formulario
-          console.log(res[0])
           this.frmNewTask.controls['sexpediente'].setValue(res[0].sexpediente);
+          this.frmNewTask.controls['sdemandante'].setValue(res[0].sdemandante);
           this.frmNewTask.controls['sdemandado'].setValue(res[0].sdemandado);
-          this.frmNewTask.controls['scliente'].setValue(res[0].sdemandante);
-          this.frmNewTask.controls['ntipoproceso'].setValue(res[0].sespecialidad.toLowerCase());
+          this.frmNewTask.controls['sespecialidad'].setValue(res[0].sespecialidad.toLowerCase());
 
           this.setLstIterNewTask();
         } else if (res.length > 1) {

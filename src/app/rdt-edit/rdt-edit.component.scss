@@ -1,3 +1,27 @@
-table{
+h4 {
+    text-align: center;
+}
+
+.tbl-cabecera {
+    font-weight: bold;
+    border-collapse: separate;
+    border-spacing: 0 2px;
+
+    .objrdt {
+        font-style: italic;
+        background-color: #eee;
+        padding: 0px 20px;
+        border-radius: 5px;
+        margin: 2px auto;
+    }
+}
+
+#tareas_rdt {
     font-size: .75em;
+    margin-top: 10px;
+
+    tr>th {
+        vertical-align: middle;
+        background-color: #ddd;
+    }
 }

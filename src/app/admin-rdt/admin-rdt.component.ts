@@ -1,6 +1,7 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import * as XLSX from 'xlsx';
 
@@ -51,14 +52,34 @@ class ObjRdt {
   templateUrl: './admin-rdt.component.html',
   styleUrls: ['./admin-rdt.component.scss'],
 })
-export class AdminRdtComponent implements AfterViewInit {
+export class AdminRdtComponent {
   dFechaBusqueda: FormControl = new FormControl(null);
   lstRdts: Array<ObjRdt> = [];
+  frmEntrada: FormGroup;
+  frmSalida: FormGroup;
+  lUpdating: boolean = false;
+  lLoading: boolean = false;
 
-  constructor(private db: AngularFirestore) {
+  constructor(
+    private db: AngularFirestore,
+    private modalService: NgbModal,
+  ) {
+    this.frmEntrada = new FormGroup({
+      idrdt: new FormControl(null, Validators.required),
+      shoraingreso: new FormControl(null, Validators.required),
+      sminutoingreso: new FormControl(null, Validators.required),
+    });
+    this.frmSalida = new FormGroup({
+      idrdt: new FormControl(null, Validators.required),
+      shorasalida: new FormControl(null, Validators.required),
+      sminutosalida: new FormControl(null, Validators.required),
+    });
+
+    this.setFechaHoy();
+    this.getRdts();
   }
 
-  ngAfterViewInit() {
+  setFechaHoy() {
     let d = new Date();
     var year = '' + d.getFullYear();
     var month = '' + (d.getMonth() + 1);
@@ -75,11 +96,11 @@ export class AdminRdtComponent implements AfterViewInit {
     let s = [year, month, day].join('-');
 
     this.dFechaBusqueda.setValue(s);
-    this.getRdts();
   }
 
   public getRdts(): void {
-    let observable1 = this.db
+    this.lLoading = true;
+    this.db
       .collection('rdts', (ref) => {
         return ref.where('sfecha', '==', this.dFechaBusqueda.value)
       })
@@ -87,12 +108,11 @@ export class AdminRdtComponent implements AfterViewInit {
       .subscribe((rdts: Array<any>) => {
         this.lstRdts = [];
         rdts.forEach((rdt) => {
-          this.lstRdts.unshift(
+          this.lstRdts.push(
             new ObjRdt(rdt)
           );
-        })
-
-        observable1.unsubscribe();
+        });
+        this.lLoading = false;
       });
   }
 
@@ -101,6 +121,78 @@ export class AdminRdtComponent implements AfterViewInit {
       leditable: !leditable,
     });
   }
+
+  public openEntradaModal(idrdt: string, modal: any): void {
+    this.frmEntrada.setValue({
+      idrdt: idrdt,
+      shoraingreso: null,
+      sminutoingreso: null
+    })
+    this.modalService.open(modal, {
+      windowClass: 'modal-sm',
+    });
+  }
+
+  public openSalidaModal(idrdt: string, modal: any): void {
+    this.frmSalida.setValue({
+      idrdt: idrdt,
+      shorasalida: null,
+      sminutosalida: null
+    })
+    this.modalService.open(modal, {
+      windowClass: 'modal-sm',
+    });
+  }
+
+  marcarEntrada(): void {
+    this.lUpdating = true;
+    let idrdt = this.frmEntrada.value['idrdt'];
+
+    this.db
+      .collection('rdts')
+      .doc(idrdt)
+      .update({
+        shoraingreso: this.frmEntrada.value['shoraingreso'],
+        sminutoingreso: this.frmEntrada.value['sminutoingreso'],
+      })
+      .then(() => {
+        this.frmEntrada.reset();
+      })
+      .catch(() => {
+        window.alert('ERROR al marcar entrada')
+      })
+      .finally(() => {
+        this.modalService.dismissAll();
+        this.lUpdating = false;
+      });
+  }
+
+  marcarSalida(): void {
+    this.lUpdating = true;
+    let idrdt = this.frmSalida.value['idrdt'];
+
+    this.db
+      .collection('rdts')
+      .doc(idrdt)
+      .update({
+        shorasalida: this.frmSalida.value['shorasalida'],
+        sminutosalida: this.frmSalida.value['sminutosalida'],
+      })
+      .then(() => {
+        this.frmSalida.reset();
+      })
+      .catch(() => {
+        window.alert('ERROR al marcar salida')
+      })
+      .finally(() => {
+        this.modalService.dismissAll();
+        this.lUpdating = false;
+      });
+  }
+
+  /**
+   * DESCARGAR EXCEL
+   */
 
   public descargarExcel(): void {
     let todo_Excel: Array<any> = [];

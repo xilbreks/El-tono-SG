@@ -19,22 +19,24 @@
       <th>Acciones</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody *ngIf="!lLoading">
     <tr *ngFor="let rdt of lstRdts; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ rdt.scolaborador }}</td>
       <td>{{ rdt.sfecha }}</td>
-      <td>{{ rdt.shoraingreso + ":" + rdt.sminutoingreso }}</td>
-      <td>{{ rdt.shorasalida + ":" + rdt.sminutosalida }}</td>
+      <td>
+        <button class="btn btn-outline-dark" (click)="openEntradaModal(rdt.idrdt, modalEntrada)">
+          {{ rdt.shoraingreso + ":" + rdt.sminutoingreso }}
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-outline-dark" (click)="openSalidaModal(rdt.idrdt, modalSalida)">
+          {{ rdt.shorasalida + ":" + rdt.sminutosalida }}
+        </button>
       <td>
         <div class="form-check form-switch">
-          <input
-            mdbCheckbox
-            class="form-check-input"
-            type="checkbox"
-            [checked]="rdt.leditable"
-            (click)="toggleEditable(rdt.idrdt, rdt.leditable)"
-          />
+          <input mdbCheckbox class="form-check-input" type="checkbox" [checked]="rdt.leditable"
+            (click)="toggleEditable(rdt.idrdt, rdt.leditable)" />
         </div>
       </td>
       <td>
@@ -44,14 +46,252 @@
       </td>
     </tr>
   </tbody>
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
 </table>
 
 <hr />
 
-<div>
+<div *ngIf="false">
   <button class="btn btn-primary" (click)="descargarExcel()">
     Descargar EXCEL
   </button>
 </div>
 
 <hr />
+
+
+<!-----------------------------------------------
+  -------------- HORA ENTRADA MODAL -------------
+  ----------------------------------------------->
+<ng-template #modalEntrada let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Hora de Entrada</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      RDT: {{frmEntrada.value.idrdt}}
+    </p>
+    <form [formGroup]="frmEntrada" autocomplete="off">
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Hora</label>
+          <select class="form-select" formControlName="shoraingreso">
+            <option value="07">07h</option>
+            <option value="08">08h</option>
+            <option value="09">09h</option>
+            <option value="10">10h</option>
+            <option value="11">11h</option>
+            <option value="12">12h</option>
+            <option value="13">13h</option>
+            <option value="14">14h</option>
+            <option value="15">15h</option>
+            <option value="16">16h</option>
+            <option value="17">17h</option>
+            <option value="18">18h</option>
+            <option value="19">19h</option>
+            <option value="20">20h</option>
+            <option value="21">21h</option>
+          </select>
+        </div>
+        <div class="col">
+          <label class="form-label">Minuto</label>
+          <select class="form-select" formControlName="sminutoingreso">
+            <option value="00">00m</option>
+            <option value="01">01m</option>
+            <option value="02">02m</option>
+            <option value="03">03m</option>
+            <option value="04">04m</option>
+            <option value="05">05m</option>
+            <option value="06">06m</option>
+            <option value="07">07m</option>
+            <option value="08">08m</option>
+            <option value="09">09m</option>
+            <option value="10">10m</option>
+            <option value="11">11m</option>
+            <option value="12">12m</option>
+            <option value="13">13m</option>
+            <option value="14">14m</option>
+            <option value="15">15m</option>
+            <option value="16">16m</option>
+            <option value="17">17m</option>
+            <option value="18">18m</option>
+            <option value="19">19m</option>
+            <option value="20">20m</option>
+            <option value="21">21m</option>
+            <option value="22">22m</option>
+            <option value="23">23m</option>
+            <option value="24">24m</option>
+            <option value="25">25m</option>
+            <option value="26">26m</option>
+            <option value="27">27m</option>
+            <option value="28">28m</option>
+            <option value="29">29m</option>
+            <option value="30">30m</option>
+            <option value="31">31m</option>
+            <option value="32">32m</option>
+            <option value="33">33m</option>
+            <option value="34">34m</option>
+            <option value="35">35m</option>
+            <option value="36">36m</option>
+            <option value="37">37m</option>
+            <option value="38">38m</option>
+            <option value="39">39m</option>
+            <option value="40">40m</option>
+            <option value="41">41m</option>
+            <option value="42">42m</option>
+            <option value="42">43m</option>
+            <option value="44">44m</option>
+            <option value="45">45m</option>
+            <option value="46">46m</option>
+            <option value="47">47m</option>
+            <option value="48">48m</option>
+            <option value="49">49m</option>
+            <option value="50">50m</option>
+            <option value="51">51m</option>
+            <option value="52">52m</option>
+            <option value="53">53m</option>
+            <option value="54">54m</option>
+            <option value="55">55m</option>
+            <option value="56">56m</option>
+            <option value="57">57m</option>
+            <option value="58">58m</option>
+            <option value="59">59m</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="marcarEntrada()"
+      [disabled]="!(frmEntrada.valid && !lUpdating)">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+      </span>
+      <span class="sr-only" *ngIf="!lUpdating">
+        Marcar Entrada
+      </span>
+      <span class="sr-only" *ngIf="lUpdating">
+        Marcando...
+      </span>
+    </button>
+  </div>
+</ng-template>
+
+<!-----------------------------------------------
+    -------------- HORA SALIDA MODAL --------------
+    ----------------------------------------------->
+<ng-template #modalSalida let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Hora de Salida</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      RDT: {{frmSalida.value.idrdt}}
+    </p>
+    <form [formGroup]="frmSalida" autocomplete="off">
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Hora</label>
+          <select class="form-select" formControlName="shorasalida">
+            <option value="07">07h</option>
+            <option value="08">08h</option>
+            <option value="09">09h</option>
+            <option value="10">10h</option>
+            <option value="11">11h</option>
+            <option value="12">12h</option>
+            <option value="13">13h</option>
+            <option value="14">14h</option>
+            <option value="15">15h</option>
+            <option value="16">16h</option>
+            <option value="17">17h</option>
+            <option value="18">18h</option>
+            <option value="19">19h</option>
+            <option value="20">20h</option>
+            <option value="21">21h</option>
+          </select>
+        </div>
+        <div class="col">
+          <label class="form-label">Minuto</label>
+          <select class="form-select" formControlName="sminutosalida">
+            <option value="00">00m</option>
+            <option value="01">01m</option>
+            <option value="02">02m</option>
+            <option value="03">03m</option>
+            <option value="04">04m</option>
+            <option value="05">05m</option>
+            <option value="06">06m</option>
+            <option value="07">07m</option>
+            <option value="08">08m</option>
+            <option value="09">09m</option>
+            <option value="10">10m</option>
+            <option value="11">11m</option>
+            <option value="12">12m</option>
+            <option value="13">13m</option>
+            <option value="14">14m</option>
+            <option value="15">15m</option>
+            <option value="16">16m</option>
+            <option value="17">17m</option>
+            <option value="18">18m</option>
+            <option value="19">19m</option>
+            <option value="20">20m</option>
+            <option value="21">21m</option>
+            <option value="22">22m</option>
+            <option value="23">23m</option>
+            <option value="24">24m</option>
+            <option value="25">25m</option>
+            <option value="26">26m</option>
+            <option value="27">27m</option>
+            <option value="28">28m</option>
+            <option value="29">29m</option>
+            <option value="30">30m</option>
+            <option value="31">31m</option>
+            <option value="32">32m</option>
+            <option value="33">33m</option>
+            <option value="34">34m</option>
+            <option value="35">35m</option>
+            <option value="36">36m</option>
+            <option value="37">37m</option>
+            <option value="38">38m</option>
+            <option value="39">39m</option>
+            <option value="40">40m</option>
+            <option value="41">41m</option>
+            <option value="42">42m</option>
+            <option value="42">43m</option>
+            <option value="44">44m</option>
+            <option value="45">45m</option>
+            <option value="46">46m</option>
+            <option value="47">47m</option>
+            <option value="48">48m</option>
+            <option value="49">49m</option>
+            <option value="50">50m</option>
+            <option value="51">51m</option>
+            <option value="52">52m</option>
+            <option value="53">53m</option>
+            <option value="54">54m</option>
+            <option value="55">55m</option>
+            <option value="56">56m</option>
+            <option value="57">57m</option>
+            <option value="58">58m</option>
+            <option value="59">59m</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="marcarSalida()"
+      [disabled]="!(frmSalida.valid && !lUpdating)">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+      </span>
+      <span class="sr-only" *ngIf="!lUpdating">
+        Marcar Salida
+      </span>
+      <span class="sr-only" *ngIf="lUpdating">
+        Marcando...
+      </span>
+    </button>
+  </div>
+</ng-template>
