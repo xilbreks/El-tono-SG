@@ -210,8 +210,8 @@ export class AdminRdtComponent {
           let minutos = 0;
           tareas.forEach(tarea => {
             if (rdt.idrdt == tarea['idrdt']) {
-              horas = horas + Number(tarea['nhorasatencion']);
-              minutos = minutos + Number(tarea['nminutosatencion']);
+              horas = horas + Number(tarea['shorasatencion']);
+              minutos = minutos + Number(tarea['sminutosatencion']);
             }
           });
           rdt.nTiempoTareas = horas * 60 + minutos;
@@ -229,7 +229,7 @@ export class AdminRdtComponent {
               // tarea['nTiempoTareas'] = sHorasTarea + ':' + sMinutosTarea;
               tarea['nTiempoTareas'] = rdt.nTiempoTareas;
 
-              let minutosReales = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) * (rdt.nTiempoOficina / rdt.nTiempoTareas);
+              let minutosReales = (Number(tarea['shorasatencion']) * 60 + Number(tarea['sminutosatencion'])) * (rdt.nTiempoOficina / rdt.nTiempoTareas);
               let sHorasReales = Math.floor(minutosReales / 60);
               let sMinutosReales = Math.round(minutosReales - sHorasReales * 60);
               tarea['srealtime'] = '';
@@ -244,8 +244,8 @@ export class AdminRdtComponent {
                 tarea['srealtime'] += ':' + sMinutosReales;
               }
 
-              tarea['productidad1'] = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) / rdt.nTiempoTareas;
-              tarea['productidad2'] = (Number(tarea['nhorasatencion']) * 60 + Number(tarea['nminutosatencion'])) / rdt.nTiempoOficina;
+              tarea['productidad1'] = (Number(tarea['shorasatencion']) * 60 + Number(tarea['sminutosatencion'])) / rdt.nTiempoTareas;
+              tarea['productidad2'] = (Number(tarea['shorasatencion']) * 60 + Number(tarea['sminutosatencion'])) / rdt.nTiempoOficina;
 
               tarea['productidad1'] = Number.parseFloat(tarea['productidad1']).toFixed(2);
               tarea['productidad2'] = Number.parseFloat(tarea['productidad2']).toFixed(2);
@@ -261,18 +261,18 @@ export class AdminRdtComponent {
         }).forEach(tarea => {
           todo_Excel.push({
             "Usuario": tarea['idrdt'],
-            "Tipo cliente": tarea['ntipocliente'],
-            "Tipo de Atencion": tarea['ntipoatencion'],
+            "Tipo cliente": tarea['stipocliente'],
+            "Tipo de Atencion": tarea['stipoatencion'],
             "Delegado por": tarea['sdelegadopor'],
             "Expediente": tarea['sexpediente'],
-            "Tipo de Proceso": tarea['ntipoproceso'],
-            "Cliente": tarea['scliente'],
+            "Tipo de Proceso": tarea['sespecialidad'],
+            "Cliente": tarea['sdemandante'],
             "Demandado": tarea['sdemandado'],
             "ITER": tarea['niter'],
             "Avance": tarea['navance'],
-            "Fecha de culminacion": tarea['fculminacion'],
+            "Fecha de culminacion": tarea['sfculminacion'],
             "Suma Tiempo Atencion": { t: 'n', f: '=' + tarea['nTiempoTareas'] + '/1440' },
-            "Tiempo de Atencion": tarea['nhorasatencion'] + ':' + tarea['nminutosatencion'],
+            "Tiempo de Atencion": tarea['shorasatencion'] + ':' + tarea['sminutosatencion'],
             "Codigo ejecutivo": tarea['ncodeje'],
             "Horas en el estudio": { t: 'n', f: '=' + tarea['nTiempoOficina'] + '/1440' },
             "Tiempo real": tarea['srealtime'],
