@@ -249,6 +249,13 @@ export class AdminRdtComponent {
 
               tarea['productidad1'] = Number.parseFloat(tarea['productidad1']).toFixed(2);
               tarea['productidad2'] = Number.parseFloat(tarea['productidad2']).toFixed(2);
+
+              // Agregando la fecha de registro de la tarea
+              let dfreg = new Date(Number(tarea.idtarea));
+              tarea['sfechareg'] = dfreg.getDate() + '/' +
+              (dfreg.getMonth() + 1) + '/' + dfreg.getFullYear() + ' ' +
+              (dfreg.getHours()>10?dfreg.getHours():'0'+dfreg.getHours()) + ':' + 
+              (dfreg.getMinutes()>10?dfreg.getMinutes():'0'+dfreg.getMinutes());
             }
           });
         });
@@ -279,7 +286,8 @@ export class AdminRdtComponent {
             "Prod. Segun RDT": tarea['productidad1'],
             "Prod. Segun horario": tarea['productidad2'],
             "Descripción de la tarea": tarea['sdeseje'],
-            "Acciones por realizar": tarea['sacceje']
+            "Acciones por realizar": tarea['sacceje'],
+            "Fecha y Hora de guardado": tarea['sfechareg']
           })
         });
 

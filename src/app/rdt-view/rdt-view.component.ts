@@ -23,6 +23,7 @@ class ObjRdt {
 class ObjTarea {
   public idrdt: string = '';
   public idtarea: string = '';
+  public sfecharegistro: string = '';
   public stipocliente: string = '';
   public stipoatencion: string = '';
   public sdelegadopor: string = '';
@@ -94,8 +95,13 @@ export class RdtViewComponent {
 
         val.forEach((tarea: any) => {
           let objTarea = new ObjTarea();
+          let dfreg = new Date(Number(tarea.idtarea));
           objTarea.idrdt = tarea.idrdt;
           objTarea.idtarea = tarea.idtarea;
+          objTarea.sfecharegistro = dfreg.getDate() + '/' +
+            (dfreg.getMonth() + 1) + '/' + dfreg.getFullYear() + ' ' +
+            (dfreg.getHours()>10?dfreg.getHours():'0'+dfreg.getHours()) + ':' + 
+            (dfreg.getMinutes()>10?dfreg.getMinutes():'0'+dfreg.getMinutes());
           objTarea.stipocliente = tarea.stipocliente;
           objTarea.stipoatencion = tarea.stipoatencion;
           objTarea.sdelegadopor = tarea.sdelegadopor;
