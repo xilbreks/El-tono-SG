@@ -308,7 +308,7 @@ export class RdtEditComponent {
       { id: 102, pick: true, desc: '102.- ORDEN Y LIMPIEZA' },
       { id: 103, pick: true, desc: '103.- ACTUALIZACION DEL PLANER' },
       { id: 104, pick: true, desc: '104.- SESIONES DE COMPARTIR(ANIVERSARIOS, CUMPLEAÑOS, FESTIVIDADES, ETC)' },
-      { id: 110, pick: true, desc: '110.- OTRO' },
+      // { id: 110, pick: true, desc: '110.- OTRO' },
     ]
   }
 
