@@ -1,29 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
 import { Chart } from 'chart.js/auto';
-
-class ObjTarea {
-  idtarea: string = '';
-  idrdt: string = '';
-  ntipocliente: string = '';
-  ntipoatencion: string = '';
-  sdelegadopor: string = '';
-  sexpediente: string = '';
-  ntipoproceso: string = '';
-  sdestarea: string = '';
-  scliente: string = '';
-  sdemandado: string = '';
-  niter: string = '';
-  navance: string = '';
-  fculminacion: string = '';
-  stiempoatencion: string = '';
-  ncodeje: string = '';
-  sdeseje: string = '';
-  sacceje: string = '';
-  nsemana: number = 0;
-  constructor() {}
-}
 
 @Component({
   selector: 'app-rdt-stats',
@@ -31,8 +9,8 @@ class ObjTarea {
   styleUrls: ['./rdt-stats.component.scss']
 })
 export class RdtStatsComponent {
-  lstTareas: ObjTarea[] = [];
-  idusuario: any = localStorage.getItem('idusuario');
+  sTitulo: string = '';
+  lstStats: Array<any> = [];
   tipoAtencionChart: any;
   tipoProcesoChart: any;
   tipoClienteChart: any;
@@ -41,93 +19,62 @@ export class RdtStatsComponent {
   tipoProcesoChart2: any;
   tipoClienteChart2: any;
   tipoTareaChart2: any;
-  nSemana: number = 0;
 
   constructor(
     private db: AngularFirestore,
     private titleService: Title
   ) {
-    this.titleService.setTitle('Reporte Semanal');
-    this.nSemana = this.getSemanaHoy();
-    this.getTareas(this.nSemana);
+    this.getStats();
   }
 
-  ngOnInit(): void {
-  }
-
-  public getSemanaHoy(): number {
-    let currentDate: any = new Date();
-    let startDate: any = new Date(currentDate.getFullYear(), 0, 1);
-    var days = Math.floor((currentDate - startDate) /
-        (24 * 60 * 60 * 1000));
-    
-    return Math.ceil(days / 7);
-  }
-
-  public cambiarSemana(objSemana: any): void {
-    this.nSemana = objSemana.value;
-    this.getTareas(this.nSemana);
-  }
-
-  public getTareas(nSemana: number): void {
-    let observando =  this.db
-      .collection('tareas', ref => {
-        return ref.where('nsemana','==', Number(nSemana))
-      })
+  public getStats() {
+    let obs = this.db
+      .collection('estadisticas')
       .valueChanges()
-      .subscribe((val: any) => {
-        this.lstTareas = val;
+      .subscribe((res: Array<any>) => {
+        this.sTitulo = res[0].texto;
+        this.lstStats = res;
+        this.lstStats.shift();
+        obs.unsubscribe();
+
         this.crearTipoAtencionChart();
         this.crearTipoProcesoChart();
         this.crearTipoClienteChart();
+
         this.crearTipoProcesoChart2();
         this.crearTipoAtencionChart2();
         this.crearTipoClienteChart2();
-        this.crearTipoTareaChart();
 
-        observando.unsubscribe();
+        this.crearTipoTareaChart();
       });
   }
 
-  crearTipoAtencionChart(){
+  crearTipoAtencionChart() {
     let nc = 0;
     let porExpediente = 0;
     let presencial = 0;
     let viaCelular = 0;
     let viaInternet = 0;
-    this.lstTareas.forEach((tarea)=>{{
-      switch(tarea.ntipoatencion) {
-        case 'nc':
-          nc++;
-          break;
-        case 'por-expediente':
-          porExpediente++;
-          break;
-        case 'presencial':
-          presencial++;
-          break;
-        case 'via-celular':
-          viaCelular++;
-          break;
-        case 'via-internet':
-          viaInternet++;
-          break;
-        default:
-          console.log('ERROR', tarea.ntipoatencion)
-      }
-    }});
-    if (this.tipoAtencionChart) this.tipoAtencionChart.destroy();
+
+    this.lstStats.forEach(user => {
+      nc += user.ta['nc'];
+      porExpediente += user.ta['por-expediente'];
+      presencial += user.ta['presencial'];
+      viaCelular += user.ta['via-celular'];
+      viaInternet += user.ta['via-internet'];
+    });
+
     this.tipoAtencionChart = new Chart("TipoAtencionChart", {
       type: 'doughnut',
       data: {
         labels: [
           nc + ' : NC',
-          porExpediente + ' : Por expediente', 
-          presencial + ' : Presencial', 
+          porExpediente + ' : Por expediente',
+          presencial + ' : Presencial',
           viaCelular + ' : Vía celular',
           viaInternet + ' : Vía internet'
-        ], 
-	       datasets: [
+        ],
+        datasets: [
           {
             data: [
               nc,
@@ -137,11 +84,11 @@ export class RdtStatsComponent {
               viaInternet
             ],
             backgroundColor: ['black', 'green', 'red', 'skyblue', 'purple']
-          } 
+          }
         ]
       },
       options: {
-        aspectRatio:2.5,
+        aspectRatio: 2.5,
         plugins: {
           title: {
             display: true,
@@ -153,7 +100,7 @@ export class RdtStatsComponent {
     });
   }
 
-  crearTipoProcesoChart(){
+  crearTipoProcesoChart() {
     let nc = 0;
     let laboral = 0;
     let civil = 0;
@@ -163,55 +110,34 @@ export class RdtStatsComponent {
     let tramAdm = 0;
     let tramNot = 0;
     let varios = 0;
-    this.lstTareas.forEach((tarea)=>{{
-      switch(tarea.ntipoproceso) {
-        case 'nc':
-          nc++;
-          break;
-        case 'laboral':
-          laboral++;
-          break;
-        case 'civil':
-          civil++;
-          break;
-        case 'penal':
-          penal++;
-          break;
-        case 'familia':
-          familia++;
-          break;
-        case 'constitucional':
-          constitucional++;
-          break;
-        case 'tramite-adm':
-          tramAdm++;
-          break;
-        case 'tramite-not':
-          tramNot++;
-          break;
-        case 'varios':
-          varios++;
-          break;
-        default:
-          console.log('ERROR', tarea.ntipoproceso)
-      }
-    }});
-    if (this.tipoProcesoChart) this.tipoProcesoChart.destroy();
+
+    this.lstStats.forEach(user => {
+      nc += user.ta['nc'];
+      laboral += user.tp['laboral'];
+      civil += user.tp['civil'];
+      penal += user.tp['penal'];
+      familia += user.tp['familia'];
+      constitucional += user.tp['constitucional'];
+      tramAdm += user.tp['tramite-adm'];
+      tramNot += user.tp['tramite-not'];
+      varios += user.tp['varios'];
+    });
+
     this.tipoProcesoChart = new Chart("TipoProcesoChart", {
       type: 'doughnut',
       data: {
         labels: [
           nc + ' : NC',
-          laboral + ' : Laboral', 
-          civil + ' : Civil', 
+          laboral + ' : Laboral',
+          civil + ' : Civil',
           penal + ' : Penal',
           familia + ' : Familia',
           constitucional + ' : Constitucional',
           tramAdm + ' : Trámite Adm.',
           tramNot + ' : Trámite Notarial',
           varios + ' : varios',
-        ], 
-	       datasets: [
+        ],
+        datasets: [
           {
             data: [
               nc,
@@ -224,12 +150,12 @@ export class RdtStatsComponent {
               tramNot,
               varios
             ],
-            backgroundColor: ['black', 'green', 'skyblue', 'purple', 'pink', 'red' ,'teal', 'yellow', 'orange']
-          } 
+            backgroundColor: ['black', 'green', 'skyblue', 'purple', 'pink', 'red', 'teal', 'yellow', 'orange']
+          }
         ]
       },
       options: {
-        aspectRatio:2.5,
+        aspectRatio: 2.5,
         plugins: {
           title: {
             display: true,
@@ -241,40 +167,29 @@ export class RdtStatsComponent {
     });
   }
 
-  crearTipoClienteChart(){
+  crearTipoClienteChart() {
     let nc = 0;
     let nuevo = 0;
     let antiguo = 0;
     let varios = 0;
-    this.lstTareas.forEach((tarea)=>{{
-      switch(tarea.ntipocliente) {
-        case 'nc':
-          nc++;
-          break;
-        case 'nuevo':
-          nuevo++;
-          break;
-        case 'antiguo':
-          antiguo++;
-          break;
-        case 'varios':
-          varios++;
-          break;
-        default:
-          console.log('ERROR', tarea.ntipocliente)
-      }
-    }});
-    if (this.tipoClienteChart) this.tipoClienteChart.destroy();
+
+    this.lstStats.forEach(user => {
+      nc += user.ta['nc'];
+      nuevo += user.tc['nuevo'];
+      antiguo += user.tc['antiguo'];
+      varios += user.tc['varios'];
+    });
+
     this.tipoClienteChart = new Chart("TipoClienteChart", {
       type: 'doughnut',
       data: {
         labels: [
           nc + ' : NC',
-          nuevo + ' : Nuevo', 
-          antiguo + ' : Antiguo', 
+          nuevo + ' : Nuevo',
+          antiguo + ' : Antiguo',
           varios + ' : Varios'
-        ], 
-	       datasets: [
+        ],
+        datasets: [
           {
             data: [
               nc,
@@ -283,11 +198,11 @@ export class RdtStatsComponent {
               varios
             ],
             backgroundColor: ['black', 'green', 'skyblue', 'purple']
-          } 
+          }
         ]
       },
       options: {
-        aspectRatio:2.5,
+        aspectRatio: 2.5,
         plugins: {
           title: {
             display: true,
@@ -299,272 +214,51 @@ export class RdtStatsComponent {
     });
   }
 
-  crearTipoProcesoChart2(){
-    let users = [
-      {
-        id: 'alvaro-morvelli',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'diana-zevallos',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'erica-nina',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'estrella-mendoza',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'fabiola-mayta',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'valesca-lopez',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'isabel-cosi',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'jackeline-flores',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'johana-paredes',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'jorge-cuba',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'lizbet-silva',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'maryori-garate',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-      {
-        id: 'nicolas-barrionuevo',
-        nc: 0,
-        laboral: 0,
-        civil: 0,
-        penal: 0,
-        familia: 0,
-        constitucional: 0,
-        tramAdm: 0,
-        tramNot: 0,
-        varios: 0
-      },
-    ];
-
-    this.lstTareas.forEach((tarea)=>{{
-      users.forEach((user)=>{
-        if (tarea.idrdt.slice(11) == user.id) {
-          switch (tarea.ntipoproceso) {
-            case 'nc':
-              user.nc++;
-              break;
-            case 'laboral':
-              user.laboral++;
-              break;
-            case 'civil':
-              user.civil++;
-              break;
-            case 'penal':
-              user.penal++;
-              break;
-            case 'familia':
-              user.familia++;
-              break;
-            case 'constitucional':
-              user.constitucional++;
-              break;
-            case 'tramite-adm':
-              user.tramAdm++;
-              break;
-            case 'tramite-not':
-              user.tramNot++;
-              break;
-            case 'varios':
-              user.varios++;
-              break;
-            default:
-              console.log('ERROR', tarea.ntipoproceso)
-          }
-        }
-      })
-    }});
-    if (this.tipoProcesoChart2) this.tipoProcesoChart2.destroy();
+  crearTipoProcesoChart2() {
     this.tipoProcesoChart2 = new Chart("TipoProcesoChart2", {
       type: 'bar',
       data: {
-        labels: [
-          'alvaro',
-          'diana',
-          'erica',
-          'estrella',
-          'fabiola',
-          'valesca',
-          'isabel',
-          'jackeline',
-          'johana',
-          'jorge',
-          'lizbet',
-          'maryori',
-          'nicolas',
-        ], 
-	       datasets: [
+        labels: this.lstStats.map(u => u.name),
+        datasets: [
           {
             label: 'NC',
-            data: users.map(u=>u.nc),
+            data: this.lstStats.map(u => u.tp['nc']),
             backgroundColor: ['black']
           },
           {
             label: 'Laboral',
-            data: users.map(u=>u.laboral),
+            data: this.lstStats.map(u => u.tp['laboral']),
             backgroundColor: ['green']
           },
           {
-            label: 'Civil',
-            data: users.map(u=>u.civil),
-            backgroundColor: ['skyblue']
+            label: 'Familia',
+            data: this.lstStats.map(u => u.tp['familia']),
+            backgroundColor: ['deeppink']
           },
           {
-            label: 'Penal',
-            data: users.map(u=>u.penal),
+            label: 'Civil',
+            data: this.lstStats.map(u => u.tp['civil']),
             backgroundColor: ['purple']
           },
           {
-            label: 'Familia',
-            data: users.map(u=>u.familia),
-            backgroundColor: ['pink']
+            label: 'Penal',
+            data: this.lstStats.map(u => u.tp['penal']),
+            backgroundColor: ['blue']
           },
           {
             label: 'Constitucional',
-            data: users.map(u=>u.constitucional),
+            data: this.lstStats.map(u => u.tp['constitucional']),
             backgroundColor: ['red']
           },
           {
-            label: 'Trámite Adm.',
-            data: users.map(u=>u.tramAdm),
-            backgroundColor: ['teal']
-          },
-          {
-            label: 'Trámite Notarial',
-            data: users.map(u=>u.tramNot),
+            label: 'Tram-adm-not',
+            data: this.lstStats.map(u => (u.tp['tramite-adm'] + u.tp['tramite-not'])),
             backgroundColor: ['yellow']
-          },
-          {
-            label: 'Varios',
-            data: users.map(u=>u.varios),
-            backgroundColor: ['orange']
           },
         ]
       },
       options: {
-        aspectRatio:2.5,
+        aspectRatio: 2.5,
         plugins: {
           title: {
             display: true,
@@ -585,187 +279,40 @@ export class RdtStatsComponent {
   }
 
   crearTipoAtencionChart2(): void {
-    let users = [
-      {
-        id: 'alvaro-morvelli',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'diana-zevallos',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'erica-nina',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'estrella-mendoza',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'fabiola-mayta',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'valesca-lopez',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'isabel-cosi',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'jackeline-flores',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'johana-paredes',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'jorge-cuba',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'lizbet-silva',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'maryori-garate',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-      {
-        id: 'nicolas-barrionuevo',
-        nc: 0,
-        porExpediente: 0,
-        presencial: 0,
-        viaCelular: 0,
-        viaInternet: 0,
-      },
-    ];
-
-    this.lstTareas.forEach((tarea)=>{{
-      users.forEach((user)=>{
-        if (tarea.idrdt.slice(11) == user.id) {
-          switch (tarea.ntipoatencion) {
-            case 'nc':
-              user.nc++;
-              break;
-            case 'por-expediente':
-              user.porExpediente++;
-              break;
-            case 'presencial':
-              user.presencial++;
-              break;
-            case 'via-celular':
-              user.viaCelular++;
-              break;
-            case 'via-internet':
-              user.viaInternet++;
-              break;
-            default:
-              console.log('ERROR', tarea.ntipoatencion)
-          }
-        }
-      })
-    }});
-    if (this.tipoAtencionChart2) this.tipoAtencionChart2.destroy();
     this.tipoAtencionChart2 = new Chart("TipoAtencionChart2", {
       type: 'bar',
       data: {
-        labels: [
-          'alvaro',
-          'diana',
-          'erica',
-          'estrella',
-          'fabiola',
-          'valesca',
-          'isabel',
-          'jackeline',
-          'johana',
-          'jorge',
-          'lizbet',
-          'maryori',
-          'nicolas',
-        ], 
-	       datasets: [
+        labels: this.lstStats.map(u => u.name),
+        datasets: [
           {
             label: 'NC',
-            data: users.map(u=>u.nc),
+            data: this.lstStats.map(u => u.ta['nc']),
             backgroundColor: ['black']
           },
           {
             label: 'Por Expediente',
-            data: users.map(u=>u.porExpediente),
+            data: this.lstStats.map(u => u.ta['por-expediente']),
             backgroundColor: ['green']
           },
           {
             label: 'Presencial',
-            data: users.map(u=>u.presencial),
+            data: this.lstStats.map(u => u.ta['presencial']),
             backgroundColor: ['red']
           },
           {
-            label: 'Vía celular',
-            data: users.map(u=>u.viaCelular),
+            label: 'Vía Celular',
+            data: this.lstStats.map(u => u.ta['via-celular']),
             backgroundColor: ['skyblue']
           },
           {
-            label: 'Vía internet',
-            data: users.map(u=>u.viaInternet),
+            label: 'Vía Internet',
+            data: this.lstStats.map(u => u.ta['via-internet']),
             backgroundColor: ['purple']
           },
         ]
       },
       options: {
-        aspectRatio:2.5,
+        aspectRatio: 2.5,
         plugins: {
           title: {
             display: true,
@@ -785,167 +332,36 @@ export class RdtStatsComponent {
     });
   }
 
-  crearTipoClienteChart2(): void{
-    let users = [
-      {
-        id: 'alvaro-morvelli',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'diana-zevallos',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'erica-nina',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'estrella-mendoza',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'fabiola-mayta',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'valesca-lopez',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'isabel-cosi',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'jackeline-flores',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'johana-paredes',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'jorge-cuba',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'lizbet-silva',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'maryori-garate',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-      {
-        id: 'nicolas-barrionuevo',
-        nc: 0,
-        nuevo: 0,
-        antiguo: 0,
-        varios: 0,
-      },
-    ];
-
-    this.lstTareas.forEach((tarea)=>{{
-      users.forEach((user)=>{
-        if (tarea.idrdt.slice(11) == user.id) {
-          switch (tarea.ntipocliente) {
-            case 'nc':
-              user.nc++;
-              break;
-            case 'nuevo':
-              user.nuevo++;
-              break;
-            case 'antiguo':
-              user.antiguo++;
-              break;
-            case 'varios':
-              user.varios++;
-              break;
-            default:
-              console.log('ERROR', tarea.ntipocliente)
-          }
-        }
-      })
-    }});
-    if (this.tipoClienteChart2) this.tipoClienteChart2.destroy();
+  crearTipoClienteChart2(): void {
     this.tipoClienteChart2 = new Chart("TipoClienteChart2", {
       type: 'bar',
       data: {
-        labels: [
-          'alvaro',
-          'diana',
-          'erica',
-          'estrella',
-          'fabiola',
-          'valesca',
-          'isabel',
-          'jackeline',
-          'johana',
-          'jorge',
-          'lizbet',
-          'maryori',
-          'nicolas',
-        ], 
-	       datasets: [
+        labels: this.lstStats.map(u => u.name),
+        datasets: [
           {
             label: 'NC',
-            data: users.map(u=>u.nc),
+            data: this.lstStats.map(u => u.tc['nc']),
             backgroundColor: ['black']
           },
           {
-            label: 'Varios',
-            data: users.map(u=>u.varios),
-            backgroundColor: ['purple']
+            label: 'Nuevo',
+            data: this.lstStats.map(u => u.tc['nuevo']),
+            backgroundColor: ['green']
           },
           {
             label: 'Antiguo',
-            data: users.map(u=>u.antiguo),
+            data: this.lstStats.map(u => u.tc['antiguo']),
             backgroundColor: ['skyblue']
           },
           {
-            label: 'Nuevo',
-            data: users.map(u=>u.nuevo),
-            backgroundColor: ['green']
+            label: 'varios',
+            data: this.lstStats.map(u => u.ta['varios']),
+            backgroundColor: ['purple']
           },
         ]
       },
       options: {
-        aspectRatio:2.5,
+        aspectRatio: 2.5,
         plugins: {
           title: {
             display: true,
@@ -964,65 +380,54 @@ export class RdtStatsComponent {
       }
     });
   }
-  
+
   /**********************************************
    * ********************************************
    *********************************************/
-  
-  crearTipoTareaChart(){
-    let lstCantTipoTarea = [
-      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    ];
-    this.lstTareas.forEach((tarea) => {
-      if (tarea.ncodeje == 'nc') {
-        lstCantTipoTarea[0]++;
-      } else {
-        lstCantTipoTarea[Number(tarea.ncodeje)]++;
-      }
-    });
-    
-    let lstTipoTareaUsadas: Array<any> = [];
 
-    lstCantTipoTarea.forEach((cantTipoTarea, index) => {
-      if (cantTipoTarea > 0) {
-        let color = '';
-        if (index == 0) color = 'black';
-        else if (index < 29) color = 'blue';
-        else color = 'yellow';
-        lstTipoTareaUsadas.push({
-          codigo: index == 0 ? 'nc' : index,
-          cantidad: cantTipoTarea,
-          color: color
-        });
-      }
-    });
-    
-    if (this.tipoTareaChart2) this.tipoTareaChart2.destroy();
+  crearTipoTareaChart() {
+    let lstCantTipoTarea = [
+      0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0
+    ];
+
     this.tipoTareaChart2 = new Chart("TipoTareaChart2", {
       type: 'bar',
       data: {
-        labels: lstTipoTareaUsadas.map(x => x.codigo), 
-	       datasets: [
-          {
-            label: 'Cantidad de tareas realizadas',
-            data: lstTipoTareaUsadas.map(x => x.cantidad),
-            backgroundColor: lstTipoTareaUsadas.map(x => x.color)
+        labels: lstCantTipoTarea.map((a, b) => (b + 1)),
+        datasets: this.lstStats.map(u => {
+          return {
+            label: u.name,
+            data: u.tt,
+            backgroundColor: u.color + '4f',
+            borderColor: u.color + 'ff',
+            borderWidth: 1
           }
-        ]
+        }),
       },
       options: {
-        aspectRatio:2.5,
+        aspectRatio: 2.5,
         plugins: {
           title: {
             display: true,
-            text: 'Listado de tareas - diligencias'
+            text: 'Tareas y Diligencias'
           },
         },
         responsive: true,
+        scales: {
+          x: {
+            stacked: true,
+          },
+          y: {
+            stacked: true
+          }
+        }
       }
-    });
-
+    })
   }
 }

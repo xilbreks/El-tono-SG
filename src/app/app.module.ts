@@ -34,6 +34,7 @@ import { ExpedienteRegisterComponent } from './expediente-register/expediente-re
 import { RecursosComponent } from './recursos/recursos.component';
 import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
 import { RecursosTareasComponent } from './recursos-tareas/recursos-tareas.component';
+import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
 
 
 const environment = {
@@ -75,6 +76,7 @@ const environment = {
     RecursosComponent,
     RecursosItersComponent,
     RecursosTareasComponent,
+    StatsGeneratorComponent,
   ],
   imports: [
     BrowserModule,
