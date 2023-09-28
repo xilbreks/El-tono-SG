@@ -35,6 +35,8 @@ import { RecursosComponent } from './recursos/recursos.component';
 import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
 import { RecursosTareasComponent } from './recursos-tareas/recursos-tareas.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
+import { AsistenciaComponent } from './asistencia/asistencia.component';
+import { TestingComponent } from './testing/testing.component';
 
 
 const environment = {
@@ -77,6 +79,8 @@ const environment = {
     RecursosItersComponent,
     RecursosTareasComponent,
     StatsGeneratorComponent,
+    AsistenciaComponent,
+    TestingComponent,
   ],
   imports: [
     BrowserModule,

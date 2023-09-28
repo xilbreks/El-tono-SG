@@ -17,6 +17,8 @@ import { ExpedienteItemComponent } from './expediente-item/expediente-item.compo
 import { SinoeComponent } from './sinoe/sinoe.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
+import { AsistenciaComponent } from './asistencia/asistencia.component';
+import { TestingComponent } from './testing/testing.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -99,6 +101,14 @@ const routes: Routes = [
   {
     path: 'stats-generator',
     component: StatsGeneratorComponent,
+  },
+  {
+    path: 'asistencia',
+    component: AsistenciaComponent
+  },
+  {
+    path: 'testing',
+    component: TestingComponent
   },
   {
     path: '**',
