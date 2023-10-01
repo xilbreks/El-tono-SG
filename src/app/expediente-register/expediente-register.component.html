@@ -13,23 +13,27 @@
     <table style="width:100%">
         <tr>
             <td>
-                <b>MATERIA:</b>
+                <b>ESPECIALIDAD:</b>
             </td>
             <td>
-                <input type="text" class="form-control" formControlName="smateria">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>RAMA:</b>
-            </td>
-            <td>
-                <select class="form-select" formControlName="sespecialidad">
+                <select class="form-select" formControlName="sespecialidad" (change)="setLstMaterias()">
                     <option value="LABORAL">LABORAL</option>
                     <option value="CIVIL">CIVIL</option>
                     <option value="PENAL">PENAL</option>
                     <option value="FAMILIA">FAMILIA</option>
                     <option value="CONSTITUCIONAL">CONSTITUCIONAL</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>MATERIA:</b>
+            </td>
+            <td>
+                <select class="form-select" formControlName="idmateria" (change)="setSMateria()">
+                    <option *ngFor="let mat of lstMaterias" [value]="mat.idmateria">
+                        {{mat.smateria}}
+                    </option>
                 </select>
             </td>
         </tr>
