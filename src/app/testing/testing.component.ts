@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-testing',
@@ -6,8 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./testing.component.scss']
 })
 export class TestingComponent {
+  regexp = /^[0-9]{5}[-][0-9]{4}[-][0-9]{1,2}[-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}/;
 
-  getListNoMatch() {
+  constructor(
+    private db: AngularFirestore,
+  ) {
+
+  }
+
+  get listNoMatch() {
     return [
       {
         "sespecialista": "CARPIO MONTES, ALEXANDRA",
@@ -25,4 +33,5 @@ export class TestingComponent {
       }
     ]
   }
+
 }
