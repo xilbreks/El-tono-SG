@@ -7,11 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ExpedientesComponent {
 
-  constructor() {
-  }
-
-  get lstExpedientes() {
-    return [
+  lstExpedientes = [
       {
         "sjuez": "LLAVILLA LUJAN JORGE MANUEL",
         "sdistritojuris": "AREQUIPA",
@@ -7842,11 +7838,9 @@ export class ExpedientesComponent {
         "sfechamodificacion": "1689027927295",
         "sdemandado": "SOUTHERN COOPER"
       }
-    ]
-  }
+  ]
 
-  get lstCantMat() {
-    return [
+  lstCantMat = [
       {
         "idmateria": "LAB-DESN-C",
         "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -8297,7 +8291,8 @@ export class ExpedientesComponent {
         "sespecialidad": "CONSTITUCIONAL",
         "cantidad": 1
       }
-    ]
+  ]
+  
+  constructor() {
   }
-
 }
