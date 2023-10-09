@@ -25,13 +25,19 @@
                     Demandado
                 </th>
                 <th>
-                    Organo Jurisdiccional
-                </th>
-                <th>
                     Inicio
                 </th>
                 <th>
-                    Accion
+                    ITER
+                </th>
+                <th>
+                    Contrato
+                </th>
+                <th>
+                    Pagos
+                </th>
+                <th>
+                    Saldo
                 </th>
             </tr>
         </thead>
@@ -41,7 +47,9 @@
                     {{i+1}}
                 </td>
                 <td>
-                    {{expediente.sexpediente}}
+                    <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                        {{expediente.sexpediente}}
+                    </a>
                 </td>
                 <td>
                     {{expediente.smateria}}
@@ -56,15 +64,37 @@
                     {{expediente.sdemandado}}
                 </td>
                 <td>
-                    {{expediente.sorganojuris}}
-                </td>
-                <td>
                     {{expediente.sfechainicio}}
                 </td>
                 <td>
-                    <a class="btn btn-success" [routerLink]="'/expediente/'+expediente.sexpediente">
-                        Ver
-                    </a>
+                    {{expediente.niter}}
+                </td>
+                <td style="text-align: center;">
+                    <span *ngIf="expediente.lcontrato" style="color: green;">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <br>
+                        {{expediente.nmontocontrato}}
+                    </span>
+                    <span *ngIf="!expediente.lcontrato">
+                        -
+                    </span>
+                </td>
+                <td>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr *ngFor="let p of expediente.lstpagos">
+                                <td>
+                                    {{p.sfecha}}
+                                </td>
+                                <td>
+                                    {{p.nmonto}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    {{expediente.nsaldocontrato}}
                 </td>
             </tr>
         </tbody>
