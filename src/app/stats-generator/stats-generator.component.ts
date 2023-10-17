@@ -42,7 +42,7 @@ export class StatsGeneratorComponent {
       .valueChanges()
       .subscribe((users: Array<any>) => {
         this.lstUsuarios = users;
-        console.log('Usuarios recuperados exitosamente');
+        console.log('Usuarios recuperados exitosamente', users);
         obs.unsubscribe();
       });
   }
@@ -54,8 +54,15 @@ export class StatsGeneratorComponent {
       })
       .valueChanges()
       .subscribe((tasks: Array<any>) => {
-        this.lstTareas = tasks;
-        console.log('Tareas recuperadas exitosamente');
+        let lstTareas = tasks.filter((t: any) => {
+          let nCodEje = Number(t.ncodeje);
+          if(nCodEje < 100) {
+            return true;
+          }
+          else return false;
+        })
+        this.lstTareas = lstTareas;
+        console.log('Tareas recuperadas exitosamente', lstTareas);
         obs.unsubscribe();
       });
   }

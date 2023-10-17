@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-expedientes',
@@ -6,7 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./expedientes.component.scss'],
 })
 export class ExpedientesComponent {
-
   lstExpedientes = [
     {
       "sdemandante": "FERREYRA BENDEZU CHRISTIAN ROGER",
@@ -8846,6 +8847,110 @@ export class ExpedientesComponent {
     }
   ]
 
-  constructor() {
+  /**
+   * Listas de expedientes
+   */
+  lstLabor: Array<any> = [];
+  lstFamil: Array<any> = [];
+  lstCivil: Array<any> = [];
+  lstPenal: Array<any> = [];
+  lstConst: Array<any> = [];
+
+  constructor(
+    private db: AngularFirestore,
+  ) {
+  }
+
+  getExpedientes() {
+    let obs = this.db.collection('expedientes')
+      .valueChanges()
+      .subscribe((res: Array<any>) => {
+        this.lstLabor = res.filter(x => x.sespecialidad == 'LABORAL')
+          .sort((a: any, b: any) => {
+            if (a.sdemandante < b.sdemandante) {
+              return -1
+            } else {
+              return 1;
+            }
+          }).map(x => {
+            return {
+              "Expediente": x.sexpediente,
+              "Especialidad": x.sespecialidad,
+              "Materia": x.smateria,
+              "Demandante": x.sdemandante,
+              "Demandado": x.sdemandado,
+              "Inicio": x.sfechainicio,
+              "ITER": x.niter
+            }
+          })
+        this.lstFamil = res.filter(x => x.sespecialidad == 'FAMILIA').map(x => {
+          return {
+            "Expediente": x.sexpediente,
+            "Especialidad": x.sespecialidad,
+            "Materia": x.smateria,
+            "Demandante": x.sdemandante,
+            "Demandado": x.sdemandado,
+            "Inicio": x.sfechainicio,
+            "ITER": x.niter
+          }
+        })
+        this.lstCivil = res.filter(x => x.sespecialidad == 'CIVIL').map(x => {
+          return {
+            "Expediente": x.sexpediente,
+            "Especialidad": x.sespecialidad,
+            "Materia": x.smateria,
+            "Demandante": x.sdemandante,
+            "Demandado": x.sdemandado,
+            "Inicio": x.sfechainicio,
+            "ITER": x.niter
+          }
+        })
+        this.lstPenal = res.filter(x => x.sespecialidad == 'PENAL').map(x => {
+          return {
+            "Expediente": x.sexpediente,
+            "Especialidad": x.sespecialidad,
+            "Materia": x.smateria,
+            "Demandante": x.sdemandante,
+            "Demandado": x.sdemandado,
+            "Inicio": x.sfechainicio,
+            "ITER": x.niter
+          }
+        })
+        this.lstConst = res.filter(x => x.sespecialidad == 'CONSTITUCIONAL').map(x => {
+          return {
+            "Expediente": x.sexpediente,
+            "Especialidad": x.sespecialidad,
+            "Materia": x.smateria,
+            "Demandante": x.sdemandante,
+            "Demandado": x.sdemandado,
+            "Inicio": x.sfechainicio,
+            "ITER": x.niter
+          }
+        })
+
+        console.log('Se obtuvieron los expedientes correctamente');
+        obs.unsubscribe();
+      })
+  }
+
+  descargarExcel() {
+    const workbook = XLSX.utils.book_new();
+
+    const wsLaboral = XLSX.utils.json_to_sheet(this.lstLabor);
+    XLSX.utils.book_append_sheet(workbook, wsLaboral, "Laboral");
+
+    const wsFamil = XLSX.utils.json_to_sheet(this.lstFamil);
+    XLSX.utils.book_append_sheet(workbook, wsFamil, "Familia");
+
+    const wsCivil = XLSX.utils.json_to_sheet(this.lstCivil);
+    XLSX.utils.book_append_sheet(workbook, wsCivil, "Civil");
+
+    const wsPenal = XLSX.utils.json_to_sheet(this.lstPenal);
+    XLSX.utils.book_append_sheet(workbook, wsPenal, "Penal");
+
+    const wsConst = XLSX.utils.json_to_sheet(this.lstConst);
+    XLSX.utils.book_append_sheet(workbook, wsConst, "Constitucional");
+
+    XLSX.writeFile(workbook, 'Expedientes SGABGSAC' + '.xlsx', { compression: true });
   }
 }

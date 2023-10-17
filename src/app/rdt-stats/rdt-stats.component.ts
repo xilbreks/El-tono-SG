@@ -404,8 +404,8 @@ export class RdtStatsComponent {
           return {
             label: u.name,
             data: u.tt,
-            backgroundColor: u.color + '4f',
-            borderColor: u.color + 'ff',
+            backgroundColor: u.color,
+            borderColor: 'cccccc',
             borderWidth: 1
           }
         }),
