@@ -1,6 +1,3 @@
-<p>
-    Actualizado al 01 oct 2023
-</p>
 <h3>Lsitado de Expedientes</h3>
 
 <!-- <button (click)="getExpedientes()">
@@ -10,105 +7,529 @@
     Descargar
 </button> -->
 
-<div class="table-responsive">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    Expediente
-                </th>
-                <th>
-                    Materia
-                </th>
-                <th>
-                    Especialidad
-                </th>
-                <th>
-                    Demandante
-                </th>
-                <th>
-                    Demandado
-                </th>
-                <th>
-                    Inicio
-                </th>
-                <th>
-                    ITER
-                </th>
-                <th>
-                    Contrato
-                </th>
-                <th>
-                    Pagos
-                </th>
-                <th>
-                    Saldo
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let expediente of lstExpedientes; let i = index">
-                <td>
-                    {{i+1}}
-                </td>
-                <td>
-                    <a [routerLink]="'/expediente/'+expediente.sexpediente">
-                        {{expediente.sexpediente}}
-                    </a>
-                </td>
-                <td>
-                    {{expediente.smateria}}
-                </td>
-                <td>
-                    {{expediente.sespecialidad}}
-                </td>
-                <td>
-                    {{expediente.sdemandante}}
-                </td>
-                <td>
-                    {{expediente.sdemandado}}
-                </td>
-                <td>
-                    {{expediente.sfechainicio}}
-                </td>
-                <td>
-                    {{expediente.niter}}
-                </td>
-                <td style="text-align: center;">
-                    <span *ngIf="expediente.lcontrato" style="color: green;">
-                        <i class="bi bi-check-circle-fill"></i>
-                        <br>
-                        {{expediente.nmontocontrato}}
-                    </span>
-                    <span *ngIf="!expediente.lcontrato">
-                        -
-                    </span>
-                </td>
-                <td>
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr *ngFor="let p of expediente.lstpagos">
-                                <td>
-                                    {{p.sfecha}}
-                                </td>
-                                <td>
-                                    {{p.nmonto}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td>
-                    {{expediente.nsaldocontrato}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="laboral-tab" data-bs-toggle="tab" data-bs-target="#laboral-tab-pane"
+                type="button" role="tab" aria-selected="true">
+                Laboral
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="familia-tab" data-bs-toggle="tab" data-bs-target="#familia-tab-pane"
+                type="button" role="tab" aria-selected="false">
+                Familia
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="civil-tab" data-bs-toggle="tab" data-bs-target="#civil-tab-pane" type="button"
+                role="tab" aria-selected="false">
+                Civil
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="penal-tab" data-bs-toggle="tab" data-bs-target="#penal-tab-pane" type="button"
+                role="tab" aria-selected="false">
+                Penal
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="constitucional-tab" data-bs-toggle="tab"
+                data-bs-target="#constitucional-tab-pane" type="button" role="tab" aria-selected="false">
+                Constitucional
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="laboral-tab-pane" role="tabpanel" aria-labelledby="laboral-tab"
+            tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                            <th>
+                                ITER
+                            </th>
+                            <th>
+                                Contrato
+                            </th>
+                            <th>
+                                Pagos
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstLabor; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                            <td>
+                                {{expediente.niter}}
+                            </td>
+                            <td style="text-align: center;">
+                                <span *ngIf="expediente.lcontrato" style="color: green;">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <br>
+                                    {{expediente.nmontocontrato}}
+                                </span>
+                                <span *ngIf="!expediente.lcontrato">
+                                    -
+                                </span>
+                            </td>
+                            <td>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr *ngFor="let p of expediente.lstpagos">
+                                            <td>
+                                                {{p.sfecha}}
+                                            </td>
+                                            <td>
+                                                {{p.nmonto}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+        <div class="tab-pane fade" id="familia-tab-pane" role="tabpanel" aria-labelledby="familia-tab" tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                            <th>
+                                ITER
+                            </th>
+                            <th>
+                                Contrato
+                            </th>
+                            <th>
+                                Pagos
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstFamil; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                            <td>
+                                {{expediente.niter}}
+                            </td>
+                            <td style="text-align: center;">
+                                <span *ngIf="expediente.lcontrato" style="color: green;">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <br>
+                                    {{expediente.nmontocontrato}}
+                                </span>
+                                <span *ngIf="!expediente.lcontrato">
+                                    -
+                                </span>
+                            </td>
+                            <td>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr *ngFor="let p of expediente.lstpagos">
+                                            <td>
+                                                {{p.sfecha}}
+                                            </td>
+                                            <td>
+                                                {{p.nmonto}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+        <div class="tab-pane fade" id="civil-tab-pane" role="tabpanel" aria-labelledby="civil-tab" tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                            <th>
+                                ITER
+                            </th>
+                            <th>
+                                Contrato
+                            </th>
+                            <th>
+                                Pagos
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstCivil; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                            <td>
+                                {{expediente.niter}}
+                            </td>
+                            <td style="text-align: center;">
+                                <span *ngIf="expediente.lcontrato" style="color: green;">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <br>
+                                    {{expediente.nmontocontrato}}
+                                </span>
+                                <span *ngIf="!expediente.lcontrato">
+                                    -
+                                </span>
+                            </td>
+                            <td>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr *ngFor="let p of expediente.lstpagos">
+                                            <td>
+                                                {{p.sfecha}}
+                                            </td>
+                                            <td>
+                                                {{p.nmonto}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+        <div class="tab-pane fade" id="penal-tab-pane" role="tabpanel" aria-labelledby="penal-tab" tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                            <th>
+                                ITER
+                            </th>
+                            <th>
+                                Contrato
+                            </th>
+                            <th>
+                                Pagos
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstPenal; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                            <td>
+                                {{expediente.niter}}
+                            </td>
+                            <td style="text-align: center;">
+                                <span *ngIf="expediente.lcontrato" style="color: green;">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <br>
+                                    {{expediente.nmontocontrato}}
+                                </span>
+                                <span *ngIf="!expediente.lcontrato">
+                                    -
+                                </span>
+                            </td>
+                            <td>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr *ngFor="let p of expediente.lstpagos">
+                                            <td>
+                                                {{p.sfecha}}
+                                            </td>
+                                            <td>
+                                                {{p.nmonto}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+        <div class="tab-pane fade" id="constitucional-tab-pane" role="tabpanel" aria-labelledby="constitucional-tab"
+            tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                            <th>
+                                ITER
+                            </th>
+                            <th>
+                                Contrato
+                            </th>
+                            <th>
+                                Pagos
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstConst; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                            <td>
+                                {{expediente.niter}}
+                            </td>
+                            <td style="text-align: center;">
+                                <span *ngIf="expediente.lcontrato" style="color: green;">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <br>
+                                    {{expediente.nmontocontrato}}
+                                </span>
+                                <span *ngIf="!expediente.lcontrato">
+                                    -
+                                </span>
+                            </td>
+                            <td>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr *ngFor="let p of expediente.lstpagos">
+                                            <td>
+                                                {{p.sfecha}}
+                                            </td>
+                                            <td>
+                                                {{p.nmonto}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+    </div>
 </div>
-<h3>Cantidad de Expedientes según Materia</h3>
+
+
+
+
+<!-- <h3>Cantidad de Expedientes según Materia</h3>
 <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <tr>
@@ -134,4 +555,4 @@
             </td>
         </tr>
     </table>
-</div>
+</div> -->
