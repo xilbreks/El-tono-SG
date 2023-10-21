@@ -22,6 +22,16 @@ class ObjPago {
   }
 }
 
+interface Pago {
+  idpago: string;
+  sexpediente: string;
+  nmonto: number;
+  sfecha: string;
+  sdescripcion: string;
+  smodificador: string;
+  lactive: boolean;
+}
+
 @Component({
   selector: 'app-testing',
   templateUrl: './testing.component.html',
@@ -30,36 +40,28 @@ class ObjPago {
 export class TestingComponent {
   regexp = /^[0-9]{5}[-][0-9]{4}[-][0-9]{1,2}[-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}/;
 
+  nFechaBase = 1697864400000;
+
   lstpagos: Array<ObjPago> = [
-    new ObjPago({
-      sexpediente: '',
-      nmontocontrato: 0,
-      lstpagos: [
-        {
-          nmonto: 0,
-          sfecha: ''
-        },
-      ]
-    }),
     new ObjPago({
       sexpediente: '00983-2019-0-0401-JR-FC-03',
       nmontocontrato: 800,
       lstpagos: [
         {
           nmonto: 250,
-          sfecha: '19/03/2019'
+          sfecha: '19.03.2019'
         },
         {
           nmonto: 200,
-          sfecha: '16/07/2019'
+          sfecha: '16.07.2019'
         },
         {
           nmonto: 100,
-          sfecha: '04/10/2019'
+          sfecha: '04.10.2019'
         },
         {
           nmonto: 250,
-          sfecha: '22/03/2022'
+          sfecha: '22.03.2022'
         },
       ]
     }),
@@ -267,6 +269,10 @@ export class TestingComponent {
       lstpagos: [
         {
           nmonto: 1000,
+          sfecha: '10.03.2021'
+        },
+        {
+          nmonto: 1000,
           sfecha: '26.04.2021'
         },
         {
@@ -283,6 +289,10 @@ export class TestingComponent {
       sexpediente: '04830-2021-0-0401-JR-LA-08',
       nmontocontrato: 4700,
       lstpagos: [
+        {
+          nmonto: 1000,
+          sfecha: '16.12.2021'
+        },
         {
           nmonto: 1000,
           sfecha: '17.12.2021'
@@ -571,6 +581,10 @@ export class TestingComponent {
           nmonto: 500,
           sfecha: '08.11.2021'
         },
+        {
+          nmonto: 500,
+          sfecha: '01.03.2023'
+        },
       ]
     }),
     new ObjPago({
@@ -688,30 +702,6 @@ export class TestingComponent {
       ]
     }),
     new ObjPago({
-      sexpediente: '01536-2021-0-0401-JR-LA-01',
-      nmontocontrato: 0,
-      lstpagos: [
-        {
-          nmonto: 1000,
-          sfecha: '10.03.2021'
-        },
-        {
-          nmonto: 1000,
-          sfecha: '14.07.2021'
-        },
-      ]
-    }),
-    new ObjPago({
-      sexpediente: '04830-2021-0-0401-JR-LA-08',
-      nmontocontrato: 5700,
-      lstpagos: [
-        {
-          nmonto: 1000,
-          sfecha: '16.12.2021'
-        },
-      ]
-    }),
-    new ObjPago({
       sexpediente: '02450-2022-0-1801-JR-LA-09',
       nmontocontrato: 0,
       lstpagos: [
@@ -722,54 +712,12 @@ export class TestingComponent {
       ]
     }),
     new ObjPago({
-      sexpediente: '01295-2022-0-0401-JR-LA-08',
-      nmontocontrato: 4500,
-      lstpagos: [
-        {
-          nmonto: 1000,
-          sfecha: '28.03.2022'
-        },
-        {
-          nmonto: 1000,
-          sfecha: '01.06.2022'
-        },
-      ]
-    }),
-    new ObjPago({
-      sexpediente: '01954-2022-0-0401-JR-LA-07',
-      nmontocontrato: 0,
-      lstpagos: [
-        {
-          nmonto: 1000,
-          sfecha: '02.09.2022'
-        },
-      ]
-    }),
-    new ObjPago({
       sexpediente: '04176-2021-0-0401-JR-LA-02',
       nmontocontrato: 4500,
       lstpagos: [
         {
           nmonto: 4500,
           sfecha: 'xx.09.2022'
-        },
-      ]
-    }),
-    new ObjPago({
-      sexpediente: '05101-2021-0-0401-JR-LA-08',
-      nmontocontrato: 4000,
-      lstpagos: [
-        {
-          nmonto: 250,
-          sfecha: '27.10.2021'
-        },
-        {
-          nmonto: 1000,
-          sfecha: '05.11.2021'
-        },
-        {
-          nmonto: 1000,
-          sfecha: '03.02.2022'
         },
       ]
     }),
@@ -1212,16 +1160,6 @@ export class TestingComponent {
         {
           nmonto: 1000,
           sfecha: '25.08.2021'
-        },
-      ]
-    }),
-    new ObjPago({
-      sexpediente: '01268-2021-0-0401-JR-LA-08',
-      nmontocontrato: 0,
-      lstpagos: [
-        {
-          nmonto: 500,
-          sfecha: '01.03.2023'
         },
       ]
     }),
@@ -2664,17 +2602,2951 @@ export class TestingComponent {
       ]
     }),
     new ObjPago({
-      sexpediente: '',
+      sexpediente: '01898-2020-0-0401-JR-LA-08',
+      nmontocontrato: 5500,
+      lstpagos: [
+        {
+          sfecha: '09.09.2021',
+          nmonto: 400
+        },
+        {
+          sfecha: '03.09.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '29.11.2021',
+          nmonto: 2600
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02077-2020-0-0401-JR-LA-08',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '09.09.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '08.10.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.01.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '16.04.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '06.07.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.01.2021',
+          nmonto: 3000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01422-2020-0-0401-JR-LA-01',
+      nmontocontrato: 12000,
+      lstpagos: [
+        {
+          sfecha: '06.07.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '24.09.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '17.09.2021',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01411-2020-0-0401-JR-LA-01',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '25.05.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '23.04.20211',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.07.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '10.11.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '29.12.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '29.12.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '23.05.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '06704-2019-0-0401-JR-LA-08',
+      nmontocontrato: 8200,
+      lstpagos: [
+        {
+          sfecha: '31.08.2019',
+          nmonto: 500
+        },
+        {
+          sfecha: '02.09.2019',
+          nmonto: 500
+        },
+        {
+          sfecha: '17.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '28.02.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '03.12.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.03.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '14.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '04.05.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '09.06.2021',
+          nmonto: 700
+        },
+        {
+          sfecha: '01.10.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '02.11.2021',
+          nmonto: 250
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '08344-2017-0-0401-JR-LA-08',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '03.10.2017',
+          nmonto: 1000
+        },
+        {
+          sfecha: '07.09.2017',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.10.2019',
+          nmonto: 1500
+        },
+        {
+          sfecha: '21.11.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.04.2020',
+          nmonto: 2000
+        },
+        {
+          sfecha: '20.12.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.11.2022',
+          nmonto: 400
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '07274-2019-0-0401-JR-LA-07',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '01.10.2019',
+          nmonto: 300
+        },
+        {
+          sfecha: '02.10.2019',
+          nmonto: 900
+        },
+        {
+          sfecha: '02.10.2019',
+          nmonto: 800
+        },
+        {
+          sfecha: '13.07.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '10.11.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.11.2022',
+          nmonto: 2500
+        },
+        {
+          sfecha: '06.12.2022',
+          nmonto: 1500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '07464-2019-0-0401-JR-LA-07',
+      nmontocontrato: 9000,
+      lstpagos: [
+        {
+          sfecha: '30.09.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.03.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '24.04.2021',
+          nmonto: 2000
+        },
+        {
+          sfecha: '26.05.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '22.03.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.12.2021',
+          nmonto: 2500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02887-2021-0-0401-JR-LA-01',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '31.07.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '18.11.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '28.02.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.06.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '07.07.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.08.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.10.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '01.12.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.12.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '28.02.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '06508-2019-0-0401-JR-LA-08',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '31.08.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '02.03.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '11.09.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '16.11.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '05.03.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '09.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '26.12.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.01.2023',
+          nmonto: 500
+        },
+        {
+          sfecha: '05.05.2023',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05294-2018-0-0401-JR-LA-01',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '31.12.2018',
+          nmonto: 1000
+        },
+        {
+          sfecha: '11.06.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '07.03.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '05.04.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '07.06.2018',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.07.2020',
+          nmonto: 2000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05577-2019-0-0401-JR-LA-02',
+      nmontocontrato: 11500,
+      lstpagos: [
+        {
+          sfecha: '01.08.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '05.09.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '03.03.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '30.09.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '03.02.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '08.02.2022',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01392-2020-0-0401-JR-LA-08',
+      nmontocontrato: 9000,
+      lstpagos: [
+        {
+          sfecha: '30.06.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.09.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '18.08.2020',
+          nmonto: 1500
+        },
+        {
+          sfecha: '08.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.09.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.09.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.09.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '06.12.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '28.02.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '16.12.2021',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05171-2018-0-0401-JR-LA-02',
+      nmontocontrato: 7500,
+      lstpagos: [
+        {
+          sfecha: '05.06.2018',
+          nmonto: 2000
+        },
+        {
+          sfecha: '15.01.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '12.01.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '16.03.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01394-2020-0-0401-JR-LA-08',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '26.06.2020',
+          nmonto: 100
+        },
+        {
+          sfecha: '13.07.2020',
+          nmonto: 900
+        },
+        {
+          sfecha: '28.08.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '02.08.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '13.10.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '05.08.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '04.11.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.02.2023',
+          nmonto: 1000
+        },
+        {
+          sfecha: '22.02.2022',
+          nmonto: 250
+        },
+        {
+          sfecha: '28.04.2023',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05706-2019-0-0401-JR-LA-07',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '01.08.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '06.09.2019',
+          nmonto: 700
+        },
+        {
+          sfecha: '23.09.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '10.12.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '26.02.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '17.11.2021',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '06949-2019-0-0401-JR-LA-01',
+      nmontocontrato: 7500,
+      lstpagos: [
+        {
+          sfecha: '26.09.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '11.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '21.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '17.06.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '04.08.2021',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01640-2020-0-0401-JR-LA-09',
+      nmontocontrato: 15000,
+      lstpagos: [
+        {
+          sfecha: '22.10.2020',
+          nmonto: 2000
+        },
+        {
+          sfecha: '14.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '20.11.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '16.02.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '04.06.2022',
+          nmonto: 1500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02194-2020-0-0401-JR-LA-02',
+      nmontocontrato: 4000,
+      lstpagos: [
+        {
+          sfecha: '01.02.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: 'xx.04.2021',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '04782-2021-0-0401-JR-LA-02',
+      nmontocontrato: 12500,
+      lstpagos: [
+        {
+          sfecha: '28.03.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.05.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.06.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '08.07.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '28.03.2022',
+          nmonto: 2000
+        },
+        {
+          sfecha: '21.12.2022',
+          nmonto: 2500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '06705-2019-0-0401-JR-LA-01',
+      nmontocontrato: 7300,
+      lstpagos: [
+        {
+          sfecha: '11.09.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '22.04.2021',
+          nmonto: 3000
+        },
+        {
+          sfecha: '13.05.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '10.04.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '03647-2022-0-0401-JR-LA-07',
+      nmontocontrato: 10500,
+      lstpagos: [
+        {
+          sfecha: '16.08.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '08.11.2022',
+          nmonto: 2000
+        },
+        {
+          sfecha: '20.01.2023',
+          nmonto: 1500
+        },
+        {
+          sfecha: '31.08.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '12.07.2022',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '00616-2021-0-0401-JR-LA-02',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '10.02.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '08.03.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '12.07.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '18.10.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.11.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: 'xx.12.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: 'xx.01.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '18.04.2022',
+          nmonto: 400
+        },
+        {
+          sfecha: '08.06.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '19.07.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '05.10.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '28.12.2022',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01398-2020-0-0401-JR-LA-07',
+      nmontocontrato: 7000,
+      lstpagos: [
+        {
+          sfecha: '30.06.2020',
+          nmonto: 2000
+        },
+        {
+          sfecha: 'xx.04.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.05.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '02.02.2021',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01395-2020-0-0401-JR-LA-02',
+      nmontocontrato: 9500,
+      lstpagos: [
+        {
+          sfecha: '26.06.2020',
+          nmonto: 100
+        },
+        {
+          sfecha: '15.07.2020',
+          nmonto: 900
+        },
+        {
+          sfecha: '00.12.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '08.03.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '11.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.01.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '19.10.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.01.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.06.2022',
+          nmonto: 2500
+        },
+        {
+          sfecha: '09.02.2023',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01413-2020-0-0401-JR-LA-07',
+      nmontocontrato: 9000,
+      lstpagos: [
+        {
+          sfecha: '11.06.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.08.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '08.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '07.05.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.08.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '29.03.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '12.11.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '10.08.2022',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02276-2019-0-0401-JR-LA-09',
+      nmontocontrato: 7000,
+      lstpagos: [
+        {
+          sfecha: '30.03.2020',
+          nmonto: 2000
+        },
+        {
+          sfecha: 'xx.04.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '30.11.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '12.12.2020',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '04123-2019-0-0401-JR-LA-02',
+      nmontocontrato: 9000,
+      lstpagos: [
+        {
+          sfecha: '06.05.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.06.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.03.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '27.04.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '01.10.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.10.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '05.04.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '14.07.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '13.01.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '22.11.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '18.11.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '29.01.2021',
+          nmonto: 350
+        },
+        {
+          sfecha: '28.12.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '17.02.2023',
+          nmonto: 500
+        },
+        {
+          sfecha: 'xx.03.2023',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05649-2019-0-0401-JR-LA-02',
+      nmontocontrato: 8100,
+      lstpagos: [
+        {
+          sfecha: '05.08.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '12.09.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '06.01.2020',
+          nmonto: 1500
+        },
+        {
+          sfecha: '21.01.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '29.01.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '10.01.2022',
+          nmonto: 300
+        },
+        {
+          sfecha: '03.02.2022',
+          nmonto: 300
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02043-2020-0-0401-JR-LA-09',
+      nmontocontrato: 6800,
+      lstpagos: [
+        {
+          sfecha: '03.02.2021',
+          nmonto: 300
+        },
+        {
+          sfecha: '03.02.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '13.07.2021',
+          nmonto: 900
+        },
+        {
+          sfecha: '06.06.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.07.2022',
+          nmonto: 100
+        },
+        {
+          sfecha: 'xx.08.2021',
+          nmonto: 100
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02756-2020-0-0401-JR-LA-02',
+      nmontocontrato: 8750,
+      lstpagos: [
+        {
+          sfecha: '15.12.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '06.04.2020',
+          nmonto: 800
+        },
+        {
+          sfecha: '26.05.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '28.09.2021',
+          nmonto: 1200
+        },
+        {
+          sfecha: '13.01.2022',
+          nmonto: 750
+        },
+        {
+          sfecha: '25.04.2022',
+          nmonto: 750
+        },
+        {
+          sfecha: '25.04.2022',
+          nmonto: 1500
+        },
+        {
+          sfecha: '06.06.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.08.2022',
+          nmonto: 1250
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01412-2020-0-0401-JR-LA-09',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '10.02.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '28.03.2022',
+          nmonto: 3000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '08346-2017-0-0401-JR-LA-07',
+      nmontocontrato: 5500,
+      lstpagos: [
+        {
+          sfecha: '06.04.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '06.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'VIVIANA',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'VIVIANA',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'VIVIANA',
+          nmonto: 500
+        },
+        {
+          sfecha: '28.12.2022',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '07131-2019-0-0401-JR-LA-07',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '11.03.2019',
+          nmonto: 300
+        },
+        {
+          sfecha: '01.10.2019',
+          nmonto: 700
+        },
+        {
+          sfecha: '28.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.04.2021',
+          nmonto: 3000
+        },
+        {
+          sfecha: '19.08.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '29.10.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '21.01.2022',
+          nmonto: 1500
+        },
+        {
+          sfecha: '27.12.2022',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02817-2020-0-0401-JR-LA-09',
+      nmontocontrato: 13850,
+      lstpagos: [
+        {
+          sfecha: '02.12.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '26.03.2021',
+          nmonto: 3000
+        },
+        {
+          sfecha: '12.04.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '09.10.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '26.10.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: 'xx.xx.xxxx',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.08.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '14.07.2022',
+          nmonto: 1500
+        },
+        {
+          sfecha: '31.10.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.11.2022',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '04967-2019-0-0401-JR-LA-02',
+      nmontocontrato: 1000,
+      lstpagos: [
+        {
+          sfecha: '06.06.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '07.08.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.12.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '02.02.2021',
+          nmonto: 2000
+        },
+        {
+          sfecha: '16.11.2021',
+          nmonto: 1500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '04155-2019-0-0401-JR-LA-01',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '08.05.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '05.04.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '13.07.2021',
+          nmonto: 2000
+        },
+        {
+          sfecha: '15.10.2021',
+          nmonto: 2000
+        },
+        {
+          sfecha: '06.01.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.10.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '06.01.2022',
+          nmonto: 250
+        },
+        {
+          sfecha: '13.02.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '00435-2022-0-0401-JR-LA-02',
+      nmontocontrato: 5500,
+      lstpagos: [
+        {
+          sfecha: '16.07.2021',
+          nmonto: 200
+        },
+        {
+          sfecha: '29.12.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '07.01.2022',
+          nmonto: 1750
+        },
+        {
+          sfecha: '25.02.2022',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01397-2020-0-0401-JR-LA-09',
+      nmontocontrato: 6500,
+      lstpagos: [
+        {
+          sfecha: '08.06.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '21.09.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.12.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '24.07.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '30.10.2021',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '06907-2019-0-0401-JR-LA-01',
+      nmontocontrato: 9200,
+      lstpagos: [
+        {
+          sfecha: '02.09.2019',
+          nmonto: 2000
+        },
+        {
+          sfecha: '11.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '09.03.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '20.05.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '07.07.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '04.06.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.10.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '27.06.2022',
+          nmonto: 350
+        },
+        {
+          sfecha: '02.07.2022',
+          nmonto: 350
+        },
+        {
+          sfecha: '26.09.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '06.01.2023',
+          nmonto: 500
+        },
+        {
+          sfecha: 'VIVIANA',
+          nmonto: 2000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '04269-2019-0-0401-JR-LA-08',
+      nmontocontrato: 7000,
+      lstpagos: [
+        {
+          sfecha: '12.12.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '07.02.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.10.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '04.12.2020',
+          nmonto: 1500
+        },
+        {
+          sfecha: '15.07.2021',
+          nmonto: 1500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '04414-2019-0-0401-JR-LA-07',
+      nmontocontrato: 7000,
+      lstpagos: [
+        {
+          sfecha: '28.08.2019',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.09.2019',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.09.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '18.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.10.2019',
+          nmonto: 500
+        },
+        {
+          sfecha: '25.02.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '02.06.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '02.10.2021',
+          nmonto: 300
+        },
+        {
+          sfecha: '16.11.2021',
+          nmonto: 200
+        },
+        {
+          sfecha: '23.03.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '20.05.2022',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01400-2020-0-0401-JR-LA-01',
+      nmontocontrato: 6800,
+      lstpagos: [
+        {
+          sfecha: '04.05.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '26.10.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '12.05.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '11.06.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '29.09.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '29.12.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '01.03.2023',
+          nmonto: 400
+        },
+        {
+          sfecha: '30.03.2023',
+          nmonto: 400
+        },
+        {
+          sfecha: '01.03.2023',
+          nmonto: 1000
+        },
+        {
+          sfecha: '18.04.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '06502-2018-0-0401-JR-LA-09',
+      nmontocontrato: 7500,
+      lstpagos: [
+        {
+          sfecha: '10.08.2018',
+          nmonto: 2000
+        },
+        {
+          sfecha: '30.01.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '08.04.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.07.2020',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '07023-2018-0-0401-JR-LA-02',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '28.08.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.04.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '18.10.2019',
+          nmonto: 2000
+        },
+        {
+          sfecha: '21.07.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.12.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '04.04.2021',
+          nmonto: 1500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '00789-2022-0-0401-JR-LA-02',
+      nmontocontrato: 7000,
+      lstpagos: [
+        {
+          sfecha: '18.08.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '28.08.2022',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01377-2020-0-0401-JR-LA-07',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '01.05.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.08.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '08.03.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '14.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '13.07.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '13.10.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '13.12.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '09.09.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '09.05.2022',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01390-2020-0-0401-JR-LA-02',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '03.06.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '18.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '29.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '18.05.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '21.07.2021',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01393-2020-0-0401-JR-LA-07',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '05.07.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '06.01.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '08.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '11.08.2021',
+          nmonto: 2500
+        },
+        {
+          sfecha: '26.10.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '06.05.2022',
+          nmonto: 250
+        },
+        {
+          sfecha: '11.08.2022',
+          nmonto: 250
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01408-2020-0-0401-JR-LA-07',
+      nmontocontrato: 8000,
+      lstpagos: [
+        {
+          sfecha: '09.07.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '28.08.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '20.04.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '11.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '22.09.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '31.01.2023',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.02.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '04313-2019-0-0401-JR-LA-09',
+      nmontocontrato: 6500,
+      lstpagos: [
+        {
+          sfecha: '01.03.2021',
+          nmonto: 200
+        },
+        {
+          sfecha: '11.05.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '06.09.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '05.11.2021',
+          nmonto: 2000
+        },
+        {
+          sfecha: '24.03.2022',
+          nmonto: 1300
+        },
+        {
+          sfecha: '05.01.2022',
+          nmonto: 2000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '07558-2019-0-0401-JR-LA-01',
+      nmontocontrato: 9300,
+      lstpagos: [
+        {
+          sfecha: '01.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.11.2019',
+          nmonto: 2000
+        },
+        {
+          sfecha: '04.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '21.09.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '04.11.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '21.09.2021',
+          nmonto: 200
+        },
+        {
+          sfecha: '20.05.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '20.05.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '14.01.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05413-2018-0-0401-JR-LA-07',
+      nmontocontrato: 9000,
+      lstpagos: [
+        {
+          sfecha: '04.07.2018',
+          nmonto: 2000
+        },
+        {
+          sfecha: '27.01.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '14.04.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '14.12.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '09.08.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '27.08.2021',
+          nmonto: 1600
+        },
+        {
+          sfecha: '30.03.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '08586-2017-0-0401-JR-LA-02',
+      nmontocontrato: 7500,
+      lstpagos: [
+        {
+          sfecha: '05.11.2021',
+          nmonto: 2000
+        },
+        {
+          sfecha: '04.06.2019',
+          nmonto: 5500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01590-2019-0-0401-JR-LA-07',
+      nmontocontrato: 7000,
+      lstpagos: [
+        {
+          sfecha: '21.02.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '18.09.2019',
+          nmonto: 2000
+        },
+        {
+          sfecha: '21.11.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '28.01.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '06.04.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.05.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '01.10.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '01.06.2022',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '08279-2019-0-0401-JR-LA-02',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '03.12.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '12.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '23.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '20.04.2021',
+          nmonto: 2500
+        },
+        {
+          sfecha: '25.07.2022',
+          nmonto: 3000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01385-2020-0-0401-JR-LA-01',
+      nmontocontrato: 9000,
+      lstpagos: [
+        {
+          sfecha: '16.06.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '04.11.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '11.12.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.05.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.07.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '23.09.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '03.01.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '04.05.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '08.06.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '17.05.2022',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01406-2020-0-0401-JR-LA-09',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '02.07.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '20.07.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '13.10.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '21.12.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '04.05.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '12.05.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '12.08.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '01.10.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '13.10.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '03.11.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '08.02.2022',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '06656-2019-0-0401-JR-LA-01',
+      nmontocontrato: 7800,
+      lstpagos: [
+        {
+          sfecha: '02.09.2019',
+          nmonto: 800
+        },
+        {
+          sfecha: '03.10.2019',
+          nmonto: 500
+        },
+        {
+          sfecha: '05.09.2019',
+          nmonto: 700
+        },
+        {
+          sfecha: '07.04.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '09.09.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '16.06.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.07.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: 'xx.09.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '23.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '29.09.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '14.06.2022',
+          nmonto: 300
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '07273-2019-0-0401-JR-LA-09',
+      nmontocontrato: 9102,
+      lstpagos: [
+        {
+          sfecha: '01.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '20.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.08.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '03.11.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '03.12.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '16.03.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '28.04.2022',
+          nmonto: 602
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01410-2020-0-0401-JR-LA-02',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '30.06.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '02.09.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '02.03.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '18.03.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '09.06.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '09.06.2022',
+          nmonto: 2000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01512-2020-0-0401-JR-LA-01',
+      nmontocontrato: 12000,
+      lstpagos: [
+        {
+          sfecha: '19.08.2020',
+          nmonto: 2000
+        },
+        {
+          sfecha: '07.11.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '07.07.2022',
+          nmonto: 1500
+        },
+        {
+          sfecha: '01.04.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '02.10.2021',
+          nmonto: 3500
+        },
+        {
+          sfecha: '19.10.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '29.10.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '28.12.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '30.03.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01387-2020-0-0401-JR-LA-02',
+      nmontocontrato: 9500,
+      lstpagos: [
+        {
+          sfecha: '01.06.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '19.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '04.03.2021',
+          nmonto: 2500
+        },
+        {
+          sfecha: '27.08.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '07.09.2021',
+          nmonto: 200
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01423-2020-0-0401-JR-LA-09',
+      nmontocontrato: 8300,
+      lstpagos: [
+        {
+          sfecha: '26.08.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '26.01.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '26.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.11.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '28.12.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '13.12.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: 'xx.03.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '18.04.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.09.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '01.02.2022',
+          nmonto: 800
+        },
+        {
+          sfecha: '17.05.2023',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01746-2018-0-0401-JR-LA-02',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '28.02.2018',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.04.2018',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.10.2019',
+          nmonto: 700
+        },
+        {
+          sfecha: '11.11.2019',
+          nmonto: 800
+        },
+        {
+          sfecha: '30.07.2020',
+          nmonto: 400
+        },
+        {
+          sfecha: '23.11.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.01.2023',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05903-2019-0-0401-JR-LA-02',
+      nmontocontrato: 9000,
+      lstpagos: [
+        {
+          sfecha: '16.08.2019',
+          nmonto: 1500
+        },
+        {
+          sfecha: '16.09.2019',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.02.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.10.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '19.11.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.06.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '18.10.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '02.08.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '01.12.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '24.03.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01391-2020-0-0401-JR-LA-09',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '06.07.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '26.08.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.01.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '25.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '29.11.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '29.11.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '02.12.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '04.01.2021',
+          nmonto: 2250
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '09977-2018-0-0401-JR-LA-09',
+      nmontocontrato: 7500,
+      lstpagos: [
+        {
+          sfecha: '03.12.2018',
+          nmonto: 2000
+        },
+        {
+          sfecha: '26.02.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '25.03.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '14.04.2021',
+          nmonto: 2500
+        },
+        {
+          sfecha: '13.07.2021',
+          nmonto: 2000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '00183-2020-0-0401-JR-LA-02',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: 'xx.01.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '03.01.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.09.2019',
+          nmonto: 3500
+        },
+        {
+          sfecha: '26.05.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '17.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.10.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '07.02.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '22.05.2022',
+          nmonto: 250
+        },
+        {
+          sfecha: '27.12.2022',
+          nmonto: 250
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '08065-2018-0-0401-JR-LA-09',
+      nmontocontrato: 3000,
+      lstpagos: [
+        {
+          sfecha: '11.12.2019',
+          nmonto: 3000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01603-2019-0-0401-JR-LA-09',
+      nmontocontrato: 8550,
+      lstpagos: [
+        {
+          sfecha: '22.02.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.10.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '21.04.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '23.03.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '07.02.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '10.01.2022',
+          nmonto: 750
+        },
+        {
+          sfecha: '01.12.2021',
+          nmonto: 750
+        },
+        {
+          sfecha: '15.01.2022',
+          nmonto: 300
+        },
+        {
+          sfecha: '24.02.2022',
+          nmonto: 200
+        },
+        {
+          sfecha: '04.04.2022',
+          nmonto: 300
+        },
+        {
+          sfecha: '31.10.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '06.12.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '24.02.2023',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.03.2023',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05010-2019-0-0401-JR-LA-08',
+      nmontocontrato: 7900,
+      lstpagos: [
+        {
+          sfecha: 'xx.06.2019',
+          nmonto: 200
+        },
+        {
+          sfecha: '08.07.2019',
+          nmonto: 800
+        },
+        {
+          sfecha: '07.08.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '16.12.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.12.2020',
+          nmonto: 1500
+        },
+        {
+          sfecha: '11.03.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '05.11.2020',
+          nmonto: 300
+        },
+        {
+          sfecha: '02.12.2020',
+          nmonto: 300
+        },
+        {
+          sfecha: '12.11.2021',
+          nmonto: 300
+        },
+        {
+          sfecha: '08.02.2021',
+          nmonto: 300
+        },
+        {
+          sfecha: '09.03.2021',
+          nmonto: 300
+        },
+        {
+          sfecha: '24.03.2021',
+          nmonto: 300
+        },
+        {
+          sfecha: '19.04.2021',
+          nmonto: 300
+        },
+        {
+          sfecha: '05.05.2021',
+          nmonto: 300
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05707-2019-0-0401-JR-LA-02',
+      nmontocontrato: 7000,
+      lstpagos: [
+        {
+          sfecha: 'xx.xx.xxxx',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.xx.xxxx',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.xx.xxxx',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.xx.xxxx',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.xx.xxxx',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.xx.xxxx',
+          nmonto: 1000
+        },
+        {
+          sfecha: 'xx.xx.xxxx',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02573-2020-0-0401-JR-LA-08',
+      nmontocontrato: 16500,
+      lstpagos: [
+        {
+          sfecha: '02.12.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.12.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '26.03.2021',
+          nmonto: 3000
+        },
+        {
+          sfecha: '31.08.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '20.12.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '14.07.2022',
+          nmonto: 1500
+        },
+        {
+          sfecha: '15.10.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '31.10.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '15.11.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '20.12.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.01.2023',
+          nmonto: 500
+        },
+        {
+          sfecha: '02.05.2023',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '07132-2019-0-0401-JR-LA-09',
+      nmontocontrato: 8500,
+      lstpagos: [
+        {
+          sfecha: '30.09.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '05.11.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '22.03.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '16.07.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '30.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '01.12.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '21.03.2023',
+          nmonto: 1000
+        },
+        {
+          sfecha: '30.05.2023',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.06.2023',
+          nmonto: 500
+        },
+        {
+          sfecha: '21.03.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '07003-2018-0-0401-JR-LA-02',
       nmontocontrato: 0,
       lstpagos: [
         {
-          sfecha: '',
-          nmonto: 0
+          sfecha: '28.08.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '16.10.2021',
+          nmonto: 1250
+        },
+        {
+          sfecha: '18.12.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '20.06.2021',
+          nmonto: 100
         },
       ]
-    })
+    }),
+    new ObjPago({
+      sexpediente: '05183-2018-0-0401-JR-LA-01',
+      nmontocontrato: 7500,
+      lstpagos: [
+        {
+          sfecha: '29.09.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '26.06.2018',
+          nmonto: 1000
+        },
+        {
+          sfecha: '10.12.2018',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.01.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.05.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '15.07.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '07.11.2019',
+          nmonto: 1000
+        },
+        {
+          sfecha: '11.06.2021',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '08607-2017-0-0401-JR-LA-07',
+      nmontocontrato: 9500,
+      lstpagos: [
+        {
+          sfecha: '29.04.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '12.05.2021',
+          nmonto: 150
+        },
+        {
+          sfecha: '22.12.2021',
+          nmonto: 2000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02964-2017-0-0401-JR-LA-02',
+      nmontocontrato: 0,
+      lstpagos: [
+        {
+          sfecha: '09.03.2023',
+          nmonto: 500
+        },
+        {
+          sfecha: '13.07.2022',
+          nmonto: 1500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05412-2018-0-0401-JR-LA-08',
+      nmontocontrato: 7800,
+      lstpagos: [
+        {
+          sfecha: '04.07.2018',
+          nmonto: 1000
+        },
+        {
+          sfecha: '04.09.2019',
+          nmonto: 500
+        },
+        {
+          sfecha: '16.07.2020',
+          nmonto: 1500
+        },
+        {
+          sfecha: '05.08.2020',
+          nmonto: 1500
+        },
+        {
+          sfecha: '15.12.2020',
+          nmonto: 500
+        },
+        {
+          sfecha: '16.09.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '02.11.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.11.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '30.11.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '21.12.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '22.12.2021',
+          nmonto: 300
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '02246-2020-0-0401-JR-LA-02',
+      nmontocontrato: 9000,
+      lstpagos: [
+        {
+          sfecha: '08.10.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '16.10.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '22.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '26.02.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '19.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '22.10.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '07.04.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '02.06.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '09.02.2023',
+          nmonto: 1000
+        },
+        {
+          sfecha: '27.04.2023',
+          nmonto: 500
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '11281-2021-0-1801-JR-LA-09',
+      nmontocontrato: 7000,
+      lstpagos: [
+        {
+          sfecha: '27.07.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '21.02.2023',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '01407-2020-0-0401-JR-LA-08',
+      nmontocontrato: 9500,
+      lstpagos: [
+        {
+          sfecha: '26.06.2020',
+          nmonto: 100
+        },
+        {
+          sfecha: '08.07.2020',
+          nmonto: 900
+        },
+        {
+          sfecha: '08.09.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '26.12.2020',
+          nmonto: 1000
+        },
+        {
+          sfecha: '05.08.2021',
+          nmonto: 1000
+        },
+        {
+          sfecha: '08.09.2021',
+          nmonto: 500
+        },
+        {
+          sfecha: '18.09.2021',
+          nmonto: 1500
+        },
+        {
+          sfecha: '29.12.2021',
+          nmonto: 550
+        },
+        {
+          sfecha: '23.05.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '03.09.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '22.10.2022',
+          nmonto: 500
+        },
+        {
+          sfecha: '20.12.2022',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '00809-2023-0-0401-JR-LA-01',
+      nmontocontrato: 0,
+      lstpagos: [
+        {
+          sfecha: 'xx.xx.xxxx',
+          nmonto: 1000
+        },
+      ]
+    }),
+    new ObjPago({
+      sexpediente: '05101-2021-0-0401-JR-LA-08',
+      nmontocontrato: 4000,
+      lstpagos: [
+        {
+          sfecha: '27.10.2021',
+          nmonto: 250
+        },
+        {
+          sfecha: '03.02.2022',
+          nmonto: 1000
+        },
+        {
+          sfecha: '05.11.2021',
+          nmonto: 1000
+        },
+      ]
+    }),
 
   ];
+
+  listaDePagosCorrectos: Array<Pago> = [];
 
   constructor(
     private db: AngularFirestore,
@@ -2709,5 +5581,7 @@ export class TestingComponent {
       }
     ]
   }
+
+
 
 }

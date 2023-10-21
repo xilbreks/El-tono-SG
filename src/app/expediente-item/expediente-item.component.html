@@ -12,26 +12,26 @@
                 Historial RDT
             </button>
         </li>
-        <li class="nav-item" role="presentation">
+        <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="llamadas-tab" data-bs-toggle="tab" data-bs-target="#llamadas-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
                 Llamadas
             </button>
-        </li>
-        <li class="nav-item" role="presentation">
+        </li> -->
+        <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="contrato-tab" data-bs-toggle="tab" data-bs-target="#contrato-tab-pane" type="button" role="tab" aria-controls="contrato-tab-pane" aria-selected="false">
                 Contrato
             </button>
-        </li>
+        </li> -->
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos-tab-pane" type="button" role="tab" aria-controls="contrato-tab-pane" aria-selected="false">
                 Pagos
             </button>
         </li>
-        <li class="nav-item" role="presentation">
+        <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente-tab-pane" type="button" role="tab" aria-controls="contrato-tab-pane" aria-selected="false">
                 Cliente
             </button>
-        </li>
+        </li> -->
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="expediente-tab-pane" role="tabpanel" aria-labelledby="expediente-tab" tabindex="0">
@@ -40,17 +40,17 @@
         <div class="tab-pane fade" id="historial-tab-pane" role="tabpanel" aria-labelledby="historial-tab" tabindex="0">
             <app-expediente-item-tasks [sexpediente]="sexpediente"></app-expediente-item-tasks>
         </div>
-        <div class="tab-pane fade" id="llamadas-tab-pane" role="tabpanel" aria-labelledby="llamadas-tab" tabindex="0">
+        <!-- <div class="tab-pane fade" id="llamadas-tab-pane" role="tabpanel" aria-labelledby="llamadas-tab" tabindex="0">
             <app-expediente-item-calls [sexpediente]="sexpediente"></app-expediente-item-calls>
-        </div>
-        <div class="tab-pane fade" id="contrato-tab-pane" role="tabpanel" aria-labelledby="contrato-tab" tabindex="0">
+        </div> -->
+        <!-- <div class="tab-pane fade" id="contrato-tab-pane" role="tabpanel" aria-labelledby="contrato-tab" tabindex="0">
             <app-expediente-item-contract [sexpediente]="sexpediente"></app-expediente-item-contract>
-        </div>
+        </div> -->
         <div class="tab-pane fade" id="pagos-tab-pane" role="tabpanel" aria-labelledby="pagos-tab" tabindex="0">
             <app-expediente-item-payment [sexpediente]="sexpediente"></app-expediente-item-payment>
         </div>
-        <div class="tab-pane fade" id="cliente-tab-pane" role="tabpanel" aria-labelledby="cliente-tab" tabindex="0">
+        <!-- <div class="tab-pane fade" id="cliente-tab-pane" role="tabpanel" aria-labelledby="cliente-tab" tabindex="0">
             <app-expediente-item-client [sexpediente]="sexpediente"></app-expediente-item-client>
-        </div>
+        </div> -->
     </div>
 </div>

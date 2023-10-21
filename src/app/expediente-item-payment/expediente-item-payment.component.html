@@ -16,7 +16,7 @@
                     Monto(S/)
                 </th>
                 <th>
-                    Medio
+                    Descripción
                 </th>
             </tr>
         </thead>
@@ -32,9 +32,25 @@
                     {{pago.nmonto | number:'2.2-2'}}
                 </td>
                 <td>
-                    {{pago.smedio}}
+                    {{pago.sdescripcion}}
                 </td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <th>
+                    
+                </th>
+                <th>
+                    TOTAL
+                </th>
+                <th>
+                    {{nMontoTotal | number:'2.2-2'}}
+                </th>
+                <th>
+                    
+                </th>
+            </tr>
+        </tfoot>
     </table>
 </div>

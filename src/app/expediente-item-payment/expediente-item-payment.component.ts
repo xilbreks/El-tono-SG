@@ -2,19 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-class Pago {
+interface Pago {
   idpago: string;
-  nmonto: number;
   sexpediente: string;
+  nmonto: number;
   sfecha: string;
-  smedio: string;
-  constructor(data: any){
-    this.idpago = data.idpago;
-    this.nmonto = data.nmonto;
-    this.sexpediente = data.sexpediente;
-    this.sfecha = data.sfecha;
-    this.smedio = data.smedio;
-  }
+  sdescripcion: string;
+  smodificador: string;
+  lactive: boolean;
 }
 
 @Component({
@@ -25,6 +20,7 @@ class Pago {
 export class ExpedienteItemPaymentComponent implements OnInit {
   @Input('sexpediente') sexpediente: string = '';
   lstPagos: Array<Pago> = [];
+  nMontoTotal: number = 0;
 
   constructor(
     private db: AngularFirestore,
@@ -37,15 +33,18 @@ export class ExpedienteItemPaymentComponent implements OnInit {
   }
 
   getPayments(): void {
-    let observando =  this.db
+    let observando = this.db
       .collection('pagos', ref => {
-        return ref.where('sexpediente','==', this.sexpediente)
+        return ref.where('sexpediente', '==', this.sexpediente)
+          .where('lactive', '==', true)
       })
       .valueChanges()
       .subscribe((data: Array<any>) => {
         this.lstPagos = [];
-        data.forEach((d) => {
-          this.lstPagos.push(new Pago(d))
+        this.nMontoTotal = 0;
+        data.forEach((p) => {
+          this.lstPagos.push(p)
+          this.nMontoTotal = this.nMontoTotal + p.nmonto;
         });
 
         observando.unsubscribe();
