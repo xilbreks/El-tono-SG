@@ -1,6 +1,24 @@
-<br/>
+<i *ngIf="nmontocontrato > 0">
+    Monto de Contrato: {{nmontocontrato | number:'2.2-2'}}
+</i>
 
-<h5>Cuadro de Pagos:</h5>
+<div style="display: flex;">
+    <span style="flex: auto 1; font-size: 1.5rem;">Cuadro de Pagos:</span>
+    <span>
+        <button (click)="cambiarModo()" *ngIf="lViewMode" class="btn btn-secondary btn-sm">
+            <i class="bi bi-lock-fill"></i>
+        </button>
+        <button (click)="cambiarModo()" *ngIf="!lViewMode" class="btn btn-outline-success btn-sm">
+            <i class="bi bi-unlock-fill"></i>
+        </button>
+    </span>
+</div>
+
+<div *ngIf="!lViewMode">
+    <button (click)="openNewPaymentModal(newPaymentModal)" class="btn btn-success">
+        Agregar Pago
+    </button>
+</div>
 
 <div>
     <table class="table table-bordered">
@@ -18,9 +36,15 @@
                 <th>
                     Descripción
                 </th>
+                <th *ngIf="!lViewMode">
+                    Editar
+                </th>
+                <th *ngIf="!lViewMode">
+                    Quitar
+                </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="!lLoading && lstPagos.length > 0">
             <tr *ngFor="let pago of lstPagos; let i = index">
                 <td>
                     {{i+1}}
@@ -34,23 +58,141 @@
                 <td>
                     {{pago.sdescripcion}}
                 </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openEditPaymentModal(pago, editPaymentModal)" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openDeletePaymentModal(pago)" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </td>
             </tr>
+        </tbody>
+        <tbody *ngIf="!lLoading && lstPagos.length == 0">
+            No hay Pagos Registrados
+        </tbody>
+        <tbody *ngIf="lLoading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         </tbody>
         <tfoot>
             <tr>
                 <th>
-                    
+
                 </th>
                 <th>
-                    TOTAL
+                    SUMA TOTAL
                 </th>
                 <th>
                     {{nMontoTotal | number:'2.2-2'}}
                 </th>
-                <th>
-                    
+                <th colspan="3">
+
                 </th>
             </tr>
         </tfoot>
     </table>
 </div>
+
+<!-----------------------------------------------
+  ------------- ADD PAYMENT MODAL ---------------
+  ----------------------------------------------->
+<ng-template #newPaymentModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Registrar Pago</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmNewPayment" autocomplete="off">
+
+            <div class="row">
+                <label for="sfecha" class="form-label">
+                    Fecha
+                </label>
+                <input type="text" class="form-control" id="sfecha" formControlName="sfecha" />
+            </div>
+
+            <div class="row">
+                <label for="nmonto" class="form-label">
+                    Monto
+                </label>
+                <input type="number" class="form-control" id="nmonto" formControlName="nmonto" />
+            </div>
+
+            <div class="row">
+                <label for="sdescripcion" class="form-label">
+                    Descripción
+                </label>
+                <textarea id="sdescripcion" rows="3" class="form-control" formControlName="sdescripcion">
+                </textarea>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addNewPayment()"
+            [disabled]="!(frmNewPayment.valid && !lCreating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreating">
+            </span>
+            <span class="sr-only" *ngIf="!lCreating">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lCreating">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!-----------------------------------------------
+  ------------- EDIT PAYMENT MODAL --------------
+  ----------------------------------------------->
+<ng-template #editPaymentModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar Pago</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmEditPayment" autocomplete="off">
+
+            <div class="row">
+                <label for="sfecha" class="form-label">
+                    Fecha
+                </label>
+                <input type="text" class="form-control" id="sfecha" formControlName="sfecha" />
+            </div>
+
+            <div class="row">
+                <label for="nmonto" class="form-label">
+                    Monto
+                </label>
+                <input type="number" class="form-control" id="nmonto" formControlName="nmonto" />
+            </div>
+
+            <div class="row">
+                <label for="sdescripcion" class="form-label">
+                    Descripción
+                </label>
+                <textarea id="sdescripcion" rows="3" class="form-control" formControlName="sdescripcion">
+                </textarea>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editPayment()"
+            [disabled]="!(frmEditPayment.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Actualizar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Actualizando...
+            </span>
+        </button>
+    </div>
+</ng-template>
