@@ -73,6 +73,17 @@ export class ExpedienteItemPaymentComponent implements OnInit {
       })
   }
 
+  setMontoContrato(nmonto: any) {
+    this.db.collection('expedientes')
+      .doc(this.sexpediente)
+      .update({
+        nmontocontrato: nmonto.value
+      })
+      .then(()=>{
+        this.nmontocontrato = nmonto.value;
+      })
+  }
+
   getPayments(): void {
     this.lLoading = true;
     let observando = this.db

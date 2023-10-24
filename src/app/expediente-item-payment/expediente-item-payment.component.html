@@ -2,6 +2,14 @@
     Monto de Contrato: {{nmontocontrato | number:'2.2-2'}}
 </i>
 
+<div *ngIf="!lViewMode">
+    <label for="nmontoc">Nuevo Monto Contrato</label>
+    <input type="number" id="nmontoc" #nmontoc>
+    <button (click)="setMontoContrato(nmontoc)" class="btn btn-primary">
+        Actualizar
+    </button>
+</div>
+
 <div style="display: flex;">
     <span style="flex: auto 1; font-size: 1.5rem;">Cuadro de Pagos:</span>
     <span>
