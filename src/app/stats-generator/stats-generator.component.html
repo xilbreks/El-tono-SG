@@ -1,36 +1,33 @@
 <h3>
     Generador de Estadísticas
 </h3>
-<div>
-    <h5>Tareas</h5>
-    <div>
-        <label for="start">Desde: </label>
-        <input type="date" id="start" #start (change)="setInicio(start.value)">
-    </div>
-    <div>
-        <label for="end">Hasta: </label>
-        <input type="date" id="end" #end (change)="setFinal(end.value)">
-    </div>
-    Desde <i>{{sfinicio}}</i> hasta <i>{{sffinal}}</i>
-    <div>
-        <button (click)="getTasks()" [ngClass]="{'btn btn-success':lstTareas.length>0}">
-            Recuperar tareas
-        </button>
-    </div>
+<div style="max-width: 250px;">
+    <form [formGroup]="frmStats" autocomplete="off">
+        <div>
+            <label class="label-form" for="start">Desde: </label>
+            <input type="date" id="start" class="form-control" formControlName="sinicio">
+        </div>
+        <div>
+            <label class="label-form" for="end">Hasta: </label>
+            <input type="date" id="end" class="form-control" formControlName="sfinal">
+        </div>
+    </form>
 </div>
+
 <hr>
-<div>
-    <h5>Colaboradores</h5>
-    <button (click)="getUsers()" [ngClass]="{'btn btn-success':lstUsuarios.length>0}">
-        Recuperar usuarios
+
+<div *ngIf="!lGenerating">
+    <button (click)="generar()" class="btn btn-primary" [disabled]="!frmStats.valid">
+        Generar y publicar las Estadísticas
     </button>
 </div>
-<hr>
-<div *ngIf="lstUsuarios.length>0 && lstTareas.length>0">
-    <h5>Boton Para generar las estadísticas</h5>
-    <input type="text" #texto placeholder="Título de la estadística">
-    <br>
-    <button (click)="generar(texto.value)">
-        Generar
+
+<div *ngIf="lGenerating">
+    <button class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     </button>
 </div>
+
+<pre>
+    {{frmStats.value | json}}
+</pre>

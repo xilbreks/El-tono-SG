@@ -4,32 +4,43 @@
 
 <b>DATOS:</b>
 <ul>
-    <li>
+    <!-- <li>
         nDate: {{nDate}}
     </li>
     <li>
         sDate: {{sDate}}
+    </li> -->
+    <li>
+        Semana: {{nWeek}}
     </li>
     <li>
-        nWeek: {{nWeek}}
-    </li>
-    <li>
-        nDay: {{nDay}}
+        Dia: {{nDay}}
     </li>
 </ul>
 
 <br>
-<button (click)="crearRdts()" class="btn btn-primary">
-    generar RDTs
-</button>
+<div *ngIf="!lGeneratingRDTs">
+    <button (click)="crearRdts()" class="btn btn-primary" [disabled]="lstUsers.length==0">
+        generar RDTs
+    </button>
+</div>
+<div *ngIf="lGeneratingRDTs">
+    <button class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Generando...
+    </button>
+</div>
 <br>
 <div class="container">
     <span>Listado de Colaboradores que deben realizar su RDT:</span>
 
     <ol>
         <li *ngFor="let user of lstUsers">
-        {{ user.snombre }}: [{{user.id}}]
+            {{ user.snombre }}: [{{user.id}}]
         </li>
     </ol>
+    <div *ngIf="lLoadingUsers">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </div>
+
 </div>
-  
