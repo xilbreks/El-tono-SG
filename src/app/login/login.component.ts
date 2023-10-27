@@ -15,6 +15,18 @@ export class LoginComponent {
     private router: Router,
     public afAuth: AngularFireAuth,
   ) {
+    /////////////////////////////////////////////
+    ////////////  VERIFICAR USUARIO /////////////
+    /////////////////////////////////////////////
+    this.afAuth.user.subscribe(u => {
+      if (u) {
+        if(u.displayName == 'ADMIN') {
+          this.router.navigate(['/', 'admin-rdt']);
+        } else {
+          this.router.navigate(['/', 'colaborador-rdt']);
+        }
+      }
+    })
   }
 
   login(suser: any, spassword: any): boolean {
