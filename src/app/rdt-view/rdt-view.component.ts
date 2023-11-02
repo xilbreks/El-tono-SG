@@ -39,6 +39,7 @@ class ObjTarea {
   public sacceje: string = '';
   public shorasatencion: string = '';
   public sminutosatencion: string = '';
+  public nmontorec: number = 0;
 
   constructor() { }
 }
@@ -100,8 +101,8 @@ export class RdtViewComponent {
           objTarea.idtarea = tarea.idtarea;
           objTarea.sfecharegistro = dfreg.getDate() + '/' +
             (dfreg.getMonth() + 1) + '/' + dfreg.getFullYear() + ' ' +
-            (dfreg.getHours()>10?dfreg.getHours():'0'+dfreg.getHours()) + ':' + 
-            (dfreg.getMinutes()>10?dfreg.getMinutes():'0'+dfreg.getMinutes());
+            (dfreg.getHours()>9?dfreg.getHours():'0'+dfreg.getHours()) + ':' + 
+            (dfreg.getMinutes()>9?dfreg.getMinutes():'0'+dfreg.getMinutes());
           objTarea.stipocliente = tarea.stipocliente;
           objTarea.stipoatencion = tarea.stipoatencion;
           objTarea.sdelegadopor = tarea.sdelegadopor;
@@ -117,6 +118,7 @@ export class RdtViewComponent {
           objTarea.sacceje = tarea.sacceje;
           objTarea.shorasatencion = tarea.shorasatencion;
           objTarea.sminutosatencion = tarea.sminutosatencion;
+          objTarea.nmontorec = tarea.nmontorec;
 
           this.lstTareas.push(objTarea);
           horas = horas + Number(tarea.shorasatencion);

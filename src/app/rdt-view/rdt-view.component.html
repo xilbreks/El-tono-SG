@@ -27,6 +27,7 @@
         <th scope="col">DDO</th>
         <th scope="col">ITER</th>
         <th scope="col">Avance(%)</th>
+        <th scope="col">Monto Recaudado</th>
         <th scope="col">F. culminación</th>
         <th scope="col">T. Atención</th>
         <th scope="col">Código de tarea</th>
@@ -66,6 +67,9 @@
           {{ tarea.navance }}
         </td>
         <td>
+          {{ tarea.nmontorec }}
+        </td>
+        <td>
           {{ tarea.sfculminacion }}
         </td>
         <td>
@@ -94,7 +98,7 @@
         <th>
           {{nSumaTiempoTareas}}
         </th>
-        <th colspan="4">
+        <th colspan="5">
         </th>
       </tr>
     </tfoot>

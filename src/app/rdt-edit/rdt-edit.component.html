@@ -33,6 +33,7 @@
         <th>DDO</th>
         <th>ITER</th>
         <th>Avance(%)</th>
+        <th>Monto Recaudado</th>
         <th>F. culminación</th>
         <th>T. Atención</th>
         <th>Código de tarea</th>
@@ -73,6 +74,9 @@
           {{ tarea.navance }}
         </td>
         <td>
+          {{ tarea.nmontorec }}
+        </td>
+        <td>
           {{ tarea.sfculminacion }}
         </td>
         <td>
@@ -108,7 +112,7 @@
         <th>
           {{nSumaTiempoTareas}}
         </th>
-        <th colspan="5">
+        <th colspan="6">
         </th>
       </tr>
     </tfoot>
@@ -232,7 +236,6 @@
           <label for="delegadoPor" class="form-label"> Delegado por </label>
           <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
             <option value="dra-lizbet">Dra. Lizbet</option>
-            <option value="dra-erica">Dra. Erica</option>
             <option value="dra-madeleine">Dra. Madeleine</option>
             <option value="dra-estrella">Dra. Estrella</option>
             <option value="dr-huander">Dr. Huander</option>
@@ -306,7 +309,10 @@
           <input type="text" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
         </div>
         <div class="col-6 col-md-3">
-
+          <label for="montoRecaudado" class="form-label">
+            Monto Recaudado
+          </label>
+          <input type="number" class="form-control" id="montoRecaudado" formControlName="nmontorec" />
         </div>
       </div>
     </form>
@@ -400,7 +406,8 @@
         </div>
         <div class="col-6 col-md-3">
           <label for="sEspecialidad" class="form-label">Tipo de proceso</label>
-          <select class="form-select" id="sEspecialidad" formControlName="sespecialidad" (change)="setLstIterEditTask()">
+          <select class="form-select" id="sEspecialidad" formControlName="sespecialidad"
+            (change)="setLstIterEditTask()">
             <option value="nc">No corresponde</option>
             <option value="laboral">Laboral</option>
             <option value="penal">Penal</option>
@@ -442,7 +449,6 @@
           <label for="delegadoPor" class="form-label"> Delegado por </label>
           <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
             <option value="dra-lizbet">Dra. Lizbet</option>
-            <option value="dra-erica">Dra. Erica</option>
             <option value="dra-madeleine">Dra. Madeleine</option>
             <option value="dra-estrella">Dra. Estrella</option>
             <option value="dr-huander">Dr. Huander</option>
@@ -516,7 +522,10 @@
           <input type="text" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
         </div>
         <div class="col-6 col-md-3">
-
+          <label for="montoRecaudado" class="form-label">
+            Monto Recaudado
+          </label>
+          <input type="number" class="form-control" id="montoRecaudado" formControlName="nmontorec" />
         </div>
       </div>
     </form>
