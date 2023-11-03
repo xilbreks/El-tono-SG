@@ -8,6 +8,8 @@ class ObjTarea {
   stipoatencion: 'nc' | 'por-expediente' | 'presencial' | 'via-celular' | 'via-internet' = 'presencial';
   sespecialidad: 'nc' | 'laboral' | 'penal' | 'civil' | 'familia' | 'constitucional' | 'tramite-adm' | 'tramite-not' | 'varios' = 'nc';
   ncodeje: string = '';
+  nmontorec: number = 0;
+  sexpediente: string = '';
   constructor() { }
 }
 
@@ -122,17 +124,25 @@ export class StatsGeneratorComponent {
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0
-            ]
+            ],
+            nmontorec: 0
           }
+          let lstExpedientes: Array<any> = [];
           this.lstTareas.forEach((tarea: ObjTarea) => {
             if (tarea.idrdt.slice(11) == suser) {
-              obj.tc[tarea.stipocliente] += 1;
-              obj.ta[tarea.stipoatencion] += 1;
-              obj.tp[tarea.sespecialidad] += 1;
+              obj.nmontorec += tarea.nmontorec;
               let ii = Number(tarea.ncodeje);
-              if (ii <= 54) {
-                obj.tt[ii - 1] += 1;
+              obj.tt[ii - 1] += 1;
+              obj.ta[tarea.stipoatencion] += 1;
+
+              // Excluir expedientes duplicados
+              if (!lstExpedientes.includes(tarea.sexpediente)) {
+                obj.tc[tarea.stipocliente] += 1;
+                // obj.ta[tarea.stipoatencion] += 1;
+                obj.tp[tarea.sespecialidad] += 1;
+                lstExpedientes.push(tarea.sexpediente)
               }
+
             }
           })
           lstStats.push(obj);

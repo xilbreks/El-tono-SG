@@ -19,6 +19,7 @@ export class RdtStatsComponent {
   tipoProcesoChart2: any;
   tipoClienteChart2: any;
   tipoTareaChart2: any;
+  montoRecaudadoChart: any;
 
   constructor(
     private db: AngularFirestore,
@@ -46,6 +47,7 @@ export class RdtStatsComponent {
         this.crearTipoClienteChart2();
 
         this.crearTipoTareaChart();
+        this.crearMontoRecaudadoChart();
       });
   }
 
@@ -430,4 +432,42 @@ export class RdtStatsComponent {
       }
     })
   }
+
+  /**
+   * Estadística sobre monto recaudados
+   */
+  crearMontoRecaudadoChart() {
+    this.montoRecaudadoChart = new Chart("MontoRecaudadoChart", {
+      type: 'bar',
+      data: {
+        labels: this.lstStats.map(u => u.name),
+        datasets: [
+          {
+            label: 'Monto en soles',
+            data: this.lstStats.map(u => u.nmontorec),
+            backgroundColor: ['green']
+          },
+        ]
+      },
+      options: {
+        aspectRatio: 2.5,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Ingresos Generados'
+          },
+        },
+        responsive: true,
+        scales: {
+          x: {
+            stacked: true,
+          },
+          y: {
+            stacked: true
+          }
+        }
+      }
+    });
+  }
+
 }

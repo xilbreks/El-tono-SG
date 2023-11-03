@@ -277,6 +277,7 @@ export class AdminRdtComponent {
             "Demandado": tarea['sdemandado'],
             "ITER": tarea['niter'],
             "Avance": tarea['navance'],
+            "Monto Recaudado": tarea['nmontorec'],
             "Fecha de culminacion": tarea['sfculminacion'],
             "Suma Tiempo Atencion": { t: 'n', f: '=' + tarea['nTiempoTareas'] + '/1440' },
             "Tiempo de Atencion": tarea['shorasatencion'] + ':' + tarea['sminutosatencion'],
