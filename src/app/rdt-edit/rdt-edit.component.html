@@ -33,7 +33,9 @@
         <th>DDO</th>
         <th>ITER</th>
         <th>Avance(%)</th>
-        <th>Monto Recaudado</th>
+        <th>Cobro de Honorarios</th>
+        <th>Cobros para Aranceles u otros</th>
+        <th>Gasto realizado en aranceles u otros</th>
         <th>F. culminación</th>
         <th>T. Atención</th>
         <th>Código de tarea</th>
@@ -74,7 +76,13 @@
           {{ tarea.navance }}
         </td>
         <td>
-          {{ tarea.nmontorec }}
+          {{ tarea.ncobrohonorario }}
+        </td>
+        <td>
+          {{ tarea.ningresoarancel }}
+        </td>
+        <td>
+          {{ tarea.nsalidaarancel }}
         </td>
         <td>
           {{ tarea.sfculminacion }}
@@ -106,13 +114,13 @@
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
     <tfoot>
       <tr>
-        <th colspan="11" style="text-align: right;">
+        <th colspan="14" style="text-align: right;">
           SUMA TOTAL DE TIEMPO UTILIZADO
         </th>
         <th>
           {{nSumaTiempoTareas}}
         </th>
-        <th colspan="6">
+        <th colspan="5">
         </th>
       </tr>
     </tfoot>
@@ -309,10 +317,41 @@
           <input type="text" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
         </div>
         <div class="col-6 col-md-3">
-          <label for="montoRecaudado" class="form-label">
-            Monto Recaudado
+
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-6 col-md-3">
+          <label for="ingresoArancel" class="form-label">
+            Cobro para aranceles u otros
           </label>
-          <input type="number" class="form-control" id="montoRecaudado" formControlName="nmontorec" />
+          <div class="input-group mb-3">
+            <span class="input-group-text">S/</span>
+            <input type="number" class="form-control" id="ingresoArancel" formControlName="ningresoarancel" />
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <label for="salidaArancel" class="form-label">
+            Gasto realizado en aranceles u otros
+          </label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">S/</span>
+            <input type="number" class="form-control" id="salidaArancel" formControlName="nsalidaarancel" />
+          </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <label for="honorarioCobrado" class="form-label">
+            Cobro realizado por honorarios
+          </label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">S/</span>
+            <input type="number" class="form-control" id="honorarioCobrado" formControlName="ncobrohonorario" />
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+
         </div>
       </div>
     </form>
@@ -522,10 +561,41 @@
           <input type="text" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
         </div>
         <div class="col-6 col-md-3">
-          <label for="montoRecaudado" class="form-label">
-            Monto Recaudado
+
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-6 col-md-3">
+          <label for="ingresoArancel" class="form-label">
+            Cobro para aranceles u otros
           </label>
-          <input type="number" class="form-control" id="montoRecaudado" formControlName="nmontorec" />
+          <div class="input-group mb-3">
+            <span class="input-group-text">S/</span>
+            <input type="number" class="form-control" id="ingresoArancel" formControlName="ningresoarancel" />
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <label for="salidaArancel" class="form-label">
+            Gasto realizado en aranceles u otros
+          </label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">S/</span>
+            <input type="number" class="form-control" id="salidaArancel" formControlName="nsalidaarancel" />
+          </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <label for="honorarioCobrado" class="form-label">
+            Cobro realizado por honorarios
+          </label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">S/</span>
+            <input type="number" class="form-control" id="honorarioCobrado" formControlName="ncobrohonorario" />
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+
         </div>
       </div>
     </form>

@@ -443,9 +443,19 @@ export class RdtStatsComponent {
         labels: this.lstStats.map(u => u.name),
         datasets: [
           {
-            label: 'Monto en soles',
-            data: this.lstStats.map(u => u.nmontorec),
+            label: 'Cobro Honorarios',
+            data: this.lstStats.map(u => u.ncobrohonorario),
+            backgroundColor: ['blue']
+          },
+          {
+            label: 'Cobro Aranceles u otros',
+            data: this.lstStats.map(u => u.ningresoarancel),
             backgroundColor: ['green']
+          },
+          {
+            label: 'Gasto Aranceles u otros',
+            data: this.lstStats.map(u => u.nsalidaarancel),
+            backgroundColor: ['red']
           },
         ]
       },
@@ -454,7 +464,7 @@ export class RdtStatsComponent {
         plugins: {
           title: {
             display: true,
-            text: 'Ingresos Generados'
+            text: 'Movimiento de Dinero'
           },
         },
         responsive: true,

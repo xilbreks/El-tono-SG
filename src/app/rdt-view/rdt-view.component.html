@@ -17,23 +17,25 @@
   <table class="table table-bordered" id="tareas_rdt">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Cliente</th>
-        <th scope="col">Atención</th>
-        <th scope="col">Delegado por</th>
-        <th scope="col">Expediente</th>
-        <th scope="col">Tipo de proceso</th>
-        <th scope="col">DTE</th>
-        <th scope="col">DDO</th>
-        <th scope="col">ITER</th>
-        <th scope="col">Avance(%)</th>
-        <th scope="col">Monto Recaudado</th>
-        <th scope="col">F. culminación</th>
-        <th scope="col">T. Atención</th>
-        <th scope="col">Código de tarea</th>
-        <th scope="col">Mención de la tarea</th>
-        <th scope="col">Acciones a realizar</th>
-        <th scope="col">Fecha y Hora de guardado</th>
+        <th>#</th>
+        <th>Cliente</th>
+        <th>Atención</th>
+        <th>Delegado por</th>
+        <th>Expediente</th>
+        <th>Tipo de proceso</th>
+        <th>DTE</th>
+        <th>DDO</th>
+        <th>ITER</th>
+        <th>Avance(%)</th>
+        <th>Cobro de Honorarios</th>
+        <th>Cobros para Aranceles u otros</th>
+        <th>Gasto realizado en aranceles u otros</th>
+        <th>F. culminación</th>
+        <th>T. Atención</th>
+        <th>Código de tarea</th>
+        <th>Mención de la tarea</th>
+        <th>Acciones a realizar</th>
+        <th>Fecha y Hora de guardado</th>
       </tr>
     </thead>
     <tbody *ngIf="!lLoading">
@@ -67,7 +69,13 @@
           {{ tarea.navance }}
         </td>
         <td>
-          {{ tarea.nmontorec }}
+          {{ tarea.ncobrohonorario }}
+        </td>
+        <td>
+          {{ tarea.ningresoarancel }}
+        </td>
+        <td>
+          {{ tarea.nsalidaarancel }}
         </td>
         <td>
           {{ tarea.sfculminacion }}
@@ -92,13 +100,13 @@
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
     <tfoot>
       <tr>
-        <th colspan="11" style="text-align: right;">
+        <th colspan="14" style="text-align: right;">
           SUMA TOTAL DE TIEMPO UTILIZADO
         </th>
         <th>
           {{nSumaTiempoTareas}}
         </th>
-        <th colspan="5">
+        <th colspan="4">
         </th>
       </tr>
     </tfoot>

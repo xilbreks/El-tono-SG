@@ -8,7 +8,9 @@ class ObjTarea {
   stipoatencion: 'nc' | 'por-expediente' | 'presencial' | 'via-celular' | 'via-internet' = 'presencial';
   sespecialidad: 'nc' | 'laboral' | 'penal' | 'civil' | 'familia' | 'constitucional' | 'tramite-adm' | 'tramite-not' | 'varios' = 'nc';
   ncodeje: string = '';
-  nmontorec: number = 0;
+  ncobrohonorario: number = 0;
+  ningresoarancel: number = 0;
+  nsalidaarancel: number = 0;
   sexpediente: string = '';
   constructor() { }
 }
@@ -125,12 +127,16 @@ export class StatsGeneratorComponent {
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0
             ],
-            nmontorec: 0
+            ncobrohonorario: 0,
+            ningresoarancel: 0,
+            nsalidaarancel: 0
           }
           let lstExpedientes: Array<any> = [];
           this.lstTareas.forEach((tarea: ObjTarea) => {
             if (tarea.idrdt.slice(11) == suser) {
-              obj.nmontorec += tarea.nmontorec;
+              obj.ncobrohonorario += tarea.ncobrohonorario;
+              obj.ningresoarancel += tarea.ningresoarancel;
+              obj.nsalidaarancel += tarea.nsalidaarancel;
               let ii = Number(tarea.ncodeje);
               obj.tt[ii - 1] += 1;
               obj.ta[tarea.stipoatencion] += 1;

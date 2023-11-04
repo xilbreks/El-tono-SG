@@ -14,7 +14,7 @@ class ObjRdt {
   public nfecha: number = 0;
   public nsemana: number = 0;
   public ndia: number = 0;
-  
+
   constructor() { }
 }
 
@@ -36,8 +36,9 @@ class ObjTarea {
   public sacceje: string = '';
   public shorasatencion: string = '';
   public sminutosatencion: string = '';
-  public nmontorec: number = 0;
-
+  public ncobrohonorario: number = 0;
+  public ningresoarancel: number = 0;
+  public nsalidaarancel: number = 0;
   constructor() { }
 }
 
@@ -90,7 +91,9 @@ export class RdtEditComponent {
       sacceje: new FormControl(null, Validators.required),
       shorasatencion: new FormControl(null, Validators.required),
       sminutosatencion: new FormControl(null, Validators.required),
-      nmontorec: new FormControl(0, Validators.required),
+      ncobrohonorario: new FormControl(0, Validators.required),
+      ningresoarancel: new FormControl(0, Validators.required),
+      nsalidaarancel: new FormControl(0, Validators.required),
     });
 
     /***********************
@@ -113,7 +116,9 @@ export class RdtEditComponent {
       sacceje: new FormControl(null, Validators.required),
       shorasatencion: new FormControl(null, Validators.required),
       sminutosatencion: new FormControl(null, Validators.required),
-      nmontorec: new FormControl(null, Validators.required),
+      ncobrohonorario: new FormControl(0, Validators.required),
+      ningresoarancel: new FormControl(0, Validators.required),
+      nsalidaarancel: new FormControl(0, Validators.required),
     });
   }
 
@@ -366,7 +371,9 @@ export class RdtEditComponent {
           objTarea.sacceje = tarea.sacceje;
           objTarea.shorasatencion = tarea.shorasatencion;
           objTarea.sminutosatencion = tarea.sminutosatencion;
-          objTarea.nmontorec = tarea.nmontorec;
+          objTarea.ncobrohonorario = tarea.ncobrohonorario; 
+          objTarea.ningresoarancel = tarea.ningresoarancel; 
+          objTarea.nsalidaarancel = tarea.nsalidaarancel; 
           this.lstTareas.push(objTarea);
 
           horas = horas + Number(tarea.shorasatencion);
@@ -392,7 +399,7 @@ export class RdtEditComponent {
   public agregarTarea(): void {
     this.lCreating = true;
     var objTarea = this.frmNewTask.value;
-    const id = new Date().getTime().toString();    
+    const id = new Date().getTime().toString();
 
     this.db
       .collection('tareas')
@@ -481,7 +488,9 @@ export class RdtEditComponent {
       sacceje: tarea.sacceje,
       shorasatencion: tarea.shorasatencion,
       sminutosatencion: tarea.sminutosatencion,
-      nmontorec: tarea.nmontorec
+      ncobrohonorario: tarea.ncobrohonorario,
+      ningresoarancel: tarea.ningresoarancel,
+      nsalidaarancel: tarea.nsalidaarancel,
     });
     this.setLstIterEditTask(true);
     this.modalService.open(modal, {
