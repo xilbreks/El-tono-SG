@@ -1,11 +1,45 @@
-<p>asistencia works!</p>
-<div>
-    tamaño: {{lstMaterias.length}}
+<h3>
+    Asistencia
+</h3>
+
+<div style="max-width: 250px;">
+    <form [formGroup]="frmStats" autocomplete="off">
+        <div>
+            <label class="label-form" for="start">Desde: </label>
+            <input type="date" id="start" class="form-control" formControlName="sinicio">
+        </div>
+        <div>
+            <label class="label-form" for="end">Hasta: </label>
+            <input type="date" id="end" class="form-control" formControlName="sfinal">
+        </div>
+    </form>
 </div>
-<table>
-    <tr *ngFor="let mat of lstMaterias">
-        <td>{{mat.smateria}}</td>
-        <td>{{mat.sespecialidad}}</td>
-    </tr>
-</table>
-pasar el numero de jack lima a valesca
+
+<hr>
+
+<div *ngIf="!lGenerating">
+    <button (click)="generar()" class="btn btn-primary" [disabled]="!frmStats.valid">
+        Ver asistencia
+    </button>
+</div>
+
+<div *ngIf="lGenerating">
+    <button class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </button>
+</div>
+
+<pre>
+    {{frmStats.value | json}}
+</pre>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tbody>
+            <tr *ngFor="let u of lalala">
+                <td *ngFor="let d of u" [ngClass]="d.sclass">
+                    {{d.stext}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

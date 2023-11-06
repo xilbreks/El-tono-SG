@@ -273,7 +273,7 @@ export class AdminRdtComponent {
             "Delegado por": tarea['sdelegadopor'],
             "Expediente": tarea['sexpediente'],
             "Tipo de Proceso": tarea['sespecialidad'],
-            "Cliente": tarea['sdemandante'],
+            "Demandante": tarea['sdemandante'],
             "Demandado": tarea['sdemandado'],
             "ITER": tarea['niter'],
             "Avance": tarea['navance'],
