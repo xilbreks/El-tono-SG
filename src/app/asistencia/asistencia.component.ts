@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import * as XLSX from 'xlsx';
+
 @Component({
   selector: 'app-asistencia',
   templateUrl: './asistencia.component.html',
@@ -11,7 +13,8 @@ export class AsistenciaComponent {
   lstUsuarios: Array<any> = [];
   frmStats: FormGroup;
   lGenerating: boolean = false;
-  lalala: any;
+  lalala: Array<any> = [];
+  lelele: any;
 
   constructor(
     private db: AngularFirestore,
@@ -123,6 +126,26 @@ export class AsistenciaComponent {
         this.lGenerating = false;
         obs2.unsubscribe();
       })
+  }
+
+  descargarExcel(): void {
+    let todo_Excel: Array<any> = [];
+
+    this.lalala.forEach((lst: Array<any>) => {
+      let lstTmp: Array<any> = [];
+      lst.forEach(i => {
+        lstTmp.push(i.stext)
+      });
+      todo_Excel.push(lstTmp);
+    });
+
+    this.lelele = todo_Excel;
+
+    const worksheet = XLSX.utils.json_to_sheet(todo_Excel);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Tareas");
+    XLSX.writeFile(workbook, 'Asistencia ' + this.frmStats.value['sinicio'] + ' a ' + this.frmStats.value['sfinal'] + '.xlsx', { compression: true });
+
   }
 
 }

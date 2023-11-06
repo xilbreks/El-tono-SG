@@ -32,6 +32,7 @@
 <pre>
     {{frmStats.value | json}}
 </pre>
+
 <div class="table-responsive">
     <table class="table table-bordered">
         <tbody>
@@ -42,4 +43,10 @@
             </tr>
         </tbody>
     </table>
+</div>
+
+<div>
+    <button (click)="descargarExcel()" class="btn btn-secondary">
+        Descargar Excel
+    </button>
 </div>
