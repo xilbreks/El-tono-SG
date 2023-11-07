@@ -96,7 +96,9 @@ export class AsistenciaComponent {
                 let nMinutos = nSumMin - nHoras * 60;
                 obj = {
                   sclass: 'green',
-                  stext: '' + nHoras + 'h ' + nMinutos + 'm'
+                  stext: '' + nHoras + 'h ' + nMinutos + 'm' + `
+                    (${objRDT['shoraingreso']}:${objRDT['sminutoingreso']} a ${objRDT['shorasalida']}:${objRDT['sminutosalida']})
+                  `
                 }
               } else {
                 obj = {

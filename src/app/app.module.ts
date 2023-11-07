@@ -37,6 +37,7 @@ import { RecursosTareasComponent } from './recursos-tareas/recursos-tareas.compo
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
+import { ExpUpdaterComponent } from './exp-updater/exp-updater.component';
 
 
 const environment = {
@@ -81,6 +82,7 @@ const environment = {
     StatsGeneratorComponent,
     AsistenciaComponent,
     TestingComponent,
+    ExpUpdaterComponent,
   ],
   imports: [
     BrowserModule,
