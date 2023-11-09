@@ -19,6 +19,7 @@ import { RecursosComponent } from './recursos/recursos.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
+import { ExpUpdaterComponent } from './exp-updater/exp-updater.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -109,6 +110,10 @@ const routes: Routes = [
   {
     path: 'testing',
     component: TestingComponent
+  },
+  {
+    path: 'exp-updater',
+    component: ExpUpdaterComponent
   },
   {
     path: '**',

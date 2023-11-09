@@ -3,15 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-interface Pago {
-  idpago: string;
-  sexpediente: string;
-  nmonto: number;
-  sfecha: string;
-  sdescripcion: string;
-  smodificador: string;
-  lactive: boolean;
-}
+import { PagoHonorario } from './../__clases/pago-honorario';
 
 @Component({
   selector: 'app-expediente-item-payment',
@@ -21,7 +13,7 @@ interface Pago {
 export class ExpedienteItemPaymentComponent implements OnInit {
   @Input('sexpediente') sexpediente: string = '';
   nmontocontrato: number = 0;
-  lstPagos: Array<Pago> = [];
+  lstPagos: Array<PagoHonorario> = [];
   nMontoTotal: number = 0;
 
   frmNewPayment: FormGroup;
@@ -86,7 +78,7 @@ export class ExpedienteItemPaymentComponent implements OnInit {
 
   getPayments(): void {
     this.lLoading = true;
-    let observando = this.db
+    let obs = this.db
       .collection('pagos', ref => {
         return ref.where('sexpediente', '==', this.sexpediente)
           .where('lactive', '==', true)
@@ -101,7 +93,7 @@ export class ExpedienteItemPaymentComponent implements OnInit {
         });
 
         this.lLoading = false;
-        observando.unsubscribe();
+        obs.unsubscribe();
       });
   }
 
@@ -111,7 +103,7 @@ export class ExpedienteItemPaymentComponent implements OnInit {
     });
   }
 
-  openEditPaymentModal(pago: Pago, modal: any) {
+  openEditPaymentModal(pago: PagoHonorario, modal: any) {
     this.frmEditPayment.setValue({
       idpago: pago.idpago,
       nmonto: pago.nmonto,
@@ -124,7 +116,7 @@ export class ExpedienteItemPaymentComponent implements OnInit {
     });
   }
 
-  openDeletePaymentModal(pago: Pago) {
+  openDeletePaymentModal(pago: PagoHonorario) {
     let lBorrar = window.confirm('¿Está seguro de borrar pago?')
 
     if (lBorrar) {
