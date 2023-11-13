@@ -12,6 +12,11 @@
                 Historial RDT
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="historial-sinoe" data-bs-toggle="tab" data-bs-target="#historial-sinoe-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
+                Historial SINOE
+            </button>
+        </li>
         <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="llamadas-tab" data-bs-toggle="tab" data-bs-target="#llamadas-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
                 Llamadas
@@ -39,6 +44,9 @@
         </div>
         <div class="tab-pane fade" id="historial-tab-pane" role="tabpanel" aria-labelledby="historial-tab" tabindex="0">
             <app-expediente-item-tasks [sexpediente]="sexpediente"></app-expediente-item-tasks>
+        </div>
+        <div class="tab-pane fade" id="historial-sinoe-pane" role="tabpanel" aria-labelledby="historial-sinoe" tabindex="0">
+            <app-expediente-item-sinoe [sexpediente]="sexpediente"></app-expediente-item-sinoe>
         </div>
         <!-- <div class="tab-pane fade" id="llamadas-tab-pane" role="tabpanel" aria-labelledby="llamadas-tab" tabindex="0">
             <app-expediente-item-calls [sexpediente]="sexpediente"></app-expediente-item-calls>

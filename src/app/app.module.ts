@@ -38,6 +38,7 @@ import { StatsGeneratorComponent } from './stats-generator/stats-generator.compo
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
 import { ExpUpdaterComponent } from './exp-updater/exp-updater.component';
+import { ExpedienteItemSinoeComponent } from './expediente-item-sinoe/expediente-item-sinoe.component';
 
 
 const environment = {
@@ -83,6 +84,7 @@ const environment = {
     AsistenciaComponent,
     TestingComponent,
     ExpUpdaterComponent,
+    ExpedienteItemSinoeComponent,
   ],
   imports: [
     BrowserModule,
