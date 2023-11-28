@@ -1,0 +1,51 @@
+<div class="container" style="padding-bottom: 50px;">
+    <h3>
+        Registrar Cliente
+    </h3>
+    <form [formGroup]="frmExpediente" autocomplete="off">
+        <div>
+            <label for="spaterno">Apellido Paterno</label>
+            <input type="text" id="spaterno" class="form-control" formControlName="spaterno">
+        </div>
+        <div>
+            <label for="smaterno">Apellido Materno</label>
+            <input type="text" id="smaterno" class="form-control" formControlName="smaterno">
+        </div>
+        <div>
+            <label for="snombres">Nombres</label>
+            <input type="text" id="snombres" class="form-control" formControlName="snombres">
+        </div>
+        <div>
+            <label for="sdni">DNI</label>
+            <input type="text" id="sdni" class="form-control" formControlName="sdni">
+        </div>
+        <div>
+            <label for="scelular">Celular</label>
+            <input type="text" id="scelular" class="form-control" formControlName="scelular">
+        </div>
+        <div>
+            <label for="sdireccion">Direccion Real</label>
+            <input type="text" id="sdireccion" class="form-control" formControlName="sdireccion">
+        </div>
+        <div>
+            <label for="sfnac">Fecha de Nacimiento</label>
+            <input type="date" id="sfnac" class="form-control" formControlName="sfnac">
+        </div>
+        <div>
+            <label for="sobs">Observaciones</label>
+            <textarea type="text" id="sobs" class="form-control" rows="3" formControlName="sobs">
+            </textarea>
+        </div>
+    </form>
+    <hr>
+    <div>
+        <button class="btn btn-success" *ngIf="!lCreating" (click)="registrarCliente()" [disabled]="!frmExpediente.valid">
+            Registrar
+        </button>
+        <button class="btn btn-success" *ngIf="lCreating">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+            </span>
+            Registrando...
+        </button>
+    </div>
+</div>

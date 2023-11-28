@@ -39,6 +39,11 @@ import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
 import { ExpUpdaterComponent } from './exp-updater/exp-updater.component';
 import { ExpedienteItemSinoeComponent } from './expediente-item-sinoe/expediente-item-sinoe.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { ClienteItemComponent } from './cliente-item/cliente-item.component';
+import { ClienteNewComponent } from './cliente-new/cliente-new.component';
+import { UsersComponent } from './users/users.component';
+import { UserItemComponent } from './user-item/user-item.component';
 
 
 const environment = {
@@ -85,6 +90,11 @@ const environment = {
     TestingComponent,
     ExpUpdaterComponent,
     ExpedienteItemSinoeComponent,
+    ClientesComponent,
+    ClienteItemComponent,
+    ClienteNewComponent,
+    UsersComponent,
+    UserItemComponent,
   ],
   imports: [
     BrowserModule,

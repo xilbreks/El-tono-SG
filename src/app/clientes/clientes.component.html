@@ -1,0 +1,52 @@
+<h3>
+    Listado de Clientes
+</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Apellidos
+                </th>
+                <th>
+                    Nombres
+                </th>
+                <th>
+                    DNI
+                </th>
+                <th>
+                    Celular
+                </th>
+                <th>
+                    Direccion
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cliente of lstClientes; let i = index">
+                <td>
+                    {{i+1}}
+                </td>
+                <td>
+                    {{cliente.spaterno}}/{{cliente.smaterno}}
+                </td>
+                <td>
+                    {{cliente.snombres}}
+                </td>
+                <td>
+                    {{cliente.sdni}}
+                </td>
+                <td>
+                    {{cliente.scelular}}
+                </td>
+                <td>
+                    {{cliente.sdireccion}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

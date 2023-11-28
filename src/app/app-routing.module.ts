@@ -20,6 +20,11 @@ import { StatsGeneratorComponent } from './stats-generator/stats-generator.compo
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
 import { ExpUpdaterComponent } from './exp-updater/exp-updater.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { ClienteItemComponent } from './cliente-item/cliente-item.component';
+import { ClienteNewComponent } from './cliente-new/cliente-new.component';
+import { UsersComponent } from './users/users.component';
+import { UserItemComponent } from './user-item/user-item.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -114,6 +119,26 @@ const routes: Routes = [
   {
     path: 'exp-updater',
     component: ExpUpdaterComponent
+  },
+  {
+    path: 'clientes',
+    component: ClientesComponent
+  },
+  {
+    path: 'cliente',
+    component: ClienteItemComponent
+  },
+  {
+    path: 'cliente-new',
+    component: ClienteNewComponent
+  },
+  {
+    path: 'usuarios',
+    component: UsersComponent
+  },
+  {
+    path: 'usuario/:id',
+    component: UserItemComponent
   },
   {
     path: '**',
