@@ -3,6 +3,7 @@ export class Colaborador {
     public scolor: string = '';
     public snombre: string = '';
     public spassword: string = '';
+    public lactive: boolean = false;
 
     constructor() { }
 }

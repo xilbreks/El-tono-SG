@@ -3,7 +3,7 @@
 </h3>
 
 <div>
-    <button (click)="openModalNuevo(newUserModal)">
+    <button class="btn btn-primary" (click)="openModalNuevo(newUserModal)">
         Registrar Nuevo
     </button>
 </div>
@@ -29,7 +29,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="!lLoading">
             <tr *ngFor="let usuario of lstUsuarios; let i = index">
                 <td>
                     {{i+1}}
@@ -54,6 +54,9 @@
                     </div>
                 </td>
             </tr>
+        </tbody>
+        <tbody *ngIf="lLoading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         </tbody>
     </table>
 </div>
@@ -96,7 +99,7 @@
         <button class="btn btn-primary" (click)="registrarUsuario()" [disabled]="!frmUsuario.valid" *ngIf="!lCreating">
             Registrar
         </button>
-        <button class="btn btn-primary"  *ngIf="lCreating">
+        <button class="btn btn-primary" *ngIf="lCreating">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
             </span>
             Registrando
