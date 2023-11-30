@@ -1,0 +1,244 @@
+<h3>
+    Registro de Tareas
+</h3>
+<div>
+    <form [formGroup]="frmFiltros">
+
+        <label for="lcum">Estado: </label>
+        <select id="lcum" formControlName="lcumplimiento">
+            <option value="all">TODOS</option>
+            <option value="true">Cumplidos</option>
+            <option value="false">Pendientes</option>
+        </select>
+
+        <label for="scol">Colaborador: </label>
+        <select id="scol" formControlName="idcolaborador">
+            <option value="all">TODOS</option>
+            <option *ngFor="let c of lstColaboradores" [value]="c.id">
+                {{c.snombre}}
+            </option>
+        </select>
+
+        <button (click)="getTareas()" style="margin-left: 25px;">
+            <i class="bi bi-filter"></i>
+            Filtrar
+        </button>
+    </form>
+</div>
+<div>
+    <button (click)="openModalNew(addTaskModal)">
+        Agregar Tarea
+    </button>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Encargado
+                </th>
+                <th>
+                    Expediente
+                </th>
+                <th>
+                    Tarea
+                </th>
+                <th>
+                    Vence
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Observaciones
+                </th>
+                <th>
+                    Acción
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!lLoading">
+            <tr *ngFor="let t of lstTareas">
+                <td>
+                    {{t.scliente}}
+                </td>
+                <td>
+                    {{t.idencargado}}
+                </td>
+                <td>
+                    {{t.sexpediente}}
+                </td>
+                <td>
+                    {{t.starea}}
+                </td>
+                <td>
+                    {{t.splazo}}
+                </td>
+                <td style="text-align: center;">
+                    <span *ngIf="t.scolor == 'green'" style="color: green;">
+                        <i class="bi bi-circle-fill"></i>
+                    </span>
+                    <span *ngIf="t.scolor == 'gold'" style="color: gold;">
+                        <i class="bi bi-circle-fill"></i>
+                    </span>
+                    <span *ngIf="t.scolor == 'red'" style="color: red;">
+                        <i class="bi bi-circle-fill"></i>
+                    </span>
+                </td>
+                <td>
+                    {{t.sobservaciones}}
+                </td>
+                <td>
+                    <button (click)="openModalEdit(editTaskModal, t)" class="btn btn-outline-primary">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="lLoading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </tbody>
+    </table>
+</div>
+
+<!-----------------------------------------------
+  --------------- EDIT TASK MODAL ---------------
+  ----------------------------------------------->
+<ng-template #editTaskModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Actualizar Tarea</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmEditTarea" autocomplete="off">
+            <div class="row">
+                <label for="starea" class="form-label">
+                    Tarea:
+                </label>
+                <textarea id="starea" rows="3" formControlName="starea" class="form-control"></textarea>
+            </div>
+            <div class="row">
+                <label for="sencargado" class="form-label">
+                    Encargado:
+                </label>
+                <select id="sencargado" formControlName="idencargado" class="form-control">
+                    <option *ngFor="let c of lstColaboradores" [value]="c.id">
+                        {{c.snombre}}
+                    </option>
+                </select>
+            </div>
+            <div class="row">
+                <label for="scliente" class="form-label">
+                    Cliente:
+                </label>
+                <input type="text" class="form-control" id="scliente" formControlName="scliente" />
+            </div>
+            <div class="row">
+                <label for="sexpediente" class="form-label">
+                    Expediente:
+                </label>
+                <input type="text" class="form-control" id="sexpediente" formControlName="sexpediente" />
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="splazo" class="form-label">
+                        Plazo:
+                    </label>
+                    <input type="date" class="form-control" id="splazo" formControlName="splazo" />
+                </div>
+                <div class="col-6">
+                    <label for="lcumplimiento" class="form-label">
+                        Cumplido:
+                    </label>
+                    <div class="form-check form-switch">
+                        <input mdbCheckbox class="form-check-input" type="checkbox" formControlName="lcumplimiento" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label for="sobservaciones" class="form-label">
+                    Observaciones:
+                </label>
+                <input type="text" class="form-control" id="sobservaciones" formControlName="sobservaciones" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="updateTarea()" [disabled]="!frmEditTarea.valid" *ngIf="!lUpdating">
+            Actualizar
+        </button>
+        <button class="btn btn-primary" *ngIf="lUpdating">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+            </span>
+            Actializando...
+        </button>
+    </div>
+</ng-template>
+
+<!-----------------------------------------------
+  ---------------- ADD TASK MODAL ---------------
+  ----------------------------------------------->
+<ng-template #addTaskModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Registrar Tarea</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmNewTarea" autocomplete="off">
+            <div class="row">
+                <label for="starea" class="form-label">
+                    Tarea:
+                </label>
+                <textarea id="starea" rows="3" formControlName="starea" class="form-control"></textarea>
+            </div>
+            <div class="row">
+                <label for="sencargado" class="form-label">
+                    Encargado:
+                </label>
+                <select id="sencargado" formControlName="idencargado" class="form-control">
+                    <option *ngFor="let c of lstColaboradores" [value]="c.id">
+                        {{c.snombre}}
+                    </option>
+                </select>
+            </div>
+            <div class="row">
+                <label for="scliente" class="form-label">
+                    Cliente:
+                </label>
+                <input type="text" class="form-control" id="scliente" formControlName="scliente" />
+            </div>
+            <div class="row">
+                <label for="sexpediente" class="form-label">
+                    Expediente:
+                </label>
+                <input type="text" class="form-control" id="sexpediente" formControlName="sexpediente" />
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="splazo" class="form-label">
+                        Plazo:
+                    </label>
+                    <input type="date" class="form-control" id="splazo" formControlName="splazo" />
+                </div>
+                <div class="col-6">
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="registerTarea()" [disabled]="!frmNewTarea.valid" *ngIf="!lCreating">
+            Registrar
+        </button>
+        <button class="btn btn-primary" *ngIf="lCreating">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+            </span>
+            Registrando...
+        </button>
+    </div>
+</ng-template>

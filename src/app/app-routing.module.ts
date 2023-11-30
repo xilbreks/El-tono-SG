@@ -25,6 +25,7 @@ import { ClienteItemComponent } from './cliente-item/cliente-item.component';
 import { ClienteNewComponent } from './cliente-new/cliente-new.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
+import { TareasComponent } from './tareas/tareas.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -139,6 +140,10 @@ const routes: Routes = [
   {
     path: 'usuario/:id',
     component: UserItemComponent
+  },
+  {
+    path: 'tareas',
+    component: TareasComponent
   },
   {
     path: '**',

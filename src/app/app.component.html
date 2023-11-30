@@ -51,14 +51,17 @@
             <li>
               <a class="dropdown-item" routerLink="/asistencia"> Asistencia </a>
             </li>
-            <li>
+            <!-- <li>
               <a class="dropdown-item" routerLink="/usuarios"> Usuarios </a>
-            </li>
+            </li> -->
           </ul>
         </li>
 
         <li class="nav-item" *ngIf="user?.displayName=='ADMIN'">
           <a class="nav-link" routerLink="/stats-rdt">Stadisticas</a>
+        </li>
+        <li class="nav-item" *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
+          <a class="nav-link" routerLink="/tareas">Tareas</a>
         </li>
 
         <li>

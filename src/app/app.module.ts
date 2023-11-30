@@ -44,6 +44,7 @@ import { ClienteItemComponent } from './cliente-item/cliente-item.component';
 import { ClienteNewComponent } from './cliente-new/cliente-new.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
+import { TareasComponent } from './tareas/tareas.component';
 
 
 const environment = {
@@ -95,6 +96,7 @@ const environment = {
     ClienteNewComponent,
     UsersComponent,
     UserItemComponent,
+    TareasComponent,
   ],
   imports: [
     BrowserModule,
