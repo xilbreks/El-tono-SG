@@ -26,6 +26,7 @@ import { ClienteNewComponent } from './cliente-new/cliente-new.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
 import { TareasComponent } from './tareas/tareas.component';
+import { ReportePagosComponent } from './reporte-pagos/reporte-pagos.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -144,6 +145,10 @@ const routes: Routes = [
   {
     path: 'tareas',
     component: TareasComponent
+  },
+  {
+    path: 'reporte-pagos',
+    component: ReportePagosComponent
   },
   {
     path: '**',

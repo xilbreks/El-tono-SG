@@ -1,0 +1,24 @@
+<h3>
+    Reporte de Pagos y Cobranzas
+</h3>
+<button (click)="getExpLaboral()" [ngClass]="{'listo': lLaboralOK}">
+    Recuperar Exp Laboral
+</button>
+
+<button (click)="getExpFamilia()" [ngClass]="{'listo': lFamiliaOK}">
+    Recuperar Exp Familia
+</button>
+
+<button (click)="getExpCivil()" [ngClass]="{'listo': lCivilOK}">
+    Recuperar Exp Civil
+</button>
+
+<button (click)="getPagos()" [ngClass]="{'listo': lPagosOK}">
+    Recuperar Pagos
+</button>
+
+<hr>
+
+<button (click)="analizar()" class="btn btn-primary">
+    Descargar Reporte
+</button>
