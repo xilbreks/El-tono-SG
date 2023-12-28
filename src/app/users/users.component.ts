@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -24,6 +25,7 @@ export class UsersComponent {
 
   constructor(
     private db: AngularFirestore,
+    private afAuth: AngularFireAuth,
     private modalService: NgbModal,
   ) {
     this.frmUsuario = new FormGroup({
@@ -33,6 +35,7 @@ export class UsersComponent {
       ])),
       scolor: new FormControl(null, Validators.required),
       snombre: new FormControl(null, Validators.required),
+      spassword: new FormControl(null, Validators.required),
     });
 
     this.getUsuarios();
@@ -44,7 +47,6 @@ export class UsersComponent {
       .valueChanges()
       .subscribe((res: Array<any>) => {
         this.lstUsuarios = res;
-        console.log({ res });
 
         this.lLoading = false;
         obs.unsubscribe();
@@ -62,6 +64,7 @@ export class UsersComponent {
     let id: string = this.frmUsuario.controls['id'].value;
     let snombre: string = this.frmUsuario.controls['snombre'].value.trim();
     let scolor: string = this.frmUsuario.controls['scolor'].value;
+    let spassword: string = this.frmUsuario.controls['spassword'].value;
 
     this.db.collection('colaboradores')
       .doc(id)
@@ -69,13 +72,25 @@ export class UsersComponent {
         id: id,
         lactive: true,
         scolor: scolor,
-        snombre: snombre
+        snombre: snombre,
+        spassword: spassword
       })
       .then(() => {
-
+        this.afAuth.createUserWithEmailAndPassword(id + '@silvaguillenabogados.com', spassword)
+          .then(newuser => {
+            newuser.user?.updateProfile({
+              displayName: snombre,
+            })
+            console.log(newuser);
+            this.getUsuarios();
+            this.modalService.dismissAll();
+          })
+          .catch(err => {
+            window.alert('ERROR al registrar usuario 2');
+          })
       })
       .catch(err => {
-
+        window.alert('ERROR al registrar usuario 1');
       })
       .finally(() => {
         this.lCreating = false;

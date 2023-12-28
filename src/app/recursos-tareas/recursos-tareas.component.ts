@@ -88,6 +88,8 @@ export class RecursosTareasComponent {
       { id: 102, pick: true, desc: '102.- ORDEN Y LIMPIEZA' },
       { id: 103, pick: true, desc: '103.- ACTUALIZACION DEL PLANER' },
       { id: 104, pick: true, desc: '104.- SESIONES DE COMPARTIR(ANIVERSARIOS, CUMPLEAÑOS, FESTIVIDADES, ETC)' },
+      { id: 103, pick: true, desc: '105.- TAREAS ADMINISTRATIVAS' },
+      { id: 103, pick: true, desc: '106.- TAREAS CONTABLES' },
     ];
   }
 }

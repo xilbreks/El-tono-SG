@@ -1,9 +1,34 @@
-<p>testing works!</p>
-<button (click)="analizar()">
-    Analizar
-</button>
-<button (click)="getPagos()">
-    Get Pagos
-</button>
+<!-- <p>testing works!</p>
 <hr>
-<textarea cols="30" rows="10" [formControl]="fcText"></textarea>
+<textarea cols="30" rows="10" [formControl]="fcText"></textarea> -->
+
+<h3>Tiempo promedio de las Tareas y Diligencias</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Tarea
+            </th>
+            <th>
+                Cantidad
+            </th>
+            <th>
+                Promedio
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let a of lstCombinado">
+            <td>
+                {{a.starea}}
+            </td>
+            <td>
+                {{a.ncant}}
+            </td>
+            <td>
+                {{a.sprom}}
+            </td>
+        </tr>
+    </tbody>
+</table>

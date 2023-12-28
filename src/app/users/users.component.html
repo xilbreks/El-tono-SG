@@ -90,10 +90,13 @@
                 </label>
                 <input type="color" class="form-control" id="scolor" formControlName="scolor" />
             </div>
+            <div class="row mb-3">
+                <label for="spassword" class="form-label">
+                    Contraseña
+                </label>
+                <input type="text" class="form-control" id="spassword" formControlName="spassword" />
+            </div>
         </form>
-        <pre>
-            {{frmUsuario.value | json}}
-        </pre>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" (click)="registrarUsuario()" [disabled]="!frmUsuario.valid" *ngIf="!lCreating">
@@ -102,7 +105,7 @@
         <button class="btn btn-primary" *ngIf="lCreating">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
             </span>
-            Registrando
+            Registrando...
         </button>
     </div>
 </ng-template>

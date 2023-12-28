@@ -13,6 +13,14 @@
     Recuperar Exp Civil
 </button>
 
+<button (click)="getExpPenal()" [ngClass]="{'listo': lPenalOK}">
+    Recuperar Exp Penal
+</button>
+
+<button (click)="getExpConst()" [ngClass]="{'listo': lConstOK}">
+    Recuperar Exp Constitucional
+</button>
+
 <button (click)="getPagos()" [ngClass]="{'listo': lPagosOK}">
     Recuperar Pagos
 </button>
