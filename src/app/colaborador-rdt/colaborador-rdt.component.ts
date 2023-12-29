@@ -53,7 +53,7 @@ export class ColaboradorRdtComponent {
       .collection('rdts', (ref) => {
         return ref.where('idcolaborador', '==', this.idColaborador)
           .orderBy('sfecha', 'desc')
-          .limit(5);
+          .limit(22);
       })
       .valueChanges()
       .subscribe((data: Array<any>) => {

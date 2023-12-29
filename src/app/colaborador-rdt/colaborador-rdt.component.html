@@ -12,7 +12,6 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>#</th>
         <th>Fecha</th>
         <th>Hora entrada</th>
         <th>Hora salida</th>
@@ -21,7 +20,6 @@
     </thead>
     <tbody *ngIf="!lLoading">
       <tr *ngFor="let rdt of lstRDTs; let i = index">
-        <td>{{ i + 1 }}</td>
         <td>{{ rdt.sfecha }}</td>
         <td>
           {{ rdt.shoraingreso + ":" + rdt.sminutoingreso }}
