@@ -4,6 +4,7 @@ export class PagoHonorario {
     public sdescripcion: string = '';
     public sexpediente: string = '';
     public sfecha: string = '';
+    public sfechalocal: string = '';
     public smodificador: string = '';
 
     constructor() { }

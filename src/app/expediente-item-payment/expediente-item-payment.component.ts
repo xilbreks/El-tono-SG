@@ -71,7 +71,7 @@ export class ExpedienteItemPaymentComponent implements OnInit {
       .update({
         nmontocontrato: nmonto.value
       })
-      .then(()=>{
+      .then(() => {
         this.nmontocontrato = nmonto.value;
       })
   }
@@ -84,11 +84,23 @@ export class ExpedienteItemPaymentComponent implements OnInit {
           .where('lactive', '==', true)
       })
       .valueChanges()
-      .subscribe((data: Array<any>) => {
+      .subscribe((res: Array<any>) => {
         this.lstPagos = [];
         this.nMontoTotal = 0;
-        data.forEach((p) => {
-          this.lstPagos.push(p)
+        res.forEach((p) => {
+          let sfecha = p.sfecha;
+          let sfechalocal = p.sfecha;
+          // Verificar si la fecha tiene formato correcto YYYY-MM-DD
+          if (sfecha.match(/^[0-9]{4}[-][0-9]{2}[-][0-9]{2}/)) {
+            let sday = sfecha.slice(8, 10);
+            let smonth = sfecha.slice(5, 7);
+            let syear = sfecha.slice(0, 4);
+            sfechalocal = sday + '/' + smonth + '/' + syear;
+          }
+          this.lstPagos.push({
+            ...p,
+            sfechalocal
+          })
           this.nMontoTotal = this.nMontoTotal + p.nmonto;
         });
 

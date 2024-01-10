@@ -1,0 +1,70 @@
+<h3>
+    Pagos Honorarios
+</h3>
+
+<div style="max-width: 250px;">
+    <form [formGroup]="frmPagos" autocomplete="off">
+        <div>
+            <label class="label-form" for="start">Desde: </label>
+            <input type="date" id="start" class="form-control" formControlName="sinicio">
+        </div>
+        <div>
+            <label class="label-form" for="end">Hasta: </label>
+            <input type="date" id="end" class="form-control" formControlName="sfinal">
+        </div>
+    </form>
+</div>
+
+<hr>
+
+<div *ngIf="!lLoading">
+    <button (click)="getPagos()" class="btn btn-primary" [disabled]="!frmPagos.valid">
+        Ver pagos
+    </button>
+</div>
+
+<div *ngIf="lLoading">
+    <button class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </button>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Expediente
+                </th>
+                <th>
+                    Monto
+                </th>
+                <th>
+                    Descripción
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="lstPagos.length > 0">
+            <tr *ngFor="let p of lstPagos">
+                <td>
+                    {{p.sfecha}}
+                </td>
+                <td>
+                    {{p.sexpediente}}
+                </td>
+                <td>
+                    {{p.nmonto}}
+                </td>
+                <td>
+                    {{p.sdescripcion}}
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="lstPagos.length == 0">
+            Sin pagos
+        </tbody>
+    </table>
+</div>

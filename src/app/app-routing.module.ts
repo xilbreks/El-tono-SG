@@ -27,6 +27,7 @@ import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { ReportePagosComponent } from './reporte-pagos/reporte-pagos.component';
+import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -149,6 +150,10 @@ const routes: Routes = [
   {
     path: 'reporte-pagos',
     component: ReportePagosComponent
+  },
+  {
+    path: 'pagos-honorarios',
+    component: PagosHonorariosComponent
   },
   {
     path: '**',
