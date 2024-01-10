@@ -557,6 +557,15 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
+      "sexpediente": "00037-2024-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "DESNATURALIZACIÓN DE CONTRATO",
+      "sdemandante": "COLANA GUTIERREZ CRISTOBAL VALERIANO",
+      "sdemandado": "PERURAIL S.A.",
+      "sfechainicio": "03/01/2024",
+      "niter": null
+    },
+    {
       "sexpediente": "01127-2022-0-0401-JR-LA-09",
       "sespecialidad": "LABORAL",
       "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
@@ -872,6 +881,15 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
+      "sexpediente": "06147-2023-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "HUANQQUE SURCO, ERNESTO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "29/11/2023",
+      "niter": null
+    },
+    {
       "sexpediente": "01386-2020-0-0401-JR-LA-09",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -906,6 +924,33 @@ export class ExpedientesComponent {
       "sdemandado": "ABENGOA PERU S.A.",
       "sfechainicio": "02/11/2021",
       "niter": 9
+    },
+    {
+      "sexpediente": "06063-2023-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "LIMA HUAMANI EDDY RAUL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "27/11/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "06284-2023-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "LIMA HUAMANI, EDDY RAUL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "07/12/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "06511-2023-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "LIMA HUAMANI, EDDY RAUL",
+      "sdemandado": "SOCIEDAD MINERA DE CERRO VERDE S.A.A",
+      "sfechainicio": "21/12/2023",
+      "niter": null
     },
     {
       "sexpediente": "03941-2022-0-0401-JR-LA-09",
@@ -2240,6 +2285,15 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
+      "sexpediente": "06072-2023-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "ZANTALLA SONCCO, ANDRES WILLIAN",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "27/11/2023",
+      "niter": null
+    },
+    {
       "sexpediente": "04431-2023-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
@@ -3394,6 +3448,15 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
+      "sexpediente": "05348-2023-0401-JP-FC-01",
+      "sespecialidad": "FAMILIA",
+      "smateria": "PRORRATEO DE ALIMENTOS",
+      "sdemandante": "FUENTES FALCON, EDITH",
+      "sdemandado": "HUAYLLA MEZA, RICHARD MARCOS",
+      "sfechainicio": "24/11/2023",
+      "niter": null
+    },
+    {
       "sexpediente": "05459-2022-0-0401-JR-FC-01",
       "sespecialidad": "FAMILIA",
       "smateria": "DIVORCIO POR CAUSAL",
@@ -3783,6 +3846,15 @@ export class ExpedientesComponent {
       "niter": 4
     },
     {
+      "sexpediente": "00053-2024-0-0401-JP-CI-06",
+      "sespecialidad": "CIVIL",
+      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
+      "sdemandante": "SILVA GUILLEN ABOGADOS S.A.C.",
+      "sdemandado": "SINDICATO CERRO VERDE",
+      "sfechainicio": "08/01/2024",
+      "niter": null
+    },
+    {
       "sexpediente": "00062-2023-95-2801-JR-CI-01",
       "sespecialidad": "CIVIL",
       "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
@@ -4087,6 +4159,15 @@ export class ExpedientesComponent {
       "sdemandado": "BANCO DE CREDITO DEL PERU",
       "sfechainicio": "17/08/2016",
       "niter": 17
+    },
+    {
+      "sexpediente": "03818-2023-0-3207-JP-CI-03",
+      "sespecialidad": "CIVIL",
+      "smateria": "SUCESION INTESTADA",
+      "sdemandante": "JIHUA SAUME NORMA FELICITA",
+      "sdemandado": "-",
+      "sfechainicio": "21/07/2023",
+      "niter": null
     },
     {
       "sexpediente": "03825-2023-0-0401-JR-CI-04",
