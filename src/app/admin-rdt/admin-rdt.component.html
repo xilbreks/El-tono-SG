@@ -7,47 +7,49 @@
 
 <h4>Listado de RTDs</h4>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Colaborador</th>
-      <th>Fecha</th>
-      <th>Hora entrada</th>
-      <th>Hora salida</th>
-      <th>Editable</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody *ngIf="!lLoading">
-    <tr *ngFor="let rdt of lstRdts; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ rdt.scolaborador }}</td>
-      <td>{{ rdt.sfecha }}</td>
-      <td>
-        <button class="btn btn-outline-dark" (click)="openEntradaModal(rdt.idrdt, modalEntrada)">
-          {{ rdt.shoraingreso + ":" + rdt.sminutoingreso }}
-        </button>
-      </td>
-      <td>
-        <button class="btn btn-outline-dark" (click)="openSalidaModal(rdt.idrdt, modalSalida)">
-          {{ rdt.shorasalida + ":" + rdt.sminutosalida }}
-        </button>
-      <td>
-        <div class="form-check form-switch">
-          <input mdbCheckbox class="form-check-input" type="checkbox" [checked]="rdt.leditable"
-            (click)="toggleEditable(rdt.idrdt, rdt.leditable)" />
-        </div>
-      </td>
-      <td>
-        <a class="btn btn-outline-success" [routerLink]="'/rdt/' + rdt.idrdt">
-          Ver
-        </a>
-      </td>
-    </tr>
-  </tbody>
-  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
-</table>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Colaborador</th>
+        <th>Fecha</th>
+        <th>Hora entrada</th>
+        <th>Hora salida</th>
+        <th>Editable</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="!lLoading">
+      <tr *ngFor="let rdt of lstRdts; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ rdt.scolaborador }}</td>
+        <td>{{ rdt.sfecha }}</td>
+        <td>
+          <button class="btn btn-outline-dark" (click)="openEntradaModal(rdt.idrdt, modalEntrada)">
+            {{ rdt.shoraingreso + ":" + rdt.sminutoingreso }}
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-outline-dark" (click)="openSalidaModal(rdt.idrdt, modalSalida)">
+            {{ rdt.shorasalida + ":" + rdt.sminutosalida }}
+          </button>
+        <td>
+          <div class="form-check form-switch">
+            <input mdbCheckbox class="form-check-input" type="checkbox" [checked]="rdt.leditable"
+              (click)="toggleEditable(rdt.idrdt, rdt.leditable)" />
+          </div>
+        </td>
+        <td>
+          <a class="btn btn-outline-success" [routerLink]="'/rdt/' + rdt.idrdt">
+            Ver
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
+  </table>
+</div>
 
 <hr />
 
@@ -141,7 +143,7 @@
             <option value="40">40m</option>
             <option value="41">41m</option>
             <option value="42">42m</option>
-            <option value="42">43m</option>
+            <option value="43">43m</option>
             <option value="44">44m</option>
             <option value="45">45m</option>
             <option value="46">46m</option>
@@ -259,7 +261,7 @@
             <option value="40">40m</option>
             <option value="41">41m</option>
             <option value="42">42m</option>
-            <option value="42">43m</option>
+            <option value="43">43m</option>
             <option value="44">44m</option>
             <option value="45">45m</option>
             <option value="46">46m</option>
