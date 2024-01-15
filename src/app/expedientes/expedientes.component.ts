@@ -2341,15 +2341,6 @@ export class ExpedientesComponent {
       "niter": 5
     },
     {
-      "sexpediente": "00032-2021-0-1818-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "EJECUCION DE ACTA DE CONCILIACION",
-      "sdemandante": "MEDINA PERALTA VICTORIA CELINA HONORIA",
-      "sdemandado": "HUAMANI MEDINA CHRISTIAN EDWARD",
-      "sfechainicio": "26/01/2021",
-      "niter": null
-    },
-    {
       "sexpediente": "00041-2019-0-0401-JP-FC-09",
       "sespecialidad": "FAMILIA",
       "smateria": "ALIMENTOS",
@@ -2368,33 +2359,6 @@ export class ExpedientesComponent {
       "niter": 4
     },
     {
-      "sexpediente": "00079-2020-0-0412-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "PARQUE QUISPE LINDA ROSA",
-      "sdemandado": "MAMANI HUAHUACHAMPI SERGIO BRUNO",
-      "sfechainicio": "09/01/2020",
-      "niter": 2
-    },
-    {
-      "sexpediente": "00121-2020-0-1009-JP-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "CONDORI SONCCO KAREN ZENAIDA",
-      "sdemandado": "CONDORI SAICO GUALBERTO",
-      "sfechainicio": "27/08/2020 ",
-      "niter": 5
-    },
-    {
-      "sexpediente": "00141-2021-0-1018-JP-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "EJECUCION DE ACTA DE CONCILIACION",
-      "sdemandante": "SALAS ALFARO MARY LUZ",
-      "sdemandado": "CALLAPIÑA NOA SAMUEL",
-      "sfechainicio": "25/01/2021",
-      "niter": null
-    },
-    {
       "sexpediente": "00142-2023-0-0401-JR-FC-01",
       "sespecialidad": "FAMILIA",
       "smateria": "DIVORCIO POR CAUSAL",
@@ -2402,15 +2366,6 @@ export class ExpedientesComponent {
       "sdemandado": "VERA FLORES FLOR DE MARIA y  FISCALIA CIVIL Y DE FAMILIA DE AREQUIPA",
       "sfechainicio": "28/03/2023",
       "niter": 2
-    },
-    {
-      "sexpediente": "00150-2022-0-0401-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "AUMENTO DE ALIMENTOS",
-      "sdemandante": "BARBOZA CORAMPA VICTORIA DELIA",
-      "sdemandado": "PERALTA AGUAYO BLAS ALEJANDRO",
-      "sfechainicio": "08/03/2022",
-      "niter": 5
     },
     {
       "sexpediente": "00152-2019-0-0401-JR-FC-01",
@@ -2431,39 +2386,12 @@ export class ExpedientesComponent {
       "niter": 2
     },
     {
-      "sexpediente": "00194-2017-0-0401-JR-FT-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA FAMILIAR",
-      "sdemandante": "PINTO LINARES BERTHA ALEJANDRINA",
-      "sdemandado": "VERA RIVERA EUSEBIA CARMELA",
-      "sfechainicio": "11/01/2017",
-      "niter": null
-    },
-    {
       "sexpediente": "00249-2020-0-0401-JR-FC-01",
       "sespecialidad": "FAMILIA",
       "smateria": "TENENCIA",
       "sdemandante": "GAMONAL AYALA FREDY WILSON",
       "sdemandado": "ANA DE LOS ANGELES CONCHA VEGA y MINISTERIO PUBLICO CIVIL Y FAMILIA DE AREQUIPA",
       "sfechainicio": "04/11/2020",
-      "niter": null
-    },
-    {
-      "sexpediente": "00265-2014-0-0401-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "BARBOZA CORAMPA VICTORIA DELIA",
-      "sdemandado": "PERALTA AGUAYO BLAS ALEJANDRO",
-      "sfechainicio": "25/06/2014 ",
-      "niter": 6
-    },
-    {
-      "sexpediente": "00278-2023-0-0401-JR-FT-12",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA CONTRA LAS MUJERES Y LOS INTEGRANTES DEL GRUPO FAMILIAR",
-      "sdemandante": "HUANCOLLO YMATA ANA ROXANA",
-      "sdemandado": "SUPO VENTURA JOHN JULIO",
-      "sfechainicio": "05/01/2023",
       "niter": null
     },
     {
@@ -2503,21 +2431,12 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "00333-2022-0-0401-JP-FC-02",
+      "sexpediente": "00334-2022-0-0401-JP-FC-02",
       "sespecialidad": "FAMILIA",
       "smateria": "ALIMENTOS",
       "sdemandante": "AQUINO PEREZ MARIA DEL ROSARIO",
       "sdemandado": "MILLIO HUAMANI JUVENAL DANIEL",
       "sfechainicio": "16/05/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "00336-2011-0-0401-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "APAZA ARCE JOHANNA CECYL y ENRIQUEZ APAZA PAUL GEREMY y ENRIQUEZ APAZA SOLANGE CECYL",
-      "sdemandado": "ENRIQUEZ RODRIGUEZ PERCY ALBERTO",
-      "sfechainicio": "24/10/2011",
       "niter": null
     },
     {
@@ -2527,15 +2446,6 @@ export class ExpedientesComponent {
       "sdemandante": "RODRIGUEZ PRADO JESUS LIBERTAD",
       "sdemandado": "ZAMUDIO CORNEJO VICTOR ADRIAN",
       "sfechainicio": "24/03/2010",
-      "niter": 6
-    },
-    {
-      "sexpediente": "00369-2010-0-0401-JP-FC-06",
-      "sespecialidad": "FAMILIA",
-      "smateria": "AUMENTO DE ALIMENTOS",
-      "sdemandante": "CANO DAVILA MICHELLE",
-      "sdemandado": "CANO CAMONES MARIO",
-      "sfechainicio": "26/03/2010 ",
       "niter": 6
     },
     {
@@ -2620,30 +2530,12 @@ export class ExpedientesComponent {
       "niter": 7
     },
     {
-      "sexpediente": "00440-2006-0-0412-JP-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "PUMA PANCA ELIZABETH REYNA",
-      "sdemandado": "LAURA JORDAN CLEVER",
-      "sfechainicio": "22/08/2006",
-      "niter": null
-    },
-    {
       "sexpediente": "00468-2019-0-0401-JR-FC-01",
       "sespecialidad": "FAMILIA",
       "smateria": "DIVORCIO POR CAUSAL",
       "sdemandante": "ZEGARRA TORRES JUSTO MELECIO",
       "sdemandado": "GALLEGOS HIDALGO ESTELITA",
       "sfechainicio": "16/10/2019",
-      "niter": null
-    },
-    {
-      "sexpediente": "00469-2022-0-0401-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "EJECUCION DE ACTA DE CONCILIACION",
-      "sdemandante": "VILLANUEVA MUÑOZ GIULIANO JOSE",
-      "sdemandado": "VILLANUEVA CARBAJAL JULIANO JOSE",
-      "sfechainicio": "27/06/2022",
       "niter": null
     },
     {
@@ -2671,51 +2563,6 @@ export class ExpedientesComponent {
       "sdemandante": "ARANIBAR CACERES, TOMAS SILES",
       "sdemandado": "ARANIBAR TEJADA, YONI JAVIER; ARANIBAR TEJADA, LEONARDO ANTONIO; ARANIBAR TEJADA DE MOSCOSO, SUGEY ALICIA.; ARANIBAR TEJADA, FREDY JOSE; ARANIBAR TEJADA, LUZ MERY; ARANIBAR TEJADA, LAURA YONELA; ARANIBAR TEJADA, LIZBEHT MARIE Y  TEJADA DE ARANIBAR, VICTORIA",
       "sfechainicio": "20/10/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "00487-2022-0-0401-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "REDUCCION DE ALIMENTOS",
-      "sdemandante": "VILLANUEVA CARBAJAL JULIANO JOSE",
-      "sdemandado": "VILLANUEVA MUÑOZ GIULIANO JOSE",
-      "sfechainicio": "05/07/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "00488-2022-0-0401-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "REDUCCION DE ALIMENTOS",
-      "sdemandante": "VILLANUEVA CARBAJAL JULIANO JOSE",
-      "sdemandado": "VILLANUEVA MUÑOZ DARLENE GIULIANA",
-      "sfechainicio": "05/07/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "00505-2015-0-0402-JP-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "SONCCO MAYTA GIULIANA VANESSA",
-      "sdemandado": "RIVERA VELASQUEZ CHRISTIAN JORGE",
-      "sfechainicio": "18/12/2015",
-      "niter": null
-    },
-    {
-      "sexpediente": "00521-2022-0-0412-JP-FC-03",
-      "sespecialidad": "FAMILIA",
-      "smateria": "CAMBIO EN LA FORMA DE PRESTAR ALIMENTOS",
-      "sdemandante": "DIAZ FARFAN DANIEL FABRICIO y FARFAN MENDOZA RINA CELIA",
-      "sdemandado": "DIAZ ESCOBEDO ALEX SANDRO",
-      "sfechainicio": "11/02/2022",
-      "niter": 5
-    },
-    {
-      "sexpediente": "00597-2012-0-0401-JP-FC-07",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "CASTILLO SOTELO LEDYNURY VIRGINIA",
-      "sdemandado": "CARTAGENA MORAN RAUL",
-      "sfechainicio": "15/03/2012",
       "niter": null
     },
     {
@@ -2782,24 +2629,6 @@ export class ExpedientesComponent {
       "niter": 5
     },
     {
-      "sexpediente": "00829-2019-0-0401-JP-FC-08",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": " CANAZAS CHIRE LYNN AYLEN",
-      "sdemandado": "MAYTA PUMA HENRY REGULO",
-      "sfechainicio": "04/03/2019",
-      "niter": 6
-    },
-    {
-      "sexpediente": "00835-2021-0-2111-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "EXONERACION DE ALIMENTOS",
-      "sdemandante": "ARENAS RODRIGUEZ ROMMEL ROOSWELT",
-      "sdemandado": "ARENAS PERALTA JOSHUA ENRIQUE",
-      "sfechainicio": "30/03/2021",
-      "niter": null
-    },
-    {
       "sexpediente": "00842-2021-0-0412-JP-FC-02",
       "sespecialidad": "FAMILIA",
       "smateria": "AUMENTO DE ALIMENTOS",
@@ -2816,15 +2645,6 @@ export class ExpedientesComponent {
       "sdemandado": "HUAYLLA MEZA, RICHARD MARCOS CON APOD JAVIER QUEA AQUIPUCHO",
       "sfechainicio": "15/03/2021",
       "niter": 5
-    },
-    {
-      "sexpediente": "00944-2021-0-0412-JP-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "EJECUCION DE ACTA DE CONCILIACION",
-      "sdemandante": "PALO BELLOTA YESENIA STEPHANIE",
-      "sdemandado": "IQUISE SUPA HERIS MELVIN",
-      "sfechainicio": "23/03/2021",
-      "niter": null
     },
     {
       "sexpediente": "00950-2012-0-0401-JP-FC-06",
@@ -2863,15 +2683,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "01085-2022-0-0401-JP-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "AUMENTO DE ALIMENTOS",
-      "sdemandante": "GOMEZ DE LA TORRE RUPAY GHILMA ISABEL",
-      "sdemandado": "SALAS HERENCIA ALAN EFRAIN",
-      "sfechainicio": "01/04/2022",
-      "niter": 8
-    },
-    {
       "sexpediente": "01092-2021-0-0401-JP-FC-08",
       "sespecialidad": "FAMILIA",
       "smateria": "CAMBIO EN LA FORMA DE PRESTAR ALIMENTOS",
@@ -2879,24 +2690,6 @@ export class ExpedientesComponent {
       "sdemandado": "ABRIL GARCIA MICHAEL WINSTON",
       "sfechainicio": "05/04/2021",
       "niter": 7
-    },
-    {
-      "sexpediente": "01093-2006-0-0401-JR-FC-03",
-      "sespecialidad": "FAMILIA",
-      "smateria": "DIVORCIO POR CAUSAL",
-      "sdemandante": "PINTO LINARES JUAN GILBERTO",
-      "sdemandado": "FISCALIA SUPERIOR CIVIL Y FAMILIA DE TURNO NO HA PREVENIDO NINGUNA FISCALIA SUPERIOR",
-      "sfechainicio": "05/04/2006",
-      "niter": null
-    },
-    {
-      "sexpediente": "01111-2022-0-0401-JP-FC-08",
-      "sespecialidad": "FAMILIA",
-      "smateria": "AUMENTO DE ALIMENTOS",
-      "sdemandante": "SALAS GOMEZ DE LA TORRE VALERIA XIMENA",
-      "sdemandado": "SALAS HERENCIA ALAN EFRAIN y SALAS HERENCIA ALAN EFRAIN",
-      "sfechainicio": "03/04/2022",
-      "niter": null
     },
     {
       "sexpediente": "01142-2023-0-0302-JR-FT-02",
@@ -2915,15 +2708,6 @@ export class ExpedientesComponent {
       "sdemandado": "ZELA MAMANI FRANCISCO DREMMLER",
       "sfechainicio": "09/11/2018",
       "niter": 6
-    },
-    {
-      "sexpediente": "01240-2019-0-0412-JP-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "FILIACION",
-      "sdemandante": "PUMA PANCA ELIZABETH",
-      "sdemandado": "ZEGARRA DIAZ REYNALDO WILLIAM",
-      "sfechainicio": "29/03/2019",
-      "niter": null
     },
     {
       "sexpediente": "01240-2022-0-0401-JP-FC-01",
@@ -2959,15 +2743,6 @@ export class ExpedientesComponent {
       "sdemandante": "MELENDEZ MONTOYA, JENNIFER FIORELLA",
       "sdemandado": "KLEEBERG SALAZAR GERARDO ENRIQUE",
       "sfechainicio": "02/11/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "01356-2022-0-0412-JP-FC-03",
-      "sespecialidad": "FAMILIA",
-      "smateria": "CAMBIO EN LA FORMA DE PRESTAR ALIMENTOS",
-      "sdemandante": "DIAZ FARFAN DIEGO FERNANDO",
-      "sdemandado": "DIAZ ESCOBEDO ALEX",
-      "sfechainicio": "19/04/2022",
       "niter": null
     },
     {
@@ -3007,15 +2782,6 @@ export class ExpedientesComponent {
       "niter": 4
     },
     {
-      "sexpediente": "01512-2016-0-0407-JM-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "DIVORCIO POR CAUSAL",
-      "sdemandante": "RAMOS RIVERA ELIZBETH KELLY",
-      "sdemandado": "VARGAS ANGULO HENRY ALBERTO y PODER JUDICIAL REPRESENTADO POR SU PROCURADOR PUBLICO ABOGADO JOHAN IOSIF ECHEGARAY ESCALANTE",
-      "sfechainicio": "18/05/2016",
-      "niter": 5
-    },
-    {
       "sexpediente": "01524-2021-0-0401-JP-FC-08",
       "sespecialidad": "FAMILIA",
       "smateria": "ALIMENTOS",
@@ -3041,15 +2807,6 @@ export class ExpedientesComponent {
       "sdemandado": "MONTES MONTES JESUS ESTEBAN",
       "sfechainicio": "25/04/2023",
       "niter": 7
-    },
-    {
-      "sexpediente": "01817-2016-0-0410-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "GOYZUETA ALPACA DIANA LITA",
-      "sdemandado": "MIRANDA PAUCA FREDY ALEX",
-      "sfechainicio": "16/05/2016",
-      "niter": null
     },
     {
       "sexpediente": "01826-2019-0-0411-JP-FC-01",
@@ -3178,15 +2935,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "02617-2012-90-0412-JP-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "VALDEZ FLORES JUDITH",
-      "sdemandado": "ARAPA QUISPE HIMMLER RICHARD",
-      "sfechainicio": "17/12/2012",
-      "niter": null
-    },
-    {
       "sexpediente": "02783-2023-0-0412-JP-FC-01",
       "sespecialidad": "FAMILIA",
       "smateria": "EXONERACION DE ALIMENTOS",
@@ -3194,24 +2942,6 @@ export class ExpedientesComponent {
       "sdemandado": "ACUÑA CHAVEZ GIULIANA MERCEDES",
       "sfechainicio": "20/06/2023 ",
       "niter": 5
-    },
-    {
-      "sexpediente": "02793-2021-0-0401-JR-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "RECONOCIMIENTO DE UNION DE HECHO",
-      "sdemandante": "QUISPE MAMANI ANDREINA",
-      "sdemandado": "AÑASCO CONDORI WILBERT y AÑASCO CONDORI EDWARD y AÑASCO CONDORI LUIS ALBERTO y AÑASCO PAUCA SERGIO y CHAMBILLA HUELLCACURE PAOLA MARGOT y CONDORI PAMPA MARIA CLARA",
-      "sfechainicio": "09/02/2021",
-      "niter": null
-    },
-    {
-      "sexpediente": "02987-2021-0-0401-JR-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "TENENCIA",
-      "sdemandante": "LINARES WAGNER CARMEN TERESA",
-      "sdemandado": "LAZO VILLAGRA JOSE ANTONIO",
-      "sfechainicio": "11/02/2021",
-      "niter": null
     },
     {
       "sexpediente": "03075-2014-0-0410-JP-FC-02",
@@ -3259,30 +2989,12 @@ export class ExpedientesComponent {
       "niter": 6
     },
     {
-      "sexpediente": "03196-2016-0-0410-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "ALIMENTOS",
-      "sdemandante": "OCHOA DEZA PATRICIA MAGALY",
-      "sdemandado": "MONTES SANCHEZ JESUS",
-      "sfechainicio": "05/09/2016",
-      "niter": null
-    },
-    {
       "sexpediente": "03250-2017-0-0401-JP-FC-07",
       "sespecialidad": "FAMILIA",
       "smateria": "ALIMENTOS",
       "sdemandante": "ZELA MAMANI NORMA",
       "sdemandado": "MAMANI CHARCA HENRY JAVIER",
       "sfechainicio": "18/09/2017",
-      "niter": null
-    },
-    {
-      "sexpediente": "03371-2022-0-0410-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "EJECUCION DE ACTA DE CONCILIACION",
-      "sdemandante": "ZEGARRA MELENDEZ ANDREA JIMENA",
-      "sdemandado": "PANTA GOMEZ LUIS ANGEL",
-      "sfechainicio": "07/09/2022",
       "niter": null
     },
     {
@@ -3331,12 +3043,12 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "03613-2018-0-0401-JP-FC-01",
+      "sexpediente": "03513-2022-0-0401-JP-FC-11",
       "sespecialidad": "FAMILIA",
       "smateria": "ALIMENTOS",
-      "sdemandante": "MAMANI SONCCO YANET",
-      "sdemandado": "PUENTE QUIQUIA JUAN JOSE",
-      "sfechainicio": "05/10/2018",
+      "sdemandante": "GUILLEN ARIAS CARLA CELESTE",
+      "sdemandado": "CARDENAS BARRERA CHRISTIAN",
+      "sfechainicio": "19/09/2022",
       "niter": null
     },
     {
@@ -3346,15 +3058,6 @@ export class ExpedientesComponent {
       "sdemandante": " CHAVEZ MUÑOZ RODRIGO STEFANO",
       "sdemandado": " CHAVEZ MARROQUIN WILBERT ERNESTO",
       "sfechainicio": "02/11/2021",
-      "niter": null
-    },
-    {
-      "sexpediente": "03710-2018-0-0401-JP-FC-08",
-      "sespecialidad": "FAMILIA",
-      "smateria": "EJECUCION DE ACTA DE CONCILIACION",
-      "sdemandante": "CHANCAYAURI CHACON DIANA",
-      "sdemandado": "VALDIVIA QUISPE EDWARD FERNANDO",
-      "sfechainicio": "16/10/2018",
       "niter": null
     },
     {
@@ -3394,6 +3097,15 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
+      "sexpediente": "04254-2021-0-0412-JP-FC-01",
+      "sespecialidad": "FAMILIA",
+      "smateria": "AUMENTO DE ALIMENTOS",
+      "sdemandante": "CHAIÑA YANA MARLENI",
+      "sdemandado": "QUISPE MESTAS GERONIMO",
+      "sfechainicio": "14/12/2021",
+      "niter": null
+    },
+    {
       "sexpediente": "04356-2018-0-3204-JP-FC-03",
       "sespecialidad": "FAMILIA",
       "smateria": "AUMENTO DE ALIMENTOS",
@@ -3418,15 +3130,6 @@ export class ExpedientesComponent {
       "sdemandante": "QUISPE CALDERON GENARO JOSE",
       "sdemandado": "QUISPE LOZADA YESICA MABEL",
       "sfechainicio": "21/02/2020",
-      "niter": null
-    },
-    {
-      "sexpediente": "04588-2016-0-0401-JR-FC-04",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA FAMILIAR",
-      "sdemandante": "COMISARIA ALTO DE SELVA ALEGRE",
-      "sdemandado": "CALLAPIÑA NOA SAMUEL",
-      "sfechainicio": "31/03/2016",
       "niter": null
     },
     {
@@ -3475,15 +3178,6 @@ export class ExpedientesComponent {
       "niter": 6
     },
     {
-      "sexpediente": "06163-2015-0-0412-JR-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "DIVORCIO POR CAUSAL",
-      "sdemandante": "CARTAGENA MORAN RAUL",
-      "sdemandado": "CASTILLO SOTELO LEDYNURY VIRGINIA y FISCALIA CIVIL Y DE FAMILAI MBJP",
-      "sfechainicio": "15/12/2015",
-      "niter": 5
-    },
-    {
       "sexpediente": "07378-2017-0-0401-JP-FC-01",
       "sespecialidad": "FAMILIA",
       "smateria": "CAMBIO EN LA FORMA DE PRESTAR ALIMENTOS",
@@ -3499,15 +3193,6 @@ export class ExpedientesComponent {
       "sdemandante": "RODRIGUEZ TELLO DARIO ALEXANDER",
       "sdemandado": "RODRIGUEZ BARRIOS ALEX ARTURO",
       "sfechainicio": "22/04/2021",
-      "niter": null
-    },
-    {
-      "sexpediente": "07808-2019-0-0412-JR-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "TENENCIA",
-      "sdemandante": "CCASA CASTILLO MARJORIE",
-      "sdemandado": "VIZA AYQUIPA GILMAR DARWIN",
-      "sfechainicio": "17/04/2019",
       "niter": null
     },
     {
@@ -3547,24 +3232,6 @@ export class ExpedientesComponent {
       "niter": 3
     },
     {
-      "sexpediente": "10569-2023-0-0401-JP-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "EJECUCION DE ACTA DE CONCILIACION",
-      "sdemandante": "CUSIHUAMAN PEÑA JULIA",
-      "sdemandado": "DELGADO HUAMANI JULIO CESAR",
-      "sfechainicio": "13/07/2023",
-      "niter": 4
-    },
-    {
-      "sexpediente": "10575-2017-0-0412-JR-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "REGIMEN DE VISITAS",
-      "sdemandante": "CONDORI SAICO HEMRY",
-      "sdemandado": "HUILLCA HUILLCA YANET",
-      "sfechainicio": "04/10/2017",
-      "niter": 6
-    },
-    {
       "sexpediente": "10628-2022-0-0412-JR-FC-01",
       "sespecialidad": "FAMILIA",
       "smateria": "TENENCIA",
@@ -3574,15 +3241,6 @@ export class ExpedientesComponent {
       "niter": 6
     },
     {
-      "sexpediente": "12211-2022-0-0401-JR-FT-13",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA CONTRA LAS MUJERES Y LOS INTEGRANTES DEL GRUPO FAMILIAR",
-      "sdemandante": "SALAS CASAPERALTA URSULA VIVIANA",
-      "sdemandado": "GUTIERREZ DIAZ MANUEL ALONSO",
-      "sfechainicio": "11/07/2022",
-      "niter": null
-    },
-    {
       "sexpediente": "12506-2023-0-0401-JR-FT-10",
       "sespecialidad": "FAMILIA",
       "smateria": "VIOLENCIA CONTRA LAS MUJERES Y LOS INTEGRANTES DEL GRUPO FAMILIAR",
@@ -3590,33 +3248,6 @@ export class ExpedientesComponent {
       "sdemandado": "LOPEZ GUTIERREZ LUIS y  TASSARA BRICEÑO LUZ ELENA ARMANDINA",
       "sfechainicio": "13/07/2023 ",
       "niter": 7
-    },
-    {
-      "sexpediente": "12670-2020-0-0401-JR-FT-12",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA CONTRA LAS MUJERES Y LOS INTEGRANTES DEL GRUPO FAMILIAR",
-      "sdemandante": "QUISPE GUTIERREZ MIGUEL GOMER",
-      "sdemandado": "CRUZ ROJAS BLANCA VERONICA",
-      "sfechainicio": "15/09/2020",
-      "niter": null
-    },
-    {
-      "sexpediente": "12751-2022-0-0401-JR-FT-12",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA CONTRA LAS MUJERES Y LOS INTEGRANTES DEL GRUPO FAMILIAR",
-      "sdemandante": "HERNANDEZ BRACHO EUNICE REBECA",
-      "sdemandado": "ANCHAHUA HUAMANI EDUARDO ALFREDO",
-      "sfechainicio": "20/07/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "12807-2020-0-0401-JR-FT-12",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA CONTRA LAS MUJERES Y LOS INTEGRANTES DEL GRUPO FAMILIAR",
-      "sdemandante": "RODRIGUEZ FARFAN FERNANDA DE LA FLOR",
-      "sdemandado": "RODRIGUEZ VARGAS ROSARIO ROSAURA",
-      "sfechainicio": "17/09/2020",
-      "niter": null
     },
     {
       "sexpediente": "12841-2021-0-0401-JR-FC-04",
@@ -3673,15 +3304,6 @@ export class ExpedientesComponent {
       "niter": 3
     },
     {
-      "sexpediente": "15575-2022-0-0412-JR-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "TENENCIA",
-      "sdemandante": "ANCHAHUA HUAMANI EDUARDO ALFREDO",
-      "sdemandado": "HERNANDEZ BRACHO EUNICE REBECA",
-      "sfechainicio": "07/09/2022",
-      "niter": null
-    },
-    {
       "sexpediente": "16153-2023-0-0401-JR-FC-04",
       "sespecialidad": "FAMILIA",
       "smateria": "TENENCIA",
@@ -3698,15 +3320,6 @@ export class ExpedientesComponent {
       "sdemandado": "MORALES BILBAO MARTHA ELENA",
       "sfechainicio": "26/08/2019",
       "niter": 2
-    },
-    {
-      "sexpediente": "16690-2019-0-0412-JR-FC-01",
-      "sespecialidad": "FAMILIA",
-      "smateria": "RECONOCIMIENTO DE UNION DE HECHO",
-      "sdemandante": "SALVA APAZA MARIA JUANA",
-      "sdemandado": "HUMPIRE SALVA MARITZA MARIA y HUMPIRE SALVA ALEX y HUMPIRE SALVA GERMAN",
-      "sfechainicio": "26/08/2019 ",
-      "niter": null
     },
     {
       "sexpediente": "17245-2023-0-0401-JR-FC-01",
@@ -3772,57 +3385,12 @@ export class ExpedientesComponent {
       "niter": 5
     },
     {
-      "sexpediente": "21928-2022-0-0401-JR-FT-07",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA CONTRA LAS MUJERES Y LOS INTEGRANTES DEL GRUPO FAMILIAR",
-      "sdemandante": "QUISPE CALLOAPAZA JULIO ENRIQUE y QUISPE HUAMANI ANTHONY ENRIQUE",
-      "sdemandado": "QUISPE CALLOAPAZA JULIO ENRIQUE y QUISPE HUAMANI ANTHONY ENRIQUE",
-      "sfechainicio": "20/12/2022",
-      "niter": null
-    },
-    {
       "sexpediente": "21968-2023-0-0412-JR-FC-01",
       "sespecialidad": "FAMILIA",
       "smateria": "TENENCIA",
       "sdemandante": "QUISPE MESTAS, GERONIMO",
       "sdemandado": "CHAIÑA YANA, MARLENI",
       "sfechainicio": "11/12/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "22340-2021-0-0412-JR-FC-02",
-      "sespecialidad": "FAMILIA",
-      "smateria": "DIVORCIO POR CAUSAL",
-      "sdemandante": "DIAZ ESCOBEDO ALEX SANDRO",
-      "sdemandado": "FARFAN MENDOZA RINA CELIA y FISCALIA DE FAMILIA",
-      "sfechainicio": "08/12/2021",
-      "niter": 4
-    },
-    {
-      "sexpediente": "23053-2021-33-0401-JR-FT-06",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA CONTRA LAS MUJERES Y LOS INTEGRANTES DEL GRUPO FAMILIAR",
-      "sdemandante": "HERNANDEZ BRACHO EUNICE REBECA",
-      "sdemandado": "ANCHAHUA HUAMANI EDUARDO ALFREDO",
-      "sfechainicio": "20/12/2021",
-      "niter": null
-    },
-    {
-      "sexpediente": "24800-2019-0-0401-JR-FT-12",
-      "sespecialidad": "FAMILIA",
-      "smateria": "VIOLENCIA FAMILIAR",
-      "sdemandante": "OCORURO MAMANI MONICA VALERIA",
-      "sdemandado": "AÑACATA COYANQUI REYNA y CABANA AÑACATA ALVARO REYNALDO y CABANA AÑACATA PAOLA VANESA",
-      "sfechainicio": "23/12/2019",
-      "niter": null
-    },
-    {
-      "sexpediente": "24981-2019-0-0401-JR-FC-04",
-      "sespecialidad": "FAMILIA",
-      "smateria": "DIVORCIO POR CAUSAL",
-      "sdemandante": "RODRIGUEZ TELLO DARIO ALEXANDER y RODRIGUEZ TELLO ALEX XAVIER y TELLO PRADA DE RODRIGUEZ EVA MERCEDES",
-      "sdemandado": "RODRIGUEZ BARRIOS ALEX ARTURO",
-      "sfechainicio": "26/12/2019",
       "niter": null
     }
   ];
@@ -3837,60 +3405,6 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "00041-2010-0-0401-JR-CI-12",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE HACER",
-      "sdemandante": "VICTOR ATAMARI Y PILAR SUCA TORRES",
-      "sdemandado": "RAMIREZ DE VILLANUEVA CARMEN y  SUCESION DE SERGIO VILLANUEVA CALDERON REP POR LA CURADORA PROCESAL MAGALY MENDOZA YANA",
-      "sfechainicio": "06/01/2010",
-      "niter": 4
-    },
-    {
-      "sexpediente": "00053-2024-0-0401-JP-CI-06",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
-      "sdemandante": "SILVA GUILLEN ABOGADOS S.A.C.",
-      "sdemandado": "SINDICATO CERRO VERDE",
-      "sfechainicio": "08/01/2024",
-      "niter": null
-    },
-    {
-      "sexpediente": "00062-2023-95-2801-JR-CI-01",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
-      "sdemandante": "AYNA CHACOLLA JOSE ANTONIO",
-      "sdemandado": "NUÑEZ CONTRERAS JUAN",
-      "sfechainicio": "28/02/2023",
-      "niter": 17
-    },
-    {
-      "sexpediente": "00307-2022-0-2801-JR-CI-01",
-      "sespecialidad": "CIVIL",
-      "smateria": "CAMBIO DE NOMBRE, SUPRESION DE NOMBRE Y/O ADICION DE NOMBRE",
-      "sdemandante": "CHOQUE CATARI HEDER",
-      "sdemandado": "REGIST. NAC. DE IDENTIF. Y ESTADO CIVIL",
-      "sfechainicio": "13/07/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "00372-1999-0-0401-JR-CI-01",
-      "sespecialidad": "CIVIL",
-      "smateria": "DIVISION Y PARTICIPACION DE BIENES",
-      "sdemandante": "CLAUDIA FRIDA RICALDE OSORIO REPRESENTADA POR JOSE PETRONIO RICALDE MANSILLA",
-      "sdemandado": "AMARILIS LUJAN QUIJANDRIA DE QUESÑAY APODERADA DE MARCELO ANTONIO RICALDE UGARTE y FRIDA OSORIO CACERES DE RICALDE REPRESENTADO POR SUCESORES PROCESALES CLAUDIA FRIDA LUIS FERNANDO Y JOSE ANTONIO RICALDE OSORIO yGIOVANNI RICALDE DE VILLENA y ILLANES LUQUE VDA DE RICALDE ANASTACIA y JAVIER A RAMOS RICALDE ELEANA M RAMOS RICALDE Y FEDERICO A RAMOS RICALDE y JAVIER RAMOS RICALDE APODERADO DE ELEANA RAMOS RICALDE y RAMOS RICALDE ELEANA MERCEDES y RAMOS RICALDE FEDERICO ALVARO y RICALDE MANSILLA CARLOS",
-      "sfechainicio": "17/08/1999",
-      "niter": 16
-    },
-    {
-      "sexpediente": "00466-2022-0-0401-JP-CI-07",
-      "sespecialidad": "CIVIL",
-      "smateria": "EJECUCION DE ACTA DE CONCILIACION",
-      "sdemandante": "CALCINA CHARCA MAURO",
-      "sdemandado": "LEYVA SALVADOR EFRAIN IGNACIO",
-      "sfechainicio": "08/02/2022 ",
-      "niter": null
-    },
-    {
       "sexpediente": "00582-2018-0-0401-JR-CI-02",
       "sespecialidad": "CIVIL",
       "smateria": "NULIDAD DE ACTO JURIDICO",
@@ -3900,22 +3414,13 @@ export class ExpedientesComponent {
       "niter": 17
     },
     {
-      "sexpediente": "00625-2017-0-0401-JP-CI-07",
+      "sexpediente": "00684-2012-0-0412-JM-CI-01",
       "sespecialidad": "CIVIL",
-      "smateria": "EJECUCION DE ACTA DE CONCILIACION",
-      "sdemandante": "LUNA JARA MARIOT CAROLINA",
-      "sdemandado": "ATAUPILLCO CALDERON JOE",
-      "sfechainicio": "23/01/2017",
-      "niter": 12
-    },
-    {
-      "sexpediente": "00667-2018-67-0411-JP-CI-01",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
-      "sdemandante": "YLLAPUMA VILLA HAYDEE BETYY",
-      "sdemandado": "VILCA QUISPE VALERIA BEATRIZ",
-      "sfechainicio": "06/03/2018",
-      "niter": 17
+      "smateria": "EJECUCION DE GARANTIAS",
+      "sdemandante": "VILCA CEJAS ROBERTO ALBERTO",
+      "sdemandado": "VALENCIA TEJADA VICTOR ZENOBIO",
+      "sfechainicio": "17/05/2012",
+      "niter": null
     },
     {
       "sexpediente": "00782-2011-0-0401-JR-CI-03",
@@ -3934,33 +3439,6 @@ export class ExpedientesComponent {
       "sdemandado": "PERALTA PORTUGAL FELICITAS y PERALTA PORTUGAL VICTOR y  PERALTA VDA DE LLANOS JUANA ENCARNACION",
       "sfechainicio": "17/06/1998",
       "niter": 17
-    },
-    {
-      "sexpediente": "00814-2017-0-0401-JR-CI-06",
-      "sespecialidad": "CIVIL",
-      "smateria": "EJECUCION DE GARANTIAS",
-      "sdemandante": "CARBAJAL VDADE VERA BLANCA ROSA REP POR SUC PROCESALES",
-      "sdemandado": "COOPERATIVA DE AHORRO Y CREDITO PRESTAMOS Y CREDITOS DEL SUR y  ESCALANTE ARENAS JACQUELINE CLARED y  MALAGA ZENTENO MARCO ANTONIO y SUCESION DE DOÑA LIZBETH YRIS ESCALANTE ARENAS REP POR CURADORA PROCESAL LIZBET SILVA GUILLEN",
-      "sfechainicio": "31/01/2017",
-      "niter": null
-    },
-    {
-      "sexpediente": "00917-2022-0-0401-JP-CI-07",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
-      "sdemandante": "CALCINA CHARCA MAURO",
-      "sdemandado": "ALVAREZ FLORES CARLOS ALBERTO",
-      "sfechainicio": "15/03/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "00974-2023-0-0401-JR-CI-10",
-      "sespecialidad": "CIVIL",
-      "smateria": "NULIDAD DE ACTO JURIDICO",
-      "sdemandante": "TACO SULLA SOFIA MARCISA",
-      "sdemandado": "AMADO LIMA SHARON BRISA y HUANCA MEDINA JOSÉ RUBEN",
-      "sfechainicio": "28/02/2023",
-      "niter": null
     },
     {
       "sexpediente": "00992-2012-0-0401-JR-CI-02",
@@ -3990,33 +3468,6 @@ export class ExpedientesComponent {
       "niter": 17
     },
     {
-      "sexpediente": "01261-2020-0-0412-JR-CI-02",
-      "sespecialidad": "CIVIL",
-      "smateria": "ADOPCION",
-      "sdemandante": "ARIAS CENTENO ROBERTO y CAÑAHUIRE QUISPE DE ARIAS LUZ MARINA",
-      "sdemandado": "HUAMAN HUAMAN ISAIAS y VILLAFUERTE MAMANI DOMINGA",
-      "sfechainicio": "19/08/2020",
-      "niter": null
-    },
-    {
-      "sexpediente": "01407-2022-0-0401-JR-CI-08",
-      "sespecialidad": "CIVIL",
-      "smateria": "NULIDAD DE ACTO JURIDICO",
-      "sdemandante": "PACURI BEJAR, JOSE ROBERTO",
-      "sdemandado": "OTAZU RAMOS, GUMERCINDA",
-      "sfechainicio": "17/03/2022",
-      "niter": 15
-    },
-    {
-      "sexpediente": "01562-2016-0-0401-JR-CI-09",
-      "sespecialidad": "CIVIL",
-      "smateria": "NULIDAD DE RESOLUCION ADMINISTRATIVA",
-      "sdemandante": "SALAS VALENCIA JOSE MIGUEL",
-      "sdemandado": "SALAS RAMIREZ ALEJANDRO",
-      "sfechainicio": "14/04/2016",
-      "niter": null
-    },
-    {
       "sexpediente": "01741-2016-0-0401-JR-CI-03",
       "sespecialidad": "CIVIL",
       "smateria": "OBLIGACION DE HACER",
@@ -4024,15 +3475,6 @@ export class ExpedientesComponent {
       "sdemandado": "VERA RIVERA EUSEBIA CARMELA",
       "sfechainicio": "25/04/2016",
       "niter": 17
-    },
-    {
-      "sexpediente": "01770-2022-0-0401-JR-CI-06",
-      "sespecialidad": "CIVIL",
-      "smateria": "CAMBIO DE NOMBRE, SUPRESION DE NOMBRE Y/O ADICION DE NOMBRE",
-      "sdemandante": "CHAMBE HUARICALLA ZARAY CICLALY",
-      "sdemandado": "REGIST. NAC. DE IDENTIF. Y ESTADO CIVIL",
-      "sfechainicio": "31/03/2022",
-      "niter": 12
     },
     {
       "sexpediente": "01778-2016-0-0401-JR-CI-06",
@@ -4044,15 +3486,6 @@ export class ExpedientesComponent {
       "niter": 24
     },
     {
-      "sexpediente": "01856-2015-0-0401-JR-CI-05",
-      "sespecialidad": "CIVIL",
-      "smateria": "ACCION DE AMPARO",
-      "sdemandante": "CARPIO CONCHA MELY BONELLY",
-      "sdemandado": "CORPORACION ACEROS AREQUIPA SA",
-      "sfechainicio": "29/04/2015",
-      "niter": 11
-    },
-    {
       "sexpediente": "01880-2021-0-0401-JR-CI-05",
       "sespecialidad": "CIVIL",
       "smateria": "NULIDAD DE RESOLUCION ADMINISTRATIVA",
@@ -4060,24 +3493,6 @@ export class ExpedientesComponent {
       "sdemandado": "HAROLD ANTONIO ESPINOZA DELGADO PROCURADOR PUBLICO DE LA SUPERINTENDENCIA NACIONAL DE FISCALIZACION LABORAL",
       "sfechainicio": "27/04/2021",
       "niter": 24
-    },
-    {
-      "sexpediente": "02122-2016-0-0401-JR-CI-10",
-      "sespecialidad": "CIVIL",
-      "smateria": "CONVOCATORIA A JUNTA O ASAMBLEA GENERAL",
-      "sdemandante": "APODERADO DE LOS DEMANDANTES JOHNNY MAYTA PORTILLO",
-      "sdemandado": "HUILLCA NUÑONCA ANITA AURORA",
-      "sfechainicio": "19/05/2016",
-      "niter": null
-    },
-    {
-      "sexpediente": "02263-2023-0-0401-JR-CI-07",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE HACER",
-      "sdemandante": "TACO SULLA SOFIA MARCISA",
-      "sdemandado": "HUANCA MEDINA JOSÉ RUBEN",
-      "sfechainicio": "05/05/2023",
-      "niter": 3
     },
     {
       "sexpediente": "02268-2023-70-0401-JR-CI-03",
@@ -4107,15 +3522,6 @@ export class ExpedientesComponent {
       "niter": 27
     },
     {
-      "sexpediente": "02648-2017-0-0401-JR-CI-07",
-      "sespecialidad": "CIVIL",
-      "smateria": "DESALOJO",
-      "sdemandante": "VERA RIVERA EVA CECILIA",
-      "sdemandado": "PINTO LINARES JUAN GILBERTO",
-      "sfechainicio": "12/05/2017",
-      "niter": null
-    },
-    {
       "sexpediente": "02690-2018-0-0401-JR-CI-01",
       "sespecialidad": "CIVIL",
       "smateria": "REIVINDICACION",
@@ -4132,24 +3538,6 @@ export class ExpedientesComponent {
       "sdemandado": "PONCE VERA PABLO CESAR",
       "sfechainicio": "05/08/2016",
       "niter": 10
-    },
-    {
-      "sexpediente": "03496-2023-0-0410-JP-FC-02",
-      "sespecialidad": "CIVIL",
-      "smateria": "EXONERACION DE ALIMENTOS",
-      "sdemandante": "PINTO GONZALES JOHN JESUS",
-      "sdemandado": "PINTO RIVERA JUDITH RUTH",
-      "sfechainicio": "09/08/2023 ",
-      "niter": 2
-    },
-    {
-      "sexpediente": "03600-2016-0-0401-JR-CI-04",
-      "sespecialidad": "CIVIL",
-      "smateria": "EJECUCION DE GARANTIAS",
-      "sdemandante": "BANCO DE CREDITO DEL PERU",
-      "sdemandado": "CORNEJO APAZA RONALD VICTOR",
-      "sfechainicio": "17/08/2016",
-      "niter": null
     },
     {
       "sexpediente": "03601-2016-0-0401-JR-CI-02",
@@ -4170,60 +3558,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "03825-2023-0-0401-JR-CI-04",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE HACER",
-      "sdemandante": "TACO SULLA SOFIA MARCISA",
-      "sdemandado": "HUANCA MEDINA JOSE RUBEN",
-      "sfechainicio": "20/07/2023",
-      "niter": 3
-    },
-    {
-      "sexpediente": "03876-2021-0-0401-JP-CI-02",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
-      "sdemandante": "CALCINA CHARCA MAURO",
-      "sdemandado": "LEYLA SALVADOR EFRAIN IGNACIO",
-      "sfechainicio": "13/09/2021",
-      "niter": null
-    },
-    {
-      "sexpediente": "03996-2014-0-0401-JR-CI-05",
-      "sespecialidad": "CIVIL",
-      "smateria": "REIVINDICACION",
-      "sdemandante": "SALAS VDA DE FIGUEROA PASTORA ABELINA",
-      "sdemandado": "FIGUEROA SALAS JOSE ADALBERTO y GAMARRA SALAS GRABIELA LEONOR",
-      "sfechainicio": "06/06/2014",
-      "niter": 15
-    },
-    {
-      "sexpediente": "04000-2021-0-0401-JR-CI-01",
-      "sespecialidad": "CIVIL",
-      "smateria": "NULIDAD DE ACTO JURIDICO",
-      "sdemandante": "SILVA GUILLEN LIZBET BRENDA",
-      "sdemandado": "MUNICIPALIDAD DISTRITAL DE YANAHUARA",
-      "sfechainicio": "20/08/2021",
-      "niter": null
-    },
-    {
-      "sexpediente": "04180-2010-0-0401-JR-CI-06",
-      "sespecialidad": "CIVIL",
-      "smateria": "OTORGAMIENTO DE ESCRITURA PUBLICA",
-      "sdemandante": "PORTUGAL DE GARCIA CALDERON TERESA y CALDERON BUSTAMANTE JOSE GARCIA Y OTRA REP X INES GARCIA CALDERON PORTUGAL",
-      "sdemandado": " BEECK NAVARRO ADOLFO X CURADORA PROCESAL y BEECK PORTUGAL CARLOS RODOLFO JOSE LUIS y BEECK PORTUGAL JOSE RODOLFO y BEECK PORTUGAL DE ROTTER ANA ROSA y BEECK PORTUGAL DE VELASQUEZ ANA MARIA TERESA y BEECK POTUGAL ANA MARIA MARTINA y LUIS ENRIQUE BEECK PORTUGAL MANUEL AUGUSTO",
-      "sfechainicio": "27/09/2010",
-      "niter": 12
-    },
-    {
-      "sexpediente": "04641-2018-0-0401-JR-CI-08",
-      "sespecialidad": "CIVIL",
-      "smateria": "TERCERIA",
-      "sdemandante": "GALLEGOS VARGAS EDITH IRMA",
-      "sdemandado": "PINEDA LOAYZA JOSE MARIA y BANCO INTERNACIONAL DEL PERU INTERBANK",
-      "sfechainicio": "28/09/2018",
-      "niter": null
-    },
-    {
       "sexpediente": "04781-2021-0-0401-JR-CI-06",
       "sespecialidad": "CIVIL",
       "smateria": "EJECUCION DE GARANTIAS",
@@ -4231,15 +3565,6 @@ export class ExpedientesComponent {
       "sdemandado": "BARREROS ESPINOZA ELVIS MANUEL",
       "sfechainicio": "29/09/2021",
       "niter": 18
-    },
-    {
-      "sexpediente": "05218-2005-0-0401-JR-CI-04",
-      "sespecialidad": "CIVIL",
-      "smateria": "EJECUCION DE GARANTIAS",
-      "sdemandante": "SCOTIABANK PERU SAA",
-      "sdemandado": "ALFREDO OSORIO GARCIA REP POR CURADOR PROCESAL ABOG LIZBET SILVA GUILLEN y BATALLANOS ANCCASI HIPOLITO y CASTELO VDA DE VALDIVIA MARIA DOLORES TRINIDAD y HARMSEN DE OSORIO ROSA MARGARITA CECILIA",
-      "sfechainicio": "18/07/2005",
-      "niter": 17
     },
     {
       "sexpediente": "05234-2019-0-0401-JR-CI-02",
@@ -4251,15 +3576,6 @@ export class ExpedientesComponent {
       "niter": 4
     },
     {
-      "sexpediente": "05427-2021-0-0401-JR-CI-03",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
-      "sdemandante": "SCOTIABANK PERU SAA",
-      "sdemandado": "CHACALTANA BUSTINZA DE QUISPE NANCY BALBINA y QUISPE CCAPIRA SIMON SANTOS",
-      "sfechainicio": "14/01/2022",
-      "niter": 17
-    },
-    {
       "sexpediente": "05813-2023-0-0401-JR-CI-07",
       "sespecialidad": "CIVIL",
       "smateria": "NULIDAD DE ACTO JURIDICO",
@@ -4267,33 +3583,6 @@ export class ExpedientesComponent {
       "sdemandado": "VELAZCO MOGROVEJO, VICTOR HUGO",
       "sfechainicio": "25/10/2023",
       "niter": 2
-    },
-    {
-      "sexpediente": "05968-2006-0-0401-JR-CI-04",
-      "sespecialidad": "CIVIL",
-      "smateria": "PRESCRIPCION ADQUISITIVA",
-      "sdemandante": "VARGAS ABRIL MARIO MERCEDESFALLECIDO",
-      "sdemandado": "FERNANDEZ PACHECO JORGE JUAN",
-      "sfechainicio": "25/08/2006",
-      "niter": 22
-    },
-    {
-      "sexpediente": "06082-2018-0-0401-JR-CI-01",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE HACER",
-      "sdemandante": "PINTO LINARES JUAN GILBERTO",
-      "sdemandado": "VERA RIVERA EUSEBIA CARMELA",
-      "sfechainicio": "14/12/2018",
-      "niter": 15
-    },
-    {
-      "sexpediente": "06082-2018-41-0401-JR-CI-01",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE HACER",
-      "sdemandante": "PINTO LINARES JUAN GILBERTO",
-      "sdemandado": "VERA RIVERA EUSEBIA CARMELA",
-      "sfechainicio": "29/01/2021",
-      "niter": null
     },
     {
       "sexpediente": "06082-2018-77-0401-JR-CI-01",
@@ -4305,111 +3594,12 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "06313-2018-0-0401-JP-CI-01",
-      "sespecialidad": "CIVIL",
-      "smateria": "TERCERIA",
-      "sdemandante": "BEDREGAL TIZNADO JOSE LUIS",
-      "sdemandado": "CAJA MUNICIPAL DE AHORRO Y CREDITO DE AREQUIPA",
-      "sfechainicio": "31/12/2018",
-      "niter": null
-    },
-    {
-      "sexpediente": "06462-2021-0-0401-JR-CI-02",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
-      "sdemandante": "MIBANCO - BANCO DE LA MICROEMPRESA S.A.",
-      "sdemandado": "LLICAHUA LUCANA HENRY y SONCO PAREDES DE LLICAHUA JEANETT YURILDA",
-      "sfechainicio": "20/12/2021",
-      "niter": 18
-    },
-    {
-      "sexpediente": "06571-2013-0-0401-JR-CI-09",
-      "sespecialidad": "CIVIL",
-      "smateria": "NULIDAD DE ACTO JURIDICO",
-      "sdemandante": "BARREDA RODRIGUEZ NOELIA LORENA",
-      "sdemandado": "BARREDA CHACON WALTER CESAR",
-      "sfechainicio": "12/11/2013",
-      "niter": 7
-    },
-    {
       "sexpediente": "06704-2023-0-0401-JR-CI-04",
       "sespecialidad": "CIVIL",
       "smateria": "RETRACTO",
       "sdemandante": "PINTO LINARES JUAN GILBERTO",
       "sdemandado": "CAHUE ZAPANA IGINIO AUGUSTO y VERA RIVERA EUSEBIA CARMELA",
       "sfechainicio": "06/12/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "06851-2022-0-0401-JR-CI-08",
-      "sespecialidad": "CIVIL",
-      "smateria": "EJECUCION DE GARANTIAS",
-      "sdemandante": "BANCO INTERNACIONAL DEL PERU-INTERBANK",
-      "sdemandado": "VALDIVIA SANDOVAL JAIME ANTONIO",
-      "sfechainicio": "16/11/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "07222-2015-73-0401-JP-CI-01",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
-      "sdemandante": "MIBANCO BANCO DE LA MICROEMPRESA",
-      "sdemandado": "VILLALOBOS CHOQUEHUAYTA MARIA AMPARO y MENDOZA MONTUFAR CARLOS ALBERTO",
-      "sfechainicio": "15/05/2015 ",
-      "niter": null
-    },
-    {
-      "sexpediente": "07281-2022-0-0401-JR-CI-06",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE HACER",
-      "sdemandante": "TACO SULLA SOFIA MARCISA",
-      "sdemandado": "HUANCA MEDINA JOSE RUBEN",
-      "sfechainicio": "06/12/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "07514-2022-0-0401-JR-CI-08",
-      "sespecialidad": "CIVIL",
-      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
-      "sdemandante": "SILVA GUILLEN ABOGADOS S.A.C.",
-      "sdemandado": "SILVA HUAMAN ANTHONY DENNIS",
-      "sfechainicio": "23/12/2022",
-      "niter": 17
-    },
-    {
-      "sexpediente": "08802-2014-0-0401-JR-CI-09",
-      "sespecialidad": "CIVIL",
-      "smateria": "PRESCRIPCION ADQUISITIVA",
-      "sdemandante": "GUZMAN CALLATA JULIO HUMBERTO",
-      "sdemandado": "ATAHUALPA BARRIGA INOCENCIA REPRESENTADA POR CURADOR PROCE y  LLAVE BENEDICTO CARLOS y SALCEDO MANRIQUE NELIDA JESUS y ZEGARRA PUÑO ANGELICA",
-      "sfechainicio": "31/12/2014",
-      "niter": 9
-    },
-    {
-      "sexpediente": "08811-2014-0-0401-JR-CI-06",
-      "sespecialidad": "CIVIL",
-      "smateria": "PRESCRIPCION ADQUISITIVA",
-      "sdemandante": "VERA MADARIAGA CARMEN CRISTINA",
-      "sdemandado": "VELASQUEZ SALINAS BLADIMIR EMILIO y  VELASQUEZ VERA SANTIAGO MATTIAS y  VELASQUEZ VERA EMILIA ALESSANDRA y VELASQUEZ VERA DIEGO ARTURO",
-      "sfechainicio": "31/12/2014",
-      "niter": 9
-    },
-    {
-      "sexpediente": "09012-2008-0-0401-JR-CI-12",
-      "sespecialidad": "CIVIL",
-      "smateria": "NULIDAD DE ACTO JURIDICO",
-      "sdemandante": "TAPIA VALENCIA EDGAR VICENTE POR PERCY NARVAEZ CASTRO",
-      "sdemandado": "AMPUERO VILLEGAS ALESSANDRA VANESSA y  AQUINO MANGO FELIX y  CURO VASQUEZ ANTONIETA y  LUQUE MAMANI PASCUALA y  MEDINA VELASQUEZ EDURDO LUIS",
-      "sfechainicio": "12/11/2008",
-      "niter": 25
-    },
-    {
-      "sexpediente": "09257-2021-0-1801-JR-CI-36",
-      "sespecialidad": "CIVIL",
-      "smateria": "IMPUGNACION DE ACUERDOS",
-      "sdemandante": "GAMARRA QUISPE LUIS ALBERTO",
-      "sdemandado": "SINDICATO UNIFICADO DE TRABAJADORES DE S.P.C.C.",
-      "sfechainicio": "07/12/2021",
       "niter": null
     }
   ];
@@ -4421,33 +3611,6 @@ export class ExpedientesComponent {
       "sdemandante": "AGRAVIADO : QUISPE GOMEZ, JEAN PIEER y QUISPE GOMEZ, DAYANA NICOL y QUISPE GOMEZ, MIRKO ALEXIS",
       "sdemandado": "IMPUTADO : QUISPE GUTIERREZ, RUFINO MIRKO",
       "sfechainicio": "¿...?",
-      "niter": null
-    },
-    {
-      "sexpediente": "00069-2022-60-0406-JR-PE-01",
-      "sespecialidad": "PENAL",
-      "smateria": "SUSTRACCIÓN DE MENOR",
-      "sdemandante": "AGRAVIADO: CHACONDORI CHUQUICAÑA, HUBERT LEONEL",
-      "sdemandado": "IMPUTADO: YAURI SILLOCA, FRANCISCA BASILIA",
-      "sfechainicio": "15/12/2022",
-      "niter": 15
-    },
-    {
-      "sexpediente": "00673-2021-0-0412-JR-PE-04",
-      "sespecialidad": "PENAL",
-      "smateria": "AGRESIONES EN CONTRA DE LAS MUJERES O INTEGRANTES DEL GRUPO FAMILIAR",
-      "sdemandante": "AGRAVIADO: ANGULO VILLANUEVA YAMILE KAROLIN",
-      "sdemandado": "IMPUTADO: MEDINA CCOA GIANCARLO",
-      "sfechainicio": "x",
-      "niter": null
-    },
-    {
-      "sexpediente": "00692-2022-0-0401-JR-PE-03",
-      "sespecialidad": "PENAL",
-      "smateria": "AGRESIONES EN CONTRA DE LAS MUJERES O INTEGRANTES DEL GRUPO FAMILIAR",
-      "sdemandante": "AGRAVIADO: PERALTA NUÑEZ ARELY",
-      "sdemandado": "IMPUTADO: CALLAPIÑA NOA SAMUEL",
-      "sfechainicio": "06-09-2022",
       "niter": null
     },
     {
@@ -4476,33 +3639,6 @@ export class ExpedientesComponent {
       "sdemandado": "IMPUTADO : BARREROS ESPINOZA, ELVIS MANUEL",
       "sfechainicio": "¿...?",
       "niter": 5
-    },
-    {
-      "sexpediente": "02289-2023-80-0401-JR-PE-01",
-      "sespecialidad": "PENAL",
-      "smateria": "OMISION A LA ASISTENCIA FAMILIAR",
-      "sdemandante": "IMPUTADO: PISFIL AYASTA, FELIX AUGUSTO",
-      "sdemandado": "AGRAVIADO : P C, KA",
-      "sfechainicio": "25/07/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "02540-2022-86-0401-JR-PE-04",
-      "sespecialidad": "PENAL",
-      "smateria": "HURTO AGRAVADO",
-      "sdemandante": "AGRAVIADO: SOCIEDAD ELCETRICA DEL SUR OESTE-SEAL",
-      "sdemandado": "IMPUTADO: GUILLEN PINTP, JOSE MANUEL",
-      "sfechainicio": "x",
-      "niter": null
-    },
-    {
-      "sexpediente": "03894-2020-0-0401-JR-PE-01",
-      "sespecialidad": "PENAL",
-      "smateria": "DIFAMACION",
-      "sdemandante": "QUERELLADO: BARREROS ESPINOZA ELVIS MANUEL",
-      "sdemandado": "QUERELLANTE: CORDOVA CCAMA HERNAN RIVELINO",
-      "sfechainicio": "X",
-      "niter": 15
     },
     {
       "sexpediente": "03944-2023-0-0401-JR-PE-02",
@@ -4541,15 +3677,6 @@ export class ExpedientesComponent {
       "niter": 16
     },
     {
-      "sexpediente": "07239-2021-96-0401-JR-PE-08",
-      "sespecialidad": "PENAL",
-      "smateria": "VIOLENCIA FAMILIAR",
-      "sdemandante": "AGRAVIADO : BUSTAMANTE DELGADO, FIORELLA LISBETH",
-      "sdemandado": "IMPUTADO : PAREDES ESPINOZA, DANNY EDER STEVE",
-      "sfechainicio": "¿...?",
-      "niter": 16
-    },
-    {
       "sexpediente": "07796-2017-53-0401-JP-PE-02",
       "sespecialidad": "PENAL",
       "smateria": "LESIONES LEVES",
@@ -4566,24 +3693,6 @@ export class ExpedientesComponent {
       "sdemandado": "IMPUTADO : VERA RIVERA, EUSEBIA CARMELA",
       "sfechainicio": "¿...?",
       "niter": 17
-    },
-    {
-      "sexpediente": "08895-2019-12-0401-JR-PE-01",
-      "sespecialidad": "PENAL",
-      "smateria": "LESIONES CULPOSAS/OMISION DE SOCORRO Y EXOSICION AL PELIGRO",
-      "sdemandante": "AGRAVIADO: KANA QUISPE SERAPIO",
-      "sdemandado": "IMPUTADO: CUEVA CAMACHO FRANKLIN BENJAMIN",
-      "sfechainicio": "X",
-      "niter": null
-    },
-    {
-      "sexpediente": "08895-2019-62-0401-JR-PE-01",
-      "sespecialidad": "PENAL",
-      "smateria": "LESIONES CULPOSAS/OMISION DE SOCORRO Y EXOSICION AL PELIGRO",
-      "sdemandante": "AGRAVIADO: KANA QUISPE SERAPIO",
-      "sdemandado": "IMPUTADO: BENJAMIN FRANKLIN CUEVA CAMACHO",
-      "sfechainicio": "03-12-2019",
-      "niter": null
     }
   ];
   lstConst: Array<ObjExpediente> = [
