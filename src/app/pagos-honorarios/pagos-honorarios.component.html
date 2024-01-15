@@ -29,17 +29,26 @@
     </button>
 </div>
 
+<div class="chart-container">
+    <canvas id="PagosChart">{{ pagosChart }}</canvas>
+</div>
+
+<br>
+
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
             <tr>
+                <th style="text-align: center;">
+                    #
+                </th>
                 <th>
                     Fecha
                 </th>
                 <th>
                     Expediente
                 </th>
-                <th>
+                <th style="text-align: center;">
                     Monto
                 </th>
                 <th>
@@ -48,15 +57,18 @@
             </tr>
         </thead>
         <tbody *ngIf="lstPagos.length > 0">
-            <tr *ngFor="let p of lstPagos">
+            <tr *ngFor="let p of lstPagos; let i = index">
+                <td style="text-align: center;">
+                    {{i + 1}}
+                </td>
                 <td>
-                    {{p.sfecha}}
+                    {{p.sfechalocal}}
                 </td>
                 <td>
                     {{p.sexpediente}}
                 </td>
-                <td>
-                    {{p.nmonto}}
+                <td style="text-align: center;">
+                    {{p.nmonto | number:'2.2-2'}}
                 </td>
                 <td>
                     {{p.sdescripcion}}
@@ -66,5 +78,18 @@
         <tbody *ngIf="lstPagos.length == 0">
             Sin pagos
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    
+                </td>
+                <th style="text-align: center;">
+                    {{nSumaTotal | number:'2.2-2'}}
+                </th>
+                <td>
+                    
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
