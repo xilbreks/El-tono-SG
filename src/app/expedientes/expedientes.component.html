@@ -1,13 +1,22 @@
-<!-- <h3>Lsitado de Expedientes</h3>
+<h3>Lsitado de Expedientes</h3>
 
-<button (click)="getExpedientes()">
+<!-- <button (click)="getExpedientes()">
     Obtener Expedientes
 </button>
 <button (click)="descargarExcel()">
     Descargar
 </button>
 
-<textarea [formControl]="fcLaboral">
+<textarea [formControl]="fcLab1">
+</textarea>
+
+<textarea [formControl]="fcLab2">
+</textarea>
+
+<textarea [formControl]="fcLab3">
+</textarea>
+
+<textarea [formControl]="fcLab4">
 </textarea>
 
 <textarea [formControl]="fcFamilia">
@@ -25,9 +34,27 @@
 <div>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="laboral-tab" data-bs-toggle="tab" data-bs-target="#laboral-tab-pane"
+            <button class="nav-link active" id="lab1-tab" data-bs-toggle="tab" data-bs-target="#lab1-tab-pane"
                 type="button" role="tab" aria-selected="true">
-                Laboral
+                LA Reposición
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="lab2-tab" data-bs-toggle="tab" data-bs-target="#lab2-tab-pane" type="button"
+                role="tab" aria-selected="true">
+                LA Indemnización
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="lab3-tab" data-bs-toggle="tab" data-bs-target="#lab3-tab-pane" type="button"
+                role="tab" aria-selected="true">
+                LA Pago de Beneficios
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="lab4-tab" data-bs-toggle="tab" data-bs-target="#lab4-tab-pane" type="button"
+                role="tab" aria-selected="true">
+                LA Otros
             </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -56,7 +83,7 @@
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="laboral-tab-pane" role="tabpanel" aria-labelledby="laboral-tab"
+        <div class="tab-pane fade show active" id="lab1-tab-pane" role="tabpanel" aria-labelledby="lab1-tab"
             tabindex="0">
             <!--  -->
             <div class="table-responsive">
@@ -93,7 +120,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let expediente of lstLabor; let i = index">
+                        <tr *ngFor="let expediente of lstLaRepo; let i = index">
                             <td>
                                 {{i+1}}
                             </td>
@@ -136,6 +163,244 @@
             </div>
             <!--  -->
         </div>
+        <div class="tab-pane fade" id="lab2-tab-pane" role="tabpanel" aria-labelledby="lab2-tab" tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                            <th>
+                                ITER
+                            </th>
+                            <th>
+                                Contrato
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstLaIndem; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                            <td>
+                                {{expediente.niter}}
+                            </td>
+                            <td style="text-align: center;">
+                                <span *ngIf="expediente.lcontrato" style="color: green;">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <br>
+                                    {{expediente.nmontocontrato}}
+                                </span>
+                                <span *ngIf="!expediente.lcontrato">
+                                    -
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+        <div class="tab-pane fade" id="lab3-tab-pane" role="tabpanel" aria-labelledby="lab3-tab" tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                            <th>
+                                ITER
+                            </th>
+                            <th>
+                                Contrato
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstLaPBSE; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                            <td>
+                                {{expediente.niter}}
+                            </td>
+                            <td style="text-align: center;">
+                                <span *ngIf="expediente.lcontrato" style="color: green;">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <br>
+                                    {{expediente.nmontocontrato}}
+                                </span>
+                                <span *ngIf="!expediente.lcontrato">
+                                    -
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+        <div class="tab-pane fade" id="lab4-tab-pane" role="tabpanel" aria-labelledby="lab4-tab" tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                            <th>
+                                ITER
+                            </th>
+                            <th>
+                                Contrato
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstLaOtros; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                            <td>
+                                {{expediente.niter}}
+                            </td>
+                            <td style="text-align: center;">
+                                <span *ngIf="expediente.lcontrato" style="color: green;">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <br>
+                                    {{expediente.nmontocontrato}}
+                                </span>
+                                <span *ngIf="!expediente.lcontrato">
+                                    -
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+
         <div class="tab-pane fade" id="familia-tab-pane" role="tabpanel" aria-labelledby="familia-tab" tabindex="0">
             <!--  -->
             <div class="table-responsive">

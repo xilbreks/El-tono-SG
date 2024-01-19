@@ -65,7 +65,9 @@
                     {{p.sfechalocal}}
                 </td>
                 <td>
-                    {{p.sexpediente}}
+                    <a [routerLink]="'/expediente/' + p.sexpediente" target="_blank">
+                        {{p.sexpediente}}
+                    </a>
                 </td>
                 <td style="text-align: center;">
                     {{p.nmonto | number:'2.2-2'}}
@@ -81,13 +83,13 @@
         <tfoot>
             <tr>
                 <td colspan="3">
-                    
+
                 </td>
                 <th style="text-align: center;">
                     {{nSumaTotal | number:'2.2-2'}}
                 </th>
                 <td>
-                    
+
                 </td>
             </tr>
         </tfoot>

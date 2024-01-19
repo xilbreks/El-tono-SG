@@ -24,7 +24,895 @@ export class ExpedientesComponent {
   /**
    * Listas de expedientes
    */
-  lstLabor: Array<ObjExpediente> = [
+  lstLaRepo: Array<ObjExpediente> = [
+    {
+      "sexpediente": "14716-2021-0-1801-JR-LA-84",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "ANCHAHUA HUAMANI EDUARDO ALFREDO",
+      "sdemandado": "MINERA CHINALCO PERÚ S.A.",
+      "sfechainicio": "25/10/2021",
+      "niter": null
+    },
+    {
+      "sexpediente": "04414-2019-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "APAZA QUISPE RAUL GREGORIO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "12/06/2019",
+      "niter": 14
+    },
+    {
+      "sexpediente": "04269-2019-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "AQUIZE ALCOCER PERCY RENAN",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
+      "sfechainicio": "07/06/2019",
+      "niter": 10
+    },
+    {
+      "sexpediente": "01398-2020-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "ARCE POMALIA JOSE MANUEL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "06/08/2020",
+      "niter": null
+    },
+    {
+      "sexpediente": "04081-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "ASTETE TURPO JOSE",
+      "sdemandado": "SOUTHERN PERU COPPER CORPORATION, SUCURSAL DEL PERÚ",
+      "sfechainicio": "12/09/2022",
+      "niter": 11
+    },
+    {
+      "sexpediente": "01412-2020-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "CUSIQUISPE TTITO ODILON",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "07/08/2020",
+      "niter": null
+    },
+    {
+      "sexpediente": "00914-2019-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "DIAZ GUEVARA HERBERT MILTON",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "29/01/2019",
+      "niter": null
+    },
+    {
+      "sexpediente": "08549-2018-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "FLORES ARI ALEX",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
+      "sfechainicio": "18/10/2018",
+      "niter": null
+    },
+    {
+      "sexpediente": "25153-2018-0-1801-JR-LA-04",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "FLORES COLOMA ALBERT HUGO",
+      "sdemandado": "SOUTHERN COOPER",
+      "sfechainicio": "09/11/2018",
+      "niter": null
+    },
+    {
+      "sexpediente": "06147-2023-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "HUANQQUE SURCO, ERNESTO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "29/11/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "08065-2018-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "LUNA CALA RICARDO WILBER",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
+      "sfechainicio": "02/10/2018",
+      "niter": null
+    },
+    {
+      "sexpediente": "02450-2022-0-1801-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "LUPACA AROCUTIPA JUAN HUBER",
+      "sdemandado": "SUPERINTENDENCIA NACIONAL DE ADUANAS Y DE ADMINISTRACION TRIBUTARIA - SUNAT",
+      "sfechainicio": "18/02/2022",
+      "niter": 11
+    },
+    {
+      "sexpediente": "10249-2018-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "MEJIA JUYO JOHN ERICK",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
+      "sfechainicio": "14/12/2018",
+      "niter": null
+    },
+    {
+      "sexpediente": "05052-2021-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "MENDOZA QUISPE VICTOR MANUEL",
+      "sdemandado": "PERURAIL S.A.",
+      "sfechainicio": "28/12/2021",
+      "niter": null
+    },
+    {
+      "sexpediente": "02573-2020-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "OCAMPO LOPEZ CARLOS LEONARDO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "03/12/2020",
+      "niter": 12
+    },
+    {
+      "sexpediente": "02573-2020-89-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "OCAMPO LOPEZ CARLOS LEONARDO",
+      "sdemandado": "-- no inidica --",
+      "sfechainicio": "19/01/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "02573-2020-90-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "OCAMPO LOPEZ CARLOS LEONARDO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE",
+      "sfechainicio": "30/03/2021",
+      "niter": 11
+    },
+    {
+      "sexpediente": "00789-2022-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "PEREZ PACHECO NILZON ALONSO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "24/02/2022",
+      "niter": 13
+    },
+    {
+      "sexpediente": "02817-2020-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "QUEQUEZANA PINTO CARLOS ALBERTO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "24/12/2020",
+      "niter": null
+    },
+    {
+      "sexpediente": "01540-2022-0-1801-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "ROJAS AYCA IVAN AUGUSTO",
+      "sdemandado": "HUDBAY PERU S.A.C.",
+      "sfechainicio": "02/02/2022",
+      "niter": 11
+    },
+    {
+      "sexpediente": "02670-2023-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "SALAS LUNA LUIS ALBERTO TOMAS",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "22/05/2023 ",
+      "niter": 8
+    },
+    {
+      "sexpediente": "01422-2020-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "SALINAS SARMIENTO CINDY MARITA",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "11/08/2020",
+      "niter": 12
+    },
+    {
+      "sexpediente": "02377-2019-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "VILLEGAS ROJAS JUAN CESAR",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
+      "sfechainicio": "02/04/2019",
+      "niter": 12
+    },
+    {
+      "sexpediente": "06072-2023-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "REPOSICION",
+      "sdemandante": "ZANTALLA SONCCO, ANDRES WILLIAN",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "27/11/2023",
+      "niter": null
+    }
+  ];
+  lstLaIndem: Array<ObjExpediente> = [
+    {
+      "sexpediente": "04737-2023-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "AQUIZE ALCOCER PERCY RENAN",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "15/09/2023",
+      "niter": 2
+    },
+    {
+      "sexpediente": "02532-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "ARANA VALDERRAMA ELMER AMILCAR",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "28/07/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "02532-2021-66-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "ARANA VALDERRAMA ELMER AMILCAR",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "19/06/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "03805-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "CARRASCO TAPIA GABY",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "18/10/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "01954-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "CHANCOLLA QUISPE VALERIO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "04/05/2022",
+      "niter": 14
+    },
+    {
+      "sexpediente": "01127-2022-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "CONDORI HAÑARI RENE",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "17/03/2022",
+      "niter": 14
+    },
+    {
+      "sexpediente": "00003-2021-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "FERREYRA BENDEZU CHRISTIAN ROGER",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "02/01/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "00003-2021-78-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "FERREYRA BENDEZU CHRISTIAN ROGER",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "19/06/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "04577-2021-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "HITO PACTA PABLO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "01/12/2021",
+      "niter": 9
+    },
+    {
+      "sexpediente": "15074-2021-0-1801-JR-LA-03",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "KUWATA ALMANZA YUDY ANTONIETA",
+      "sdemandado": "ABENGOA PERU S.A.",
+      "sfechainicio": "02/11/2021",
+      "niter": 9
+    },
+    {
+      "sexpediente": "06284-2023-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "LIMA HUAMANI, EDDY RAUL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "07/12/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "01295-2022-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "LUNA MAMANI JOSE NILTON",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "28/03/2022",
+      "niter": 10
+    },
+    {
+      "sexpediente": "03142-2021-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "MILON CARPIO ERICK DANIEL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "07/09/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "02177-2021-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "MOLINA AVILA ALONSO REYNALDO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE",
+      "sfechainicio": "21/06/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "03796-2021-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "MORALES QUISPE JOHN ROGER",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "18/10/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "05017-2021-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "ORDOÑO ORTEGA PEDRO FELICIANO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "27/12/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "05017-2021-45-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "ORDOÑO ORTEGA PEDRO FELICIANO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "12/06/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "02773-2023-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "PACCORI MAMANI JAVIER",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "29/05/2023 ",
+      "niter": 9
+    },
+    {
+      "sexpediente": "01877-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "PERALTA ARANZAMENDI LUIS ALBERTO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "25/05/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "05012-2023-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "PERALTA CHAHUA MIGUEL ANGEL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "29/09/2023",
+      "niter": 5
+    },
+    {
+      "sexpediente": "04910-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "QUISPE HUANCAPAZA JUAN MIGUEL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "17/12/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "05204-2022-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "TITO TORRES ZAYDA SHARYN",
+      "sdemandado": "EMBOTELLADORA SAN MIGUEL DEL SUR S.A.C.",
+      "sfechainicio": "10/11/2022",
+      "niter": 8
+    },
+    {
+      "sexpediente": "03830-2021-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "TORRES BEJAR VICTORIA CORINA",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "19/10/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "01118-2021-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "TORRES SALAZAR JOSE EDUARDO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "25/03/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "05079-2021-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "VALDIVIA NAJAR ANTHONY ERNESTO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "29/12/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "00112-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "VIZA HUANCACHOQUE JUAN LENIÑO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "10/01/2022",
+      "niter": 10
+    },
+    {
+      "sexpediente": "00112-2022-97-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
+      "sdemandante": "VIZA HUANCACHOQUE JUAN LENIÑO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "14/09/2023",
+      "niter": null
+    }
+  ];
+  lstLaPBSE: Array<ObjExpediente> = [
+    {
+      "sexpediente": "01120-2021-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "ALVAREZ FLORES JULIAN",
+      "sdemandado": "RACIONALIZACION EMPRESARIAL SA",
+      "sfechainicio": "25/03/2021",
+      "niter": 12
+    },
+    {
+      "sexpediente": "02668-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "APAZA QUISPE RAUL GREGORIO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "15/06/2022",
+      "niter": 11
+    },
+    {
+      "sexpediente": "03193-2021-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "AQUISE AQUISE DAVID ULDARICO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE",
+      "sfechainicio": "09/09/2021",
+      "niter": 13
+    },
+    {
+      "sexpediente": "02390-2022-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "AVENDAÑO DIAZ GLIVER WEINBERGER",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "30/05/2022",
+      "niter": 8
+    },
+    {
+      "sexpediente": "03173-2021-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "AYAMAMANI AYUQUI GREGORIO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "08/09/2021",
+      "niter": 12
+    },
+    {
+      "sexpediente": "03011-2022-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "CALDERON FLORES MIGUEL LUIS",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "07/07/2022",
+      "niter": null
+    },
+    {
+      "sexpediente": "03024-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "CARRASCO TAPIA GABY",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "31/08/2021",
+      "niter": 14
+    },
+    {
+      "sexpediente": "02947-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "CHAVEZ NOLASCO MAURELIO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "26/08/2021",
+      "niter": 12
+    },
+    {
+      "sexpediente": "01928-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "CHIRITO BARTUREN VICTOR ALEJANDRO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "03/05/2022",
+      "niter": 7
+    },
+    {
+      "sexpediente": "02802-2022-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "CORNEJO APAZA GREGORY STEVE",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "22/06/2022",
+      "niter": null
+    },
+    {
+      "sexpediente": "02470-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "DELGADO BRICEÑO MIGUEL ANGEL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "02/06/2022",
+      "niter": null
+    },
+    {
+      "sexpediente": "00325-2022-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "DIAZ GUEVARA HERBERT MILTON",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
+      "sfechainicio": "21/01/2022",
+      "niter": null
+    },
+    {
+      "sexpediente": "02906-2020-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "GAMIO MALAGA DIEGO EDGARDO",
+      "sdemandado": "RACIONALIZACION EMPRESARIAL SA",
+      "sfechainicio": "31/12/2020",
+      "niter": 12
+    },
+    {
+      "sexpediente": "04538-2023-0-3002-JP-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "GUILLEN ARIAS LUIS MARTIN",
+      "sdemandado": "BYDZYNE GLOBAL SOCIEDAD ANONIMA CERRADA - BYDZYNE GLOBAL S.A.C.",
+      "sfechainicio": "08/09/2023 ",
+      "niter": 7
+    },
+    {
+      "sexpediente": "06560-2023-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "HUALLPA POCCOHUANCA BRAULIO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "26/12/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "01894-2023-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "HUAMANI PUMA AQUILES",
+      "sdemandado": "MC TRANSPORTES S.R.L.",
+      "sfechainicio": "31/03/2023",
+      "niter": 3
+    },
+    {
+      "sexpediente": "06063-2023-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "LIMA HUAMANI EDDY RAUL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "27/11/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "06511-2023-0-0401-JR-LA-02",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "LIMA HUAMANI, EDDY RAUL",
+      "sdemandado": "SOCIEDAD MINERA DE CERRO VERDE S.A.A",
+      "sfechainicio": "21/12/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "03941-2022-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "LIMA MENDOZA JACK CHRISTOPHER",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "05/09/2022",
+      "niter": 11
+    },
+    {
+      "sexpediente": "04445-2021-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "LIMA MENDOZA JACK CHRISTOPHER",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "24/11/2021",
+      "niter": null
+    },
+    {
+      "sexpediente": "01865-2022-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "LLICAHUA LUCANA HENRY",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "29/04/2022",
+      "niter": 7
+    },
+    {
+      "sexpediente": "02548-2022-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "LOAYZA VILDOSO PAUL HUDSON",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "07/06/2022",
+      "niter": null
+    },
+    {
+      "sexpediente": "06074-2022-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "MAMANI MENDOZA MIGUEL ELOY",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "27/12/2022",
+      "niter": 7
+    },
+    {
+      "sexpediente": "02670-2022-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "MAMANI TINTA JESUS",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "15/06/2022",
+      "niter": null
+    },
+    {
+      "sexpediente": "02806-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "MENDOZA RAMOS MIGUEL ANGEL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "23/06/2022",
+      "niter": 7
+    },
+    {
+      "sexpediente": "03021-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "NUÑEZ RAMIREZ MOISES HILARION",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "31/08/2021",
+      "niter": null
+    },
+    {
+      "sexpediente": "01268-2021-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "OLIVARES SUICO PABLO SANTIAGO",
+      "sdemandado": "RACIONALIZACION EMPRESARIAL SA",
+      "sfechainicio": "08/04/2021",
+      "niter": 12
+    },
+    {
+      "sexpediente": "01101-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "PACCO GAMARRA RICARDO REYNALDO",
+      "sdemandado": "COTRANS EIRLTDA",
+      "sfechainicio": "24/03/2021",
+      "niter": 13
+    },
+    {
+      "sexpediente": "01101-2021-26-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "PACCO GAMARRA RICARDO REYNALDO",
+      "sdemandado": "COTRANS EIRLTDA",
+      "sfechainicio": "18/10/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "05866-2023-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "PERALTA FLORES ROGERS GUSTAVO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
+      "sfechainicio": "15/11/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "02189-2022-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "PUENTE QUIQUIA JUAN JOSE",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "17/05/2022",
+      "niter": 8
+    },
+    {
+      "sexpediente": "02321-2023-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "QUENALLATA CALAPUJA WILBER JORGE",
+      "sdemandado": "MC TRANSPORTES S.R.L.",
+      "sfechainicio": "28/04/2023 ",
+      "niter": 2
+    },
+    {
+      "sexpediente": "04482-2021-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "QUISPE HUANCAPAZA JUAN MIGUEL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "26/11/2021",
+      "niter": null
+    },
+    {
+      "sexpediente": "01892-2023-0-0401-JR-LA-08",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "QUISPE JUSTO WENCESLAO",
+      "sdemandado": "MC TRANSPORTES S.R.L.",
+      "sfechainicio": "31/03/2023",
+      "niter": 5
+    },
+    {
+      "sexpediente": "03005-2023-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "QUISPE QUISPE JAVIER JAIME",
+      "sdemandado": "MINISTERIO DE JUSTICIA Y DERECHOS HUMANOS y  PODER JUDICIAL y PROCURADOR DEL MINISTERIO DE JUSTICIA Y DERECHOS HUMANOS y PROCURADOR DEL PODER JUDICIAL",
+      "sfechainicio": " 13/06/2023",
+      "niter": 6
+    },
+    {
+      "sexpediente": "04373-2022-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "RODRIGUEZ GUZMAN REYNALDO CESAR",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "28/09/2022",
+      "niter": null
+    },
+    {
+      "sexpediente": "00032-2021-0-0404-JM-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "SALAS TORRES JORGE MARCELINO",
+      "sdemandado": "MUNICIPALIDAD DISTRITAL DE URACA",
+      "sfechainicio": "26/07/2021",
+      "niter": null
+    },
+    {
+      "sexpediente": "18742-2021-0-1801-JR-LA-15",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "SARAYASI BAUTISTA RANDY ALFREDO",
+      "sdemandado": "PETROLEOS DEL PERU PETROPERU SA",
+      "sfechainicio": "31/12/2021",
+      "niter": 8
+    },
+    {
+      "sexpediente": "02209-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "TARICUARIMA LOPEZ SEGUNDO",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "18/05/2022",
+      "niter": 9
+    },
+    {
+      "sexpediente": "03025-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "TORRES BEJAR VICTORIA CORINA",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "31/08/2021",
+      "niter": null
+    },
+    {
+      "sexpediente": "02263-2020-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "TTUPA FLORES MARIO",
+      "sdemandado": "RACIONALIZACION EMPRESARIAL SA  y SUCESORES DE TTUPA FLORES MARIO",
+      "sfechainicio": "05/11/2020",
+      "niter": 8
+    },
+    {
+      "sexpediente": "04466-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "TUPACYUPANQUI JAEN VICTOR RAUL",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "03/10/2022",
+      "niter": 9
+    },
+    {
+      "sexpediente": "03015-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "URBANO MAYHUA VICENTE",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "31/08/2021",
+      "niter": 12
+    },
+    {
+      "sexpediente": "05576-2023-0-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "VARGAS GUERRERO JUAN",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "30/10/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "03023-2021-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "VILLAFUERTE QUISPE LUIS HERNAN",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "31/08/2021",
+      "niter": 12
+    },
+    {
+      "sexpediente": "03562-2022-0-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "VILLEGAS ROJAS JUAN CESAR",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
+      "sfechainicio": "09/08/2022",
+      "niter": 10
+    },
+    {
+      "sexpediente": "04431-2023-0-0401-JR-LA-01",
+      "sespecialidad": "LABORAL",
+      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
+      "sdemandante": "ZAPANA HUAMANI BLADIMIR LENIN",
+      "sdemandado": "MC TRANSPORTES S.R.L.",
+      "sfechainicio": "31/08/2023",
+      "niter": 3
+    }
+  ];
+  lstLaOtros: Array<ObjExpediente> = [
     {
       "sexpediente": "01247-2023-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
@@ -53,24 +941,6 @@ export class ExpedientesComponent {
       "niter": 14
     },
     {
-      "sexpediente": "01120-2021-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "ALVAREZ FLORES JULIAN",
-      "sdemandado": "RACIONALIZACION EMPRESARIAL SA",
-      "sfechainicio": "25/03/2021",
-      "niter": 12
-    },
-    {
-      "sexpediente": "14716-2021-0-1801-JR-LA-84",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "ANCHAHUA HUAMANI EDUARDO ALFREDO",
-      "sdemandado": "MINERA CHINALCO PERÚ S.A.",
-      "sfechainicio": "25/10/2021",
-      "niter": null
-    },
-    {
       "sexpediente": "00503-2019-0-2801-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "NULIDAD DE DESPIDO",
@@ -87,24 +957,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "06/08/2020",
       "niter": null
-    },
-    {
-      "sexpediente": "02668-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "APAZA QUISPE RAUL GREGORIO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "15/06/2022",
-      "niter": 11
-    },
-    {
-      "sexpediente": "04414-2019-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "APAZA QUISPE RAUL GREGORIO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "12/06/2019",
-      "niter": 14
     },
     {
       "sexpediente": "05679-2023-0-0401-JR-LA-08",
@@ -143,57 +995,12 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "03193-2021-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "AQUISE AQUISE DAVID ULDARICO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE",
-      "sfechainicio": "09/09/2021",
-      "niter": 13
-    },
-    {
       "sexpediente": "07003-2018-0-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
       "sdemandante": "AQUISE AQUISE DAVID ULDARICO",
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "28/08/2018",
-      "niter": null
-    },
-    {
-      "sexpediente": "04269-2019-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "AQUIZE ALCOCER PERCY RENAN",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
-      "sfechainicio": "07/06/2019",
-      "niter": 10
-    },
-    {
-      "sexpediente": "04737-2023-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "AQUIZE ALCOCER PERCY RENAN",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "15/09/2023",
-      "niter": 2
-    },
-    {
-      "sexpediente": "02532-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "ARANA VALDERRAMA ELMER AMILCAR",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "28/07/2021",
-      "niter": 14
-    },
-    {
-      "sexpediente": "02532-2021-66-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "ARANA VALDERRAMA ELMER AMILCAR",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "19/06/2023",
       "niter": null
     },
     {
@@ -206,15 +1013,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "01398-2020-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "ARCE POMALIA JOSE MANUEL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "06/08/2020",
-      "niter": null
-    },
-    {
       "sexpediente": "05101-2021-0-0401-JR-LA-08",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -224,39 +1022,12 @@ export class ExpedientesComponent {
       "niter": 11
     },
     {
-      "sexpediente": "04081-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "ASTETE TURPO JOSE",
-      "sdemandado": "SOUTHERN PERU COPPER CORPORATION, SUCURSAL DEL PERÚ",
-      "sfechainicio": "12/09/2022",
-      "niter": 11
-    },
-    {
-      "sexpediente": "02390-2022-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "AVENDAÑO DIAZ GLIVER WEINBERGER",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "30/05/2022",
-      "niter": 8
-    },
-    {
       "sexpediente": "06907-2019-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
       "sdemandante": "AVENDAÑO DIAZ GLIVER WEINBERGER",
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "25/09/2019",
-      "niter": 12
-    },
-    {
-      "sexpediente": "03173-2021-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "AYAMAMANI AYUQUI GREGORIO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "08/09/2021",
       "niter": 12
     },
     {
@@ -302,15 +1073,6 @@ export class ExpedientesComponent {
       "sdemandante": "CALDERON FLORES MIGUEL LUIS",
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "05/08/2020",
-      "niter": null
-    },
-    {
-      "sexpediente": "03011-2022-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "CALDERON FLORES MIGUEL LUIS",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "07/07/2022",
       "niter": null
     },
     {
@@ -395,24 +1157,6 @@ export class ExpedientesComponent {
       "niter": 10
     },
     {
-      "sexpediente": "03024-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "CARRASCO TAPIA GABY",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "31/08/2021",
-      "niter": 14
-    },
-    {
-      "sexpediente": "03805-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "CARRASCO TAPIA GABY",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "18/10/2021",
-      "niter": 14
-    },
-    {
       "sexpediente": "08346-2017-0-0401-JR-LA-07",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -467,15 +1211,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "01954-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "CHANCOLLA QUISPE VALERIO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "04/05/2022",
-      "niter": 14
-    },
-    {
       "sexpediente": "07273-2019-0-0401-JR-LA-09",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -512,15 +1247,6 @@ export class ExpedientesComponent {
       "niter": 14
     },
     {
-      "sexpediente": "02947-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "CHAVEZ NOLASCO MAURELIO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "26/08/2021",
-      "niter": 12
-    },
-    {
       "sexpediente": "05412-2018-0-0401-JR-LA-08",
       "sespecialidad": "LABORAL",
       "smateria": "PAGO DE BENEFICIOS ECONOMICOS",
@@ -528,15 +1254,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "04/07/2018",
       "niter": null
-    },
-    {
-      "sexpediente": "01928-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "CHIRITO BARTUREN VICTOR ALEJANDRO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "03/05/2022",
-      "niter": 7
     },
     {
       "sexpediente": "02246-2020-0-0401-JR-LA-02",
@@ -557,7 +1274,7 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "00037-2024-0-0401-JR-LA-02",
+      "sexpediente": "00036-2024-0-0401-JR-LA-07",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
       "sdemandante": "COLANA GUTIERREZ CRISTOBAL VALERIANO",
@@ -566,13 +1283,13 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "01127-2022-0-0401-JR-LA-09",
+      "sexpediente": "00037-2024-0-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "CONDORI HAÑARI RENE",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "17/03/2022",
-      "niter": 14
+      "smateria": "DESNATURALIZACIÓN DE CONTRATO",
+      "sdemandante": "COLANA GUTIERREZ CRISTOBAL VALERIANO",
+      "sdemandado": "PERURAIL S.A.",
+      "sfechainicio": "03/01/2024",
+      "niter": null
     },
     {
       "sexpediente": "07131-2019-0-0401-JR-LA-07",
@@ -611,24 +1328,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "02802-2022-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "CORNEJO APAZA GREGORY STEVE",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "22/06/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "01412-2020-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "CUSIQUISPE TTITO ODILON",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "07/08/2020",
-      "niter": null
-    },
-    {
       "sexpediente": "06949-2019-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -636,15 +1335,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "26/09/2019",
       "niter": null
-    },
-    {
-      "sexpediente": "00860-2017-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEMNIZACION POR DESPIDO ARBITRARIO Y OTROS",
-      "sdemandante": "DE LOS RIOS PEREA ELISEO",
-      "sdemandado": "INCA TOPS SA y INSTITUTO PERUANO DE LA ALPACA Y CAMELIDOS IPAC y MICHELL Y CIA SA",
-      "sfechainicio": "17/01/2017",
-      "niter": 13
     },
     {
       "sexpediente": "00511-2019-0-0401-JR-LA-02",
@@ -656,39 +1346,12 @@ export class ExpedientesComponent {
       "niter": 14
     },
     {
-      "sexpediente": "02470-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "DELGADO BRICEÑO MIGUEL ANGEL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "02/06/2022",
-      "niter": null
-    },
-    {
       "sexpediente": "06973-2019-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
       "sdemandante": "DELGADO DURAND LEDGAR ADRIAN",
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "27/09/2019",
-      "niter": null
-    },
-    {
-      "sexpediente": "00325-2022-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "DIAZ GUEVARA HERBERT MILTON",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
-      "sfechainicio": "21/01/2022",
-      "niter": null
-    },
-    {
-      "sexpediente": "00914-2019-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "DIAZ GUEVARA HERBERT MILTON",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "29/01/2019",
       "niter": null
     },
     {
@@ -710,42 +1373,6 @@ export class ExpedientesComponent {
       "niter": 14
     },
     {
-      "sexpediente": "00003-2021-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "FERREYRA BENDEZU CHRISTIAN ROGER",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "02/01/2021",
-      "niter": 14
-    },
-    {
-      "sexpediente": "00003-2021-78-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "FERREYRA BENDEZU CHRISTIAN ROGER",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "19/06/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "08549-2018-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "FLORES ARI ALEX",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
-      "sfechainicio": "18/10/2018",
-      "niter": null
-    },
-    {
-      "sexpediente": "25153-2018-0-1801-JR-LA-04",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "FLORES COLOMA ALBERT HUGO",
-      "sdemandado": "SOUTHERN COOPER",
-      "sfechainicio": "09/11/2018",
-      "niter": null
-    },
-    {
       "sexpediente": "01408-2020-0-0401-JR-LA-07",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -764,15 +1391,6 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "02906-2020-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "GAMIO MALAGA DIEGO EDGARDO",
-      "sdemandado": "RACIONALIZACION EMPRESARIAL SA",
-      "sfechainicio": "31/12/2020",
-      "niter": 12
-    },
-    {
       "sexpediente": "03234-2019-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE NORMAS LABORAL",
@@ -782,15 +1400,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "04538-2023-0-3002-JP-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "GUILLEN ARIAS LUIS MARTIN",
-      "sdemandado": "BYDZYNE GLOBAL SOCIEDAD ANONIMA CERRADA - BYDZYNE GLOBAL S.A.C.",
-      "sfechainicio": "08/09/2023 ",
-      "niter": 7
-    },
-    {
       "sexpediente": "01428-2020-0-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -798,15 +1407,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "13/08/2020",
       "niter": null
-    },
-    {
-      "sexpediente": "04577-2021-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "HITO PACTA PABLO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "01/12/2021",
-      "niter": 9
     },
     {
       "sexpediente": "01932-2019-0-0401-JR-LA-01",
@@ -827,15 +1427,6 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "06560-2023-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "HUALLPA POCCOHUANCA BRAULIO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "26/12/2023",
-      "niter": null
-    },
-    {
       "sexpediente": "04782-2021-0-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -854,15 +1445,6 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "01894-2023-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "HUAMANI PUMA AQUILES",
-      "sdemandado": "MC TRANSPORTES S.R.L.",
-      "sfechainicio": "31/03/2023",
-      "niter": 3
-    },
-    {
       "sexpediente": "03846-2022-0-0401-JR-LA-07",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -879,15 +1461,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "12/10/2017",
       "niter": 12
-    },
-    {
-      "sexpediente": "06147-2023-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "HUANQQUE SURCO, ERNESTO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "29/11/2023",
-      "niter": null
     },
     {
       "sexpediente": "01386-2020-0-0401-JR-LA-09",
@@ -917,60 +1490,6 @@ export class ExpedientesComponent {
       "niter": 13
     },
     {
-      "sexpediente": "15074-2021-0-1801-JR-LA-03",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "KUWATA ALMANZA YUDY ANTONIETA",
-      "sdemandado": "ABENGOA PERU S.A.",
-      "sfechainicio": "02/11/2021",
-      "niter": 9
-    },
-    {
-      "sexpediente": "06063-2023-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "LIMA HUAMANI EDDY RAUL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "27/11/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "06284-2023-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "LIMA HUAMANI, EDDY RAUL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "07/12/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "06511-2023-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "LIMA HUAMANI, EDDY RAUL",
-      "sdemandado": "SOCIEDAD MINERA DE CERRO VERDE S.A.A",
-      "sfechainicio": "21/12/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "03941-2022-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "LIMA MENDOZA JACK CHRISTOPHER",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "05/09/2022",
-      "niter": 11
-    },
-    {
-      "sexpediente": "04445-2021-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "LIMA MENDOZA JACK CHRISTOPHER",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "24/11/2021",
-      "niter": null
-    },
-    {
       "sexpediente": "05413-2018-0-0401-JR-LA-07",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -978,15 +1497,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "04/07/2018",
       "niter": null
-    },
-    {
-      "sexpediente": "01865-2022-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "LLICAHUA LUCANA HENRY",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "29/04/2022",
-      "niter": 7
     },
     {
       "sexpediente": "04313-2019-0-0401-JR-LA-09",
@@ -1005,15 +1515,6 @@ export class ExpedientesComponent {
       "sdemandado": "RACIONALIZACION EMPRESARIAL SA y YURA S.A.",
       "sfechainicio": "03/11/2022",
       "niter": 10
-    },
-    {
-      "sexpediente": "02548-2022-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "LOAYZA VILDOSO PAUL HUDSON",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "07/06/2022",
-      "niter": null
     },
     {
       "sexpediente": "07558-2019-0-0401-JR-LA-01",
@@ -1052,22 +1553,13 @@ export class ExpedientesComponent {
       "niter": 10
     },
     {
-      "sexpediente": "08065-2018-0-0401-JR-LA-09",
+      "sexpediente": "04907-2022-24-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "LUNA CALA RICARDO WILBER",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
-      "sfechainicio": "02/10/2018",
+      "smateria": "DESNATURALIZACIÓN DE CONTRATO",
+      "sdemandante": "LOPEZ DURAND JUAN",
+      "sdemandado": "-",
+      "sfechainicio": "12/01/2024",
       "niter": null
-    },
-    {
-      "sexpediente": "01295-2022-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "LUNA MAMANI JOSE NILTON",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "28/03/2022",
-      "niter": 10
     },
     {
       "sexpediente": "01590-2019-0-0401-JR-LA-07",
@@ -1077,15 +1569,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "21/02/2019",
       "niter": 14
-    },
-    {
-      "sexpediente": "02450-2022-0-1801-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "LUPACA AROCUTIPA JUAN HUBER",
-      "sdemandado": "SUPERINTENDENCIA NACIONAL DE ADUANAS Y DE ADMINISTRACION TRIBUTARIA - SUNAT",
-      "sfechainicio": "18/02/2022",
-      "niter": 11
     },
     {
       "sexpediente": "04951-2022-0-0401-JR-LA-09",
@@ -1106,6 +1589,15 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
+      "sexpediente": "04951-2022-33-0401-JR-LA-09",
+      "sespecialidad": "LABORAL",
+      "smateria": "DESNATURALIZACIÓN DE CONTRATO",
+      "sdemandante": "MAICA QUISPE ELVIS RICARDO",
+      "sdemandado": "YURA S.A. y RACIONALIZACION EMPRESARIAL SA",
+      "sfechainicio": "20/09/2023",
+      "niter": null
+    },
+    {
       "sexpediente": "00548-2021-0-2801-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "NULIDAD DE DESPIDO",
@@ -1113,15 +1605,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOUTHERN PERU COPPER CORPORATION, SUCURSAL DEL PERÚ",
       "sfechainicio": "05/11/2021",
       "niter": null
-    },
-    {
-      "sexpediente": "06074-2022-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "MAMANI MENDOZA MIGUEL ELOY",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "27/12/2022",
-      "niter": 7
     },
     {
       "sexpediente": "06508-2019-0-0401-JR-LA-08",
@@ -1166,15 +1649,6 @@ export class ExpedientesComponent {
       "sdemandante": "MAMANI QUISPE ANTONIETA",
       "sdemandado": "MUNICIPALIDAD DISTRITAL DE TIABAYA",
       "sfechainicio": "19/11/2018",
-      "niter": null
-    },
-    {
-      "sexpediente": "02670-2022-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "MAMANI TINTA JESUS",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "15/06/2022",
       "niter": null
     },
     {
@@ -1232,24 +1706,6 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "10249-2018-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "MEJIA JUYO JOHN ERICK",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
-      "sfechainicio": "14/12/2018",
-      "niter": null
-    },
-    {
-      "sexpediente": "05052-2021-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "MENDOZA QUISPE VICTOR MANUEL",
-      "sdemandado": "PERURAIL S.A.",
-      "sfechainicio": "28/12/2021",
-      "niter": null
-    },
-    {
       "sexpediente": "01410-2020-0-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1257,15 +1713,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "07/08/2020",
       "niter": 12
-    },
-    {
-      "sexpediente": "02806-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "MENDOZA RAMOS MIGUEL ANGEL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "23/06/2022",
-      "niter": 7
     },
     {
       "sexpediente": "01257-2023-0-0401-JR-LA-02",
@@ -1277,15 +1724,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "03142-2021-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "MILON CARPIO ERICK DANIEL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "07/09/2021",
-      "niter": 14
-    },
-    {
       "sexpediente": "07274-2019-0-0401-JR-LA-07",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1293,15 +1731,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "10/10/2019",
       "niter": null
-    },
-    {
-      "sexpediente": "02177-2021-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "MOLINA AVILA ALONSO REYNALDO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE",
-      "sfechainicio": "21/06/2021",
-      "niter": 14
     },
     {
       "sexpediente": "05707-2019-0-0401-JR-LA-02",
@@ -1322,15 +1751,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "03796-2021-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "MORALES QUISPE JOHN ROGER",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "18/10/2021",
-      "niter": 14
-    },
-    {
       "sexpediente": "07464-2019-0-0401-JR-LA-07",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1340,15 +1760,6 @@ export class ExpedientesComponent {
       "niter": 11
     },
     {
-      "sexpediente": "03021-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "NUÑEZ RAMIREZ MOISES HILARION",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "31/08/2021",
-      "niter": null
-    },
-    {
       "sexpediente": "05294-2018-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1356,87 +1767,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "28/06/2018",
       "niter": null
-    },
-    {
-      "sexpediente": "02573-2020-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "OCAMPO LOPEZ CARLOS LEONARDO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "03/12/2020",
-      "niter": 12
-    },
-    {
-      "sexpediente": "02573-2020-89-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "OCAMPO LOPEZ CARLOS LEONARDO",
-      "sdemandado": "-- no inidica --",
-      "sfechainicio": "19/01/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "02573-2020-90-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "OCAMPO LOPEZ CARLOS LEONARDO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE",
-      "sfechainicio": "30/03/2021",
-      "niter": 11
-    },
-    {
-      "sexpediente": "01268-2021-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "OLIVARES SUICO PABLO SANTIAGO",
-      "sdemandado": "RACIONALIZACION EMPRESARIAL SA",
-      "sfechainicio": "08/04/2021",
-      "niter": 12
-    },
-    {
-      "sexpediente": "05017-2021-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "ORDOÑO ORTEGA PEDRO FELICIANO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "27/12/2021",
-      "niter": 14
-    },
-    {
-      "sexpediente": "05017-2021-45-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "ORDOÑO ORTEGA PEDRO FELICIANO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "12/06/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "01101-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "PACCO GAMARRA RICARDO REYNALDO",
-      "sdemandado": "COTRANS EIRLTDA",
-      "sfechainicio": "24/03/2021",
-      "niter": 13
-    },
-    {
-      "sexpediente": "01101-2021-26-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "PACCO GAMARRA RICARDO REYNALDO",
-      "sdemandado": "COTRANS EIRLTDA",
-      "sfechainicio": "18/10/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "02773-2023-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "PACCORI MAMANI JAVIER",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "29/05/2023 ",
-      "niter": 9
     },
     {
       "sexpediente": "04262-2019-0-0401-JR-LA-01",
@@ -1475,15 +1805,6 @@ export class ExpedientesComponent {
       "niter": 9
     },
     {
-      "sexpediente": "01877-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "PERALTA ARANZAMENDI LUIS ALBERTO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "25/05/2021",
-      "niter": 14
-    },
-    {
       "sexpediente": "05171-2018-0-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1491,15 +1812,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "25/06/2018",
       "niter": null
-    },
-    {
-      "sexpediente": "05012-2023-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "PERALTA CHAHUA MIGUEL ANGEL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "29/09/2023",
-      "niter": 5
     },
     {
       "sexpediente": "06439-2019-0-0401-JR-LA-08",
@@ -1518,15 +1830,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "05/08/2020",
       "niter": 14
-    },
-    {
-      "sexpediente": "05866-2023-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "PERALTA FLORES ROGERS GUSTAVO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
-      "sfechainicio": "15/11/2023",
-      "niter": null
     },
     {
       "sexpediente": "01390-2020-0-0401-JR-LA-02",
@@ -1565,15 +1868,6 @@ export class ExpedientesComponent {
       "niter": 13
     },
     {
-      "sexpediente": "00789-2022-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "PEREZ PACHECO NILZON ALONSO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "24/02/2022",
-      "niter": 13
-    },
-    {
       "sexpediente": "01462-2020-0-0401-JR-LA-07",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1590,33 +1884,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINIERA CERRO VERDE SAA",
       "sfechainicio": "22/02/2019",
       "niter": 11
-    },
-    {
-      "sexpediente": "02189-2022-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "PUENTE QUIQUIA JUAN JOSE",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "17/05/2022",
-      "niter": 8
-    },
-    {
-      "sexpediente": "02321-2023-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "QUENALLATA CALAPUJA WILBER JORGE",
-      "sdemandado": "MC TRANSPORTES S.R.L.",
-      "sfechainicio": "28/04/2023 ",
-      "niter": 2
-    },
-    {
-      "sexpediente": "02817-2020-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "QUEQUEZANA PINTO CARLOS ALBERTO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "24/12/2020",
-      "niter": null
     },
     {
       "sexpediente": "01423-2020-0-0401-JR-LA-09",
@@ -1637,33 +1904,6 @@ export class ExpedientesComponent {
       "niter": 5
     },
     {
-      "sexpediente": "04482-2021-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "QUISPE HUANCAPAZA JUAN MIGUEL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "26/11/2021",
-      "niter": null
-    },
-    {
-      "sexpediente": "04910-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "QUISPE HUANCAPAZA JUAN MIGUEL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "17/12/2021",
-      "niter": 14
-    },
-    {
-      "sexpediente": "01892-2023-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "QUISPE JUSTO WENCESLAO",
-      "sdemandado": "MC TRANSPORTES S.R.L.",
-      "sfechainicio": "31/03/2023",
-      "niter": 5
-    },
-    {
       "sexpediente": "02443-2023-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "PAGO DE BENEFICIOS ECONOMICOS",
@@ -1680,15 +1920,6 @@ export class ExpedientesComponent {
       "sdemandado": "RACIONALIZACION EMPRESARIAL SA  y  YURA S.A.",
       "sfechainicio": "29/11/2022",
       "niter": 13
-    },
-    {
-      "sexpediente": "03005-2023-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "QUISPE QUISPE JAVIER JAIME",
-      "sdemandado": "MINISTERIO DE JUSTICIA Y DERECHOS HUMANOS y  PODER JUDICIAL y PROCURADOR DEL MINISTERIO DE JUSTICIA Y DERECHOS HUMANOS y PROCURADOR DEL PODER JUDICIAL",
-      "sfechainicio": " 13/06/2023",
-      "niter": 6
     },
     {
       "sexpediente": "04013-2023-0-0401-JR-LA-08",
@@ -1745,15 +1976,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "04373-2022-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "RODRIGUEZ GUZMAN REYNALDO CESAR",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "28/09/2022",
-      "niter": null
-    },
-    {
       "sexpediente": "08344-2017-0-0401-JR-LA-08",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1761,15 +1983,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "03/10/2017",
       "niter": null
-    },
-    {
-      "sexpediente": "01540-2022-0-1801-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "ROJAS AYCA IVAN AUGUSTO",
-      "sdemandado": "HUDBAY PERU S.A.C.",
-      "sfechainicio": "02/02/2022",
-      "niter": 11
     },
     {
       "sexpediente": "04264-2019-0-0401-JR-LA-07",
@@ -1790,30 +2003,12 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "02670-2023-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "SALAS LUNA LUIS ALBERTO TOMAS",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "22/05/2023 ",
-      "niter": 8
-    },
-    {
       "sexpediente": "01411-2020-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
       "sdemandante": "SALAS RIOS ISRAEL JOSUE",
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "07/08/2020",
-      "niter": null
-    },
-    {
-      "sexpediente": "00032-2021-0-0404-JM-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "SALAS TORRES JORGE MARCELINO",
-      "sdemandado": "MUNICIPALIDAD DISTRITAL DE URACA",
-      "sfechainicio": "26/07/2021",
       "niter": null
     },
     {
@@ -1844,15 +2039,6 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "01422-2020-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "SALINAS SARMIENTO CINDY MARITA",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "11/08/2020",
-      "niter": 12
-    },
-    {
       "sexpediente": "01911-2020-0-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1862,13 +2048,13 @@ export class ExpedientesComponent {
       "niter": 11
     },
     {
-      "sexpediente": "18742-2021-0-1801-JR-LA-15",
+      "sexpediente": "01911-2020-67-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "SARAYASI BAUTISTA RANDY ALFREDO",
-      "sdemandado": "PETROLEOS DEL PERU PETROPERU SA",
-      "sfechainicio": "31/12/2021",
-      "niter": 8
+      "smateria": "DESNATURALIZACIÓN DE CONTRATO",
+      "sdemandante": "SANCHEZ MONTESINOS DANIEL ELIAS",
+      "sdemandado": "SOCIEDAD MINERA CERRO VERDE",
+      "sfechainicio": "11/12/2023",
+      "niter": null
     },
     {
       "sexpediente": "01407-2020-0-0401-JR-LA-08",
@@ -1877,15 +2063,6 @@ export class ExpedientesComponent {
       "sdemandante": "SILLCAHUI CHACO FELIPE",
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "07/08/2020",
-      "niter": null
-    },
-    {
-      "sexpediente": "00808-2020-0-0401-JP-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sdemandado": "VALDEZ CHELIN JOHAN JAFETH",
-      "sfechainicio": "04/09/2020",
       "niter": null
     },
     {
@@ -1898,15 +2075,6 @@ export class ExpedientesComponent {
       "niter": 14
     },
     {
-      "sexpediente": "05259-2021-0-0401-JP-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "CONSIGNACION",
-      "sdemandante": "SOCIEDAD MINERA CERRO VERDE SAA",
-      "sdemandado": "SILVA FELIPE EDWARD FREDY",
-      "sfechainicio": "26/07/2021",
-      "niter": 12
-    },
-    {
       "sexpediente": "02075-2020-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1914,15 +2082,6 @@ export class ExpedientesComponent {
       "sdemandado": "TRANSALTISA S.A.",
       "sfechainicio": "21/10/2020",
       "niter": null
-    },
-    {
-      "sexpediente": "00388-2022-0-2801-JP-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "CONSIGNACION",
-      "sdemandante": "SOUTHERN PERU COPPER CORPORATION, SUCURSAL DEL PERÚ",
-      "sdemandado": "ASTETE TURPO JOSE",
-      "sfechainicio": "14/09/2022 ",
-      "niter": 13
     },
     {
       "sexpediente": "02465-2023-0-0401-JR-LA-01",
@@ -1970,15 +2129,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "02209-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "TARICUARIMA LOPEZ SEGUNDO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "18/05/2022",
-      "niter": 9
-    },
-    {
       "sexpediente": "03926-2019-0-0401-JR-LA-02",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -1986,15 +2136,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
       "sfechainicio": "28/05/2019",
       "niter": 12
-    },
-    {
-      "sexpediente": "05204-2022-0-0401-JR-LA-08",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "TITO TORRES ZAYDA SHARYN",
-      "sdemandado": "EMBOTELLADORA SAN MIGUEL DEL SUR S.A.C.",
-      "sfechainicio": "10/11/2022",
-      "niter": 8
     },
     {
       "sexpediente": "06703-2019-0-0401-JR-LA-01",
@@ -2015,33 +2156,6 @@ export class ExpedientesComponent {
       "niter": 11
     },
     {
-      "sexpediente": "03025-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "TORRES BEJAR VICTORIA CORINA",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "31/08/2021",
-      "niter": null
-    },
-    {
-      "sexpediente": "03830-2021-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "TORRES BEJAR VICTORIA CORINA",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "19/10/2021",
-      "niter": 14
-    },
-    {
-      "sexpediente": "01118-2021-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "TORRES SALAZAR JOSE EDUARDO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "25/03/2021",
-      "niter": 14
-    },
-    {
       "sexpediente": "07433-2018-0-0401-JR-LA-08",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -2060,39 +2174,12 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "02263-2020-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "TTUPA FLORES MARIO",
-      "sdemandado": "RACIONALIZACION EMPRESARIAL SA  y SUCESORES DE TTUPA FLORES MARIO",
-      "sfechainicio": "05/11/2020",
-      "niter": 8
-    },
-    {
-      "sexpediente": "04466-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "TUPACYUPANQUI JAEN VICTOR RAUL",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "03/10/2022",
-      "niter": 9
-    },
-    {
       "sexpediente": "03561-2022-0-0401-JR-LA-09",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
       "sdemandante": "UCHUYA SEGURA LUIS ERNESTO",
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "09/08/2022",
-      "niter": 12
-    },
-    {
-      "sexpediente": "03015-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "URBANO MAYHUA VICENTE",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "31/08/2021",
       "niter": 12
     },
     {
@@ -2105,15 +2192,6 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "05079-2021-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "VALDIVIA NAJAR ANTHONY ERNESTO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "29/12/2021",
-      "niter": 14
-    },
-    {
       "sexpediente": "03647-2022-0-0401-JR-LA-07",
       "sespecialidad": "LABORAL",
       "smateria": "IMPUGNACION DE DESPIDO",
@@ -2121,15 +2199,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "16/08/2022",
       "niter": 12
-    },
-    {
-      "sexpediente": "05576-2023-0-0401-JR-LA-09",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "VARGAS GUERRERO JUAN",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "30/10/2023",
-      "niter": null
     },
     {
       "sexpediente": "02693-2023-0-0401-JR-LA-01",
@@ -2195,15 +2264,6 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
-      "sexpediente": "03023-2021-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "VILLAFUERTE QUISPE LUIS HERNAN",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "31/08/2021",
-      "niter": 12
-    },
-    {
       "sexpediente": "06071-2018-0-0401-JR-LA-09",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -2211,42 +2271,6 @@ export class ExpedientesComponent {
       "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
       "sfechainicio": "30/07/2018",
       "niter": 14
-    },
-    {
-      "sexpediente": "02377-2019-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "VILLEGAS ROJAS JUAN CESAR",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE SAA",
-      "sfechainicio": "02/04/2019",
-      "niter": 12
-    },
-    {
-      "sexpediente": "03562-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "VILLEGAS ROJAS JUAN CESAR",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "09/08/2022",
-      "niter": 10
-    },
-    {
-      "sexpediente": "00112-2022-0-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "VIZA HUANCACHOQUE JUAN LENIÑO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "10/01/2022",
-      "niter": 10
-    },
-    {
-      "sexpediente": "00112-2022-97-0401-JR-LA-07",
-      "sespecialidad": "LABORAL",
-      "smateria": "INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO",
-      "sdemandante": "VIZA HUANCACHOQUE JUAN LENIÑO",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "14/09/2023",
-      "niter": null
     },
     {
       "sexpediente": "07141-2019-0-0401-JR-LA-02",
@@ -2285,24 +2309,6 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
-      "sexpediente": "06072-2023-0-0401-JR-LA-02",
-      "sespecialidad": "LABORAL",
-      "smateria": "REPOSICION",
-      "sdemandante": "ZANTALLA SONCCO, ANDRES WILLIAN",
-      "sdemandado": "SOCIEDAD MINERA CERRO VERDE S.A.A.",
-      "sfechainicio": "27/11/2023",
-      "niter": null
-    },
-    {
-      "sexpediente": "04431-2023-0-0401-JR-LA-01",
-      "sespecialidad": "LABORAL",
-      "smateria": "PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS",
-      "sdemandante": "ZAPANA HUAMANI BLADIMIR LENIN",
-      "sdemandado": "MC TRANSPORTES S.R.L.",
-      "sfechainicio": "31/08/2023",
-      "niter": 3
-    },
-    {
       "sexpediente": "01396-2020-0-0401-JR-LA-01",
       "sespecialidad": "LABORAL",
       "smateria": "DESNATURALIZACIÓN DE CONTRATO",
@@ -2319,8 +2325,18 @@ export class ExpedientesComponent {
       "sdemandado": "RACIONALIZACION EMPRESARIAL SA",
       "sfechainicio": "20/10/2022",
       "niter": 11
+    },
+    {
+      "sexpediente": "04856-2022-6-0401-JR-LA-07",
+      "sespecialidad": "LABORAL",
+      "smateria": "DESNATURALIZACIÓN DE CONTRATO",
+      "sdemandante": "ZUÑIGA LUCIONI PEDRO PABLO",
+      "sdemandado": "YURA S.A. y RACIONALIZACION EMPRESARIAL SA",
+      "sfechainicio": "07/11/2023",
+      "niter": null
     }
   ];
+
   lstFamil: Array<ObjExpediente> = [
     {
       "sexpediente": "00010-2023-0-1401-JP-FC-01",
@@ -3396,6 +3412,15 @@ export class ExpedientesComponent {
   ];
   lstCivil: Array<ObjExpediente> = [
     {
+      "sexpediente": "00011-2024-0-0401-JP-CI-02",
+      "sespecialidad": "CIVIL",
+      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
+      "sdemandante": "REPUESTOS DAVID DIESEL E.I.R.L.",
+      "sdemandado": "C.G.G. TRANSPORTES, MINERIA Y CONSTRUCCION S.A.C.",
+      "sfechainicio": "08/01/2024",
+      "niter": null
+    },
+    {
       "sexpediente": "00013-2020-0-2114-JP-CI-01",
       "sespecialidad": "CIVIL",
       "smateria": "SUCESION INTESTADA",
@@ -3405,6 +3430,24 @@ export class ExpedientesComponent {
       "niter": 12
     },
     {
+      "sexpediente": "00246-2011-0-0402-JR-CI-01",
+      "sespecialidad": "CIVIL",
+      "smateria": "RETRACTO",
+      "sdemandante": "LOPEZ GUTIERREZ LUIS y  MEDRANO SANTISTEBAN PERCY Y ORTEGA CORDERO RICARDO JULIO APODERADOS DE LOPEZ GUTIERREZ LUIS",
+      "sdemandado": "CHAMPION SALAZAR LUIS ALBERTO y  CHAMPION SALAZAR LUIS ALBERTO HAU MENDOZA DE CHAMPION MELVA LINA MERCEDES y  HAU MENDOZA DE CHAMPION MELVA LINA MERCEDES y LOPEZ GUTIERREZ RUBY ALVA y  LOPEZ GUTTIERREZ IRMA GRETA",
+      "sfechainicio": "28/12/2011",
+      "niter": null
+    },
+    {
+      "sexpediente": "00507-2021-0-0401-JP-CI-02",
+      "sespecialidad": "CIVIL",
+      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
+      "sdemandante": "ROTHMAN`S E.I.R.LTDA.",
+      "sdemandado": "BENAVENTE AYBAR ERNESTO ELIZALDE",
+      "sfechainicio": "27/09/2021",
+      "niter": null
+    },
+    {
       "sexpediente": "00582-2018-0-0401-JR-CI-02",
       "sespecialidad": "CIVIL",
       "smateria": "NULIDAD DE ACTO JURIDICO",
@@ -3412,6 +3455,15 @@ export class ExpedientesComponent {
       "sdemandado": "CHAVEZ MARROQUIN IBET PATRICIA y  CHAVEZ MARROQUIN MARIA EUGENIA y  CHAVEZ MARROQUIN NATALIA y CHAVEZ MARROQUIN JORGE LUIS y MARROQUIN ROJAS DE CHAVEZ RUTH ELENA y SUCESION DE CHAVEZ RIQUELME JORGE ERNESTO",
       "sfechainicio": "02/02/2018",
       "niter": 17
+    },
+    {
+      "sexpediente": "00582-2018-85-0401-JR-CI-02",
+      "sespecialidad": "CIVIL",
+      "smateria": "NULIDAD DE ACTO JURIDICO",
+      "sdemandante": "FERNANDEZ YAÑEZ BETTY MARCELA",
+      "sdemandado": "MARROQUIN ROJAS DE CHAVEZ RUTH ELENA y  CHAVEZ MARROQUIN JORGE LUIS y CHAVEZ MARROQUIN NATALIA y CHAVEZ MARROQUIN MARIA EUGENIA y CHAVEZ MARROQUIN IBET PATRICIA",
+      "sfechainicio": "01/06/2018",
+      "niter": null
     },
     {
       "sexpediente": "00684-2012-0-0412-JM-CI-01",
@@ -3466,6 +3518,24 @@ export class ExpedientesComponent {
       "sdemandado": "CHACON PINTO MIRIAM NILDA",
       "sfechainicio": "06/09/2022",
       "niter": 17
+    },
+    {
+      "sexpediente": "01588-2023-0-0401-JR-CI-02",
+      "sespecialidad": "CIVIL",
+      "smateria": "PAGO DE FRUTOS",
+      "sdemandante": "PINTO LINARES JUAN GILBERTO",
+      "sdemandado": "VERA RIVERA EUSEBIA CARMELA",
+      "sfechainicio": "29/03/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "01609-2018-0-0401-JR-CI-04",
+      "sespecialidad": "CIVIL",
+      "smateria": "NULIDAD DE ACTO JURIDICO",
+      "sdemandante": "CCORIMANYA CONDORI CESAR ALIPIO",
+      "sdemandado": "HOLGADO DEL CARPIO ELSA y SILVA GUILLEN LIZBET BRENDA",
+      "sfechainicio": "13/04/2018",
+      "niter": null
     },
     {
       "sexpediente": "01741-2016-0-0401-JR-CI-03",
@@ -3531,6 +3601,24 @@ export class ExpedientesComponent {
       "niter": 14
     },
     {
+      "sexpediente": "02835-2020-0-3204-JP-CI-02",
+      "sespecialidad": "CIVIL",
+      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
+      "sdemandante": "ESPEJO OLIVERA EDUARDO ERNESTO",
+      "sdemandado": "ARIAS ALVA ELIZABETH PILAR y GUILLEN GARCIA LUIS ALBERTO",
+      "sfechainicio": "19/11/2020",
+      "niter": null
+    },
+    {
+      "sexpediente": "03388-2019-0-0412-JR-CI-01",
+      "sespecialidad": "CIVIL",
+      "smateria": "DIVISION Y PARTICIPACION DE BIENES",
+      "sdemandante": "SILVA FARFAN JOSE LUIS",
+      "sdemandado": "SILVA FARFAN JUAN EDGAR y SILVA FARFAN DAVID ALFREDO",
+      "sfechainicio": "19/07/2019",
+      "niter": null
+    },
+    {
       "sexpediente": "03435-2016-0-0401-JR-CI-09",
       "sespecialidad": "CIVIL",
       "smateria": "NULIDAD DE ACTO JURIDICO",
@@ -3538,6 +3626,15 @@ export class ExpedientesComponent {
       "sdemandado": "PONCE VERA PABLO CESAR",
       "sfechainicio": "05/08/2016",
       "niter": 10
+    },
+    {
+      "sexpediente": "03496-2023-0-0401-JR-CI-02",
+      "sespecialidad": "CIVIL",
+      "smateria": "PAGO DE FRUTOS",
+      "sdemandante": "PINTO LINARES JUAN GILBERTO",
+      "sdemandado": "VERA RIVERA EUSEBIA CARMELA",
+      "sfechainicio": "06/07/2023",
+      "niter": null
     },
     {
       "sexpediente": "03601-2016-0-0401-JR-CI-02",
@@ -3594,12 +3691,39 @@ export class ExpedientesComponent {
       "niter": null
     },
     {
+      "sexpediente": "06141-2023-0-0401-JP-CI-03",
+      "sespecialidad": "CIVIL",
+      "smateria": "OBLIGACION DE DAR SUMA DE DINERO",
+      "sdemandante": "REPUESTOS DAVID DIESEL E.I.R.L.",
+      "sdemandado": "C.G.G. TRANSPORTES, MINERIA Y CONSTRUCCION S.A.C.",
+      "sfechainicio": "27/12/2023",
+      "niter": null
+    },
+    {
       "sexpediente": "06704-2023-0-0401-JR-CI-04",
       "sespecialidad": "CIVIL",
       "smateria": "RETRACTO",
       "sdemandante": "PINTO LINARES JUAN GILBERTO",
       "sdemandado": "CAHUE ZAPANA IGINIO AUGUSTO y VERA RIVERA EUSEBIA CARMELA",
       "sfechainicio": "06/12/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "06740-2023-0-0401-JR-CI-06",
+      "sespecialidad": "CIVIL",
+      "smateria": "REIVINDICACION",
+      "sdemandante": "APAZA ESPINOZA JOSE ALFREDO y APAZA FUENTES HENRY OSWALDO y ESPINOZA DE APAZA GUADALUPE",
+      "sdemandado": "ATAMARI VILLASANTE GABRIELA y HUAMANI CHOQUEHUANCA ROSA ROSMERI y MERMA FLORES MARISOL y PUMAYLLE HUAMANCHA LUIS OMAR y QUISPE GONZALES BENITA y VILCA RODRIGUEZ LUIS JUSTO",
+      "sfechainicio": "09/12/2023",
+      "niter": null
+    },
+    {
+      "sexpediente": "10399-2023-27-0401-JP-CI-02",
+      "sespecialidad": "CIVIL",
+      "smateria": "DESALOJO",
+      "sdemandante": "ESPINOZA DE APAZA GUADALUPE y APAZA FUENTES HENRY OSWALDO",
+      "sdemandado": "QUISPE GONZALES BENITA y APAZA ESPINOZA JOSE ALFREDO",
+      "sfechainicio": "14/08/2023",
       "niter": null
     }
   ];
@@ -3815,7 +3939,10 @@ export class ExpedientesComponent {
     }
   ];
 
-  fcLaboral: FormControl = new FormControl([]);
+  fcLab1: FormControl = new FormControl([]);
+  fcLab2: FormControl = new FormControl([]);
+  fcLab3: FormControl = new FormControl([]);
+  fcLab4: FormControl = new FormControl([]);
   fcFamilia: FormControl = new FormControl([]);
   fcCivil: FormControl = new FormControl([]);
   fcPenal: FormControl = new FormControl([]);
@@ -3832,7 +3959,8 @@ export class ExpedientesComponent {
     })
       .valueChanges()
       .subscribe((res: Array<any>) => {
-        this.lstLabor = res.filter(x => x.sespecialidad == 'LABORAL')
+        this.lstLaRepo = res.filter(x => x.sespecialidad == 'LABORAL')
+          .filter(x => x.idmateria == 'LAB-REPO')
           .sort((a: any, b: any) => {
             if (a.sdemandante < b.sdemandante) {
               return -1
@@ -3850,7 +3978,76 @@ export class ExpedientesComponent {
               niter: Number(x.niter)
             };
             return obj;
-          })
+          });
+        this.lstLaIndem = res.filter(x => x.sespecialidad == 'LABORAL')
+          .filter(x => x.idmateria == 'LAB-INDE-PDYP-PIC')
+          .sort((a: any, b: any) => {
+            if (a.sdemandante < b.sdemandante) {
+              return -1
+            } else {
+              return 1;
+            }
+          }).map(x => {
+            let obj: ObjExpediente = {
+              sexpediente: x.sexpediente,
+              sespecialidad: x.sespecialidad,
+              smateria: x.smateria,
+              sdemandante: x.sdemandante,
+              sdemandado: x.sdemandado,
+              sfechainicio: x.sfechainicio,
+              niter: Number(x.niter)
+            };
+            return obj;
+          });
+        this.lstLaPBSE = res.filter(x => x.sespecialidad == 'LABORAL')
+          .filter(x => x.idmateria == 'LAB-PAGO-BSI-OBS')
+          .sort((a: any, b: any) => {
+            if (a.sdemandante < b.sdemandante) {
+              return -1
+            } else {
+              return 1;
+            }
+          }).map(x => {
+            let obj: ObjExpediente = {
+              sexpediente: x.sexpediente,
+              sespecialidad: x.sespecialidad,
+              smateria: x.smateria,
+              sdemandante: x.sdemandante,
+              sdemandado: x.sdemandado,
+              sfechainicio: x.sfechainicio,
+              niter: Number(x.niter)
+            };
+            return obj;
+          });
+        this.lstLaOtros = res.filter(x => x.sespecialidad == 'LABORAL')
+          .filter(x => {
+            if (x.idmateria == 'LAB-REPO') {
+              return false;
+            } else if (x.idmateria == 'LAB-PAGO-BSI-OBS') {
+              return false;
+            } else if (x.idmateria == 'LAB-INDE-PDYP-PIC') {
+              return false;
+            } else {
+              return true;
+            }
+          }).sort((a: any, b: any) => {
+            if (a.sdemandante < b.sdemandante) {
+              return -1
+            } else {
+              return 1;
+            }
+          }).map(x => {
+            let obj: ObjExpediente = {
+              sexpediente: x.sexpediente,
+              sespecialidad: x.sespecialidad,
+              smateria: x.smateria,
+              sdemandante: x.sdemandante,
+              sdemandado: x.sdemandado,
+              sfechainicio: x.sfechainicio,
+              niter: Number(x.niter)
+            };
+            return obj;
+          });
         this.lstFamil = res.filter(x => x.sespecialidad == 'FAMILIA').map(x => {
           let obj: ObjExpediente = {
             sexpediente: x.sexpediente,
@@ -3900,7 +4097,11 @@ export class ExpedientesComponent {
           return obj;
         })
 
-        this.fcLaboral.setValue(JSON.stringify(this.lstLabor))
+        this.fcLab1.setValue(JSON.stringify(this.lstLaRepo))
+        this.fcLab2.setValue(JSON.stringify(this.lstLaIndem))
+        this.fcLab3.setValue(JSON.stringify(this.lstLaPBSE))
+        this.fcLab4.setValue(JSON.stringify(this.lstLaOtros))
+
         this.fcFamilia.setValue(JSON.stringify(this.lstFamil))
         this.fcCivil.setValue(JSON.stringify(this.lstCivil))
         this.fcPenal.setValue(JSON.stringify(this.lstPenal))
@@ -3914,8 +4115,18 @@ export class ExpedientesComponent {
   descargarExcel() {
     const workbook = XLSX.utils.book_new();
 
-    const wsLaboral = XLSX.utils.json_to_sheet(this.lstLabor);
-    XLSX.utils.book_append_sheet(workbook, wsLaboral, "Laboral");
+    const wsLab1 = XLSX.utils.json_to_sheet(this.lstLaRepo);
+    XLSX.utils.book_append_sheet(workbook, wsLab1, "Laboral Reposicion");
+
+    const wsLab2 = XLSX.utils.json_to_sheet(this.lstLaIndem);
+    XLSX.utils.book_append_sheet(workbook, wsLab2, "Laboral Indemnizacion");
+
+    const wsLab3 = XLSX.utils.json_to_sheet(this.lstLaPBSE);
+    XLSX.utils.book_append_sheet(workbook, wsLab3, "Laboral Pago de Beneficios");
+
+    const wsLab4 = XLSX.utils.json_to_sheet(this.lstLaOtros);
+    XLSX.utils.book_append_sheet(workbook, wsLab4, "Laboral Otros");
+
 
     const wsFamil = XLSX.utils.json_to_sheet(this.lstFamil);
     XLSX.utils.book_append_sheet(workbook, wsFamil, "Familia");
