@@ -1,0 +1,19 @@
+<h3>
+    Actualizador de Expedientes
+</h3>
+
+<p>
+    Este componente actualiza el listado de expedientes
+</p>
+
+<div *ngIf="!lUpdating">
+    <button class="btn btn-primary" (click)="updateList()">
+        Actualizar
+    </button>
+</div>
+<div *ngIf="lUpdating">
+    <button class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Actualizando...
+    </button>
+</div>

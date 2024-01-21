@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Tarea } from './../__clases/tarea';
 
 import * as XLSX from 'xlsx';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 interface Pago {
   sdescripcion: string,
@@ -30,7 +31,49 @@ export class TestingComponent {
 
   constructor(
     private db: AngularFirestore,
-  ) { 
+    private storage: AngularFireStorage
+  ) {
+    // Descargar datos desde el JSON del storage
+    // let obs = this.storage.ref('/expedientes/data.json').getDownloadURL().subscribe(url => {
+    //   console.log('URL es', url);
+    //   fetch('https://jsonplaceholder.typicode.com/posts')
+    //     .then(res => res.json())
+    //     .then(expedientes => {
+    //       console.log(expedientes);
+    //     }).catch(err => {
+    //       console.log('ERROR');
+    //     }).finally(() => {
+
+    //     });
+
+    //   obs.unsubscribe();
+    // })
+
+    // Cargar datos JSON al firestorage
+    var filename = 'gatos.json';
+    var obj = JSON.stringify([
+      {
+        name: 'Tonyyy',
+        age: 27,
+        cargo: "Administrador"
+      },
+      {
+        name: 'Anyela',
+        age: 25,
+        cargo: "Secretaria"
+      },
+    ]);
+
+    const blob = new Blob([obj], { type: 'application/json' })
+
+    let storageRef = storage.ref('expedientes/gatos.json');
+    let upload = storageRef.put(blob).then(res => {
+      console.log('ok');
+    }).catch(err => {
+      console.log('error');
+    }).finally(() => {
+
+    });
   }
 
   calcular() {

@@ -28,6 +28,8 @@ import { UserItemComponent } from './user-item/user-item.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { ReportePagosComponent } from './reporte-pagos/reporte-pagos.component';
 import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.component';
+import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component'
+import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -154,6 +156,14 @@ const routes: Routes = [
   {
     path: 'pagos-honorarios',
     component: PagosHonorariosComponent
+  },
+  {
+    path: 'expedientes-updater',
+    component: ExpedientesUpdaterComponent
+  },
+  {
+    path: 'expedientes-list',
+    component: ExpedientesListComponent
   },
   {
     path: '**',

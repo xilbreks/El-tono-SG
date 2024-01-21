@@ -4164,7 +4164,7 @@ export class ExpedientesComponent {
 
   cambio(val: string) {
     console.log(val);
-    let sterms = val.trim().toLowerCase().replace('  ', ' ').split(' ');
+    let sterms = val.trim().toLowerCase().split(' ');
 
     sterms = sterms.filter(sterm => sterm.length >= 3);
 
