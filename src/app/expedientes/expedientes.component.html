@@ -31,7 +31,21 @@
 <textarea [formControl]="fcConstitucional">
 </textarea> -->
 
-<div>
+<div class="container">
+    <div class="input-group">
+        <div class="input-group-text">
+            <i class="bi bi-search">
+            </i>
+        </div>
+        <input type="search" id="texto-busqueda" class="form-control" #fff (input)="cambio(fff.value)" autocomplete="off">
+        <div class="input-group-text">
+            <i class="bi bi-search"></i>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="!lModeFiltering">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="lab1-tab" data-bs-toggle="tab" data-bs-target="#lab1-tab-pane"
@@ -54,7 +68,7 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="lab4-tab" data-bs-toggle="tab" data-bs-target="#lab4-tab-pane" type="button"
                 role="tab" aria-selected="true">
-                LA Otros
+                LA Varios
             </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -718,5 +732,63 @@
             </div>
             <!--  -->
         </div>
+    </div>
+</div>
+<div *ngIf="lModeFiltering">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Expediente
+                    </th>
+                    <th>
+                        Materia
+                    </th>
+                    <th>
+                        Especialidad
+                    </th>
+                    <th>
+                        Demandante
+                    </th>
+                    <th>
+                        Demandado
+                    </th>
+                    <th>
+                        Inicio
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let expediente of lstExpedientesFiltered; let i = index">
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td>
+                        <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                            {{expediente.sexpediente}}
+                        </a>
+                    </td>
+                    <td>
+                        {{expediente.smateria}}
+                    </td>
+                    <td>
+                        {{expediente.sespecialidad}}
+                    </td>
+                    <td>
+                        {{expediente.sdemandante}}
+                    </td>
+                    <td>
+                        {{expediente.sdemandado}}
+                    </td>
+                    <td>
+                        {{expediente.sfechainicio}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

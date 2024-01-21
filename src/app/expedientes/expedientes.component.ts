@@ -3939,6 +3939,10 @@ export class ExpedientesComponent {
     }
   ];
 
+  lstExpedientes: Array<ObjExpediente> = [];
+  lstExpedientesFiltered: Array<ObjExpediente> = [];
+  lModeFiltering = false;
+
   fcLab1: FormControl = new FormControl([]);
   fcLab2: FormControl = new FormControl([]);
   fcLab3: FormControl = new FormControl([]);
@@ -3951,6 +3955,21 @@ export class ExpedientesComponent {
   constructor(
     private db: AngularFirestore,
   ) {
+    this.lstExpedientes = this.lstLaRepo.concat(
+      this.lstLaIndem
+    ).concat(
+      this.lstLaPBSE
+    ).concat(
+      this.lstLaOtros
+    ).concat(
+      this.lstFamil
+    ).concat(
+      this.lstCivil
+    ).concat(
+      this.lstPenal
+    ).concat(
+      this.lstConst
+    );
   }
 
   getExpedientes() {
@@ -4141,5 +4160,43 @@ export class ExpedientesComponent {
     XLSX.utils.book_append_sheet(workbook, wsConst, "Constitucional");
 
     XLSX.writeFile(workbook, 'Expedientes SGABGSAC' + '.xlsx', { compression: true });
+  }
+
+  cambio(val: string) {
+    console.log(val);
+    let sterms = val.trim().toLowerCase().replace('  ', ' ').split(' ');
+
+    sterms = sterms.filter(sterm => sterm.length >= 3);
+
+    if (sterms.length == 0) {
+      this.lstExpedientesFiltered = this.lstExpedientes;
+      this.lModeFiltering = false;
+      return;
+    }
+
+    this.lstExpedientesFiltered = this.lstExpedientes.filter(exp => {
+      let lMatch = false;
+      let nMatchs = 0;
+
+      sterms.forEach(sterm => {
+        if (exp.sdemandado.toLowerCase().includes(sterm)) nMatchs++;
+      })
+      if (nMatchs == sterms.length) lMatch = true;
+      nMatchs = 0;
+
+      sterms.forEach(sterm => {
+        if (exp.sdemandante.toLowerCase().includes(sterm)) nMatchs++;
+      })
+      if (nMatchs == sterms.length) lMatch = true;
+      nMatchs = 0;
+
+      sterms.forEach(sterm => {
+        if (exp.sexpediente.toLowerCase().includes(sterm)) nMatchs++;
+      })
+      if (nMatchs == sterms.length) lMatch = true;
+
+      return lMatch;
+    });
+    this.lModeFiltering = true;
   }
 }
