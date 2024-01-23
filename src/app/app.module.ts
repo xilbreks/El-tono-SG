@@ -11,7 +11,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ExpedientesComponent } from './expedientes/expedientes.component';
 import { AdminRdtComponent } from './admin-rdt/admin-rdt.component';
 import { ColaboradorRdtComponent } from './colaborador-rdt/colaborador-rdt.component';
 import { RdtViewComponent } from './rdt-view/rdt-view.component';
@@ -49,6 +48,7 @@ import { ReportePagosComponent } from './reporte-pagos/reporte-pagos.component';
 import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.component';
 import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component';
 import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const environment = {
@@ -67,7 +67,6 @@ const environment = {
 @NgModule({
   declarations: [
     AppComponent,
-    ExpedientesComponent,
     AdminRdtComponent,
     ColaboradorRdtComponent,
     RdtViewComponent,
@@ -105,6 +104,7 @@ const environment = {
     PagosHonorariosComponent,
     ExpedientesUpdaterComponent,
     ExpedientesListComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

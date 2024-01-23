@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ExpedientesComponent } from './expedientes/expedientes.component';
 import { ExpedienteEditComponent } from './expediente-edit/expediente-edit.component';
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
 import { AdminRdtComponent } from './admin-rdt/admin-rdt.component';
@@ -30,6 +29,7 @@ import { ReportePagosComponent } from './reporte-pagos/reporte-pagos.component';
 import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.component';
 import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component'
 import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -46,11 +46,6 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
-  },
-  {
-    path: 'expedientes',
-    component: ExpedientesComponent,
-    canActivate: [autenticacionGuard]
   },
   {
     path: 'expediente-new',
@@ -167,7 +162,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: ColaboradorRdtComponent
+    pathMatch: 'full',
+    component: NotFoundComponent
   }
 ];
 
