@@ -1,19 +1,35 @@
-<h3>
-    Actualizador de Expedientes
-</h3>
+<div class="container">
+    <h3>
+        Actualizador de Expedientes
+    </h3>
+    <div>
+        Este componente actualiza el listado de expedientes que se visualiza 
+        <a [routerLink]="'/expedientes-list'">aquí</a>.
+    </div>
 
-<p>
-    Este componente actualiza el listado de expedientes
-</p>
+    <div>
+        <i class="bi bi-box-arrow-in-up" style="font-size: 75px;"></i>
+    </div>
 
-<div *ngIf="!lUpdating">
-    <button class="btn btn-primary" (click)="updateList()">
-        Actualizar
-    </button>
-</div>
-<div *ngIf="lUpdating">
-    <button class="btn btn-primary">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Actualizando...
-    </button>
+    <div class="alert alert-warning" role="alert">
+        <p>
+            OJO: Solo actualizar cuando sea necesario ya que al presionar el boton se realizarán
+            bastantes lecturas y peticiones al servidor que podrían saturarlo.
+        </p>
+        <p>
+            RECOMENDACIÓN: Usar esta función como máximo 5 veces en un día.
+        </p>
+    </div>
+
+    <div *ngIf="!lUpdating">
+        <button class="btn btn-primary" (click)="updateList()">
+            Actualizar
+        </button>
+    </div>
+    <div *ngIf="lUpdating">
+        <button class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Actualizando...
+        </button>
+    </div>
 </div>

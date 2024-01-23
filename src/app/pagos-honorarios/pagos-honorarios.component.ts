@@ -56,8 +56,6 @@ export class PagosHonorariosComponent implements OnInit {
         .where('sfecha', '<=', sfinal);
     }).valueChanges()
       .subscribe((res: Array<any>) => {
-        console.log({ res })
-
         this.lstPagos = [];
         this.nSumaTotal = 0;
         res.forEach(payment => {
@@ -89,11 +87,6 @@ export class PagosHonorariosComponent implements OnInit {
     let dFinal = new Date(Number(sfinal.slice(0, 4)), Number(sfinal.slice(5, 7)) - 1, Number(sfinal.slice(8, 10)));
 
     let nDias = (dFinal.getTime() - dInicio.getTime()) / (1000 * 60 * 60 * 24);
-    console.log({
-      dInicio,
-      dFinal,
-      nDias
-    });
 
     // lista de los días a graficar
     let lstLabels = [];
