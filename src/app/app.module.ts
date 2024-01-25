@@ -49,6 +49,7 @@ import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.co
 import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component';
 import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ExpedienteItemObsComponent } from './expediente-item-obs/expediente-item-obs.component';
 
 
 const environment = {
@@ -105,6 +106,7 @@ const environment = {
     ExpedientesUpdaterComponent,
     ExpedientesListComponent,
     NotFoundComponent,
+    ExpedienteItemObsComponent,
   ],
   imports: [
     BrowserModule,

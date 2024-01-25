@@ -113,7 +113,8 @@ export class ExpedienteRegisterComponent {
         sfechamodificacion: new Date().getTime().toString(),
         salias: sexpediente.slice(0, 10),
         lactive: true,
-        lcontrato: false
+        lcontrato: false,
+        sobs: '',
       })
       .then((x) => {
         this.router.navigate(['/expediente/', sexpediente]);
