@@ -5,6 +5,8 @@ import { Title } from '@angular/platform-browser';
 import { Colaborador } from './../__clases/colaborador';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import * as XLSX from 'xlsx';
+
 interface Tarea {
   idtarea: string;
   starea: string;
@@ -237,5 +239,27 @@ export class TareasComponent {
       .finally(() => {
         this.lCreating = false;
       })
+  }
+
+  // Download to EXCEL
+  descargarExcel() {
+    let lstJson: Array<any> = [];
+
+    this.lstTareas.forEach(tar => {
+      lstJson.push({
+        'Cliente': tar.scliente,
+        'Encargado': tar.idencargado,
+        'Expediente': tar.sexpediente,
+        'Tarea': tar.starea,
+        'Vencimiento': tar.splazo,
+        'CUMPLIDO': tar.lcumplimiento ? 'SI' : 'NO',
+        'Observaciones': tar.sobservaciones
+      })
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(lstJson);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Tareas");
+    XLSX.writeFile(workbook, 'Tareas SINOE ' + ((new Date()).getTime().toString()) + '.xlsx', { compression: true });
   }
 }
