@@ -13,23 +13,20 @@ import { RdtStatsComponent } from './rdt-stats/rdt-stats.component';
 import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
 import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
 import { ExpedienteItemComponent } from './expediente-item/expediente-item.component';
-import { SinoeComponent } from './sinoe/sinoe.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
 import { ExpUpdaterComponent } from './exp-updater/exp-updater.component';
-import { ClientesComponent } from './clientes/clientes.component';
-import { ClienteItemComponent } from './cliente-item/cliente-item.component';
-import { ClienteNewComponent } from './cliente-new/cliente-new.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
-import { TareasComponent } from './tareas/tareas.component';
 import { ReportePagosComponent } from './reporte-pagos/reporte-pagos.component';
 import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.component';
 import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component'
 import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
+import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -93,10 +90,6 @@ const routes: Routes = [
     canActivate: [autenticacionGuard]
   },
   {
-    path: 'sinoe',
-    component: SinoeComponent
-  },
-  {
     path: 'recursos',
     component: RecursosComponent
   },
@@ -121,28 +114,12 @@ const routes: Routes = [
     component: ExpUpdaterComponent
   },
   {
-    path: 'clientes',
-    component: ClientesComponent
-  },
-  {
-    path: 'cliente',
-    component: ClienteItemComponent
-  },
-  {
-    path: 'cliente-new',
-    component: ClienteNewComponent
-  },
-  {
     path: 'usuarios',
     component: UsersComponent
   },
   {
     path: 'usuario/:id',
     component: UserItemComponent
-  },
-  {
-    path: 'tareas',
-    component: TareasComponent
   },
   {
     path: 'reporte-pagos',
@@ -159,6 +136,14 @@ const routes: Routes = [
   {
     path: 'expedientes-list',
     component: ExpedientesListComponent
+  },
+  {
+    path: 'sinoe-admin',
+    component: SinoeAdminComponent
+  },
+  {
+    path: 'sinoe-worker',
+    component: SinoeWorkerComponent
   },
   {
     path: '**',

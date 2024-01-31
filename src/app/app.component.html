@@ -26,10 +26,6 @@
         </li>
 
         <li class="nav-item" *ngIf="!!user">
-          <a class="nav-link" routerLink="/expediente-search"> Buscar </a>
-        </li>
-
-        <li class="nav-item" *ngIf="!!user">
           <a class="nav-link" routerLink="/recursos"> Recursos </a>
         </li>
 
@@ -40,16 +36,28 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" routerLink="/expediente-new"> Registrar Expediente </a>
+              <a class="dropdown-item" routerLink="/expediente-new"> Registrar EXP </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/expedientes-updater"> Actualizador EXP </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/expediente-search"> Buscador EXP </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
             </li>
             <li>
               <a class="dropdown-item" routerLink="/rdt-generator"> Generar RDT - diario </a>
             </li>
             <li>
-              <a class="dropdown-item" routerLink="/stats-generator"> Generar estadísticas </a>
+              <a class="dropdown-item" routerLink="/stats-generator"> Generar RDT - stats </a>
             </li>
             <li>
-              <a class="dropdown-item" routerLink="/stats-rdt"> Ver estadísticas </a>
+              <a class="dropdown-item" routerLink="/stats-rdt"> Ver RDT - stats </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
             </li>
             <li>
               <a class="dropdown-item" routerLink="/asistencia"> Asistencias </a>
@@ -58,10 +66,7 @@
               <a class="dropdown-item" routerLink="/pagos-honorarios"> Cobranzas </a>
             </li>
             <li>
-              <a class="dropdown-item" routerLink="/tareas"> Tareas - SINOE </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/expedientes-updater"> Actualizador EXP </a>
+              <a class="dropdown-item" routerLink="/sinoe-admin"> Tareas - SINOE </a>
             </li>
             <!-- <li>
               <a class="dropdown-item" routerLink="/usuarios"> Usuarios </a>
@@ -76,6 +81,11 @@
         <li class="nav-item" *ngIf="user?.displayName=='Lizbet Silva Guillén'">
           <a class="nav-link" routerLink="/admin-rdt"> RDTs </a>
         </li>
+
+        <li class="nav-item" *ngIf="!!user && user?.displayName!='Lizbet Silva Guillén' && user?.displayName!='ADMIN'">
+          <a class="nav-link" routerLink="/sinoe-worker"> SINOE </a>
+        </li>
+
       </ul>
 
       <ul class="navbar-nav d-flex flex-row ms-auto me-3">

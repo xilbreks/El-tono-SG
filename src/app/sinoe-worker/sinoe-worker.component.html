@@ -1,0 +1,63 @@
+<h3 style="text-align: center;">
+    Tareas de SINOE
+</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Expediente
+                </th>
+                <th>
+                    Tarea
+                </th>
+                <th>
+                    Vence
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Observaciones
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!lLoading">
+            <tr *ngFor="let t of lstTareas">
+                <td>
+                    {{t.scliente}}
+                </td>
+                <td>
+                    {{t.sexpediente}}
+                </td>
+                <td>
+                    {{t.starea}}
+                </td>
+                <td>
+                    {{t.splazol}}
+                </td>
+                <td style="text-align: center;">
+                    <span *ngIf="t.scolor == 'green'" style="color: green;">
+                        <i class="bi bi-circle-fill"></i>
+                    </span>
+                    <span *ngIf="t.scolor == 'gold'" style="color: gold;">
+                        <i class="bi bi-circle-fill"></i>
+                    </span>
+                    <span *ngIf="t.scolor == 'red'" style="color: red;">
+                        <i class="bi bi-circle-fill"></i>
+                    </span>
+                </td>
+                <td>
+                    {{t.sobservaciones}}
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="lLoading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </tbody>
+    </table>
+</div>

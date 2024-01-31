@@ -21,11 +21,11 @@ interface Tarea {
 }
 
 @Component({
-  selector: 'app-tareas',
-  templateUrl: './tareas.component.html',
-  styleUrls: ['./tareas.component.scss']
+  selector: 'app-sinoe-admin',
+  templateUrl: './sinoe-admin.component.html',
+  styleUrls: ['./sinoe-admin.component.scss']
 })
-export class TareasComponent {
+export class SinoeAdminComponent {
   lstTareas: Array<Tarea> = [];
   lstColaboradores: Array<Colaborador> = [];
   frmFiltros: FormGroup;

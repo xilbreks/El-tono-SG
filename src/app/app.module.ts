@@ -28,7 +28,6 @@ import { ExpedienteItemPaymentComponent } from './expediente-item-payment/expedi
 import { ExpedienteItemTasksComponent } from './expediente-item-tasks/expediente-item-tasks.component';
 import { ExpedienteItemClientComponent } from './expediente-item-client/expediente-item-client.component';
 import { ExpedienteItemCallsComponent } from './expediente-item-calls/expediente-item-calls.component';
-import { SinoeComponent } from './sinoe/sinoe.component';
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
@@ -38,18 +37,16 @@ import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
 import { ExpUpdaterComponent } from './exp-updater/exp-updater.component';
 import { ExpedienteItemSinoeComponent } from './expediente-item-sinoe/expediente-item-sinoe.component';
-import { ClientesComponent } from './clientes/clientes.component';
-import { ClienteItemComponent } from './cliente-item/cliente-item.component';
-import { ClienteNewComponent } from './cliente-new/cliente-new.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
-import { TareasComponent } from './tareas/tareas.component';
 import { ReportePagosComponent } from './reporte-pagos/reporte-pagos.component';
 import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.component';
 import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component';
 import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ExpedienteItemObsComponent } from './expediente-item-obs/expediente-item-obs.component';
+import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
+import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 
 
 const environment = {
@@ -85,7 +82,6 @@ const environment = {
     ExpedienteItemTasksComponent,
     ExpedienteItemClientComponent,
     ExpedienteItemCallsComponent,
-    SinoeComponent,
     ExpedienteRegisterComponent,
     RecursosComponent,
     RecursosItersComponent,
@@ -95,18 +91,16 @@ const environment = {
     TestingComponent,
     ExpUpdaterComponent,
     ExpedienteItemSinoeComponent,
-    ClientesComponent,
-    ClienteItemComponent,
-    ClienteNewComponent,
     UsersComponent,
     UserItemComponent,
-    TareasComponent,
     ReportePagosComponent,
     PagosHonorariosComponent,
     ExpedientesUpdaterComponent,
     ExpedientesListComponent,
     NotFoundComponent,
     ExpedienteItemObsComponent,
+    SinoeWorkerComponent,
+    SinoeAdminComponent,
   ],
   imports: [
     BrowserModule,

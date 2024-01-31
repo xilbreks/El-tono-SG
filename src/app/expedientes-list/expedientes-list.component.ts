@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
@@ -6,7 +6,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   templateUrl: './expedientes-list.component.html',
   styleUrls: ['./expedientes-list.component.scss']
 })
-export class ExpedientesListComponent {
+export class ExpedientesListComponent implements AfterViewInit {
+  @ViewChild('searchTerm') searchTerm: any;
   lstExpedientes: Array<any> = [];
   lstExpedientesFiltered: Array<any> = [];
   lModeFiltering = false;
@@ -26,6 +27,10 @@ export class ExpedientesListComponent {
     private storage: AngularFireStorage
   ) {
     this.obtenerExpedientes();
+  }
+
+  ngAfterViewInit(): void {
+    this.searchTerm.nativeElement.focus();
   }
 
   obtenerExpedientes() {
