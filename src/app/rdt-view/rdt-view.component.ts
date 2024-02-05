@@ -75,8 +75,13 @@ export class RdtViewComponent {
       .doc(this.idrdt)
       .valueChanges()
       .subscribe((rdt: any) => {
+        let dDate = new Date(rdt.nfecha);
+        let syear = dDate.getFullYear();
+        let smonth = (dDate.getMonth() + 1) < 10 ? '0' + (dDate.getMonth() + 1) : '' + (dDate.getMonth() + 1);
+        let sday = (dDate.getDate()) < 10 ? '0' + (dDate.getDate()) : '' + (dDate.getDate());
+
         this.objRdt.scolaborador = rdt.scolaborador;
-        this.objRdt.sfecha2 = (new Date(rdt.nfecha)).toLocaleDateString();
+        this.objRdt.sfecha2 = sday + '/' + smonth + '/' + syear;
         this.objRdt.shoraingreso = rdt.shoraingreso;
         this.objRdt.shorasalida = rdt.shorasalida;
         this.objRdt.sminutoingreso = rdt.sminutoingreso;
@@ -103,8 +108,8 @@ export class RdtViewComponent {
           objTarea.idtarea = tarea.idtarea;
           objTarea.sfecharegistro = dfreg.getDate() + '/' +
             (dfreg.getMonth() + 1) + '/' + dfreg.getFullYear() + ' ' +
-            (dfreg.getHours()>9?dfreg.getHours():'0'+dfreg.getHours()) + ':' + 
-            (dfreg.getMinutes()>9?dfreg.getMinutes():'0'+dfreg.getMinutes());
+            (dfreg.getHours() > 9 ? dfreg.getHours() : '0' + dfreg.getHours()) + ':' +
+            (dfreg.getMinutes() > 9 ? dfreg.getMinutes() : '0' + dfreg.getMinutes());
           objTarea.stipocliente = tarea.stipocliente;
           objTarea.stipoatencion = tarea.stipoatencion;
           objTarea.sdelegadopor = tarea.sdelegadopor;

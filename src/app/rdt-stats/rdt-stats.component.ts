@@ -28,15 +28,15 @@ export class RdtStatsComponent {
     this.getStats();
   }
 
-  public getStats() {
-    let obs = this.db
-      .collection('estadisticas')
-      .valueChanges()
-      .subscribe((res: Array<any>) => {
-        this.sTitulo = res[0].texto;
-        this.lstStats = res;
+  getStats() {
+    let obs = this.db.collection('estadisticas').valueChanges()
+      .subscribe((lstRes: Array<any>) => {
+        let stime = lstRes[0]['stime'];
+        this.sTitulo = lstRes[0]['texto'];
+
+        this.lstStats = lstRes;
         this.lstStats.shift();
-        obs.unsubscribe();
+        this.lstStats = this.lstStats.filter(x => x.stime == stime);
 
         this.crearTipoAtencionChart();
         this.crearTipoProcesoChart();
@@ -48,7 +48,9 @@ export class RdtStatsComponent {
 
         this.crearTipoTareaChart();
         this.crearMontoRecaudadoChart();
-      });
+
+        obs.unsubscribe();
+      })
   }
 
   crearTipoAtencionChart() {
@@ -114,7 +116,7 @@ export class RdtStatsComponent {
     let varios = 0;
 
     this.lstStats.forEach(user => {
-      nc += user.ta['nc'];
+      nc += user.tp['nc'];
       laboral += user.tp['laboral'];
       civil += user.tp['civil'];
       penal += user.tp['penal'];
@@ -171,12 +173,14 @@ export class RdtStatsComponent {
 
   crearTipoClienteChart() {
     let nc = 0;
+    let consulta = 0;
     let nuevo = 0;
     let antiguo = 0;
     let varios = 0;
 
     this.lstStats.forEach(user => {
-      nc += user.ta['nc'];
+      nc += user.tc['nc'];
+      consulta += user.tc['consulta']
       nuevo += user.tc['nuevo'];
       antiguo += user.tc['antiguo'];
       varios += user.tc['varios'];
@@ -187,6 +191,7 @@ export class RdtStatsComponent {
       data: {
         labels: [
           nc + ' : NC',
+          consulta + ' : Consulta',
           nuevo + ' : Nuevo',
           antiguo + ' : Antiguo',
           varios + ' : Varios'
@@ -195,11 +200,12 @@ export class RdtStatsComponent {
           {
             data: [
               nc,
+              consulta,
               nuevo,
               antiguo,
               varios
             ],
-            backgroundColor: ['black', 'green', 'skyblue', 'purple']
+            backgroundColor: ['black', 'orange', 'green', 'skyblue', 'purple']
           }
         ]
       },

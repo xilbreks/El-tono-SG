@@ -316,7 +316,7 @@ export class RdtEditComponent {
       { id: 102, pick: true, desc: '102.- ORDEN Y LIMPIEZA' },
       { id: 103, pick: true, desc: '103.- ACTUALIZACION DEL PLANER' },
       { id: 104, pick: true, desc: '104.- SESIONES DE COMPARTIR(ANIVERSARIOS, CUMPLEAÑOS, FESTIVIDADES, ETC)' },
-      // { id: 110, pick: true, desc: '110.- OTRO' },
+      { id: 110, pick: true, desc: '110.- LLENADO DE RDT' },
     ]
   }
 
@@ -328,12 +328,17 @@ export class RdtEditComponent {
       .doc(this.idrdt)
       .valueChanges()
       .subscribe((rdt: any) => {
+        let dDate = new Date(rdt.nfecha);
+        let syear = dDate.getFullYear();
+        let smonth = (dDate.getMonth() + 1) < 10 ? '0' + (dDate.getMonth() + 1) : '' + (dDate.getMonth() + 1);
+        let sday = (dDate.getDate()) < 10 ? '0' + (dDate.getDate()) : '' + (dDate.getDate());
+
         this.objRdt.idcolaborador = rdt.idcolaborador;
         this.objRdt.scolaborador = rdt.scolaborador;
         this.objRdt.sfecha = rdt.sfecha;
         this.objRdt.nsemana = rdt.nsemana;
         this.objRdt.ndia = rdt.ndia;
-        this.objRdt.sfecha2 = (new Date(rdt.nfecha)).toLocaleDateString();
+        this.objRdt.sfecha2 = sday + '/' + smonth + '/' + syear;
       });
   }
 
@@ -371,9 +376,9 @@ export class RdtEditComponent {
           objTarea.sacceje = tarea.sacceje;
           objTarea.shorasatencion = tarea.shorasatencion;
           objTarea.sminutosatencion = tarea.sminutosatencion;
-          objTarea.ncobrohonorario = tarea.ncobrohonorario; 
-          objTarea.ningresoarancel = tarea.ningresoarancel; 
-          objTarea.nsalidaarancel = tarea.nsalidaarancel; 
+          objTarea.ncobrohonorario = tarea.ncobrohonorario;
+          objTarea.ningresoarancel = tarea.ningresoarancel;
+          objTarea.nsalidaarancel = tarea.nsalidaarancel;
           this.lstTareas.push(objTarea);
 
           horas = horas + Number(tarea.shorasatencion);

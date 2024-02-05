@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 class ObjTarea {
   idrdt: string = '';
-  stipocliente: 'nc' | 'nuevo' | 'antiguo' | 'varios' = 'nc';
+  stipocliente: 'nc' | 'consulta' | 'nuevo' | 'antiguo' | 'varios' = 'nc';
   stipoatencion: 'nc' | 'por-expediente' | 'presencial' | 'via-celular' | 'via-internet' = 'presencial';
   sespecialidad: 'nc' | 'laboral' | 'penal' | 'civil' | 'familia' | 'constitucional' | 'tramite-adm' | 'tramite-not' | 'varios' = 'nc';
   ncodeje: string = '';
@@ -62,7 +62,7 @@ export class StatsGeneratorComponent {
       desde ${this.frmStats.value['sinicio']}
       hasta ${this.frmStats.value['sfinal']}
       -
-      (actualizado al ${(new Date()).toLocaleString()})
+      (generado el ${(new Date()).toLocaleString()})
     `;
     let obs = this.db
       .collection('tareas', (ref) => {
@@ -85,9 +85,11 @@ export class StatsGeneratorComponent {
         /////////////////////////////////////////
 
         let lstStats: Array<any> = [];
+        let stime: string = (new Date()).getTime().toString();
         lstStats.push({
           user: '001',
-          texto: sDescripcion
+          texto: sDescripcion,
+          stime: stime,
         });
         this.lstUsuarios.forEach(usuario => {
           let suser = usuario.id;
@@ -97,6 +99,7 @@ export class StatsGeneratorComponent {
             color: usuario.scolor,
             tc: {
               'nc': 0,
+              'consulta': 0,
               'nuevo': 0,
               'antiguo': 0,
               'varios': 0
@@ -129,7 +132,8 @@ export class StatsGeneratorComponent {
             ],
             ncobrohonorario: 0,
             ningresoarancel: 0,
-            nsalidaarancel: 0
+            nsalidaarancel: 0,
+            stime: stime,
           }
           let lstExpedientes: Array<any> = [];
           this.lstTareas.forEach((tarea: ObjTarea) => {
