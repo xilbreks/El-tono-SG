@@ -405,6 +405,7 @@ export class RdtEditComponent {
     this.lCreating = true;
     var objTarea = this.frmNewTask.value;
     const id = new Date().getTime().toString();
+    const sexp = objTarea['sexpediente'].trim().toUpperCase();
 
     this.db
       .collection('tareas')
@@ -418,17 +419,147 @@ export class RdtEditComponent {
         sfecha: this.objRdt.sfecha,
         nsemana: this.objRdt.nsemana,
         nday: this.objRdt.ndia,
-        sexpediente: objTarea['sexpediente'].trim().toUpperCase(),
+        sexpediente: sexp,
       })
       .then((x) => {
         this.modalService.dismissAll();
         this.frmNewTask.reset();
+
+        if(objTarea['ncobrohonorario'] > 0) {
+          this.registrarHonorario({
+            id: Number(id),
+            sexp: sexp,
+            nmonto: objTarea['ncobrohonorario'],
+            sfecha: this.objRdt.sfecha,
+            idcolaborador: this.objRdt.idcolaborador,
+            scolaborador: this.objRdt.scolaborador,
+          })
+        }
+        if(objTarea['ningresoarancel'] > 0) {
+          this.registrarIngresoArancel({
+            id: Number(id),
+            sexp: sexp,
+            nmonto: objTarea['ningresoarancel'],
+            sfecha: this.objRdt.sfecha,
+            idcolaborador: this.objRdt.idcolaborador,
+            scolaborador: this.objRdt.scolaborador,
+          })
+        }
+        if(objTarea['nsalidaarancel'] > 0) {
+          this.registrarGastoArancel({
+            id: Number(id),
+            sexp: sexp,
+            nmonto: objTarea['nsalidaarancel'],
+            sfecha: this.objRdt.sfecha,
+            idcolaborador: this.objRdt.idcolaborador,
+            scolaborador: this.objRdt.scolaborador,
+          })
+        }
       })
       .catch(() => {
         window.alert('ERROR al crear tarea')
       })
       .finally(() => {
         this.lCreating = false;
+      });
+  }
+
+  registrarHonorario(arg: {
+    id: number,
+    sexp: string,
+    nmonto: number,
+    sfecha: string,
+    idcolaborador: string,
+    scolaborador: string,
+  }) {
+    const id = (new Date(arg.id).getTime() + 10).toString();
+
+    this.db
+      .collection('pagos')
+      .doc(id)
+      .set({
+        idpago: id,
+        lactive: true,
+        sexpediente: arg.sexp,
+        nmonto: arg.nmonto,
+        sfecha: arg.sfecha,
+        sdescripcion: 'Pago por Honorarios - Cobrado por ' + arg.scolaborador + ' [vía RDT]',
+        smodificador: arg.idcolaborador
+      })
+      .then((x) => {
+        // success
+      })
+      .catch(() => {
+        // error
+      })
+      .finally(() => {
+        // completed
+      });
+  }
+
+  registrarIngresoArancel(arg: {
+    id: number,
+    sexp: string,
+    nmonto: number,
+    sfecha: string,
+    idcolaborador: string,
+    scolaborador: string,
+  }) {
+    const id = (new Date(arg.id).getTime() + 20).toString();
+
+    this.db
+      .collection('pagos')
+      .doc(id)
+      .set({
+        idpago: id,
+        lactive: true,
+        sexpediente: arg.sexp,
+        nmonto: arg.nmonto,
+        sfecha: arg.sfecha,
+        sdescripcion: 'Pago para Aranceles - Cobrado por ' + arg.scolaborador + ' [vía RDT]',
+        smodificador: arg.idcolaborador
+      })
+      .then((x) => {
+        // success
+      })
+      .catch(() => {
+        // error
+      })
+      .finally(() => {
+        // completed
+      });
+  }
+
+  registrarGastoArancel(arg: {
+    id: number,
+    sexp: string,
+    nmonto: number,
+    sfecha: string,
+    idcolaborador: string,
+    scolaborador: string,
+  }) {
+    const id = (new Date(arg.id).getTime() + 30).toString();
+
+    this.db
+      .collection('pagos')
+      .doc(id)
+      .set({
+        idpago: id,
+        lactive: true,
+        sexpediente: arg.sexp,
+        nmonto: -(arg.nmonto),
+        sfecha: arg.sfecha,
+        sdescripcion: 'Gasto en Aranceles - Dispuesto por ' + arg.scolaborador + ' [vía RDT]',
+        smodificador: arg.idcolaborador
+      })
+      .then((x) => {
+        // success
+      })
+      .catch(() => {
+        // error
+      })
+      .finally(() => {
+        // completed
       });
   }
 
