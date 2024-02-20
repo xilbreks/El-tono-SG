@@ -214,7 +214,10 @@ export class ExpedienteItemPaymentComponent implements OnInit {
       .subscribe((res: Array<any>) => {
         this.lstPayments = [];
         this.nSumPayments = 0;
-        res.forEach(p => {
+        res.sort((a, b) => {
+          if (a.sfecha > b.sfecha) return 1;
+          else return -1;
+        }).forEach(p => {
           let sfecha = p.sfecha;
           let sfechalocal = p.sfecha;
           // Verificar si la fecha tiene formato correcto YYYY-MM-DD
