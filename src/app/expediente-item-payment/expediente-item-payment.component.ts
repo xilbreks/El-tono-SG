@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PagoHonorario } from './../__clases/pago-honorario';
+import { Contrato } from './../__clases/contrato';
 
 @Component({
   selector: 'app-expediente-item-payment',
@@ -12,35 +13,65 @@ import { PagoHonorario } from './../__clases/pago-honorario';
 })
 export class ExpedienteItemPaymentComponent implements OnInit {
   @Input('sexpediente') sexpediente: string = '';
-  nmontocontrato: number = 0;
-  lstPagos: Array<PagoHonorario> = [];
-  nMontoTotal: number = 0;
 
+  // Contracts
+  lstContracts: Array<Contrato> = [];
+  nSumContracts: number = 0;
+  frmNewContract: FormGroup;
+  frmEditContract: FormGroup;
+
+  lLoadingC: boolean = false;
+  lCreatingC: boolean = false;
+  lUpdatingC: boolean = false;
+
+
+  // Payments
+  lstPayments: Array<PagoHonorario> = [];
+  nSumPayments: number = 0;
   frmNewPayment: FormGroup;
   frmEditPayment: FormGroup;
 
-  lLoading: boolean = false;
-  lCreating: boolean = false;
-  lUpdating: boolean = false;
+  lLoadingP: boolean = false;
+  lCreatingP: boolean = false;
+  lUpdatingP: boolean = false;
 
+
+  // Others
   lViewMode: boolean = true;
 
   constructor(
     private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
-    /*************************
-     * INIT FORM NEW PAYMENT *
-     *************************/
+    /*******************************
+     ****** FORM NEW CONTRACT ******
+     *******************************/
+    this.frmNewContract = new FormGroup({
+      sdetalle: new FormControl(null, Validators.required),
+      nmonto: new FormControl(null, Validators.required),
+    });
+
+    /********************************
+     ****** FORM EDIT CONTRACT ******
+     ********************************/
+    this.frmEditContract = new FormGroup({
+      idcontrato: new FormControl(null, Validators.required),
+      sdetalle: new FormControl(null, Validators.required),
+      nmonto: new FormControl(null, Validators.required),
+    });
+
+    /******************************
+     ****** FORM NEW PAYMENT ******
+     ******************************/
     this.frmNewPayment = new FormGroup({
       nmonto: new FormControl(null, Validators.required),
       sfecha: new FormControl(null, Validators.required),
       sdescripcion: new FormControl(null, Validators.required),
     });
 
-    /**************************
-     * INIT FORM EDIT PAYMENT *
-     **************************/
+    /*******************************
+     ****** FORM EDIT PAYMENT ******
+     *******************************/
     this.frmEditPayment = new FormGroup({
       idpago: new FormControl(null, Validators.required),
       nmonto: new FormControl(null, Validators.required),
@@ -50,34 +81,130 @@ export class ExpedienteItemPaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMontoContrato();
+    this.getContracts();
     this.getPayments();
   }
 
-  getMontoContrato() {
-    let obs = this.db.collection('expedientes')
-      .doc(this.sexpediente)
+  /*********************************************
+   **************** CONTRACTS ******************
+   *********************************************/
+
+  getContracts() {
+    this.lLoadingC = true;
+    let obs = this.db
+      .collection('contratos', ref => {
+        return ref.where('sexpediente', '==', this.sexpediente)
+          .where('lactive', '==', true)
+      })
       .valueChanges()
-      .subscribe((res: any) => {
-        this.nmontocontrato = res.nmontocontrato ? res.nmontocontrato : 0;
+      .subscribe((res: Array<any>) => {
+        this.lstContracts = res;
+        this.nSumContracts = 0;
+        this.lstContracts.forEach(c => {
+          this.nSumContracts += c.nmonto
+        });
 
+        this.lLoadingC = false;
         obs.unsubscribe();
+      });
+  }
+
+  openNewContractModal(modal: any) {
+    this.modalService.open(modal, {
+      size: 'sm'
+    });
+  }
+
+  addNewContract() {
+    this.lCreatingC = true;
+    const id = new Date().getTime().toString();
+
+    this.db
+      .collection('contratos')
+      .doc(id)
+      .set({
+        idcontrato: id,
+        lactive: true,
+        sexpediente: this.sexpediente,
+        sdetalle: this.frmNewContract.value['sdetalle'],
+        nmonto: this.frmNewContract.value['nmonto'],
+      })
+      .then((x) => {
+        this.getContracts();
+        this.modalService.dismissAll();
+        this.frmNewContract.reset();
+      })
+      .catch(() => {
+        window.alert('ERROR al registrar contrato')
+      })
+      .finally(() => {
+        this.lCreatingC = false;
+      });
+  }
+
+  openEditContractModal(c: Contrato, modal: any) {
+    this.frmEditContract.setValue({
+      idcontrato: c.idcontrato,
+      sdetalle: c.sdetalle,
+      nmonto: c.nmonto,
+    })
+
+    this.modalService.open(modal, {
+      size: 'sm'
+    });
+  }
+
+  editContract() {
+    this.lUpdatingC = true;
+    const id = this.frmEditContract.value['idcontrato'];
+
+    this.db
+      .collection('contratos')
+      .doc(id)
+      .update({
+        sdetalle: this.frmEditContract.value['sdetalle'],
+        nmonto: this.frmEditContract.value['nmonto'],
+      })
+      .then((x) => {
+        this.getContracts();
+        this.modalService.dismissAll();
+        this.frmEditContract.reset();
+      })
+      .catch(() => {
+        window.alert('ERROR al actualizar contrato')
+      })
+      .finally(() => {
+        this.lUpdatingC = false;
       })
   }
 
-  setMontoContrato(nmonto: any) {
-    this.db.collection('expedientes')
-      .doc(this.sexpediente)
-      .update({
-        nmontocontrato: nmonto.value
-      })
-      .then(() => {
-        this.nmontocontrato = nmonto.value;
-      })
+  openDeleteContractModal(c: Contrato) {
+    let lBorrar = window.confirm('¿Está seguro de borrar contrato?')
+
+    if (lBorrar) {
+      this.deleteContract(c.idcontrato)
+    }
   }
+
+  deleteContract(idcontrato: string) {
+    this.db.collection('contratos')
+      .doc(idcontrato)
+      .update({
+        lactive: false,
+      }).then(() => {
+        this.getContracts();
+      })
+      .catch(err => {
+        window.alert('ERROR al quitar contrato')
+      });
+  }
+
+  /*********************************************
+   ***************** PAYMENTS ******************
+   *********************************************/
 
   getPayments(): void {
-    this.lLoading = true;
+    this.lLoadingP = true;
     let obs = this.db
       .collection('pagos', ref => {
         return ref.where('sexpediente', '==', this.sexpediente)
@@ -85,9 +212,9 @@ export class ExpedienteItemPaymentComponent implements OnInit {
       })
       .valueChanges()
       .subscribe((res: Array<any>) => {
-        this.lstPagos = [];
-        this.nMontoTotal = 0;
-        res.forEach((p) => {
+        this.lstPayments = [];
+        this.nSumPayments = 0;
+        res.forEach(p => {
           let sfecha = p.sfecha;
           let sfechalocal = p.sfecha;
           // Verificar si la fecha tiene formato correcto YYYY-MM-DD
@@ -97,14 +224,14 @@ export class ExpedienteItemPaymentComponent implements OnInit {
             let syear = sfecha.slice(0, 4);
             sfechalocal = sday + '/' + smonth + '/' + syear;
           }
-          this.lstPagos.push({
+          this.lstPayments.push({
             ...p,
             sfechalocal
           })
-          this.nMontoTotal = this.nMontoTotal + p.nmonto;
+          this.nSumPayments += p.nmonto;
         });
 
-        this.lLoading = false;
+        this.lLoadingP = false;
         obs.unsubscribe();
       });
   }
@@ -115,29 +242,8 @@ export class ExpedienteItemPaymentComponent implements OnInit {
     });
   }
 
-  openEditPaymentModal(pago: PagoHonorario, modal: any) {
-    this.frmEditPayment.setValue({
-      idpago: pago.idpago,
-      nmonto: pago.nmonto,
-      sfecha: pago.sfecha,
-      sdescripcion: pago.sdescripcion
-    })
-
-    this.modalService.open(modal, {
-      size: 'sm'
-    });
-  }
-
-  openDeletePaymentModal(pago: PagoHonorario) {
-    let lBorrar = window.confirm('¿Está seguro de borrar pago?')
-
-    if (lBorrar) {
-      this.deletePayment(pago.idpago)
-    }
-  }
-
   addNewPayment() {
-    this.lCreating = true;
+    this.lCreatingP = true;
     const id = new Date().getTime().toString();
 
     this.db
@@ -161,12 +267,25 @@ export class ExpedienteItemPaymentComponent implements OnInit {
         window.alert('ERROR al registrar pago')
       })
       .finally(() => {
-        this.lCreating = false;
+        this.lCreatingP = false;
       });
   }
 
+  openEditPaymentModal(pago: PagoHonorario, modal: any) {
+    this.frmEditPayment.setValue({
+      idpago: pago.idpago,
+      nmonto: pago.nmonto,
+      sfecha: pago.sfecha,
+      sdescripcion: pago.sdescripcion
+    })
+
+    this.modalService.open(modal, {
+      size: 'sm'
+    });
+  }
+
   editPayment() {
-    this.lUpdating = true;
+    this.lUpdatingP = true;
     const id = this.frmEditPayment.value['idpago'];
 
     this.db
@@ -187,8 +306,16 @@ export class ExpedienteItemPaymentComponent implements OnInit {
         window.alert('ERROR al actualizar pago')
       })
       .finally(() => {
-        this.lUpdating = false;
+        this.lUpdatingP = false;
       })
+  }
+
+  openDeletePaymentModal(pago: PagoHonorario) {
+    let lBorrar = window.confirm('¿Está seguro de borrar pago?')
+
+    if (lBorrar) {
+      this.deletePayment(pago.idpago)
+    }
   }
 
   deletePayment(idpago: string) {
@@ -202,6 +329,7 @@ export class ExpedienteItemPaymentComponent implements OnInit {
         window.alert('ERROR al quitar pago')
       });
   }
+
 
   ///////////////////////////////////////////////
 

@@ -1,17 +1,5 @@
-<i *ngIf="nmontocontrato > 0">
-    Monto de Contrato: {{nmontocontrato | number:'2.2-2'}}
-</i>
-
-<div *ngIf="!lViewMode">
-    <label for="nmontoc">Nuevo Monto Contrato</label>
-    <input type="number" id="nmontoc" #nmontoc>
-    <button (click)="setMontoContrato(nmontoc)" class="btn btn-primary">
-        Actualizar
-    </button>
-</div>
-
 <div style="display: flex;">
-    <span style="flex: auto 1; font-size: 1.5rem;">Cuadro de Pagos:</span>
+    <span style="flex: auto 1; font-size: 1.5rem;"></span>
     <span>
         <button (click)="cambiarModo()" *ngIf="lViewMode" class="btn btn-secondary btn-sm">
             <i class="bi bi-lock-fill"></i>
@@ -22,85 +10,154 @@
     </span>
 </div>
 
-<div *ngIf="!lViewMode">
-    <button (click)="openNewPaymentModal(newPaymentModal)" class="btn btn-success">
-        Agregar Pago
-    </button>
+<div class="row">
+    <div class="col-12 col-md-6 col-lg-4 col-sm-12">
+        <h4>
+            Contrato
+            <button (click)="openNewContractModal(newContractModal)" class="btn btn-success btn-sm" *ngIf="!lViewMode">
+                + Add
+            </button>
+        </h4>
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>
+                        Detalle
+                    </th>
+                    <th>
+                        Monto
+                    </th>
+                    <th *ngIf="!lViewMode">
+                        Editar
+                    </th>
+                    <th *ngIf="!lViewMode">
+                        Quitar
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!lLoadingC && lstContracts.length > 0">
+                <tr *ngFor="let c of lstContracts">
+                    <td>
+                        {{c.sdetalle}}
+                    </td>
+                    <td>
+                        {{c.nmonto | number:'2.2-2' }}
+                    </td>
+                    <td *ngIf="!lViewMode">
+                        <button (click)="openEditContractModal(c, editContractModal)" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                    </td>
+                    <td *ngIf="!lViewMode">
+                        <button (click)="openDeleteContractModal(c)" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!lLoadingC && lstContracts.length == 0">
+                No hay Contratos Registrados
+            </tbody>
+            <tbody *ngIf="lLoadingC">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        TOTAL
+                    </th>
+                    <th>
+                        {{nSumContracts | number:'2.2-2' }}
+                    </th>
+                    <th colspan="2" *ngIf="!lViewMode">
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
 
-<div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    Fecha
-                </th>
-                <th>
-                    Monto(S/)
-                </th>
-                <th>
-                    Descripción
-                </th>
-                <th *ngIf="!lViewMode">
-                    Editar
-                </th>
-                <th *ngIf="!lViewMode">
-                    Quitar
-                </th>
-            </tr>
-        </thead>
-        <tbody *ngIf="!lLoading && lstPagos.length > 0">
-            <tr *ngFor="let pago of lstPagos; let i = index">
-                <td>
-                    {{i+1}}
-                </td>
-                <td>
-                    {{pago.sfechalocal}}
-                </td>
-                <td>
-                    {{pago.nmonto | number:'2.2-2'}}
-                </td>
-                <td>
-                    {{pago.sdescripcion}}
-                </td>
-                <td *ngIf="!lViewMode">
-                    <button (click)="openEditPaymentModal(pago, editPaymentModal)" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-fill"></i>
-                    </button>
-                </td>
-                <td *ngIf="!lViewMode">
-                    <button (click)="openDeletePaymentModal(pago)" class="btn btn-danger btn-sm">
-                        <i class="bi bi-trash-fill"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-        <tbody *ngIf="!lLoading && lstPagos.length == 0">
-            No hay Pagos Registrados
-        </tbody>
-        <tbody *ngIf="lLoading">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>
+<div class="row">
+    <div class="col-12">
+        <h4>
+            Pagos
+            <button (click)="openNewPaymentModal(newPaymentModal)" class="btn btn-success btn-sm" *ngIf="!lViewMode">
+                + Add
+            </button>
+        </h4>
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Monto(S/)
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                    <th *ngIf="!lViewMode">
+                        Editar
+                    </th>
+                    <th *ngIf="!lViewMode">
+                        Quitar
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!lLoadingP && lstPayments.length > 0">
+                <tr *ngFor="let pago of lstPayments; let i = index">
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td>
+                        {{pago.sfechalocal}}
+                    </td>
+                    <td>
+                        {{pago.nmonto | number:'2.2-2'}}
+                    </td>
+                    <td>
+                        {{pago.sdescripcion}}
+                    </td>
+                    <td *ngIf="!lViewMode">
+                        <button (click)="openEditPaymentModal(pago, editPaymentModal)" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                    </td>
+                    <td *ngIf="!lViewMode">
+                        <button (click)="openDeletePaymentModal(pago)" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!lLoadingP && lstPayments.length == 0">
+                No hay Pagos Registrados
+            </tbody>
+            <tbody *ngIf="lLoadingP">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
 
-                </th>
-                <th>
-                    SUMA TOTAL
-                </th>
-                <th>
-                    {{nMontoTotal | number:'2.2-2'}}
-                </th>
-                <th colspan="3">
+                    </th>
+                    <th>
+                        TOTAL
+                    </th>
+                    <th>
+                        {{nSumPayments | number:'2.2-2'}}
+                    </th>
+                    <th colspan="3">
 
-                </th>
-            </tr>
-        </tfoot>
-    </table>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
 
 <!-----------------------------------------------
@@ -141,13 +198,13 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="addNewPayment()"
-            [disabled]="!(frmNewPayment.valid && !lCreating)">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreating">
+            [disabled]="!(frmNewPayment.valid && !lCreatingP)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreatingP">
             </span>
-            <span class="sr-only" *ngIf="!lCreating">
+            <span class="sr-only" *ngIf="!lCreatingP">
                 Guardar
             </span>
-            <span class="sr-only" *ngIf="lCreating">
+            <span class="sr-only" *ngIf="lCreatingP">
                 Guardando...
             </span>
         </button>
@@ -192,13 +249,95 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="editPayment()"
-            [disabled]="!(frmEditPayment.valid && !lUpdating)">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            [disabled]="!(frmEditPayment.valid && !lUpdatingP)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdatingP">
             </span>
-            <span class="sr-only" *ngIf="!lUpdating">
+            <span class="sr-only" *ngIf="!lUpdatingP">
                 Actualizar
             </span>
-            <span class="sr-only" *ngIf="lUpdating">
+            <span class="sr-only" *ngIf="lUpdatingP">
+                Actualizando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!------------------------------------------------
+  ------------- ADD CONTRACT MODAL ---------------
+  ------------------------------------------------>
+<ng-template #newContractModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Registrar Detalle</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmNewContract" autocomplete="off">
+            <div class="row">
+                <label for="sdetalle" class="form-label">
+                    Detalle
+                </label>
+                <input type="text" id="sdetalle" class="form-control" formControlName="sdetalle">
+            </div>
+
+            <div class="row">
+                <label for="nmonto" class="form-label">
+                    Monto
+                </label>
+                <input type="number" class="form-control" id="nmonto" formControlName="nmonto" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addNewContract()"
+            [disabled]="!(frmNewContract.valid && !lCreatingC)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreatingC">
+            </span>
+            <span class="sr-only" *ngIf="!lCreatingC">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lCreatingC">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!------------------------------------------------
+  ------------- EDIT CONTRACT MODAL --------------
+  ------------------------------------------------>
+<ng-template #editContractModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar Detalle</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmEditContract" autocomplete="off">
+            <div class="row">
+                <label for="sdetalle" class="form-label">
+                    Detalle
+                </label>
+                <input type="text" id="sdetalle" class="form-control" formControlName="sdetalle">
+            </div>
+
+            <div class="row">
+                <label for="nmonto" class="form-label">
+                    Monto
+                </label>
+                <input type="number" class="form-control" id="nmonto" formControlName="nmonto" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editContract()"
+            [disabled]="!(frmEditContract.valid && !lUpdatingC)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdatingC">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdatingC">
+                Actualizar
+            </span>
+            <span class="sr-only" *ngIf="lUpdatingC">
                 Actualizando...
             </span>
         </button>
