@@ -13,6 +13,19 @@
     <table style="width:100%">
         <tr>
             <td>
+                <b>TIPO DOC:</b>
+            </td>
+            <td>
+                <select class="form-select" formControlName="idtipodoc">
+                    <option value="EXPEDIENTE-ORIGEN">EXPEDIENTE ORIGEN</option>
+                    <option value="CASACION-2DA-SALA">CASACION 2DA SALA</option>
+                    <option value="CASACION-4TA-SALA">CASACION 4TA SALA</option>
+                    <option value="CARPETA-FISCAL">CARPETA FISCAL</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <b>ESPECIALIDAD:</b>
             </td>
             <td>
@@ -35,14 +48,6 @@
                         {{mat.smateria}}
                     </option>
                 </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>JUEZ:</b>
-            </td>
-            <td>
-                <input type="text" class="form-control" formControlName="sjuez">
             </td>
         </tr>
         <tr>

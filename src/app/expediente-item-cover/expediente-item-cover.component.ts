@@ -7,11 +7,11 @@ class ObjExpediente {
   sexpediente: string = '';
   sdemandado: string = '';
   sdemandante: string = '';
+  idtipodoc: string = '';
   sespecialidad: string = '';
   sdistritojuris: string = '';
   sorganojuris: string = '';
   sespecialista: string = '';
-  sjuez: string = '';
   smateria: string = '';
   ssumilla: string = '';
   sfechamodificacion: string = '';
