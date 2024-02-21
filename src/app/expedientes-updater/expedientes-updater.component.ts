@@ -51,6 +51,7 @@ export class ExpedientesUpdaterComponent {
           this.lstExpedientes.push({
             sexpediente: exp.sexpediente,
             sespecialidad: exp.sespecialidad,
+            idtipodoc: exp.idtipodoc,
             smateria: exp.smateria,
             idmateria: exp.idmateria,
             sdemandante: exp.sdemandante,

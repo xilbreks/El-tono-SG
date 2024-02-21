@@ -35,6 +35,18 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
+            <button class="nav-link" id="cas-2-tab" data-bs-toggle="tab" data-bs-target="#cas-2-tab-pane" type="button"
+                role="tab" aria-selected="true">
+                2da Sala
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="cas-4-tab" data-bs-toggle="tab" data-bs-target="#cas-4-tab-pane" type="button"
+                role="tab" aria-selected="true">
+                4ta Sala
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
             <button class="nav-link" id="lab4-tab" data-bs-toggle="tab" data-bs-target="#lab4-tab-pane" type="button"
                 role="tab" aria-selected="true">
                 Lab Varios
@@ -218,6 +230,126 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let expediente of lstLaPBSE; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+        <div class="tab-pane fade" id="cas-2-tab-pane" role="tabpanel" aria-labelledby="cas-2-tab" tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstCas2Sala; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+        <div class="tab-pane fade" id="cas-4-tab-pane" role="tabpanel" aria-labelledby="cas-4-tab" tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Demandante
+                            </th>
+                            <th>
+                                Demandado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstCas4Sala; let i = index">
                             <td>
                                 {{i+1}}
                             </td>

@@ -22,6 +22,8 @@ export class ExpedientesListComponent implements AfterViewInit {
   lstCivil: Array<any> = [];
   lstPenal: Array<any> = [];
   lstConst: Array<any> = [];
+  lstCas2Sala: Array<any> = [];
+  lstCas4Sala: Array<any> = [];
 
   constructor(
     private storage: AngularFireStorage
@@ -67,6 +69,12 @@ export class ExpedientesListComponent implements AfterViewInit {
     this.lstLaPBSE = this.lstExpedientes
       .filter(x => x.sespecialidad == 'LABORAL')
       .filter(x => x.idmateria == 'LAB-PAGO-BSI-OBS');
+    this.lstCas2Sala = this.lstExpedientes
+      .filter(x => x.sespecialidad == 'LABORAL')
+      .filter(x => x.idtipodoc == 'CASACION-2DA-SALA');
+    this.lstCas4Sala = this.lstExpedientes
+      .filter(x => x.sespecialidad == 'LABORAL')
+      .filter(x => x.idtipodoc == 'CASACION-4TA-SALA');
     this.lstLaOtros = this.lstExpedientes
       .filter(x => x.sespecialidad == 'LABORAL')
       .filter(x => {
@@ -76,18 +84,18 @@ export class ExpedientesListComponent implements AfterViewInit {
           return false;
         } else if (x.idmateria == 'LAB-INDE-PDYP-PIC') {
           return false;
+        } else if (x.idtipodoc == 'CASACION-2DA-SALA') {
+          return false;
+        } else if (x.idtipodoc == 'CASACION-4TA-SALA') {
+          return false;
         } else {
           return true;
         }
       });
-    this.lstFamil = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'FAMILIA');
-    this.lstCivil = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'CIVIL');
-    this.lstPenal = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'PENAL');
-    this.lstConst = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'CONSTITUCIONAL');
+    this.lstFamil = this.lstExpedientes.filter(x => x.sespecialidad == 'FAMILIA');
+    this.lstCivil = this.lstExpedientes.filter(x => x.sespecialidad == 'CIVIL');
+    this.lstPenal = this.lstExpedientes.filter(x => x.sespecialidad == 'PENAL');
+    this.lstConst = this.lstExpedientes.filter(x => x.sespecialidad == 'CONSTITUCIONAL');
   }
 
   filtrar(val: string) {
