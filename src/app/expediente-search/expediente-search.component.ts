@@ -34,10 +34,6 @@ export class ExpedienteSearchComponent implements AfterViewInit {
       if (!sexpediente.match(/^\d{1,5}[-]\d{4}$/)) {
         return;
       }
-      let nCeros = 10 - sexpediente.length;
-      for (let i = 0; i < nCeros; i++) {
-        sexpediente = '0' + sexpediente;
-      }
     }
 
     this.lSearching = true;

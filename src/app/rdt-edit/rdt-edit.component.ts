@@ -693,10 +693,6 @@ export class RdtEditComponent {
       if (!sTermino.match(/^\d{1,5}[-]\d{4}$/)) {
         return;
       }
-      let nCeros = 10 - sTermino.length;
-      for (let i = 0; i < nCeros; i++) {
-        sTermino = '0' + sTermino;
-      }
     }
 
     this.lSearching = true;
