@@ -76,6 +76,12 @@
                 Constitucional
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="carp-fiscal-tab" data-bs-toggle="tab" data-bs-target="#carp-fiscal-tab-pane"
+                type="button" role="tab" aria-selected="false">
+                Carp. Fiscales
+            </button>
+        </li>
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="lab1-tab-pane" role="tabpanel" aria-labelledby="lab1-tab"
@@ -579,10 +585,10 @@
                                 Especialidad
                             </th>
                             <th>
-                                Demandante
+                                Agraviado
                             </th>
                             <th>
-                                Demandado
+                                Imputado
                             </th>
                             <th>
                                 Inicio
@@ -652,6 +658,66 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let expediente of lstConst; let i = index">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                                    {{expediente.sexpediente}}
+                                </a>
+                            </td>
+                            <td>
+                                {{expediente.smateria}}
+                            </td>
+                            <td>
+                                {{expediente.sespecialidad}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandante}}
+                            </td>
+                            <td>
+                                {{expediente.sdemandado}}
+                            </td>
+                            <td>
+                                {{expediente.sfechainicio}}
+                            </td>
+                    </tbody>
+                </table>
+            </div>
+            <!--  -->
+        </div>
+        <div class="tab-pane fade" id="carp-fiscal-tab-pane" role="tabpanel" aria-labelledby="carp-fiscal-tab"
+            tabindex="0">
+            <!--  -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Expediente
+                            </th>
+                            <th>
+                                Materia
+                            </th>
+                            <th>
+                                Especialidad
+                            </th>
+                            <th>
+                                Agraviado
+                            </th>
+                            <th>
+                                Imputado
+                            </th>
+                            <th>
+                                Inicio
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of lstCarpFisc; let i = index">
                             <td>
                                 {{i+1}}
                             </td>

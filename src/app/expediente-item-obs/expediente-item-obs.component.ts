@@ -10,8 +10,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class ExpedienteItemObsComponent implements OnInit {
   @Input('sexpediente') sexpediente: string = '';
   sobs: string = '';
+  lactive: boolean = true;
   fcObs: FormControl = new FormControl([]);
   lUpdating = false;
+  lToggling = false;
 
   constructor(
     private db: AngularFirestore,
@@ -19,15 +21,16 @@ export class ExpedienteItemObsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getObs();
+    this.getObsLactive();
   }
 
-  getObs() {
+  getObsLactive() {
     this.db.collection('expedientes')
       .doc(this.sexpediente)
       .valueChanges()
       .subscribe((res: any) => {
         this.sobs = res.sobs;
+        this.lactive = res.lactive;
         this.fcObs.setValue(this.sobs);
       });
   }
@@ -48,6 +51,50 @@ export class ExpedienteItemObsComponent implements OnInit {
       })
       .finally(() => {
         this.lUpdating = false;
+      });
+  }
+
+  setNotActive() {
+    let lconfirmed = window.confirm('Se dará de baja, ¿continuar?');
+    if (!lconfirmed) return;
+
+    this.lToggling = true;
+    this.db.collection('expedientes')
+      .doc(this.sexpediente)
+      .update({
+        lactive: false
+      })
+      .then(() => {
+        // success
+        this.getObsLactive();
+      })
+      .catch(err => {
+        console.log('ERROR', err)
+      })
+      .finally(() => {
+        this.lToggling = false;
+      });
+  }
+
+  setActive() {
+    let lconfirmed = window.confirm('Se dará de alta, ¿continuar?');
+    if (!lconfirmed) return;
+
+    this.lToggling = true;
+    this.db.collection('expedientes')
+      .doc(this.sexpediente)
+      .update({
+        lactive: true
+      })
+      .then(() => {
+        // success
+        this.getObsLactive();
+      })
+      .catch(err => {
+        console.log('ERROR', err)
+      })
+      .finally(() => {
+        this.lToggling = false;
       });
   }
 }

@@ -46,6 +46,16 @@ export class ExpedienteItemCoverComponent implements OnInit {
         this.objExpediente = new ObjExpediente();
         if (!!val) {
           this.objExpediente = val;
+          let idtipodoc = val['idtipodoc'];
+          if(idtipodoc == 'EXPEDIENTE-ORIGEN') {
+            this.objExpediente['idtipodoc'] = 'EXPEDIENTE'
+          } else if (idtipodoc == 'CASACION-2DA-SALA') {
+            this.objExpediente['idtipodoc'] = 'CASACIÓN 2DA SALA'
+          } else if (idtipodoc == 'CASACION-4TA-SALA') {
+            this.objExpediente['idtipodoc'] = 'CASACIÓN 4TA SALA'
+          } else if (idtipodoc == 'CARPETA-FISCAL') {
+            this.objExpediente['idtipodoc'] = 'CARPETA FISCAL'
+          }
         } else {
           window.alert('expediente no existe')
         }
