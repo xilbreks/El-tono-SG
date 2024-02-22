@@ -6,18 +6,21 @@
         <tbody *ngIf="!lLoading">
             <tr>
                 <td>
-                    ID
-                </td>
-                <td>
-                    {{objUsuario.id}}
-                </td>
-            </tr>
-            <tr>
-                <td>
                     Nombre
                 </td>
                 <td>
                     {{objUsuario.snombre}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cargo
+                </td>
+                <td>
+                    <span *ngIf="objUsuario.scargo == 'abogado'">
+                        <i class="bi bi-fire"></i>
+                    </span>
+                    {{objUsuario.scargo}}
                 </td>
             </tr>
             <tr>

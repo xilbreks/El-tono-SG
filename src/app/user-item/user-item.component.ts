@@ -29,7 +29,7 @@ export class UserItemComponent {
     this.titleService.setTitle('Usuario ' + this.id);
 
     /*************************
-     * INIT FORM COLABORADOR *
+     * FORM EDIT COLABORADOR *
      *************************/
     this.frmUsuario = new FormGroup({
       id: new FormControl(null, Validators.required),
@@ -50,6 +50,7 @@ export class UserItemComponent {
         this.objUsuario.id = this.id;
         this.objUsuario.scolor = res.scolor;
         this.objUsuario.snombre = res.snombre;
+        this.objUsuario.scargo = res.scargo;
         this.objUsuario.spassword = res.spassword;
         this.objUsuario.lactive = res.lactive;
 

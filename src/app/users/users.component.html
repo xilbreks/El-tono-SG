@@ -1,111 +1,49 @@
-<h3>
-    Listado de Colaboradores
-</h3>
+<div class="container">
+    <h3 style="text-align: center;">
+        Listado de Colaboradores
+    </h3>
 
-<div>
-    <button class="btn btn-primary" (click)="openModalNuevo(newUserModal)">
-        Registrar Nuevo
-    </button>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Color
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!lLoading">
+                <tr *ngFor="let usuario of lstUsuarios; let i = index">
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td>
+                        <a [routerLink]="'/usuario/'+usuario.id">
+                            {{usuario.id}}
+                        </a>
+                    </td>
+                    <td>
+                        {{usuario.snombre}}
+                    </td>
+                    <td class="centrado">
+                        <span [ngStyle]="{'color': usuario.scolor}" class="scolor">
+                            <i class="bi bi-circle-fill"></i>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="lLoading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </tbody>
+        </table>
+    </div>
 </div>
-
-<div class="table-responsive">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Nombre
-                </th>
-                <th>
-                    Color
-                </th>
-                <th>
-                    Estado
-                </th>
-            </tr>
-        </thead>
-        <tbody *ngIf="!lLoading">
-            <tr *ngFor="let usuario of lstUsuarios; let i = index">
-                <td>
-                    {{i+1}}
-                </td>
-                <td>
-                    <a [routerLink]="'/usuario/'+usuario.id">
-                        {{usuario.id}}
-                    </a>
-                </td>
-                <td>
-                    {{usuario.snombre}}
-                </td>
-                <td class="centrado">
-                    <span [ngStyle]="{'color': usuario.scolor}" class="scolor">
-                        <i class="bi bi-circle-fill"></i>
-                    </span>
-                </td>
-                <td class="centrado">
-                    <div class="form-check form-switch">
-                        <input mdbCheckbox class="form-check-input" type="checkbox" [checked]="usuario.lactive"
-                            disabled />
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-        <tbody *ngIf="lLoading">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </tbody>
-    </table>
-</div>
-
-<!-----------------------------------------------
-  --------------- ADD USER MODAL ----------------
-  ----------------------------------------------->
-<ng-template #newUserModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Registrar Colaborador</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="frmUsuario" autocomplete="off">
-            <div class="row mb-3">
-                <label for="idcolaborador" class="form-label">
-                    ID
-                </label>
-                <input type="text" class="form-control" id="idcolaborador" formControlName="id" />
-            </div>
-            <div class="row mb-3">
-                <label for="snombre" class="form-label">
-                    Nombre
-                </label>
-                <input type="text" class="form-control" id="snombre" formControlName="snombre" />
-            </div>
-            <div class="row mb-3">
-                <label for="scolor" class="form-label">
-                    Color
-                </label>
-                <input type="color" class="form-control" id="scolor" formControlName="scolor" />
-            </div>
-            <div class="row mb-3">
-                <label for="spassword" class="form-label">
-                    Contraseña
-                </label>
-                <input type="text" class="form-control" id="spassword" formControlName="spassword" />
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" (click)="registrarUsuario()" [disabled]="!frmUsuario.valid" *ngIf="!lCreating">
-            Registrar
-        </button>
-        <button class="btn btn-primary" *ngIf="lCreating">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-            </span>
-            Registrando...
-        </button>
-    </div>
-</ng-template>
