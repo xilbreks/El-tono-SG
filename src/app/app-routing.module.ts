@@ -27,6 +27,7 @@ import { ExpedientesListComponent } from './expedientes-list/expedientes-list.co
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -144,6 +145,10 @@ const routes: Routes = [
   {
     path: 'sinoe-worker',
     component: SinoeWorkerComponent
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent
   },
   {
     path: '**',

@@ -47,6 +47,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ExpedienteItemObsComponent } from './expediente-item-obs/expediente-item-obs.component';
 import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 const environment = {
@@ -101,6 +102,7 @@ const environment = {
     ExpedienteItemObsComponent,
     SinoeWorkerComponent,
     SinoeAdminComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,

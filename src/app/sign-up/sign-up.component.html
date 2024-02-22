@@ -1,0 +1,44 @@
+<h3 style="text-align: center;">
+    Registro de Nuevo Usuario
+</h3>
+
+<div class="container" style="max-width: 400px;">
+    <form [formGroup]="frmUsuario" autocomplete="off">
+        <div class="row mb-3">
+            <label for="sname" class="form-label">
+                Nombre
+            </label>
+            <input type="text" class="form-control" id="sname" formControlName="sname" />
+        </div>
+        <div class="row mb-3">
+            <label for="idcolaborador" class="form-label">
+                ID Usuario
+            </label>
+            <input type="text" class="form-control" id="idcolaborador" formControlName="id" />
+        </div>
+        <div class="row mb-3">
+            <label for="scargo" class="form-label">
+                Cargo
+            </label>
+            <select id="scargo" class="form-control" formControlName="scargo">
+                <option value="abogado">Abogado</option>
+                <option value="asistente">Asistente</option>
+            </select>
+        </div>
+        <div class="row mb-3">
+            <label for="spassword" class="form-label">
+                Contraseña
+            </label>
+            <input type="text" class="form-control" id="spassword" formControlName="spassword" />
+        </div>
+    </form>
+    <div>
+        <button class="btn btn-primary" (click)="registrarUsuario()" [disabled]="!frmUsuario.valid" *ngIf="!lCreating">
+            Registrar
+        </button>
+        <button class="btn btn-primary" *ngIf="lCreating">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Registrando...
+        </button>
+    </div>
+</div>
