@@ -50,6 +50,7 @@ export class ExpedientesUpdaterComponent {
         res.forEach(exp => {
           this.lstExpedientes.push({
             sexpediente: exp.sexpediente,
+            smatchexp: exp.smatchexp,
             sespecialidad: exp.sespecialidad,
             idtipodoc: exp.idtipodoc,
             smateria: exp.smateria,

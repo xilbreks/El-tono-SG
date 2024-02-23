@@ -135,6 +135,12 @@ export class ExpedientesListComponent implements AfterViewInit {
         if (exp.sexpediente.toLowerCase().includes(sterm)) nMatchs++;
       })
       if (nMatchs == sterms.length) lMatch = true;
+      nMatchs = 0;
+
+      sterms.forEach(sterm => {
+        if (exp.smatchexp?.toLowerCase().includes(sterm)) nMatchs++;
+      })
+      if (nMatchs == sterms.length) lMatch = true;
 
       return lMatch;
     });

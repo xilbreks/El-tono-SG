@@ -13,6 +13,7 @@ import { Contrato } from './../__clases/contrato';
 })
 export class ExpedienteItemPaymentComponent implements OnInit {
   @Input('sexpediente') sexpediente: string = '';
+  smatchexp: string = 'nomatch';
 
   // Contracts
   lstContracts: Array<Contrato> = [];
@@ -81,8 +82,20 @@ export class ExpedienteItemPaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getContracts();
-    this.getPayments();
+    this.getMatchexp();
+  }
+
+  getMatchexp() {
+    let obs = this.db.collection('expedientes')
+      .doc(this.sexpediente)
+      .valueChanges()
+      .subscribe((e: any) => {
+        if (e.smatchexp) this.smatchexp = e.smatchexp;
+        this.getContracts();
+        this.getPayments();
+
+        obs.unsubscribe();
+      });
   }
 
   /*********************************************
@@ -93,8 +106,14 @@ export class ExpedienteItemPaymentComponent implements OnInit {
     this.lLoadingC = true;
     let obs = this.db
       .collection('contratos', ref => {
-        return ref.where('sexpediente', '==', this.sexpediente)
+        if (this.smatchexp == 'nomatch') {
+          return ref.where('sexpediente', '==', this.sexpediente)
           .where('lactive', '==', true)
+        } else {
+          return ref.where('sexpediente', 'in', [this.sexpediente, this.smatchexp])
+          .where('lactive', '==', true)
+        }
+        
       })
       .valueChanges()
       .subscribe((res: Array<any>) => {
@@ -207,8 +226,13 @@ export class ExpedienteItemPaymentComponent implements OnInit {
     this.lLoadingP = true;
     let obs = this.db
       .collection('pagos', ref => {
-        return ref.where('sexpediente', '==', this.sexpediente)
+        if (this.smatchexp == 'nomatch') {
+          return ref.where('sexpediente', '==', this.sexpediente)
           .where('lactive', '==', true)
+        } else {
+          return ref.where('sexpediente', 'in', [this.sexpediente, this.smatchexp])
+          .where('lactive', '==', true)
+        }
       })
       .valueChanges()
       .subscribe((res: Array<any>) => {

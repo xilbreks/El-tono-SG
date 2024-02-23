@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 class ObjExpediente {
   sfechainicio: string = '';
   sexpediente: string = '';
+  smatchexp: string = '';
   sdemandado: string = '';
   sdemandante: string = '';
   idtipodoc: string = '';
@@ -29,7 +29,6 @@ export class ExpedienteItemCoverComponent implements OnInit {
 
   constructor(
     private db: AngularFirestore,
-    private modalService: NgbModal,
   ) {
   }
 

@@ -34,18 +34,35 @@ class Task {
 export class ExpedienteItemTasksComponent implements OnInit {
   @Input('sexpediente') sexpediente: string = '';
   lstHistorial: Array<Task> = [];
+  smatchexp: string = 'nomatch';
 
   constructor(private db: AngularFirestore) {
   }
 
   ngOnInit(): void {
-    this.getHistorial();
+    this.getMatchexp();
+  }
+
+  getMatchexp() {
+    let obs = this.db.collection('expedientes')
+      .doc(this.sexpediente)
+      .valueChanges()
+      .subscribe((e: any) => {
+        if (e.smatchexp) this.smatchexp = e.smatchexp;
+        this.getHistorial();
+
+        obs.unsubscribe();
+      });
   }
 
   getHistorial(): void {
     let observando = this.db
       .collection('tareas', ref => {
-        return ref.where('sexpediente', '==', this.sexpediente)
+        if (this.smatchexp == 'nomatch') {
+          return ref.where('sexpediente', '==', this.sexpediente)
+        } else {
+          return ref.where('sexpediente', 'in', [this.sexpediente, this.smatchexp])
+        }
       })
       .valueChanges()
       .subscribe((tareas: Array<any>) => {
@@ -59,9 +76,6 @@ export class ExpedienteItemTasksComponent implements OnInit {
             })
           );
         });
-
-
-        console.log(tareas);
 
         observando.unsubscribe();
       });
