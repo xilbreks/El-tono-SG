@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ExpedienteEditComponent } from './expediente-edit/expediente-edit.component';
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
 import { AdminRdtComponent } from './admin-rdt/admin-rdt.component';
 import { ColaboradorRdtComponent } from './colaborador-rdt/colaborador-rdt.component';
@@ -17,7 +16,6 @@ import { RecursosComponent } from './recursos/recursos.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
-import { ExpUpdaterComponent } from './exp-updater/exp-updater.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
 import { ReportePagosComponent } from './reporte-pagos/reporte-pagos.component';
@@ -58,11 +56,6 @@ const routes: Routes = [
   {
     path: 'expediente/:id',
     component: ExpedienteItemComponent,
-    canActivate: [autenticacionGuard]
-  },
-  {
-    path: 'expediente-edit/:id',
-    component: ExpedienteEditComponent,
     canActivate: [autenticacionGuard]
   },
   {
@@ -109,10 +102,6 @@ const routes: Routes = [
   {
     path: 'testing',
     component: TestingComponent
-  },
-  {
-    path: 'exp-updater',
-    component: ExpUpdaterComponent
   },
   {
     path: 'usuarios',
