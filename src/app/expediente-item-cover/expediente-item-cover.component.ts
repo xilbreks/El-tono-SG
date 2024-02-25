@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 class ObjExpediente {
@@ -23,21 +23,23 @@ class ObjExpediente {
   templateUrl: './expediente-item-cover.component.html',
   styleUrls: ['./expediente-item-cover.component.scss']
 })
-export class ExpedienteItemCoverComponent implements OnInit {
+export class ExpedienteItemCoverComponent implements OnChanges {
   @Input('sexpediente') sexpediente: string = '';
   objExpediente: ObjExpediente = new ObjExpediente();
+  lLoading: boolean = false;
 
   constructor(
     private db: AngularFirestore,
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.getExpediente();
   }
 
   getExpediente(): void {
-    let observando =  this.db
+    this.lLoading = true;
+    let obs = this.db
       .collection('expedientes')
       .doc(this.sexpediente)
       .valueChanges()
@@ -46,7 +48,7 @@ export class ExpedienteItemCoverComponent implements OnInit {
         if (!!val) {
           this.objExpediente = val;
           let idtipodoc = val['idtipodoc'];
-          if(idtipodoc == 'EXPEDIENTE-ORIGEN') {
+          if (idtipodoc == 'EXPEDIENTE-ORIGEN') {
             this.objExpediente['idtipodoc'] = 'EXPEDIENTE'
           } else if (idtipodoc == 'CASACION-2DA-SALA') {
             this.objExpediente['idtipodoc'] = 'CASACIÓN 2DA SALA'
@@ -58,7 +60,9 @@ export class ExpedienteItemCoverComponent implements OnInit {
         } else {
           window.alert('expediente no existe')
         }
-        observando.unsubscribe();
+
+        this.lLoading = false;
+        obs.unsubscribe();
       });
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -7,13 +7,19 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './expediente-item.component.html',
   styleUrls: ['./expediente-item.component.scss']
 })
-export class ExpedienteItemComponent {
+export class ExpedienteItemComponent implements OnInit {
   sexpediente: string = '';
+  
   constructor(
     private titleService: Title,
-    route: ActivatedRoute
+    private route: ActivatedRoute
   ) {
-    this.sexpediente = '' + route.snapshot.paramMap.get('id');
-    this.titleService.setTitle(this.sexpediente);
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.sexpediente = params['id'];
+      this.titleService.setTitle(this.sexpediente);
+    });
   }
 }

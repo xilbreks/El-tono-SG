@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 class Task {
@@ -31,7 +31,7 @@ class Task {
   templateUrl: './expediente-item-tasks.component.html',
   styleUrls: ['./expediente-item-tasks.component.scss']
 })
-export class ExpedienteItemTasksComponent implements OnInit {
+export class ExpedienteItemTasksComponent implements OnChanges {
   @Input('sexpediente') sexpediente: string = '';
   lstHistorial: Array<Task> = [];
   smatchexp: string = 'nomatch';
@@ -39,7 +39,7 @@ export class ExpedienteItemTasksComponent implements OnInit {
   constructor(private db: AngularFirestore) {
   }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.getMatchexp();
   }
 
@@ -56,6 +56,8 @@ export class ExpedienteItemTasksComponent implements OnInit {
   }
 
   getHistorial(): void {
+    this.lstHistorial = [];
+    
     let observando = this.db
       .collection('tareas', ref => {
         if (this.smatchexp == 'nomatch') {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,7 @@ import { Contrato } from './../__clases/contrato';
   templateUrl: './expediente-item-payment.component.html',
   styleUrls: ['./expediente-item-payment.component.scss']
 })
-export class ExpedienteItemPaymentComponent implements OnInit {
+export class ExpedienteItemPaymentComponent implements OnChanges {
   @Input('sexpediente') sexpediente: string = '';
   smatchexp: string = 'nomatch';
 
@@ -81,7 +81,7 @@ export class ExpedienteItemPaymentComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.getMatchexp();
   }
 

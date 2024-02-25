@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './expediente-item-obs.component.html',
   styleUrls: ['./expediente-item-obs.component.scss']
 })
-export class ExpedienteItemObsComponent implements OnInit {
+export class ExpedienteItemObsComponent implements OnChanges {
   @Input('sexpediente') sexpediente: string = '';
   sobs: string = '';
   lactive: boolean = true;
@@ -20,7 +20,7 @@ export class ExpedienteItemObsComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.getObsLactive();
   }
 
