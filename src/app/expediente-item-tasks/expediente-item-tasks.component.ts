@@ -48,7 +48,11 @@ export class ExpedienteItemTasksComponent implements OnChanges {
       .doc(this.sexpediente)
       .valueChanges()
       .subscribe((e: any) => {
-        if (e.smatchexp) this.smatchexp = e.smatchexp;
+        if (e.smatchexp) {
+          this.smatchexp = e.smatchexp;
+        } else {
+          this.smatchexp = 'nomatch';
+        }
         this.getHistorial();
 
         obs.unsubscribe();

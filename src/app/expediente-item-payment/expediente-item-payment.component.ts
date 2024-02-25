@@ -90,7 +90,11 @@ export class ExpedienteItemPaymentComponent implements OnChanges {
       .doc(this.sexpediente)
       .valueChanges()
       .subscribe((e: any) => {
-        if (e.smatchexp) this.smatchexp = e.smatchexp;
+        if (e.smatchexp) {
+          this.smatchexp = e.smatchexp;
+        } else {
+          this.smatchexp = 'nomatch';
+        }
         this.getContracts();
         this.getPayments();
 
@@ -104,6 +108,8 @@ export class ExpedienteItemPaymentComponent implements OnChanges {
 
   getContracts() {
     this.lLoadingC = true;
+    this.lstContracts = [];
+
     let obs = this.db
       .collection('contratos', ref => {
         if (this.smatchexp == 'nomatch') {
@@ -224,6 +230,8 @@ export class ExpedienteItemPaymentComponent implements OnChanges {
 
   getPayments(): void {
     this.lLoadingP = true;
+    this.lstPayments = [];
+
     let obs = this.db
       .collection('pagos', ref => {
         if (this.smatchexp == 'nomatch') {
@@ -236,7 +244,6 @@ export class ExpedienteItemPaymentComponent implements OnChanges {
       })
       .valueChanges()
       .subscribe((res: Array<any>) => {
-        this.lstPayments = [];
         this.nSumPayments = 0;
         res.sort((a, b) => {
           if (a.sfecha > b.sfecha) return 1;
