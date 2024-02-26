@@ -18,38 +18,6 @@
 </button>
 
 
-<div *ngIf="false" style="margin-bottom: 50px;">
-    <h5>
-        Dar de Baja
-    </h5>
-    <div>
-        <button (click)="setNotActive()" class="btn btn-danger" *ngIf="!lToggling">
-            Dar de Baja
-            <i class="bi bi-layer-backward"></i>
-        </button>
-        <button (click)="setNotActive()" class="btn btn-danger" *ngIf="lToggling">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            ...
-        </button>
-    </div>
-</div>
-
-<div *ngIf="false" style="margin-bottom: 50px;">
-    <h5>
-        Dar de Alta
-    </h5>
-    <div>
-        <button (click)="setActive()" class="btn btn-warning" *ngIf="!lToggling">
-            Dar de Alta
-            <i class="bi bi-layer-forward"></i>
-        </button>
-        <button (click)="setActive()" class="btn btn-warning" *ngIf="lToggling">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            ...
-        </button>
-    </div>
-</div>
-
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
