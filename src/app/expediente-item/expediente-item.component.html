@@ -21,6 +21,11 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
+            <button class="nav-link" id="chat-tab" data-bs-toggle="tab" data-bs-target="#chat-tab-pane" type="button" role="tab" aria-controls="chat-tab-pane" aria-selected="false">
+                Comunicación
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
             <button class="nav-link" id="obs-tab" data-bs-toggle="tab" data-bs-target="#obs-tab-pane" type="button" role="tab" aria-controls="obs-tab-pane" aria-selected="false">
                 Observaciones
             </button>
@@ -40,6 +45,9 @@
         </div>
         <div class="tab-pane fade" id="pagos-tab-pane" role="tabpanel" aria-labelledby="pagos-tab" tabindex="0">
             <app-expediente-item-payment [sexpediente]="sexpediente"></app-expediente-item-payment>
+        </div>
+        <div class="tab-pane fade" id="chat-tab-pane" role="tabpanel" aria-labelledby="chat-tab" tabindex="0">
+            <app-expediente-item-chat [sexpediente]="sexpediente"></app-expediente-item-chat>
         </div>
         <div class="tab-pane fade" id="obs-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
             <app-expediente-item-obs [sexpediente]="sexpediente"></app-expediente-item-obs>

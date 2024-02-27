@@ -43,6 +43,7 @@ import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ExpedienteItemEditComponent } from './expediente-item-edit/expediente-item-edit.component';
+import { ExpedienteItemChatComponent } from './expediente-item-chat/expediente-item-chat.component';
 
 
 const environment = {
@@ -93,6 +94,7 @@ const environment = {
     SinoeAdminComponent,
     SignUpComponent,
     ExpedienteItemEditComponent,
+    ExpedienteItemChatComponent,
   ],
   imports: [
     BrowserModule,
