@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
@@ -8,6 +8,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class ExpedienteItemEditComponent implements OnChanges {
   @Input('sexpediente') sexpediente: string = '';
+  @Output() onLactive = new EventEmitter<boolean>();
+
   lactive: boolean = true;
   lToggling = false;
 
@@ -26,6 +28,7 @@ export class ExpedienteItemEditComponent implements OnChanges {
       .valueChanges()
       .subscribe((res: any) => {
         this.lactive = res.lactive;
+        this.onLactive.emit(this.lactive);
 
         obs.unsubscribe();
       });
@@ -44,6 +47,7 @@ export class ExpedienteItemEditComponent implements OnChanges {
       .then(() => {
         // success
         this.getLactive();
+        this.onLactive.emit(false);
       })
       .catch(err => {
         console.log('ERROR', err)
@@ -66,6 +70,7 @@ export class ExpedienteItemEditComponent implements OnChanges {
       .then(() => {
         // success
         this.getLactive();
+        this.onLactive.emit(true);
       })
       .catch(err => {
         console.log('ERROR', err)

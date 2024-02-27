@@ -9,10 +9,11 @@ import { Title } from '@angular/platform-browser';
 })
 export class ExpedienteItemComponent implements OnInit {
   sexpediente: string = '';
-  
+  lactive: boolean = true;
+
   constructor(
     private titleService: Title,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
   }
 
@@ -21,5 +22,9 @@ export class ExpedienteItemComponent implements OnInit {
       this.sexpediente = params['id'];
       this.titleService.setTitle(this.sexpediente);
     });
+  }
+
+  updateLactive(arg: boolean) {
+    this.lactive = arg;
   }
 }
