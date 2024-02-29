@@ -108,6 +108,21 @@
                 </div>
             </td>
         </tr>
+        <tr *ngIf="objExpediente.scodigo != 'XX-XXXX'">
+            <td>
+                <b>CÓDIGO:</b>
+            </td>
+            <td *ngIf="!lLoading">
+                <span style="background-color: lightgrey; border-radius: 4px;">
+                    {{objExpediente.scodigo}}
+                </span>
+            </td>
+            <td *ngIf="lLoading">
+                <div class="spinner-grow spinner-grow-sm" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </td>
+        </tr>
     </table>
     <hr />
     <div class="row">

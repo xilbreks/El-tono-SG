@@ -58,6 +58,7 @@ export class ExpedientesUpdaterComponent {
             sdemandante: exp.sdemandante,
             sdemandado: exp.sdemandado,
             sfechainicio: exp.sfechainicio,
+            scodigo: exp.scodigo,
           });
         });
 

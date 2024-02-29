@@ -15,7 +15,7 @@ class ObjExpediente {
   smateria: string = '';
   ssumilla: string = '';
   sfechamodificacion: string = '';
-  urlcontrato: string = '';
+  scodigo: string = '';
 }
 
 @Component({

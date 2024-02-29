@@ -138,6 +138,12 @@ export class ExpedientesListComponent implements AfterViewInit {
       nMatchs = 0;
 
       sterms.forEach(sterm => {
+        if (exp.scodigo.toLowerCase().includes(sterm)) nMatchs++;
+      })
+      if (nMatchs == sterms.length) lMatch = true;
+      nMatchs = 0;
+
+      sterms.forEach(sterm => {
         if (exp.smatchexp?.toLowerCase().includes(sterm)) nMatchs++;
       })
       if (nMatchs == sterms.length) lMatch = true;

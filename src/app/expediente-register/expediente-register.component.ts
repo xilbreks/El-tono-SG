@@ -115,6 +115,7 @@ export class ExpedienteRegisterComponent {
         lactive: true,
         lcontrato: false,
         sobs: '',
+        scodigo: 'XX-XXXX',
       })
       .then((x) => {
         this.router.navigate(['/expediente/', sexpediente]);
