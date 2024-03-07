@@ -1,7 +1,8 @@
+<h5>
+    Estado del Expediente
+</h5>
+
 <div *ngIf="lactive" style="margin-bottom: 50px;">
-    <h5>
-        Dar de Baja
-    </h5>
     <div>
         <button (click)="setNotActive()" class="btn btn-danger" *ngIf="!lToggling">
             Dar de Baja
@@ -15,9 +16,6 @@
 </div>
 
 <div *ngIf="!lactive" style="margin-bottom: 50px;">
-    <h5>
-        Dar de Alta
-    </h5>
     <div>
         <button (click)="setActive()" class="btn btn-warning" *ngIf="!lToggling">
             Dar de Alta
