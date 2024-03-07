@@ -11,7 +11,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { RdtStatsComponent } from './rdt-stats/rdt-stats.component';
 import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
 import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
-import { ExpedienteItemComponent } from './expediente-item/expediente-item.component';
+import { ExpItemComponent } from './exp-item/exp-item.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
@@ -55,7 +55,7 @@ const routes: Routes = [
   },
   {
     path: 'expediente/:id',
-    component: ExpedienteItemComponent,
+    component: ExpItemComponent,
     canActivate: [autenticacionGuard]
   },
   {

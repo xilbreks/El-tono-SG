@@ -20,10 +20,6 @@ import { LogoutComponent } from './logout/logout.component';
 import { RdtStatsComponent } from './rdt-stats/rdt-stats.component';
 import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
 import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
-import { ExpedienteItemComponent } from './expediente-item/expediente-item.component';
-import { ExpedienteItemCoverComponent } from './expediente-item-cover/expediente-item-cover.component';
-import { ExpedienteItemPaymentComponent } from './expediente-item-payment/expediente-item-payment.component';
-import { ExpedienteItemTasksComponent } from './expediente-item-tasks/expediente-item-tasks.component';
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
@@ -38,15 +34,19 @@ import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.co
 import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component';
 import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { ExpedienteItemObsComponent } from './expediente-item-obs/expediente-item-obs.component';
 import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { ExpedienteItemChatComponent } from './expediente-item-chat/expediente-item-chat.component';
-import { ExpedienteItemEditMatchComponent } from './expediente-item-edit-match/expediente-item-edit-match.component';
-import { ExpedienteItemEditStatusComponent } from './expediente-item-edit-status/expediente-item-edit-status.component';
-import { ExpedienteItemEditCodeComponent } from './expediente-item-edit-code/expediente-item-edit-code.component';
-import { ExpedienteItemEditDataComponent } from './expediente-item-edit-data/expediente-item-edit-data.component';
+import { ExpItemComponent } from './exp-item/exp-item.component';
+import { ExpItemChatComponent } from './exp-item-chat/exp-item-chat.component';
+import { ExpItemCoverComponent } from './exp-item-cover/exp-item-cover.component';
+import { ExpItemEditCodeComponent } from './exp-item-edit-code/exp-item-edit-code.component';
+import { ExpItemEditDataComponent } from './exp-item-edit-data/exp-item-edit-data.component';
+import { ExpItemEditMatchComponent } from './exp-item-edit-match/exp-item-edit-match.component';
+import { ExpItemEditStatusComponent } from './exp-item-edit-status/exp-item-edit-status.component';
+import { ExpItemObsComponent } from './exp-item-obs/exp-item-obs.component';
+import { ExpItemFeesComponent } from './exp-item-fees/exp-item-fees.component';
+import { ExpItemTasksComponent } from './exp-item-tasks/exp-item-tasks.component';
 
 
 const environment = {
@@ -74,10 +74,6 @@ const environment = {
     RdtStatsComponent,
     ExpedienteSearchComponent,
     RdtGeneratorComponent,
-    ExpedienteItemComponent,
-    ExpedienteItemCoverComponent,
-    ExpedienteItemPaymentComponent,
-    ExpedienteItemTasksComponent,
     ExpedienteRegisterComponent,
     RecursosComponent,
     RecursosItersComponent,
@@ -92,15 +88,19 @@ const environment = {
     ExpedientesUpdaterComponent,
     ExpedientesListComponent,
     NotFoundComponent,
-    ExpedienteItemObsComponent,
     SinoeWorkerComponent,
     SinoeAdminComponent,
     SignUpComponent,
-    ExpedienteItemChatComponent,
-    ExpedienteItemEditMatchComponent,
-    ExpedienteItemEditStatusComponent,
-    ExpedienteItemEditCodeComponent,
-    ExpedienteItemEditDataComponent,
+    ExpItemComponent,
+    ExpItemChatComponent,
+    ExpItemCoverComponent,
+    ExpItemEditCodeComponent,
+    ExpItemEditDataComponent,
+    ExpItemEditMatchComponent,
+    ExpItemEditStatusComponent,
+    ExpItemObsComponent,
+    ExpItemFeesComponent,
+    ExpItemTasksComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,188 @@
+<div style="display: flex;">
+    <span>
+        <button (click)="cambiarModo()" *ngIf="lViewMode" class="btn btn-secondary btn-sm">
+            <i class="bi bi-lock-fill"></i>
+        </button>
+        <button (click)="cambiarModo()" *ngIf="!lViewMode" class="btn btn-outline-success btn-sm">
+            <i class="bi bi-unlock-fill"></i>
+        </button>
+    </span>
+    <span style="flex: auto 1; font-size: 1.5rem;"></span>
+</div>
+
+<div class="row">
+    <h4>
+        Registro de comunicación
+        <button (click)="openNewChatModal(newChatModal)" class="btn btn-success btn-sm" *ngIf="!lViewMode">
+            + Add
+        </button>
+    </h4>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Tipo
+                </th>
+                <th>
+                    Motivo
+                </th>
+                <th *ngIf="!lViewMode">
+                    Editar
+                </th>
+                <th *ngIf="!lViewMode">
+                    Quitar
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!lLoading && lstChats.length > 0">
+            <tr *ngFor="let c of lstChats">
+                <td>
+                    {{c.sfechal}}
+                </td>
+                <td>
+                    <span *ngIf="c.stipo == 'llamada'">
+                        <i class="bi bi-telephone"></i>
+                    </span>
+                    <span *ngIf="c.stipo == 'mensaje'">
+                        <i class="bi bi-messenger"></i>
+                    </span>
+                    {{c.stipo}}
+                </td>
+                <td>
+                    {{c.smensaje}}
+                </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openEditChatModal(c, editChatModal)" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openDeleteChatModal(c)" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!lLoading && lstChats.length == 0">
+            No hay ninguna comunicación registrada
+        </tbody>
+        <tbody *ngIf="lLoading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </tbody>
+    </table>
+</div>
+
+<div style="margin-top: 50px;">
+    <span style="font-size: 0.75rem;">
+        <i>
+            {{sexpediente}}
+        </i>
+    </span>
+</div>
+
+<!-----------------------------------------------
+  --------------- ADD CHAT MODAL ----------------
+  ----------------------------------------------->
+<ng-template #newChatModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Registrar Comunicación</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmNewChat" autocomplete="off">
+            <div class="row">
+                <label for="sfecha" class="form-label">
+                    Fecha
+                </label>
+                <input type="date" class="form-control" id="sfecha" formControlName="sfecha" />
+            </div>
+
+            <div class="row">
+                <label for="stipo" class="form-label">
+                    Tipo
+                </label>
+                <select id="stipo" class="form-control" formControlName="stipo">
+                    <option value="llamada">Llamada</option>
+                    <option value="mensaje">Mensaje</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <label for="smensaje" class="form-label">
+                    Motivo
+                </label>
+                <textarea id="smensaje" rows="3" class="form-control" formControlName="smensaje">
+                </textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addNewChat()"
+            [disabled]="!(frmNewChat.valid && !lCreating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreating">
+            </span>
+            <span class="sr-only" *ngIf="!lCreating">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lCreating">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!-----------------------------------------------
+  -------------- EDIT CHAT MODAL ----------------
+  ----------------------------------------------->
+<ng-template #editChatModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar Comunicación</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmEditChat" autocomplete="off">
+            <div class="row">
+                <label for="sfecha" class="form-label">
+                    Fecha
+                </label>
+                <input type="date" class="form-control" id="sfecha" formControlName="sfecha" />
+            </div>
+
+            <div class="row">
+                <label for="stipo" class="form-label">
+                    Tipo
+                </label>
+                <select id="stipo" class="form-control" formControlName="stipo">
+                    <option value="llamada">Llamada</option>
+                    <option value="mensaje">Mensaje</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <label for="smensaje" class="form-label">
+                    Motivo
+                </label>
+                <textarea id="smensaje" rows="3" class="form-control" formControlName="smensaje">
+                </textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editChat()"
+            [disabled]="!(frmEditChat.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Actualizar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Actualizando...
+            </span>
+        </button>
+    </div>
+</ng-template>
