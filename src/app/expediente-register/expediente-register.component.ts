@@ -36,7 +36,7 @@ export class ExpedienteRegisterComponent {
     this.frmExpediente = new FormGroup({
       sexpediente: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.pattern(/^\S*$/)
+        Validators.pattern(/^[a-zA-Z0-9-]+$/)
       ])),
       sespecialidad: new FormControl(null, Validators.required),
       idmateria: new FormControl(null, Validators.required),
@@ -83,7 +83,7 @@ export class ExpedienteRegisterComponent {
     let idmateria = this.frmExpediente.controls['idmateria'].value;
     let smateria = '--';
     this.lstMaterias.forEach((a) => {
-      if(idmateria == a.idmateria) {
+      if (idmateria == a.idmateria) {
         smateria = a.smateria;
       }
     })
@@ -92,6 +92,25 @@ export class ExpedienteRegisterComponent {
 
   crearExpediente() {
     this.lCreating = true;
+    let sexpediente = this.frmExpediente.value['sexpediente'];
+
+    let obs = this.db
+      .collection('expedientes')
+      .doc(sexpediente)
+      .valueChanges()
+      .subscribe(exp => {
+        if (exp == undefined) {
+          this.saveExp();
+        } else {
+          this.lCreating = false;
+          window.alert('Ya existe un expediente con ese numero')
+        }
+
+        obs.unsubscribe();
+      });
+  }
+
+  saveExp() {
     let sexpediente = this.frmExpediente.value['sexpediente'];
 
     this.db

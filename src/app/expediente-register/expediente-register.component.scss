@@ -13,4 +13,14 @@
         border-collapse: separate;
         border-spacing: 10px;
     }
+
+    #sexpediente {
+        text-align: center;
+        background-color: lightgrey;
+        border-color: #c1c1c1;
+    }
+
+    #sexpediente.ng-invalid.ng-touched {
+        border: 1px solid red;
+    }
 }

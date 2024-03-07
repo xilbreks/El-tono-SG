@@ -1,29 +1,20 @@
 <br />
 
-<form class="container expediente" [formGroup]="frmExpediente">
+<form class="container expediente" [formGroup]="frmExpediente" autocomplete="off">
     <h4>
-        <input type="text" placeholder="ÓRGANO JURISDICCIONAL" class="form-control" style="text-align: center;"
-            autocapitalize="characters" formControlName="sorganojuris">
+        <select class="form-select" formControlName="idtipodoc" style="text-align: center;">
+            <option value="EXPEDIENTE-ORIGEN">EXPEDIENTE</option>
+            <option value="CASACION-2DA-SALA">CASACION 2DA SALA</option>
+            <option value="CASACION-4TA-SALA">CASACION 4TA SALA</option>
+            <option value="CARPETA-FISCAL">CARPETA FISCAL</option>
+        </select>
     </h4>
     <h4>
         <input type="text" placeholder="00000-0000-0-0000-00-00-00" class="form-control" formControlName="sexpediente"
-            style="text-align: center; background-color: lightgrey; border-color: #c1c1c1;">
+            id="sexpediente">
     </h4>
     <hr />
     <table style="width:100%">
-        <tr>
-            <td>
-                <b>TIPO DOC:</b>
-            </td>
-            <td>
-                <select class="form-select" formControlName="idtipodoc">
-                    <option value="EXPEDIENTE-ORIGEN">EXPEDIENTE ORIGEN</option>
-                    <option value="CASACION-2DA-SALA">CASACION 2DA SALA</option>
-                    <option value="CASACION-4TA-SALA">CASACION 4TA SALA</option>
-                    <option value="CARPETA-FISCAL">CARPETA FISCAL</option>
-                </select>
-            </td>
-        </tr>
         <tr>
             <td>
                 <b>ESPECIALIDAD:</b>
@@ -48,6 +39,14 @@
                         {{mat.smateria}}
                     </option>
                 </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>SALA:</b>
+            </td>
+            <td>
+                <input type="text" class="form-control" autocapitalize="characters" formControlName="sorganojuris">
             </td>
         </tr>
         <tr>
