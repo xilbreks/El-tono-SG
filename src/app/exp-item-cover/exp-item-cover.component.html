@@ -10,7 +10,7 @@
             <span class="sr-only"></span>
         </div>
     </h4>
-    <h5 *ngIf="objExpediente.smatchexp && !lLoading">
+    <h5 *ngIf="objExpediente.smatchexp !== 'no-match' && !lLoading">
         <a [routerLink]="['/', 'expediente', objExpediente.smatchexp]">
             {{objExpediente.smatchexp}}
         </a>

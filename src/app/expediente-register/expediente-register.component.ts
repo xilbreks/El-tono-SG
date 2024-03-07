@@ -131,9 +131,10 @@ export class ExpedienteRegisterComponent {
         sfechacreacion: new Date().getTime().toString(),
         sfechamodificacion: new Date().getTime().toString(),
         salias: sexpediente.slice(0, 10),
+        
         lactive: true,
-        lcontrato: false,
         sobs: '',
+        smatchexp: 'no-match',
         scodigo: 'XX-XXXX',
       })
       .then((x) => {

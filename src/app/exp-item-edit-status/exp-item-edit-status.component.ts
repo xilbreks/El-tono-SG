@@ -62,7 +62,8 @@ export class ExpItemEditStatusComponent implements OnChanges {
     if (!lconfirmed) return;
 
     this.lToggling = true;
-    this.db.collection('expedientes')
+    this.db
+      .collection('expedientes')
       .doc(this.sexpediente)
       .update({
         lactive: true

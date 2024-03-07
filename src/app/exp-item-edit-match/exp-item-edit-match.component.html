@@ -1,4 +1,107 @@
-<h5>
-    Vinculación entre expedientes
-</h5>
+<div class="container">
+    <h5>
+        Vinculación entre expedientes
+    </h5>
+    <p>
+        Los expedientes vinculados comparten cierta información.
+        Estos son:
+    </p>
+    <ul>
+        <li>Historial de RDT</li>
+        <li>Monto de contratos</li>
+        <li>Pagos por honorarios</li>
+        <li>Pagos por aranceles</li>
+        <li>Comunicación con el cliente</li>
+    </ul>
 
+    <!---------- NO MATCH ---------->
+    <div *ngIf="smatchexp == 'no-match'">
+        No existe expediente vinculado
+
+        <div>
+            <button class="btn btn-warning" (click)="openModalSetMatch(setMatchModal)">
+                Vincular
+            </button>
+        </div>
+    </div>
+    <!---------- -- -- -- ---------->
+    <!---------- DO MATCH ---------->
+    <div *ngIf="smatchexp != 'no-match'">
+        <span>Vinculación con el expediente:</span>
+        <i> {{smatchexp}}</i>
+
+        <div>
+            <button class="btn btn-warning" (click)="openModalUnMatch(unMatchModal)">
+                Desvincular
+            </button>
+        </div>
+    </div>
+    <!---------- -- -- -- ---------->
+</div>
+
+<div style="margin-top: 50px;">
+    <span style="font-size: 0.75rem;">
+        <i>
+            {{sexpediente}}
+        </i>
+    </span>
+</div>
+
+<!------------------------------------------------
+  -------------- SET MATCH MODAL -----------------
+  ----------------------------------------------->
+<ng-template #setMatchModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Vincular Expediente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <input type="text" [formControl]="fcMatch" class="form-control" placeholder="00000-0000-0-0000-00-00-00">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="setMatch()" [disabled]="!(fcMatch.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Vincular
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Vinculando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!------------------------------------------------
+  --------------- UN-MATCH MODAL -----------------
+  ----------------------------------------------->
+<ng-template #unMatchModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Desvincular Expediente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>
+            Se desvinculará el expediente.
+        </p>
+        <p>
+            <i>
+                ¿Está seguro?
+            </i>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="unMatch()">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Desvincular
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Desvinculando...
+            </span>
+        </button>
+    </div>
+</ng-template>
