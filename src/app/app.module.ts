@@ -42,8 +42,11 @@ import { ExpedienteItemObsComponent } from './expediente-item-obs/expediente-ite
 import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { ExpedienteItemEditComponent } from './expediente-item-edit/expediente-item-edit.component';
 import { ExpedienteItemChatComponent } from './expediente-item-chat/expediente-item-chat.component';
+import { ExpedienteItemEditMatchComponent } from './expediente-item-edit-match/expediente-item-edit-match.component';
+import { ExpedienteItemEditStatusComponent } from './expediente-item-edit-status/expediente-item-edit-status.component';
+import { ExpedienteItemEditCodeComponent } from './expediente-item-edit-code/expediente-item-edit-code.component';
+import { ExpedienteItemEditDataComponent } from './expediente-item-edit-data/expediente-item-edit-data.component';
 
 
 const environment = {
@@ -93,8 +96,11 @@ const environment = {
     SinoeWorkerComponent,
     SinoeAdminComponent,
     SignUpComponent,
-    ExpedienteItemEditComponent,
     ExpedienteItemChatComponent,
+    ExpedienteItemEditMatchComponent,
+    ExpedienteItemEditStatusComponent,
+    ExpedienteItemEditCodeComponent,
+    ExpedienteItemEditDataComponent,
   ],
   imports: [
     BrowserModule,

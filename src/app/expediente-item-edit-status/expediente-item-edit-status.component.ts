@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
-  selector: 'app-expediente-item-edit',
-  templateUrl: './expediente-item-edit.component.html',
-  styleUrls: ['./expediente-item-edit.component.scss']
+  selector: 'app-expediente-item-edit-status',
+  templateUrl: './expediente-item-edit-status.component.html',
+  styleUrls: ['./expediente-item-edit-status.component.scss']
 })
-export class ExpedienteItemEditComponent implements OnChanges {
+export class ExpedienteItemEditStatusComponent implements OnChanges {
   @Input('sexpediente') sexpediente: string = '';
   @Output() onLactive = new EventEmitter<boolean>();
 
