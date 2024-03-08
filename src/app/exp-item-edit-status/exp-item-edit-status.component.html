@@ -1,38 +1,37 @@
-<div class="container">
-    <h5>
-        Estado del Expediente
-    </h5>
+<h5>
+    Estado del Expediente
+</h5>
 
-    <p>
-        Dependiendo del estado de expediente, este se mostrará o no en el listado.
-    </p>
+<p>
+    Dependiendo del estado de expediente, este se mostrará o no en el listado.
+</p>
 
-    <div *ngIf="lactive" style="margin-bottom: 50px;">
-        <div>
-            <button (click)="setNotActive()" class="btn btn-danger" *ngIf="!lToggling">
-                Dar de Baja
-                <i class="bi bi-layer-backward"></i>
-            </button>
-            <button (click)="setNotActive()" class="btn btn-danger" *ngIf="lToggling">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Dando de baja...
-            </button>
-        </div>
-    </div>
-
-    <div *ngIf="!lactive" style="margin-bottom: 50px;">
-        <div>
-            <button (click)="setActive()" class="btn btn-warning" *ngIf="!lToggling">
-                Dar de Alta
-                <i class="bi bi-layer-forward"></i>
-            </button>
-            <button (click)="setActive()" class="btn btn-warning" *ngIf="lToggling">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Dando de alta...
-            </button>
-        </div>
+<div *ngIf="lactive" style="margin-bottom: 50px;">
+    <div>
+        <button (click)="setNotActive()" class="btn btn-danger" *ngIf="!lToggling">
+            Dar de Baja
+            <i class="bi bi-layer-backward"></i>
+        </button>
+        <button (click)="setNotActive()" class="btn btn-danger" *ngIf="lToggling">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Dando de baja...
+        </button>
     </div>
 </div>
+
+<div *ngIf="!lactive" style="margin-bottom: 50px;">
+    <div>
+        <button (click)="setActive()" class="btn btn-warning" *ngIf="!lToggling">
+            Dar de Alta
+            <i class="bi bi-layer-forward"></i>
+        </button>
+        <button (click)="setActive()" class="btn btn-warning" *ngIf="lToggling">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Dando de alta...
+        </button>
+    </div>
+</div>
+
 
 
 <div style="margin-top: 50px;">

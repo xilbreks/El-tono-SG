@@ -1,43 +1,44 @@
-<div class="container">
-    <h5>
-        Vinculación entre expedientes
-    </h5>
-    <p>
-        Los expedientes vinculados comparten cierta información.
-        Estos son:
-    </p>
-    <ul>
-        <li>Historial de RDT</li>
-        <li>Monto de contratos</li>
-        <li>Pagos por honorarios</li>
-        <li>Pagos por aranceles</li>
-        <li>Comunicación con el cliente</li>
-    </ul>
+<h5>
+    Vinculación entre expedientes
+</h5>
+<p>
+    Los expedientes vinculados comparten cierta información.
+    Estos son:
+</p>
+<ul>
+    <li>Historial de RDT</li>
+    <li>Monto de contratos</li>
+    <li>Pagos por honorarios</li>
+    <li>Pagos por aranceles</li>
+    <li>Comunicación con el cliente</li>
+</ul>
 
-    <!---------- NO MATCH ---------->
-    <div *ngIf="smatchexp == 'no-match'">
-        No existe expediente vinculado
+<!---------- NO MATCH ---------->
+<div *ngIf="smatchexp == 'no-match'">
+    No existe expediente vinculado
 
-        <div>
-            <button class="btn btn-warning" (click)="openModalSetMatch(setMatchModal)">
-                Vincular
-            </button>
-        </div>
+    <div>
+        <button class="btn btn-warning" (click)="openModalSetMatch(setMatchModal)">
+            Vincular
+            <i class="bi bi-link-45deg"></i>
+        </button>
     </div>
-    <!---------- -- -- -- ---------->
-    <!---------- DO MATCH ---------->
-    <div *ngIf="smatchexp != 'no-match'">
-        <span>Vinculación con el expediente:</span>
-        <i> {{smatchexp}}</i>
-
-        <div>
-            <button class="btn btn-warning" (click)="openModalUnMatch(unMatchModal)">
-                Desvincular
-            </button>
-        </div>
-    </div>
-    <!---------- -- -- -- ---------->
 </div>
+<!---------- -- -- -- ---------->
+<!---------- DO MATCH ---------->
+<div *ngIf="smatchexp != 'no-match'">
+    <span>Vinculación con el expediente:</span>
+    <i> {{smatchexp}}</i>
+
+    <div>
+        <button class="btn btn-warning" (click)="openModalUnMatch(unMatchModal)">
+            Desvincular
+            <i class="bi bi-lightning-charge"></i>
+        </button>
+    </div>
+</div>
+<!---------- -- -- -- ---------->
+
 
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">

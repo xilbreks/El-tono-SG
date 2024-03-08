@@ -1,3 +1,116 @@
 <h5>
     Datos del Expediente
 </h5>
+
+<p>
+    Datos básicos del expediente que se autocompletan al RDT y la lista general.
+</p>
+
+<button class="btn btn-warning" (click)="openModal(editDataModal)">
+    Editar
+    <i class="bi bi-pencil-fill"></i>
+</button>
+
+<div style="margin-top: 50px;">
+    <span style="font-size: 0.75rem;">
+        <i>
+            {{sexpediente}}
+        </i>
+    </span>
+</div>
+
+<!------------------------------------------------
+  -------------- EDIT DATA MODAL -----------------
+  ----------------------------------------------->
+<ng-template #editDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Editar Datos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmData" autocomplete="off">
+            <h4>
+                <select class="form-select" formControlName="idtipodoc" style="text-align: center;">
+                    <option value="EXPEDIENTE-ORIGEN">EXPEDIENTE</option>
+                    <option value="CASACION-2DA-SALA">CASACION 2DA SALA</option>
+                    <option value="CASACION-4TA-SALA">CASACION 4TA SALA</option>
+                    <option value="CARPETA-FISCAL">CARPETA FISCAL</option>
+                </select>
+            </h4>
+            <hr />
+            <table style="width:100%">
+                <tr>
+                    <td>
+                        <b>ESPECIALIDAD:</b>
+                    </td>
+                    <td>
+                        <select class="form-select" formControlName="sespecialidad" (change)="setLstMaterias()">
+                            <option value="LABORAL">LABORAL</option>
+                            <option value="CIVIL">CIVIL</option>
+                            <option value="PENAL">PENAL</option>
+                            <option value="FAMILIA">FAMILIA</option>
+                            <option value="CONSTITUCIONAL">CONSTITUCIONAL</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>MATERIA:</b>
+                    </td>
+                    <td>
+                        <select class="form-select" formControlName="idmateria" (change)="setSMateria()">
+                            <option *ngFor="let mat of lstMaterias" [value]="mat.idmateria">
+                                {{mat.smateria}}
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>ESPECIALISTA:</b>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="sespecialista">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>DEMANDANTE:</b>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="sdemandante">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>DEMANDADO:</b>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="sdemandado">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>INICIO:</b>
+                    </td>
+                    <td>
+                        <input type="text" placeholder="DD/MM/YYYY" class="form-control" formControlName="sfechainicio">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="setData()" [disabled]="!(frmData.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
