@@ -132,14 +132,19 @@ export class RecursosItersComponent {
 
   setIterFamilia() {
     this.lstIterFamilia = [
-      { id: 1, pick: true, desc: '1: Postulación del proceso' },
-      { id: 2, pick: true, desc: '2: Calificación de la demanda' },
-      { id: 3, pick: true, desc: '3: Traslado de la demanda' },
-      { id: 4, pick: true, desc: '4: Contestación de la demanda' },
-      { id: 5, pick: true, desc: '5: Audiencia' },
-      { id: 6, pick: true, desc: '6: Sentencia' },
-      { id: 7, pick: true, desc: '7: Apelación' },
-      { id: 8, pick: true, desc: '8: Medidas cautelares' },
+      { id: 1, pick: true, desc: '1: Preparación de la demanda' },
+      { id: 2, pick: true, desc: '2: Recabación de medios probatorios' },
+      { id: 3, pick: true, desc: '3: Postulación del proceso' },
+      { id: 4, pick: true, desc: '4: Calificación de la demanda' },
+      { id: 5, pick: true, desc: '5: Subsanación de la demanda' },
+      { id: 6, pick: true, desc: '6: Traslado de la demanda' },
+      { id: 7, pick: true, desc: '7: Contestación de la demanda' },
+      { id: 8, pick: true, desc: '8: Audiencia' },
+      { id: 9, pick: true, desc: '9: Sentencia' },
+      { id: 10, pick: true, desc: '10: Apelación' },
+      { id: 11, pick: true, desc: '11: Audiencia de vista' },
+      { id: 12, pick: true, desc: '12: Ejecución de sentencia' },
+      { id: 13, pick: true, desc: '13: Medidas cautelares' },
     ];
   }
 }
