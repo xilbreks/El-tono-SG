@@ -288,8 +288,8 @@ export class AdminRdtComponent {
             "Tiempo real": tarea['srealtime'],
             "Prod. Segun RDT": tarea['productidad1'],
             "Prod. Segun horario": tarea['productidad2'],
-            "Descripción de la tarea": tarea['sdeseje'],
-            "Acciones por realizar": tarea['sacceje'],
+            "Descripción de la tarea": tarea['sdeseje'].trim().slice(0,2500),
+            "Acciones por realizar": tarea['sacceje'].trim().slice(0,2500),
             "Fecha y Hora de guardado": tarea['sfechareg']
           })
         });
