@@ -25,6 +25,10 @@
     Recuperar Pagos
 </button>
 
+<button (click)="getContratos()" [ngClass]="{'listo': lContratosOK}">
+    Recuperar Contratos
+</button>
+
 <hr>
 
 <button (click)="analizar()" class="btn btn-primary">

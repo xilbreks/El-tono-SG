@@ -74,16 +74,20 @@
           </ul>
         </li>
 
-        <li class="nav-item" *ngIf="!!user">
-          <a class="nav-link" routerLink="/expedientes-list"> Expedientes </a>
+        <li class="nav-item" *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
+          <a class="nav-link" routerLink="/expedientes-list2"> Expedientes </a>
         </li>
 
-        <li class="nav-item" *ngIf="user?.displayName=='Lizbet Silva Guillén'">
-          <a class="nav-link" routerLink="/admin-rdt"> RDTs </a>
+        <li class="nav-item" *ngIf="!!user && user?.displayName!='Lizbet Silva Guillén' && user?.displayName!='ADMIN'">
+          <a class="nav-link" routerLink="/expediente-search"> Buscador EXP </a>
         </li>
 
         <li class="nav-item" *ngIf="!!user && user?.displayName!='Lizbet Silva Guillén' && user?.displayName!='ADMIN'">
           <a class="nav-link" routerLink="/sinoe-worker"> SINOE </a>
+        </li>
+
+        <li class="nav-item" *ngIf="user?.displayName=='Lizbet Silva Guillén'">
+          <a class="nav-link" routerLink="/admin-rdt"> RDTs </a>
         </li>
 
       </ul>

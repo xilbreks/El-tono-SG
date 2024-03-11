@@ -12,6 +12,14 @@ interface Pago {
   smodificador: string
 }
 
+interface Contrato {
+  idcontrato: string;
+  lactive: boolean;
+  nmonto: number;
+  sdetalle: string;
+  sexpediente: string;
+}
+
 @Component({
   selector: 'app-reporte-pagos',
   templateUrl: './reporte-pagos.component.html',
@@ -31,8 +39,13 @@ export class ReportePagosComponent {
   lConstOK = false;
 
   lstPagos: Array<Pago> = [];
+  lstContratos: Array<Contrato> = [];
 
   lPagosOK = false;
+  lContratosOK = false;
+
+  nMaxPagos = 30;
+  nMaxContratos = 5;
 
   constructor(
     private db: AngularFirestore,
@@ -46,6 +59,18 @@ export class ReportePagosComponent {
       .subscribe((res: any) => {
         this.lstPagos = res;
         this.lPagosOK = true;
+
+        obs.unsubscribe();
+      });
+  }
+
+  getContratos() {
+    let obs = this.db.collection('contratos', ref => {
+      return ref.where('lactive', '==', true)
+    }).valueChanges()
+      .subscribe((res: any) => {
+        this.lstContratos = res;
+        this.lContratosOK = true;
 
         obs.unsubscribe();
       });
@@ -123,7 +148,9 @@ export class ReportePagosComponent {
     let todo_penal: Array<any> = [];
     let todo_const: Array<any> = [];
 
+    // EXPEDIENTES LABORALES
     this.lstExpLaborales.forEach(e => {
+      // Pagos
       let sumapagos = 0;
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
@@ -153,6 +180,31 @@ export class ReportePagosComponent {
         if (!!pagitos[j]) {
           lstPagos[j] = pagitos[j].nmonto;
           lstFechas[j] = pagitos[j].sfecha;
+        }
+      }
+
+      // Contratos
+      let sumacontratos = 0;
+      let contratitos = this.lstContratos.filter(contr => {
+        if (contr.sexpediente == e.sexpediente) {
+          sumacontratos += contr.nmonto;
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      let lstMontos: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+      let lstDetalles: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+
+      for (let j = 0; j < 5; j++) {
+        if (!!contratitos[j]) {
+          lstMontos[j] = contratitos[j].nmonto;
+          lstDetalles[j] = contratitos[j].sdetalle;
         }
       }
 
@@ -163,7 +215,19 @@ export class ReportePagosComponent {
         "Demandante": e.sdemandante,
         "Demandado": e.sdemandado,
         "Inicio": e.sfechainicio,
-        "Monto Contrato": e.nmontocontrato ? e.nmontocontrato : 0,
+
+        "Monto TOTAL CONTRATO": sumacontratos,
+        "Detalle 1": lstDetalles[0],
+        "Monto 1": lstMontos[0],
+        "Detalle 2": lstDetalles[1],
+        "Monto 2": lstMontos[1],
+        "Detalle 3": lstDetalles[2],
+        "Monto 3": lstMontos[2],
+        "Detalle 4": lstDetalles[3],
+        "Monto 4": lstMontos[3],
+        "Detalle 5": lstDetalles[4],
+        "Monto 5": lstMontos[4],
+
         "Pago 1": lstPagos[0],
         "Fecha 1": lstFechas[0],
         "Pago 2": lstPagos[1],
@@ -224,13 +288,14 @@ export class ReportePagosComponent {
         "Fecha 29": lstFechas[28],
         "Pago 30": lstPagos[29],
         "Fecha 30": lstFechas[29],
-        "Monto Cancelado": sumapagos,
+        "Monto TOTAL PAGADO": sumapagos,
         "Fecha último Pago": fultimopa,
         "Monto último Pago": nultimopa
       });
     });
 
     this.lstExpFamilia.forEach(e => {
+      // Pagos
       let sumapagos = 0;
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
@@ -260,6 +325,31 @@ export class ReportePagosComponent {
         if (!!pagitos[j]) {
           lstPagos[j] = pagitos[j].nmonto;
           lstFechas[j] = pagitos[j].sfecha;
+        }
+      }
+
+      // Contratos
+      let sumacontratos = 0;
+      let contratitos = this.lstContratos.filter(contr => {
+        if (contr.sexpediente == e.sexpediente) {
+          sumacontratos += contr.nmonto;
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      let lstMontos: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+      let lstDetalles: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+
+      for (let j = 0; j < 5; j++) {
+        if (!!contratitos[j]) {
+          lstMontos[j] = contratitos[j].nmonto;
+          lstDetalles[j] = contratitos[j].sdetalle;
         }
       }
 
@@ -270,7 +360,19 @@ export class ReportePagosComponent {
         "Demandante": e.sdemandante,
         "Demandado": e.sdemandado,
         "Inicio": e.sfechainicio,
-        "Monto Contrato": e.nmontocontrato ? e.nmontocontrato : 0,
+
+        "Monto TOTAL CONTRATO": sumacontratos,
+        "Detalle 1": lstDetalles[0],
+        "Monto 1": lstMontos[0],
+        "Detalle 2": lstDetalles[1],
+        "Monto 2": lstMontos[1],
+        "Detalle 3": lstDetalles[2],
+        "Monto 3": lstMontos[2],
+        "Detalle 4": lstDetalles[3],
+        "Monto 4": lstMontos[3],
+        "Detalle 5": lstDetalles[4],
+        "Monto 5": lstMontos[4],
+
         "Pago 1": lstPagos[0],
         "Fecha 1": lstFechas[0],
         "Pago 2": lstPagos[1],
@@ -331,13 +433,14 @@ export class ReportePagosComponent {
         "Fecha 29": lstFechas[28],
         "Pago 30": lstPagos[29],
         "Fecha 30": lstFechas[29],
-        "Monto Cancelado": sumapagos,
+        "Monto TOTAL PAGADO": sumapagos,
         "Fecha último Pago": fultimopa,
         "Monto último Pago": nultimopa
       });
     });
 
     this.lstExpCivil.forEach(e => {
+      // Pagos
       let sumapagos = 0;
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
@@ -367,6 +470,31 @@ export class ReportePagosComponent {
         if (!!pagitos[j]) {
           lstPagos[j] = pagitos[j].nmonto;
           lstFechas[j] = pagitos[j].sfecha;
+        }
+      }
+
+      // Contratos
+      let sumacontratos = 0;
+      let contratitos = this.lstContratos.filter(contr => {
+        if (contr.sexpediente == e.sexpediente) {
+          sumacontratos += contr.nmonto;
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      let lstMontos: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+      let lstDetalles: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+
+      for (let j = 0; j < 5; j++) {
+        if (!!contratitos[j]) {
+          lstMontos[j] = contratitos[j].nmonto;
+          lstDetalles[j] = contratitos[j].sdetalle;
         }
       }
 
@@ -377,7 +505,19 @@ export class ReportePagosComponent {
         "Demandante": e.sdemandante,
         "Demandado": e.sdemandado,
         "Inicio": e.sfechainicio,
-        "Monto Contrato": e.nmontocontrato ? e.nmontocontrato : 0,
+
+        "Monto TOTAL CONTRATO": sumacontratos,
+        "Detalle 1": lstDetalles[0],
+        "Monto 1": lstMontos[0],
+        "Detalle 2": lstDetalles[1],
+        "Monto 2": lstMontos[1],
+        "Detalle 3": lstDetalles[2],
+        "Monto 3": lstMontos[2],
+        "Detalle 4": lstDetalles[3],
+        "Monto 4": lstMontos[3],
+        "Detalle 5": lstDetalles[4],
+        "Monto 5": lstMontos[4],
+
         "Pago 1": lstPagos[0],
         "Fecha 1": lstFechas[0],
         "Pago 2": lstPagos[1],
@@ -438,13 +578,14 @@ export class ReportePagosComponent {
         "Fecha 29": lstFechas[28],
         "Pago 30": lstPagos[29],
         "Fecha 30": lstFechas[29],
-        "Monto Cancelado": sumapagos,
+        "Monto TOTAL PAGADO": sumapagos,
         "Fecha último Pago": fultimopa,
         "Monto último Pago": nultimopa
       });
     });
 
     this.lstExpPenal.forEach(e => {
+      // Pagos
       let sumapagos = 0;
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
@@ -474,6 +615,31 @@ export class ReportePagosComponent {
         if (!!pagitos[j]) {
           lstPagos[j] = pagitos[j].nmonto;
           lstFechas[j] = pagitos[j].sfecha;
+        }
+      }
+
+      // Contratos
+      let sumacontratos = 0;
+      let contratitos = this.lstContratos.filter(contr => {
+        if (contr.sexpediente == e.sexpediente) {
+          sumacontratos += contr.nmonto;
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      let lstMontos: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+      let lstDetalles: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+
+      for (let j = 0; j < 5; j++) {
+        if (!!contratitos[j]) {
+          lstMontos[j] = contratitos[j].nmonto;
+          lstDetalles[j] = contratitos[j].sdetalle;
         }
       }
 
@@ -484,7 +650,19 @@ export class ReportePagosComponent {
         "Demandante": e.sdemandante,
         "Demandado": e.sdemandado,
         "Inicio": e.sfechainicio,
-        "Monto Contrato": e.nmontocontrato ? e.nmontocontrato : 0,
+
+        "Monto TOTAL CONTRATO": sumacontratos,
+        "Detalle 1": lstDetalles[0],
+        "Monto 1": lstMontos[0],
+        "Detalle 2": lstDetalles[1],
+        "Monto 2": lstMontos[1],
+        "Detalle 3": lstDetalles[2],
+        "Monto 3": lstMontos[2],
+        "Detalle 4": lstDetalles[3],
+        "Monto 4": lstMontos[3],
+        "Detalle 5": lstDetalles[4],
+        "Monto 5": lstMontos[4],
+
         "Pago 1": lstPagos[0],
         "Fecha 1": lstFechas[0],
         "Pago 2": lstPagos[1],
@@ -545,13 +723,14 @@ export class ReportePagosComponent {
         "Fecha 29": lstFechas[28],
         "Pago 30": lstPagos[29],
         "Fecha 30": lstFechas[29],
-        "Monto Cancelado": sumapagos,
+        "Monto TOTAL PAGADO": sumapagos,
         "Fecha último Pago": fultimopa,
         "Monto último Pago": nultimopa
       });
     });
 
     this.lstExpConst.forEach(e => {
+      // Pagos
       let sumapagos = 0;
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
@@ -584,6 +763,31 @@ export class ReportePagosComponent {
         }
       }
 
+      // Contratos
+      let sumacontratos = 0;
+      let contratitos = this.lstContratos.filter(contr => {
+        if (contr.sexpediente == e.sexpediente) {
+          sumacontratos += contr.nmonto;
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      let lstMontos: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+      let lstDetalles: Array<any> = [
+        '-', '-', '-', '-', '-',
+      ];
+
+      for (let j = 0; j < 5; j++) {
+        if (!!contratitos[j]) {
+          lstMontos[j] = contratitos[j].nmonto;
+          lstDetalles[j] = contratitos[j].sdetalle;
+        }
+      }
+
       todo_const.push({
         "Expediente": e.sexpediente,
         "Materia": e.smateria,
@@ -591,7 +795,19 @@ export class ReportePagosComponent {
         "Demandante": e.sdemandante,
         "Demandado": e.sdemandado,
         "Inicio": e.sfechainicio,
-        "Monto Contrato": e.nmontocontrato ? e.nmontocontrato : 0,
+
+        "Monto TOTAL CONTRATO": sumacontratos,
+        "Detalle 1": lstDetalles[0],
+        "Monto 1": lstMontos[0],
+        "Detalle 2": lstDetalles[1],
+        "Monto 2": lstMontos[1],
+        "Detalle 3": lstDetalles[2],
+        "Monto 3": lstMontos[2],
+        "Detalle 4": lstDetalles[3],
+        "Monto 4": lstMontos[3],
+        "Detalle 5": lstDetalles[4],
+        "Monto 5": lstMontos[4],
+
         "Pago 1": lstPagos[0],
         "Fecha 1": lstFechas[0],
         "Pago 2": lstPagos[1],
@@ -652,7 +868,7 @@ export class ReportePagosComponent {
         "Fecha 29": lstFechas[28],
         "Pago 30": lstPagos[29],
         "Fecha 30": lstFechas[29],
-        "Monto Cancelado": sumapagos,
+        "Monto TOTAL PAGADO": sumapagos,
         "Fecha último Pago": fultimopa,
         "Monto último Pago": nultimopa
       });
