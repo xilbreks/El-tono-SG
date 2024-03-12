@@ -61,6 +61,26 @@ export class RdtEditComponent {
   lUpdating: boolean = false;
   lSearching: boolean = false;
 
+  // Quienes pueden delegar
+  lstDelegadores: Array<{ id: string, name: string }> = [
+    {
+      id: 'dra-lizbet',
+      name: 'Dra. Lizbet'
+    },
+    {
+      id: 'dra-estrella',
+      name: 'Dra. Estrella'
+    },
+    {
+      id: 'dra-silvia',
+      name: 'Dra. Silvia'
+    },
+    {
+      id: 'dra-naldy',
+      name: 'Dra. Naldy'
+    },
+  ];
+
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
