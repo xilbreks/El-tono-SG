@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-exp-item-obs',
@@ -15,6 +16,7 @@ export class ExpItemObsComponent implements OnChanges {
 
   constructor(
     private db: AngularFirestore,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -28,10 +30,17 @@ export class ExpItemObsComponent implements OnChanges {
       .valueChanges()
       .subscribe((res: any) => {
         this.sobs = res.sobs;
-        this.fcObs.setValue(this.sobs);
 
         obs.unsubscribe();
       });
+  }
+
+  openModal(modal: any) {
+    this.fcObs.setValue(this.sobs);
+
+    this.modalService.open(modal, {
+      windowClass: 'modal-md',
+    });
   }
 
   setObs() {
@@ -44,6 +53,8 @@ export class ExpItemObsComponent implements OnChanges {
       })
       .then(() => {
         // success
+        this.modalService.dismissAll();
+        this.getObs();
       })
       .catch(err => {
         console.log('ERROR', err)

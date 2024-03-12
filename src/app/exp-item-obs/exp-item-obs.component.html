@@ -3,20 +3,16 @@
 </h3>
 
 <div>
-    <textarea cols="30" rows="10" [formControl]="fcObs" class="form-control">
-    </textarea>
+    <pre>
+        {{sobs}}
+    </pre>
+
+    <button (click)="openModal(editObsModal)" class="btn btn-primary">
+        Editar
+    </button>
 </div>
 
 <br>
-
-<button class="btn btn-primary" (click)="setObs()" *ngIf="!lUpdating">
-    Guardar
-</button>
-<button class="btn btn-primary" *ngIf="lUpdating">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-    Guardando...
-</button>
-
 
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
@@ -25,3 +21,31 @@
         </i>
     </span>
 </div>
+
+
+<!------------------------------------------------
+  --------------- EDIT OBS MODAL -----------------
+  ----------------------------------------------->
+<ng-template #editObsModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Editar Observaciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <textarea cols="30" rows="10" [formControl]="fcObs" class="form-control">
+        </textarea>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="setObs()" [disabled]="!(fcObs.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
