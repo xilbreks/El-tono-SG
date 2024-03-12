@@ -68,7 +68,7 @@ export class ExpedientesUpdaterComponent {
 
         let storageRef = this.storage.ref('expedientes/expedientes.json');
         storageRef.put(blob).then(res => {
-          this.router.navigate(['/', 'expedientes-list2']);
+          this.router.navigate(['/', 'expedientes-listing']);
         }).catch(err => {
           console.log('ERROR', err);
         }).finally(() => {

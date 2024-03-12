@@ -124,7 +124,7 @@ const routes: Routes = [
     component: ExpedientesUpdaterComponent
   },
   {
-    path: 'expedientes-list2',
+    path: 'expedientes-listing',
     component: ExpedientesListComponent
   },
   {
