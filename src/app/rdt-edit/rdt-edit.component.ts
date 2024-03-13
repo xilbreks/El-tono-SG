@@ -449,6 +449,11 @@ export class RdtEditComponent {
       .then((x) => {
         this.modalService.dismissAll();
         this.frmNewTask.reset();
+        this.frmNewTask.setValue({
+          ncobrohonorario: 0,
+          ningresoarancel: 0,
+          nsalidaarancel: 0,
+        });
 
         if (objTarea['ncobrohonorario'] > 0) {
           this.registrarHonorario({

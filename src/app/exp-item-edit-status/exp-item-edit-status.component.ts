@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-exp-item-edit-status',
@@ -11,10 +12,11 @@ export class ExpItemEditStatusComponent implements OnChanges {
   @Output() onLactive = new EventEmitter<boolean>();
 
   lactive: boolean = true;
-  lToggling = false;
+  lUpdating = false;
 
   constructor(
     private db: AngularFirestore,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -34,11 +36,14 @@ export class ExpItemEditStatusComponent implements OnChanges {
       });
   }
 
-  setNotActive() {
-    let lconfirmed = window.confirm('Se dará de baja, ¿continuar?');
-    if (!lconfirmed) return;
+  openModalSetStatus(modal: any) {
+    this.modalService.open(modal, {
+      windowClass: 'modal-sm',
+    });
+  }
 
-    this.lToggling = true;
+  setNotActive() {
+    this.lUpdating = true;
     this.db.collection('expedientes')
       .doc(this.sexpediente)
       .update({
@@ -48,20 +53,18 @@ export class ExpItemEditStatusComponent implements OnChanges {
         // success
         this.getLactive();
         this.onLactive.emit(false);
+        this.modalService.dismissAll();
       })
       .catch(err => {
         console.log('ERROR', err)
       })
       .finally(() => {
-        this.lToggling = false;
+        this.lUpdating = false;
       });
   }
 
   setActive() {
-    let lconfirmed = window.confirm('Se dará de alta, ¿continuar?');
-    if (!lconfirmed) return;
-
-    this.lToggling = true;
+    this.lUpdating = true;
     this.db
       .collection('expedientes')
       .doc(this.sexpediente)
@@ -72,12 +75,13 @@ export class ExpItemEditStatusComponent implements OnChanges {
         // success
         this.getLactive();
         this.onLactive.emit(true);
+        this.modalService.dismissAll();
       })
       .catch(err => {
         console.log('ERROR', err)
       })
       .finally(() => {
-        this.lToggling = false;
+        this.lUpdating = false;
       });
   }
 

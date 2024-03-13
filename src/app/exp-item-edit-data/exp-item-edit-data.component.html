@@ -1,14 +1,42 @@
 <h5>
-    Datos del Expediente
+    <i class="bi bi-journal-text"></i>
+    Información Básica
 </h5>
 
 <p>
-    Datos básicos del expediente que se autocompletan al RDT y la lista general.
+    Son los datos indispensables que cada expediente
+    debe tener para su correcto almacenamiento en el inventario.
 </p>
 
-<button class="btn btn-warning" (click)="openModal(editDataModal)">
+<div>
+    Especialidad:
+    <kbd>
+        {{objData?.sespecialidad}}
+    </kbd>
+</div>
+<div>
+    Materia:
+    <kbd>
+        {{objData?.smateria}}
+    </kbd>
+</div>
+<div>
+    Demandante:
+    <kbd>
+        {{objData?.sdemandante}}
+    </kbd>
+</div>
+<div>
+    Demandado:
+    <kbd>
+        {{objData?.sdemandado}}
+    </kbd>
+</div>
+
+<br>
+
+<button class="btn btn-secondary" (click)="openModal(editDataModal)">
     Editar
-    <i class="bi bi-pencil-fill"></i>
 </button>
 
 <div style="margin-top: 50px;">
@@ -18,6 +46,8 @@
         </i>
     </span>
 </div>
+
+<hr>
 
 <!------------------------------------------------
   -------------- EDIT DATA MODAL -----------------

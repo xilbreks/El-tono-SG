@@ -1,6 +1,8 @@
 <h5>
-    Vinculación entre expedientes
+    <i class="bi bi-link"></i> 
+    Vinculación
 </h5>
+
 <p>
     Los expedientes vinculados comparten cierta información.
     Estos son:
@@ -15,25 +17,36 @@
 
 <!---------- NO MATCH ---------->
 <div *ngIf="smatchexp == 'no-match'">
-    No existe expediente vinculado
-
+    
     <div>
-        <button class="btn btn-warning" (click)="openModalSetMatch(setMatchModal)">
+        Vinculación actual: 
+        <kbd>
+            <span>·</span>
+            sin vinculación
+            <span>·</span>
+        </kbd>
+    </div>
+    <br>
+    <div>
+        <button class="btn btn-secondary" (click)="openModalSetMatch(setMatchModal)">
             Vincular
-            <i class="bi bi-link-45deg"></i>
         </button>
     </div>
 </div>
 <!---------- -- -- -- ---------->
 <!---------- DO MATCH ---------->
 <div *ngIf="smatchexp != 'no-match'">
-    <span>Vinculación con el expediente:</span>
-    <i> {{smatchexp}}</i>
-
+    
     <div>
-        <button class="btn btn-warning" (click)="openModalUnMatch(unMatchModal)">
+        Vinculación actual: 
+        <kbd>
+            {{smatchexp}}
+        </kbd>
+    </div>
+    <br>
+    <div>
+        <button class="btn btn-secondary" (click)="openModalUnMatch(unMatchModal)">
             Desvincular
-            <i class="bi bi-lightning-charge"></i>
         </button>
     </div>
 </div>
@@ -47,6 +60,8 @@
         </i>
     </span>
 </div>
+
+<hr>
 
 <!------------------------------------------------
   -------------- SET MATCH MODAL -----------------

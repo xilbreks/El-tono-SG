@@ -1,35 +1,42 @@
 <h5>
-    Estado del Expediente
+    <i class="bi bi-exclamation-triangle"></i>
+    Estado
 </h5>
 
 <p>
     Dependiendo del estado de expediente, este se mostrará o no en el listado.
 </p>
 
-<div *ngIf="lactive" style="margin-bottom: 50px;">
-    <div>
-        <button (click)="setNotActive()" class="btn btn-danger" *ngIf="!lToggling">
-            Dar de Baja
-            <i class="bi bi-layer-backward"></i>
-        </button>
-        <button (click)="setNotActive()" class="btn btn-danger" *ngIf="lToggling">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Dando de baja...
-        </button>
-    </div>
+<div>
+    Estado actual:
+    <kbd *ngIf="lactive" style="background-color: #28b131;">
+        <span>·</span>
+        ACTIVO
+        <span>·</span>
+    </kbd>
+    <kbd *ngIf="!lactive" style="background-color: red;">
+        <span>·</span>
+        DEPURADO
+        <span>·</span>
+    </kbd>
 </div>
 
-<div *ngIf="!lactive" style="margin-bottom: 50px;">
-    <div>
-        <button (click)="setActive()" class="btn btn-warning" *ngIf="!lToggling">
-            Dar de Alta
-            <i class="bi bi-layer-forward"></i>
-        </button>
-        <button (click)="setActive()" class="btn btn-warning" *ngIf="lToggling">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Dando de alta...
-        </button>
-    </div>
+<br/>
+
+<div *ngIf="!lactive">
+
+    <button class="btn btn-danger" (click)="openModalSetStatus(setActiveModal)">
+        Activar
+    </button>
+
+</div>
+
+<div *ngIf="lactive">
+
+    <button class="btn btn-danger" (click)="openModalSetStatus(setNotActiveModal)">
+        Depurar
+    </button>
+
 </div>
 
 
@@ -41,3 +48,70 @@
         </i>
     </span>
 </div>
+
+
+<!------------------------------------------------
+  -------------- SET ACTIVE MODAL ----------------
+  ----------------------------------------------->
+<ng-template #setActiveModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Dar de Alta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>
+            Se dará de alta el expediente
+        </p>
+        <p>
+            <i>
+                ¿Está seguro?
+            </i>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="setActive()">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Dar de alta
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Dando de alta...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!------------------------------------------------
+  ------------ SET NOT ACTIVE MODAL --------------
+  ----------------------------------------------->
+<ng-template #setNotActiveModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Dar de Baja</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>
+            Se dará de baja el expediente
+        </p>
+        <p>
+            <i>
+                ¿Está seguro?
+            </i>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="setNotActive()">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Dar de baja
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Dando de baja...
+            </span>
+        </button>
+    </div>
+</ng-template>
