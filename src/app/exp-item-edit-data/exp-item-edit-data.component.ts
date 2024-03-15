@@ -35,7 +35,6 @@ export class ExpItemEditDataComponent implements OnChanges {
       sdemandado: new FormControl(null, Validators.required),
       sdemandante: new FormControl(null, Validators.required),
       sespecialidad: new FormControl(null, Validators.required),
-      sespecialista: new FormControl(null, Validators.required),
       sfechainicio: new FormControl(null, Validators.required),
     });
 
@@ -110,7 +109,6 @@ export class ExpItemEditDataComponent implements OnChanges {
       sdemandado: this.objData.sdemandado,
       sdemandante: this.objData.sdemandante,
       sespecialidad: this.objData.sespecialidad,
-      sespecialista: this.objData.sespecialista,
       sfechainicio: this.objData.sfechainicio,
     });
 
@@ -132,8 +130,7 @@ export class ExpItemEditDataComponent implements OnChanges {
         sdemandado: this.frmData.value['sdemandado'].trim().toUpperCase(),
         sdemandante: this.frmData.value['sdemandante'].trim().toUpperCase(),
         sespecialidad: this.frmData.value['sespecialidad'],
-        sespecialista: this.frmData.value['sespecialista'].trim().toUpperCase(),
-        sfechainicio: this.frmData.value['sfechainicio'].trim().toUpperCase(),
+        sfechainicio: this.frmData.value['sfechainicio'].trim(),
       })
       .then(() => {
         // success

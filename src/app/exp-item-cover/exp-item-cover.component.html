@@ -58,19 +58,6 @@
         </tr>
         <tr>
             <td>
-                <b>ESPECIALISTA:</b>
-            </td>
-            <td *ngIf="!lLoading">
-                {{objExpediente.sespecialista}}
-            </td>
-            <td *ngIf="lLoading">
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
                 <b>DEMANDANTE:</b>
             </td>
             <td *ngIf="!lLoading">
@@ -97,10 +84,15 @@
         </tr>
         <tr>
             <td>
-                <b>INICIO:</b>
+                <b>CONTRATO:</b>
             </td>
             <td *ngIf="!lLoading">
-                {{objExpediente.sfechainicio}}
+                <span *ngIf="objExpediente.lcontrato">
+                    OK
+                </span>
+                <span *ngIf="!objExpediente.lcontrato" style="color: red;">
+                    <b>SIN CONTRATO</b>
+                </span>
             </td>
             <td *ngIf="lLoading">
                 <div class="spinner-grow spinner-grow-sm" role="status">
@@ -131,6 +123,11 @@
         <div class="col-6">
             <h6>
                 AREQUIPA
+            </h6>
+            <h6>
+                <small>
+                    {{objExpediente.sfechainicio}}
+                </small>
             </h6>
         </div>
         <div class="col-3">

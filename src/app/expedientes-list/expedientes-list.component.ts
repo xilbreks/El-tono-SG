@@ -115,41 +115,51 @@ export class ExpedientesListComponent implements AfterViewInit {
       return;
     }
 
-    this.lstExpedientesFiltered = this.lstExpedientes.filter(exp => {
-      let lMatch = false;
-      let nMatchs = 0;
-
-      sterms.forEach(sterm => {
-        if (exp.sdemandado.toLowerCase().includes(sterm)) nMatchs++;
+    this.lstExpedientesFiltered = this.lstExpedientes
+      .filter(exp => {
+        if (exp.idtipodoc == 'CASACION-2DA-SALA') {
+          return false;
+        } else if (exp.idtipodoc == 'CASACION-4TA-SALA') {
+          return false;
+        } else {
+          return true;
+        }
       })
-      if (nMatchs == sterms.length) lMatch = true;
-      nMatchs = 0;
+      .filter(exp => {
+        let lMatch = false;
+        let nMatchs = 0;
 
-      sterms.forEach(sterm => {
-        if (exp.sdemandante.toLowerCase().includes(sterm)) nMatchs++;
-      })
-      if (nMatchs == sterms.length) lMatch = true;
-      nMatchs = 0;
+        sterms.forEach(sterm => {
+          if (exp.sdemandado.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+        nMatchs = 0;
 
-      sterms.forEach(sterm => {
-        if (exp.sexpediente.toLowerCase().includes(sterm)) nMatchs++;
-      })
-      if (nMatchs == sterms.length) lMatch = true;
-      nMatchs = 0;
+        sterms.forEach(sterm => {
+          if (exp.sdemandante.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+        nMatchs = 0;
 
-      sterms.forEach(sterm => {
-        if (exp.scodigo.toLowerCase().includes(sterm)) nMatchs++;
-      })
-      if (nMatchs == sterms.length) lMatch = true;
-      nMatchs = 0;
+        sterms.forEach(sterm => {
+          if (exp.sexpediente.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+        nMatchs = 0;
 
-      sterms.forEach(sterm => {
-        if (exp.smatchexp?.toLowerCase().includes(sterm)) nMatchs++;
-      })
-      if (nMatchs == sterms.length) lMatch = true;
+        sterms.forEach(sterm => {
+          if (exp.scodigo.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+        nMatchs = 0;
 
-      return lMatch;
-    });
+        sterms.forEach(sterm => {
+          if (exp.smatchexp?.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+
+        return lMatch;
+      });
     this.lModeFiltering = true;
   }
 

@@ -43,7 +43,6 @@ export class ExpedienteRegisterComponent {
       smateria: new FormControl(null, Validators.required),
       idtipodoc: new FormControl(null, Validators.required),
       sorganojuris: new FormControl(null, Validators.required),
-      sespecialista: new FormControl(null, Validators.required),
       sdemandante: new FormControl(null, Validators.required),
       sdemandado: new FormControl(null, Validators.required),
       sfechainicio: new FormControl(null, Validators.required),
@@ -122,10 +121,9 @@ export class ExpedienteRegisterComponent {
         idmateria: this.frmExpediente.controls['idmateria'].value,
         smateria: this.frmExpediente.controls['smateria'].value,
         idtipodoc: this.frmExpediente.controls['idtipodoc'].value,
-        sorganojuris: this.frmExpediente.controls['sorganojuris'].value.trim(),
-        sespecialista: this.frmExpediente.controls['sespecialista'].value.trim(),
-        sdemandante: this.frmExpediente.controls['sdemandante'].value.trim(),
-        sdemandado: this.frmExpediente.controls['sdemandado'].value.trim(),
+        sorganojuris: this.frmExpediente.controls['sorganojuris'].value.trim().toUpperCase(),
+        sdemandante: this.frmExpediente.controls['sdemandante'].value.trim().toUpperCase(),
+        sdemandado: this.frmExpediente.controls['sdemandado'].value.trim().toUpperCase(),
         sfechainicio: this.frmExpediente.controls['sfechainicio'].value.trim(),
 
         sfechacreacion: new Date().getTime().toString(),
@@ -136,6 +134,7 @@ export class ExpedienteRegisterComponent {
         sobs: '',
         smatchexp: 'no-match',
         scodigo: 'XX-XXXX',
+        lcontrato: false,
       })
       .then((x) => {
         this.router.navigate(['/expediente/', sexpediente]);

@@ -15,6 +15,7 @@ class ObjExpediente {
   smateria: string = '';
   ssumilla: string = '';
   sfechamodificacion: string = '';
+  lcontrato: boolean = false;
   scodigo: string = '';
 }
 
