@@ -47,6 +47,7 @@ import { ExpItemEditStatusComponent } from './exp-item-edit-status/exp-item-edit
 import { ExpItemObsComponent } from './exp-item-obs/exp-item-obs.component';
 import { ExpItemFeesComponent } from './exp-item-fees/exp-item-fees.component';
 import { ExpItemTasksComponent } from './exp-item-tasks/exp-item-tasks.component';
+import { ExpItemEditTermsComponent } from './exp-item-edit-terms/exp-item-edit-terms.component';
 
 
 const environment = {
@@ -101,6 +102,7 @@ const environment = {
     ExpItemObsComponent,
     ExpItemFeesComponent,
     ExpItemTasksComponent,
+    ExpItemEditTermsComponent,
   ],
   imports: [
     BrowserModule,

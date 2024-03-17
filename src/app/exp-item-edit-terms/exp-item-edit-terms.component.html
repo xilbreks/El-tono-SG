@@ -1,0 +1,118 @@
+<h5>
+    <i class="bi bi-clipboard2-check"></i>
+    Contrato
+</h5>
+
+<p>
+    Indicador de que si el expediente cuenta con contrato.
+</p>
+
+<div>
+    Estado actual:
+    <kbd *ngIf="lterms">
+        <span>·</span>
+        Con Contrato
+        <span>·</span>
+    </kbd>
+    <kbd *ngIf="!lterms">
+        <span>·</span>
+        Sin Contrato
+        <span>·</span>
+    </kbd>
+</div>
+
+<br />
+
+<div *ngIf="!lterms">
+
+    <button class="btn btn-secondary" (click)="openModalSetTerms(setWithTermsModal)">
+        Marcar
+    </button>
+
+</div>
+
+<div *ngIf="lterms">
+
+    <button class="btn btn-secondary" (click)="openModalSetTerms(setWithOutTermsModal)">
+        Desmarcar
+    </button>
+
+</div>
+
+
+
+<div style="margin-top: 50px;">
+    <span style="font-size: 0.75rem;">
+        <i>
+            {{sexpediente}}
+        </i>
+    </span>
+</div>
+
+<hr>
+
+<!------------------------------------------------
+  ----------- SET WITH TERMS MODAL ---------------
+  ----------------------------------------------->
+<ng-template #setWithTermsModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Marcar con Contrato</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>
+            Se marcará que el expediente tiene contrato.
+        </p>
+        <p>
+            <i>
+                ¿Está seguro?
+            </i>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="setTerms(true)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!------------------------------------------------
+  --------- SET WITH-OUT TERMS MODAL -------------
+  ----------------------------------------------->
+  <ng-template #setWithOutTermsModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Marcar sin Contrato</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>
+            Se marcará que el expediente no tiene contrato.
+        </p>
+        <p>
+            <i>
+                ¿Está seguro?
+            </i>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="setTerms(false)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
