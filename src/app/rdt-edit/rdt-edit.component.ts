@@ -460,26 +460,6 @@ export class RdtEditComponent {
             scolaborador: this.objRdt.scolaborador,
           })
         }
-        if (objTarea['ningresoarancel'] > 0) {
-          this.registrarIngresoArancel({
-            id: Number(id),
-            sexp: sexp,
-            nmonto: objTarea['ningresoarancel'],
-            sfecha: this.objRdt.sfecha,
-            idcolaborador: this.objRdt.idcolaborador,
-            scolaborador: this.objRdt.scolaborador,
-          })
-        }
-        if (objTarea['nsalidaarancel'] > 0) {
-          this.registrarGastoArancel({
-            id: Number(id),
-            sexp: sexp,
-            nmonto: objTarea['nsalidaarancel'],
-            sfecha: this.objRdt.sfecha,
-            idcolaborador: this.objRdt.idcolaborador,
-            scolaborador: this.objRdt.scolaborador,
-          })
-        }
       })
       .catch(() => {
         window.alert('ERROR al crear tarea')
@@ -509,72 +489,6 @@ export class RdtEditComponent {
         nmonto: arg.nmonto,
         sfecha: arg.sfecha,
         sdescripcion: 'Pago por Honorarios - Cobrado por ' + arg.scolaborador + ' [vía RDT]',
-        smodificador: arg.idcolaborador
-      })
-      .then((x) => {
-        // success
-      })
-      .catch(() => {
-        // error
-      })
-      .finally(() => {
-        // completed
-      });
-  }
-
-  registrarIngresoArancel(arg: {
-    id: number,
-    sexp: string,
-    nmonto: number,
-    sfecha: string,
-    idcolaborador: string,
-    scolaborador: string,
-  }) {
-    const id = (new Date(arg.id).getTime() + 20).toString();
-
-    this.db
-      .collection('pagos')
-      .doc(id)
-      .set({
-        idpago: id,
-        lactive: true,
-        sexpediente: arg.sexp,
-        nmonto: arg.nmonto,
-        sfecha: arg.sfecha,
-        sdescripcion: 'Pago para Aranceles - Cobrado por ' + arg.scolaborador + ' [vía RDT]',
-        smodificador: arg.idcolaborador
-      })
-      .then((x) => {
-        // success
-      })
-      .catch(() => {
-        // error
-      })
-      .finally(() => {
-        // completed
-      });
-  }
-
-  registrarGastoArancel(arg: {
-    id: number,
-    sexp: string,
-    nmonto: number,
-    sfecha: string,
-    idcolaborador: string,
-    scolaborador: string,
-  }) {
-    const id = (new Date(arg.id).getTime() + 30).toString();
-
-    this.db
-      .collection('pagos')
-      .doc(id)
-      .set({
-        idpago: id,
-        lactive: true,
-        sexpediente: arg.sexp,
-        nmonto: -(arg.nmonto),
-        sfecha: arg.sfecha,
-        sdescripcion: 'Gasto en Aranceles - Dispuesto por ' + arg.scolaborador + ' [vía RDT]',
         smodificador: arg.idcolaborador
       })
       .then((x) => {
