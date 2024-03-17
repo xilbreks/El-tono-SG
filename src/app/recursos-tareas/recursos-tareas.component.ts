@@ -86,10 +86,12 @@ export class RecursosTareasComponent {
       { id: 100, pick: true, desc: '100.- SESIONES SEMANALES' },
       { id: 101, pick: true, desc: '101.- ALMUERZO' },
       { id: 102, pick: true, desc: '102.- ORDEN Y LIMPIEZA' },
-      { id: 103, pick: true, desc: '103.- ACTUALIZACION DEL PLANER' },
+      { id: 103, pick: true, desc: '103.- ACTUALIZACION DEL PLANER y/o EXCELS' },
       { id: 104, pick: true, desc: '104.- SESIONES DE COMPARTIR(ANIVERSARIOS, CUMPLEAÑOS, FESTIVIDADES, ETC)' },
-      { id: 103, pick: true, desc: '105.- TAREAS ADMINISTRATIVAS' },
-      { id: 103, pick: true, desc: '106.- TAREAS CONTABLES' },
+      { id: 105, pick: true, desc: '105.- SACAR COPIAS / IMPRIMIR / QUEMAR CDs' },
+      { id: 106, pick: true, desc: '106.- GRABACION DE VIDEOS y/o TOMA DE FOTOS' },
+      { id: 107, pick: true, desc: '107.- TRANSCRIPCION DE AUDIOS y/o VIDEOS' },
+      { id: 110, pick: true, desc: '110.- LLENADO DE RDT' },
     ];
   }
 }
