@@ -256,6 +256,10 @@ export class AdminRdtComponent {
               (dfreg.getMonth() + 1) + '/' + dfreg.getFullYear() + ' ' +
               (dfreg.getHours()>10?dfreg.getHours():'0'+dfreg.getHours()) + ':' + 
               (dfreg.getMinutes()>10?dfreg.getMinutes():'0'+dfreg.getMinutes());
+
+              // Agregar Hora de entrada y salida
+              tarea['hentrada'] = rdt.shoraingreso + ':' + rdt.sminutoingreso;
+              tarea['hsalida'] = rdt.shorasalida + ':' + rdt.sminutosalida;
             }
           });
         });
@@ -288,6 +292,8 @@ export class AdminRdtComponent {
             "Tiempo real": tarea['srealtime'],
             "Prod. Segun RDT": tarea['productidad1'],
             "Prod. Segun horario": tarea['productidad2'],
+            "Hora Entrada": tarea['hentrada'],
+            "Hora Salida": tarea['hsalida'],
             "Descripción de la tarea": tarea['sdeseje'].trim().slice(0,2500),
             "Acciones por realizar": tarea['sacceje'].trim().slice(0,2500),
             "Fecha y Hora de guardado": tarea['sfechareg']
