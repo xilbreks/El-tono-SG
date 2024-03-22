@@ -444,16 +444,26 @@ export class RdtEditComponent {
   ///////////////////////////////////////////////
 
   buscarExpedienteAlias() {
+    this.lSearching = true;
+    
     let sTermino: string = this.frmNewTask.value.sexpediente;
     sTermino = sTermino.trim().toUpperCase();
-    if (sTermino.length <= 10) {
-      if (!sTermino.match(/^\d{1,5}[-]\d{4}$/)) {
-        return;
-      }
+    let sAtributo = '';
+
+    if (sTermino.match(/^[0-9]{5}[-][0-9]{4}$/)) {
+      // Abreviacion de expediente normal
+      sAtributo = 'salias';
+    } else if (sTermino.match(/^[0-9]{5}[-][0-9]{4}[-][0-9]{1,2}$/)) {
+      // Abreviacion de expediente cautelar
+      sAtributo = 'salias';
+    } else if (sTermino.match(/^[A-Z0-9-]{3,27}$/)) {
+      // Codigo completo
+      sAtributo = 'sexpediente';
+    } else {
+      this.lSearching = false;
+      return;
     }
 
-    this.lSearching = true;
-    let sAtributo = sTermino.length == 10 ? 'salias' : 'sexpediente';
     let obs = this.db.collection('expedientes', ref => {
       return ref.where(sAtributo, '==', sTermino)
     }).valueChanges()

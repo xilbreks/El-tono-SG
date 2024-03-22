@@ -14,7 +14,7 @@ export class ExpedienteSearchComponent implements AfterViewInit {
   lstHits: Array<any> = [];
 
   constructor(
-    private db: AngularFirestore, 
+    private db: AngularFirestore,
     private router: Router,
     private titleService: Title,
   ) {
@@ -26,18 +26,26 @@ export class ExpedienteSearchComponent implements AfterViewInit {
   }
 
   buscarExpediente(sSearchTerm: any): void {
-    if(!sSearchTerm) return;
-
-    let sexpediente = sSearchTerm.trim().toUpperCase();
-
-    if (sexpediente.length <= 10) {
-      if (!sexpediente.match(/^\d{1,5}[-]\d{4}$/)) {
-        return;
-      }
-    }
+    if (!sSearchTerm) return;
 
     this.lSearching = true;
-    let sAtributo = sexpediente.length == 10 ? 'salias' : 'sexpediente';
+
+    let sexpediente = sSearchTerm.trim().toUpperCase();
+    let sAtributo = '';
+
+    if (sexpediente.match(/^[0-9]{5}[-][0-9]{4}$/)) {
+      // Abreviacion de expediente normal
+      sAtributo = 'salias';
+    } else if (sexpediente.match(/^[0-9]{5}[-][0-9]{4}[-][0-9]{1,2}$/)) {
+      // Abreviacion de expediente cautelar
+      sAtributo = 'salias';
+    } else if (sexpediente.match(/^[A-Z0-9-]{3,27}$/)) {
+      // Codigo completo
+      sAtributo = 'sexpediente';
+    } else {
+      this.lSearching = false;
+      return;
+    }
 
     let obs = this.db.collection('expedientes', ref => {
       return ref.where(sAtributo, '==', sexpediente)
@@ -47,7 +55,7 @@ export class ExpedienteSearchComponent implements AfterViewInit {
         if (data.length == 0) {
           window.alert('No se encontro expediente');
         } else if (data.length == 1) {
-          this.router.navigate(['/expediente/',data[0].sexpediente]);
+          this.router.navigate(['/expediente/', data[0].sexpediente]);
         } else {
           this.lstHits = data;
         }
