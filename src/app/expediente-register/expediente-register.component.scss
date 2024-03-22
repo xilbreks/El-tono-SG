@@ -23,4 +23,8 @@
     #sexpediente.ng-invalid.ng-touched {
         border: 1px solid red;
     }
+
+    #sexpediente.ng-valid.ng-touched {
+        border: 1px solid limegreen;
+    }
 }

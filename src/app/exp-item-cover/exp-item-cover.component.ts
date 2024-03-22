@@ -57,6 +57,10 @@ export class ExpItemCoverComponent implements OnChanges {
             this.objExpediente['idtipodoc'] = 'CASACIÓN 4TA SALA'
           } else if (idtipodoc == 'CARPETA-FISCAL') {
             this.objExpediente['idtipodoc'] = 'CARPETA FISCAL'
+          } else if (idtipodoc == 'EXPEDIENTE-PROVISIONAL') {
+            this.objExpediente['idtipodoc'] = 'EXPEDIENTE PROVISIONAL'
+          } else if (idtipodoc == 'EXPEDIENTE-CAUTELAR') {
+            this.objExpediente['idtipodoc'] = 'EXPEDIENTE CAUTELAR'
           }
         } else {
           window.alert('expediente no existe')

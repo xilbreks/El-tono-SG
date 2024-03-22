@@ -34,10 +34,7 @@ export class ExpedienteRegisterComponent {
     this.titleService.setTitle('Registrar Expediente');
 
     this.frmExpediente = new FormGroup({
-      sexpediente: new FormControl(null, Validators.compose([
-        Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9-]+$/)
-      ])),
+      sexpediente: new FormControl(null, Validators.required),
       sespecialidad: new FormControl(null, Validators.required),
       idmateria: new FormControl(null, Validators.required),
       smateria: new FormControl(null, Validators.required),
@@ -89,6 +86,42 @@ export class ExpedienteRegisterComponent {
     this.frmExpediente.controls['smateria'].setValue(smateria);
   }
 
+  // Establecer la validacion del codigo de expediente segun tipo de documento
+  setValidator() {
+    let idtipodoc = this.frmExpediente.controls['idtipodoc'].value;
+    let regexp: RegExp = /REGEX/;
+
+    switch (idtipodoc) {
+      case 'EXPEDIENTE-ORIGEN':
+        regexp = /^[0-9]{5}[-][0-9]{4}[-][0][-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
+        break;
+      case 'EXPEDIENTE-CAUTELAR':
+        regexp = /^[0-9]{5}[-][0-9]{4}[-][0-9]{1,2}[-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
+        break;
+      case 'CASACION-2DA-SALA':
+        regexp = /^[0-9]{5}[-][0-9]{4}[-][0][-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
+        break;
+      case 'CASACION-4TA-SALA':
+        regexp = /^[0-9]{5}[-][0-9]{4}[-][0][-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
+        break;
+      case 'CARPETA-FISCAL':
+        regexp = /^[0-9]{3,6}[-][0-9]{4}$/;
+        break;
+      case 'EXPEDIENTE-PROVISIONAL':
+        regexp = /^[A-Z0-9-]{3,25}$/;
+        break;
+      default:
+        window.alert('ERROR DE ELECCION')
+    }
+
+    this.frmExpediente.controls['sexpediente'].setValidators([
+      Validators.required,
+      Validators.pattern(regexp)
+    ]);
+    this.frmExpediente.controls['sexpediente'].updateValueAndValidity();
+  }
+
+  // Verificar si ya existe
   crearExpediente() {
     this.lCreating = true;
     let sexpediente = this.frmExpediente.value['sexpediente'];
@@ -102,25 +135,52 @@ export class ExpedienteRegisterComponent {
           this.saveExp();
         } else {
           this.lCreating = false;
-          window.alert('Ya existe un expediente con ese numero')
+          window.alert('Ya existe un expediente con ese código')
         }
 
         obs.unsubscribe();
       });
   }
 
+  // Registrar expediente
   saveExp() {
     let sexpediente = this.frmExpediente.value['sexpediente'];
+    let idtipodoc = this.frmExpediente.controls['idtipodoc'].value;
+    let salias = '';
+
+    switch (idtipodoc) {
+      case 'EXPEDIENTE-ORIGEN':
+        salias = sexpediente.slice(0, 10);
+        break;
+      case 'EXPEDIENTE-CAUTELAR':
+        let lstParts: Array<string> = sexpediente.split('-');
+        salias = lstParts[0] + '-' + lstParts[1] + '-' + lstParts[2];
+        break;
+      case 'CASACION-2DA-SALA':
+        salias = sexpediente.slice(0, 10);
+        break;
+      case 'CASACION-4TA-SALA':
+        salias = sexpediente.slice(0, 10);
+        break;
+      case 'CARPETA-FISCAL':
+        salias = sexpediente;
+        break;
+      case 'EXPEDIENTE-PROVISIONAL':
+        salias = sexpediente;
+        break;
+      default:
+        salias = sexpediente;
+    }
 
     this.db
       .collection('expedientes')
       .doc(sexpediente)
       .set({
+        idtipodoc: idtipodoc,
         sexpediente: sexpediente,
         sespecialidad: this.frmExpediente.controls['sespecialidad'].value,
         idmateria: this.frmExpediente.controls['idmateria'].value,
         smateria: this.frmExpediente.controls['smateria'].value,
-        idtipodoc: this.frmExpediente.controls['idtipodoc'].value,
         sorganojuris: this.frmExpediente.controls['sorganojuris'].value.trim().toUpperCase(),
         sdemandante: this.frmExpediente.controls['sdemandante'].value.trim().toUpperCase(),
         sdemandado: this.frmExpediente.controls['sdemandado'].value.trim().toUpperCase(),
@@ -128,8 +188,8 @@ export class ExpedienteRegisterComponent {
 
         sfechacreacion: new Date().getTime().toString(),
         sfechamodificacion: new Date().getTime().toString(),
-        salias: sexpediente.slice(0, 10),
-        
+        salias: salias,
+
         lactive: true,
         sobs: '',
         smatchexp: 'no-match',

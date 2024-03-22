@@ -62,10 +62,12 @@
         <form [formGroup]="frmData" autocomplete="off">
             <h4>
                 <select class="form-select" formControlName="idtipodoc" style="text-align: center;">
-                    <option value="EXPEDIENTE-ORIGEN">EXPEDIENTE</option>
+                    <option value="EXPEDIENTE-ORIGEN">EXPEDIENTE PRINCIPAL/ORIGEN</option>
+                    <option value="EXPEDIENTE-CAUTELAR">EXPEDIENTE CAUTELAR</option>
                     <option value="CASACION-2DA-SALA">CASACION 2DA SALA</option>
                     <option value="CASACION-4TA-SALA">CASACION 4TA SALA</option>
                     <option value="CARPETA-FISCAL">CARPETA FISCAL</option>
+                    <option value="EXPEDIENTE-PROVISIONAL">EXPEDIENTE PROVISIONAL</option>
                 </select>
             </h4>
             <hr />
