@@ -1,10 +1,114 @@
 <h5>
-    Código del Expediente
+    <i class="bi bi-alt"></i>
+    Codificación
 </h5>
 
-<div>
-    <label for="scodigo">
-        Código
-    </label>
-    <input type="text" id="scodigo" [formControl]="fcCodigo" placeholder="XX-XXXX" class="form-control">
+<p>
+    Algunos expedientes tienen código interno para una mejor organización.
+</p>
+
+<!---------- SIN CÓDIGO ---------->
+<div *ngIf="scodigo == 'XX-XXXX'">
+    <div>
+        Código Actual: 
+        <kbd>
+            <span>·</span>
+            sin código
+            <span>·</span>
+        </kbd>
+    </div>
+    <br>
+    <div>
+        <button class="btn btn-secondary" (click)="openModalSetCode(setCodigoModal)">
+            Asignar
+        </button>
+    </div>
 </div>
+<!---------- --- --- -- ---------->
+<!---------- CON CÓDIGO ---------->
+<div *ngIf="scodigo != 'XX-XXXX'">
+    <div>
+        Código Actual: 
+        <kbd>
+            <span>·</span>
+            {{scodigo}}
+            <span>·</span>
+        </kbd>
+    </div>
+    <br>
+    <div>
+        <button class="btn btn-secondary" (click)="openModalUnCode(unCodeModal)">
+            Restablecer
+        </button>
+    </div>
+</div>
+<!---------- --- --- -- ---------->
+
+<div style="margin-top: 50px;">
+    <span style="font-size: 0.75rem;">
+        <i>
+            {{sexpediente}}
+        </i>
+    </span>
+</div>
+
+<hr>
+
+<!-------------------------------------------------
+  -------------- SET CODIGO MODAL -----------------
+  ------------------------------------------------>
+  <ng-template #setCodigoModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Código de Expediente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <input type="text" [formControl]="fcCodigo" class="form-control" placeholder="XX-XXXX">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="setCodigo()" [disabled]="!(fcCodigo.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Asignar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Asignando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  --------------- UN-CODIGO MODAL -----------------
+  ------------------------------------------------>
+<ng-template #unCodeModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Código de Expediente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>
+            Se quitará el código al expediente.
+        </p>
+        <p>
+            <i>
+                ¿Está seguro?
+            </i>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="unCode()">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Desvincular
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Desvinculando...
+            </span>
+        </button>
+    </div>
+</ng-template>

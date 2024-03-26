@@ -62,8 +62,8 @@ export class TestingComponent {
   getTareas() {
     let obs = this.db.collection('tareas', ref => {
       return ref
-        .where('sfecha', '>=', '2024-02-01')
-        .where('sfecha', '<=', '2024-02-29')
+        .where('sfecha', '>=', '2024-03-01')
+        .where('sfecha', '<=', '2024-03-22')
     })
       .valueChanges()
       .subscribe((res: any) => {

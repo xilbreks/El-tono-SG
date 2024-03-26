@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-exp-item-edit-code',
@@ -16,6 +17,7 @@ export class ExpItemEditCodeComponent implements OnChanges {
 
   constructor(
     private db: AngularFirestore,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -30,34 +32,69 @@ export class ExpItemEditCodeComponent implements OnChanges {
       .valueChanges()
       .subscribe((res: any) => {
         this.scodigo = res.scodigo;
-        this.fcCodigo.setValue(this.scodigo);
-        // this.onLactive.emit(this.lactive);
 
         obs.unsubscribe();
       });
   }
 
-  setCodigo() {
-    // this.lUpdating = true;
-    let scodigo = this.fcCodigo.value.trim();
-
-    console.log('actualizar con:', scodigo)
-    // this.db
-    //   .collection('expedientes')
-    //   .doc(this.sexpediente)
-    //   .update({
-    //     scodigo: scodigo
-    //   })
-    //   .then(() => {
-    //     // success
-    //     this.getCodigo;
-    //     // this.onLactive.emit(true);
-    //   })
-    //   .catch(err => {
-    //     console.log('ERROR', err)
-    //   })
-    //   .finally(() => {
-    //     this.lUpdating = false;
-    //   });
+  openModalSetCode(modal: any) {
+    this.modalService.open(modal, {
+      windowClass: 'modal-sm',
+    });
   }
+  
+  setCodigo() {
+    this.lUpdating = true;
+    let scodigo = this.fcCodigo.value;
+
+    this.db
+      .collection('expedientes')
+      .doc(this.sexpediente)
+      .update({
+        scodigo: scodigo
+      })
+      .then(() => {
+        // success
+        this.scodigo = scodigo;
+      })
+      .catch(err => {
+        // error
+        window.alert('Error al establecer codigo' + err)
+      })
+      .finally(() => {
+        this.modalService.dismissAll();
+        this.lUpdating = false;
+      })
+  }
+
+  openModalUnCode(modal: any) {
+    this.modalService.open(modal, {
+      windowClass: 'modal-sm',
+    });
+  }
+
+  unCode() {
+    this.lUpdating = true;
+
+    this.db
+      .collection('expedientes')
+      .doc(this.sexpediente)
+      .update({
+        scodigo: 'XX-XXXX'
+      })
+      .then(() => {
+        // success
+        this.scodigo = 'XX-XXXX';
+        this.fcCodigo.reset();
+      })
+      .catch(err => {
+        // error
+        window.alert('Error al quitar codigo' + err)
+      })
+      .finally(() => {
+        this.modalService.dismissAll();
+        this.lUpdating = false;
+      })
+  }
+
 }
