@@ -25,3 +25,42 @@ h4 {
         background-color: #ddd;
     }
 }
+
+// /////// buscador
+
+.search-box {
+    position: relative;
+    padding-left: 5px;
+}
+
+.result-box {
+    position: absolute;
+    z-index: 3;
+    top: 68px;
+
+    background-color: #fff;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    width: max-content;
+    max-height: 400px;
+
+    .result-item {
+        padding: 0 15px;
+        margin: 5px 0;
+        border-bottom: 1px solid #f3f3f3;
+
+        .exp {
+            font-size: 0.95rem;
+        }
+
+        .dte {
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+    }
+
+    .result-item:hover {
+        background-color: #e9f3ff;
+        cursor: pointer;
+    }
+}

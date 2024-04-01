@@ -4,6 +4,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+
+import { ExpedientesService } from './../__servicios/expedientes.service';
 
 import {
   lstIterLaboral,
@@ -24,7 +27,8 @@ class ObjRdt {
   public nsemana: number = 0;
   public ndia: number = 0;
 
-  constructor() { }
+  constructor(
+  ) { }
 }
 
 class ObjTarea {
@@ -88,18 +92,32 @@ export class RdtEditComponent {
       id: 'dra-naldy',
       name: 'Dra. Naldy'
     },
+    {
+      id: 'bach-vianka',
+      name: 'Bach. Vianka'
+    },
+    {
+      id: 'bach-rocio',
+      name: 'Bach. Rocío'
+    },
   ];
+
+  lstExpedientes: Array<any> = [];
+  lstExpedientesFiltered: Array<any> = [];
 
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
     private modalService: NgbModal,
+    private expedientesService: ExpedientesService,
+    private storage: AngularFireStorage,
     route: ActivatedRoute
   ) {
     this.idrdt = '' + route.snapshot.paramMap.get('id');
     this.titleService.setTitle('RDT ' + this.idrdt);
     this.getObjRdt();
     this.getTareas();
+    this.getExpedientesList();
 
     /**********************
      * INIT FORM NEW TASK *
@@ -162,6 +180,31 @@ export class RdtEditComponent {
   get lstIterOtros() { return lstIterOtros; }
 
   get lstDiligencias() { return lstDiligencias; }
+
+  /**
+   * Recupera el listado del expedientes
+   */
+  getExpedientesList() {
+    let obs = this.storage.ref('/expedientes/expedientes.json')
+      .getDownloadURL()
+      .subscribe(url => {
+        fetch(url)
+          .then(res => {
+            return res.json();
+          })
+          .then(expedientes => {
+            expedientes.shift();
+            console.log('datos recuperados')
+
+            this.lstExpedientes = expedientes;
+          }).catch(err => {
+            console.log('ERROR', err);
+          }).finally(() => {
+          });
+
+        obs.unsubscribe();
+      })
+  }
 
   /**
    * Obtiene los datos importantes del RDT
@@ -445,7 +488,7 @@ export class RdtEditComponent {
 
   buscarExpedienteAlias() {
     this.lSearching = true;
-    
+
     let sTermino: string = this.frmNewTask.value.sexpediente;
     sTermino = sTermino.trim().toUpperCase();
     let sAtributo = '';
@@ -482,6 +525,85 @@ export class RdtEditComponent {
         this.lSearching = false;
         obs.unsubscribe();
       })
+  }
+
+  /**
+   * Auto completado de expediente
+   */
+  filtrar(val: string) {
+    let sterms = val.trim().toLowerCase().split(' ');
+
+    sterms = sterms.filter(sterm => sterm.length >= 2);
+
+    if (sterms.length == 0) {
+      this.lstExpedientesFiltered = [];
+      return;
+    }
+
+    this.lstExpedientesFiltered = this.lstExpedientes
+      .filter(exp => {
+        if (exp.idtipodoc == 'CASACION-2DA-SALA') {
+          return false;
+        } else if (exp.idtipodoc == 'CASACION-4TA-SALA') {
+          return false;
+        } else {
+          return true;
+        }
+      })
+      .filter(exp => {
+        let lMatch = false;
+        let nMatchs = 0;
+
+        sterms.forEach(sterm => {
+          if (exp.sdemandado.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+        nMatchs = 0;
+
+        sterms.forEach(sterm => {
+          if (exp.sdemandante.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+        nMatchs = 0;
+
+        sterms.forEach(sterm => {
+          if (exp.sexpediente.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+        nMatchs = 0;
+
+        sterms.forEach(sterm => {
+          if (exp.scodigo.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+        nMatchs = 0;
+
+        sterms.forEach(sterm => {
+          if (exp.smatchexp?.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+
+        return lMatch;
+      })
+      .slice(0, 7);
+  }
+
+  pickExpediente(exp: any) {
+    this.frmNewTask.controls['sexpediente'].setValue(exp.sexpediente);
+    this.frmNewTask.controls['sdemandante'].setValue(exp.sdemandante);
+    this.frmNewTask.controls['sdemandado'].setValue(exp.sdemandado);
+    this.frmNewTask.controls['sespecialidad'].setValue(exp.sespecialidad.toLowerCase());
+
+    this.setLstIterNewTask();
+    this.lstExpedientesFiltered = [];
+  }
+
+  desfocusear() {
+    this.lstExpedientesFiltered = [];
+  }
+
+  prevenir(e: Event) {
+    e.preventDefault()
   }
 
 }

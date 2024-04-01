@@ -49,6 +49,7 @@ import { ExpItemFeesComponent } from './exp-item-fees/exp-item-fees.component';
 import { ExpItemTasksComponent } from './exp-item-tasks/exp-item-tasks.component';
 import { ExpItemEditTermsComponent } from './exp-item-edit-terms/exp-item-edit-terms.component';
 
+import { ExpedientesService } from './__servicios/expedientes.service';
 
 const environment = {
   production: false,
@@ -116,7 +117,9 @@ const environment = {
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ExpedientesService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

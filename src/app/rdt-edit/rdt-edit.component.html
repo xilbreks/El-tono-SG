@@ -138,35 +138,40 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="frmNewTask" autocomplete="off">
-      <div class="row mb-3">
-        <div class="col">
-          <label for="codigoEjecutivo" class="form-label"> Código de tarea </label>
-          <select class="form-select" id="codigoEjecutivo" formControlName="ncodeje">
-            <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
-              {{dil.desc}}
-            </option>
+      <div class="row mb-2">
+        <div class="col-6 col-md-3" style="position: relative;">
+          <div class="search-box">
+            <label for="sExpediente" class="form-label">Expediente</label>
+            <input #fff id="sExpediente" type="text" placeholder="Texto de búsqueda" class="form-control"
+              (input)="filtrar(fff.value)" (blur)="desfocusear()" (focus)="filtrar(fff.value)"
+              formControlName="sexpediente">
+          </div>
+          <div class="result-box">
+            <div class="result-item" *ngFor="let expediente of lstExpedientesFiltered"
+              (click)="pickExpediente(expediente)" (mousedown)="prevenir($event)">
+              <div class="exp">
+                {{expediente.sexpediente}}
+              </div>
+              <div class="dte">
+                {{expediente.sdemandante}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <label for="sEspecialidad" class="form-label">Tipo de proceso</label>
+          <select class="form-select" id="sEspecialidad" formControlName="sespecialidad" (change)="setLstIterNewTask()">
+            <option value="nc">No corresponde</option>
+            <option value="laboral">Laboral</option>
+            <option value="penal">Penal</option>
+            <option value="civil">Civil</option>
+            <option value="familia">Familia</option>
+            <option value="constitucional">Constitucional</option>
+            <option value="tramite-adm">Trámite Adm.</option>
+            <option value="tramite-not">Trámite Notarial</option>
+            <option value="varios">Varios</option>
           </select>
         </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col-12 col-md-6">
-          <label for="descripcionEjecutiva" class="form-label">
-            Mención del caso, tarea, trabajo
-          </label>
-          <textarea class="form-control" id="descripcionEjecutiva" formControlName="sdeseje">
-          </textarea>
-        </div>
-        <div class="col-12 col-md-6">
-          <label for="accionesEjecutivas" class="form-label">
-            Acciones a Realizar
-          </label>
-          <textarea class="form-control" id="accionesEjecutivas" formControlName="sacceje">
-          </textarea>
-        </div>
-      </div>
-
-      <div class="row mb-3">
         <div class="col-6 col-md-3">
           <label for="sTipoCliente" class="form-label">Cliente</label>
           <select class="form-select" formControlName="stipocliente" id="sTipoCliente">
@@ -186,37 +191,9 @@
             <option value="via-internet">Vía internet</option>
           </select>
         </div>
-        <div class="col-6 col-md-3">
-          <label for="sExpediente" class="form-label">Expediente</label>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" id="sExpediente" formControlName="sexpediente"
-              aria-describedby="exp-addon1" />
-            <div class="input-group-append">
-              <button (click)="buscarExpedienteAlias()" class="input-group-text" id="exp-addon1">
-                <i class="bi bi-search" *ngIf="!lSearching"></i>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                  *ngIf="lSearching"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <label for="sEspecialidad" class="form-label">Tipo de proceso</label>
-          <select class="form-select" id="sEspecialidad" formControlName="sespecialidad" (change)="setLstIterNewTask()">
-            <option value="nc">No corresponde</option>
-            <option value="laboral">Laboral</option>
-            <option value="penal">Penal</option>
-            <option value="civil">Civil</option>
-            <option value="familia">Familia</option>
-            <option value="constitucional">Constitucional</option>
-            <option value="tramite-adm">Trámite Adm.</option>
-            <option value="tramite-not">Trámite Notarial</option>
-            <option value="varios">Varios</option>
-          </select>
-        </div>
       </div>
 
-      <div class="row mb-3">
+      <div class="row mb-2">
         <div class="col-12 col-md-6">
           <label for="nombreDemandante" class="form-label">
             Demandante
@@ -231,7 +208,35 @@
         </div>
       </div>
 
-      <div class="row mb-3">
+      <div class="row mb-2">
+        <div class="col">
+          <label for="codigoEjecutivo" class="form-label"> Código de tarea </label>
+          <select class="form-select" id="codigoEjecutivo" formControlName="ncodeje">
+            <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
+              {{dil.desc}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-12 col-md-6">
+          <label for="descripcionEjecutiva" class="form-label">
+            Mención del caso, tarea, trabajo
+          </label>
+          <textarea class="form-control" id="descripcionEjecutiva" formControlName="sdeseje">
+          </textarea>
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="accionesEjecutivas" class="form-label">
+            Acciones a Realizar
+          </label>
+          <textarea class="form-control" id="accionesEjecutivas" formControlName="sacceje">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="row mb-2">
         <div class="col-12 col-md-6">
           <label for="iteractividad" class="form-label"> ITER Procesal </label>
           <select class="form-select" id="iteractividad" formControlName="niter">
@@ -253,7 +258,7 @@
         </div>
       </div>
 
-      <div class="row mb-3">
+      <div class="row mb-2">
         <div class="col-6 col-md-3">
           <label for="cumplimiento" class="form-label"> Cumplimiento(%) </label>
           <select class="form-select" id="cumplimiento" formControlName="navance">
@@ -320,7 +325,7 @@
         </div>
       </div>
 
-      <div class="row mb-3">
+      <div class="row mb-2">
         <div class="col-6 col-md-3">
           <label for="ingresoArancel" class="form-label">
             Cobro para aranceles u otros
