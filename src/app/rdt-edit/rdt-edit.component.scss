@@ -36,7 +36,7 @@ h4 {
 .result-box {
     position: absolute;
     z-index: 3;
-    top: 68px;
+    top: 65px;
 
     background-color: #fff;
     border: 1px solid lightgrey;
@@ -48,6 +48,7 @@ h4 {
         padding: 0 15px;
         margin: 5px 0;
         border-bottom: 1px solid #f3f3f3;
+        font-weight: 400;
 
         .exp {
             font-size: 0.95rem;
@@ -63,4 +64,29 @@ h4 {
         background-color: #e9f3ff;
         cursor: pointer;
     }
+}
+
+///
+/// Modal de agregar tarea
+/// 
+
+.modal-body {
+    form {
+        font-size: 13px;
+        font-weight: bold;
+
+        label {
+            margin: 0;
+        }
+    }
+
+    .form-control,
+    .form-select {
+        font-size: 0.9rem;
+        line-height: 1.25;
+        border-color: #959595;
+        background-color: #f1f1f1;
+    }
+
+    
 }

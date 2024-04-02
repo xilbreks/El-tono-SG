@@ -194,7 +194,7 @@ export class RdtEditComponent {
           })
           .then(expedientes => {
             expedientes.shift();
-            console.log('datos recuperados')
+            console.log('expedientes recuperados')
 
             this.lstExpedientes = expedientes;
           }).catch(err => {
@@ -311,6 +311,16 @@ export class RdtEditComponent {
         this.modalService.dismissAll();
         this.frmNewTask.reset();
 
+        // Actualizar ITER
+        this.db.collection('expedientes')
+          .doc(sexp)
+          .update({
+            niter: Number(objTarea['niter'])
+          })
+          .then(()=>{})
+          .catch((e)=>{console.log(e)});
+
+        // Registrar Honorario
         if (objTarea['ncobrohonorario'] > 0) {
           this.registrarHonorario({
             id: Number(id),
@@ -593,8 +603,11 @@ export class RdtEditComponent {
     this.frmNewTask.controls['sdemandante'].setValue(exp.sdemandante);
     this.frmNewTask.controls['sdemandado'].setValue(exp.sdemandado);
     this.frmNewTask.controls['sespecialidad'].setValue(exp.sespecialidad.toLowerCase());
+    this.frmNewTask.controls['stipocliente'].setValue('antiguo');
 
     this.setLstIterNewTask();
+    this.frmNewTask.controls['niter'].setValue(exp.niter);
+
     this.lstExpedientesFiltered = [];
   }
 
@@ -604,6 +617,12 @@ export class RdtEditComponent {
 
   prevenir(e: Event) {
     e.preventDefault()
+  }
+
+  pressEnter() {
+    if (this.lstExpedientesFiltered.length == 1) {
+      this.pickExpediente(this.lstExpedientesFiltered[0]);
+    }
   }
 
 }

@@ -59,6 +59,7 @@ export class ExpedientesUpdaterComponent {
             sdemandado: exp.sdemandado,
             sfechainicio: exp.sfechainicio,
             scodigo: exp.scodigo,
+            niter: exp.niter,
           });
         });
 

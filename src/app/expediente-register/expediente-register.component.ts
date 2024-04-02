@@ -195,6 +195,7 @@ export class ExpedienteRegisterComponent {
         smatchexp: 'no-match',
         scodigo: 'XX-XXXX',
         lcontrato: false,
+        niter: 0,
       })
       .then((x) => {
         this.router.navigate(['/expediente/', sexpediente]);
