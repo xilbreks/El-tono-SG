@@ -112,7 +112,7 @@ export const lstIterFamilia: Array<Iter> = [
 ];
 
 export const lstIterOtros = [
-  { id: 'nc', pick: true, desc: 'nc' },
+  { id: 0, pick: true, desc: 'nc' },
   { id: 1, pick: true, desc: '1' },
   { id: 2, pick: true, desc: '2' },
   { id: 3, pick: true, desc: '3' },

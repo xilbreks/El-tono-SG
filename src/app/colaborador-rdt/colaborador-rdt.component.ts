@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 class ObjUser {
   id: string = '';
   snombre: string = '';
-  constructor(){}
+  constructor() { }
 }
 
 interface ObjRdt {
@@ -27,7 +27,7 @@ export class ColaboradorRdtComponent {
   objUser: ObjUser = new ObjUser();
   lstRDTs: Array<ObjRdt> = [];
   lLoading: boolean = false;
-  
+
   constructor(
     private db: AngularFirestore,
   ) {
@@ -41,7 +41,7 @@ export class ColaboradorRdtComponent {
       .collection('colaboradores')
       .doc(this.idColaborador)
       .valueChanges()
-      .subscribe((u: any)=>{
+      .subscribe((u: any) => {
         this.objUser.id = u.id;
         this.objUser.snombre = u.snombre.toUpperCase();
       })
@@ -57,10 +57,15 @@ export class ColaboradorRdtComponent {
       })
       .valueChanges()
       .subscribe((data: Array<any>) => {
-        this.lstRDTs = data.map((x:any)=>{
+        this.lstRDTs = data.map((x: any) => {
+          let sday = x.sfecha.slice(8, 10);
+          let smonth = x.sfecha.slice(5, 7);
+          let syear = x.sfecha.slice(0, 4);
+          let sfechalocal = sday + '/' + smonth + '/' + syear;
+
           return {
             idrdt: x.idrdt,
-            sfecha: (new Date(x.nfecha)).toLocaleDateString(),
+            sfecha: sfechalocal,
             leditable: x.leditable,
             shoraingreso: x.shoraingreso,
             shorasalida: x.shorasalida,

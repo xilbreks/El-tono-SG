@@ -62,8 +62,8 @@ export class TestingComponent {
   getTareas() {
     let obs = this.db.collection('tareas', ref => {
       return ref
-        .where('sfecha', '>=', '2024-03-01')
-        .where('sfecha', '<=', '2024-03-22')
+        .where('sfecha', '>=', '2024-04-01')
+        .where('sfecha', '<=', '2024-04-07')
     })
       .valueChanges()
       .subscribe((res: any) => {
@@ -174,4 +174,25 @@ export class TestingComponent {
 
     XLSX.writeFile(workbook, 'Analisis Febrero 2024.xlsx', { compression: true });
   }
+
+  descargarJSON() {
+    // Convert JSON to string
+    const data = JSON.stringify(this.lstTareas);
+
+    // Create a Blob object
+    const blob = new Blob([data], { type: 'application/json' });
+
+    // Create an object URL
+    const url = URL.createObjectURL(blob);
+
+    // Download file
+    let link = document.createElement('a');
+    link.download = 'tareas.json';
+    link.href = url;
+    link.click();
+
+    // Release the object URL
+    URL.revokeObjectURL(url);
+  }
+
 }
