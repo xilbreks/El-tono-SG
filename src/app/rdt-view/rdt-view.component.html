@@ -96,19 +96,17 @@
           {{ tarea.sfecharegistro }}
         </td>
       </tr>
-    </tbody>
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
-    <tfoot>
       <tr>
         <th colspan="14" style="text-align: right;">
-          SUMA TOTAL DE TIEMPO UTILIZADO
+          <b>SUMA TOTAL DE TIEMPO UTILIZADO</b>
         </th>
         <th>
-          {{nSumaTiempoTareas}}
+          <b>{{nSumaTiempoTareas}}</b>
         </th>
         <th colspan="4">
         </th>
       </tr>
-    </tfoot>
+    </tbody>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
   </table>
 </div>
