@@ -14,6 +14,21 @@
 
 <br>
 
+<div class="alert alert-success">
+    <b>Anexos Importantes:</b>
+
+    <div *ngIf="urlassets == 'sin-url'">
+        F. No hay
+    </div>
+
+    <div *ngIf="urlassets != 'sin-url'">
+        <a [href]="urlassets" target="_blank">
+            AQUÍ
+        </a>
+    </div>
+
+</div>
+
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
@@ -21,7 +36,6 @@
         </i>
     </span>
 </div>
-
 
 <!------------------------------------------------
   --------------- EDIT OBS MODAL -----------------

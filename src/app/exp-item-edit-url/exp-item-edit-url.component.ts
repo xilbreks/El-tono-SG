@@ -4,18 +4,18 @@ import { FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-exp-item-edit-match',
-  templateUrl: './exp-item-edit-match.component.html',
-  styleUrls: ['./exp-item-edit-match.component.scss']
+  selector: 'app-exp-item-edit-url',
+  templateUrl: './exp-item-edit-url.component.html',
+  styleUrls: ['./exp-item-edit-url.component.scss'] 
 })
-export class ExpItemEditMatchComponent implements OnChanges {
+export class ExpItemEditUrlComponent {
   @Input('sexpediente') sexpediente: string = '';
 
-  smatchexp: string = 'no-match';
-  fcMatch: FormControl = new FormControl(
+  urlassets: string = 'sin-url';
+  fcURL: FormControl = new FormControl(
     null,
     Validators.compose(
-      [Validators.required, Validators.pattern(/^[a-zA-Z0-9-]+$/)]
+      [Validators.required]
     )
   );
   lUpdating: boolean = false;
@@ -27,40 +27,40 @@ export class ExpItemEditMatchComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.getMatch();
+    this.getURL();
   }
 
-  getMatch() {
+  getURL() {
     let obs = this.db
       .collection('expedientes')
       .doc(this.sexpediente)
       .valueChanges()
       .subscribe((res: any) => {
-        this.smatchexp = res.smatchexp;
+        this.urlassets = res.urlassets;
 
         obs.unsubscribe();
       });
   }
 
-  openModalSetMatch(modal: any) {
+  openModalSetURL(modal: any) {
     this.modalService.open(modal, {
       windowClass: 'modal-sm',
     });
   }
 
-  setMatch() {
+  setURL() {
     this.lUpdating = true;
-    let smatch = this.fcMatch.value;
+    let url = this.fcURL.value;
 
     this.db
       .collection('expedientes')
       .doc(this.sexpediente)
       .update({
-        smatchexp: smatch
+        urlassets: url
       })
       .then(() => {
         // success
-        this.smatchexp = smatch;
+        this.urlassets = url;
       })
       .catch(err => {
         // error
@@ -72,25 +72,25 @@ export class ExpItemEditMatchComponent implements OnChanges {
       })
   }
 
-  openModalUnMatch(modal: any) {
+  openModalRemoveURL(modal: any) {
     this.modalService.open(modal, {
       windowClass: 'modal-sm',
     });
   }
 
-  unMatch() {
+  removeURL() {
     this.lUpdating = true;
 
     this.db
       .collection('expedientes')
       .doc(this.sexpediente)
       .update({
-        smatchexp: 'no-match'
+        urlassets: 'sin-url'
       })
       .then(() => {
         // success
-        this.smatchexp = 'no-match';
-        this.fcMatch.reset();
+        this.urlassets = 'sin-url';
+        this.fcURL.reset();
       })
       .catch(err => {
         // error

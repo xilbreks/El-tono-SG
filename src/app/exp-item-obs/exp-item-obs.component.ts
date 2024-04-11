@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ExpItemObsComponent implements OnChanges {
   @Input('sexpediente') sexpediente: string = '';
   sobs: string = '';
+  urlassets: string = '';
   fcObs: FormControl = new FormControl([]);
   lUpdating = false;
 
@@ -30,6 +31,7 @@ export class ExpItemObsComponent implements OnChanges {
       .valueChanges()
       .subscribe((res: any) => {
         this.sobs = res.sobs;
+        this.urlassets = res.urlassets;
 
         obs.unsubscribe();
       });

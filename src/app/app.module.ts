@@ -50,6 +50,7 @@ import { ExpItemTasksComponent } from './exp-item-tasks/exp-item-tasks.component
 import { ExpItemEditTermsComponent } from './exp-item-edit-terms/exp-item-edit-terms.component';
 
 import { ExpedientesService } from './__servicios/expedientes.service';
+import { ExpItemEditUrlComponent } from './exp-item-edit-url/exp-item-edit-url.component';
 
 const environment = {
   production: false,
@@ -104,6 +105,7 @@ const environment = {
     ExpItemFeesComponent,
     ExpItemTasksComponent,
     ExpItemEditTermsComponent,
+    ExpItemEditUrlComponent,
   ],
   imports: [
     BrowserModule,
