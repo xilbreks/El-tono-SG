@@ -81,10 +81,6 @@ export class RdtEditComponent {
       name: 'Dra. Lizbet'
     },
     {
-      id: 'dra-estrella',
-      name: 'Dra. Estrella'
-    },
-    {
       id: 'dra-silvia',
       name: 'Dra. Silvia'
     },
@@ -93,12 +89,16 @@ export class RdtEditComponent {
       name: 'Dra. Naldy'
     },
     {
-      id: 'bach-vianka',
-      name: 'Bach. Vianka'
+      id: 'dra-karla',
+      name: 'Dra. Karla'
     },
     {
-      id: 'bach-rocio',
-      name: 'Bach. Rocío'
+      id: 'dra-lizi',
+      name: 'Dra. Lizi'
+    },
+    {
+      id: 'bach-vianka',
+      name: 'Bach. Vianka'
     },
   ];
 
