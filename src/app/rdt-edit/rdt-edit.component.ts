@@ -13,6 +13,7 @@ import {
   lstIterFamilia,
   lstIterCivil,
   lstIterPenal,
+  lstIterConstitucional,
   lstIterOtros,
   lstDiligencias
 } from './rdt-edit.clases';
@@ -177,6 +178,8 @@ export class RdtEditComponent {
 
   get lstIterFamilia() { return lstIterFamilia; }
 
+  get lstIterConstitucional() { return lstIterConstitucional }
+
   get lstIterOtros() { return lstIterOtros; }
 
   get lstDiligencias() { return lstDiligencias; }
@@ -317,8 +320,8 @@ export class RdtEditComponent {
           .update({
             niter: Number(objTarea['niter'])
           })
-          .then(()=>{})
-          .catch((e)=>{console.log(e)});
+          .then(() => { })
+          .catch((e) => { console.log(e) });
 
         // Registrar Honorario
         if (objTarea['ncobrohonorario'] > 0) {
@@ -463,6 +466,9 @@ export class RdtEditComponent {
       case 'familia':
         this.lstIter = this.lstIterFamilia;
         break;
+      case 'constitucional':
+        this.lstIter = this.lstIterConstitucional;
+        break;
       default:
         this.lstIter = this.lstIterOtros;
     }
@@ -485,6 +491,9 @@ export class RdtEditComponent {
         break;
       case 'familia':
         this.lstIter = this.lstIterFamilia;
+        break;
+      case 'constitucional':
+        this.lstIter = this.lstIterConstitucional;
         break;
       default:
         this.lstIter = this.lstIterOtros;
@@ -599,12 +608,14 @@ export class RdtEditComponent {
   }
 
   pickExpediente(exp: any) {
+    // Set values
     this.frmNewTask.controls['sexpediente'].setValue(exp.sexpediente);
     this.frmNewTask.controls['sdemandante'].setValue(exp.sdemandante);
     this.frmNewTask.controls['sdemandado'].setValue(exp.sdemandado);
     this.frmNewTask.controls['sespecialidad'].setValue(exp.sespecialidad.toLowerCase());
     this.frmNewTask.controls['stipocliente'].setValue('antiguo');
 
+    // Set ITER
     this.setLstIterNewTask();
     this.frmNewTask.controls['niter'].setValue(exp.niter);
 
