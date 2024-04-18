@@ -176,7 +176,7 @@
           <label for="iteractividad" class="form-label"> ITER Procesal </label>
           <select class="form-select" id="iteractividad" formControlName="niter">
             <option *ngFor="let iter of lstIter" [value]="iter.code" [disabled]="!iter.eligible">
-              {{iter.title}}
+              {{iter.code}} - {{iter.title}}
             </option>
           </select>
         </div>
@@ -462,7 +462,7 @@
           <label for="iteractividad" class="form-label"> ITER Procesal </label>
           <select class="form-select" id="iteractividad" formControlName="niter">
             <option *ngFor="let iter of lstIter" [value]="iter.code" [disabled]="!iter.eligible">
-              {{iter.title}}
+              {{iter.code}} - {{iter.title}}
             </option>
           </select>
         </div>

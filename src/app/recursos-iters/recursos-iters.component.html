@@ -1,40 +1,130 @@
-<div>
-    <h4>
-        ITER PROCESAL - LABORAL
-    </h4>
-    <ol>
-        <li *ngFor="let iter of lstIterLaboral">
-            {{iter.desc}}
-        </li>
-    </ol>
-</div>
-<div>
-    <h4>
-        ITER PROCESAL - PENAL
-    </h4>
-    <ol>
-        <li *ngFor="let iter of lstIterPenal">
-            {{iter.desc}}
-        </li>
-    </ol>
-</div>
-<div>
-    <h4>
-        ITER PROCESAL - CIVIL
-    </h4>
-    <ol>
-        <li *ngFor="let iter of lstIterCivil">
-            {{iter.desc}}
-        </li>
-    </ol>
-</div>
-<div>
-    <h4>
-        ITER PROCESAL - FAMILIA
-    </h4>
-    <ol>
-        <li *ngFor="let iter of lstIterFamilia">
-            {{iter.desc}}
-        </li>
-    </ol>
+<br>
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-info">
+                <th colspan="2" style="text-align: center;">
+                    ITER LABORAL
+                </th>
+            </tr>
+            <tr class="table-info">
+                <th style="text-align: center;">CÓDIGO</th>
+                <th>DESCRIPCIÓN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let iter of lstIterLaboral" [ngClass]="{'table-info': !iter.eligible}">
+                <td style="text-align: center;">
+                    {{iter.code}}
+                </td>
+                <td [ngClass]="{'centrado': !iter.eligible}">
+                    {{iter.title}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-danger">
+                <th colspan="2" style="text-align: center;">
+                    ITER FAMILIA
+                </th>
+            </tr>
+            <tr class="table-danger">
+                <th style="text-align: center;">CÓDIGO</th>
+                <th>DESCRIPCIÓN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let iter of lstIterFamilia" [ngClass]="{'table-danger': !iter.eligible}">
+                <td style="text-align: center;">
+                    {{iter.code}}
+                </td>
+                <td [ngClass]="{'centrado': !iter.eligible}">
+                    {{iter.title}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-warning">
+                <th colspan="2" style="text-align: center;">
+                    ITER CIVIL
+                </th>
+            </tr>
+            <tr class="table-warning">
+                <th style="text-align: center;">CÓDIGO</th>
+                <th>DESCRIPCIÓN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let iter of lstIterCivil" [ngClass]="{'table-warning': !iter.eligible}">
+                <td style="text-align: center;">
+                    {{iter.code}}
+                </td>
+                <td [ngClass]="{'centrado': !iter.eligible}">
+                    {{iter.title}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-secondary">
+                <th colspan="2" style="text-align: center;">
+                    ITER PENAL
+                </th>
+            </tr>
+            <tr class="table-secondary">
+                <th style="text-align: center;">CÓDIGO</th>
+                <th>DESCRIPCIÓN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let iter of lstIterPenal" [ngClass]="{'table-secondary': !iter.eligible}">
+                <td style="text-align: center;">
+                    {{iter.code}}
+                </td>
+                <td [ngClass]="{'centrado': !iter.eligible}">
+                    {{iter.title}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-info">
+                <th colspan="2" style="text-align: center;">
+                    ITER CONSTITUCIONAL
+                </th>
+            </tr>
+            <tr class="table-info">
+                <th style="text-align: center;">CÓDIGO</th>
+                <th>DESCRIPCIÓN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let iter of lstIterConstitucional" [ngClass]="{'table-info': !iter.eligible}">
+                <td style="text-align: center;">
+                    {{iter.code}}
+                </td>
+                <td [ngClass]="{'centrado': !iter.eligible}">
+                    {{iter.title}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
