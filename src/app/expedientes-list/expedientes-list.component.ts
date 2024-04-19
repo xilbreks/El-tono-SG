@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AppService } from './../app.service';
 
 @Component({
   selector: 'app-expedientes-list',
@@ -27,7 +27,7 @@ export class ExpedientesListComponent implements AfterViewInit {
   lstCarpFisc: Array<any> = [];
 
   constructor(
-    private storage: AngularFireStorage
+    private service: AppService,
   ) {
     this.obtenerExpedientes();
   }
@@ -37,27 +37,10 @@ export class ExpedientesListComponent implements AfterViewInit {
   }
 
   obtenerExpedientes() {
-    this.lLoading = true;
-    let obs = this.storage.ref('/expedientes/expedientes.json')
-      .getDownloadURL()
-      .subscribe(url => {
-        fetch(url)
-          .then(res => {
-            return res.json();
-          })
-          .then(expedientes => {
-            this.sFecha = expedientes.shift().sdate;
-            this.lstExpedientes = expedientes;
-
-            this.separarAreas();
-          }).catch(err => {
-            console.log('ERROR', err);
-          }).finally(() => {
-            this.lLoading = false;
-          });
-
-        obs.unsubscribe();
-      })
+    this.service.lstExps.subscribe(res => {
+      this.lstExpedientes = res;
+      this.separarAreas();
+    });
   }
 
   separarAreas() {

@@ -11,6 +11,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppService } from './app.service';
 import { AdminRdtComponent } from './admin-rdt/admin-rdt.component';
 import { ColaboradorRdtComponent } from './colaborador-rdt/colaborador-rdt.component';
 import { RdtViewComponent } from './rdt-view/rdt-view.component';
@@ -49,7 +50,6 @@ import { ExpItemFeesComponent } from './exp-item-fees/exp-item-fees.component';
 import { ExpItemTasksComponent } from './exp-item-tasks/exp-item-tasks.component';
 import { ExpItemEditTermsComponent } from './exp-item-edit-terms/exp-item-edit-terms.component';
 
-import { ExpedientesService } from './__servicios/expedientes.service';
 import { ExpItemEditUrlComponent } from './exp-item-edit-url/exp-item-edit-url.component';
 
 const environment = {
@@ -120,8 +120,8 @@ const environment = {
     HttpClientModule
   ],
   providers: [
-    ExpedientesService,
+    AppService
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

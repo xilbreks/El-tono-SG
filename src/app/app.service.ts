@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ExpedientesService {
-  public lstExpedientes: Array<any> = [];
+export class AppService {
+  expedientes = new BehaviorSubject([]);
+  lstExps = this.expedientes.asObservable();
 
-  constructor(
-    private storage: AngularFireStorage
-  ) {
-    // this.obtenerExpedientes();
+  constructor(private storage: AngularFireStorage) {
+    this.updateList();
   }
 
-  obtenerExpedientes() {
-    console.log('trayendo desde la base de datos');
+  updateList() {
     let obs = this.storage.ref('/expedientes/expedientes.json')
       .getDownloadURL()
       .subscribe(url => {
@@ -25,9 +23,8 @@ export class ExpedientesService {
           })
           .then(expedientes => {
             expedientes.shift();
-            console.log('datos recuperados')
 
-            this.lstExpedientes = expedientes;
+            this.expedientes.next(expedientes)
           }).catch(err => {
             console.log('ERROR', err);
           }).finally(() => {

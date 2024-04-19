@@ -4,9 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-
-import { ExpedientesService } from './../__servicios/expedientes.service';
+import { AppService } from './../app.service';
 
 import {
   lstIterLaboral,
@@ -110,8 +108,7 @@ export class RdtEditComponent {
     private db: AngularFirestore,
     private titleService: Title,
     private modalService: NgbModal,
-    private expedientesService: ExpedientesService,
-    private storage: AngularFireStorage,
+    private service: AppService,
     route: ActivatedRoute
   ) {
     this.idrdt = '' + route.snapshot.paramMap.get('id');
@@ -139,9 +136,9 @@ export class RdtEditComponent {
       sacceje: new FormControl(null, Validators.required),
       shorasatencion: new FormControl(null, Validators.required),
       sminutosatencion: new FormControl(null, Validators.required),
-      ncobrohonorario: new FormControl(0, Validators.required),
-      ningresoarancel: new FormControl(0, Validators.required),
-      nsalidaarancel: new FormControl(0, Validators.required),
+      ncobrohonorario: new FormControl(null, Validators.required),
+      ningresoarancel: new FormControl(null, Validators.required),
+      nsalidaarancel: new FormControl(null, Validators.required),
     });
 
     /***********************
@@ -164,9 +161,9 @@ export class RdtEditComponent {
       sacceje: new FormControl(null, Validators.required),
       shorasatencion: new FormControl(null, Validators.required),
       sminutosatencion: new FormControl(null, Validators.required),
-      ncobrohonorario: new FormControl(0, Validators.required),
-      ningresoarancel: new FormControl(0, Validators.required),
-      nsalidaarancel: new FormControl(0, Validators.required),
+      ncobrohonorario: new FormControl(null, Validators.required),
+      ningresoarancel: new FormControl(null, Validators.required),
+      nsalidaarancel: new FormControl(null, Validators.required),
     });
   }
 
@@ -188,25 +185,7 @@ export class RdtEditComponent {
    * Recupera el listado del expedientes
    */
   getExpedientesList() {
-    let obs = this.storage.ref('/expedientes/expedientes.json')
-      .getDownloadURL()
-      .subscribe(url => {
-        fetch(url)
-          .then(res => {
-            return res.json();
-          })
-          .then(expedientes => {
-            expedientes.shift();
-            console.log('expedientes recuperados')
-
-            this.lstExpedientes = expedientes;
-          }).catch(err => {
-            console.log('ERROR', err);
-          }).finally(() => {
-          });
-
-        obs.unsubscribe();
-      })
+    this.service.lstExps.subscribe((res: any) => this.lstExpedientes = res);
   }
 
   /**
@@ -413,6 +392,11 @@ export class RdtEditComponent {
   }
 
   public openNewTaskModal(modal: any): void {
+    this.frmNewTask.controls['sfculminacion'].setValue(this.objRdt.sfecha);
+    this.frmNewTask.controls['ncobrohonorario'].setValue(0);
+    this.frmNewTask.controls['ningresoarancel'].setValue(0);
+    this.frmNewTask.controls['nsalidaarancel'].setValue(0);
+    
     this.modalService.open(modal, {
       windowClass: 'modal-xl',
       modalDialogClass: 'modal-fullscreen',
