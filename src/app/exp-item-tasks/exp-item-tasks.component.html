@@ -1,11 +1,31 @@
-<ul>
-    <li *ngFor="let h of lstHistorial">
-        <u>{{h.fech}}, {{h.user}}</u>.-
-        <b>Tarea:</b> {{h.desc}}
-        <b>Por realizar:</b> {{h.pend}}
-        <i>ITER: {{h.iter}}</i>
-    </li>
-</ul>
+<div *ngIf="lLoading">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Cargando...
+</div>
+
+<div *ngIf="!lLoading">
+    <ul>
+        <li *ngFor="let tarea of lstTareas">
+            <u>{{tarea.sfecha}}, {{tarea.scolaborador}}</u>.-
+            <b>Tarea:</b> {{tarea.sdeseje}}
+            <b>Por realizar:</b> {{tarea.sacceje}}
+            <i>ITER: {{tarea.niter}}</i>
+        </li>
+    </ul>
+
+    <div *ngIf="!lLoadingMore">
+        <button *ngIf="lhasmore" class="btn btn-primary" (click)="getTareasTodas()">
+            Cargar Todo
+        </button>
+    </div>
+    <div *ngIf="lLoadingMore">
+        <button class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Cargando...
+        </button>
+    </div>
+    
+</div>
 
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
