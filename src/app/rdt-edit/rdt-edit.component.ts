@@ -396,6 +396,7 @@ export class RdtEditComponent {
     this.frmNewTask.controls['ncobrohonorario'].setValue(0);
     this.frmNewTask.controls['ningresoarancel'].setValue(0);
     this.frmNewTask.controls['nsalidaarancel'].setValue(0);
+    this.frmNewTask.controls['navance'].setValue('100%');
     
     this.modalService.open(modal, {
       windowClass: 'modal-xl',
