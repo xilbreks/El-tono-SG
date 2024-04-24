@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
+import { Expediente } from './../_interfaces/expediente';
 import { Tarea } from './../_interfaces/tarea';
 
 @Component({
@@ -8,35 +9,19 @@ import { Tarea } from './../_interfaces/tarea';
   templateUrl: './exp-item-tasks.component.html',
   styleUrls: ['./exp-item-tasks.component.scss']
 })
-export class ExpItemTasksComponent implements OnChanges {
-  @Input('sexpediente') sexpediente: string = '';
-  smatchexp: string = 'nomatch';
+export class ExpItemTasksComponent implements OnInit {
+  @Input('expediente') expediente: Expediente | null = null;
   lstTareas: Array<Tarea> = [];
   lhasmore: boolean = false;
   lLoading: boolean = true;
   lLoadingMore = false;
 
-  constructor(private db: AngularFirestore) {
-  }
+  constructor(
+    private db: AngularFirestore
+  ) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.getMatchexp();
-  }
-
-  getMatchexp() {
-    let obs = this.db.collection('expedientes')
-      .doc(this.sexpediente)
-      .valueChanges()
-      .subscribe((e: any) => {
-        if (e.smatchexp) {
-          this.smatchexp = e.smatchexp;
-        } else {
-          this.smatchexp = 'nomatch';
-        }
-        this.getTareas();
-
-        obs.unsubscribe();
-      });
+  ngOnInit(): void {
+    this.getTareas();
   }
 
   getTareas(): void {
@@ -45,10 +30,10 @@ export class ExpItemTasksComponent implements OnChanges {
 
     let obs = this.db
       .collection('tareas', ref => {
-        if (this.smatchexp == 'nomatch') {
-          return ref.where('sexpediente', '==', this.sexpediente).orderBy('sfecha', 'desc').limit(16);
+        if (this.expediente?.smatchexp == 'nomatch') {
+          return ref.where('sexpediente', '==', this.expediente?.sexpediente).orderBy('sfecha', 'desc').limit(16);
         } else {
-          return ref.where('sexpediente', 'in', [this.sexpediente, this.smatchexp]).orderBy('sfecha', 'desc').limit(16);
+          return ref.where('sexpediente', 'in', [this.expediente?.sexpediente, this.expediente?.smatchexp]).orderBy('sfecha', 'desc').limit(16);
         }
       })
       .valueChanges()
@@ -76,10 +61,10 @@ export class ExpItemTasksComponent implements OnChanges {
 
     let obs = this.db
       .collection('tareas', ref => {
-        if (this.smatchexp == 'nomatch') {
-          return ref.where('sexpediente', '==', this.sexpediente).orderBy('sfecha', 'desc');
+        if (this.expediente?.smatchexp == 'nomatch') {
+          return ref.where('sexpediente', '==', this.expediente.sexpediente).orderBy('sfecha', 'desc');
         } else {
-          return ref.where('sexpediente', 'in', [this.sexpediente, this.smatchexp]).orderBy('sfecha', 'desc');
+          return ref.where('sexpediente', 'in', [this.expediente?.sexpediente, this.expediente?.smatchexp]).orderBy('sfecha', 'desc');
         }
       })
       .valueChanges()

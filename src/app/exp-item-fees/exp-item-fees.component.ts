@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { Expediente } from './../_interfaces/expediente';
 import { PagoHonorario } from './../__clases/pago-honorario';
 import { Contrato } from './../__clases/contrato';
 
@@ -11,9 +12,8 @@ import { Contrato } from './../__clases/contrato';
   templateUrl: './exp-item-fees.component.html',
   styleUrls: ['./exp-item-fees.component.scss']
 })
-export class ExpItemFeesComponent implements OnChanges {
-  @Input('sexpediente') sexpediente: string = '';
-  smatchexp: string = 'nomatch';
+export class ExpItemFeesComponent implements OnInit {
+  @Input('expediente') expediente: Expediente | null = null;
 
   // Contracts
   lstContracts: Array<Contrato> = [];
@@ -81,25 +81,9 @@ export class ExpItemFeesComponent implements OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.getMatchexp();
-  }
-
-  getMatchexp() {
-    let obs = this.db.collection('expedientes')
-      .doc(this.sexpediente)
-      .valueChanges()
-      .subscribe((e: any) => {
-        if (e.smatchexp) {
-          this.smatchexp = e.smatchexp;
-        } else {
-          this.smatchexp = 'nomatch';
-        }
-        this.getContracts();
-        this.getPayments();
-
-        obs.unsubscribe();
-      });
+  ngOnInit(): void {
+    this.getContracts();
+    this.getPayments();
   }
 
   /*********************************************
@@ -112,11 +96,11 @@ export class ExpItemFeesComponent implements OnChanges {
 
     let obs = this.db
       .collection('contratos', ref => {
-        if (this.smatchexp == 'nomatch') {
-          return ref.where('sexpediente', '==', this.sexpediente)
+        if (this.expediente?.smatchexp == 'nomatch') {
+          return ref.where('sexpediente', '==', this.expediente?.sexpediente)
             .where('lactive', '==', true)
         } else {
-          return ref.where('sexpediente', 'in', [this.sexpediente, this.smatchexp])
+          return ref.where('sexpediente', 'in', [this.expediente?.sexpediente, this.expediente?.smatchexp])
             .where('lactive', '==', true)
         }
 
@@ -150,7 +134,7 @@ export class ExpItemFeesComponent implements OnChanges {
       .set({
         idcontrato: id,
         lactive: true,
-        sexpediente: this.sexpediente,
+        sexpediente: this.expediente?.sexpediente,
         sdetalle: this.frmNewContract.value['sdetalle'],
         nmonto: this.frmNewContract.value['nmonto'],
       })
@@ -234,11 +218,11 @@ export class ExpItemFeesComponent implements OnChanges {
 
     let obs = this.db
       .collection('pagos', ref => {
-        if (this.smatchexp == 'nomatch') {
-          return ref.where('sexpediente', '==', this.sexpediente)
+        if (this.expediente?.smatchexp == 'nomatch') {
+          return ref.where('sexpediente', '==', this.expediente?.sexpediente)
             .where('lactive', '==', true)
         } else {
-          return ref.where('sexpediente', 'in', [this.sexpediente, this.smatchexp])
+          return ref.where('sexpediente', 'in', [this.expediente?.sexpediente, this.expediente?.smatchexp])
             .where('lactive', '==', true)
         }
       })
@@ -286,7 +270,7 @@ export class ExpItemFeesComponent implements OnChanges {
       .set({
         idpago: id,
         lactive: true,
-        sexpediente: this.sexpediente,
+        sexpediente: this.expediente?.sexpediente,
         nmonto: this.frmNewPayment.value['nmonto'],
         sfecha: this.frmNewPayment.value['sfecha'],
         sdescripcion: this.frmNewPayment.value['sdescripcion'],

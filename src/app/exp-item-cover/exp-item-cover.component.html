@@ -1,18 +1,16 @@
+<div *ngIf="!expediente?.lactive">
+    Depurado
+</div>
 <div class="container expediente">
     <h4>
-        {{objExpediente.idtipodoc}}
+        {{expediente?.idtipodoc}}
     </h4>
-    <h4 *ngIf="!lLoading" id="sexpediente">
-        {{objExpediente.sexpediente}}
+    <h4 id="sexpediente">
+        {{expediente?.sexpediente}}
     </h4>
-    <h4 *ngIf="lLoading">
-        <div class="spinner-grow spinner-grow-sm" role="status">
-            <span class="sr-only"></span>
-        </div>
-    </h4>
-    <h5 *ngIf="objExpediente.smatchexp !== 'no-match' && !lLoading">
-        <a [routerLink]="['/', 'expediente', objExpediente.smatchexp]">
-            {{objExpediente.smatchexp}}
+    <h5 *ngIf="expediente?.smatchexp !== 'no-match'">
+        <a [routerLink]="['/', 'expediente', expediente?.smatchexp]">
+            {{expediente?.smatchexp}}
         </a>
     </h5>
     <hr />
@@ -21,98 +19,63 @@
             <td>
                 <b>MATERIA:</b>
             </td>
-            <td *ngIf="!lLoading">
-                {{objExpediente.smateria}}
-            </td>
-            <td *ngIf="lLoading" style="width: 60%;">
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
-                </div>
+            <td>
+                {{expediente?.smateria}}
             </td>
         </tr>
         <tr>
             <td>
                 <b>SALA:</b>
             </td>
-            <td *ngIf="!lLoading">
-                {{objExpediente.sorganojuris}}
-            </td>
-            <td *ngIf="lLoading">
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
-                </div>
+            <td>
+                {{expediente?.sorganojuris}}
             </td>
         </tr>
         <tr>
             <td>
                 <b>ESPECIALIDAD:</b>
             </td>
-            <td *ngIf="!lLoading">
-                {{objExpediente.sespecialidad}}
-            </td>
-            <td *ngIf="lLoading">
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
-                </div>
+            <td>
+                {{expediente?.sespecialidad}}
             </td>
         </tr>
         <tr>
             <td>
                 <b>DEMANDANTE:</b>
             </td>
-            <td *ngIf="!lLoading">
-                {{objExpediente.sdemandante}}
-            </td>
-            <td *ngIf="lLoading">
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
-                </div>
+            <td>
+                {{expediente?.sdemandante}}
             </td>
         </tr>
         <tr>
             <td>
                 <b>DEMANDADO:</b>
             </td>
-            <td *ngIf="!lLoading">
-                {{objExpediente.sdemandado}}
-            </td>
-            <td *ngIf="lLoading">
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
-                </div>
+            <td>
+                {{expediente?.sdemandado}}
             </td>
         </tr>
         <tr>
             <td>
                 <b>CONTRATO:</b>
             </td>
-            <td *ngIf="!lLoading">
-                <span *ngIf="objExpediente.lcontrato">
+            <td>
+                <span *ngIf="expediente?.lcontrato">
                     OK
                 </span>
-                <span *ngIf="!objExpediente.lcontrato" style="color: red;">
+                <span *ngIf="!expediente?.lcontrato" style="color: red;">
                     <b>SIN CONTRATO</b>
                 </span>
             </td>
-            <td *ngIf="lLoading">
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
-                </div>
-            </td>
         </tr>
-        <tr *ngIf="objExpediente.scodigo != 'XX-XXXX'">
+        <tr *ngIf="expediente?.scodigo != 'XX-XXXX'">
             <td>
                 <b>CÓDIGO:</b>
             </td>
-            <td *ngIf="!lLoading">
+            <td>
                 <span style="background-color: lightgrey; border-radius: 4px;">
-                    {{objExpediente.scodigo}}
+                    {{expediente?.scodigo}}
                 </span>
-            </td>
-            <td *ngIf="lLoading">
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
-                </div>
             </td>
         </tr>
     </table>
@@ -126,7 +89,7 @@
             </h6>
             <h6>
                 <small>
-                    {{objExpediente.sfechainicio}}
+                    {{expediente?.sfechainicio}}
                 </small>
             </h6>
         </div>
@@ -138,7 +101,7 @@
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
-            {{sexpediente}}
+            {{expediente?.sexpediente}}
         </i>
     </span>
 </div>

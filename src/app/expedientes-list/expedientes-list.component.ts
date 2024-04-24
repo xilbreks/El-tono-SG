@@ -12,7 +12,7 @@ export class ExpedientesListComponent implements AfterViewInit {
   lstExpedientesFiltered: Array<any> = [];
   lModeFiltering = false;
   sFecha: string = '';
-  lLoading = false;
+  lLoading = true;
 
   lstLaRepo: Array<any> = [];
   lstLaIndem: Array<any> = [];
@@ -40,6 +40,10 @@ export class ExpedientesListComponent implements AfterViewInit {
     this.service.lstExps.subscribe(res => {
       this.lstExpedientes = res;
       this.separarAreas();
+      if (res.length > 0 ) {
+        this.lLoading = false;
+      }
+      
     });
   }
 

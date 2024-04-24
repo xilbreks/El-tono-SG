@@ -4,7 +4,7 @@
 
 <div>
     <pre>
-        {{sobs}}
+        {{expediente?.sobs}}
     </pre>
 
     <button (click)="openModal(editObsModal)" class="btn btn-secondary">
@@ -17,12 +17,12 @@
 <div class="alert alert-success">
     <b>Anexos Importantes:</b>
 
-    <div *ngIf="urlassets == 'sin-url'">
+    <div *ngIf="expediente?.urlassets == 'sin-url'">
         F. No hay
     </div>
 
-    <div *ngIf="urlassets != 'sin-url'">
-        <a [href]="urlassets" target="_blank">
+    <div *ngIf="expediente?.urlassets != 'sin-url'">
+        <a [href]="expediente?.urlassets" target="_blank">
             AQUÍ
         </a>
     </div>
@@ -32,7 +32,7 @@
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
-            {{sexpediente}}
+            {{expediente?.sexpediente}}
         </i>
     </span>
 </div>
@@ -51,7 +51,7 @@
         </textarea>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="setObs()" [disabled]="!(fcObs.valid && !lUpdating)">
+        <button type="button" class="btn btn-primary" (click)="updateObs()" [disabled]="!(fcObs.valid && !lUpdating)">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
             </span>
             <span class="sr-only" *ngIf="!lUpdating">

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
+
+import { Expediente } from './../_interfaces/expediente';
 
 @Component({
   selector: 'app-exp-item',
@@ -8,10 +11,11 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./exp-item.component.scss']
 })
 export class ExpItemComponent implements OnInit {
-  sexpediente: string = '';
-  lactive: boolean = true;
+  expediente: Expediente | null = null;
+  lLoading: boolean = true;
 
   constructor(
+    private db: AngularFirestore,
     private titleService: Title,
     private route: ActivatedRoute,
   ) {
@@ -19,12 +23,27 @@ export class ExpItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.sexpediente = params['id'];
-      this.titleService.setTitle(this.sexpediente);
+      let sexpediente = params['id'];
+      this.titleService.setTitle(sexpediente);
+
+      this.recuperarExpediente(sexpediente);
     });
   }
 
-  updateLactive(arg: boolean) {
-    this.lactive = arg;
+  recuperarExpediente(sexpediente: string) {
+    this.lLoading = true;
+    let obs = this.db.collection('expedientes').doc(sexpediente)
+      .valueChanges()
+      .subscribe((exp: any) => {
+        if (exp) {
+          this.expediente = exp;
+        } else {
+          this.expediente = null;
+        }
+
+        this.lLoading = false;
+        obs.unsubscribe();
+      });
   }
+
 }

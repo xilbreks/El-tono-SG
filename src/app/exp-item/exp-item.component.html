@@ -1,9 +1,6 @@
 <br />
 
-<div class="container">
-    <div class="ribbon ribbon-top-right" *ngIf="!lactive">
-        <span>Depurado</span>
-    </div>
+<div class="container" *ngIf="!lLoading">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="expediente-tab" data-bs-toggle="tab"
@@ -43,31 +40,39 @@
             </button>
         </li>
     </ul>
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content" id="myTabContent" *ngIf="expediente">
         <div class="tab-pane fade show active" id="expediente-tab-pane" role="tabpanel" aria-labelledby="expediente-tab"
             tabindex="0">
-            <app-exp-item-cover [sexpediente]="sexpediente"></app-exp-item-cover>
+            <app-exp-item-cover [expediente]="expediente"></app-exp-item-cover>
         </div>
         <div class="tab-pane fade" id="historial-tab-pane" role="tabpanel" aria-labelledby="historial-tab" tabindex="0">
-            <app-exp-item-tasks [sexpediente]="sexpediente"></app-exp-item-tasks>
+            <app-exp-item-tasks [expediente]="expediente"></app-exp-item-tasks>
         </div>
         <div class="tab-pane fade" id="pagos-tab-pane" role="tabpanel" aria-labelledby="pagos-tab" tabindex="0">
-            <app-exp-item-fees [sexpediente]="sexpediente"></app-exp-item-fees>
+            <app-exp-item-fees [expediente]="expediente"></app-exp-item-fees>
         </div>
         <div class="tab-pane fade" id="chat-tab-pane" role="tabpanel" aria-labelledby="chat-tab" tabindex="0">
-            <app-exp-item-chat [sexpediente]="sexpediente"></app-exp-item-chat>
+            <app-exp-item-chat [expediente]="expediente"></app-exp-item-chat>
         </div>
         <div class="tab-pane fade" id="obs-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
-            <app-exp-item-obs [sexpediente]="sexpediente"></app-exp-item-obs>
+            <app-exp-item-obs [expediente]="expediente"></app-exp-item-obs>
         </div>
+        <!-- 
         <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
             <app-exp-item-edit-data [sexpediente]="sexpediente"></app-exp-item-edit-data>
             <app-exp-item-edit-match [sexpediente]="sexpediente"></app-exp-item-edit-match>
             <app-exp-item-edit-code [sexpediente]="sexpediente"></app-exp-item-edit-code>
             <app-exp-item-edit-terms [sexpediente]="sexpediente"></app-exp-item-edit-terms>
             <app-exp-item-edit-url [sexpediente]="sexpediente"></app-exp-item-edit-url>
-            <app-exp-item-edit-status [sexpediente]="sexpediente"
-                (onLactive)="updateLactive($event)"></app-exp-item-edit-status>
-        </div>
+            <app-exp-item-edit-status [sexpediente]="sexpediente"></app-exp-item-edit-status>
+        </div> -->
     </div>
+    <div class="tab-content" *ngIf="!expediente">
+        Expediente no Existe
+    </div>
+</div>
+
+<div class="container" *ngIf="lLoading">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Cargando Expediente...
 </div>

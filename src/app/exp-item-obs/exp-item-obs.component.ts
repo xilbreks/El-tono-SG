@@ -1,17 +1,17 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { Expediente } from './../_interfaces/expediente';
 
 @Component({
   selector: 'app-exp-item-obs',
   templateUrl: './exp-item-obs.component.html',
   styleUrls: ['./exp-item-obs.component.scss']
 })
-export class ExpItemObsComponent implements OnChanges {
-  @Input('sexpediente') sexpediente: string = '';
-  sobs: string = '';
-  urlassets: string = '';
+export class ExpItemObsComponent implements OnInit {
+  @Input('expediente') expediente: Expediente | null = null;
   fcObs: FormControl = new FormControl([]);
   lUpdating = false;
 
@@ -21,42 +21,30 @@ export class ExpItemObsComponent implements OnChanges {
   ) {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.getObs();
-  }
-
-  getObs() {
-    let obs = this.db.collection('expedientes')
-      .doc(this.sexpediente)
-      .valueChanges()
-      .subscribe((res: any) => {
-        this.sobs = res.sobs;
-        this.urlassets = res.urlassets;
-
-        obs.unsubscribe();
-      });
-  }
+  ngOnInit(): void { }
 
   openModal(modal: any) {
-    this.fcObs.setValue(this.sobs);
+    this.fcObs.setValue(this.expediente?.sobs);
 
     this.modalService.open(modal, {
       windowClass: 'modal-md',
     });
   }
 
-  setObs() {
+  updateObs() {
     this.lUpdating = true;
     let sobs = this.fcObs.value;
     this.db.collection('expedientes')
-      .doc(this.sexpediente)
+      .doc(this.expediente?.sexpediente)
       .update({
         sobs: sobs
       })
       .then(() => {
         // success
         this.modalService.dismissAll();
-        this.getObs();
+        if (this.expediente) {
+          this.expediente.sobs = sobs;
+        }
       })
       .catch(err => {
         console.log('ERROR', err)

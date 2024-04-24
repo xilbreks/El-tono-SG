@@ -60,6 +60,7 @@
             </tbody>
             <tbody *ngIf="lLoadingC">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Cargando...
             </tbody>
             <tfoot>
                 <tr>
@@ -139,6 +140,7 @@
             </tbody>
             <tbody *ngIf="lLoadingP">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Cargando...
             </tbody>
             <tfoot>
                 <tr>
@@ -163,7 +165,7 @@
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
-            {{sexpediente}}
+            {{expediente?.sexpediente}}
         </i>
     </span>
 </div>
