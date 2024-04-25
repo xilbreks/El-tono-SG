@@ -32,6 +32,7 @@
         <th>DTE</th>
         <th>DDO</th>
         <th>ITER</th>
+        <th>Contrato</th>
         <th>Avance(%)</th>
         <th>Cobro de Honorarios</th>
         <th>Cobros para Aranceles u otros</th>
@@ -41,6 +42,7 @@
         <th>Código de tarea</th>
         <th>Mención de la tarea</th>
         <th>Acciones a realizar</th>
+        <th>Saldo</th>
         <th></th>
         <th></th>
       </tr>
@@ -73,6 +75,9 @@
           {{ tarea.niter }}
         </td>
         <td>
+          {{ tarea.lcontrato }}
+        </td>
+        <td>
           {{ tarea.navance }}
         </td>
         <td>
@@ -100,6 +105,9 @@
           {{ tarea.sacceje }}
         </td>
         <td>
+          {{ tarea.nsaldo }}
+        </td>
+        <td>
           <button class="btn btn-outline-dark" (click)="openEditTaskModal(tarea, editTaskModal)" ngbTooltip="Editar">
             <i class="bi bi-pencil"></i>
           </button>
@@ -114,13 +122,13 @@
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
     <tfoot>
       <tr>
-        <th colspan="14" style="text-align: right;">
+        <th colspan="15" style="text-align: right;">
           SUMA TOTAL DE TIEMPO UTILIZADO
         </th>
         <th>
           {{nSumaTiempoTareas}}
         </th>
-        <th colspan="5">
+        <th colspan="6">
         </th>
       </tr>
     </tfoot>
@@ -180,13 +188,21 @@
             </option>
           </select>
         </div>
-        <div class="col-6 col-md-3">
+        <div class="col-3 col-md-2">
           <label for="sTipoCliente" class="form-label">Cliente</label>
           <select class="form-select" formControlName="stipocliente" id="sTipoCliente">
             <option value="nc">No corresponde</option>
             <option value="consulta">Consulta Nueva</option>
             <option value="nuevo">Nuevo</option>
             <option value="antiguo">Antiguo</option>
+          </select>
+        </div>
+        <div class="col-3 col-md-1">
+          <label for="lcontrato" class="form-label">Contrato</label>
+          <select class="form-select" formControlName="lcontrato" id="lcontrato">
+            <option value="nc">No corresponde</option>
+            <option value="si">Si</option>
+            <option value="no">No</option>
           </select>
         </div>
       </div>
@@ -295,9 +311,24 @@
           </div>
         </div>
         <div class="col-6 col-md-3">
-          <label for="cumplimiento" class="form-label"> Cumplimiento(%) </label>
+          <label for="nsaldo" class="form-label">
+            Saldo Pendiente (S/)
+          </label>
+          <input type="text" class="form-control" id="nsaldo" formControlName="nsaldo" />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-6 col-md-2">
+          <label for="fechaCulminacion" class="form-label">
+            Culminación de la tarea
+          </label>
+          <input type="date" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
+        </div>
+
+        <div class="col-6 col-md-1">
+          <label for="cumplimiento" class="form-label"> Avance(%) </label>
           <select class="form-select" id="cumplimiento" formControlName="navance">
-            <option value="nc">No corresponde</option>
             <option value="10%">10%</option>
             <option value="20%">20%</option>
             <option value="30%">30%</option>
@@ -309,15 +340,6 @@
             <option value="90%">90%</option>
             <option value="100%">100%</option>
           </select>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col-6 col-md-3">
-          <label for="fechaCulminacion" class="form-label">
-            Fecha de culminación de la tarea
-          </label>
-          <input type="date" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
         </div>
 
         <div class="col-6 col-md-3">
@@ -541,7 +563,10 @@
           <input type="date" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
         </div>
         <div class="col-6 col-md-3">
-
+          <label for="nsaldo" class="form-label">
+            Saldo Pendiente (S/)
+          </label>
+          <input type="text" class="form-control" id="nsaldo" formControlName="nsaldo" />
         </div>
       </div>
 
@@ -575,7 +600,12 @@
           </div>
         </div>
         <div class="col-6 col-md-3">
-
+          <label for="lcontrato" class="form-label">Contrato</label>
+          <select class="form-select" formControlName="lcontrato" id="lcontrato">
+            <option value="nc">No corresponde</option>
+            <option value="si">Si</option>
+            <option value="no">No</option>
+          </select>
         </div>
       </div>
     </form>

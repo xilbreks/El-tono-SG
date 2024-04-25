@@ -280,6 +280,8 @@ export class AdminRdtComponent {
             "Demandante": tarea['sdemandante'],
             "Demandado": tarea['sdemandado'],
             "ITER": tarea['niter'],
+            "Contrato": tarea['lcontrato'],
+            "Saldo": tarea['nsaldo'],
             "Avance": tarea['navance'],
             "Cobro de Honorarios": tarea['ncobrohonorario'],
             "Ingreso para Aranceles": tarea['ningresoarancel'],

@@ -51,6 +51,8 @@ class ObjTarea {
   public ncobrohonorario: number = 0;
   public ningresoarancel: number = 0;
   public nsalidaarancel: number = 0;
+  public lcontrato: boolean = false;
+  public nsaldo: number = 0;
   constructor() { }
 }
 
@@ -96,6 +98,10 @@ export class RdtEditComponent {
       name: 'Dra. Lizi'
     },
     {
+      id: 'dr-aparicio',
+      name: 'Dra. Aparicio'
+    },
+    {
       id: 'bach-vianka',
       name: 'Bach. Vianka'
     },
@@ -139,6 +145,8 @@ export class RdtEditComponent {
       ncobrohonorario: new FormControl(null, Validators.required),
       ningresoarancel: new FormControl(null, Validators.required),
       nsalidaarancel: new FormControl(null, Validators.required),
+      lcontrato: new FormControl(null, Validators.required),
+      nsaldo: new FormControl(null, Validators.required),
     });
 
     /***********************
@@ -164,6 +172,8 @@ export class RdtEditComponent {
       ncobrohonorario: new FormControl(null, Validators.required),
       ningresoarancel: new FormControl(null, Validators.required),
       nsalidaarancel: new FormControl(null, Validators.required),
+      lcontrato: new FormControl(null, Validators.required),
+      nsaldo: new FormControl(null, Validators.required),
     });
   }
 
@@ -247,6 +257,9 @@ export class RdtEditComponent {
           objTarea.ncobrohonorario = tarea.ncobrohonorario;
           objTarea.ningresoarancel = tarea.ningresoarancel;
           objTarea.nsalidaarancel = tarea.nsalidaarancel;
+          objTarea.lcontrato = tarea.lcontrato ? tarea.lcontrato : 'nc';
+          objTarea.nsaldo = tarea.nsaldo ? tarea.nsaldo : '-';
+
           this.lstTareas.push(objTarea);
 
           horas = horas + Number(tarea.shorasatencion);
@@ -402,7 +415,7 @@ export class RdtEditComponent {
     this.frmNewTask.controls['ningresoarancel'].setValue(0);
     this.frmNewTask.controls['nsalidaarancel'].setValue(0);
     this.frmNewTask.controls['navance'].setValue('100%');
-    
+
     this.modalService.open(modal, {
       windowClass: 'modal-xl',
       modalDialogClass: 'modal-fullscreen',
@@ -430,6 +443,8 @@ export class RdtEditComponent {
       ncobrohonorario: tarea.ncobrohonorario,
       ningresoarancel: tarea.ningresoarancel,
       nsalidaarancel: tarea.nsalidaarancel,
+      nsaldo: tarea.nsaldo,
+      lcontrato: tarea.lcontrato,
     });
     this.setLstIterEditTask(true);
     this.modalService.open(modal, {
@@ -491,49 +506,6 @@ export class RdtEditComponent {
 
     if (dontReset) return;
     this.frmEditTask.controls['niter'].reset();
-  }
-
-  ///////////////////////////////////////////////
-
-  buscarExpedienteAlias() {
-    this.lSearching = true;
-
-    let sTermino: string = this.frmNewTask.value.sexpediente;
-    sTermino = sTermino.trim().toUpperCase();
-    let sAtributo = '';
-
-    if (sTermino.match(/^[0-9]{5}[-][0-9]{4}$/)) {
-      // Abreviacion de expediente normal
-      sAtributo = 'salias';
-    } else if (sTermino.match(/^[0-9]{5}[-][0-9]{4}[-][0-9]{1,2}$/)) {
-      // Abreviacion de expediente cautelar
-      sAtributo = 'salias';
-    } else if (sTermino.match(/^[A-Z0-9-]{3,27}$/)) {
-      // Codigo completo
-      sAtributo = 'sexpediente';
-    } else {
-      this.lSearching = false;
-      return;
-    }
-
-    let obs = this.db.collection('expedientes', ref => {
-      return ref.where(sAtributo, '==', sTermino)
-    }).valueChanges()
-      .subscribe((res: Array<any>) => {
-        if (res.length == 1) {
-          // completar datos al formulario
-          this.frmNewTask.controls['sexpediente'].setValue(res[0].sexpediente);
-          this.frmNewTask.controls['sdemandante'].setValue(res[0].sdemandante);
-          this.frmNewTask.controls['sdemandado'].setValue(res[0].sdemandado);
-          this.frmNewTask.controls['sespecialidad'].setValue(res[0].sespecialidad.toLowerCase());
-
-          this.setLstIterNewTask();
-        } else if (res.length > 1) {
-          window.alert('Hay mas de un cuaderno con ese numero. Escriba completo');
-        }
-        this.lSearching = false;
-        obs.unsubscribe();
-      })
   }
 
   /**
@@ -604,15 +576,22 @@ export class RdtEditComponent {
     this.frmNewTask.controls['sdemandado'].setValue(exp.sdemandado);
     this.frmNewTask.controls['sespecialidad'].setValue(exp.sespecialidad.toLowerCase());
     this.frmNewTask.controls['stipocliente'].setValue('antiguo');
+    this.frmNewTask.controls['lcontrato'].setValue(exp.lcontrato ? 'si' : 'no');
 
     // Set ITER
     this.setLstIterNewTask();
-    this.frmNewTask.controls['niter'].setValue(exp.niter);
+    if (exp.niter == 0) {
+      this.frmNewTask.controls['niter'].setValue(null);
+    } else {
+      this.frmNewTask.controls['niter'].setValue(exp.niter);
+    }
 
+    // Remove popover list
     this.lstExpedientesFiltered = [];
   }
 
   desfocusear() {
+    // Remove popover list
     this.lstExpedientesFiltered = [];
   }
 

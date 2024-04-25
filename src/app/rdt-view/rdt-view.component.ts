@@ -42,6 +42,8 @@ class ObjTarea {
   public ncobrohonorario: number = 0;
   public ningresoarancel: number = 0;
   public nsalidaarancel: number = 0;
+  public lcontrato: boolean = false;
+  public nsaldo: number = 0;
 
   constructor() { }
 }
@@ -128,6 +130,8 @@ export class RdtViewComponent {
           objTarea.ncobrohonorario = tarea.ncobrohonorario;
           objTarea.ningresoarancel = tarea.ningresoarancel;
           objTarea.nsalidaarancel = tarea.nsalidaarancel;
+          objTarea.lcontrato = tarea.lcontrato;
+          objTarea.nsaldo = tarea.nsaldo;
 
           this.lstTareas.push(objTarea);
           horas = horas + Number(tarea.shorasatencion);
