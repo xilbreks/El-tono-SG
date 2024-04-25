@@ -60,6 +60,7 @@ export class ExpedientesUpdaterComponent {
             sfechainicio: exp.sfechainicio,
             scodigo: exp.scodigo,
             niter: exp.niter,
+            lcontrato: exp.lcontrato,
           });
         });
 
