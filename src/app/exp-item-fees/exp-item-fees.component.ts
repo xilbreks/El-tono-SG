@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
 
 import { Expediente } from './../_interfaces/expediente';
-import { PagoHonorario } from './../__clases/pago-honorario';
+import { Pago } from './../_interfaces/pago';
 import { Contrato } from './../__clases/contrato';
 
 @Component({
@@ -14,6 +15,8 @@ import { Contrato } from './../__clases/contrato';
 })
 export class ExpItemFeesComponent implements OnInit {
   @Input('expediente') expediente: Expediente | null = null;
+  idusuario: string | null;
+  ldebugger: boolean = false;
 
   // Contracts
   lstContracts: Array<Contrato> = [];
@@ -27,7 +30,7 @@ export class ExpItemFeesComponent implements OnInit {
 
 
   // Payments
-  lstPayments: Array<PagoHonorario> = [];
+  lstPayments: Array<Pago> = [];
   nSumPayments: number = 0;
   frmNewPayment: FormGroup;
   frmEditPayment: FormGroup;
@@ -43,7 +46,9 @@ export class ExpItemFeesComponent implements OnInit {
   constructor(
     private db: AngularFirestore,
     private modalService: NgbModal,
+    private route: ActivatedRoute,
   ) {
+    this.idusuario = localStorage.getItem('idusuario');
     /*******************************
      ****** FORM NEW CONTRACT ******
      *******************************/
@@ -84,6 +89,14 @@ export class ExpItemFeesComponent implements OnInit {
   ngOnInit(): void {
     this.getContracts();
     this.getPayments();
+
+    this.route.queryParams.subscribe((params: any) => {
+      if (params.debug == 'true') {
+        this.ldebugger = true;
+      } else {
+        this.ldebugger = false;
+      }
+    });
   }
 
   /*********************************************
@@ -244,6 +257,8 @@ export class ExpItemFeesComponent implements OnInit {
           }
           this.lstPayments.push({
             ...p,
+            sfechacreacion: (new Date(p.nfechacreacion)).toLocaleString(),
+            sfechaedicion: (new Date(p.nfechaedicion)).toLocaleString(),
             sfechalocal
           })
           this.nSumPayments += p.nmonto;
@@ -262,19 +277,24 @@ export class ExpItemFeesComponent implements OnInit {
 
   addNewPayment() {
     this.lCreatingP = true;
-    const id = new Date().getTime().toString();
+    const id = new Date().getTime();
+    const sid = id.toString();
 
     this.db
       .collection('pagos')
-      .doc(id)
+      .doc(sid)
       .set({
-        idpago: id,
+        idpago: sid,
         lactive: true,
         sexpediente: this.expediente?.sexpediente,
         nmonto: this.frmNewPayment.value['nmonto'],
         sfecha: this.frmNewPayment.value['sfecha'],
         sdescripcion: this.frmNewPayment.value['sdescripcion'],
-        smodificador: localStorage.getItem('idusuario')
+
+        nfechacreacion: id,
+        screador: this.idusuario,
+        nfechaedicion: 0,
+        seditor: '-',
       })
       .then((x) => {
         this.getPayments();
@@ -289,7 +309,7 @@ export class ExpItemFeesComponent implements OnInit {
       });
   }
 
-  openEditPaymentModal(pago: PagoHonorario, modal: any) {
+  openEditPaymentModal(pago: Pago, modal: any) {
     this.frmEditPayment.setValue({
       idpago: pago.idpago,
       nmonto: pago.nmonto,
@@ -313,7 +333,9 @@ export class ExpItemFeesComponent implements OnInit {
         nmonto: this.frmEditPayment.value['nmonto'],
         sfecha: this.frmEditPayment.value['sfecha'],
         sdescripcion: this.frmEditPayment.value['sdescripcion'],
-        smodificador: localStorage.getItem('idusuario')
+
+        nfechaedicion: (new Date()).getTime(),
+        seditor: this.idusuario,
       })
       .then((x) => {
         this.getPayments();
@@ -328,7 +350,7 @@ export class ExpItemFeesComponent implements OnInit {
       })
   }
 
-  openDeletePaymentModal(pago: PagoHonorario) {
+  openDeletePaymentModal(pago: Pago) {
     let lBorrar = window.confirm('¿Está seguro de borrar pago?')
 
     if (lBorrar) {
@@ -339,7 +361,9 @@ export class ExpItemFeesComponent implements OnInit {
   deletePayment(idpago: string) {
     this.db.collection('pagos').doc(idpago).update({
       lactive: false,
-      smodificador: localStorage.getItem('idusuario')
+
+      nfechaedicion: (new Date()).getTime(),
+      seditor: this.idusuario,
     }).then(() => {
       this.getPayments();
     })

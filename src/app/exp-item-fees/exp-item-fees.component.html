@@ -107,6 +107,9 @@
                     <th *ngIf="!lViewMode">
                         Quitar
                     </th>
+                    <th *ngIf="ldebugger">
+                        Log
+                    </th>
                 </tr>
             </thead>
             <tbody *ngIf="!lLoadingP && lstPayments.length > 0">
@@ -132,6 +135,16 @@
                         <button (click)="openDeletePaymentModal(pago)" class="btn btn-danger btn-sm">
                             <i class="bi bi-trash-fill"></i>
                         </button>
+                    </td>
+                    <td *ngIf="ldebugger">
+                        <div>
+                            Registrado el: <i>{{pago.sfechacreacion}}</i>
+                            Por: <i>{{pago.screador}}</i>
+                        </div>
+                        <div>
+                            Última edición: <i>{{pago.sfechaedicion}}</i>
+                            Por: <i>{{pago.seditor}}</i>
+                        </div>
                     </td>
                 </tr>
             </tbody>

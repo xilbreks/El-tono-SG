@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
 
@@ -13,12 +13,18 @@ import { Expediente } from './../_interfaces/expediente';
 export class ExpItemComponent implements OnInit {
   expediente: Expediente | null = null;
   lLoading: boolean = true;
+  lEditable: boolean = false;
 
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
     private route: ActivatedRoute,
+    private router: Router,
   ) {
+    let user = localStorage.getItem('idusuario');
+    if (user == 'admin') {
+      this.router.navigate([], { queryParams: { edit: true, debug: false } });
+    }
   }
 
   ngOnInit(): void {
@@ -27,6 +33,14 @@ export class ExpItemComponent implements OnInit {
       this.titleService.setTitle(sexpediente);
 
       this.recuperarExpediente(sexpediente);
+    });
+
+    this.route.queryParams.subscribe((params: any) => {
+      if (params.edit == 'true') {
+        this.lEditable = true;
+      } else {
+        this.lEditable = false;
+      }
     });
   }
 

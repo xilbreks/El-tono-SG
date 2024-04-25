@@ -1,15 +1,18 @@
 export interface Pago {
     idpago: string;
-    nmonto: number;
-    sdescripcion: string;
+    lactive: boolean;
     sexpediente: string;
+    nmonto: number;
     sfecha: string;
+    sdescripcion: string;
 
-    sfechacreacion: string;
+    nfechacreacion: number;
     screador: string;
-    sfechaedicion: string;
+    nfechaedicion: number;
     seditor: string;
     
     // Solo para front-end
     sfechalocal: string;
+    sfechacreacion: string;
+    sfechaedicion: string;
 }

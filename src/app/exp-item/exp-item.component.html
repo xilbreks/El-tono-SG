@@ -1,7 +1,7 @@
 <br />
 
 <div class="container" *ngIf="!lLoading">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-tabs" id="myTab" role="tablist" *ngIf="expediente">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="expediente-tab" data-bs-toggle="tab"
                 data-bs-target="#expediente-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
@@ -33,7 +33,7 @@
                 Observaciones
             </button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="true">
+        <li class="nav-item" role="presentation" *ngIf="lEditable">
             <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit-tab-pane" type="button"
                 role="tab" aria-controls="edit-tab-pane" aria-selected="false">
                 <i class="bi bi-wrench-adjustable"></i>
@@ -57,17 +57,20 @@
         <div class="tab-pane fade" id="obs-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
             <app-exp-item-obs [expediente]="expediente"></app-exp-item-obs>
         </div>
-        <!-- 
+        
         <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
-            <app-exp-item-edit-data [sexpediente]="sexpediente"></app-exp-item-edit-data>
-            <app-exp-item-edit-match [sexpediente]="sexpediente"></app-exp-item-edit-match>
-            <app-exp-item-edit-code [sexpediente]="sexpediente"></app-exp-item-edit-code>
-            <app-exp-item-edit-terms [sexpediente]="sexpediente"></app-exp-item-edit-terms>
-            <app-exp-item-edit-url [sexpediente]="sexpediente"></app-exp-item-edit-url>
-            <app-exp-item-edit-status [sexpediente]="sexpediente"></app-exp-item-edit-status>
-        </div> -->
+            <app-exp-item-edit-data [sexpediente]="expediente.sexpediente"></app-exp-item-edit-data>
+            <app-exp-item-edit-match [sexpediente]="expediente.sexpediente"></app-exp-item-edit-match>
+            <app-exp-item-edit-code [sexpediente]="expediente.sexpediente"></app-exp-item-edit-code>
+            <app-exp-item-edit-terms [sexpediente]="expediente.sexpediente"></app-exp-item-edit-terms>
+            <app-exp-item-edit-url [sexpediente]="expediente.sexpediente"></app-exp-item-edit-url>
+            <app-exp-item-edit-status [sexpediente]="expediente.sexpediente"></app-exp-item-edit-status>
+        </div>
     </div>
-    <div class="tab-content" *ngIf="!expediente">
+    <div *ngIf="!expediente">
+        <div style="font-size: 3rem;">
+            <i class="bi bi-capsule-pill"></i>
+        </div>
         Expediente no Existe
     </div>
 </div>

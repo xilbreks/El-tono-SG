@@ -330,19 +330,24 @@ export class RdtEditComponent {
     idcolaborador: string,
     scolaborador: string,
   }) {
-    const id = (new Date(arg.id).getTime() + 10).toString();
+    const id = (new Date(arg.id).getTime() + 10);
+    const sid = id.toString();
 
     this.db
       .collection('pagos')
-      .doc(id)
+      .doc(sid)
       .set({
-        idpago: id,
+        idpago: sid,
         lactive: true,
         sexpediente: arg.sexp,
         nmonto: arg.nmonto,
         sfecha: arg.sfecha,
         sdescripcion: 'Pago por Honorarios - Cobrado por ' + arg.scolaborador + ' [vía RDT]',
-        smodificador: arg.idcolaborador
+
+        nfechacreacion: id,
+        screador: arg.idcolaborador,
+        nfechaedicion: 0,
+        seditor: '-',
       })
       .then((x) => {
         // success
