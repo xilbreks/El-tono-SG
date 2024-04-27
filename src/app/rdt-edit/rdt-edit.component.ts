@@ -99,7 +99,7 @@ export class RdtEditComponent {
     },
     {
       id: 'dr-aparicio',
-      name: 'Dra. Aparicio'
+      name: 'Dr. Aparicio'
     },
     {
       id: 'bach-vianka',

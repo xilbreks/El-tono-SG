@@ -155,13 +155,25 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        if (pago.sexpediente == e.sexpediente) {
-          sumapagos += pago.nmonto;
-          fultimopa = pago.sfecha;
-          nultimopa = pago.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (pago.sexpediente == e.sexpediente) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
@@ -186,11 +198,21 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        if (contr.sexpediente == e.sexpediente) {
-          sumacontratos += contr.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (contr.sexpediente == e.sexpediente) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
@@ -300,13 +322,25 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        if (pago.sexpediente == e.sexpediente) {
-          sumapagos += pago.nmonto;
-          fultimopa = pago.sfecha;
-          nultimopa = pago.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (pago.sexpediente == e.sexpediente) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
@@ -331,11 +365,21 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        if (contr.sexpediente == e.sexpediente) {
-          sumacontratos += contr.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (contr.sexpediente == e.sexpediente) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
@@ -445,13 +489,25 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        if (pago.sexpediente == e.sexpediente) {
-          sumapagos += pago.nmonto;
-          fultimopa = pago.sfecha;
-          nultimopa = pago.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (pago.sexpediente == e.sexpediente) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
@@ -476,11 +532,21 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        if (contr.sexpediente == e.sexpediente) {
-          sumacontratos += contr.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (contr.sexpediente == e.sexpediente) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
@@ -590,13 +656,25 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        if (pago.sexpediente == e.sexpediente) {
-          sumapagos += pago.nmonto;
-          fultimopa = pago.sfecha;
-          nultimopa = pago.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (pago.sexpediente == e.sexpediente) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
@@ -621,11 +699,21 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        if (contr.sexpediente == e.sexpediente) {
-          sumacontratos += contr.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (contr.sexpediente == e.sexpediente) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
@@ -735,13 +823,25 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        if (pago.sexpediente == e.sexpediente) {
-          sumapagos += pago.nmonto;
-          fultimopa = pago.sfecha;
-          nultimopa = pago.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (pago.sexpediente == e.sexpediente) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
+            sumapagos += pago.nmonto;
+            fultimopa = pago.sfecha;
+            nultimopa = pago.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
@@ -766,11 +866,21 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        if (contr.sexpediente == e.sexpediente) {
-          sumacontratos += contr.nmonto;
-          return true;
+        // Verificar si el expediente tiene match
+        if (e.smatchexp == 'no-match') {
+          if (contr.sexpediente == e.sexpediente) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
+            sumacontratos += contr.nmonto;
+            return true;
+          } else {
+            return false;
+          }
         }
       });
 
