@@ -1,22 +1,33 @@
-<h3 style="text-align: center;">
-    Registro de Nuevo Usuario
-</h3>
+<div class="container" style="margin-bottom: 20px;">
+    <div class="alert alert-warning" role="alert">
+        <p>
+            OJO: Una vez registrado el usuario <b>NO</b> se podrá editar ni modificar.
+        </p>
 
-<div class="container" style="max-width: 400px;">
+        RECOMENDACIÓN: Lea atentamente los datos a registrar.
+
+    </div>
+</div>
+
+<div class="container formulario">
+    <h4>
+        Registro de Nuevo Usuario
+    </h4>
     <form [formGroup]="frmUsuario" autocomplete="off">
         <div class="row mb-3">
             <label for="sname" class="form-label">
-                Nombre
+                Nombre:
             </label>
-            <input type="text" class="form-control" id="sname" formControlName="sname" />
+            <input type="text" class="form-control" id="sname" formControlName="sname" placeholder="Richard Scruggs" />
         </div>
         <div class="row mb-3">
             <label for="idcolaborador" class="form-label">
-                ID Usuario
+                ID Usuario:
             </label>
-            <input type="text" class="form-control" id="idcolaborador" formControlName="id" />
+            <input type="text" class="form-control" id="idcolaborador" formControlName="id"
+                placeholder="richard-scruggs" />
         </div>
-        <div class="row mb-3">
+        <!-- <div class="row mb-3">
             <label for="scargo" class="form-label">
                 Cargo
             </label>
@@ -24,12 +35,13 @@
                 <option value="abogado">Abogado</option>
                 <option value="asistente">Asistente</option>
             </select>
-        </div>
+        </div> -->
         <div class="row mb-3">
             <label for="spassword" class="form-label">
-                Contraseña
+                Contraseña:
             </label>
-            <input type="text" class="form-control" id="spassword" formControlName="spassword" />
+            <input type="text" class="form-control" id="spassword" formControlName="spassword"
+                placeholder="xyz123XZY" />
         </div>
     </form>
     <div>
@@ -41,4 +53,5 @@
             Registrando...
         </button>
     </div>
+
 </div>

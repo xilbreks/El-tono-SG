@@ -24,7 +24,7 @@ export class SignUpComponent {
         Validators.pattern(/^\S*$/)
       ])),
       sname: new FormControl(null, Validators.required),
-      scargo: new FormControl(null, Validators.required),
+      scargo: new FormControl('asistente', Validators.required),
       spassword: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.pattern(/^\S*$/)

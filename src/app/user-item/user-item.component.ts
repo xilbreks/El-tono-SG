@@ -110,6 +110,42 @@ export class UserItemComponent {
   }
 
   deleteUsuario() {
+    this.lUpdating = true;
+    this.db.collection('colaboradores')
+      .doc(this.id)
+      .update({
+        lactive: false
+      })
+      .then(()=>{
+        // success
+        this.getUsuario();
+      })
+      .catch(()=>{
+        // error
+      })
+      .finally(()=>{
+        this.lUpdating = false;
+        this.modalService.dismissAll()
+      })
+  }
 
+  restoreUsuario() {
+    this.lUpdating = true;
+    this.db.collection('colaboradores')
+      .doc(this.id)
+      .update({
+        lactive: true
+      })
+      .then(()=>{
+        // success
+        this.getUsuario();
+      })
+      .catch(()=>{
+        // error
+      })
+      .finally(()=>{
+        this.lUpdating = false;
+        this.modalService.dismissAll()
+      })
   }
 }

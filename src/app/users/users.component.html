@@ -3,7 +3,7 @@
         Listado de Colaboradores
     </h3>
 
-    <div class="table-responsive">
+    <div class="table-responsive" *ngIf="!lLoading">
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -16,9 +16,9 @@
                     <th>
                         Nombre
                     </th>
-                    <th>
+                    <!-- <th>
                         Color
-                    </th>
+                    </th> -->
                 </tr>
             </thead>
             <tbody *ngIf="!lLoading">
@@ -34,16 +34,20 @@
                     <td>
                         {{usuario.snombre}}
                     </td>
-                    <td class="centrado">
+                    <!-- <td class="centrado">
                         <span [ngStyle]="{'color': usuario.scolor}" class="scolor">
                             <i class="bi bi-circle-fill"></i>
                         </span>
-                    </td>
+                    </td> -->
                 </tr>
             </tbody>
             <tbody *ngIf="lLoading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             </tbody>
         </table>
+    </div>
+    <div *ngIf="lLoading">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Cargando...
     </div>
 </div>

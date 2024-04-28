@@ -14,6 +14,14 @@
             </tr>
             <tr>
                 <td>
+                    Usuario
+                </td>
+                <td>
+                    {{objUsuario.id}}
+                </td>
+            </tr>
+            <!-- <tr>
+                <td>
                     Cargo
                 </td>
                 <td>
@@ -22,8 +30,8 @@
                     </span>
                     {{objUsuario.scargo}}
                 </td>
-            </tr>
-            <tr>
+            </tr> -->
+            <!-- <tr>
                 <td>
                     Color
                 </td>
@@ -38,7 +46,7 @@
                         <i class="bi bi-square-fill"></i>
                     </span>
                 </td>
-            </tr>
+            </tr> -->
             <tr>
                 <td>
                     Contraseña
@@ -76,19 +84,19 @@
         <h5>
             Acciones
         </h5>
-        <div>
+        <!-- <div>
             <button class="btn btn-primary" (click)="openModalEdit(editUserModal)">
                 Editar datos
             </button>
-        </div>
+        </div> -->
         <hr>
         <div>
-            <button class="btn btn-danger" *ngIf="objUsuario.lactive">
+            <button class="btn btn-danger" *ngIf="objUsuario.lactive" (click)="openModalDisable(deleteUserModal)">
                 Dar de Baja
             </button>
         </div>
         <div>
-            <button class="btn btn-success" *ngIf="!objUsuario.lactive">
+            <button class="btn btn-success" *ngIf="!objUsuario.lactive" (click)="openModalEnable(restoreUserModal)">
                 Dar de Alta
             </button>
         </div>
@@ -112,12 +120,12 @@
                 </label>
                 <input type="text" class="form-control" id="snombre" formControlName="snombre" />
             </div>
-            <div class="row mb-3">
+            <!-- <div class="row mb-3">
                 <label for="scolor" class="form-label">
                     Color
                 </label>
                 <input type="color" class="form-control" id="scolor" formControlName="scolor" />
-            </div>
+            </div> -->
             <div class="row mb-3">
                 <label for="spassword" class="form-label">
                     Contraseña
@@ -141,51 +149,47 @@
 <!------------------------------------------------
   -------------- DELETE USER MODAL ---------------
   ------------------------------------------------>
-<ng-template #editUserModal let-modal>
+<ng-template #deleteUserModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Dar de Baja</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="frmUsuario" autocomplete="off">
-            <div class="row mb-3">
-                <label for="idcolaborador" class="form-label">
-                    ID
-                </label>
-                <input type="text" class="form-control" id="idcolaborador" formControlName="id" />
-            </div>
-            <div class="row mb-3">
-                <label for="snombre" class="form-label">
-                    Nombre
-                </label>
-                <input type="text" class="form-control" id="snombre" formControlName="snombre" />
-            </div>
-            <div class="row mb-3">
-                <label for="scolor" class="form-label">
-                    Color
-                </label>
-                <input type="color" class="form-control" id="scolor" formControlName="scolor" />
-            </div>
-            <div class="row mb-3">
-                <label for="spassword" class="form-label">
-                    Contraseña
-                </label>
-                <input type="password" class="form-control" id="spassword" formControlName="scolor" />
-            </div>
-        </form>
-        <pre>
-            {{frmUsuario.value | json}}
-        </pre>
+        Se dará de baja al usuario, ¿continuar?
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary">
-            Registrar
+        <button class="btn btn-danger" (click)="deleteUsuario()" *ngIf="!lUpdating">
+            Dar de baja
         </button>
-        <button class="btn btn-primary">
+        <button class="btn btn-danger" *ngIf="lUpdating">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
             </span>
-            Registrando
+            Dando de baja...
+        </button>
+    </div>
+</ng-template>
+
+<!------------------------------------------------
+  -------------- RESTORE USER MODAL --------------
+  ------------------------------------------------>
+  <ng-template #restoreUserModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Dar de Alta</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        Se dará de Alta al usuario, ¿continuar?
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" (click)="restoreUsuario()" *ngIf="!lUpdating">
+            Dar de Alta
+        </button>
+        <button class="btn btn-success" *ngIf="lUpdating">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+            </span>
+            Dando de alta...
         </button>
     </div>
 </ng-template>
