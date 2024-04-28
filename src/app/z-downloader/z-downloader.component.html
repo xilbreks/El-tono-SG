@@ -1,0 +1,32 @@
+<div class="container">
+    <h4>Descargar JSON de tareas del RDT</h4>
+
+    <div>
+        <form [formGroup]="frmData">
+            <div>
+                <label for="inicio">Inicio</label>
+                <input type="date" id="inicio" formControlName="inicio">
+            </div>
+            <div>
+                <label for="final">Final</label>
+                <input type="date" id="final" formControlName="final">
+            </div>
+        </form>
+    </div>
+
+    <pre>
+        {{frmData.value | json}}
+    </pre>
+</div>
+
+<div>
+    <button class="btn btn-primary" *ngIf="!lLoading" (click)="downloadBackUpTareas()">
+        Descargar BackUp
+    </button>
+    
+    <button class="btn btn-primary" *ngIf="lLoading">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Descargando...
+    </button>
+</div>
+

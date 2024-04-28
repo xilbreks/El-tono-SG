@@ -51,6 +51,7 @@ import { ExpItemTasksComponent } from './exp-item-tasks/exp-item-tasks.component
 import { ExpItemEditTermsComponent } from './exp-item-edit-terms/exp-item-edit-terms.component';
 
 import { ExpItemEditUrlComponent } from './exp-item-edit-url/exp-item-edit-url.component';
+import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 
 const environment = {
   production: false,
@@ -106,6 +107,7 @@ const environment = {
     ExpItemTasksComponent,
     ExpItemEditTermsComponent,
     ExpItemEditUrlComponent,
+    ZDownloaderComponent,
   ],
   imports: [
     BrowserModule,

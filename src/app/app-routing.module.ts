@@ -26,6 +26,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -138,6 +139,10 @@ const routes: Routes = [
   {
     path: 'sign-up',
     component: SignUpComponent
+  },
+  {
+    path: 'downloader',
+    component: ZDownloaderComponent
   },
   {
     path: '**',
