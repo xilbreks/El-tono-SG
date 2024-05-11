@@ -82,14 +82,6 @@ export class RdtEditComponent {
       name: 'Dra. Lizbet'
     },
     {
-      id: 'dra-silvia',
-      name: 'Dra. Silvia'
-    },
-    {
-      id: 'dra-naldy',
-      name: 'Dra. Naldy'
-    },
-    {
       id: 'dra-karla',
       name: 'Dra. Karla'
     },
@@ -100,6 +92,10 @@ export class RdtEditComponent {
     {
       id: 'dr-aparicio',
       name: 'Dr. Aparicio'
+    },
+    {
+      id: 'dra-kath',
+      name: 'Dra. Kath'
     },
     {
       id: 'bach-vianka',

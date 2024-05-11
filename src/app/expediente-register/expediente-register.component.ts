@@ -107,6 +107,9 @@ export class ExpedienteRegisterComponent {
       case 'CARPETA-FISCAL':
         regexp = /^[0-9]{3,6}[-][0-9]{4}$/;
         break;
+      case 'EXPEDIENTE-CURADURIA':
+        regexp = /^[0-9]{5}[-][0-9]{4}[-][0-9]{1,2}[-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
+        break;
       case 'EXPEDIENTE-PROVISIONAL':
         regexp = /^[A-Z0-9-]{3,25}$/;
         break;

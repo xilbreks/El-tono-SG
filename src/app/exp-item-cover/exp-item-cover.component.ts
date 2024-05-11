@@ -35,6 +35,9 @@ export class ExpItemCoverComponent implements OnChanges {
       case 'EXPEDIENTE-CAUTELAR':
         this.expediente.idtipodoc = 'EXPEDIENTE CAUTELAR';
         break;
+      case 'EXPEDIENTE-CURADURIA':
+        this.expediente.idtipodoc = 'CURADURÍA';
+        break;
     }
   }
 
