@@ -30,11 +30,11 @@ export class ExpItemEditDataComponent implements OnChanges {
   ) {
     this.frmData = new FormGroup({
       idtipodoc: new FormControl(null, Validators.required),
-      idmateria: new FormControl(null, Validators.required),
+      sespecialidad: new FormControl(null, Validators.required),
+      // idmateria: new FormControl(null, Validators.required),
       smateria: new FormControl(null, Validators.required),
       sdemandado: new FormControl(null, Validators.required),
       sdemandante: new FormControl(null, Validators.required),
-      sespecialidad: new FormControl(null, Validators.required),
       sfechainicio: new FormControl(null, Validators.required),
     });
 
@@ -58,7 +58,7 @@ export class ExpItemEditDataComponent implements OnChanges {
 
   setLstMaterias() {
     let sespecialidad = this.frmData.controls['sespecialidad'].value;
-    this.frmData.controls['idmateria'].reset();
+    // this.frmData.controls['idmateria'].reset();
 
     this.lstMaterias = this.lstMateriasTodos.filter((a) => {
       if (a.sespecialidad == sespecialidad) {
@@ -69,16 +69,16 @@ export class ExpItemEditDataComponent implements OnChanges {
     })
   }
 
-  setSMateria() {
-    let idmateria = this.frmData.controls['idmateria'].value;
-    let smateria = '--';
-    this.lstMaterias.forEach((a) => {
-      if (idmateria == a.idmateria) {
-        smateria = a.smateria;
-      }
-    })
-    this.frmData.controls['smateria'].setValue(smateria);
-  }
+  // setSMateria() {
+  //   let idmateria = this.frmData.controls['idmateria'].value;
+  //   let smateria = '--';
+  //   this.lstMaterias.forEach((a) => {
+  //     if (idmateria == a.idmateria) {
+  //       smateria = a.smateria;
+  //     }
+  //   })
+  //   this.frmData.controls['smateria'].setValue(smateria);
+  // }
 
   getData() {
     let obs = this.db
@@ -104,7 +104,7 @@ export class ExpItemEditDataComponent implements OnChanges {
 
     this.frmData.setValue({
       idtipodoc: this.objData.idtipodoc,
-      idmateria: this.objData.idmateria,
+      // idmateria: this.objData.idmateria,
       smateria: this.objData.smateria,
       sdemandado: this.objData.sdemandado,
       sdemandante: this.objData.sdemandante,
@@ -125,7 +125,7 @@ export class ExpItemEditDataComponent implements OnChanges {
       .doc(this.sexpediente)
       .update({
         idtipodoc: this.frmData.value['idtipodoc'],
-        idmateria: this.frmData.value['idmateria'],
+        // idmateria: this.frmData.value['idmateria'],
         smateria: this.frmData.value['smateria'],
         sdemandado: this.frmData.value['sdemandado'].trim().toUpperCase(),
         sdemandante: this.frmData.value['sdemandante'].trim().toUpperCase(),

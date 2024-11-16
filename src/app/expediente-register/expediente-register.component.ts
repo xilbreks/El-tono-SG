@@ -36,7 +36,7 @@ export class ExpedienteRegisterComponent {
     this.frmExpediente = new FormGroup({
       sexpediente: new FormControl(null, Validators.required),
       sespecialidad: new FormControl(null, Validators.required),
-      idmateria: new FormControl(null, Validators.required),
+      // idmateria: new FormControl(null),
       smateria: new FormControl(null, Validators.required),
       idtipodoc: new FormControl(null, Validators.required),
       sorganojuris: new FormControl(null, Validators.required),
@@ -64,7 +64,7 @@ export class ExpedienteRegisterComponent {
 
   setLstMaterias() {
     let sespecialidad = this.frmExpediente.controls['sespecialidad'].value;
-    this.frmExpediente.controls['idmateria'].reset();
+    // this.frmExpediente.controls['idmateria'].reset();
 
     this.lstMaterias = this.lstMateriasTodos.filter((a) => {
       if (a.sespecialidad == sespecialidad) {
@@ -75,16 +75,16 @@ export class ExpedienteRegisterComponent {
     })
   }
 
-  setSMateria() {
-    let idmateria = this.frmExpediente.controls['idmateria'].value;
-    let smateria = '--';
-    this.lstMaterias.forEach((a) => {
-      if (idmateria == a.idmateria) {
-        smateria = a.smateria;
-      }
-    })
-    this.frmExpediente.controls['smateria'].setValue(smateria);
-  }
+  // setSMateria() {
+  //   let idmateria = this.frmExpediente.controls['idmateria'].value;
+  //   let smateria = '--';
+  //   this.lstMaterias.forEach((a) => {
+  //     if (idmateria == a.idmateria) {
+  //       smateria = a.smateria;
+  //     }
+  //   })
+  //   this.frmExpediente.controls['smateria'].setValue(smateria);
+  // }
 
   // Establecer la validacion del codigo de expediente segun tipo de documento
   setValidator() {
@@ -182,7 +182,7 @@ export class ExpedienteRegisterComponent {
         idtipodoc: idtipodoc,
         sexpediente: sexpediente,
         sespecialidad: this.frmExpediente.controls['sespecialidad'].value,
-        idmateria: this.frmExpediente.controls['idmateria'].value,
+        idmateria: 'no-longer',
         smateria: this.frmExpediente.controls['smateria'].value,
         sorganojuris: this.frmExpediente.controls['sorganojuris'].value.trim().toUpperCase(),
         sdemandante: this.frmExpediente.controls['sdemandante'].value.trim().toUpperCase(),

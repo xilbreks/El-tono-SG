@@ -34,9 +34,9 @@
         <th>ITER</th>
         <th>Contrato</th>
         <th>Avance(%)</th>
-        <th>Cobro de Honorarios</th>
+        <!-- <th>Cobro de Honorarios</th>
         <th>Cobros para Aranceles u otros</th>
-        <th>Gasto realizado en aranceles u otros</th>
+        <th>Gasto realizado en aranceles u otros</th> -->
         <th>F. culminación</th>
         <th>T. Atención</th>
         <th>Código de tarea</th>
@@ -80,7 +80,7 @@
         <td>
           {{ tarea.navance }}
         </td>
-        <td>
+        <!-- <td>
           {{ tarea.ncobrohonorario }}
         </td>
         <td>
@@ -88,7 +88,7 @@
         </td>
         <td>
           {{ tarea.nsalidaarancel }}
-        </td>
+        </td> -->
         <td>
           {{ tarea.sfculminacion }}
         </td>
@@ -263,14 +263,22 @@
         </div>
         <div class="col-6 col-md-3">
           <label for="delegadoPor" class="form-label"> Delegado por </label>
-          <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
+
+          <input type="text" class="form-control" list="delegadores" formControlName="sdelegadopor">
+          <datalist id="delegadores">
+            <option value="Dra. Lizbet Silva"></option>
+            <option value="Ing. Wilber"></option>
+            <option value="Iniciativa propia"></option>
+          </datalist>
+
+          <!-- <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
             <option *ngFor="let dr of lstDelegadores" [value]="dr.id">
               {{dr.name}}
             </option>
             <option value="ing-wilber">Ing. Wilber</option>
             <option value="iniciativa-propia">Iniciativa Propia</option>
             <option value="nc">No Corresponde</option>
-          </select>
+          </select> -->
         </div>
         <div class="col-6 col-md-3">
           <label for="tiempoAtencion" class="form-label">
@@ -343,24 +351,24 @@
         </div>
 
         <div class="col-6 col-md-3">
-          <label for="ingresoArancel" class="form-label">
+          <!-- <label for="ingresoArancel" class="form-label">
             Cobro para aranceles u otros (S/)
           </label>
-          <input type="number" class="form-control" id="ingresoArancel" formControlName="ningresoarancel" />
+          <input type="number" class="form-control" id="ingresoArancel" formControlName="ningresoarancel" /> -->
         </div>
 
         <div class="col-6 col-md-3">
-          <label for="salidaArancel" class="form-label">
+          <!-- <label for="salidaArancel" class="form-label">
             Gasto realizado en aranceles (S/)
           </label>
-          <input type="number" class="form-control" id="salidaArancel" formControlName="nsalidaarancel" />
+          <input type="number" class="form-control" id="salidaArancel" formControlName="nsalidaarancel" /> -->
         </div>
 
         <div class="col-6 col-md-3">
-          <label for="honorarioCobrado" class="form-label">
+          <!-- <label for="honorarioCobrado" class="form-label">
             Cobro realizado por honorarios (S/)
           </label>
-          <input type="number" class="form-control" id="honorarioCobrado" formControlName="ncobrohonorario" />
+          <input type="number" class="form-control" id="honorarioCobrado" formControlName="ncobrohonorario" /> -->
         </div>
       </div>
     </form>
@@ -489,14 +497,22 @@
         </div>
         <div class="col-12 col-md-6">
           <label for="delegadoPor" class="form-label"> Delegado por </label>
-          <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
+
+          <input type="text" class="form-control" list="delegadores" formControlName="sdelegadopor">
+          <datalist id="delegadores">
+            <option value="Dra. Lizbet Silva"></option>
+            <option value="Ing. Wilber"></option>
+            <option value="Iniciativa propia"></option>
+          </datalist>
+
+          <!-- <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
             <option *ngFor="let dr of lstDelegadores" [value]="dr.id">
               {{dr.name}}
             </option>
             <option value="ing-wilber">Ing. Wilber</option>
             <option value="iniciativa-propia">Iniciativa Propia</option>
             <option value="nc">No Corresponde</option>
-          </select>
+          </select> -->
         </div>
       </div>
 
@@ -572,32 +588,32 @@
 
       <div class="row mb-3">
         <div class="col-6 col-md-3">
-          <label for="ingresoArancel" class="form-label">
+          <!-- <label for="ingresoArancel" class="form-label">
             Cobro para aranceles u otros
           </label>
           <div class="input-group mb-3">
             <span class="input-group-text">S/</span>
             <input type="number" class="form-control" id="ingresoArancel" formControlName="ningresoarancel" />
-          </div>
+          </div> -->
         </div>
         <div class="col-6 col-md-3">
-          <label for="salidaArancel" class="form-label">
+          <!-- <label for="salidaArancel" class="form-label">
             Gasto realizado en aranceles u otros
           </label>
           <div class="input-group mb-3">
             <span class="input-group-text">S/</span>
             <input type="number" class="form-control" id="salidaArancel" formControlName="nsalidaarancel" />
-          </div>
+          </div> -->
         </div>
 
         <div class="col-6 col-md-3">
-          <label for="honorarioCobrado" class="form-label">
+          <!-- <label for="honorarioCobrado" class="form-label">
             Cobro realizado por honorarios
           </label>
           <div class="input-group mb-3">
             <span class="input-group-text">S/</span>
             <input type="number" class="form-control" id="honorarioCobrado" formControlName="ncobrohonorario" />
-          </div>
+          </div> -->
         </div>
         <div class="col-6 col-md-3">
           <label for="lcontrato" class="form-label">Contrato</label>

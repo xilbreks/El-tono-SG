@@ -15,16 +15,19 @@ export class ExpItemComponent implements OnInit {
   lLoading: boolean = true;
   lEditable: boolean = false;
 
+  suser: string | null = '';
+
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
     private route: ActivatedRoute,
     private router: Router,
   ) {
-    let user = localStorage.getItem('idusuario');
-    if (user == 'admin') {
-      this.router.navigate([], { queryParams: { edit: true, debug: false } });
-    }
+    // let user = localStorage.getItem('idusuario');
+    this.suser = localStorage.getItem('idusuario');
+    // if (user == 'admin') {
+    //   this.router.navigate([], { queryParams: { edit: true, debug: false } });
+    // }
   }
 
   ngOnInit(): void {

@@ -48,9 +48,9 @@ class ObjTarea {
   public sacceje: string = '';
   public shorasatencion: string = '';
   public sminutosatencion: string = '';
-  public ncobrohonorario: number = 0;
-  public ningresoarancel: number = 0;
-  public nsalidaarancel: number = 0;
+  // public ncobrohonorario: number = 0;
+  // public ningresoarancel: number = 0;
+  // public nsalidaarancel: number = 0;
   public lcontrato: boolean = false;
   public nsaldo: number = 0;
   constructor() { }
@@ -76,36 +76,36 @@ export class RdtEditComponent {
   lSearching: boolean = false;
 
   // Quienes pueden delegar
-  lstDelegadores: Array<{ id: string, name: string }> = [
-    {
-      id: 'dra-lizbet',
-      name: 'Dra. Lizbet'
-    },
-    {
-      id: 'dra-karla',
-      name: 'Dra. Karla'
-    },
-    {
-      id: 'dra-lizi',
-      name: 'Dra. Lizi'
-    },
-    {
-      id: 'dr-aparicio',
-      name: 'Dr. Aparicio'
-    },
-    {
-      id: 'dra-kath',
-      name: 'Dra. Kath'
-    },
-    {
-      id: 'dra-gabriela',
-      name: 'Dra. Gabriela'
-    },
-    {
-      id: 'bach-vianka',
-      name: 'Bach. Vianka'
-    },
-  ];
+  // lstDelegadores: Array<{ id: string, name: string }> = [
+  //   {
+  //     id: 'dra-lizbet',
+  //     name: 'Dra. Lizbet'
+  //   },
+  //   {
+  //     id: 'dra-karla',
+  //     name: 'Dra. Karla'
+  //   },
+  //   {
+  //     id: 'dra-lizi',
+  //     name: 'Dra. Lizi xd'
+  //   },
+  //   {
+  //     id: 'dr-aparicio',
+  //     name: 'Dr. Aparicio'
+  //   },
+  //   {
+  //     id: 'dra-kath',
+  //     name: 'Dra. Kath'
+  //   },
+  //   {
+  //     id: 'dra-gabriela',
+  //     name: 'Dra. Gabriela'
+  //   },
+  //   {
+  //     id: 'bach-vianka',
+  //     name: 'Bach. Vianka'
+  //   },
+  // ];
 
   lstExpedientes: Array<any> = [];
   lstExpedientesFiltered: Array<any> = [];
@@ -142,9 +142,9 @@ export class RdtEditComponent {
       sacceje: new FormControl(null, Validators.required),
       shorasatencion: new FormControl(null, Validators.required),
       sminutosatencion: new FormControl(null, Validators.required),
-      ncobrohonorario: new FormControl(null, Validators.required),
-      ningresoarancel: new FormControl(null, Validators.required),
-      nsalidaarancel: new FormControl(null, Validators.required),
+      // ncobrohonorario: new FormControl(null, Validators.required),
+      // ningresoarancel: new FormControl(null, Validators.required),
+      // nsalidaarancel: new FormControl(null, Validators.required),
       lcontrato: new FormControl(null, Validators.required),
       nsaldo: new FormControl(null, Validators.required),
     });
@@ -169,9 +169,9 @@ export class RdtEditComponent {
       sacceje: new FormControl(null, Validators.required),
       shorasatencion: new FormControl(null, Validators.required),
       sminutosatencion: new FormControl(null, Validators.required),
-      ncobrohonorario: new FormControl(null, Validators.required),
-      ningresoarancel: new FormControl(null, Validators.required),
-      nsalidaarancel: new FormControl(null, Validators.required),
+      // ncobrohonorario: new FormControl(null, Validators.required),
+      // ningresoarancel: new FormControl(null, Validators.required),
+      // nsalidaarancel: new FormControl(null, Validators.required),
       lcontrato: new FormControl(null, Validators.required),
       nsaldo: new FormControl(null, Validators.required),
     });
@@ -254,9 +254,9 @@ export class RdtEditComponent {
           objTarea.sacceje = tarea.sacceje;
           objTarea.shorasatencion = tarea.shorasatencion;
           objTarea.sminutosatencion = tarea.sminutosatencion;
-          objTarea.ncobrohonorario = tarea.ncobrohonorario;
-          objTarea.ningresoarancel = tarea.ningresoarancel;
-          objTarea.nsalidaarancel = tarea.nsalidaarancel;
+          // objTarea.ncobrohonorario = tarea.ncobrohonorario;
+          // objTarea.ningresoarancel = tarea.ningresoarancel;
+          // objTarea.nsalidaarancel = tarea.nsalidaarancel;
           objTarea.lcontrato = tarea.lcontrato ? tarea.lcontrato : 'nc';
           objTarea.nsaldo = tarea.nsaldo ? tarea.nsaldo : '-';
 
@@ -316,16 +316,16 @@ export class RdtEditComponent {
           .catch((e) => { console.log(e) });
 
         // Registrar Honorario
-        if (objTarea['ncobrohonorario'] > 0) {
-          this.registrarHonorario({
-            id: Number(id),
-            sexp: sexp,
-            nmonto: objTarea['ncobrohonorario'],
-            sfecha: this.objRdt.sfecha,
-            idcolaborador: this.objRdt.idcolaborador,
-            scolaborador: this.objRdt.scolaborador,
-          })
-        }
+        // if (objTarea['ncobrohonorario'] > 0) {
+        //   this.registrarHonorario({
+        //     id: Number(id),
+        //     sexp: sexp,
+        //     nmonto: objTarea['ncobrohonorario'],
+        //     sfecha: this.objRdt.sfecha,
+        //     idcolaborador: this.objRdt.idcolaborador,
+        //     scolaborador: this.objRdt.scolaborador,
+        //   })
+        // }
       })
       .catch(() => {
         window.alert('ERROR al crear tarea')
@@ -335,43 +335,43 @@ export class RdtEditComponent {
       });
   }
 
-  registrarHonorario(arg: {
-    id: number,
-    sexp: string,
-    nmonto: number,
-    sfecha: string,
-    idcolaborador: string,
-    scolaborador: string,
-  }) {
-    const id = (new Date(arg.id).getTime() + 10);
-    const sid = id.toString();
+  // registrarHonorario(arg: {
+  //   id: number,
+  //   sexp: string,
+  //   nmonto: number,
+  //   sfecha: string,
+  //   idcolaborador: string,
+  //   scolaborador: string,
+  // }) {
+  //   const id = (new Date(arg.id).getTime() + 10);
+  //   const sid = id.toString();
 
-    this.db
-      .collection('pagos')
-      .doc(sid)
-      .set({
-        idpago: sid,
-        lactive: true,
-        sexpediente: arg.sexp,
-        nmonto: arg.nmonto,
-        sfecha: arg.sfecha,
-        sdescripcion: 'Pago por Honorarios - Cobrado por ' + arg.scolaborador + ' [vía RDT]',
+  //   this.db
+  //     .collection('pagos')
+  //     .doc(sid)
+  //     .set({
+  //       idpago: sid,
+  //       lactive: true,
+  //       sexpediente: arg.sexp,
+  //       nmonto: arg.nmonto,
+  //       sfecha: arg.sfecha,
+  //       sdescripcion: 'Pago por Honorarios - Cobrado por ' + arg.scolaborador + ' [vía RDT]',
 
-        nfechacreacion: id,
-        screador: arg.idcolaborador,
-        nfechaedicion: 0,
-        seditor: '-',
-      })
-      .then((x) => {
-        // success
-      })
-      .catch(() => {
-        // error
-      })
-      .finally(() => {
-        // completed
-      });
-  }
+  //       nfechacreacion: id,
+  //       screador: arg.idcolaborador,
+  //       nfechaedicion: 0,
+  //       seditor: '-',
+  //     })
+  //     .then((x) => {
+  //       // success
+  //     })
+  //     .catch(() => {
+  //       // error
+  //     })
+  //     .finally(() => {
+  //       // completed
+  //     });
+  // }
 
   /**
    * Actualiza una tarea registrada en un RDT
@@ -411,9 +411,9 @@ export class RdtEditComponent {
 
   public openNewTaskModal(modal: any): void {
     this.frmNewTask.controls['sfculminacion'].setValue(this.objRdt.sfecha);
-    this.frmNewTask.controls['ncobrohonorario'].setValue(0);
-    this.frmNewTask.controls['ningresoarancel'].setValue(0);
-    this.frmNewTask.controls['nsalidaarancel'].setValue(0);
+    // this.frmNewTask.controls['ncobrohonorario'].setValue(0);
+    // this.frmNewTask.controls['ningresoarancel'].setValue(0);
+    // this.frmNewTask.controls['nsalidaarancel'].setValue(0);
     this.frmNewTask.controls['navance'].setValue('100%');
 
     this.modalService.open(modal, {
@@ -440,9 +440,9 @@ export class RdtEditComponent {
       sacceje: tarea.sacceje,
       shorasatencion: tarea.shorasatencion,
       sminutosatencion: tarea.sminutosatencion,
-      ncobrohonorario: tarea.ncobrohonorario,
-      ningresoarancel: tarea.ningresoarancel,
-      nsalidaarancel: tarea.nsalidaarancel,
+      // ncobrohonorario: tarea.ncobrohonorario,
+      // ningresoarancel: tarea.ningresoarancel,
+      // nsalidaarancel: tarea.nsalidaarancel,
       nsaldo: tarea.nsaldo,
       lcontrato: tarea.lcontrato,
     });

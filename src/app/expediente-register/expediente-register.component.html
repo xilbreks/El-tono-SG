@@ -37,11 +37,16 @@
                 <b>MATERIA:</b>
             </td>
             <td>
-                <select class="form-select" formControlName="idmateria" (change)="setSMateria()">
+                <input type="text" class="form-control" list="materias" formControlName="smateria">
+                <datalist id="materias">
+                    <option *ngFor="let mat of lstMaterias" [value]="mat.smateria"></option>
+                </datalist>
+
+                <!-- <select class="form-select" formControlName="idmateria" (change)="setSMateria()">
                     <option *ngFor="let mat of lstMaterias" [value]="mat.idmateria">
                         {{mat.smateria}}
                     </option>
-                </select>
+                </select> -->
             </td>
         </tr>
         <tr>

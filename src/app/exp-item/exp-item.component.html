@@ -1,5 +1,4 @@
 <br />
-
 <div class="container" *ngIf="!lLoading">
     <ul class="nav nav-tabs" id="myTab" role="tablist" *ngIf="expediente">
         <li class="nav-item" role="presentation">
@@ -15,7 +14,7 @@
                 Historial
             </button>
         </li>
-        <li class="nav-item" role="presentation">
+        <li class="nav-item" role="presentation" *ngIf="suser=='admin' || suser == 'admin2'">
             <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos-tab-pane" type="button"
                 role="tab" aria-controls="contrato-tab-pane" aria-selected="false">
                 Pagos
@@ -33,7 +32,7 @@
                 Observaciones
             </button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="lEditable">
+        <li class="nav-item" role="presentation" *ngIf="suser=='admin' || suser == 'admin2'">
             <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit-tab-pane" type="button"
                 role="tab" aria-controls="edit-tab-pane" aria-selected="false">
                 <i class="bi bi-wrench-adjustable"></i>
@@ -48,7 +47,7 @@
         <div class="tab-pane fade" id="historial-tab-pane" role="tabpanel" aria-labelledby="historial-tab" tabindex="0">
             <app-exp-item-tasks [expediente]="expediente"></app-exp-item-tasks>
         </div>
-        <div class="tab-pane fade" id="pagos-tab-pane" role="tabpanel" aria-labelledby="pagos-tab" tabindex="0">
+        <div class="tab-pane fade" id="pagos-tab-pane" role="tabpanel" aria-labelledby="pagos-tab" tabindex="0" *ngIf="suser=='admin' || suser == 'admin2'">
             <app-exp-item-fees [expediente]="expediente"></app-exp-item-fees>
         </div>
         <div class="tab-pane fade" id="chat-tab-pane" role="tabpanel" aria-labelledby="chat-tab" tabindex="0">
@@ -58,7 +57,7 @@
             <app-exp-item-obs [expediente]="expediente"></app-exp-item-obs>
         </div>
         
-        <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0" *ngIf="lEditable">
+        <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0" *ngIf="suser=='admin' || suser == 'admin2'">
             <app-exp-item-edit-data [sexpediente]="expediente.sexpediente"></app-exp-item-edit-data>
             <app-exp-item-edit-match [sexpediente]="expediente.sexpediente"></app-exp-item-edit-match>
             <app-exp-item-edit-code [sexpediente]="expediente.sexpediente"></app-exp-item-edit-code>
