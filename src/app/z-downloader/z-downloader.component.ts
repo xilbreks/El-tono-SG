@@ -111,7 +111,9 @@ export class ZDownloaderComponent {
   }
 
   backUpColaboradores() {
-    let obs = this.db.collection('colaboradores')
+    let obs = this.db.collection('colaboradores', ref => {
+      return ref.where('lactive', '==', true)
+    })
     .valueChanges()
     .subscribe(res => {
       // Convert JSON to string
