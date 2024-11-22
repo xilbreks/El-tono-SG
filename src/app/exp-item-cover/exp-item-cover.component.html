@@ -1,4 +1,5 @@
-<div *ngIf="!expediente?.lactive">
+<div *ngIf="!expediente?.lactive" style="color: red;">
+    <i class="bi bi-exclamation-triangle"></i> 
     Depurado
 </div>
 <div class="container expediente">
@@ -62,6 +63,9 @@
             <td>
                 <span *ngIf="expediente?.lcontrato">
                     OK
+                    <a [href]="urlcontrato" target="_blank" *ngIf="urlcontrato">
+                        ver contrato
+                    </a>
                 </span>
                 <span *ngIf="!expediente?.lcontrato" style="color: red;">
                     <b>SIN CONTRATO</b>

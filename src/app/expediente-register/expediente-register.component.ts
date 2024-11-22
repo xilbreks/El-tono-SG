@@ -200,6 +200,7 @@ export class ExpedienteRegisterComponent {
         lcontrato: false,
         niter: 0,
         urlassets: 'sin-url',
+        urlcontrato: 'sin-url',
       })
       .then((x) => {
         this.router.navigate(['/expediente/', sexpediente]);

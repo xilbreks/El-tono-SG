@@ -17,16 +17,29 @@
 <div class="alert alert-success">
     <b>Anexos Importantes:</b>
 
-    <div *ngIf="expediente?.urlassets == 'sin-url'">
-        F. No hay
+    <div *ngIf="lstAnexos.length > 0">
+        <ul *ngFor="let anexo of lstAnexos">
+            <li>
+                <span>{{anexo.name}}</span>
+                <a [href]="anexo.url" target="_blank">
+                    <span style="font-style: italic; font-size: 0.75rem;"> [{{anexo.size/1000000 | number:'1.2-2'}}
+                        Mbs]
+                    </span>
+                    Ver
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="lstAnexos.length == 0">
+        No tiene anexos
     </div>
 
-    <div *ngIf="expediente?.urlassets != 'sin-url'">
-        <a [href]="expediente?.urlassets" target="_blank">
-            AQUÍ
-        </a>
-    </div>
+</div>
 
+<div>
+    <button (click)="openModal(editAnexosModal)" class="btn btn-secondary">
+        Editar
+    </button>
 </div>
 
 <div style="margin-top: 50px;">
@@ -62,4 +75,75 @@
             </span>
         </button>
     </div>
+</ng-template>
+
+<!------------------------------------------------
+  ------------- EDIT ANEXOS MODAL ----------------
+  ----------------------------------------------->
+<ng-template #editAnexosModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Editar Anexos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Archivo</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let anexo of lstAnexos">
+                    <td>{{anexo.name}}</td>
+                    <td>
+                        <button class="btn btn-warning" (click)="quitarAnexo(anexo)" *ngIf="!anexo.removing">
+                            Quitar
+                        </button>
+                        <button class="btn btn-warning" *ngIf="anexo.removing" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Quitanto...
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <input type="file" (change)="onFileSelected($event)" accept="application/pdf" />
+            <div *ngIf="uploadProgress >= 0">
+                <p>Progreso: {{ uploadProgress | number: '1.0-0' }}%</p>
+                <progress [value]="uploadProgress" max="100"></progress>
+            </div>
+            <div *ngIf="!file">
+                <button class="btn btn-primary" disabled>
+                    Agregar anexo
+                </button>
+            </div>
+            <div *ngIf="!!file">
+                <button class="btn btn-primary" [disabled]="uploadProgress >= 0" (click)="uploadFile()">
+                    <span *ngIf="uploadProgress == -1">
+                        Agregar anexo
+                    </span>
+                    <span *ngIf="uploadProgress >= 0">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Agregando...
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateObs()" [disabled]="!(fcObs.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                cerrar
+            </span>
+        </button>
+    </div> -->
 </ng-template>

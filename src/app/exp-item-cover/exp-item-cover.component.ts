@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Expediente } from './../_interfaces/expediente';
 
 @Component({
@@ -8,11 +9,15 @@ import { Expediente } from './../_interfaces/expediente';
 })
 export class ExpItemCoverComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
+  urlcontrato: string | null = null;
 
-  constructor() { }
+  constructor(
+    private storage: AngularFireStorage
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.formatear();
+    this.colocarLinkContrato();
   }
 
   formatear(): void {
@@ -38,6 +43,20 @@ export class ExpItemCoverComponent implements OnChanges {
       case 'EXPEDIENTE-CURADURIA':
         this.expediente.idtipodoc = 'CURADURÍA';
         break;
+    }
+  }
+
+  colocarLinkContrato() {
+    if (this.expediente?.urlcontrato) {
+      if (this.expediente.urlcontrato == 'sin-url') return;
+
+      let obs = this.storage.ref(this.expediente?.urlcontrato).getDownloadURL()
+        .subscribe(url => {
+          this.urlcontrato = url;
+          // console.log(url)
+
+          obs.unsubscribe();
+        });
     }
   }
 

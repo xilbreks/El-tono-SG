@@ -13,6 +13,7 @@ export interface Expediente {
     sobs: string;
     sorganojuris: string;
     urlassets: string;
+    urlcontrato: string;
     scodigo: string;
 
     lactive: boolean;

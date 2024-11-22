@@ -39,9 +39,9 @@ class ObjTarea {
   public sacceje: string = '';
   public shorasatencion: string = '';
   public sminutosatencion: string = '';
-  public ncobrohonorario: number = 0;
-  public ningresoarancel: number = 0;
-  public nsalidaarancel: number = 0;
+  // public ncobrohonorario: number = 0;
+  // public ningresoarancel: number = 0;
+  // public nsalidaarancel: number = 0;
   public lcontrato: boolean = false;
   public nsaldo: number = 0;
 
@@ -127,9 +127,9 @@ export class RdtViewComponent {
           objTarea.sacceje = tarea.sacceje;
           objTarea.shorasatencion = tarea.shorasatencion;
           objTarea.sminutosatencion = tarea.sminutosatencion;
-          objTarea.ncobrohonorario = tarea.ncobrohonorario;
-          objTarea.ningresoarancel = tarea.ningresoarancel;
-          objTarea.nsalidaarancel = tarea.nsalidaarancel;
+          // objTarea.ncobrohonorario = tarea.ncobrohonorario;
+          // objTarea.ningresoarancel = tarea.ningresoarancel;
+          // objTarea.nsalidaarancel = tarea.nsalidaarancel;
           objTarea.lcontrato = tarea.lcontrato;
           objTarea.nsaldo = tarea.nsaldo;
 

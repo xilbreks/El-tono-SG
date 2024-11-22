@@ -9,12 +9,12 @@
 
 <div>
     Estado actual:
-    <kbd *ngIf="lterms">
+    <kbd *ngIf="lcontrato">
         <span>·</span>
-        Con Contrato
+        OK
         <span>·</span>
     </kbd>
-    <kbd *ngIf="!lterms">
+    <kbd *ngIf="!lcontrato">
         <span>·</span>
         Sin Contrato
         <span>·</span>
@@ -23,18 +23,18 @@
 
 <br />
 
-<div *ngIf="!lterms">
+<div *ngIf="!lcontrato">
 
     <button class="btn btn-secondary" (click)="openModalSetTerms(setWithTermsModal)">
-        Marcar
+        Subir contrato
     </button>
 
 </div>
 
-<div *ngIf="lterms">
+<div *ngIf="lcontrato">
 
     <button class="btn btn-secondary" (click)="openModalSetTerms(setWithOutTermsModal)">
-        Desmarcar
+        Quitar contrato
     </button>
 
 </div>
@@ -56,28 +56,32 @@
   ----------------------------------------------->
 <ng-template #setWithTermsModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Marcar con Contrato</h5>
+        <h5 class="modal-title" id="modal-basic-title">Subir contrato</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
         <p>
-            Se marcará que el expediente tiene contrato.
+            Se subirá un archivo PDF scaneado del contrato
         </p>
-        <p>
-            <i>
-                ¿Está seguro?
-            </i>
-        </p>
+
+        <input type="file" (change)="onFileSelected($event)" accept="application/pdf" />
+
+        <div *ngIf="uploadProgress >= 0">
+            <p>Progreso: {{ uploadProgress | number: '1.0-0' }}%</p>
+            <progress [value]="uploadProgress" max="100"></progress>
+        </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="setTerms(true)">
+        <button *ngIf="!lUpdating" [disabled]="!file" class="btn btn-primary" (click)="uploadFile()">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
             </span>
             <span class="sr-only" *ngIf="!lUpdating">
                 Guardar
             </span>
-            <span class="sr-only" *ngIf="lUpdating">
+        </button>
+        <button *ngIf="lUpdating" class="btn btn-primary" disabled>
+            <span class="sr-only">
                 Guardando...
             </span>
         </button>
@@ -87,9 +91,9 @@
 <!------------------------------------------------
   --------- SET WITH-OUT TERMS MODAL -------------
   ----------------------------------------------->
-  <ng-template #setWithOutTermsModal let-modal>
+<ng-template #setWithOutTermsModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Marcar sin Contrato</h5>
+        <h5 class="modal-title" id="modal-basic-title">Quitar Contrato</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             (click)="modal.dismiss('Cross click')"></button>
     </div>
@@ -104,14 +108,14 @@
         </p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="setTerms(false)">
+        <button type="button" class="btn btn-primary" (click)="marcarSinContrato()">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
             </span>
             <span class="sr-only" *ngIf="!lUpdating">
-                Guardar
+                Quitar
             </span>
             <span class="sr-only" *ngIf="lUpdating">
-                Guardando...
+                Quitando...
             </span>
         </button>
     </div>
