@@ -7,7 +7,7 @@
         {{expediente?.sobs}}
     </pre>
 
-    <button (click)="openModal(editObsModal)" class="btn btn-secondary">
+    <button (click)="openModal(editObsModal)" class="btn btn-secondary" *ngIf="idusuario=='admin' || idusuario == 'admin2' || idusuario == 'lizbet-silva'">
         Editar
     </button>
 </div>

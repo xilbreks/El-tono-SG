@@ -14,6 +14,7 @@ import { Expediente } from './../_interfaces/expediente';
 })
 export class ExpItemObsComponent implements OnInit {
   @Input('expediente') expediente: Expediente | null = null;
+  idusuario: string | null;
   fcObs: FormControl = new FormControl([]);
   lUpdating = false;
 
@@ -27,6 +28,7 @@ export class ExpItemObsComponent implements OnInit {
     private storage: AngularFireStorage,
     private modalService: NgbModal,
   ) {
+    this.idusuario = localStorage.getItem('idusuario');
   }
 
   ngOnInit(): void { }
