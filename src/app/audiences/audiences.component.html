@@ -1,0 +1,90 @@
+<div class="container">
+    <h4>Audiencias del Mes</h4>
+    <p>
+        Desde {{frmDate.value['sinicio']}} hasta {{frmDate.value['sfinal']}}
+    </p>
+
+    <div>
+        <label for="sfecha"></label>
+        Seleccionar Fecha
+        <input type="date" id="sfecha" (change)="cambiarFecha($event)">
+    </div>
+</div>
+
+<div class="container">
+    <h5>Detalles de Audiencia</h5>
+    <div *ngFor="let audiencia of lstAudiencias">
+        ==>
+        <span>
+            <b>{{audiencia.sfechauser}}</b>
+        </span>
+        <span>
+            {{audiencia.stipo}}
+        </span>
+        <div>
+            Expediente: {{audiencia.sexpediente}}
+        </div>
+        <div>
+            Demantante: {{audiencia.sdemandante}}
+        </div>
+        <div>
+            Demandado: {{audiencia.sdemandado}}
+        </div>
+        <div>
+            Hora: {{audiencia.shora}}
+        </div>
+        <div>
+            Link: {{audiencia.surl}}
+        </div>
+        <div>
+            Encargados: {{audiencia.sencargados}}
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Hora
+                </th>
+                <th>
+                    Tipo
+                </th>
+                <th>
+                    Expediente
+                </th>
+                <th>
+                    Encargados
+                </th>
+                <th>
+                    LINK
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let audiencia of lstAudiencias">
+                <td>
+                    {{audiencia.sfecha}}
+                </td>
+                <td>
+                    {{audiencia.shora}}
+                </td>
+                <td>
+                    {{audiencia.stipo}}
+                </td>
+                <td>
+                    {{audiencia.sexpediente}}
+                </td>
+                <td>
+                    {{audiencia.sencargados}}
+                </td>
+                <td>
+                    {{audiencia.surl}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

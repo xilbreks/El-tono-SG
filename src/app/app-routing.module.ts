@@ -27,6 +27,8 @@ import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
+import { AudiencesComponent } from './audiences/audiences.component';
+import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 
@@ -101,6 +103,10 @@ const routes: Routes = [
     component: AsistenciaComponent
   },
   {
+    path: 'audiencias',
+    component: AudiencesComponent
+  },
+  {
     path: 'testing',
     component: TestingComponent
   },
@@ -127,6 +133,10 @@ const routes: Routes = [
   {
     path: 'expedientes-listing',
     component: ExpedientesListComponent
+  },
+  {
+    path: 'expedientes-depurados',
+    component: ExpedientesListInactiveComponent
   },
   {
     path: 'sinoe-admin',

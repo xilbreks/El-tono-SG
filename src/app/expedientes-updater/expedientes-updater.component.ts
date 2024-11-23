@@ -9,7 +9,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   styleUrls: ['./expedientes-updater.component.scss']
 })
 export class ExpedientesUpdaterComponent {
-  lstExpedientes: Array<any> = [];
+  lstExpsActivos: Array<any> = [];
+  lstExpsDepurados: Array<any> = [];
   lUpdating = false;
 
   constructor(
@@ -28,11 +29,14 @@ export class ExpedientesUpdaterComponent {
     }
 
     this.lUpdating = true;
-    this.lstExpedientes = [];
+    this.lstExpsActivos = [];
+    this.lstExpsDepurados = [];
+    /////////////////////////////////////////////////
+    // Actualizar el listado de expedientes activos
+    /////////////////////////////////////////////////
 
-    let obs = this.db.collection('expedientes', ref => {
-      return ref.where('lactive', '==', true)
-    }).valueChanges()
+    let obs = this.db.collection('expedientes')
+      .valueChanges()
       .subscribe((res: Array<any>) => {
         let dDate = new Date();
         let nDay = dDate.getDate();
@@ -44,32 +48,61 @@ export class ExpedientesUpdaterComponent {
           (nMonth < 10 ? ('0' + nMonth) : nMonth) + '/' +
           nYear + ' - ' + sTime;
 
-        this.lstExpedientes.push({
+        this.lstExpsActivos.push({
+          sdate: sDate
+        });
+        this.lstExpsDepurados.push({
           sdate: sDate
         });
         res.forEach(exp => {
-          this.lstExpedientes.push({
-            sexpediente: exp.sexpediente,
-            smatchexp: exp.smatchexp,
-            sespecialidad: exp.sespecialidad,
-            idtipodoc: exp.idtipodoc,
-            smateria: exp.smateria,
-            idmateria: exp.idmateria,
-            sdemandante: exp.sdemandante,
-            sdemandado: exp.sdemandado,
-            sfechainicio: exp.sfechainicio,
-            scodigo: exp.scodigo,
-            niter: exp.niter,
-            lcontrato: exp.lcontrato,
-          });
+          if (exp.lactive) {
+            this.lstExpsActivos.push({
+              sexpediente: exp.sexpediente,
+              smatchexp: exp.smatchexp,
+              sespecialidad: exp.sespecialidad,
+              idtipodoc: exp.idtipodoc,
+              smateria: exp.smateria,
+              idmateria: exp.idmateria,
+              sdemandante: exp.sdemandante,
+              sdemandado: exp.sdemandado,
+              sfechainicio: exp.sfechainicio,
+              scodigo: exp.scodigo,
+              niter: exp.niter,
+              lcontrato: exp.lcontrato,
+            });
+          } else {
+            this.lstExpsDepurados.push({
+              sexpediente: exp.sexpediente,
+              smatchexp: exp.smatchexp,
+              sespecialidad: exp.sespecialidad,
+              idtipodoc: exp.idtipodoc,
+              smateria: exp.smateria,
+              idmateria: exp.idmateria,
+              sdemandante: exp.sdemandante,
+              sdemandado: exp.sdemandado,
+              sfechainicio: exp.sfechainicio,
+              scodigo: exp.scodigo,
+              niter: exp.niter,
+              lcontrato: exp.lcontrato,
+            });
+          }
+
         });
 
-        // Save list to JSON file
-        let objJson = JSON.stringify(this.lstExpedientes);
-        const blob = new Blob([objJson], { type: 'application/json' })
+        // Convertirlo en un archivo JSON
+        let objJsonActivos = JSON.stringify(this.lstExpsActivos);
+        let objJsonDepurados = JSON.stringify(this.lstExpsDepurados);
 
-        let storageRef = this.storage.ref('expedientes/expedientes.json');
-        storageRef.put(blob).then(res => {
+        const blobActivos = new Blob([objJsonActivos], { type: 'application/json' });
+        const blobDepurados = new Blob([objJsonDepurados], { type: 'application/json' });
+
+        let storageRefActivos = this.storage.ref('expedientes/expedientes.json');
+        let storageRefDepurados = this.storage.ref('expedientes/expedientes-depurados.json');
+
+        let savingActivos = storageRefActivos.put(blobActivos);
+        let savingDepurados = storageRefDepurados.put(blobDepurados);
+
+        Promise.all([savingActivos, savingDepurados]).then(res => {
           this.router.navigate(['/', 'expedientes-listing']);
         }).catch(err => {
           console.log('ERROR', err);
@@ -79,5 +112,7 @@ export class ExpedientesUpdaterComponent {
 
         obs.unsubscribe();
       });
+
+
   }
 }

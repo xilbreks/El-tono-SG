@@ -1,0 +1,77 @@
+<h3>Expedientes Depurados</h3>
+
+<div class="container">
+    <div class="input-group">
+        <div class="input-group-text">
+            <i class="bi bi-search">
+            </i>
+        </div>
+        <input type="search" id="texto-busqueda" class="form-control" #fff (input)="filtrar(fff.value)"
+            autocomplete="off" #searchTerm>
+        <div class="input-group-text">
+            <i class="bi bi-search"></i>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Expediente
+                </th>
+                <th>
+                    Materia
+                </th>
+                <th>
+                    Especialidad
+                </th>
+                <th>
+                    Demandante
+                </th>
+                <th>
+                    Demandado
+                </th>
+                <th>
+                    Inicio
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let expediente of lstExpedientesFiltered; let i = index">
+                <td>
+                    {{i+1}}
+                </td>
+                <td>
+                    <a [routerLink]="'/expediente/'+expediente.sexpediente">
+                        {{expediente.sexpediente}}
+                    </a>
+                </td>
+                <td>
+                    {{expediente.smateria}}
+                </td>
+                <td>
+                    {{expediente.sespecialidad}}
+                </td>
+                <td>
+                    {{expediente.sdemandante}}
+                </td>
+                <td>
+                    {{expediente.sdemandado}}
+                </td>
+                <td>
+                    {{expediente.sfechainicio}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="lLoading">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Cargando...
+</div>
