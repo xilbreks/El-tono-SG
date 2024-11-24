@@ -38,27 +38,43 @@ export class AudiencesComponent implements OnInit {
     this.frmDate = new FormGroup({
       sinicio: new FormControl(null, Validators.required),
       sfinal: new FormControl(null, Validators.required),
+      smes: new FormControl(null, Validators.required),
+      sanio: new FormControl(null, Validators.required),
     });
-
     
   }
 
   ngOnInit(): void {
-    this.getPrimeroUltimoMes(new Date());
-    this.getAudiencias();
+    this.setHoy();
+    this.cambiarFecha();
   }
 
-  getPrimeroUltimoMes(dHoy: Date) {
-    let dFinMes = new Date(dHoy.getFullYear(), dHoy.getMonth() + 1, 0);
+  setHoy() {
+    const dHoy = new Date();
+    const nYear = dHoy.getFullYear();
+    const nMonth = dHoy.getMonth() + 1;
 
-    let sMonth = ((dHoy.getMonth() + 1) >= 10) ? (dHoy.getMonth() + 1) : ('0' + (dHoy.getMonth() + 1));
-    let sinicio = dHoy.getFullYear() + '-' + sMonth + '-' + '01';
-    let sfinal = dHoy.getFullYear() + '-' + sMonth + '-' + dFinMes.getDate();
-
-    this.frmDate.setValue({
-      sinicio: sinicio,
-      sfinal: sfinal
+    this.frmDate.patchValue({
+      smes: nMonth,
+      sanio: nYear
     });
+  }
+
+  cambiarFecha() {
+    let nanio = this.frmDate.value['sanio'];
+    let nmes = this.frmDate.value['smes'];
+
+    let nLastDay = (new Date(nanio, nmes, 0)).getDate();
+
+    let sFirstDay = `${nanio}-${nmes}-01`;
+    let sLastDay = `${nanio}-${nmes}-${nLastDay}`;
+
+    this.frmDate.patchValue({
+      sinicio: sFirstDay,
+      sfinal: sLastDay,
+    });
+
+    this.getAudiencias();
   }
 
   getAudiencias() {
@@ -91,23 +107,5 @@ export class AudiencesComponent implements OnInit {
       })
   }
 
-  cambiarFecha(event: any) {
-    const input = event.target.value;
-
-    let nDay = Number(input.slice(8, 10));
-    let nMonth = Number(input.slice(5, 7));
-    let nYear = Number(input.slice(0, 4));
-
-    // Recuperar primer y ultimo día
-    let dHoy = new Date(nYear, nMonth - 1, nDay);
-
-    // Establecer primer y ultimo dia
-    this.getPrimeroUltimoMes(dHoy);
-    this.getAudiencias();
-  }
-
-  test(test: any) {
-    console.log(test.target.value)
-  }
 
 }

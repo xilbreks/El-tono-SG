@@ -1,14 +1,32 @@
 <div class="container">
     <h4 style="text-align: center;">Audiencias por Mes</h4>
-    <div>
-        <span>
-            Hay <b> {{lstAudiencias.length}} audiencias</b>
-            entre {{frmDate.value['sinicio']}} y {{frmDate.value['sfinal']}}.
-        </span>
-        <label for="sfecha"></label>
-        Cambiar fecha
-        <input type="date" id="sfecha" (change)="cambiarFecha($event)">
-    </div>
+
+    <form [formGroup]="frmDate">
+        Hay <b> {{lstAudiencias.length}} audiencias</b>.
+
+        <label for="smes">Mes:</label>
+        <select id="smes" formControlName="smes" (change)="cambiarFecha()">
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+        <label for="sanio">Año:</label>
+        <select id="sanio" formControlName="sanio" (change)="cambiarFecha()">
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+        </select>
+    </form>
 </div>
 
 <div class="container">
