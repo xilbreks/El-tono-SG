@@ -1,5 +1,5 @@
 <div class="container">
-    <h4 style="text-align: center;">Audiencias por Mes</h4>
+    <h4 style="text-align: center;">Planner de Audiencias</h4>
 
     <form [formGroup]="frmDate">
         Hay <b> {{lstAudiencias.length}} audiencias</b>.
@@ -19,7 +19,7 @@
             <option value="11">Noviembre</option>
             <option value="12">Diciembre</option>
         </select>
-        <label for="sanio">Año:</label>
+        <label for="sanio" style="padding-left: 5px;">Año:</label>
         <select id="sanio" formControlName="sanio" (change)="cambiarFecha()">
             <option value="2024">2024</option>
             <option value="2025">2025</option>
