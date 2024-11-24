@@ -1,90 +1,85 @@
 <div class="container">
-    <h4>Audiencias del Mes</h4>
-    <p>
-        Desde {{frmDate.value['sinicio']}} hasta {{frmDate.value['sfinal']}}
-    </p>
-
+    <h4 style="text-align: center;">Audiencias por Mes</h4>
     <div>
+        <span>
+            Hay <b> {{lstAudiencias.length}} audiencias</b>
+            entre {{frmDate.value['sinicio']}} y {{frmDate.value['sfinal']}}.
+        </span>
         <label for="sfecha"></label>
-        Seleccionar Fecha
+        Cambiar fecha
         <input type="date" id="sfecha" (change)="cambiarFecha($event)">
     </div>
 </div>
 
 <div class="container">
-    <h5>Detalles de Audiencia</h5>
-    <div *ngFor="let audiencia of lstAudiencias">
-        ==>
-        <span>
-            <b>{{audiencia.sfechauser}}</b>
-        </span>
-        <span>
-            {{audiencia.stipo}}
-        </span>
-        <div>
-            Expediente: {{audiencia.sexpediente}}
-        </div>
-        <div>
-            Demantante: {{audiencia.sdemandante}}
-        </div>
-        <div>
-            Demandado: {{audiencia.sdemandado}}
-        </div>
-        <div>
-            Hora: {{audiencia.shora}}
-        </div>
-        <div>
-            Link: {{audiencia.surl}}
-        </div>
-        <div>
-            Encargados: {{audiencia.sencargados}}
-        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Expediente
+                    </th>
+                    <th>
+                        Anotaciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!lLoading && lstAudiencias.length > 0">
+                <tr *ngFor="let audiencia of lstAudiencias">
+                    <td>
+                        {{audiencia.sfechauser}}
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                AREA:
+                                <span class="tipo-audiencia {{audiencia.sespecialidad}}">
+                                    {{audiencia.sespecialidad}}
+                                </span>
+                            </li>
+                            <li>
+                                DTE: <span>{{audiencia.sdemandante}}</span>
+                            </li>
+                            <li>
+                                DDO: <span>{{audiencia.sdemandado}}</span>
+                            </li>
+                            <li>
+                                EXP:
+                                <span>
+                                    <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                Hora: {{audiencia.shora}}
+                            </li>
+                            <li>
+                                Tipo: {{audiencia.stipo}}
+                            </li>
+                            <li>
+                                Encargados: {{audiencia.sencargados}}
+                            </li>
+                            <li>
+                                Link: {{audiencia.surl}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!lLoading && lstAudiencias.length == 0">
+                No hay audiencias en el mes
+            </tbody>
+            <tbody *ngIf="lLoading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Cargando...
+            </tbody>
+        </table>
     </div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>
-                    Fecha
-                </th>
-                <th>
-                    Hora
-                </th>
-                <th>
-                    Tipo
-                </th>
-                <th>
-                    Expediente
-                </th>
-                <th>
-                    Encargados
-                </th>
-                <th>
-                    LINK
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let audiencia of lstAudiencias">
-                <td>
-                    {{audiencia.sfecha}}
-                </td>
-                <td>
-                    {{audiencia.shora}}
-                </td>
-                <td>
-                    {{audiencia.stipo}}
-                </td>
-                <td>
-                    {{audiencia.sexpediente}}
-                </td>
-                <td>
-                    {{audiencia.sencargados}}
-                </td>
-                <td>
-                    {{audiencia.surl}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
 </div>

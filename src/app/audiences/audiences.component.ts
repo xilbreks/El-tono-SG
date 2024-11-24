@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 interface Audience {
   idaudiencia: string;
   sexpediente: string;
+  sespecialidad: string;
   sdemandante: string;
   sdemandado: string;
   sfecha: string;
@@ -25,10 +26,7 @@ export class AudiencesComponent implements OnInit {
   lstAudiencias: Audience[] = [];
   lLoading = false;
 
-
   frmDate: FormGroup;
-  frmNewAudience: FormGroup;
-  frmEditAudience: FormGroup;
 
   constructor(
     private db: AngularFirestore,
@@ -42,34 +40,7 @@ export class AudiencesComponent implements OnInit {
       sfinal: new FormControl(null, Validators.required),
     });
 
-    /*******************************
-     ****** FORM NEW AUDIENCE ******
-     *******************************/
-    this.frmNewAudience = new FormGroup({
-      sexpediente: new FormControl(null, Validators.required),
-      sdemandante: new FormControl(null, Validators.required),
-      sdemandado: new FormControl(null, Validators.required),
-      sfecha: new FormControl(null, Validators.required),
-      shora: new FormControl(null, Validators.required),
-      stipo: new FormControl(null, Validators.required),
-      sencargados: new FormControl(null, Validators.required),
-      surl: new FormControl(null, Validators.required),
-    });
-
-    /*******************************
-     ****** FORM NEW AUDIENCE ******
-     *******************************/
-    this.frmEditAudience = new FormGroup({
-      idaudiencia: new FormControl(null, Validators.required),
-      sexpediente: new FormControl(null, Validators.required),
-      sdemandante: new FormControl(null, Validators.required),
-      sdemandado: new FormControl(null, Validators.required),
-      sfecha: new FormControl(null, Validators.required),
-      shora: new FormControl(null, Validators.required),
-      stipo: new FormControl(null, Validators.required),
-      sencargados: new FormControl(null, Validators.required),
-      surl: new FormControl(null, Validators.required),
-    });
+    
   }
 
   ngOnInit(): void {
@@ -101,7 +72,6 @@ export class AudiencesComponent implements OnInit {
         .where('sfecha', '<=', sfinal)
     }).valueChanges()
       .subscribe((res: Array<any>) => {
-        // FALTA ORDENAR LAS AUDIENCIAS
         this.lstAudiencias = res.map(aud => {
           let sDay = aud.sfecha.slice(8, 10);
           let sMonth = aud.sfecha.slice(5, 7);
@@ -110,7 +80,11 @@ export class AudiencesComponent implements OnInit {
             ...aud,
             sfechauser: sDay + '/' + sMonth + '/' + sYear
           }
-        })
+        }).sort((a, b) => {
+          let sfecha1 = a.sfecha + '-' + a.shora;
+          let sfecha2 = b.sfecha + '-' + b.shora;
+          return sfecha1 < sfecha2 ? -1 : 1;
+        });
 
         this.lLoading = false;
         obs.unsubscribe();

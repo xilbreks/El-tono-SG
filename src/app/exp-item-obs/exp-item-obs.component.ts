@@ -89,7 +89,7 @@ export class ExpItemObsComponent implements OnInit {
         })
       );
 
-      console.log('Archivos con URLs:', fileDetails);
+      // console.log('Archivos con URLs:', fileDetails);
       this.lstAnexos = fileDetails;
     })
   }

@@ -27,6 +27,12 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
+            <button class="nav-link" id="audiencia-tab" data-bs-toggle="tab" data-bs-target="#audiencia-tab-pane" type="button"
+                role="tab" aria-controls="audiencia-tab-pane" aria-selected="false">
+                Audiencias
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
             <button class="nav-link" id="obs-tab" data-bs-toggle="tab" data-bs-target="#obs-tab-pane" type="button"
                 role="tab" aria-controls="obs-tab-pane" aria-selected="false">
                 Observaciones
@@ -52,6 +58,9 @@
         </div>
         <div class="tab-pane fade" id="chat-tab-pane" role="tabpanel" aria-labelledby="chat-tab" tabindex="0">
             <app-exp-item-chat [expediente]="expediente"></app-exp-item-chat>
+        </div>
+        <div class="tab-pane fade" id="audiencia-tab-pane" role="tabpanel" aria-labelledby="audiencia-tab" tabindex="0">
+            <app-exp-item-audiences [expediente]="expediente"></app-exp-item-audiences>
         </div>
         <div class="tab-pane fade" id="obs-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
             <app-exp-item-obs [expediente]="expediente"></app-exp-item-obs>

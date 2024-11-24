@@ -1,0 +1,243 @@
+<h5>
+    Audiencias programadas
+</h5>
+
+<div style="display: flex;">
+    <span>
+        <button (click)="cambiarModo()" *ngIf="lViewMode" class="btn btn-secondary btn-sm">
+            <i class="bi bi-lock-fill"></i>
+        </button>
+        <button (click)="cambiarModo()" *ngIf="!lViewMode" class="btn btn-outline-success btn-sm">
+            <i class="bi bi-unlock-fill"></i>
+        </button>
+    </span>
+    <span style="flex: auto 1; font-size: 1.5rem;"></span>
+</div>
+
+<div>
+    <button (click)="openModalAddAudiencia(addAudienciaModal)" class="btn btn-success btn-sm" *ngIf="!lViewMode">
+        + Add
+    </button>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Anotaciones
+                </th>
+                <th *ngIf="!lViewMode">
+                    Editar
+                </th>
+                <th *ngIf="!lViewMode">
+                    Quitar
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!lLoading && lstAudiencias.length > 0">
+            <tr *ngFor="let audiencia of lstAudiencias">
+                <td>
+                    {{audiencia.sfechauser}}
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            Hora: {{audiencia.shora}}
+                        </li>
+                        <li>
+                            Tipo: {{audiencia.stipo}}
+                        </li>
+                        <li>
+                            Encargados: {{audiencia.sencargados}}
+                        </li>
+                        <li>
+                            Link: {{audiencia.surl}}
+                        </li>
+                    </ul>
+                </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openModalEditAudiencia(audiencia, editAudienciaModal)"
+                        class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openModalDeleteAudiencia(audiencia, deleteAudienciaModal)" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!lLoading && lstAudiencias.length == 0">
+            No hay audiencias
+        </tbody>
+        <tbody *ngIf="lLoading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Cargando...
+        </tbody>
+    </table>
+
+</div>
+
+<div style="margin-top: 50px;">
+    <span style="font-size: 0.75rem;">
+        <i>
+            {{expediente?.sexpediente}}
+        </i>
+    </span>
+</div>
+
+
+<!-------------------------------------------------
+  ------------- ADD AUDIENCIA MODAL ---------------
+  ------------------------------------------------>
+<ng-template #addAudienciaModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Registrar Audiencia</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmNewAudience" autocomplete="off">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="sfecha" class="form-label">
+                        Fecha:
+                    </label>
+                    <input type="date" id="sfecha" class="form-control" formControlName="sfecha">
+                </div>
+                <div class="col-sm-6">
+                    <label for="shora" class="form-label">
+                        Hora:
+                    </label>
+                    <input type="time" id="shora" class="form-control" formControlName="shora">
+                </div>
+            </div>
+            <div>
+                <label for="stipo" class="form-label">
+                    Tipo de audiencia:
+                </label>
+                <input type="text" class="form-control" id="stipo" formControlName="stipo" />
+            </div>
+            <div>
+                <label for="sencargados" class="form-label">
+                    Encargados:
+                </label>
+                <input type="text" class="form-control" id="sencargados" formControlName="sencargados" />
+            </div>
+            <div>
+                <label for="surl" class="form-label">
+                    Link:
+                </label>
+                <input type="text" class="form-control" id="surl" formControlName="surl" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addAudiencia()"
+            [disabled]="!(frmNewAudience.valid && !lAdding)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lAdding">
+            </span>
+            <span class="sr-only" *ngIf="!lAdding">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lAdding">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  ------------- EDIT AUDIENCIA MODAL --------------
+  ------------------------------------------------>
+<ng-template #editAudienciaModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar Audiencia</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmEditAudience" autocomplete="off">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="sfecha" class="form-label">
+                        Fecha:
+                    </label>
+                    <input type="date" id="sfecha" class="form-control" formControlName="sfecha">
+                </div>
+                <div class="col-sm-6">
+                    <label for="shora" class="form-label">
+                        Hora:
+                    </label>
+                    <input type="time" id="shora" class="form-control" formControlName="shora">
+                </div>
+            </div>
+            <div>
+                <label for="stipo" class="form-label">
+                    Tipo de audiencia
+                </label>
+                <input type="text" class="form-control" id="stipo" formControlName="stipo" />
+            </div>
+            <div>
+                <label for="sencargados" class="form-label">
+                    Encargados
+                </label>
+                <input type="text" class="form-control" id="sencargados" formControlName="sencargados" />
+            </div>
+            <div>
+                <label for="surl" class="form-label">
+                    Link
+                </label>
+                <input type="text" class="form-control" id="surl" formControlName="surl" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editAudiencia()"
+            [disabled]="!(frmEditAudience.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Actualizar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Actualizando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  ------------ DELETE AUDIENCIA MODAL -------------
+  ------------------------------------------------>
+
+<ng-template #deleteAudienciaModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Quitar Audiencia</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div>
+            ¿Esta seguro de quitar esta 
+            <i>
+                {{frmDeleteAudience.value.stipo}}
+            </i>
+            ?
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="deleteAudiencia()" [disabled]="lDeleting">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lDeleting">
+            </span>
+            <span class="sr-only" *ngIf="!lDeleting">
+                Quitar
+            </span>
+            <span class="sr-only" *ngIf="lDeleting">
+                Quitando...
+            </span>
+        </button>
+    </div>
+</ng-template>

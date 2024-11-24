@@ -1,0 +1,33 @@
+table {
+    font-size: 0.85rem;
+}
+
+pre {
+    white-space: pre-line;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+.tipo-audiencia {
+    font-family: monospace;
+    padding: 0 10px;
+    border-radius: 5px;
+
+    &.FAMILIA {
+        background-color: pink;
+    }
+    &.LABORAL {
+        background-color: lightgreen;
+    }
+    &.CIVIL {
+        background-color: #ff8c00;
+    }
+    &.PENAL {
+        background-color: lightgrey;
+    }
+    &.CONSTITUCIONAL {
+        background-color: red;
+    }
+}

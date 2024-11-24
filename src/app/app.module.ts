@@ -54,6 +54,7 @@ import { ExpItemEditUrlComponent } from './exp-item-edit-url/exp-item-edit-url.c
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { AudiencesComponent } from './audiences/audiences.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
+import { ExpItemAudiencesComponent } from './exp-item-audiences/exp-item-audiences.component';
 
 const environment = {
   production: false,
@@ -112,6 +113,7 @@ const environment = {
     ZDownloaderComponent,
     AudiencesComponent,
     ExpedientesListInactiveComponent,
+    ExpItemAudiencesComponent,
   ],
   imports: [
     BrowserModule,
