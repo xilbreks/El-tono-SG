@@ -31,6 +31,7 @@ import { AudiencesComponent } from './audiences/audiences.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
+import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
 
 const routes: Routes = [
   {
@@ -153,6 +154,10 @@ const routes: Routes = [
   {
     path: 'downloader',
     component: ZDownloaderComponent
+  },
+  {
+    path: 'informe-comunicacion',
+    component: InfComunicacionComponent
   },
   {
     path: '**',

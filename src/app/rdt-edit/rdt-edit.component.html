@@ -264,21 +264,25 @@
         <div class="col-6 col-md-3">
           <label for="delegadoPor" class="form-label"> Delegado por </label>
 
-          <input type="text" class="form-control" list="delegadores" formControlName="sdelegadopor">
+          <!-- <input type="text" class="form-control" list="delegadores" formControlName="sdelegadopor">
           <datalist id="delegadores">
             <option value="Dra. Lizbet Silva"></option>
             <option value="Ing. Wilber"></option>
             <option value="Iniciativa propia"></option>
-          </datalist>
+          </datalist> -->
 
-          <!-- <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
-            <option *ngFor="let dr of lstDelegadores" [value]="dr.id">
-              {{dr.name}}
-            </option>
+          <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
+            <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
+            <option value="Abg. Gabriela Mendoza">Abg. Gabriela Mendoza</option>
+            <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
+            <option value="Abg. Jimena Machaca">Abg. Jimena Machaca</option>
+            <option value="Abg. Sharon Huallpa">Abg. Sharon Huallpa</option>
+            <option value="Bach. Eduardo Soto">Bach. Eduardo Soto</option>
+
             <option value="ing-wilber">Ing. Wilber</option>
             <option value="iniciativa-propia">Iniciativa Propia</option>
             <option value="nc">No Corresponde</option>
-          </select> -->
+          </select>
         </div>
         <div class="col-6 col-md-3">
           <label for="tiempoAtencion" class="form-label">
@@ -372,6 +376,11 @@
         </div>
       </div>
     </form>
+
+    <pre>
+      {{frmNewTask.value | json }}
+    </pre>
+
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="agregarTarea()"

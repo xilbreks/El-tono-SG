@@ -55,6 +55,7 @@ import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { AudiencesComponent } from './audiences/audiences.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
 import { ExpItemAudiencesComponent } from './exp-item-audiences/exp-item-audiences.component';
+import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
 
 const environment = {
   production: false,
@@ -114,6 +115,7 @@ const environment = {
     AudiencesComponent,
     ExpedientesListInactiveComponent,
     ExpItemAudiencesComponent,
+    InfComunicacionComponent,
   ],
   imports: [
     BrowserModule,

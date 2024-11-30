@@ -21,7 +21,13 @@ export class ExpedientesListInactiveComponent {
   obtenerExpedientes() {
     this.lLoading = true;
     this.service.lstExpsDepurados.subscribe(res => {
-      this.lstExpedientes = res;
+      this.lstExpedientes = res.sort((a: any, b: any) => {
+        if (a.sespecialidad > b.sespecialidad)
+          return 1;
+        else
+          return -1;
+      });
+      this.lstExpedientesFiltered = this.lstExpedientes;
 
       this.lLoading = false;
     });
@@ -32,10 +38,10 @@ export class ExpedientesListInactiveComponent {
 
     sterms = sterms.filter(sterm => sterm.length >= 3);
 
-    if (sterms.length == 0) {
-      this.lstExpedientesFiltered = [];
-      return;
-    }
+    // if (sterms.length == 0) {
+    //   this.lstExpedientesFiltered = [];
+    //   return;
+    // }
 
     this.lstExpedientesFiltered = this.lstExpedientes
       .filter(exp => {
