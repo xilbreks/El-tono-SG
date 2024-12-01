@@ -997,5 +997,29 @@ export class ReportePagosComponent {
     XLSX.utils.book_append_sheet(workbook, worksheet4, "Penal");
     XLSX.utils.book_append_sheet(workbook, worksheet5, "Constitucional");
     XLSX.writeFile(workbook, 'Expedientes.xlsx', { compression: true });
+
+    // Descargar en JSON
+    // Convierte el objeto a una cadena JSON
+    const todito = [
+      ...todo_laboral,
+      ...todo_familia,
+      ...todo_civil,
+      ...todo_penal,
+      ...todo_const
+    ];
+    const jsonStr = JSON.stringify(todito, null, 2); // 'null, 2' añade formato con 2 espacios
+
+    // Crea un Blob con el tipo de contenido 'application/json'
+    const blob = new Blob([jsonStr], { type: "application/json" });
+
+    // Crea un enlace de descarga temporal
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = 'pagos-sg.json'; // Nombre del archivo JSON
+
+    // Añade el enlace al DOM, simula el clic y lo elimina después
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }
