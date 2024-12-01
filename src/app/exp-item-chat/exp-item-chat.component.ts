@@ -35,8 +35,9 @@ export class ExpItemChatComponent implements OnInit {
      *******************************/
     this.frmNewChat = new FormGroup({
       stipo: new FormControl(null, Validators.required),
-      smensaje: new FormControl(null, Validators.required),
       sfecha: new FormControl(null, Validators.required),
+      smensaje: new FormControl(null, Validators.required),
+      sencargado: new FormControl(null, Validators.required),
     });
 
     /********************************
@@ -45,8 +46,9 @@ export class ExpItemChatComponent implements OnInit {
     this.frmEditChat = new FormGroup({
       idchat: new FormControl(null, Validators.required),
       stipo: new FormControl(null, Validators.required),
-      smensaje: new FormControl(null, Validators.required),
       sfecha: new FormControl(null, Validators.required),
+      smensaje: new FormControl(null, Validators.required),
+      sencargado: new FormControl(null, Validators.required),
     });
   }
 
@@ -98,7 +100,7 @@ export class ExpItemChatComponent implements OnInit {
 
   openNewChatModal(modal: any) {
     this.modalService.open(modal, {
-      size: 'sm'
+      size: 'md'
     });
   }
 
@@ -113,9 +115,12 @@ export class ExpItemChatComponent implements OnInit {
         idchat: id,
         lactive: true,
         sexpediente: this.expediente?.sexpediente,
+        sdemandante: this.expediente?.sdemandante,
+        sdemandado: this.expediente?.sdemandado,
+        stipo: this.frmNewChat.value['stipo'],
         sfecha: this.frmNewChat.value['sfecha'],
         smensaje: this.frmNewChat.value['smensaje'],
-        stipo: this.frmNewChat.value['stipo'],
+        sencargado: this.frmNewChat.value['sencargado'],
       })
       .then((x) => {
         this.getChats();
@@ -133,13 +138,14 @@ export class ExpItemChatComponent implements OnInit {
   openEditChatModal(c: Chat, modal: any) {
     this.frmEditChat.setValue({
       idchat: c.idchat,
-      smensaje: c.smensaje,
-      sfecha: c.sfecha,
       stipo: c.stipo,
+      sfecha: c.sfecha,
+      smensaje: c.smensaje,
+      sencargado: c.sencargado,
     })
 
     this.modalService.open(modal, {
-      size: 'sm'
+      size: 'md'
     });
   }
 
@@ -152,8 +158,9 @@ export class ExpItemChatComponent implements OnInit {
       .doc(id)
       .update({
         sfecha: this.frmEditChat.value['sfecha'],
-        smensaje: this.frmEditChat.value['smensaje'],
         stipo: this.frmEditChat.value['stipo'],
+        smensaje: this.frmEditChat.value['smensaje'],
+        sencargado: this.frmEditChat.value['sencargado'],
       })
       .then((x) => {
         this.getChats();

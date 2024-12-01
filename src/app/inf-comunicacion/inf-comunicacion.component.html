@@ -4,59 +4,59 @@
     <form [formGroup]="frmDate">
         <label for="ssemana">Semana:</label>
         <select id="ssemana" formControlName="sweek" (change)="getWeekDateRange()">
-            <option value="01">01</option>
-            <option value="02">02</option>
-            <option value="03">03</option>
-            <option value="04">04</option>
-            <option value="05">05</option>
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-            <option value="32">32</option>
-            <option value="33">33</option>
-            <option value="34">34</option>
-            <option value="35">35</option>
-            <option value="36">36</option>
-            <option value="37">37</option>
-            <option value="38">38</option>
-            <option value="39">39</option>
-            <option value="40">40</option>
-            <option value="41">41</option>
-            <option value="42">42</option>
-            <option value="43">43</option>
-            <option value="44">44</option>
-            <option value="45">45</option>
-            <option value="46">46</option>
-            <option value="47">47</option>
-            <option value="48">48</option>
-            <option value="49">49</option>
-            <option value="50">50</option>
-            <option value="51">51</option>
-            <option value="52">52</option>
-            <option value="53">53</option>
+            <option value="01">01 (ene 01 - ene 07)</option>
+            <option value="02">02 (ene 08 - ene 14)</option>
+            <option value="03">03 (ene 15 - ene 21)</option>
+            <option value="04">04 (ene 22 - ene 28)</option>
+            <option value="05">05 (ene 29 - feb 04)</option>
+            <option value="06">06 (feb 05 - feb 11)</option>
+            <option value="07">07 (feb 12 - feb 18)</option>
+            <option value="08">08 (feb 19 - feb 25)</option>
+            <option value="09">09 (feb 26 - mar 03)</option>
+            <option value="10">10 (mar 04 - mar 10)</option>
+            <option value="11">11 (mar 11 - mar 17)</option>
+            <option value="12">12 (mar 18 - mar 24)</option>
+            <option value="13">13 (mar 25 - mar 31)</option>
+            <option value="14">14 (abr 01 - abr 07)</option>
+            <option value="15">15 (abr 08 - abr 14)</option>
+            <option value="16">16 (abr 15 - abr 21)</option>
+            <option value="17">17 (abr 22 - abr 28)</option>
+            <option value="18">18 (abr 29 - may 05)</option>
+            <option value="19">19 (may 06 - may 12)</option>
+            <option value="20">20 (may 13 - may 19)</option>
+            <option value="21">21 (may 20 - may 26)</option>
+            <option value="22">22 (may 27 - jun 02)</option>
+            <option value="23">23 (jun 03 - jun 09)</option>
+            <option value="24">24 (jun 10 - jun 16)</option>
+            <option value="25">25 (jun 17 - jun 23)</option>
+            <option value="26">26 (jun 24 - jun 30)</option>
+            <option value="27">27 (jul 01 - jul 07)</option>
+            <option value="28">28 (jul 08 - jul 14)</option>
+            <option value="29">29 (jul 15 - jul 21)</option>
+            <option value="30">30 (jul 22 - jul 28)</option>
+            <option value="31">31 (jul 29 - ago 04)</option>
+            <option value="32">32 (ago 05 - ago 11)</option>
+            <option value="33">33 (ago 12 - ago 18)</option>
+            <option value="34">34 (ago 19 - ago 25)</option>
+            <option value="35">35 (ago 26 - sep 01)</option>
+            <option value="36">36 (sep 02 - sep 08)</option>
+            <option value="37">37 (sep 09 - sep 15)</option>
+            <option value="38">38 (sep 16 - sep 22)</option>
+            <option value="39">39 (sep 23 - sep 29)</option>
+            <option value="40">40 (sep 30 - oct 06)</option>
+            <option value="41">41 (oct 07 - oct 13)</option>
+            <option value="42">42 (oct 14 - oct 20)</option>
+            <option value="43">43 (oct 21 - oct 27)</option>
+            <option value="44">44 (oct 28 - nov 03)</option>
+            <option value="45">45 (nov 04 - nov 10)</option>
+            <option value="46">46 (nov 11 - nov 17)</option>
+            <option value="47">47 (nov 18 - nov 24)</option>
+            <option value="48">48 (nov 25 - dic 01)</option>
+            <option value="49">49 (dic 02 - dic 08)</option>
+            <option value="50">50 (dic 09 - dic 15)</option>
+            <option value="51">51 (dic 16 - dic 22)</option>
+            <option value="52">52 (dic 23 - dic 29)</option>
+            <option value="53">53 (dic 30 - ene 05)</option>
         </select>
         <label for="sanio" style="padding-left: 5px;">Año:</label>
         <select id="sanio" formControlName="syear" (change)="getWeekDateRange()">
@@ -81,7 +81,10 @@
                     Tipo
                 </th>
                 <th>
-                    Descripción
+                    Motivo
+                </th>
+                <th>
+                    Encargado
                 </th>
             </tr>
         </thead>
@@ -94,12 +97,21 @@
                     <a [routerLink]="'/expediente/'+chat.sexpediente">
                         {{chat.sexpediente}}
                     </a>
+                    <div>
+                        DTE: {{chat.sdemandante}}
+                    </div>
+                    <div>
+                        DDO: {{chat.sdemandado}}
+                    </div>
                 </td>
                 <td>
                     {{chat.stipo}}
                 </td>
                 <td>
                     {{chat.smensaje}}
+                </td>
+                <td>
+                    {{chat.sencargado}}
                 </td>
             </tr>
         </tbody>

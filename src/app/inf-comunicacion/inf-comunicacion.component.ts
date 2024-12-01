@@ -89,6 +89,7 @@ export class InfComunicacionComponent {
     let obs = this.db.collection('chats', ref => {
       return ref.where('sfecha', '>=', sinicio)
         .where('sfecha', '<=', sfinal)
+        .where('lactive', '==', true)
     }).valueChanges()
       .subscribe((res: Array<any>) => {
         this.lstChats = res.map(chat => {
