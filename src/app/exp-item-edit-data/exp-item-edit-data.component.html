@@ -54,37 +54,19 @@
   ----------------------------------------------->
 <ng-template #editDataModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Editar Datos</h5>
+        <h5 class="modal-title" id="modal-basic-title">EDITAR {{frmData.value.idtipodoc}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
         <form [formGroup]="frmData" autocomplete="off">
-            <h4>
-                <select class="form-select" formControlName="idtipodoc" style="text-align: center;">
-                    <option value="EXPEDIENTE-ORIGEN">EXPEDIENTE PRINCIPAL/ORIGEN</option>
-                    <option value="EXPEDIENTE-CAUTELAR">EXPEDIENTE CAUTELAR</option>
-                    <option value="CASACION-2DA-SALA">CASACION 2DA SALA</option>
-                    <option value="CASACION-4TA-SALA">CASACION 4TA SALA</option>
-                    <option value="CARPETA-FISCAL">CARPETA FISCAL</option>
-                    <option value="EXPEDIENTE-CURADURIA">CURADURÍA</option>
-                    <option value="EXPEDIENTE-PROVISIONAL">EXPEDIENTE PROVISIONAL</option>
-                </select>
-            </h4>
-            <hr />
             <table style="width:100%">
                 <tr>
                     <td>
-                        <b>ESPECIALIDAD:</b>
+                        <b>ÁREA:</b>
                     </td>
                     <td>
-                        <select class="form-select" formControlName="sespecialidad" (change)="setLstMaterias()">
-                            <option value="LABORAL">LABORAL</option>
-                            <option value="CIVIL">CIVIL</option>
-                            <option value="PENAL">PENAL</option>
-                            <option value="FAMILIA">FAMILIA</option>
-                            <option value="CONSTITUCIONAL">CONSTITUCIONAL</option>
-                        </select>
+                        <span style="padding-left: 13px;">{{frmData.value.sespecialidad}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -96,12 +78,6 @@
                         <datalist id="materias">
                             <option *ngFor="let mat of lstMaterias" [value]="mat.smateria"></option>
                         </datalist>
-
-                        <!-- <select class="form-select" formControlName="idmateria" (change)="setSMateria()">
-                            <option *ngFor="let mat of lstMaterias" [value]="mat.idmateria">
-                                {{mat.smateria}}
-                            </option>
-                        </select> -->
                     </td>
                 </tr>
                 <tr>

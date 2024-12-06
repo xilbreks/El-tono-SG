@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { firstValueFrom } from 'rxjs';
+
 class ObjMateria {
   idmateria: string;
   smateria: string;
@@ -36,7 +38,6 @@ export class ExpedienteRegisterComponent {
     this.frmExpediente = new FormGroup({
       sexpediente: new FormControl(null, Validators.required),
       sespecialidad: new FormControl(null, Validators.required),
-      // idmateria: new FormControl(null),
       smateria: new FormControl(null, Validators.required),
       idtipodoc: new FormControl(null, Validators.required),
       sorganojuris: new FormControl(null, Validators.required),
@@ -64,7 +65,6 @@ export class ExpedienteRegisterComponent {
 
   setLstMaterias() {
     let sespecialidad = this.frmExpediente.controls['sespecialidad'].value;
-    // this.frmExpediente.controls['idmateria'].reset();
 
     this.lstMaterias = this.lstMateriasTodos.filter((a) => {
       if (a.sespecialidad == sespecialidad) {
@@ -74,17 +74,6 @@ export class ExpedienteRegisterComponent {
       }
     })
   }
-
-  // setSMateria() {
-  //   let idmateria = this.frmExpediente.controls['idmateria'].value;
-  //   let smateria = '--';
-  //   this.lstMaterias.forEach((a) => {
-  //     if (idmateria == a.idmateria) {
-  //       smateria = a.smateria;
-  //     }
-  //   })
-  //   this.frmExpediente.controls['smateria'].setValue(smateria);
-  // }
 
   // Establecer la validacion del codigo de expediente segun tipo de documento
   setValidator() {
@@ -149,31 +138,6 @@ export class ExpedienteRegisterComponent {
   saveExp() {
     let sexpediente = this.frmExpediente.value['sexpediente'];
     let idtipodoc = this.frmExpediente.controls['idtipodoc'].value;
-    let salias = '';
-
-    switch (idtipodoc) {
-      case 'EXPEDIENTE-ORIGEN':
-        salias = sexpediente.slice(0, 10);
-        break;
-      case 'EXPEDIENTE-CAUTELAR':
-        let lstParts: Array<string> = sexpediente.split('-');
-        salias = lstParts[0] + '-' + lstParts[1] + '-' + lstParts[2];
-        break;
-      case 'CASACION-2DA-SALA':
-        salias = sexpediente.slice(0, 10);
-        break;
-      case 'CASACION-4TA-SALA':
-        salias = sexpediente.slice(0, 10);
-        break;
-      case 'CARPETA-FISCAL':
-        salias = sexpediente;
-        break;
-      case 'EXPEDIENTE-PROVISIONAL':
-        salias = sexpediente;
-        break;
-      default:
-        salias = sexpediente;
-    }
 
     this.db
       .collection('expedientes')
@@ -182,7 +146,6 @@ export class ExpedienteRegisterComponent {
         idtipodoc: idtipodoc,
         sexpediente: sexpediente,
         sespecialidad: this.frmExpediente.controls['sespecialidad'].value,
-        idmateria: 'no-longer',
         smateria: this.frmExpediente.controls['smateria'].value,
         sorganojuris: this.frmExpediente.controls['sorganojuris'].value.trim().toUpperCase(),
         sdemandante: this.frmExpediente.controls['sdemandante'].value.trim().toUpperCase(),
@@ -190,9 +153,6 @@ export class ExpedienteRegisterComponent {
         sfechainicio: this.frmExpediente.controls['sfechainicio'].value.trim(),
 
         sfechacreacion: new Date().getTime().toString(),
-        sfechamodificacion: new Date().getTime().toString(),
-        salias: salias,
-
         lactive: true,
         sobs: '',
         smatchexp: 'no-match',
@@ -212,4 +172,43 @@ export class ExpedienteRegisterComponent {
         this.lCreating = false;
       });
   }
+
+  /****************************************************************
+   ********** GENERA EL NUEVO ID DEL PROCESO JUDICIAL *************
+   ***************************************************************/
+  async getLastID(): Promise<string> {
+    const obsPJ = this.db.collection('procesosjudiciales', ref => {
+      return ref.orderBy('idproceso', 'desc').limit(1)
+    }).get();
+
+    return firstValueFrom(obsPJ).then(snapshot => {
+      let lista: any[] = [];
+      snapshot.forEach(doc => {
+        lista.push(doc.data())
+      })
+      let idproceso = Number(lista[0].idproceso.slice(3, 8));
+      idproceso = idproceso + 1;
+      let sproceso = 'SG-';
+      if (idproceso >= 10000) {
+        sproceso = sproceso + idproceso;
+      } else if (idproceso >= 1000) {
+        sproceso = sproceso + '0' + idproceso;
+      } else if (idproceso >= 100) {
+        sproceso = sproceso + '00' + idproceso;
+      } else if (idproceso >= 10) {
+        sproceso = sproceso + '000' + idproceso;
+      } else {
+        sproceso = sproceso + '0000' + idproceso;
+      }
+
+      return sproceso;
+    }).catch(error => {
+      console.log('Error al recuperar datos');
+      throw error;
+    });
+  }
+  /*********
+   ** END **
+   ********/
+
 }
