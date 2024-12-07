@@ -14,7 +14,12 @@ interface Audience {
   stipo: string;
   sencargados: string;
   surl: string;
+
+  // Solo para vistas
   sfechauser: string;
+  sprefijolink: string;
+  ssufijolink: string;
+  scuerpolink: string;
 }
 
 @Component({
@@ -89,12 +94,34 @@ export class AudiencesComponent implements OnInit {
     }).valueChanges()
       .subscribe((res: Array<any>) => {
         this.lstAudiencias = res.map(aud => {
+          // Fecha mas legible
           let sDay = aud.sfecha.slice(8, 10);
           let sMonth = aud.sfecha.slice(5, 7);
           let sYear = aud.sfecha.slice(0, 4);
+
+          // Detecion de enlace meet en el url
+          const regexMeet = /meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3}/i;
+          let prefijo = aud.surl;
+          let cuerpo = '';
+          let sufijo = '';
+          const texto: string = aud.surl;
+          const enlace: RegExpMatchArray | null = texto.match(regexMeet);
+
+          // Existe link
+          if (enlace) {
+            let indiceInicio: number = texto.indexOf(enlace[0])
+
+            prefijo = texto.slice(0, indiceInicio);
+            cuerpo = texto.slice(indiceInicio, indiceInicio + 28).toLowerCase();
+            sufijo = texto.slice(indiceInicio + 29);
+          }
+
           return {
             ...aud,
-            sfechauser: sDay + '/' + sMonth + '/' + sYear
+            sfechauser: sDay + '/' + sMonth + '/' + sYear,
+            sprefijolink: prefijo,
+            scuerpolink: cuerpo,
+            ssufijolink: sufijo,
           }
         }).sort((a, b) => {
           let sfecha1 = a.sfecha + '-' + a.shora;

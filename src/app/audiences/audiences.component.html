@@ -84,7 +84,15 @@
                                 Encargados: {{audiencia.sencargados}}
                             </li>
                             <li>
-                                Link: {{audiencia.surl}}
+                                <span>
+                                    Link: {{audiencia.sprefijolink}}
+                                </span>
+                                <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
+                                    {{audiencia.scuerpolink}}
+                                </a>
+                                <span>
+                                    {{audiencia.ssufijolink}}
+                                </span>
                             </li>
                         </ul>
                     </td>
