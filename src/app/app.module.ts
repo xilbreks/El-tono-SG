@@ -56,6 +56,8 @@ import { AudiencesComponent } from './audiences/audiences.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
 import { ExpItemAudiencesComponent } from './exp-item-audiences/exp-item-audiences.component';
 import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { ExpItemApptComponent } from './exp-item-appt/exp-item-appt.component';
 
 const environment = {
   production: false,
@@ -116,6 +118,8 @@ const environment = {
     ExpedientesListInactiveComponent,
     ExpItemAudiencesComponent,
     InfComunicacionComponent,
+    AppointmentsComponent,
+    ExpItemApptComponent,
   ],
   imports: [
     BrowserModule,

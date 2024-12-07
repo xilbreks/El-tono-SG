@@ -1,0 +1,277 @@
+<h5>
+    Citas programadas
+</h5>
+
+<div style="display: flex;">
+    <span>
+        <button (click)="cambiarModo()" *ngIf="lViewMode" class="btn btn-secondary btn-sm">
+            <i class="bi bi-lock-fill"></i>
+        </button>
+        <button (click)="cambiarModo()" *ngIf="!lViewMode" class="btn btn-outline-success btn-sm">
+            <i class="bi bi-unlock-fill"></i>
+        </button>
+    </span>
+    <span style="flex: auto 1; font-size: 1.5rem;"></span>
+</div>
+
+<div class="table-responsive">
+    <button (click)="openModalAddCita(addCitaModal)" class="btn btn-success btn-sm" *ngIf="!lViewMode">
+        + Add
+    </button>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Anotaciones
+                </th>
+                <th *ngIf="!lViewMode">
+                    Editar
+                </th>
+                <th *ngIf="!lViewMode">
+                    Quitar
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!lLoading && lstCitas.length > 0">
+            <tr *ngFor="let cita of lstCitas">
+                <td>
+                    {{cita.sfechauser}}
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            Hora: {{cita.shora}}
+                        </li>
+                        <li>
+                            Cliente: {{cita.scliente}}
+                        </li>
+                        <li>
+                            Tipo: {{cita.stipo}}
+                        </li>
+                        <li>
+                            Encargados: {{cita.sencargados}}
+                        </li>
+                        <li>
+                            Tema: {{cita.stema}}
+                        </li>
+                    </ul>
+                </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openModalEditCita(cita, editCitaModal)"
+                        class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openModalDeleteCita(cita, deleteCitaModal)"
+                        class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!lLoading && lstCitas.length == 0">
+            No hay citas
+        </tbody>
+        <tbody *ngIf="lLoading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Cargando...
+        </tbody>
+    </table>
+
+</div>
+
+<div style="margin-top: 50px;">
+    <span style="font-size: 0.75rem;">
+        <i>
+            {{expediente?.sexpediente}}
+        </i>
+    </span>
+</div>
+
+
+<!-------------------------------------------------
+  -------------- ADD CITAS MODAL -----------------
+  ------------------------------------------------>
+<ng-template #addCitaModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Registrar Cita/Visita</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmNewAppt" autocomplete="off">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="sfecha" class="form-label">
+                        Fecha:
+                    </label>
+                    <input type="date" id="sfecha" class="form-control" formControlName="sfecha">
+                </div>
+                <div class="col-sm-6">
+                    <label for="shora" class="form-label">
+                        Hora:
+                    </label>
+                    <input type="time" id="shora" class="form-control" formControlName="shora">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="scliente" class="form-label">
+                        Cliente:
+                    </label>
+                    <input type="text" id="scliente" class="form-control" formControlName="scliente">
+                </div>
+            </div>
+            <div>
+                <label for="stipo" class="form-label">
+                    Tipo de cita:
+                </label>
+                <select id="stipo" formControlName="stipo" class="form-select">
+                    <option value="PRESENCIAL">Presencial</option>
+                    <option value="VIRTUAL">Virtual</option>
+                </select>
+                <!-- <input type="text" class="form-control" id="stipo" formControlName="stipo" /> -->
+            </div>
+            <div>
+                <label for="sencargados" class="form-label">
+                    Encargados:
+                </label>
+                <input type="text" class="form-control" id="sencargados" formControlName="sencargados" />
+            </div>
+            <div>
+                <label for="stema" class="form-label">
+                    Tema:
+                </label>
+                <input type="text" class="form-control" id="stema" formControlName="stema" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addCita()"
+            [disabled]="!(frmNewAppt.valid && !lAdding)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lAdding">
+            </span>
+            <span class="sr-only" *ngIf="!lAdding">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lAdding">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  -------------- EDIT CITA MODAL -----------------
+  ------------------------------------------------>
+<ng-template #editCitaModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar Cita</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmEditAppt" autocomplete="off">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="sfecha" class="form-label">
+                        Fecha:
+                    </label>
+                    <input type="date" id="sfecha" class="form-control" formControlName="sfecha">
+                </div>
+                <div class="col-sm-6">
+                    <label for="shora" class="form-label">
+                        Hora:
+                    </label>
+                    <input type="time" id="shora" class="form-control" formControlName="shora">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="scliente" class="form-label">
+                        Cliente:
+                    </label>
+                    <input type="text" id="scliente" class="form-control" formControlName="scliente">
+                </div>
+            </div>
+            <div>
+                <label for="stipo" class="form-label">
+                    Tipo de cita:
+                </label>
+                <select id="stipo" formControlName="stipo" class="form-select">
+                    <option value="PRESENCIAL">Presencial</option>
+                    <option value="VIRTUAL">Virtual</option>
+                </select>
+                <!-- <input type="text" class="form-control" id="stipo" formControlName="stipo" /> -->
+            </div>
+            <div>
+                <label for="sencargados" class="form-label">
+                    Encargados:
+                </label>
+                <input type="text" class="form-control" id="sencargados" formControlName="sencargados" />
+            </div>
+            <div>
+                <label for="stema" class="form-label">
+                    Tema:
+                </label>
+                <input type="text" class="form-control" id="stema" formControlName="stema" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editCita()"
+            [disabled]="!(frmEditAppt.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Actualizar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Actualizando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  ------------- DELETE CITA MODAL ----------------
+  ------------------------------------------------>
+
+<ng-template #deleteCitaModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Quitar Cita</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmDeleteAppt">
+            <div>
+                <label for="stema">Tema</label>
+                <input type="text" id="stema" formControlName="stema" class="form-control" readonly>
+            </div>
+            <div>
+                <label for="sfecha">Fecha</label>
+                <input type="date" id="sfecha" formControlName="sfecha" class="form-control" readonly>
+            </div>
+        </form>
+        <div>
+            ¿Esta seguro de quitar cita?
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="deleteCita()" [disabled]="lDeleting">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lDeleting">
+            </span>
+            <span class="sr-only" *ngIf="!lDeleting">
+                Quitar
+            </span>
+            <span class="sr-only" *ngIf="lDeleting">
+                Quitando...
+            </span>
+        </button>
+    </div>
+</ng-template>

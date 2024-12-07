@@ -1,0 +1,108 @@
+<div class="container">
+    <h4 style="text-align: center;">Planner de Citas con Clientes</h4>
+
+    <form [formGroup]="frmDate">
+        Hay <b> {{lstCitas.length}} citas programadas</b>.
+
+        <label for="smes">Mes:</label>
+        <select id="smes" formControlName="smes" (change)="cambiarFecha()">
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+        <label for="sanio" style="padding-left: 5px;">Año:</label>
+        <select id="sanio" formControlName="sanio" (change)="cambiarFecha()">
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <!-- <option value="2026">2026</option> -->
+        </select>
+    </form>
+</div>
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Cliente
+                    </th>
+                    <th>
+                        Anotaciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!lLoading && lstCitas.length > 0">
+                <tr *ngFor="let audiencia of lstCitas">
+                    <td>
+                        {{audiencia.sfechauser}}
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                AREA:
+                                <span class="tipo-audiencia {{audiencia.sespecialidad}}">
+                                    {{audiencia.sespecialidad}}
+                                </span>
+                            </li>
+                            <!-- <li>
+                                DTE: <span>{{audiencia.sdemandante}}</span>
+                            </li>
+                            <li>
+                                DDO: <span>{{audiencia.sdemandado}}</span>
+                            </li> -->
+                            <li>
+                                CLIENTE:
+                                <span>
+                                    {{audiencia.scliente}}
+                                </span>
+                            </li>
+                            <li>
+                                EXP:
+                                <span>
+                                    <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                Hora: {{audiencia.shora}}
+                            </li>
+                            <li>
+                                Tipo: {{audiencia.stipo}}
+                            </li>
+                            <li>
+                                Encargados: {{audiencia.sencargados}}
+                            </li>
+                            <li>
+                                Tema a tratar: {{audiencia.stema}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!lLoading && lstCitas.length == 0">
+                No hay citas en el mes
+            </tbody>
+            <tbody *ngIf="lLoading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Cargando...
+            </tbody>
+        </table>
+    </div>
+</div>
