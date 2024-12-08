@@ -53,7 +53,6 @@ export class ExpedienteRegisterComponent {
       sdemandante: new FormControl(null, Validators.required),
       sdemandado: new FormControl(null, Validators.required),
       sfechainicio: new FormControl(null, Validators.required),
-      idproceso: new FormControl(null, Validators.required),
     });
 
     let regexp = /^SG-\d{5}$/i;
@@ -63,29 +62,18 @@ export class ExpedienteRegisterComponent {
   }
 
   getMaterias() {
-    let obs = this.db.collection('materias')
-      .valueChanges()
-      .subscribe((res: Array<any>) => {
-        res.forEach(a => {
-          this.lstMateriasTodos.push(
-            new ObjMateria(a)
-          )
-        })
+    let obs = this.db.collection('materias').get();
 
-        obs.unsubscribe();
-      });
+    firstValueFrom(obs).then(snapshot => {
+      snapshot.forEach(doc => {
+        this.lstMateriasTodos.push(new ObjMateria(doc.data()));
+      })
+    })
   }
 
   setLstMaterias() {
     let sespecialidad = this.frmExpediente.controls['sespecialidad'].value;
-
-    this.lstMaterias = this.lstMateriasTodos.filter((a) => {
-      if (a.sespecialidad == sespecialidad) {
-        return true;
-      } else {
-        return false;
-      }
-    })
+    this.lstMaterias = this.lstMateriasTodos.filter(a => a.sespecialidad == sespecialidad);
   }
 
   // Establecer la validacion del codigo de expediente segun tipo de documento
@@ -126,130 +114,28 @@ export class ExpedienteRegisterComponent {
     this.frmExpediente.controls['sexpediente'].updateValueAndValidity();
   }
 
-  // Evento de cambio de valor en el indicador de si tiene grupo
-  onRadioChange(value: any) {
-    if (value == 'true') this.ltienegrupo = true;
-    else if (value == 'false') this.ltienegrupo = false;
+  /**
+   * Verifica si un expediente existe
+   * @sexpediente Numero del expediente
+   * @returns True si existe, false si no existe
+   */
+  verificarExpediente(sexpediente: string): Promise<boolean> {
+    let obs = this.db.collection('expedientes').doc(sexpediente).get();
+    return firstValueFrom(obs).then(doc => {
+      let exp = doc.data();
+      if (exp) {
+        return true;
+      } else {
+        return false;
+      }
+    })
   }
 
   /**
-   * MODAL
+   * Generar el nuevo ID del proceso (grupo)
+   * @returns Un codigo similar a SG-00000
    */
-
-  // Abrir modal
-  abrirModal(modal: any): void {
-    if (this.frmExpediente.controls['idproceso'].value == null) {
-      this.objGrupo = null;
-      this.ctrlGrupo.reset();
-      this.ltouched = false;
-    } else {
-      this.objGrupo = null;
-      this.ltouched = false;
-      this.ctrlGrupo.reset();
-      this.ctrlGrupo.setValue(this.frmExpediente.controls['idproceso'].value);
-    }
-
-    this.modalService.open(modal, {
-      windowClass: 'modal-md',
-    });
-  }
-
-  // busca ID del Grupo
-  async buscarIdProceso() {
-    this.lsearching = true;
-    let idproceso = this.ctrlGrupo.value.toUpperCase();
-    const obs = this.db.collection('procesosjudiciales').doc(idproceso).get();
-    let grupo: any = await firstValueFrom(obs).then(snapshot => snapshot.data()).catch(error => {
-      console.log('No existe grupo');
-      throw error;
-    });
-    console.log(grupo);
-    if (grupo) {
-      this.objGrupo = {
-        idproceso: grupo.idproceso,
-        lstmiembros: grupo.lstmiembros.split(',')
-      };
-    } else {
-      this.objGrupo = null;
-    }
-    this.ltouched = true;
-    this.lsearching = false;
-  }
-
-  // Establece el ID del Grupo desde el modal
-  establecerIdGrupo() {
-    this.frmExpediente.patchValue({
-      idproceso: this.objGrupo.idproceso
-    })
-
-    this.modalService.dismissAll();
-  }
-
-
-  // Verificar si ya existe
-  crearExpediente() {
-    this.lCreating = true;
-    let sexpediente = this.frmExpediente.value['sexpediente'];
-
-    let obs = this.db
-      .collection('expedientes')
-      .doc(sexpediente)
-      .valueChanges()
-      .subscribe(exp => {
-        if (exp == undefined) {
-          this.saveExp();
-        } else {
-          this.lCreating = false;
-          window.alert('Ya existe un expediente con ese código')
-        }
-
-        obs.unsubscribe();
-      });
-  }
-
-  // Registrar expediente
-  saveExp() {
-    let sexpediente = this.frmExpediente.value['sexpediente'];
-    let idtipodoc = this.frmExpediente.controls['idtipodoc'].value;
-
-    this.db
-      .collection('expedientes')
-      .doc(sexpediente)
-      .set({
-        idtipodoc: idtipodoc,
-        sexpediente: sexpediente,
-        sespecialidad: this.frmExpediente.controls['sespecialidad'].value,
-        smateria: this.frmExpediente.controls['smateria'].value,
-        sorganojuris: this.frmExpediente.controls['sorganojuris'].value.trim().toUpperCase(),
-        sdemandante: this.frmExpediente.controls['sdemandante'].value.trim().toUpperCase(),
-        sdemandado: this.frmExpediente.controls['sdemandado'].value.trim().toUpperCase(),
-        sfechainicio: this.frmExpediente.controls['sfechainicio'].value.trim(),
-
-        sfechacreacion: new Date().getTime().toString(),
-        lactive: true,
-        sobs: '',
-        smatchexp: 'no-match',
-        scodigo: 'XX-XXXX',
-        lcontrato: false,
-        niter: 0,
-        urlassets: 'sin-url',
-        urlcontrato: 'sin-url',
-      })
-      .then((x) => {
-        this.router.navigate(['/expediente/', sexpediente]);
-      })
-      .catch(() => {
-        window.alert('ERROR al crear expediente');
-      })
-      .finally(() => {
-        this.lCreating = false;
-      });
-  }
-
-  /****************************************************************
-   ********** GENERA EL NUEVO ID DEL PROCESO JUDICIAL *************
-   ***************************************************************/
-  async getLastID(): Promise<string> {
+  generarNuevoIdProceso(): Promise<string> {
     const obsPJ = this.db.collection('procesosjudiciales', ref => {
       return ref.orderBy('idproceso', 'desc').limit(1)
     }).get();
@@ -275,13 +161,156 @@ export class ExpedienteRegisterComponent {
       }
 
       return sproceso;
-    }).catch(error => {
-      console.log('Error al recuperar datos');
-      throw error;
     });
   }
-  /*********
-   ** END **
-   ********/
+
+  /**
+   * Registra un nuevo Expediente
+   * @idproceso ID del proceso judicial
+   * @sexpediente Numero del expediente
+   */
+  guardarExpediente(idproceso: string, sexpediente: string): Promise<void> {
+    let timestamp = (new Date()).getTime().toString();
+    return this.db.collection('expedientes').doc(sexpediente).set({
+      sexpediente: sexpediente,
+      idproceso: idproceso,
+      idtipodoc: this.frmExpediente.controls['idtipodoc'].value,
+      sespecialidad: this.frmExpediente.controls['sespecialidad'].value,
+      smateria: this.frmExpediente.controls['smateria'].value.trim().toUpperCase(),
+      sorganojuris: this.frmExpediente.controls['sorganojuris'].value.trim().toUpperCase(),
+      sdemandante: this.frmExpediente.controls['sdemandante'].value.trim().toUpperCase(),
+      sdemandado: this.frmExpediente.controls['sdemandado'].value.trim().toUpperCase(),
+      sfechainicio: this.frmExpediente.controls['sfechainicio'].value.trim(),
+
+      sfechacreacion: timestamp,
+      lactive: true,
+      sobs: '',
+      smatchexp: 'no-match',
+      scodigo: 'XX-XXXX',
+      lcontrato: false,
+      niter: 0,
+      urlcontrato: 'sin-url',
+    });
+  }
+
+  /**
+   * Registra un nuevo proceso judicial
+   * @idproceso ID del proceso
+   * @sexpediente Numero del expediente
+   */
+  guardarProceso(idproceso: string, sexpediente: string): Promise<void> {
+    let timestamp = (new Date()).getTime();
+    return this.db.collection('procesosjudiciales').doc(idproceso).set({
+      idproceso: idproceso,
+      fcreacion: timestamp,
+      lactive: true,
+      lstmiembros: sexpediente,
+      sexpediente: sexpediente,
+      niter: 0,
+      sobservaciones: '-',
+      urlcontrato: '-'
+    });
+  }
+
+  /**
+   * Guardar el expediente y nuevo proceso judical
+   * @returns En caso de exito se redirecciona al expediente
+   */
+  async guardar() {
+    this.lCreating = true;
+
+    let sexpediente = this.frmExpediente.value['sexpediente'];
+    const lexiste = await this.verificarExpediente(sexpediente);
+    if (lexiste) {
+      window.alert('Numero de expediente ya existe');
+      this.lCreating = false;
+      return;
+    }
+
+    let idProceso = await this.generarNuevoIdProceso();
+
+    const tareas = Promise.all([
+      this.guardarExpediente(idProceso, sexpediente),
+      this.guardarProceso(idProceso, sexpediente)
+    ]);
+
+    tareas.then(() => {
+      this.router.navigate(['/expedientes-updater/'], {
+        queryParams: {
+          expediente: sexpediente,
+        }
+      })
+    }).catch((err) => {
+      console.log('error', err)
+      window.alert('ocurio un error');
+    }).finally(() => {
+      this.lCreating = false;
+    })
+  }
+
+
+
+  // Sin uso /////////////////////////////////////////////////////
+  // Evento de cambio de valor en el indicador de si tiene grupo
+  onRadioChange(value: any) {
+    if (value == 'true') this.ltienegrupo = true;
+    else if (value == 'false') this.ltienegrupo = false;
+  }
+
+  // Sin uso
+  // Abrir modal
+  abrirModal(modal: any): void {
+    if (this.frmExpediente.controls['idproceso'].value == null) {
+      this.objGrupo = null;
+      this.ctrlGrupo.reset();
+      this.ltouched = false;
+    } else {
+      this.objGrupo = null;
+      this.ltouched = false;
+      this.ctrlGrupo.reset();
+      this.ctrlGrupo.setValue(this.frmExpediente.controls['idproceso'].value);
+    }
+
+    this.modalService.open(modal, {
+      windowClass: 'modal-md',
+    });
+
+    document.getElementById('idgrupoinput')?.focus();
+  }
+
+  // Sin uso
+  // busca ID del Grupo
+  async buscarIdProceso() {
+    if (!this.ctrlGrupo.valid) return;
+
+    this.lsearching = true;
+    let idproceso = this.ctrlGrupo.value.toUpperCase();
+    const obs = this.db.collection('procesosjudiciales').doc(idproceso).get();
+    let grupo: any = await firstValueFrom(obs).then(snapshot => snapshot.data()).catch(error => {
+      console.log('No existe grupo');
+      throw error;
+    });
+    console.log(grupo);
+    if (grupo) {
+      this.objGrupo = {
+        idproceso: grupo.idproceso,
+        lstmiembros: grupo.lstmiembros.split(',')
+      };
+    } else {
+      this.objGrupo = null;
+    }
+    this.ltouched = true;
+    this.lsearching = false;
+  }
+
+  // Sin uso
+  // Establece el ID del Grupo desde el modal
+  establecerIdGrupo() {
+    this.frmExpediente.patchValue({
+      idproceso: this.objGrupo.idproceso
+    })
+
+    this.modalService.dismissAll();
+  }
 
 }

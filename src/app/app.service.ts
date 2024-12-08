@@ -6,19 +6,19 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   providedIn: 'root'
 })
 export class AppService {
-  expedientes = new BehaviorSubject([]);
-  lstExps = this.expedientes.asObservable();
+  private bsExpsActivos = new BehaviorSubject([]);
+  private bsExpsDepurados = new BehaviorSubject([]);
 
-  expedientesDepurados = new BehaviorSubject([]);
-  lstExpsDepurados = this.expedientesDepurados.asObservable();
+  public lstExpsActivos = this.bsExpsActivos.asObservable();
+  public lstExpsDepurados = this.bsExpsDepurados.asObservable();
 
   constructor(private storage: AngularFireStorage) {
-    this.updateList();
+    this.getExpsActivos();
     this.getExpsDepurados();
   }
 
-  updateList() {
-    let obs = this.storage.ref('/expedientes/expedientes.json')
+  public getExpsActivos() {
+    this.storage.ref('/expedientes/expedientes.json')
       .getDownloadURL()
       .subscribe(url => {
         fetch(url)
@@ -26,20 +26,16 @@ export class AppService {
             return res.json();
           })
           .then(expedientes => {
-            expedientes.shift();
-
-            this.expedientes.next(expedientes)
+            this.bsExpsActivos.next(expedientes)
           }).catch(err => {
             console.log('ERROR', err);
-          }).finally(() => {
           });
 
-        obs.unsubscribe();
       })
   }
 
-  getExpsDepurados() {
-    let obs = this.storage.ref('/expedientes/expedientes-depurados.json')
+  public getExpsDepurados() {
+    this.storage.ref('/expedientes/expedientes-depurados.json')
       .getDownloadURL()
       .subscribe(url => {
         fetch(url)
@@ -47,15 +43,11 @@ export class AppService {
             return res.json();
           })
           .then(expedientes => {
-            expedientes.shift();
-
-            this.expedientesDepurados.next(expedientes)
+            this.bsExpsDepurados.next(expedientes)
           }).catch(err => {
             console.log('ERROR', err);
-          }).finally(() => {
           });
 
-        obs.unsubscribe();
       })
   }
 }

@@ -1,7 +1,6 @@
 <br />
-
 <form class="container expediente" [formGroup]="frmExpediente" autocomplete="off">
-    <!-- <h4>
+    <h4>
         <select class="form-select" formControlName="idtipodoc" (change)="setValidator()" style="text-align: center;">
             <option value="EXPEDIENTE-ORIGEN">EXPEDIENTE PRINCIPAL/ORIGEN</option>
             <option value="EXPEDIENTE-CAUTELAR">EXPEDIENTE CAUTELAR</option>
@@ -11,13 +10,13 @@
             <option value="EXPEDIENTE-CURADURIA">CURADURÍA</option>
             <option value="EXPEDIENTE-PROVISIONAL">EXPEDIENTE PROVISIONAL</option>
         </select>
-    </h4> -->
+    </h4>
     <h4>
-        <input type="text" placeholder="Número del expediente completo" class="form-control"
+        <input type="text" placeholder="Número de Expediente - sin espacios" class="form-control"
             formControlName="sexpediente" id="sexpediente">
     </h4>
 
-    <div>
+    <!-- <div>
         <input type="radio" id="grupono" name="grp" value="false" #opc1 (change)="onRadioChange(opc1.value)">
         <label for="grupono" style="padding-left: 5px;">
             No tiene grupo - Se creará un nuevo grupo automáticamente
@@ -31,10 +30,10 @@
     </div>
     <div class="row" *ngIf="ltienegrupo">
         <div class="col-6">
-            <input type="text" placeholder="ID del Grupo" formControlName="idproceso" class="form-control"
+            <input type="text" placeholder="ID del Grupo" class="form-control"
                 (click)="abrirModal(grpModal)" readonly>
         </div>
-    </div>
+    </div> -->
 
 
     <hr />
@@ -113,7 +112,7 @@
         </div>
         <div class="col-3">
             <div style="display: flex; flex-direction: row-reverse;">
-                <button class="btn btn-success" (click)="crearExpediente()"
+                <button class="btn btn-success" (click)="guardar()"
                     [disabled]="!(frmExpediente.valid && !lCreating)">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreating">
                     </span>
@@ -131,9 +130,6 @@
 
 <br />
 
-<pre>
-    {{frmExpediente.value | json}}
-</pre>
 
 <!-----------------------------------------------------
   ------------- MODAL ENCONTRAR GRUPO -----------------
@@ -148,7 +144,7 @@
         <div class="row" style="padding-bottom: 15px;">
             <div class="col-8">
                 <input type="text" class="form-control" placeholder="ID del Grupo, ej: SG-00000"
-                    [formControl]="ctrlGrupo">
+                    [formControl]="ctrlGrupo" (keydown.enter)="buscarIdProceso()" id="idgrupoinput">
             </div>
             <div class="col-4" *ngIf="!lsearching">
                 <button class="btn btn-success" [disabled]="!ctrlGrupo.valid" (click)="buscarIdProceso()">

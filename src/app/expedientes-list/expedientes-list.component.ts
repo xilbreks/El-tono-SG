@@ -37,7 +37,7 @@ export class ExpedientesListComponent implements AfterViewInit {
   }
 
   obtenerExpedientes() {
-    this.service.lstExps.subscribe(res => {
+    this.service.lstExpsActivos.subscribe(res => {
       this.lstExpedientes = res;
       this.separarAreas();
       if (res.length > 0 ) {

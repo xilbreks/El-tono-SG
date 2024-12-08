@@ -195,7 +195,7 @@ export class RdtEditComponent {
    * Recupera el listado del expedientes
    */
   getExpedientesList() {
-    this.service.lstExps.subscribe((res: any) => this.lstExpedientes = res);
+    this.service.lstExpsActivos.subscribe((res: any) => this.lstExpedientes = res);
   }
 
   /**
