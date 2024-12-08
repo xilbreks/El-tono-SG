@@ -1,7 +1,7 @@
 <br />
 
 <form class="container expediente" [formGroup]="frmExpediente" autocomplete="off">
-    <h4>
+    <!-- <h4>
         <select class="form-select" formControlName="idtipodoc" (change)="setValidator()" style="text-align: center;">
             <option value="EXPEDIENTE-ORIGEN">EXPEDIENTE PRINCIPAL/ORIGEN</option>
             <option value="EXPEDIENTE-CAUTELAR">EXPEDIENTE CAUTELAR</option>
@@ -11,11 +11,32 @@
             <option value="EXPEDIENTE-CURADURIA">CURADURÍA</option>
             <option value="EXPEDIENTE-PROVISIONAL">EXPEDIENTE PROVISIONAL</option>
         </select>
-    </h4>
+    </h4> -->
     <h4>
-        <input type="text" placeholder="00000-0000-0-0000-00-00-00" class="form-control" formControlName="sexpediente"
-            id="sexpediente">
+        <input type="text" placeholder="Número del expediente completo" class="form-control"
+            formControlName="sexpediente" id="sexpediente">
     </h4>
+
+    <div>
+        <input type="radio" id="grupono" name="grp" value="false" #opc1 (change)="onRadioChange(opc1.value)">
+        <label for="grupono" style="padding-left: 5px;">
+            No tiene grupo - Se creará un nuevo grupo automáticamente
+        </label>
+    </div>
+    <div>
+        <input type="radio" id="gruposi" name="grp" value="true" #opc2 (change)="onRadioChange(opc2.value)" checked>
+        <label for="gruposi" style="padding-left: 5px;">
+            Sí tiene grupo - Se agregará al grupo existente
+        </label>
+    </div>
+    <div class="row" *ngIf="ltienegrupo">
+        <div class="col-6">
+            <input type="text" placeholder="ID del Grupo" formControlName="idproceso" class="form-control"
+                (click)="abrirModal(grpModal)" readonly>
+        </div>
+    </div>
+
+
     <hr />
     <table style="width:100%">
         <tr>
@@ -109,3 +130,61 @@
 </form>
 
 <br />
+
+<pre>
+    {{frmExpediente.value | json}}
+</pre>
+
+<!-----------------------------------------------------
+  ------------- MODAL ENCONTRAR GRUPO -----------------
+  ---------------------------------------------------->
+<ng-template #grpModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Encontrar Grupo por ID</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row" style="padding-bottom: 15px;">
+            <div class="col-8">
+                <input type="text" class="form-control" placeholder="ID del Grupo, ej: SG-00000"
+                    [formControl]="ctrlGrupo">
+            </div>
+            <div class="col-4" *ngIf="!lsearching">
+                <button class="btn btn-success" [disabled]="!ctrlGrupo.valid" (click)="buscarIdProceso()">
+                    <i class="bi bi-search-heart"></i>
+                    Buscar
+                </button>
+            </div>
+            <div class="col-4" *ngIf="lsearching">
+                <button class="btn btn-success" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Buscando...
+                </button>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="!objGrupo && ltouched" class="alert alert-warning">
+            ID de grupo no existe.
+        </div>
+        <div class="row" *ngIf="objGrupo && ltouched" class="alert alert-success">
+            Grupo: {{objGrupo.idproceso}}
+            <div>
+                Expedientes adjuntos:
+                <ol>
+                    <li *ngFor="let exp of objGrupo.lstmiembros">
+                        {{exp}}
+                    </li>
+                </ol>
+            </div>
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" *ngIf="objGrupo" (click)="establecerIdGrupo()">
+            <span class="sr-only">
+                Seleccionar grupo
+            </span>
+        </button>
+    </div>
+</ng-template>

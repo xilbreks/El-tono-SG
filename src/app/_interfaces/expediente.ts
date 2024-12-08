@@ -1,5 +1,6 @@
 export interface Expediente {
     sexpediente: string;
+    idproceso: string;
     idtipodoc: string;
     idmateria: string;
     lcontrato: boolean;

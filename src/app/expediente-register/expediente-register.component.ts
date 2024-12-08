@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { firstValueFrom } from 'rxjs';
 
@@ -28,10 +29,18 @@ export class ExpedienteRegisterComponent {
   frmExpediente: FormGroup;
   lCreating: boolean = false;
 
+  // Variables del Modal
+  ltienegrupo = true;
+  ctrlGrupo: FormControl;
+  lsearching = false;
+  objGrupo: any = null;
+  ltouched = false;
+
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
     private router: Router,
+    private modalService: NgbModal,
   ) {
     this.titleService.setTitle('Registrar Expediente');
 
@@ -44,7 +53,11 @@ export class ExpedienteRegisterComponent {
       sdemandante: new FormControl(null, Validators.required),
       sdemandado: new FormControl(null, Validators.required),
       sfechainicio: new FormControl(null, Validators.required),
+      idproceso: new FormControl(null, Validators.required),
     });
+
+    let regexp = /^SG-\d{5}$/i;
+    this.ctrlGrupo = new FormControl(null, Validators.compose([Validators.required, Validators.pattern(regexp)]))
 
     this.getMaterias();
   }
@@ -112,6 +125,66 @@ export class ExpedienteRegisterComponent {
     ]);
     this.frmExpediente.controls['sexpediente'].updateValueAndValidity();
   }
+
+  // Evento de cambio de valor en el indicador de si tiene grupo
+  onRadioChange(value: any) {
+    if (value == 'true') this.ltienegrupo = true;
+    else if (value == 'false') this.ltienegrupo = false;
+  }
+
+  /**
+   * MODAL
+   */
+
+  // Abrir modal
+  abrirModal(modal: any): void {
+    if (this.frmExpediente.controls['idproceso'].value == null) {
+      this.objGrupo = null;
+      this.ctrlGrupo.reset();
+      this.ltouched = false;
+    } else {
+      this.objGrupo = null;
+      this.ltouched = false;
+      this.ctrlGrupo.reset();
+      this.ctrlGrupo.setValue(this.frmExpediente.controls['idproceso'].value);
+    }
+
+    this.modalService.open(modal, {
+      windowClass: 'modal-md',
+    });
+  }
+
+  // busca ID del Grupo
+  async buscarIdProceso() {
+    this.lsearching = true;
+    let idproceso = this.ctrlGrupo.value.toUpperCase();
+    const obs = this.db.collection('procesosjudiciales').doc(idproceso).get();
+    let grupo: any = await firstValueFrom(obs).then(snapshot => snapshot.data()).catch(error => {
+      console.log('No existe grupo');
+      throw error;
+    });
+    console.log(grupo);
+    if (grupo) {
+      this.objGrupo = {
+        idproceso: grupo.idproceso,
+        lstmiembros: grupo.lstmiembros.split(',')
+      };
+    } else {
+      this.objGrupo = null;
+    }
+    this.ltouched = true;
+    this.lsearching = false;
+  }
+
+  // Establece el ID del Grupo desde el modal
+  establecerIdGrupo() {
+    this.frmExpediente.patchValue({
+      idproceso: this.objGrupo.idproceso
+    })
+
+    this.modalService.dismissAll();
+  }
+
 
   // Verificar si ya existe
   crearExpediente() {

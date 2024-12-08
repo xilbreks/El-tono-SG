@@ -1,5 +1,18 @@
-<br />
 <div class="container" *ngIf="!lLoading">
+    <div font>
+        Grupo: {{expediente?.idproceso}}
+    </div>
+    <div>
+        <span>Expedientes:</span>
+        <ol>
+            <li *ngFor="let exp of lstExpedientes">
+                <a [routerLink]="'/expediente/'+exp.sexpediente">
+                    {{exp.sexpediente}}
+                </a>
+            </li>
+        </ol>
+    </div>
+
     <ul class="nav nav-tabs" id="myTab" role="tablist" *ngIf="expediente">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="expediente-tab" data-bs-toggle="tab"
