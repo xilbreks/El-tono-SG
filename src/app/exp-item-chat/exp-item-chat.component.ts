@@ -141,7 +141,7 @@ export class ExpItemChatComponent implements OnInit {
       stipo: c.stipo,
       sfecha: c.sfecha,
       smensaje: c.smensaje,
-      sencargado: c.sencargado,
+      sencargado: c.sencargado ? c.sencargado : '',
     })
 
     this.modalService.open(modal, {
