@@ -55,9 +55,7 @@ export class ZDownloaderComponent {
   }
 
   backUpExpedientes() {
-    let obs = this.db.collection('expedientes', ref => {
-      return ref.where('lactive', '==', true);
-    })
+    let obs = this.db.collection('expedientes')
     .valueChanges()
     .subscribe(res => {
       // Convert JSON to string

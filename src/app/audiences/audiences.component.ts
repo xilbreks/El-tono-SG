@@ -29,6 +29,10 @@ interface Audience {
 })
 export class AudiencesComponent implements OnInit {
   lstAudiencias: Audience[] = [];
+  lstAudLaboral: Audience[] = [];
+  lstAudFamilia: Audience[] = [];
+  lstAudCivil: Audience[] = [];
+  lstAudPenal: Audience[] = [];
   lLoading = false;
 
   frmDate: FormGroup;
@@ -128,6 +132,12 @@ export class AudiencesComponent implements OnInit {
           let sfecha2 = b.sfecha + '-' + b.shora;
           return sfecha1 < sfecha2 ? -1 : 1;
         });
+
+        // Crear las lista filtrando segun area de la audiencia
+        this.lstAudLaboral = this.lstAudiencias.filter(a => a.sespecialidad == 'LABORAL' || a.sespecialidad == 'CONSTITUCIONAL');
+        this.lstAudFamilia = this.lstAudiencias.filter(a => a.sespecialidad == 'FAMILIA');
+        this.lstAudCivil = this.lstAudiencias.filter(a => a.sespecialidad == 'CIVIL');
+        this.lstAudPenal = this.lstAudiencias.filter(a => a.sespecialidad == 'PENAL');
 
         this.lLoading = false;
         obs.unsubscribe();

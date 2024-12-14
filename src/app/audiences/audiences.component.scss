@@ -10,6 +10,10 @@ pre {
     padding: 10px;
 }
 
+ul.nav {
+    font-size: 0.85rem;
+}
+
 .tipo-audiencia {
     font-family: monospace;
     padding: 0 10px;
@@ -18,16 +22,40 @@ pre {
     &.FAMILIA {
         background-color: pink;
     }
+
     &.LABORAL {
         background-color: lightgreen;
     }
+
     &.CIVIL {
-        background-color: #ff8c00;
+        background-color: yellow;
     }
+
     &.PENAL {
         background-color: lightgrey;
     }
+
     &.CONSTITUCIONAL {
         background-color: red;
     }
+}
+
+.nav-link.active#todos-tab {
+    border-top: 5px solid blue;
+}
+
+.nav-link.active#laboral-tab {
+    border-top: 5px solid green;
+}
+
+.nav-link.active#familia-tab {
+    border-top: 5px solid #ff66cc;
+}
+
+.nav-link.active#civil-tab {
+    border-top: 5px solid yellow;
+}
+
+.nav-link.active#penal-tab {
+    border-top: 5px solid grey;
 }

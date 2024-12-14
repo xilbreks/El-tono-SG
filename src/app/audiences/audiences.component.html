@@ -29,82 +29,431 @@
 </div>
 
 <div class="container">
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th style="width: 10%;">
-                        Fecha
-                    </th>
-                    <th style="width: 40%;">
-                        Expediente
-                    </th>
-                    <th style="width: 50%;">
-                        Anotaciones
-                    </th>
-                </tr>
-            </thead>
-            <tbody *ngIf="!lLoading && lstAudiencias.length > 0">
-                <tr *ngFor="let audiencia of lstAudiencias">
-                    <td>
-                        {{audiencia.sfechauser}}
-                    </td>
-                    <td>
-                        <ul>
-                            <li>
-                                AREA:
-                                <span class="tipo-audiencia {{audiencia.sespecialidad}}">
-                                    {{audiencia.sespecialidad}}
-                                </span>
-                            </li>
-                            <li>
-                                DTE: <span>{{audiencia.sdemandante}}</span>
-                            </li>
-                            <li>
-                                DDO: <span>{{audiencia.sdemandado}}</span>
-                            </li>
-                            <li>
-                                EXP:
-                                <span>
-                                    <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="todos-tab" data-bs-toggle="tab" data-bs-target="#todos-tab-pane"
+                type="button" role="tab" aria-controls="todos-tab-pane" aria-selected="true">
+                Todos ({{lstAudiencias.length}})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="laboral-tab" data-bs-toggle="tab" data-bs-target="#laboral-tab-pane"
+                type="button" role="tab" aria-controls="laboral-tab-pane" aria-selected="false">
+                Laboral ({{lstAudLaboral.length}})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="familia-tab" data-bs-toggle="tab" data-bs-target="#familia-tab-pane"
+                type="button" role="tab" aria-controls="familia-tab-pane" aria-selected="false">
+                Familia ({{lstAudFamilia.length}})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="civil-tab" data-bs-toggle="tab" data-bs-target="#civil-tab-pane" type="button"
+                role="tab" aria-controls="civil-tab-pane" aria-selected="false">
+                Civil ({{lstAudCivil.length}})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="penal-tab" data-bs-toggle="tab" data-bs-target="#penal-tab-pane" type="button"
+                role="tab" aria-controls="penal-tab-pane" aria-selected="false">
+                Penal ({{lstAudPenal.length}})
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content table-responsive" id="myTabContent">
+        <div class="tab-pane fade show active" id="todos-tab-pane" role="tabpanel" aria-labelledby="todos-tab"
+            tabindex="0">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">
+                            Fecha
+                        </th>
+                        <th style="width: 40%;">
+                            Expediente
+                        </th>
+                        <th style="width: 50%;">
+                            Anotaciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="!lLoading && lstAudiencias.length > 0">
+                    <tr *ngFor="let audiencia of lstAudiencias">
+                        <td>
+                            {{audiencia.sfechauser}}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    AREA:
+                                    <span class="tipo-audiencia {{audiencia.sespecialidad}}">
+                                        {{audiencia.sespecialidad}}
+                                    </span>
+                                </li>
+                                <li>
+                                    DTE: <span>{{audiencia.sdemandante}}</span>
+                                </li>
+                                <li>
+                                    DDO: <span>{{audiencia.sdemandado}}</span>
+                                </li>
+                                <li>
+                                    EXP:
+                                    <span>
+                                        <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
+                                        </a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    Hora: {{audiencia.shora}}
+                                </li>
+                                <li>
+                                    Tipo: {{audiencia.stipo}}
+                                </li>
+                                <li>
+                                    Encargados: {{audiencia.sencargados}}
+                                </li>
+                                <li>
+                                    <span>
+                                        Link: {{audiencia.sprefijolink}}
+                                    </span>
+                                    <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
+                                        {{audiencia.scuerpolink}}
                                     </a>
-                                </span>
-                            </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <li>
-                                Hora: {{audiencia.shora}}
-                            </li>
-                            <li>
-                                Tipo: {{audiencia.stipo}}
-                            </li>
-                            <li>
-                                Encargados: {{audiencia.sencargados}}
-                            </li>
-                            <li>
-                                <span>
-                                    Link: {{audiencia.sprefijolink}}
-                                </span>
-                                <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
-                                    {{audiencia.scuerpolink}}
-                                </a>
-                                <span>
-                                    {{audiencia.ssufijolink}}
-                                </span>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody *ngIf="!lLoading && lstAudiencias.length == 0">
-                No hay audiencias en el mes
-            </tbody>
-            <tbody *ngIf="lLoading">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Cargando...
-            </tbody>
-        </table>
+                                    <span>
+                                        {{audiencia.ssufijolink}}
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!lLoading && lstAudiencias.length == 0">
+                    No hay audiencias en el mes
+                </tbody>
+                <tbody *ngIf="lLoading">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Cargando...
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="laboral-tab-pane" role="tabpanel" aria-labelledby="laboral-tab" tabindex="0">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">
+                            Fecha
+                        </th>
+                        <th style="width: 40%;">
+                            Expediente
+                        </th>
+                        <th style="width: 50%;">
+                            Anotaciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="!lLoading && lstAudLaboral.length > 0">
+                    <tr *ngFor="let audiencia of lstAudLaboral">
+                        <td>
+                            {{audiencia.sfechauser}}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    AREA:
+                                    <span class="tipo-audiencia {{audiencia.sespecialidad}}">
+                                        {{audiencia.sespecialidad}}
+                                    </span>
+                                </li>
+                                <li>
+                                    DTE: <span>{{audiencia.sdemandante}}</span>
+                                </li>
+                                <li>
+                                    DDO: <span>{{audiencia.sdemandado}}</span>
+                                </li>
+                                <li>
+                                    EXP:
+                                    <span>
+                                        <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
+                                        </a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    Hora: {{audiencia.shora}}
+                                </li>
+                                <li>
+                                    Tipo: {{audiencia.stipo}}
+                                </li>
+                                <li>
+                                    Encargados: {{audiencia.sencargados}}
+                                </li>
+                                <li>
+                                    <span>
+                                        Link: {{audiencia.sprefijolink}}
+                                    </span>
+                                    <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
+                                        {{audiencia.scuerpolink}}
+                                    </a>
+                                    <span>
+                                        {{audiencia.ssufijolink}}
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!lLoading && lstAudLaboral.length == 0">
+                    No hay audiencias en el mes
+                </tbody>
+                <tbody *ngIf="lLoading">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Cargando...
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="familia-tab-pane" role="tabpanel" aria-labelledby="familia-tab" tabindex="0">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">
+                            Fecha
+                        </th>
+                        <th style="width: 40%;">
+                            Expediente
+                        </th>
+                        <th style="width: 50%;">
+                            Anotaciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="!lLoading && lstAudFamilia.length > 0">
+                    <tr *ngFor="let audiencia of lstAudFamilia">
+                        <td>
+                            {{audiencia.sfechauser}}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    AREA:
+                                    <span class="tipo-audiencia {{audiencia.sespecialidad}}">
+                                        {{audiencia.sespecialidad}}
+                                    </span>
+                                </li>
+                                <li>
+                                    DTE: <span>{{audiencia.sdemandante}}</span>
+                                </li>
+                                <li>
+                                    DDO: <span>{{audiencia.sdemandado}}</span>
+                                </li>
+                                <li>
+                                    EXP:
+                                    <span>
+                                        <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
+                                        </a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    Hora: {{audiencia.shora}}
+                                </li>
+                                <li>
+                                    Tipo: {{audiencia.stipo}}
+                                </li>
+                                <li>
+                                    Encargados: {{audiencia.sencargados}}
+                                </li>
+                                <li>
+                                    <span>
+                                        Link: {{audiencia.sprefijolink}}
+                                    </span>
+                                    <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
+                                        {{audiencia.scuerpolink}}
+                                    </a>
+                                    <span>
+                                        {{audiencia.ssufijolink}}
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!lLoading && lstAudFamilia.length == 0">
+                    No hay audiencias en el mes
+                </tbody>
+                <tbody *ngIf="lLoading">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Cargando...
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="civil-tab-pane" role="tabpanel" aria-labelledby="civil-tab" tabindex="0">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">
+                            Fecha
+                        </th>
+                        <th style="width: 40%;">
+                            Expediente
+                        </th>
+                        <th style="width: 50%;">
+                            Anotaciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="!lLoading && lstAudCivil.length > 0">
+                    <tr *ngFor="let audiencia of lstAudCivil">
+                        <td>
+                            {{audiencia.sfechauser}}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    AREA:
+                                    <span class="tipo-audiencia {{audiencia.sespecialidad}}">
+                                        {{audiencia.sespecialidad}}
+                                    </span>
+                                </li>
+                                <li>
+                                    DTE: <span>{{audiencia.sdemandante}}</span>
+                                </li>
+                                <li>
+                                    DDO: <span>{{audiencia.sdemandado}}</span>
+                                </li>
+                                <li>
+                                    EXP:
+                                    <span>
+                                        <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
+                                        </a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    Hora: {{audiencia.shora}}
+                                </li>
+                                <li>
+                                    Tipo: {{audiencia.stipo}}
+                                </li>
+                                <li>
+                                    Encargados: {{audiencia.sencargados}}
+                                </li>
+                                <li>
+                                    <span>
+                                        Link: {{audiencia.sprefijolink}}
+                                    </span>
+                                    <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
+                                        {{audiencia.scuerpolink}}
+                                    </a>
+                                    <span>
+                                        {{audiencia.ssufijolink}}
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!lLoading && lstAudCivil.length == 0">
+                    No hay audiencias en el mes
+                </tbody>
+                <tbody *ngIf="lLoading">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Cargando...
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="penal-tab-pane" role="tabpanel" aria-labelledby="penal-tab" tabindex="0">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">
+                            Fecha
+                        </th>
+                        <th style="width: 40%;">
+                            Expediente
+                        </th>
+                        <th style="width: 50%;">
+                            Anotaciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="!lLoading && lstAudPenal.length > 0">
+                    <tr *ngFor="let audiencia of lstAudPenal">
+                        <td>
+                            {{audiencia.sfechauser}}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    AREA:
+                                    <span class="tipo-audiencia {{audiencia.sespecialidad}}">
+                                        {{audiencia.sespecialidad}}
+                                    </span>
+                                </li>
+                                <li>
+                                    DTE: <span>{{audiencia.sdemandante}}</span>
+                                </li>
+                                <li>
+                                    DDO: <span>{{audiencia.sdemandado}}</span>
+                                </li>
+                                <li>
+                                    EXP:
+                                    <span>
+                                        <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
+                                        </a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    Hora: {{audiencia.shora}}
+                                </li>
+                                <li>
+                                    Tipo: {{audiencia.stipo}}
+                                </li>
+                                <li>
+                                    Encargados: {{audiencia.sencargados}}
+                                </li>
+                                <li>
+                                    <span>
+                                        Link: {{audiencia.sprefijolink}}
+                                    </span>
+                                    <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
+                                        {{audiencia.scuerpolink}}
+                                    </a>
+                                    <span>
+                                        {{audiencia.ssufijolink}}
+                                    </span>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!lLoading && lstAudPenal.length == 0">
+                    No hay audiencias en el mes
+                </tbody>
+                <tbody *ngIf="lLoading">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Cargando...
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </div>
