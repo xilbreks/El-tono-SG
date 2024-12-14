@@ -21,11 +21,14 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>
+                <th style="width: 10%;">
                     Fecha
                 </th>
-                <th>
+                <th style="width: 45%;">
                     Anotaciones
+                </th>
+                <th style="width: 45%;">
+                    Acuerdos
                 </th>
                 <th *ngIf="!lViewMode">
                     Editar
@@ -58,6 +61,9 @@
                             Tema: {{cita.stema}}
                         </li>
                     </ul>
+                </td>
+                <td style="white-space: pre-line;">
+                    {{cita.sacuerdos}}
                 </td>
                 <td *ngIf="!lViewMode">
                     <button (click)="openModalEditCita(cita, editCitaModal)"

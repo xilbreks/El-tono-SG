@@ -14,6 +14,7 @@ interface Appointment {
   shora: string;
   stipo: string;
   sencargados: string;
+  sacuerdos: string;
   stema: string;
   sfechauser: string;
 }
@@ -26,11 +27,14 @@ interface Appointment {
 export class AppointmentsComponent implements OnInit {
   lstCitas: Appointment[] = [];
   lLoading = false;
+  lUpdating = false;
 
   frmDate: FormGroup;
+  frmAcuerdos: FormGroup;
 
   constructor(
     private db: AngularFirestore,
+    private modalService: NgbModal,
   ) {
     /*******************************
      ******* FORM DATE RANGE *******
@@ -41,6 +45,13 @@ export class AppointmentsComponent implements OnInit {
       smes: new FormControl(null, Validators.required),
       sanio: new FormControl(null, Validators.required),
     });
+    /**
+     * Form Control de Acuerdos
+     */
+    this.frmAcuerdos = new FormGroup({
+      idcita: new FormControl(null, Validators.required),
+      sacuerdos: new FormControl(null, Validators.required)
+    })
   }
 
   ngOnInit(): void {
@@ -73,12 +84,11 @@ export class AppointmentsComponent implements OnInit {
       sfinal: sLastDay,
     });
 
-    this.getCitas();
+    this.getCitas(true);
   }
 
-  getCitas() {
-    this.lLoading = true;
-    this.lstCitas = [];
+  getCitas(indicator: boolean) {
+    this.lLoading = indicator;
     let sinicio = this.frmDate.controls['sinicio'].value;
     let sfinal = this.frmDate.controls['sfinal'].value;
 
@@ -105,5 +115,32 @@ export class AppointmentsComponent implements OnInit {
         this.lLoading = false;
         obs.unsubscribe();
       })
+  }
+
+  openModalAcuerdos(idcita: string, sacuerdos: string, modal: any) {
+    this.frmAcuerdos.setValue({
+      idcita: idcita,
+      sacuerdos: sacuerdos,
+    })
+
+    this.modalService.open(modal, {
+      windowClass: 'modal-md',
+    });
+  }
+
+  updateAcuerdos() {
+    this.lUpdating = true;
+    let idcita = this.frmAcuerdos.value['idcita'];
+    let sacuerdos = this.frmAcuerdos.value['sacuerdos'].trim();
+
+    this.db.collection('citas').doc(idcita).update({
+      sacuerdos: sacuerdos
+    }).then(() => {
+      this.modalService.dismissAll();
+      this.lUpdating = false;
+      this.getCitas(false);
+    }).catch(err => {
+      window.alert('ocurrió un error');
+    })
   }
 }

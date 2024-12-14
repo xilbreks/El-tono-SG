@@ -46,7 +46,7 @@ export class AudiencesComponent implements OnInit {
       smes: new FormControl(null, Validators.required),
       sanio: new FormControl(null, Validators.required),
     });
-    
+
   }
 
   ngOnInit(): void {
@@ -100,7 +100,7 @@ export class AudiencesComponent implements OnInit {
           let sYear = aud.sfecha.slice(0, 4);
 
           // Detecion de enlace meet en el url
-          const regexMeet = /meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3}/i;
+          const regexMeet = /meet\.google\.com\/[a-z]{3}-{0,1}[a-z]{4}-{0,1}[a-z]{3}/i;
           let prefijo = aud.surl;
           let cuerpo = '';
           let sufijo = '';

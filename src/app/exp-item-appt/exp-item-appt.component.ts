@@ -156,6 +156,7 @@ export class ExpItemApptComponent implements OnChanges {
         stipo: this.frmNewAppt.value['stipo'],
         sencargados: this.frmNewAppt.value['sencargados'],
         stema: this.frmNewAppt.value['stema'],
+        sacuerdos: '-'
       })
       .then((x) => {
         this.getCitas();
