@@ -33,6 +33,7 @@ import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/ex
 import { autenticacionGuard } from './autenticacion.guard';
 import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
+import { DemandasComponent } from './demandas/demandas.component';
 
 const routes: Routes = [
   {
@@ -163,6 +164,10 @@ const routes: Routes = [
   {
     path: 'citas',
     component: AppointmentsComponent
+  },
+  {
+    path: 'demandas',
+    component: DemandasComponent
   },
   {
     path: '**',

@@ -1,0 +1,170 @@
+<div class="container">
+    <h4 style="text-align: center;">Planner de Demandas</h4>
+
+    <div style="display: flex;" *ngIf="user == 'admin3' || user == 'lizbet-silva'">
+        <span>
+            <button (click)="cambiarModo()" *ngIf="lViewMode" class="btn btn-secondary btn-sm">
+                <i class="bi bi-lock-fill"></i>
+            </button>
+            <button (click)="cambiarModo()" *ngIf="!lViewMode" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-unlock-fill"></i>
+            </button>
+        </span>
+        <span style="flex: auto 1; font-size: 1.5rem;"></span>
+    </div>
+
+    <div *ngIf="!lViewMode">
+        <button class="btn btn-sm btn-success" (click)="openModalAddDemanda(modalAddDemanda)">
+            Agregar Tarea
+        </button>
+    </div>
+</div>
+
+<div class="container table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="numeracion">
+                    #
+                </th>
+                <th>
+                    Demanda pendiente
+                </th>
+                <th>
+                    Fecha Límite
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th *ngIf="!lViewMode">
+                    Editar
+                </th>
+                <th *ngIf="!lViewMode">
+                    Quitar
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!isLoading && lstDemandas.length > 0">
+            <tr *ngFor="let demanda of lstDemandas; let i = index">
+                <td class="numeracion">
+                    {{i + 1}}
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            AREA:
+                            <span class="tipo-demanda {{demanda.sespecialidad}}">
+                                {{demanda.sespecialidad}}
+                            </span>
+                        </li>
+                        <li>
+                            TAREA:
+                            <span>
+                                {{demanda.starea}}
+                            </span>
+                        </li>
+                        <li>
+                            RESPONSABLE:
+                            <b>
+                                <i>
+                                    {{demanda.sresponsables}}
+                                </i>
+                            </b>
+                        </li>
+                        <li>
+                            Asignado el 15/12/2024
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    {{demanda.sfechalimiteUser}}
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            {{demanda.sestado}}
+                        </li>
+                        <li>
+                            Observaciones: {{demanda.sobservaciones}}
+                        </li>
+                    </ul>
+                </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openModalEditDemanda(demanda, modalAddDemanda)"
+                        class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                </td>
+                <td *ngIf="!lViewMode">
+                    <button (click)="openModalDeleteDemanda(demanda, modalAddDemanda)"
+                        class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!isLoading && lstDemandas.length == 0">
+            No hay demandas pendientes en el mes
+        </tbody>
+        <tbody *ngIf="isLoading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Cargando...
+        </tbody>
+    </table>
+</div>
+
+<!------------------------------------------------------------------
+  ------------- MODAL PARA AGREGAR TAREA DE DEMANDA ----------------
+  ----------------------------------------------------------------->
+<ng-template #modalAddDemanda let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Asignar Demanda</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmNewDemanda" autocomplete="off">
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label for="area">Area</label>
+                    <select id="area" formControlName="sespecialidad" class="form-select" aria-placeholder="Area">
+                        <option value="LABORAL">LABORAL</option>
+                        <option value="FAMILIA">FAMILIA</option>
+                        <option value="CIVIL">CIVIL</option>
+                        <option value="PENAL">PENAL</option>
+                    </select>
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="fecha">Fecha Límite</label>
+                    <input id="fecha" type="date" class="form-control" formControlName="sfechalimite">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <textarea rows="3" id="tarea" formControlName="starea" class="form-control"
+                        placeholder="Tarea a asignar">
+                    </textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input id="responsable" type="text" class="form-control" placeholder="Responsable(s)"
+                        formControlName="sresponsables">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addDemanda()"
+            [disabled]="!(frmNewDemanda.valid && !lAdding)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lAdding">
+            </span>
+            <span class="sr-only" *ngIf="!lAdding">
+                Asignar
+            </span>
+            <span class="sr-only" *ngIf="lAdding">
+                Asignando...
+            </span>
+        </button>
+    </div>
+</ng-template>

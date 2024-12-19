@@ -58,6 +58,7 @@ import { ExpItemAudiencesComponent } from './exp-item-audiences/exp-item-audienc
 import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { ExpItemApptComponent } from './exp-item-appt/exp-item-appt.component';
+import { DemandasComponent } from './demandas/demandas.component';
 
 const environment = {
   production: false,
@@ -120,6 +121,7 @@ const environment = {
     InfComunicacionComponent,
     AppointmentsComponent,
     ExpItemApptComponent,
+    DemandasComponent,
   ],
   imports: [
     BrowserModule,

@@ -52,7 +52,7 @@
                 Observaciones
             </button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="suser=='admin' || suser == 'admin2'">
+        <li class="nav-item" role="presentation" *ngIf="suser=='admin' || suser == 'admin3'">
             <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit-tab-pane" type="button"
                 role="tab" aria-controls="edit-tab-pane" aria-selected="false">
                 <i class="bi bi-wrench-adjustable"></i>
@@ -81,7 +81,7 @@
             <app-exp-item-obs [expediente]="expediente"></app-exp-item-obs>
         </div>
         
-        <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0" *ngIf="suser=='admin' || suser == 'admin2'">
+        <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0" *ngIf="suser=='admin' || suser == 'admin3'">
             <app-exp-item-edit-data [sexpediente]="expediente.sexpediente"></app-exp-item-edit-data>
             <app-exp-item-edit-match [sexpediente]="expediente.sexpediente"></app-exp-item-edit-match>
             <app-exp-item-edit-code [sexpediente]="expediente.sexpediente"></app-exp-item-edit-code>

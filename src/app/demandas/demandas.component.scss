@@ -1,0 +1,35 @@
+table {
+    font-size: 0.85rem;
+    min-width: 600px;
+}
+
+.tipo-demanda {
+    font-family: monospace;
+    padding: 0 10px;
+    border-radius: 5px;
+
+    &.FAMILIA {
+        background-color: pink;
+    }
+
+    &.LABORAL {
+        background-color: lightgreen;
+    }
+
+    &.CIVIL {
+        background-color: yellow;
+    }
+
+    &.PENAL {
+        background-color: lightgrey;
+    }
+
+    &.CONSTITUCIONAL {
+        background-color: red;
+    }
+}
+
+.numeracion {
+    width: 4%;
+    text-align: center;
+}
