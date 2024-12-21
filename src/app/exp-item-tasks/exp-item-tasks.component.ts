@@ -62,9 +62,9 @@ export class ExpItemTasksComponent implements OnInit {
     let obs = this.db
       .collection('tareas', ref => {
         if (this.expediente?.smatchexp == 'nomatch') {
-          return ref.where('sexpediente', '==', this.expediente.sexpediente).orderBy('sfecha', 'desc');
+          return ref.where('sexpediente', '==', this.expediente.sexpediente).orderBy('sfecha', 'desc').limit(50);
         } else {
-          return ref.where('sexpediente', 'in', [this.expediente?.sexpediente, this.expediente?.smatchexp]).orderBy('sfecha', 'desc');
+          return ref.where('sexpediente', 'in', [this.expediente?.sexpediente, this.expediente?.smatchexp]).orderBy('sfecha', 'desc').limit(50);
         }
       })
       .valueChanges()
