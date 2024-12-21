@@ -580,11 +580,11 @@ export class RdtEditComponent {
 
     // Set ITER
     this.setLstIterNewTask();
-    if (exp.niter == 0) {
-      this.frmNewTask.controls['niter'].setValue(null);
-    } else {
-      this.frmNewTask.controls['niter'].setValue(exp.niter);
-    }
+    // if (exp.niter == 0) {
+    //   this.frmNewTask.controls['niter'].setValue(null);
+    // } else {
+    //   this.frmNewTask.controls['niter'].setValue(exp.niter);
+    // }
 
     // Remove popover list
     this.lstExpedientesFiltered = [];
