@@ -23,11 +23,11 @@ interface Audience {
 }
 
 @Component({
-  selector: 'app-audiences',
-  templateUrl: './audiences.component.html',
-  styleUrl: './audiences.component.scss'
+  selector: 'app-trials',
+  templateUrl: './trials.component.html',
+  styleUrl: './trials.component.scss'
 })
-export class AudiencesComponent implements OnInit {
+export class TrialsComponent implements OnInit {
   lstAudiencias: Audience[] = [];
   lstAudLaboral: Audience[] = [];
   lstAudFamilia: Audience[] = [];

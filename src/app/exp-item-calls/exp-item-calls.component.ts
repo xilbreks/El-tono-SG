@@ -7,11 +7,11 @@ import { Expediente } from './../_interfaces/expediente';
 import { Chat } from './../__clases/chat';
 
 @Component({
-  selector: 'app-exp-item-chat',
-  templateUrl: './exp-item-chat.component.html',
-  styleUrls: ['./exp-item-chat.component.scss']
+  selector: 'app-exp-item-calls',
+  templateUrl: './exp-item-calls.component.html',
+  styleUrl: './exp-item-calls.component.scss'
 })
-export class ExpItemChatComponent implements OnInit {
+export class ExpItemCallsComponent implements OnInit {
   @Input('expediente') expediente: Expediente | null = null;
 
   // Chats
@@ -202,5 +202,4 @@ export class ExpItemChatComponent implements OnInit {
   cambiarModo() {
     this.lViewMode = !this.lViewMode;
   }
-
 }

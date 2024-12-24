@@ -35,9 +35,9 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="chat-tab" data-bs-toggle="tab" data-bs-target="#chat-tab-pane" type="button"
-                role="tab" aria-controls="chat-tab-pane" aria-selected="false">
-                Comunicación
+            <button class="nav-link" id="calls-tab" data-bs-toggle="tab" data-bs-target="#calls-tab-pane" type="button"
+                role="tab" aria-controls="calls-tab-pane" aria-selected="false">
+                Llamadas
             </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -65,16 +65,16 @@
             <app-exp-item-cover [expediente]="expediente"></app-exp-item-cover>
         </div>
         <div class="tab-pane fade" id="historial-tab-pane" role="tabpanel" aria-labelledby="historial-tab" tabindex="0">
-            <app-exp-item-tasks [expediente]="expediente"></app-exp-item-tasks>
+            <app-exp-item-rdt [expediente]="expediente"></app-exp-item-rdt>
         </div>
         <div class="tab-pane fade" id="pagos-tab-pane" role="tabpanel" aria-labelledby="pagos-tab" tabindex="0">
             <app-exp-item-fees [expediente]="expediente"></app-exp-item-fees>
         </div>
-        <div class="tab-pane fade" id="chat-tab-pane" role="tabpanel" aria-labelledby="chat-tab" tabindex="0">
-            <app-exp-item-chat [expediente]="expediente"></app-exp-item-chat>
+        <div class="tab-pane fade" id="calls-tab-pane" role="tabpanel" aria-labelledby="calls-tab" tabindex="0">
+            <app-exp-item-calls [expediente]="expediente"></app-exp-item-calls>
         </div>
         <div class="tab-pane fade" id="audiencia-tab-pane" role="tabpanel" aria-labelledby="audiencia-tab" tabindex="0">
-            <app-exp-item-audiences [expediente]="expediente"></app-exp-item-audiences>
+            <app-exp-item-trial [expediente]="expediente"></app-exp-item-trial>
             <app-exp-item-appt [expediente]="expediente"></app-exp-item-appt>
         </div>
         <div class="tab-pane fade" id="obs-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
@@ -86,7 +86,6 @@
             <app-exp-item-edit-match [sexpediente]="expediente.sexpediente"></app-exp-item-edit-match>
             <app-exp-item-edit-code [sexpediente]="expediente.sexpediente"></app-exp-item-edit-code>
             <app-exp-item-edit-terms [sexpediente]="expediente.sexpediente"></app-exp-item-edit-terms>
-            <!-- <app-exp-item-edit-url [sexpediente]="expediente.sexpediente"></app-exp-item-edit-url> -->
             <app-exp-item-edit-status [sexpediente]="expediente.sexpediente"></app-exp-item-edit-status>
         </div>
     </div>

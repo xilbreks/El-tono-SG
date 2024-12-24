@@ -27,13 +27,13 @@ import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
-import { AudiencesComponent } from './audiences/audiences.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
 import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { DemandasComponent } from './demandas/demandas.component';
+import { TrialsComponent } from './trials/trials.component';
 
 const routes: Routes = [
   {
@@ -107,7 +107,7 @@ const routes: Routes = [
   },
   {
     path: 'audiencias',
-    component: AudiencesComponent
+    component: TrialsComponent
   },
   {
     path: 'testing',

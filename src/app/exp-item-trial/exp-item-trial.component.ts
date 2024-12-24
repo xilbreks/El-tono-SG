@@ -6,11 +6,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Expediente } from './../_interfaces/expediente';
 
 @Component({
-  selector: 'app-exp-item-audiences',
-  templateUrl: './exp-item-audiences.component.html',
-  styleUrl: './exp-item-audiences.component.scss'
+  selector: 'app-exp-item-trial',
+  templateUrl: './exp-item-trial.component.html',
+  styleUrl: './exp-item-trial.component.scss'
 })
-export class ExpItemAudiencesComponent implements OnChanges {
+export class ExpItemTrialComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
   lstAudiencias: any[] = [];
   lViewMode = true;

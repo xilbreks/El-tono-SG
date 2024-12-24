@@ -63,7 +63,8 @@
                     </button>
                 </td>
                 <td *ngIf="!lViewMode">
-                    <button (click)="openModalDeleteAudiencia(audiencia, deleteAudienciaModal)" class="btn btn-danger btn-sm">
+                    <button (click)="openModalDeleteAudiencia(audiencia, deleteAudienciaModal)"
+                        class="btn btn-danger btn-sm">
                         <i class="bi bi-trash-fill"></i>
                     </button>
                 </td>
@@ -221,7 +222,7 @@
     </div>
     <div class="modal-body">
         <div>
-            ¿Esta seguro de quitar esta 
+            ¿Esta seguro de quitar esta
             <i>
                 {{frmDeleteAudience.value.stipo}}
             </i>

@@ -5,11 +5,11 @@ import { Expediente } from './../_interfaces/expediente';
 import { Tarea } from './../_interfaces/tarea';
 
 @Component({
-  selector: 'app-exp-item-tasks',
-  templateUrl: './exp-item-tasks.component.html',
-  styleUrls: ['./exp-item-tasks.component.scss']
+  selector: 'app-exp-item-rdt',
+  templateUrl: './exp-item-rdt.component.html',
+  styleUrl: './exp-item-rdt.component.scss'
 })
-export class ExpItemTasksComponent implements OnInit {
+export class ExpItemRdtComponent implements OnInit {
   @Input('expediente') expediente: Expediente | null = null;
   lstTareas: Array<Tarea> = [];
   lhasmore: boolean = false;

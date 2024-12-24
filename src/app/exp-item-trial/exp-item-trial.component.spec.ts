@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExpItemEditUrlComponent } from './exp-item-edit-url.component';
+import { ExpItemTrialComponent } from './exp-item-trial.component';
 
-describe('ExpItemEditUrlComponent', () => {
-  let component: ExpItemEditUrlComponent;
-  let fixture: ComponentFixture<ExpItemEditUrlComponent>;
+describe('ExpItemTrialComponent', () => {
+  let component: ExpItemTrialComponent;
+  let fixture: ComponentFixture<ExpItemTrialComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExpItemEditUrlComponent]
+      declarations: [ExpItemTrialComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ExpItemEditUrlComponent);
+    fixture = TestBed.createComponent(ExpItemTrialComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

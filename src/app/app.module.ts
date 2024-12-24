@@ -39,7 +39,6 @@ import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ExpItemComponent } from './exp-item/exp-item.component';
-import { ExpItemChatComponent } from './exp-item-chat/exp-item-chat.component';
 import { ExpItemCoverComponent } from './exp-item-cover/exp-item-cover.component';
 import { ExpItemEditCodeComponent } from './exp-item-edit-code/exp-item-edit-code.component';
 import { ExpItemEditDataComponent } from './exp-item-edit-data/exp-item-edit-data.component';
@@ -47,18 +46,18 @@ import { ExpItemEditMatchComponent } from './exp-item-edit-match/exp-item-edit-m
 import { ExpItemEditStatusComponent } from './exp-item-edit-status/exp-item-edit-status.component';
 import { ExpItemObsComponent } from './exp-item-obs/exp-item-obs.component';
 import { ExpItemFeesComponent } from './exp-item-fees/exp-item-fees.component';
-import { ExpItemTasksComponent } from './exp-item-tasks/exp-item-tasks.component';
 import { ExpItemEditTermsComponent } from './exp-item-edit-terms/exp-item-edit-terms.component';
 
-import { ExpItemEditUrlComponent } from './exp-item-edit-url/exp-item-edit-url.component';
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
-import { AudiencesComponent } from './audiences/audiences.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
-import { ExpItemAudiencesComponent } from './exp-item-audiences/exp-item-audiences.component';
 import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { ExpItemApptComponent } from './exp-item-appt/exp-item-appt.component';
 import { DemandasComponent } from './demandas/demandas.component';
+import { ExpItemRdtComponent } from './exp-item-rdt/exp-item-rdt.component';
+import { ExpItemTrialComponent } from './exp-item-trial/exp-item-trial.component';
+import { ExpItemCallsComponent } from './exp-item-calls/exp-item-calls.component';
+import { TrialsComponent } from './trials/trials.component';
 
 const environment = {
   production: false,
@@ -103,7 +102,6 @@ const environment = {
     SinoeAdminComponent,
     SignUpComponent,
     ExpItemComponent,
-    ExpItemChatComponent,
     ExpItemCoverComponent,
     ExpItemEditCodeComponent,
     ExpItemEditDataComponent,
@@ -111,17 +109,17 @@ const environment = {
     ExpItemEditStatusComponent,
     ExpItemObsComponent,
     ExpItemFeesComponent,
-    ExpItemTasksComponent,
     ExpItemEditTermsComponent,
-    ExpItemEditUrlComponent,
     ZDownloaderComponent,
-    AudiencesComponent,
     ExpedientesListInactiveComponent,
-    ExpItemAudiencesComponent,
     InfComunicacionComponent,
     AppointmentsComponent,
     ExpItemApptComponent,
     DemandasComponent,
+    ExpItemRdtComponent,
+    ExpItemTrialComponent,
+    ExpItemCallsComponent,
+    TrialsComponent,
   ],
   imports: [
     BrowserModule,
