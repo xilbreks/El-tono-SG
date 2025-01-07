@@ -61,7 +61,11 @@ export class TrialsComponent implements OnInit {
   setHoy() {
     const dHoy = new Date();
     const nYear = dHoy.getFullYear();
-    const nMonth = dHoy.getMonth() + 1;
+    let nMonth: any = dHoy.getMonth() + 1;
+
+    if (nMonth < 10) {
+      nMonth = '0' + nMonth;
+    }
 
     this.frmDate.patchValue({
       smes: nMonth,
