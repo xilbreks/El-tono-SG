@@ -9,21 +9,21 @@
 
 <div>
     Estado actual:
-    <kbd *ngIf="lactive" style="background-color: #28b131;">
+    <kbd *ngIf="lStatus" style="background-color: #28b131;">
         <span>·</span>
         ACTIVO
         <span>·</span>
     </kbd>
-    <kbd *ngIf="!lactive" style="background-color: red;">
+    <kbd *ngIf="!lStatus" style="background-color: red;">
         <span>·</span>
         DEPURADO
         <span>·</span>
     </kbd>
 </div>
 
-<br/>
+<br />
 
-<div *ngIf="!lactive">
+<div *ngIf="!lStatus">
 
     <button class="btn btn-danger" (click)="openModalSetStatus(setActiveModal)">
         Activar
@@ -31,7 +31,7 @@
 
 </div>
 
-<div *ngIf="lactive">
+<div *ngIf="lStatus">
 
     <button class="btn btn-danger" (click)="openModalSetStatus(setNotActiveModal)">
         Depurar
@@ -44,14 +44,14 @@
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
-            {{sexpediente}}
+            {{expediente?.sexpediente}}
         </i>
     </span>
 </div>
 
 
 <!------------------------------------------------
-  -------------- SET ACTIVE MODAL ----------------
+  -------------- ENABLE EXP MODAL ----------------
   ----------------------------------------------->
 <ng-template #setActiveModal let-modal>
     <div class="modal-header">
@@ -70,21 +70,27 @@
         </p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="setActive()">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
-            </span>
-            <span class="sr-only" *ngIf="!lUpdating">
-                Dar de alta
-            </span>
-            <span class="sr-only" *ngIf="lUpdating">
-                Dando de alta...
-            </span>
-        </button>
+        <div *ngIf="!lUpdating">
+            <button type="button" class="btn btn-danger" (click)="enableExp()">
+                <span class="sr-only">
+                    Dar de alta
+                </span>
+            </button>
+        </div>
+        <div *ngIf="lUpdating">
+            <button type="button" class="btn btn-danger">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                </span>
+                <span class="sr-only">
+                    Dando de alta...
+                </span>
+            </button>
+        </div>
     </div>
 </ng-template>
 
 <!------------------------------------------------
-  ------------ SET NOT ACTIVE MODAL --------------
+  ------------- DISABLE EXP MODAL ----------------
   ----------------------------------------------->
 <ng-template #setNotActiveModal let-modal>
     <div class="modal-header">
@@ -103,15 +109,21 @@
         </p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="setNotActive()">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
-            </span>
-            <span class="sr-only" *ngIf="!lUpdating">
-                Dar de baja
-            </span>
-            <span class="sr-only" *ngIf="lUpdating">
-                Dando de baja...
-            </span>
-        </button>
+        <div *ngIf="!lUpdating">
+            <button type="button" class="btn btn-danger" (click)="disableExp()">
+                <span class="sr-only">
+                    Dar de baja
+                </span>
+            </button>
+        </div>
+        <div *ngIf="lUpdating">
+            <button type="button" class="btn btn-danger">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                </span>
+                <span class="sr-only">
+                    Dando de baja...
+                </span>
+            </button>
+        </div>
     </div>
 </ng-template>

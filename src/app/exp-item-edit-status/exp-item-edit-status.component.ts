@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+
+import { Expediente } from './../_interfaces/expediente';
 
 @Component({
   selector: 'app-exp-item-edit-status',
@@ -8,32 +11,22 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./exp-item-edit-status.component.scss']
 })
 export class ExpItemEditStatusComponent implements OnChanges {
-  @Input('sexpediente') sexpediente: string = '';
-  @Output() onLactive = new EventEmitter<boolean>();
+  @Input('expediente') expediente: Expediente | null = null;
 
-  lactive: boolean = true;
+  lStatus: boolean = true;
   lUpdating = false;
 
   constructor(
     private db: AngularFirestore,
     private modalService: NgbModal,
+    private router: Router,
   ) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.getLactive();
-  }
-
-  getLactive() {
-    let obs = this.db.collection('expedientes')
-      .doc(this.sexpediente)
-      .valueChanges()
-      .subscribe((res: any) => {
-        this.lactive = res.lactive;
-        this.onLactive.emit(this.lactive);
-
-        obs.unsubscribe();
-      });
+    if (this.expediente) {
+      this.lStatus = this.expediente.lactive;
+    }
   }
 
   openModalSetStatus(modal: any) {
@@ -42,47 +35,52 @@ export class ExpItemEditStatusComponent implements OnChanges {
     });
   }
 
-  setNotActive() {
+  /**
+   * Vuelve activo un expediente depurado
+   */
+  enableExp() {
     this.lUpdating = true;
-    this.db.collection('expedientes')
-      .doc(this.sexpediente)
-      .update({
-        lactive: false
+    this.setStatus(true).then(() => {
+      this.modalService.dismissAll();
+      this.router.navigate(['/expedientes-updater/'], {
+        queryParams: {
+          expediente: this.expediente?.sexpediente,
+        }
       })
-      .then(() => {
-        // success
-        this.getLactive();
-        this.onLactive.emit(false);
-        this.modalService.dismissAll();
-      })
-      .catch(err => {
-        console.log('ERROR', err)
-      })
-      .finally(() => {
-        this.lUpdating = false;
-      });
+    }).catch(() => {
+      window.alert('error status');
+    }).finally(() => {
+      this.lUpdating = false;
+    });
   }
 
-  setActive() {
+  /**
+   * Depura un expediente
+   */
+  disableExp() {
     this.lUpdating = true;
-    this.db
+    this.setStatus(false).then(() => {
+      this.modalService.dismissAll();
+      this.router.navigate(['/expedientes-updater/'], {
+        queryParams: {
+          expediente: this.expediente?.sexpediente,
+        }
+      })
+    }).catch(() => {
+      window.alert('error status');
+    }).finally(() => {
+      this.lUpdating = false;
+    });
+  }
+
+  // Consultas a la base de datos
+
+  setStatus(lStatus: boolean): Promise<void> {
+    return this.db
       .collection('expedientes')
-      .doc(this.sexpediente)
+      .doc(this.expediente?.sexpediente)
       .update({
-        lactive: true
-      })
-      .then(() => {
-        // success
-        this.getLactive();
-        this.onLactive.emit(true);
-        this.modalService.dismissAll();
-      })
-      .catch(err => {
-        console.log('ERROR', err)
-      })
-      .finally(() => {
-        this.lUpdating = false;
+        lactive: lStatus
       });
   }
-
 }
