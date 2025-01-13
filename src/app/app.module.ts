@@ -46,7 +46,6 @@ import { ExpItemEditMatchComponent } from './exp-item-edit-match/exp-item-edit-m
 import { ExpItemEditStatusComponent } from './exp-item-edit-status/exp-item-edit-status.component';
 import { ExpItemObsComponent } from './exp-item-obs/exp-item-obs.component';
 import { ExpItemFeesComponent } from './exp-item-fees/exp-item-fees.component';
-import { ExpItemEditTermsComponent } from './exp-item-edit-terms/exp-item-edit-terms.component';
 
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
@@ -58,6 +57,8 @@ import { ExpItemRdtComponent } from './exp-item-rdt/exp-item-rdt.component';
 import { ExpItemTrialComponent } from './exp-item-trial/exp-item-trial.component';
 import { ExpItemCallsComponent } from './exp-item-calls/exp-item-calls.component';
 import { TrialsComponent } from './trials/trials.component';
+import { ExpItemFilesComponent } from './exp-item-files/exp-item-files.component';
+import { ExpItemKComponent } from './exp-item-k/exp-item-k.component';
 
 const environment = {
   production: false,
@@ -109,7 +110,6 @@ const environment = {
     ExpItemEditStatusComponent,
     ExpItemObsComponent,
     ExpItemFeesComponent,
-    ExpItemEditTermsComponent,
     ZDownloaderComponent,
     ExpedientesListInactiveComponent,
     InfComunicacionComponent,
@@ -120,6 +120,8 @@ const environment = {
     ExpItemTrialComponent,
     ExpItemCallsComponent,
     TrialsComponent,
+    ExpItemFilesComponent,
+    ExpItemKComponent,
   ],
   imports: [
     BrowserModule,

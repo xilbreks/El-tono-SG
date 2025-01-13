@@ -41,6 +41,12 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
+            <button class="nav-link" id="citas-tab" data-bs-toggle="tab" data-bs-target="#citas-tab-pane" type="button"
+                role="tab" aria-controls="citas-tab-pane" aria-selected="false">
+                Citas
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
             <button class="nav-link" id="audiencia-tab" data-bs-toggle="tab" data-bs-target="#audiencia-tab-pane" type="button"
                 role="tab" aria-controls="audiencia-tab-pane" aria-selected="false">
                 Audiencias
@@ -50,6 +56,12 @@
             <button class="nav-link" id="obs-tab" data-bs-toggle="tab" data-bs-target="#obs-tab-pane" type="button"
                 role="tab" aria-controls="obs-tab-pane" aria-selected="false">
                 Observaciones
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="files-tab" data-bs-toggle="tab" data-bs-target="#files-tab-pane" type="button"
+                role="tab" aria-controls="files-tab-pane" aria-selected="false">
+                Actuados
             </button>
         </li>
         <li class="nav-item" role="presentation" *ngIf="suser=='lizbet-silva' || suser == 'admin3'">
@@ -73,19 +85,24 @@
         <div class="tab-pane fade" id="calls-tab-pane" role="tabpanel" aria-labelledby="calls-tab" tabindex="0">
             <app-exp-item-calls [expediente]="expediente"></app-exp-item-calls>
         </div>
+        <div class="tab-pane fade" id="citas-tab-pane" role="tabpanel" aria-labelledby="citas-tab" tabindex="0">
+            <app-exp-item-appt [expediente]="expediente"></app-exp-item-appt>
+        </div>
         <div class="tab-pane fade" id="audiencia-tab-pane" role="tabpanel" aria-labelledby="audiencia-tab" tabindex="0">
             <app-exp-item-trial [expediente]="expediente"></app-exp-item-trial>
-            <app-exp-item-appt [expediente]="expediente"></app-exp-item-appt>
         </div>
         <div class="tab-pane fade" id="obs-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
             <app-exp-item-obs [expediente]="expediente"></app-exp-item-obs>
+        </div>
+        <div class="tab-pane fade" id="files-tab-pane" role="tabpanel" aria-labelledby="files-tab" tabindex="0">
+            <app-exp-item-k [expediente]="expediente"></app-exp-item-k>
+            <app-exp-item-files [expediente]="expediente"></app-exp-item-files>
         </div>
         
         <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0" *ngIf="suser=='lizbet-silva' || suser == 'admin3'">
             <app-exp-item-edit-data [sexpediente]="expediente.sexpediente"></app-exp-item-edit-data>
             <app-exp-item-edit-match [sexpediente]="expediente.sexpediente"></app-exp-item-edit-match>
             <app-exp-item-edit-code [sexpediente]="expediente.sexpediente"></app-exp-item-edit-code>
-            <app-exp-item-edit-terms [sexpediente]="expediente.sexpediente"></app-exp-item-edit-terms>
             <app-exp-item-edit-status [expediente]="expediente"></app-exp-item-edit-status>
         </div>
     </div>
