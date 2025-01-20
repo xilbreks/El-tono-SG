@@ -1,4 +1,4 @@
-<div style="display: flex;" *ngIf="idusuario=='admin' || idusuario == 'admin3' || idusuario == 'lizbet-silva'">
+<div style="display: flex;" *ngIf="idusuario == 'admin4' || idusuario == 'lizbet-silva'">
     <span>
         <button (click)="cambiarModo()" *ngIf="lViewMode" class="btn btn-secondary btn-sm">
             <i class="bi bi-lock-fill"></i>
@@ -178,7 +178,7 @@
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
-            {{expediente?.sexpediente}}
+            {{expediente?.numero}}
         </i>
     </span>
 </div>

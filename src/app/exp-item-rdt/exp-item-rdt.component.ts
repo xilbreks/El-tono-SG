@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Expediente } from './../_interfaces/expediente';
@@ -9,8 +9,9 @@ import { Tarea } from './../_interfaces/tarea';
   templateUrl: './exp-item-rdt.component.html',
   styleUrl: './exp-item-rdt.component.scss'
 })
-export class ExpItemRdtComponent implements OnInit {
+export class ExpItemRdtComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
+  
   lstTareas: Array<Tarea> = [];
   lhasmore: boolean = false;
   lLoading: boolean = true;
@@ -20,8 +21,10 @@ export class ExpItemRdtComponent implements OnInit {
     private db: AngularFirestore
   ) { }
 
-  ngOnInit(): void {
-    this.getTareas();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.expediente) {
+      this.getTareas();
+    }
   }
 
   getTareas(): void {
@@ -30,11 +33,7 @@ export class ExpItemRdtComponent implements OnInit {
 
     let obs = this.db
       .collection('tareas', ref => {
-        if (this.expediente?.smatchexp == 'nomatch') {
-          return ref.where('sexpediente', '==', this.expediente?.sexpediente).orderBy('sfecha', 'desc').limit(16);
-        } else {
-          return ref.where('sexpediente', 'in', [this.expediente?.sexpediente, this.expediente?.smatchexp]).orderBy('sfecha', 'desc').limit(16);
-        }
+        return ref.where('sexpediente', '==', this.expediente?.numero).orderBy('sfecha', 'desc').limit(16);
       })
       .valueChanges()
       .subscribe((tareas: any[]) => {
@@ -61,11 +60,7 @@ export class ExpItemRdtComponent implements OnInit {
 
     let obs = this.db
       .collection('tareas', ref => {
-        if (this.expediente?.smatchexp == 'nomatch') {
-          return ref.where('sexpediente', '==', this.expediente.sexpediente).orderBy('sfecha', 'desc').limit(50);
-        } else {
-          return ref.where('sexpediente', 'in', [this.expediente?.sexpediente, this.expediente?.smatchexp]).orderBy('sfecha', 'desc').limit(50);
-        }
+        return ref.where('sexpediente', '==', this.expediente?.numero).orderBy('sfecha', 'desc').limit(50);
       })
       .valueChanges()
       .subscribe((tareas: any[]) => {

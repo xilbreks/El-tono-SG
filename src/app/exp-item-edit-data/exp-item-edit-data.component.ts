@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { Expediente } from '../_interfaces/expediente';
+import { firstValueFrom } from 'rxjs';
 
 class ObjMateria {
   idmateria: string = '';
@@ -16,12 +19,16 @@ class ObjMateria {
   styleUrls: ['./exp-item-edit-data.component.scss']
 })
 export class ExpItemEditDataComponent implements OnChanges {
-  @Input('sexpediente') sexpediente: string = '';
+  @Input('expediente') expediente: Expediente | null = null;
 
-  objData: any = null;
+  materia: string = '';
+  demandante: string = '';
+  demandado: string = '';
+  juzgado: string = '';
+  fechaInicio: string = '';
+
   frmData: FormGroup;
   lUpdating: boolean = false;
-  lstMateriasTodos: Array<ObjMateria> = [];
   lstMaterias: Array<ObjMateria> = [];
 
   constructor(
@@ -29,87 +36,46 @@ export class ExpItemEditDataComponent implements OnChanges {
     private modalService: NgbModal,
   ) {
     this.frmData = new FormGroup({
-      idtipodoc: new FormControl(null, Validators.required),
-      sespecialidad: new FormControl(null, Validators.required),
-      // idmateria: new FormControl(null, Validators.required),
-      smateria: new FormControl(null, Validators.required),
-      sdemandado: new FormControl(null, Validators.required),
-      sdemandante: new FormControl(null, Validators.required),
-      sfechainicio: new FormControl(null, Validators.required),
+      materia: new FormControl(null, Validators.required),
+      demandado: new FormControl(null, Validators.required),
+      demandante: new FormControl(null, Validators.required),
+      juzgado: new FormControl(null, Validators.required),
+      fechaInicio: new FormControl(null, Validators.required),
     });
 
     this.getMaterias();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.getData();
+    if (this.expediente) {
+      this.materia = this.expediente.materia;
+      this.demandante = this.expediente.demandante;
+      this.demandado = this.expediente.demandado;
+      this.juzgado = this.expediente.juzgado;
+      this.fechaInicio = this.expediente.fechaInicio;
+    }
   }
 
   getMaterias() {
-    let obs = this.db
-      .collection('materias')
-      .valueChanges()
-      .subscribe((lstMat: Array<any>) => {
-        this.lstMateriasTodos = lstMat;
+    let obs = this.db.collection('materias').get();
 
-        obs.unsubscribe();
+    firstValueFrom(obs).then(snapshot => {
+      let materias: any[] = [];
+      snapshot.forEach(doc => {
+        materias.push(doc.data());
       });
-  }
 
-  setLstMaterias() {
-    let sespecialidad = this.frmData.controls['sespecialidad'].value;
-    // this.frmData.controls['idmateria'].reset();
-
-    this.lstMaterias = this.lstMateriasTodos.filter((a) => {
-      if (a.sespecialidad == sespecialidad) {
-        return true;
-      } else {
-        return false;
-      }
+      this.lstMaterias = materias.filter(m => m.sespecialidad == this.expediente?.especialidad);
     })
-  }
-
-  // setSMateria() {
-  //   let idmateria = this.frmData.controls['idmateria'].value;
-  //   let smateria = '--';
-  //   this.lstMaterias.forEach((a) => {
-  //     if (idmateria == a.idmateria) {
-  //       smateria = a.smateria;
-  //     }
-  //   })
-  //   this.frmData.controls['smateria'].setValue(smateria);
-  // }
-
-  getData() {
-    let obs = this.db
-      .collection('expedientes')
-      .doc(this.sexpediente)
-      .valueChanges()
-      .subscribe((exp: any) => {
-        this.objData = exp;
-
-        obs.unsubscribe();
-      });
   }
 
   openModal(modal: any) {
-    // SETTING LIST MATERIAS
-    this.lstMaterias = this.lstMateriasTodos.filter((a) => {
-      if (a.sespecialidad == this.objData.sespecialidad) {
-        return true;
-      } else {
-        return false;
-      }
-    })
-
     this.frmData.setValue({
-      idtipodoc: this.objData.idtipodoc,
-      // idmateria: this.objData.idmateria,
-      smateria: this.objData.smateria,
-      sdemandado: this.objData.sdemandado,
-      sdemandante: this.objData.sdemandante,
-      sespecialidad: this.objData.sespecialidad,
-      sfechainicio: this.objData.sfechainicio,
+      materia: this.materia,
+      demandado: this.demandado,
+      demandante: this.demandante,
+      juzgado: this.juzgado,
+      fechaInicio: this.fechaInicio,
     });
 
     this.modalService.open(modal, {
@@ -119,22 +85,24 @@ export class ExpItemEditDataComponent implements OnChanges {
 
   setData() {
     this.lUpdating = true;
-    
+
     this.db
       .collection('expedientes')
-      .doc(this.sexpediente)
+      .doc(this.expediente?.idExpediente)
       .update({
-        idtipodoc: this.frmData.value['idtipodoc'],
-        // idmateria: this.frmData.value['idmateria'],
-        smateria: this.frmData.value['smateria'],
-        sdemandado: this.frmData.value['sdemandado'].trim().toUpperCase(),
-        sdemandante: this.frmData.value['sdemandante'].trim().toUpperCase(),
-        sespecialidad: this.frmData.value['sespecialidad'],
-        sfechainicio: this.frmData.value['sfechainicio'].trim(),
+        materia: this.frmData.value['materia'],
+        demandado: this.frmData.value['demandado'].trim().toUpperCase(),
+        demandante: this.frmData.value['demandante'].trim().toUpperCase(),
+        juzgado: this.frmData.value['juzgado'].trim().toUpperCase(),
+        fechaInicio: this.frmData.value['fechaInicio'].trim(),
       })
       .then(() => {
         // success
-        this.getData();
+        this.materia = this.frmData.value['materia'];
+        this.demandado = this.frmData.value['demandado'].trim().toUpperCase();
+        this.demandante = this.frmData.value['demandante'].trim().toUpperCase();
+        this.juzgado = this.frmData.value['juzgado'].trim().toUpperCase();
+        this.fechaInicio = this.frmData.value['fechaInicio'].trim();
       })
       .catch(err => {
         // error

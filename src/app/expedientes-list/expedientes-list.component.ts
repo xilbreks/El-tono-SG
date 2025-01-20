@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AppService } from './../app.service';
 
+import { Expediente } from '../_interfaces/expediente';
+
 @Component({
   selector: 'app-expedientes-list',
   templateUrl: './expedientes-list.component.html',
@@ -8,23 +10,22 @@ import { AppService } from './../app.service';
 })
 export class ExpedientesListComponent implements AfterViewInit {
   @ViewChild('searchTerm') searchTerm: any;
-  lstExpedientes: Array<any> = [];
-  lstExpedientesFiltered: Array<any> = [];
+  expedientes: Expediente[] = [];
+  expedientesFiltered: Array<any> = [];
   lModeFiltering = false;
   sFecha: string = '';
   lLoading = true;
 
-  lstLaRepo: Array<any> = [];
-  lstLaIndem: Array<any> = [];
-  lstLaPBSE: Array<any> = [];
-  lstLaOtros: Array<any> = [];
-  lstFamil: Array<any> = [];
-  lstCivil: Array<any> = [];
-  lstPenal: Array<any> = [];
-  lstConst: Array<any> = [];
-  lstCas2Sala: Array<any> = [];
-  lstCas4Sala: Array<any> = [];
-  lstCarpFisc: Array<any> = [];
+  casaciones2da: Expediente[] = [];
+  casaciones4ta: Expediente[] = [];
+  laborales: Expediente[] = [];
+  familias: Expediente[] = [];
+  civiles: Expediente[] = [];
+  penales: Expediente[] = [];
+  constitucionales: Expediente[] = [];
+  curadurias: Expediente[] = [];
+  carpetas: Expediente[] = [];
+  provicionales: Expediente[] = [];
 
   constructor(
     private service: AppService,
@@ -37,10 +38,12 @@ export class ExpedientesListComponent implements AfterViewInit {
   }
 
   obtenerExpedientes() {
-    this.service.lstExpsActivos.subscribe(res => {
-      this.lstExpedientes = res;
+    this.service.expedientes.subscribe(res => {
+      this.expedientes = res.filter((e: any) => e.estado == 'EN PROCESO');
+
       this.separarAreas();
-      if (res.length > 0 ) {
+
+      if (this.expedientes.length > 0) {
         this.lLoading = false;
       }
       
@@ -48,47 +51,16 @@ export class ExpedientesListComponent implements AfterViewInit {
   }
 
   separarAreas() {
-    this.lstLaRepo = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'LABORAL')
-      .filter(x => x.idmateria == 'LAB-REPO');
-    this.lstLaIndem = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'LABORAL')
-      .filter(x => x.idmateria == 'LAB-INDE-PDYP-PIC');
-    this.lstLaPBSE = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'LABORAL')
-      .filter(x => x.idmateria == 'LAB-PAGO-BSI-OBS');
-    this.lstCas2Sala = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'LABORAL')
-      .filter(x => x.idtipodoc == 'CASACION-2DA-SALA');
-    this.lstCas4Sala = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'LABORAL')
-      .filter(x => x.idtipodoc == 'CASACION-4TA-SALA');
-    this.lstCarpFisc = this.lstExpedientes
-      .filter(x => x.idtipodoc == 'CARPETA-FISCAL');
-    this.lstLaOtros = this.lstExpedientes
-      .filter(x => x.sespecialidad == 'LABORAL')
-      .filter(x => {
-        if (x.idmateria == 'LAB-REPO') {
-          return false;
-        } else if (x.idmateria == 'LAB-PAGO-BSI-OBS') {
-          return false;
-        } else if (x.idmateria == 'LAB-INDE-PDYP-PIC') {
-          return false;
-        } else if (x.idtipodoc == 'CASACION-2DA-SALA') {
-          return false;
-        } else if (x.idtipodoc == 'CASACION-4TA-SALA') {
-          return false;
-        } else if (x.idtipodoc == 'CARPETA-FISCAL') {
-          return false;
-        } else {
-          return true;
-        }
-      });
-    this.lstFamil = this.lstExpedientes.filter(x => x.sespecialidad == 'FAMILIA');
-    this.lstCivil = this.lstExpedientes.filter(x => x.sespecialidad == 'CIVIL');
-    this.lstPenal = this.lstExpedientes.filter(x => x.sespecialidad == 'PENAL')
-      .filter(x => x.idtipodoc == 'EXPEDIENTE-ORIGEN');
-    this.lstConst = this.lstExpedientes.filter(x => x.sespecialidad == 'CONSTITUCIONAL');
+    this.casaciones2da = this.expedientes.filter(e => e.numeroCasacion != null).filter(e => e.salaCasacion == '2DA SALA');
+    this.casaciones4ta = this.expedientes.filter(e => e.numeroCasacion != null).filter(e => e.salaCasacion == '4TA SALA');
+    this.laborales = this.expedientes.filter(e => e.numeroCasacion == null).filter(e => e.especialidad == 'LABORAL');
+    this.familias = this.expedientes.filter(e => e.especialidad == 'FAMILIA');
+    this.civiles = this.expedientes.filter(e => e.especialidad == 'CIVIL');
+    this.penales = this.expedientes.filter(e => e.especialidad == 'PENAL').filter(e => e.clase != 'CF')
+    this.constitucionales = this.expedientes.filter(e => e.especialidad == 'CONSTITUCIONAL');
+    this.carpetas = this.expedientes.filter(e => e.clase == 'CF');
+    this.curadurias = this.expedientes.filter(e => e.clase == 'CURADURIA');
+    this.provicionales = this.expedientes.filter(e => e.clase == 'PROVISIONAL');
   }
 
   filtrar(val: string) {
@@ -97,51 +69,48 @@ export class ExpedientesListComponent implements AfterViewInit {
     sterms = sterms.filter(sterm => sterm.length >= 3);
 
     if (sterms.length == 0) {
-      this.lstExpedientesFiltered = this.lstExpedientes;
+      this.expedientesFiltered = this.expedientes;
       this.lModeFiltering = false;
       return;
     }
 
-    this.lstExpedientesFiltered = this.lstExpedientes
-      .filter(exp => {
-        if (exp.idtipodoc == 'CASACION-2DA-SALA') {
-          return false;
-        } else if (exp.idtipodoc == 'CASACION-4TA-SALA') {
-          return false;
-        } else {
-          return true;
-        }
-      })
+    this.expedientesFiltered = this.expedientes
       .filter(exp => {
         let lMatch = false;
         let nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.sdemandado.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.demandado.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.sdemandante.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.demandante.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.sexpediente.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.numero.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.scodigo.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.codigo?.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.smatchexp?.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.numeroCasacion?.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
+        nMatchs = 0;
+
+        sterms.forEach(sterm => {
+          if (exp.numeroCautelar?.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
 

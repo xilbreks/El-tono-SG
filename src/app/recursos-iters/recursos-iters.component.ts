@@ -119,6 +119,19 @@ const lstIterCivil: Array<Iter> = [
   { code: '28', eligible: true, title: 'Vista de la causa' },
   { code: '29', eligible: true, title: 'Solicitar informe oral por parte de las partes' },
   { code: '30', eligible: true, title: 'Sentencia de casación' },
+  { code: '0', eligible: false, title: 'ETAPAS NOTARIALES' },
+  { code: '101', eligible: true, title: 'Solicitud de requisitos' },
+  { code: '102', eligible: true, title: 'Citas con el modulo especializado' },
+  { code: '103', eligible: true, title: 'Firmas de escritura' },
+  { code: '104', eligible: true, title: 'Publicacion en edictos' },
+  { code: '105', eligible: true, title: 'Entrega de escrituras' },
+  { code: '0', eligible: false, title: 'ETAPAS REGISTRALES' },
+  { code: '201', eligible: true, title: 'Inscripcion en Registros Publicos' },
+  { code: '202', eligible: true, title: 'Observaciones en Registros Publicos' },
+  { code: '203', eligible: true, title: 'Subsanacion de observaciones' },
+  { code: '204', eligible: true, title: 'Cita con registrador' },
+  { code: '205', eligible: true, title: 'Inscripcion preventiva con publicacion' },
+  { code: '206', eligible: true, title: 'Inscripcion definitiva' },
 ];
 
 const lstIterFamilia: Array<Iter> = [

@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 import { Expediente } from './../_interfaces/expediente';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-exp-item-edit-status',
@@ -13,6 +14,7 @@ import { Expediente } from './../_interfaces/expediente';
 export class ExpItemEditStatusComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
 
+  fcMotivo: FormControl;
   lStatus: boolean = true;
   lUpdating = false;
 
@@ -21,30 +23,32 @@ export class ExpItemEditStatusComponent implements OnChanges {
     private modalService: NgbModal,
     private router: Router,
   ) {
+    this.fcMotivo = new FormControl(null, Validators.compose([Validators.required, Validators.pattern(/^.{10,}$/)]));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.expediente) {
-      this.lStatus = this.expediente.lactive;
+      this.lStatus = this.expediente.estado == 'EN PROCESO' ? true : false;
     }
   }
 
   openModalSetStatus(modal: any) {
     this.modalService.open(modal, {
-      windowClass: 'modal-sm',
+      windowClass: 'modal-md',
     });
   }
 
   /**
-   * Vuelve activo un expediente depurado
+   * Depura un expediente
    */
-  enableExp() {
+  disableExp() {
     this.lUpdating = true;
-    this.setStatus(true).then(() => {
+    let motivoF = this.fcMotivo.value;
+    this.finalizar(motivoF).then(() => {
       this.modalService.dismissAll();
       this.router.navigate(['/expedientes-updater/'], {
         queryParams: {
-          expediente: this.expediente?.sexpediente,
+          expediente: this.expediente?.numero,
         }
       })
     }).catch(() => {
@@ -55,15 +59,15 @@ export class ExpItemEditStatusComponent implements OnChanges {
   }
 
   /**
-   * Depura un expediente
+   * Vuelve activo un expediente depurado
    */
-  disableExp() {
+  enableExp() {
     this.lUpdating = true;
-    this.setStatus(false).then(() => {
+    this.reActivar().then(() => {
       this.modalService.dismissAll();
       this.router.navigate(['/expedientes-updater/'], {
         queryParams: {
-          expediente: this.expediente?.sexpediente,
+          expediente: this.expediente?.numero,
         }
       })
     }).catch(() => {
@@ -75,12 +79,22 @@ export class ExpItemEditStatusComponent implements OnChanges {
 
   // Consultas a la base de datos
 
-  setStatus(lStatus: boolean): Promise<void> {
+  finalizar(motivo: string): Promise<void> {
     return this.db
       .collection('expedientes')
-      .doc(this.expediente?.sexpediente)
+      .doc(this.expediente?.idExpediente)
       .update({
-        lactive: lStatus
+        estado: 'FINALIZADO',
+        motivoFinalizacion: motivo,
+      });
+  }
+
+  reActivar(): Promise<void> {
+    return this.db
+      .collection('expedientes')
+      .doc(this.expediente?.idExpediente)
+      .update({
+        estado: 'EN PROCESO'
       });
   }
 }

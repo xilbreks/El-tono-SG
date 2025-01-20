@@ -1,17 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
 import { Chat } from './../__clases/chat';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-exp-item-calls',
   templateUrl: './exp-item-calls.component.html',
   styleUrl: './exp-item-calls.component.scss'
 })
-export class ExpItemCallsComponent implements OnInit {
+export class ExpItemCallsComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
 
   // Chats
@@ -52,8 +53,10 @@ export class ExpItemCallsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.getChats();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.expediente) {
+      this.getChats();
+    }
   }
 
   /*********************************************
@@ -66,17 +69,16 @@ export class ExpItemCallsComponent implements OnInit {
 
     let obs = this.db
       .collection('chats', ref => {
-        if (this.expediente?.smatchexp == 'nomatch') {
-          return ref.where('sexpediente', '==', this.expediente?.sexpediente)
-            .where('lactive', '==', true)
-        } else {
-          return ref.where('sexpediente', 'in', [this.expediente?.sexpediente, this.expediente?.smatchexp])
-            .where('lactive', '==', true)
-        }
+        return ref.where('sexpediente', '==', this.expediente?.numero)
+          .where('lactive', '==', true)
+      }).get();
 
-      })
-      .valueChanges()
-      .subscribe((res: Array<any>) => {
+      firstValueFrom(obs).then(snapshot => {
+        let res: any[] = [];
+        snapshot.forEach(doc => {
+          res.push(doc.data())
+        });
+
         this.lstChats = res.sort((a, b) => {
           if (a.sfecha > b.sfecha) {
             return 1;
@@ -94,7 +96,6 @@ export class ExpItemCallsComponent implements OnInit {
         })
 
         this.lLoading = false;
-        obs.unsubscribe();
       });
   }
 
@@ -114,9 +115,9 @@ export class ExpItemCallsComponent implements OnInit {
       .set({
         idchat: id,
         lactive: true,
-        sexpediente: this.expediente?.sexpediente,
-        sdemandante: this.expediente?.sdemandante,
-        sdemandado: this.expediente?.sdemandado,
+        sexpediente: this.expediente?.numero,
+        sdemandante: this.expediente?.demandante,
+        sdemandado: this.expediente?.demandado,
         stipo: this.frmNewChat.value['stipo'],
         sfecha: this.frmNewChat.value['sfecha'],
         smensaje: this.frmNewChat.value['smensaje'],

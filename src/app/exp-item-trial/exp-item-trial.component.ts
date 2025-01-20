@@ -73,7 +73,7 @@ export class ExpItemTrialComponent implements OnChanges {
     this.lstAudiencias = [];
 
     let obs = this.db.collection('audiencias', ref => {
-      return ref.where('sexpediente', '==', this.expediente?.sexpediente)
+      return ref.where('sexpediente', '==', this.expediente?.numero)
     }).valueChanges()
       .subscribe((res: Array<any>) => {
         this.lstAudiencias = res.map(aud => {
@@ -145,10 +145,10 @@ export class ExpItemTrialComponent implements OnChanges {
       .doc(idaudiencia)
       .set({
         idaudiencia: idaudiencia,
-        sexpediente: this.expediente?.sexpediente,
-        sespecialidad: this.expediente?.sespecialidad,
-        sdemandante: this.expediente?.sdemandante,
-        sdemandado: this.expediente?.sdemandado,
+        sexpediente: this.expediente?.numero,
+        sespecialidad: this.expediente?.especialidad,
+        sdemandante: this.expediente?.demandante,
+        sdemandado: this.expediente?.demandado,
         sfecha: this.frmNewAudience.value['sfecha'],
         shora: this.frmNewAudience.value['shora'],
         stipo: this.frmNewAudience.value['stipo'],

@@ -4,10 +4,10 @@
 
 <div>
     <pre>
-        {{expediente?.sobs}}
+        {{expediente?.observaciones}}
     </pre>
 
-    <button (click)="openModal(editObsModal)" class="btn btn-secondary" *ngIf="idusuario=='admin' || idusuario == 'admin3' || idusuario == 'lizbet-silva'">
+    <button (click)="openModal(editObsModal)" class="btn btn-secondary" *ngIf="idusuario == 'admin4' || idusuario == 'lizbet-silva'">
         Editar
     </button>
 </div>
@@ -17,7 +17,7 @@
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
-            {{expediente?.sexpediente}}
+            {{expediente?.numero}}
         </i>
     </span>
 </div>

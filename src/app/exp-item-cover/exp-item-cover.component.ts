@@ -9,55 +9,35 @@ import { Expediente } from './../_interfaces/expediente';
 })
 export class ExpItemCoverComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
+  
   urlcontrato: string | null = null;
+  cautelares: string[] | undefined = [];
 
   constructor(
     private storage: AngularFireStorage
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.formatear();
-    this.colocarLinkContrato();
-  }
-
-  formatear(): void {
-    switch (this.expediente?.idtipodoc) {
-      case 'EXPEDIENTE-ORIGEN':
-        this.expediente.idtipodoc = 'EXPEDIENTE';
-        break;
-      case 'CASACION-2DA-SALA':
-        this.expediente.idtipodoc = 'CASACIÓN 2DA SALA';
-        break;
-      case 'CASACION-4TA-SALA':
-        this.expediente.idtipodoc = 'CASACIÓN 4TA SALA';
-        break;
-      case 'CARPETA-FISCAL':
-        this.expediente.idtipodoc = 'CARPETA FISCAL';
-        break;
-      case 'EXPEDIENTE-PROVISIONAL':
-        this.expediente.idtipodoc = 'EXPEDIENTE PROVISIONAL';
-        break;
-      case 'EXPEDIENTE-CAUTELAR':
-        this.expediente.idtipodoc = 'EXPEDIENTE CAUTELAR';
-        break;
-      case 'EXPEDIENTE-CURADURIA':
-        this.expediente.idtipodoc = 'CURADURÍA';
-        break;
+    if (this.expediente) {
+      this.colocarLinkContrato();
+      this.identificarCautelares();
     }
   }
 
   colocarLinkContrato() {
-    if (this.expediente?.urlcontrato) {
-      if (this.expediente.urlcontrato == 'sin-url') return;
+    if (!this.expediente?.tieneContrato) return;
 
-      let obs = this.storage.ref(this.expediente?.urlcontrato).getDownloadURL()
-        .subscribe(url => {
-          this.urlcontrato = url;
-          // console.log(url)
+    let obs = this.storage.ref(`contratos/${this.expediente?.numero}.pdf`).getDownloadURL()
+      .subscribe(url => {
+        this.urlcontrato = url;
+        console.log(url)
 
-          obs.unsubscribe();
-        });
-    }
+        obs.unsubscribe();
+      });
+  }
+
+  identificarCautelares() {
+    this.cautelares = this.expediente?.numeroCautelar?.split(',');
   }
 
 }

@@ -28,7 +28,7 @@ export class ExpItemKComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.expediente) {
-      this.lcontrato = this.expediente.lcontrato;
+      this.lcontrato = this.expediente.tieneContrato;
 
       if (this.lcontrato) {
         this.getUrlDescarga();
@@ -40,7 +40,7 @@ export class ExpItemKComponent implements OnChanges {
    * Obtiene la url de descarga del contrato
    */
   getUrlDescarga() {
-    let obs = this.storage.ref(`contratos/${this.expediente?.sexpediente}.pdf`).getDownloadURL()
+    let obs = this.storage.ref(`contratos/${this.expediente?.numero}.pdf`).getDownloadURL()
 
     firstValueFrom(obs).then((url) => {
       this.urlcontrato = url;
@@ -115,7 +115,7 @@ export class ExpItemKComponent implements OnChanges {
     if (!this.file) return;
     this.lUpdating = true;
 
-    const filePath = `contratos/${this.expediente?.sexpediente}.pdf`;
+    const filePath = `contratos/${this.expediente?.numero}.pdf`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, this.file);
 
@@ -144,9 +144,9 @@ export class ExpItemKComponent implements OnChanges {
    */
   setK(status: boolean): Promise<void> {
     return this.db.collection('expedientes')
-      .doc(this.expediente?.sexpediente)
+      .doc(this.expediente?.idExpediente)
       .update({
-        lcontrato: status
+        tieneContrato: status
       });
   }
 }

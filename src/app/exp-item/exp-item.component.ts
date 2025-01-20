@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
+import { firstValueFrom } from 'rxjs';
 
 import { Expediente } from './../_interfaces/expediente';
-
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-exp-item',
@@ -13,8 +12,6 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./exp-item.component.scss']
 })
 export class ExpItemComponent implements OnInit {
-  lstExpedientes: any[] = [];
-
   expediente: Expediente | null = null;
   lLoading: boolean = true;
 
@@ -24,18 +21,16 @@ export class ExpItemComponent implements OnInit {
     private db: AngularFirestore,
     private titleService: Title,
     private route: ActivatedRoute,
-    private router: Router,
   ) {
     this.suser = localStorage.getItem('idusuario');
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      let sexpediente = params['id'];
-      this.titleService.setTitle(sexpediente);
+      let numeroExpediente = params['numero'];
+      this.titleService.setTitle(numeroExpediente);
 
-      // this.recuperarExpediente(sexpediente);
-      this.recuperarDatos(sexpediente);
+      this.recuperarDatos(numeroExpediente);
     });
   }
 
@@ -43,24 +38,18 @@ export class ExpItemComponent implements OnInit {
     // Indicador de carga
     this.lLoading = true;
 
-    // Reiniciar las variables
-    this.lstExpedientes = [];
-
     // Consultar a la Base de datos por el expediente
     let exp = await this.getExp(sexpediente);
 
     // Caso no exista expediente
-    if (!exp) {
+    if (exp.length == 0) {
       this.lLoading = false;
       this.expediente = null;
       return;
     }
 
     // Caso si exista
-    this.expediente = exp;
-
-    // Consultar sobre expedientes del mismo proceso
-    this.lstExpedientes = await this.getExps(exp.idproceso);
+    this.expediente = exp[0];
 
     // Indicador de carga
     this.lLoading = false;
@@ -70,19 +59,17 @@ export class ExpItemComponent implements OnInit {
    ********** CONSULTAS A LA BASE DE DATOS ************
    ****************************************************/
 
-  getExp(sexpediente: string): Promise<any> {
-    const obs = this.db.collection('expedientes').doc(sexpediente).get();
-    return firstValueFrom(obs).then(snapshot => snapshot.data());
-  }
-
-  getExps(idproceso: string): Promise<any> {
-    const obs = this.db.collection('expedientes', ref => ref.where('idproceso', '==', idproceso)).get();
+  getExp(numeroExpediente: string): Promise<any[]> {
+    const obs = this.db.collection('expedientes', ref => {
+      return ref.where('numero', '==', numeroExpediente)
+    }).get();
     return firstValueFrom(obs).then(snapshot => {
-      let lst: any = [];
+      let matchs: any[] = [];
       snapshot.forEach(doc => {
-        lst.push(doc.data())
+        matchs.push(doc.data())
       })
-      return lst;
+      return matchs;
     });
   }
+
 }

@@ -158,10 +158,10 @@
             <div class="result-item" *ngFor="let expediente of lstExpedientesFiltered"
               (click)="pickExpediente(expediente)" (mousedown)="prevenir($event)">
               <div class="exp">
-                {{expediente.sexpediente}}
+                {{expediente.numero}}
               </div>
               <div class="dte">
-                {{expediente.sdemandante}}
+                {{expediente.demandante}}
               </div>
             </div>
           </div>

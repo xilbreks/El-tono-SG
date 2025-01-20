@@ -24,7 +24,7 @@ export class ExpItemObsComponent {
   }
 
   openModal(modal: any) {
-    this.fcObs.setValue(this.expediente?.sobs);
+    this.fcObs.setValue(this.expediente?.observaciones);
 
     this.modalService.open(modal, {
       windowClass: 'modal-md',
@@ -35,15 +35,15 @@ export class ExpItemObsComponent {
     this.lUpdating = true;
     let sobs = this.fcObs.value;
     this.db.collection('expedientes')
-      .doc(this.expediente?.sexpediente)
+      .doc(this.expediente?.idExpediente)
       .update({
-        sobs: sobs
+        observaciones: sobs
       })
       .then(() => {
         // success
         this.modalService.dismissAll();
         if (this.expediente) {
-          this.expediente.sobs = sobs;
+          this.expediente.observaciones = sobs;
         }
       })
       .catch(err => {

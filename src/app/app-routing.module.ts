@@ -60,7 +60,7 @@ const routes: Routes = [
     canActivate: [autenticacionGuard]
   },
   {
-    path: 'expediente/:id',
+    path: 'expediente/:numero',
     component: ExpItemComponent,
     canActivate: [autenticacionGuard]
   },

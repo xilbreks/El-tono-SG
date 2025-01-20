@@ -20,8 +20,8 @@ export class ExpedientesListInactiveComponent {
 
   obtenerExpedientes() {
     this.lLoading = true;
-    this.service.lstExpsDepurados.subscribe(res => {
-      this.lstExpedientes = res.sort((a: any, b: any) => {
+    this.service.expedientes.subscribe(res => {
+      this.lstExpedientes = res.filter((e: any) => e.estado == 'FINALIZADO').sort((a: any, b: any) => {
         if (a.sespecialidad > b.sespecialidad)
           return 1;
         else

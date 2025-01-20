@@ -44,7 +44,7 @@
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
-            {{expediente?.sexpediente}}
+            {{expediente?.numero}}
         </i>
     </span>
 </div>
@@ -100,17 +100,13 @@
     </div>
     <div class="modal-body">
         <p>
-            Se dará de baja el expediente
+            Detalle el motivo para depurar y quien le dio autorización.
         </p>
-        <p>
-            <i>
-                ¿Está seguro?
-            </i>
-        </p>
+        <input type="text" [formControl]="fcMotivo" class="form-control" placeholder="..."/>
     </div>
     <div class="modal-footer">
         <div *ngIf="!lUpdating">
-            <button type="button" class="btn btn-danger" (click)="disableExp()">
+            <button type="button" class="btn btn-danger" (click)="disableExp()" [disabled]="!fcMotivo.valid">
                 <span class="sr-only">
                     Dar de baja
                 </span>

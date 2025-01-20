@@ -6,6 +6,8 @@ import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from './../app.service';
 
+import { Expediente } from '../_interfaces/expediente';
+
 import {
   lstIterLaboral,
   lstIterFamilia,
@@ -75,40 +77,8 @@ export class RdtEditComponent {
   lUpdating: boolean = false;
   lSearching: boolean = false;
 
-  // Quienes pueden delegar
-  // lstDelegadores: Array<{ id: string, name: string }> = [
-  //   {
-  //     id: 'dra-lizbet',
-  //     name: 'Dra. Lizbet'
-  //   },
-  //   {
-  //     id: 'dra-karla',
-  //     name: 'Dra. Karla'
-  //   },
-  //   {
-  //     id: 'dra-lizi',
-  //     name: 'Dra. Lizi xd'
-  //   },
-  //   {
-  //     id: 'dr-aparicio',
-  //     name: 'Dr. Aparicio'
-  //   },
-  //   {
-  //     id: 'dra-kath',
-  //     name: 'Dra. Kath'
-  //   },
-  //   {
-  //     id: 'dra-gabriela',
-  //     name: 'Dra. Gabriela'
-  //   },
-  //   {
-  //     id: 'bach-vianka',
-  //     name: 'Bach. Vianka'
-  //   },
-  // ];
-
-  lstExpedientes: Array<any> = [];
-  lstExpedientesFiltered: Array<any> = [];
+  lstExpedientes: Expediente[] = [];
+  lstExpedientesFiltered: Expediente[] = [];
 
   constructor(
     private db: AngularFirestore,
@@ -195,7 +165,9 @@ export class RdtEditComponent {
    * Recupera el listado del expedientes
    */
   getExpedientesList() {
-    this.service.lstExpsActivos.subscribe((res: any) => this.lstExpedientes = res);
+    this.service.expedientes.subscribe((res: any) => {
+      this.lstExpedientes = res.filter((e: any) => e.estado == 'EN PROCESO')
+    });
   }
 
   /**
@@ -307,13 +279,14 @@ export class RdtEditComponent {
         this.frmNewTask.reset();
 
         // Actualizar ITER
-        this.db.collection('expedientes')
-          .doc(sexp)
-          .update({
-            niter: Number(objTarea['niter'])
-          })
-          .then(() => { })
-          .catch((e) => { console.log(e) });
+        // this.db.collection('expedientes')
+        //   .doc(sexp)
+        //   .update({
+        //     niter: Number(objTarea['niter'])
+        //   })
+        //   .then(() => { })
+        //   .catch((e) => { console.log(e) });
+        // end iter
 
         // Registrar Honorario
         // if (objTarea['ncobrohonorario'] > 0) {
@@ -521,62 +494,51 @@ export class RdtEditComponent {
       return;
     }
 
-    this.lstExpedientesFiltered = this.lstExpedientes
-      .filter(exp => {
-        if (exp.idtipodoc == 'CASACION-2DA-SALA') {
-          return false;
-        } else if (exp.idtipodoc == 'CASACION-4TA-SALA') {
-          return false;
-        } else {
-          return true;
-        }
+    this.lstExpedientesFiltered = this.lstExpedientes.filter(exp => {
+      let lMatch = false;
+      let nMatchs = 0;
+
+      sterms.forEach(sterm => {
+        if (exp.demandado.toLowerCase().includes(sterm)) nMatchs++;
       })
-      .filter(exp => {
-        let lMatch = false;
-        let nMatchs = 0;
+      if (nMatchs == sterms.length) lMatch = true;
+      nMatchs = 0;
 
-        sterms.forEach(sterm => {
-          if (exp.sdemandado.toLowerCase().includes(sterm)) nMatchs++;
-        })
-        if (nMatchs == sterms.length) lMatch = true;
-        nMatchs = 0;
-
-        sterms.forEach(sterm => {
-          if (exp.sdemandante.toLowerCase().includes(sterm)) nMatchs++;
-        })
-        if (nMatchs == sterms.length) lMatch = true;
-        nMatchs = 0;
-
-        sterms.forEach(sterm => {
-          if (exp.sexpediente.toLowerCase().includes(sterm)) nMatchs++;
-        })
-        if (nMatchs == sterms.length) lMatch = true;
-        nMatchs = 0;
-
-        sterms.forEach(sterm => {
-          if (exp.scodigo.toLowerCase().includes(sterm)) nMatchs++;
-        })
-        if (nMatchs == sterms.length) lMatch = true;
-        nMatchs = 0;
-
-        sterms.forEach(sterm => {
-          if (exp.smatchexp?.toLowerCase().includes(sterm)) nMatchs++;
-        })
-        if (nMatchs == sterms.length) lMatch = true;
-
-        return lMatch;
+      sterms.forEach(sterm => {
+        if (exp.demandante.toLowerCase().includes(sterm)) nMatchs++;
       })
-      .slice(0, 7);
+      if (nMatchs == sterms.length) lMatch = true;
+      nMatchs = 0;
+
+      sterms.forEach(sterm => {
+        if (exp.numero.toLowerCase().includes(sterm)) nMatchs++;
+      })
+      if (nMatchs == sterms.length) lMatch = true;
+      nMatchs = 0;
+
+      sterms.forEach(sterm => {
+        if (exp.codigo?.toLowerCase().includes(sterm)) nMatchs++;
+      })
+      if (nMatchs == sterms.length) lMatch = true;
+      nMatchs = 0;
+
+      sterms.forEach(sterm => {
+        if (exp.numeroCasacion?.toLowerCase().includes(sterm)) nMatchs++;
+      })
+      if (nMatchs == sterms.length) lMatch = true;
+
+      return lMatch;
+    }).slice(0, 7);
   }
 
-  pickExpediente(exp: any) {
+  pickExpediente(exp: Expediente) {
     // Set values
-    this.frmNewTask.controls['sexpediente'].setValue(exp.sexpediente);
-    this.frmNewTask.controls['sdemandante'].setValue(exp.sdemandante);
-    this.frmNewTask.controls['sdemandado'].setValue(exp.sdemandado);
-    this.frmNewTask.controls['sespecialidad'].setValue(exp.sespecialidad.toLowerCase());
+    this.frmNewTask.controls['sexpediente'].setValue(exp.numero);
+    this.frmNewTask.controls['sdemandante'].setValue(exp.demandante);
+    this.frmNewTask.controls['sdemandado'].setValue(exp.demandado);
+    this.frmNewTask.controls['sespecialidad'].setValue(exp.especialidad.toLowerCase());
     this.frmNewTask.controls['stipocliente'].setValue('antiguo');
-    this.frmNewTask.controls['lcontrato'].setValue(exp.lcontrato ? 'si' : 'no');
+    this.frmNewTask.controls['lcontrato'].setValue(exp.tieneContrato ? 'si' : 'no');
 
     // Set ITER
     this.setLstIterNewTask();

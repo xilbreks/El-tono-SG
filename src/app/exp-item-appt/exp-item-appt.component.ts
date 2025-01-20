@@ -74,7 +74,7 @@ export class ExpItemApptComponent implements OnChanges {
     this.lstCitas = [];
 
     let obs = this.db.collection('citas', ref => {
-      return ref.where('sexpediente', '==', this.expediente?.sexpediente)
+      return ref.where('sexpediente', '==', this.expediente?.numero)
     }).valueChanges()
       .subscribe((res: Array<any>) => {
         this.lstCitas = res.map(aud => {
@@ -146,10 +146,10 @@ export class ExpItemApptComponent implements OnChanges {
       .doc(idcita)
       .set({
         idcita: idcita,
-        sexpediente: this.expediente?.sexpediente,
-        sespecialidad: this.expediente?.sespecialidad,
-        sdemandante: this.expediente?.sdemandante,
-        sdemandado: this.expediente?.sdemandado,
+        sexpediente: this.expediente?.numero,
+        sespecialidad: this.expediente?.especialidad,
+        sdemandante: this.expediente?.demandante,
+        sdemandado: this.expediente?.demandado,
         scliente: this.frmNewAppt.value['scliente'],
         sfecha: this.frmNewAppt.value['sfecha'],
         shora: this.frmNewAppt.value['shora'],

@@ -6,18 +6,14 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   providedIn: 'root'
 })
 export class AppService {
-  private bsExpsActivos = new BehaviorSubject([]);
-  private bsExpsDepurados = new BehaviorSubject([]);
-
-  public lstExpsActivos = this.bsExpsActivos.asObservable();
-  public lstExpsDepurados = this.bsExpsDepurados.asObservable();
+  private bsExps = new BehaviorSubject([]);
+  public expedientes = this.bsExps.asObservable();
 
   constructor(private storage: AngularFireStorage) {
-    this.getExpsActivos();
-    this.getExpsDepurados();
+    this.getExpedientes();
   }
 
-  public getExpsActivos() {
+  public getExpedientes() {
     this.storage.ref('/expedientes/expedientes.json')
       .getDownloadURL()
       .subscribe(url => {
@@ -26,7 +22,7 @@ export class AppService {
             return res.json();
           })
           .then(expedientes => {
-            this.bsExpsActivos.next(expedientes)
+            this.bsExps.next(expedientes)
           }).catch(err => {
             console.log('ERROR', err);
           });
@@ -34,20 +30,4 @@ export class AppService {
       })
   }
 
-  public getExpsDepurados() {
-    this.storage.ref('/expedientes/expedientes-depurados.json')
-      .getDownloadURL()
-      .subscribe(url => {
-        fetch(url)
-          .then(res => {
-            return res.json();
-          })
-          .then(expedientes => {
-            this.bsExpsDepurados.next(expedientes)
-          }).catch(err => {
-            console.log('ERROR', err);
-          });
-
-      })
-  }
 }

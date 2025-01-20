@@ -1,19 +1,14 @@
-<div *ngIf="!expediente?.lactive" style="color: red;">
-    <i class="bi bi-exclamation-triangle"></i> 
+<div *ngIf="expediente?.estado == 'FINALIZADO'" style="color: red;">
+    <i class="bi bi-exclamation-triangle"></i>
     Depurado
 </div>
 <div class="container expediente">
     <h4>
-        {{expediente?.idtipodoc}}
+        {{expediente?.clase}}
     </h4>
     <h4 id="sexpediente">
-        {{expediente?.sexpediente}}
+        {{expediente?.numero}}
     </h4>
-    <h5 *ngIf="expediente?.smatchexp !== 'no-match'">
-        <a [routerLink]="['/', 'expediente', expediente?.smatchexp]">
-            {{expediente?.smatchexp}}
-        </a>
-    </h5>
     <hr />
     <table style="width: 100%;">
         <tr>
@@ -21,7 +16,7 @@
                 <b>MATERIA:</b>
             </td>
             <td>
-                {{expediente?.smateria}}
+                {{expediente?.materia}}
             </td>
         </tr>
         <tr>
@@ -29,7 +24,7 @@
                 <b>SALA:</b>
             </td>
             <td>
-                {{expediente?.sorganojuris}}
+                {{expediente?.juzgado}}
             </td>
         </tr>
         <tr>
@@ -37,7 +32,7 @@
                 <b>ESPECIALIDAD:</b>
             </td>
             <td>
-                {{expediente?.sespecialidad}}
+                {{expediente?.especialidad}}
             </td>
         </tr>
         <tr>
@@ -45,7 +40,7 @@
                 <b>DEMANDANTE:</b>
             </td>
             <td>
-                {{expediente?.sdemandante}}
+                {{expediente?.demandante}}
             </td>
         </tr>
         <tr>
@@ -53,7 +48,7 @@
                 <b>DEMANDADO:</b>
             </td>
             <td>
-                {{expediente?.sdemandado}}
+                {{expediente?.demandado}}
             </td>
         </tr>
         <tr>
@@ -61,25 +56,53 @@
                 <b>CONTRATO:</b>
             </td>
             <td>
-                <span *ngIf="expediente?.lcontrato">
+                <span *ngIf="expediente?.tieneContrato">
                     OK
                     <a [href]="urlcontrato" target="_blank" *ngIf="urlcontrato">
                         ver contrato
                     </a>
                 </span>
-                <span *ngIf="!expediente?.lcontrato" style="color: red;">
+                <span *ngIf="!expediente?.tieneContrato" style="color: red;">
                     <b>SIN CONTRATO</b>
                 </span>
             </td>
         </tr>
-        <tr *ngIf="expediente?.scodigo != 'XX-XXXX'">
+        <tr *ngIf="expediente?.codigo != null">
             <td>
                 <b>CÓDIGO:</b>
             </td>
             <td>
                 <span style="background-color: lightgrey; border-radius: 4px;">
-                    {{expediente?.scodigo}}
+                    {{expediente?.codigo}}
                 </span>
+            </td>
+        </tr>
+        <hr *ngIf="expediente?.numeroCasacion != null || expediente?.numeroCautelar != null"/>
+        <tr *ngIf="expediente?.numeroCasacion != null">
+            <td>
+                <b>CASACION:</b>
+            </td>
+            <td>
+                <span>
+                    {{expediente?.numeroCasacion}}
+                </span>
+                <span>
+                    ({{expediente?.salaCasacion}})
+                </span>
+            </td>
+        </tr>
+        <tr *ngIf="expediente?.numeroCautelar != null">
+            <td>
+                <b>CAUTELAR(ES):</b>
+            </td>
+            <td>
+                <ul>
+                    <li *ngFor="let cautelar of cautelares">
+                        <a [routerLink]="'/expediente/'+cautelar">
+                            {{cautelar}}
+                        </a>
+                    </li>
+                </ul>
             </td>
         </tr>
     </table>
@@ -89,12 +112,7 @@
         </div>
         <div class="col-6">
             <h6>
-                AREQUIPA
-            </h6>
-            <h6>
-                <small>
-                    {{expediente?.sfechainicio}}
-                </small>
+                AREQUIPA, {{expediente?.fechaInicio}}
             </h6>
         </div>
         <div class="col-3">
@@ -105,7 +123,7 @@
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
-            {{expediente?.sexpediente}}
+            {{expediente?.numero}}
         </i>
     </span>
 </div>
