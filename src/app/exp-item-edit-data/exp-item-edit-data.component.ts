@@ -90,7 +90,7 @@ export class ExpItemEditDataComponent implements OnChanges {
       .collection('expedientes')
       .doc(this.expediente?.idExpediente)
       .update({
-        materia: this.frmData.value['materia'],
+        materia: this.frmData.value['materia'].trim().toUpperCase(),
         demandado: this.frmData.value['demandado'].trim().toUpperCase(),
         demandante: this.frmData.value['demandante'].trim().toUpperCase(),
         juzgado: this.frmData.value['juzgado'].trim().toUpperCase(),

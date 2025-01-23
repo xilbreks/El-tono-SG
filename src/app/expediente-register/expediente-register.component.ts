@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { firstValueFrom } from 'rxjs';
+import { concatAll, firstValueFrom } from 'rxjs';
 
 class ObjMateria {
   idmateria: string;
@@ -29,13 +29,6 @@ export class ExpedienteRegisterComponent {
   frmExpediente: FormGroup;
   lCreating: boolean = false;
 
-  // Variables del Modal
-  ltienegrupo = true;
-  ctrlGrupo: FormControl;
-  lsearching = false;
-  objGrupo: any = null;
-  ltouched = false;
-
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
@@ -45,18 +38,15 @@ export class ExpedienteRegisterComponent {
     this.titleService.setTitle('Registrar Expediente');
 
     this.frmExpediente = new FormGroup({
-      sexpediente: new FormControl(null, Validators.required),
-      sespecialidad: new FormControl(null, Validators.required),
-      smateria: new FormControl(null, Validators.required),
-      idtipodoc: new FormControl(null, Validators.required),
-      sorganojuris: new FormControl(null, Validators.required),
-      sdemandante: new FormControl(null, Validators.required),
-      sdemandado: new FormControl(null, Validators.required),
-      sfechainicio: new FormControl(null, Validators.required),
+      clase: new FormControl(null, Validators.required),
+      numero: new FormControl(null, Validators.required),
+      especialidad: new FormControl(null, Validators.required),
+      demandante: new FormControl(null, Validators.required),
+      demandado: new FormControl(null, Validators.required),
+      materia: new FormControl(null, Validators.required),
+      juzgado: new FormControl(null, Validators.required),
+      fechaInicio: new FormControl(null, Validators.required),
     });
-
-    let regexp = /^SG-\d{5}$/i;
-    this.ctrlGrupo = new FormControl(null, Validators.compose([Validators.required, Validators.pattern(regexp)]))
 
     this.getMaterias();
   }
@@ -72,58 +62,56 @@ export class ExpedienteRegisterComponent {
   }
 
   setLstMaterias() {
-    let sespecialidad = this.frmExpediente.controls['sespecialidad'].value;
+    let sespecialidad = this.frmExpediente.controls['especialidad'].value;
     this.lstMaterias = this.lstMateriasTodos.filter(a => a.sespecialidad == sespecialidad);
   }
 
-  // Establecer la validacion del codigo de expediente segun tipo de documento
+  /**
+   * Establece el validator del input para el numero de expediente
+   */
   setValidator() {
-    let idtipodoc = this.frmExpediente.controls['idtipodoc'].value;
+    let idtipodoc = this.frmExpediente.controls['clase'].value;
     let regexp: RegExp = /REGEX/;
 
     switch (idtipodoc) {
-      case 'EXPEDIENTE-ORIGEN':
+      case 'PRINCIPAL':
         regexp = /^[0-9]{5}[-][0-9]{4}[-][0][-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
         break;
-      case 'EXPEDIENTE-CAUTELAR':
+      case 'PROVISIONAL':
+        regexp = /^[a-zA-Z0-9-]{5,30}$/;
+        break;
+      case 'CAUTELAR':
         regexp = /^[0-9]{5}[-][0-9]{4}[-][0-9]{1,2}[-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
         break;
-      case 'CASACION-2DA-SALA':
-        regexp = /^[0-9]{5}[-][0-9]{4}[-][0][-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
-        break;
-      case 'CASACION-4TA-SALA':
-        regexp = /^[0-9]{5}[-][0-9]{4}[-][0][-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
-        break;
-      case 'CARPETA-FISCAL':
-        regexp = /^[0-9]{3,6}[-][0-9]{4}$/;
-        break;
-      case 'EXPEDIENTE-CURADURIA':
-        regexp = /^[0-9]{5}[-][0-9]{4}[-][0-9]{1,2}[-][0-9]{4}[-][A-Z]{2}[-][A-Z]{2}[-][0-9]{2}$/;
-        break;
-      case 'EXPEDIENTE-PROVISIONAL':
-        regexp = /^[A-Z0-9-]{3,25}$/;
+      case 'CF':
+        regexp = /^\d+(-\d+)*$/;
         break;
       default:
         window.alert('ERROR DE ELECCION')
     }
 
-    this.frmExpediente.controls['sexpediente'].setValidators([
+    this.frmExpediente.controls['numero'].setValidators([
       Validators.required,
       Validators.pattern(regexp)
     ]);
-    this.frmExpediente.controls['sexpediente'].updateValueAndValidity();
+    this.frmExpediente.controls['numero'].updateValueAndValidity();
   }
 
   /**
    * Verifica si un expediente existe
-   * @sexpediente Numero del expediente
+   * @numero Numero del expediente
    * @returns True si existe, false si no existe
    */
-  verificarExpediente(sexpediente: string): Promise<boolean> {
-    let obs = this.db.collection('expedientes').doc(sexpediente).get();
-    return firstValueFrom(obs).then(doc => {
-      let exp = doc.data();
-      if (exp) {
+  existeExpediente(numero: string): Promise<boolean> {
+    let obs = this.db.collection('expedientes', ref => {
+      return ref.where('numero', '==', numero);
+    }).get();
+    return firstValueFrom(obs).then(snapshot => {
+      let contador = 0;
+      snapshot.forEach(doc => {
+        contador = contador + 1;
+      })
+      if (contador > 0) {
         return true;
       } else {
         return false;
@@ -132,185 +120,104 @@ export class ExpedienteRegisterComponent {
   }
 
   /**
-   * Generar el nuevo ID del proceso (grupo)
-   * @returns Un codigo similar a SG-00000
+   * Generar el nuevo ID del expediente
+   * @returns Un codigo con el formato E000001
    */
-  generarNuevoIdProceso(): Promise<string> {
-    const obsPJ = this.db.collection('procesosjudiciales', ref => {
-      return ref.orderBy('idproceso', 'desc').limit(1)
+  generarNuevoIdExpediente(): Promise<string> {
+    const obs = this.db.collection('expedientes', ref => {
+      return ref.orderBy('idExpediente', 'desc').limit(1)
     }).get();
 
-    return firstValueFrom(obsPJ).then(snapshot => {
+    return firstValueFrom(obs).then(snapshot => {
       let lista: any[] = [];
       snapshot.forEach(doc => {
         lista.push(doc.data())
       })
-      let idproceso = Number(lista[0].idproceso.slice(3, 8));
-      idproceso = idproceso + 1;
-      let sproceso = 'SG-';
-      if (idproceso >= 10000) {
-        sproceso = sproceso + idproceso;
-      } else if (idproceso >= 1000) {
-        sproceso = sproceso + '0' + idproceso;
-      } else if (idproceso >= 100) {
-        sproceso = sproceso + '00' + idproceso;
-      } else if (idproceso >= 10) {
-        sproceso = sproceso + '000' + idproceso;
-      } else {
-        sproceso = sproceso + '0000' + idproceso;
+      
+      let contador = Number(lista[0].idExpediente.slice(1, 7));
+      contador = contador + 1;
+      let idExpediente = '';
+
+      if (contador <= 9) {
+        idExpediente = `E00000${contador}`;
+      } else if (contador <= 99) {
+        idExpediente = `E0000${contador}`;
+      } else if (contador <= 999) {
+        idExpediente = `E000${contador}`;
+      } else if (contador <= 9999) {
+        idExpediente = `E00${contador}`;
+      } else if (contador <= 99999) {
+        idExpediente = `E0${contador}`;
+      } else if (contador <= 999999) {
+        idExpediente = `E${contador}`;
       }
 
-      return sproceso;
+      return idExpediente;
     });
   }
 
-  /**
-   * Registra un nuevo Expediente
-   * @idproceso ID del proceso judicial
-   * @sexpediente Numero del expediente
-   */
-  guardarExpediente(idproceso: string, sexpediente: string): Promise<void> {
-    let timestamp = (new Date()).getTime().toString();
-    return this.db.collection('expedientes').doc(sexpediente).set({
-      sexpediente: sexpediente,
-      idproceso: idproceso,
-      idtipodoc: this.frmExpediente.controls['idtipodoc'].value,
-      sespecialidad: this.frmExpediente.controls['sespecialidad'].value,
-      smateria: this.frmExpediente.controls['smateria'].value.trim().toUpperCase(),
-      sorganojuris: this.frmExpediente.controls['sorganojuris'].value.trim().toUpperCase(),
-      sdemandante: this.frmExpediente.controls['sdemandante'].value.trim().toUpperCase(),
-      sdemandado: this.frmExpediente.controls['sdemandado'].value.trim().toUpperCase(),
-      sfechainicio: this.frmExpediente.controls['sfechainicio'].value.trim(),
-
-      sfechacreacion: timestamp,
-      lactive: true,
-      sobs: '',
-      smatchexp: 'no-match',
-      scodigo: 'XX-XXXX',
-      lcontrato: false,
-      niter: 0,
-      urlcontrato: 'sin-url',
-    });
-  }
-
-  /**
-   * Registra un nuevo proceso judicial
-   * @idproceso ID del proceso
-   * @sexpediente Numero del expediente
-   */
-  guardarProceso(idproceso: string, sexpediente: string): Promise<void> {
-    let timestamp = (new Date()).getTime();
-    return this.db.collection('procesosjudiciales').doc(idproceso).set({
-      idproceso: idproceso,
-      fcreacion: timestamp,
-      lactive: true,
-      lstmiembros: sexpediente,
-      sexpediente: sexpediente,
-      niter: 0,
-      sobservaciones: '-',
-      urlcontrato: '-'
-    });
-  }
-
-  /**
-   * Guardar el expediente y nuevo proceso judical
-   * @returns En caso de exito se redirecciona al expediente
-   */
-  async guardar() {
+  async guardarExpediente() {
     this.lCreating = true;
+    let numeroExp = this.frmExpediente.controls['numero'].value.toUpperCase().trim();
+    let existeExp = await this.existeExpediente(numeroExp);
 
-    let sexpediente = this.frmExpediente.value['sexpediente'];
-    const lexiste = await this.verificarExpediente(sexpediente);
-    if (lexiste) {
+    if (existeExp) {
       window.alert('Numero de expediente ya existe');
       this.lCreating = false;
       return;
     }
 
-    let idProceso = await this.generarNuevoIdProceso();
+    let idExpediente = await this.generarNuevoIdExpediente();
+    console.log(idExpediente);
+    this.lCreating = false;
 
-    const tareas = Promise.all([
-      this.guardarExpediente(idProceso, sexpediente),
-      this.guardarProceso(idProceso, sexpediente)
-    ]);
-
-    tareas.then(() => {
+    this.guardarExpedienteDB(idExpediente).then(() => {
       this.router.navigate(['/expedientes-updater/'], {
         queryParams: {
-          expediente: sexpediente,
+          expediente: numeroExp,
         }
       })
+      console.log('ok')
     }).catch((err) => {
       console.log('error', err)
-      window.alert('ocurio un error');
+      window.alert('ocurio un error al registrar expediente');
     }).finally(() => {
       this.lCreating = false;
     })
   }
 
+  // OPERACIONES A LA BASE DE DATOS
 
+  /**
+   * Registra un nuevo Expediente
+   * @idExpediente Identificador unico del expediente
+   */
+  async guardarExpedienteDB(idExpediente: string): Promise<void> {
+    let timestamp: number = (new Date()).getTime();
 
-  // Sin uso /////////////////////////////////////////////////////
-  // Evento de cambio de valor en el indicador de si tiene grupo
-  onRadioChange(value: any) {
-    if (value == 'true') this.ltienegrupo = true;
-    else if (value == 'false') this.ltienegrupo = false;
-  }
-
-  // Sin uso
-  // Abrir modal
-  abrirModal(modal: any): void {
-    if (this.frmExpediente.controls['idproceso'].value == null) {
-      this.objGrupo = null;
-      this.ctrlGrupo.reset();
-      this.ltouched = false;
-    } else {
-      this.objGrupo = null;
-      this.ltouched = false;
-      this.ctrlGrupo.reset();
-      this.ctrlGrupo.setValue(this.frmExpediente.controls['idproceso'].value);
-    }
-
-    this.modalService.open(modal, {
-      windowClass: 'modal-md',
+    return this.db.collection('expedientes').doc(idExpediente).set({
+      idExpediente: idExpediente,
+      clase: this.frmExpediente.controls['clase'].value,
+      numero: this.frmExpediente.controls['numero'].value.toUpperCase().trim(),
+      especialidad: this.frmExpediente.controls['especialidad'].value,
+      nivelIter: 0,
+      demandante: this.frmExpediente.controls['demandante'].value.toUpperCase().trim(),
+      demandado: this.frmExpediente.controls['demandado'].value.toUpperCase().trim(),
+      materia: this.frmExpediente.controls['materia'].value.toUpperCase().trim(),
+      juzgado: this.frmExpediente.controls['juzgado'].value.toUpperCase().trim(),
+      prioridad: "MEDIA",
+      tieneContrato: false,
+      fechaInicio: this.frmExpediente.controls['fechaInicio'].value.trim(),
+      codigo: null,
+      observaciones: "",
+      estado: "EN PROCESO",
+      motivoFinalizacion: null,
+      fechaCreacion: timestamp,
+      numeroCasacion: null,
+      numeroCautelar: null,
+      carpetaFiscal: null,
+      salaCasacion: null,
     });
-
-    document.getElementById('idgrupoinput')?.focus();
-  }
-
-  // Sin uso
-  // busca ID del Grupo
-  async buscarIdProceso() {
-    if (!this.ctrlGrupo.valid) return;
-
-    this.lsearching = true;
-    let idproceso = this.ctrlGrupo.value.toUpperCase();
-    const obs = this.db.collection('procesosjudiciales').doc(idproceso).get();
-    let grupo: any = await firstValueFrom(obs).then(snapshot => snapshot.data()).catch(error => {
-      console.log('No existe grupo');
-      throw error;
-    });
-    console.log(grupo);
-    if (grupo) {
-      this.objGrupo = {
-        idproceso: grupo.idproceso,
-        lstmiembros: grupo.lstmiembros.split(',')
-      };
-    } else {
-      this.objGrupo = null;
-    }
-    this.ltouched = true;
-    this.lsearching = false;
-  }
-
-  // Sin uso
-  // Establece el ID del Grupo desde el modal
-  establecerIdGrupo() {
-    this.frmExpediente.patchValue({
-      idproceso: this.objGrupo.idproceso
-    })
-
-    this.modalService.dismissAll();
   }
 
 }

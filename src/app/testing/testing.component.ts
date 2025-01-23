@@ -1815,12 +1815,38 @@ export class TestingComponent {
           let tiempo = salida - ingreso;
           tiempoOficina = tiempoOficina + tiempo;
         });
-        this.lstAsistencias.push({
-          idcolaborador: colaborador.id,
-          snombre: colaborador.snombre,
-          ntiempo: tiempoOficina,
-        })
+      this.lstAsistencias.push({
+        idcolaborador: colaborador.id,
+        snombre: colaborador.snombre,
+        ntiempo: tiempoOficina,
+      })
     });
+  }
+
+  subirNuevoExp() {
+    this.db.collection('expedientes').doc('E000921').set({
+      "idExpediente": "E000921",
+      "clase": "PROVISIONAL",
+      "numero": "DENUNCIA-RUTH-MARROQUIN",
+      "especialidad": "PENAL",
+      "nivelIter": 0,
+      "demandante": "RUTH ELENA MARROQUIN ROJAS DE CHAVEZ",
+      "demandado": "JUAN YURO VALVERDE MALAGA",
+      "materia": "ABUSO DE DOCUMENTO EN BLANCO",
+      "juzgado": "-",
+      "prioridad": "MEDIA",
+      "tieneContrato": false,
+      "fechaInicio": "10/01/2024",
+      "codigo": null,
+      "observaciones": "",
+      "estado": "EN PROCESO",
+      "motivoFinalizacion": null,
+      "fechaCreacion": 1737581785859,
+      "numeroCasacion": null,
+      "numeroCautelar": null,
+      "carpetaFiscal": null,
+      "salaCasacion": null
+    })
   }
 
 }
