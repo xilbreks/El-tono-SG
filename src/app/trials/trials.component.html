@@ -82,7 +82,13 @@
                 <tbody *ngIf="!lLoading && lstAudiencias.length > 0">
                     <tr *ngFor="let audiencia of lstAudiencias">
                         <td>
-                            {{audiencia.sfechauser}}
+                            <!-- {{audiencia.sfechauser}} -->
+                            <div>
+                                {{audiencia.nombreDia}},
+                            </div>
+                            <div>
+                                {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
+                            </div>
                         </td>
                         <td>
                             <ul>
@@ -160,7 +166,12 @@
                 <tbody *ngIf="!lLoading && lstAudLaboral.length > 0">
                     <tr *ngFor="let audiencia of lstAudLaboral">
                         <td>
-                            {{audiencia.sfechauser}}
+                            <div>
+                                {{audiencia.nombreDia}},
+                            </div>
+                            <div>
+                                {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
+                            </div>
                         </td>
                         <td>
                             <ul>
@@ -238,7 +249,12 @@
                 <tbody *ngIf="!lLoading && lstAudFamilia.length > 0">
                     <tr *ngFor="let audiencia of lstAudFamilia">
                         <td>
-                            {{audiencia.sfechauser}}
+                            <div>
+                                {{audiencia.nombreDia}},
+                            </div>
+                            <div>
+                                {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
+                            </div>
                         </td>
                         <td>
                             <ul>
@@ -316,7 +332,12 @@
                 <tbody *ngIf="!lLoading && lstAudCivil.length > 0">
                     <tr *ngFor="let audiencia of lstAudCivil">
                         <td>
-                            {{audiencia.sfechauser}}
+                            <div>
+                                {{audiencia.nombreDia}},
+                            </div>
+                            <div>
+                                {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
+                            </div>
                         </td>
                         <td>
                             <ul>
@@ -394,7 +415,12 @@
                 <tbody *ngIf="!lLoading && lstAudPenal.length > 0">
                     <tr *ngFor="let audiencia of lstAudPenal">
                         <td>
-                            {{audiencia.sfechauser}}
+                            <div>
+                                {{audiencia.nombreDia}},
+                            </div>
+                            <div>
+                                {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
+                            </div>
                         </td>
                         <td>
                             <ul>
