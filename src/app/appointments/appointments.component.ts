@@ -17,6 +17,9 @@ interface Appointment {
   sacuerdos: string;
   stema: string;
   sfechauser: string;
+  nombreDia: string;
+  numeroDia: string;
+  nombreMes: string;
 }
 
 @Component({
@@ -105,10 +108,23 @@ export class AppointmentsComponent implements OnInit {
           let sDay = cita.sfecha.slice(8, 10);
           let sMonth = cita.sfecha.slice(5, 7);
           let sYear = cita.sfecha.slice(0, 4);
+
+          // Colocar nombre a los dias y el mes
+          let dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+          let meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+          let fecha = new Date(`${cita.sfecha}T00:00`);
+          let numeroDiaSemana = fecha.getUTCDay();
+          let numeroMes = fecha.getMonth();
+          let nombreDia = dias[numeroDiaSemana];
+          let nombreMes = meses[numeroMes];
+
           return {
             ...cita,
             sfechauser: sDay + '/' + sMonth + '/' + sYear,
-            scliente: cita.scliente.toUpperCase()
+            scliente: cita.scliente.toUpperCase(),
+            nombreDia,
+            numeroDia: sDay,
+            nombreMes,
           }
         }).sort((a, b) => {
           let sfecha1 = a.sfecha + '-' + a.shora;

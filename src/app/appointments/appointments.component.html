@@ -50,7 +50,13 @@
             <tbody *ngIf="!lLoading && lstCitas.length > 0">
                 <tr *ngFor="let cita of lstCitas">
                     <td>
-                        {{cita.sfechauser}}
+                        <!-- {{cita.sfechauser}} -->
+                        <div>
+                            {{cita.nombreDia}},
+                        </div>
+                        <div>
+                            {{cita.numeroDia}} de {{cita.nombreMes}}
+                        </div>
                     </td>
                     <td>
                         <ul>
