@@ -42,36 +42,36 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let expediente of lstExpedientesFiltered; let i = index">
+            <tr *ngFor="let expediente of expedientesFiltrados; let i = index">
                 <td>
                     {{i+1}}
                 </td>
                 <td>
-                    <a [routerLink]="'/expediente/'+expediente.sexpediente">
-                        {{expediente.sexpediente}}
+                    <a [routerLink]="'/expediente/'+expediente.numero">
+                        {{expediente.numero}}
                     </a>
                 </td>
                 <td>
-                    {{expediente.smateria}}
+                    {{expediente.materia}}
                 </td>
                 <td>
-                    {{expediente.sespecialidad}}
+                    {{expediente.especialidad}}
                 </td>
                 <td>
-                    {{expediente.sdemandante}}
+                    {{expediente.demandante}}
                 </td>
                 <td>
-                    {{expediente.sdemandado}}
+                    {{expediente.demandado}}
                 </td>
                 <td>
-                    {{expediente.sfechainicio}}
+                    {{expediente.fechaInicio}}
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<div *ngIf="lLoading">
+<div *ngIf="isLoading">
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     Cargando...
 </div>

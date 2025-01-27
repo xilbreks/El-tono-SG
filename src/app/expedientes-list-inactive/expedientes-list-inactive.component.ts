@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { AppService } from './../app.service';
 
+import { Expediente } from '../_interfaces/expediente';
+
 @Component({
   selector: 'app-expedientes-list-inactive',
   templateUrl: './expedientes-list-inactive.component.html',
   styleUrl: './expedientes-list-inactive.component.scss'
 })
 export class ExpedientesListInactiveComponent {
-  lLoading = false;
+  isLoading = false;
 
-  lstExpedientes: Array<any> = [];
-  lstExpedientesFiltered: Array<any> = [];
+  expedientes: Expediente[] = [];
+  expedientesFiltrados: Expediente[] = [];
 
   constructor(
     private service: AppService,
@@ -19,17 +21,19 @@ export class ExpedientesListInactiveComponent {
   }
 
   obtenerExpedientes() {
-    this.lLoading = true;
+    this.isLoading = true;
     this.service.expedientes.subscribe(res => {
-      this.lstExpedientes = res.filter((e: any) => e.estado == 'FINALIZADO').sort((a: any, b: any) => {
-        if (a.sespecialidad > b.sespecialidad)
+      this.expedientes = res.filter((e: any) => e.estado == 'FINALIZADO').sort((a: any, b: any) => {
+        if (a.especialidad > b.especialidad)
           return 1;
         else
           return -1;
       });
-      this.lstExpedientesFiltered = this.lstExpedientes;
+      this.expedientesFiltrados = this.expedientes;
 
-      this.lLoading = false;
+      if (this.expedientes.length > 0) {
+        this.isLoading = false;
+      }
     });
   }
 
@@ -38,51 +42,42 @@ export class ExpedientesListInactiveComponent {
 
     sterms = sterms.filter(sterm => sterm.length >= 3);
 
-    // if (sterms.length == 0) {
-    //   this.lstExpedientesFiltered = [];
-    //   return;
-    // }
+    if (sterms.length == 0) {
+      this.expedientesFiltrados = this.expedientes;
+      return;
+    }
 
-    this.lstExpedientesFiltered = this.lstExpedientes
-      .filter(exp => {
-        if (exp.idtipodoc == 'CASACION-2DA-SALA') {
-          return false;
-        } else if (exp.idtipodoc == 'CASACION-4TA-SALA') {
-          return false;
-        } else {
-          return true;
-        }
-      })
+    this.expedientesFiltrados = this.expedientes
       .filter(exp => {
         let lMatch = false;
         let nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.sdemandado.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.demandado.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.sdemandante.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.demandante.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.sexpediente.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.numero.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.scodigo.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.codigo?.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
         sterms.forEach(sterm => {
-          if (exp.smatchexp?.toLowerCase().includes(sterm)) nMatchs++;
+          if (exp.numeroCautelar?.toLowerCase().includes(sterm)) nMatchs++;
         })
         if (nMatchs == sterms.length) lMatch = true;
 

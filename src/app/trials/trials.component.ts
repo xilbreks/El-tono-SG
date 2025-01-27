@@ -24,7 +24,7 @@ interface Trial {
   nombreDia: string;      // Dia de la semana, ej: "Lunes", "Martes", ...
   nombreMes: string;      // Mes del año, ej: "Enero", "Febrero", ...
   numeroDia: string;      // Numero del dia del mes
-  numeroAnio: string;     // Numero de año
+  numeroAnio: number;     // Numero de año
 }
 
 @Component({

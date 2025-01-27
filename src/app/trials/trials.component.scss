@@ -10,6 +10,38 @@ ul.nav {
     font-size: 0.85rem;
 }
 
+.cabecera {
+    background-color: #0077b6;
+    color: #ffffff;
+    text-align: center;
+
+    font-size: 15px;
+    border-radius: 10px;
+    
+}
+
+.cuerpo {
+    font-size: 14px;
+    color: #081c15;
+    margin-top: 5px;
+    border-bottom: 1px solid #00b4d8;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    .fecha {
+        text-align: center;
+        align-self: center;
+    }
+
+    ul {
+        margin: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
+
 .tipo-audiencia {
     font-family: monospace;
     padding: 0 10px;

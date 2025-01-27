@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import * as XLSX from 'xlsx';
 
+import { Expediente } from '../_interfaces/expediente';
+
 interface Pago {
   sdescripcion: string,
   sfecha: string,
@@ -26,11 +28,11 @@ interface Contrato {
   styleUrls: ['./reporte-pagos.component.scss']
 })
 export class ReportePagosComponent {
-  lstExpLaborales: Array<any> = [];
-  lstExpFamilia: Array<any> = [];
-  lstExpCivil: Array<any> = [];
-  lstExpPenal: Array<any> = [];
-  lstExpConst: Array<any> = [];
+  lstExpLaborales: Array<Expediente> = [];
+  lstExpFamilia: Array<Expediente> = [];
+  lstExpCivil: Array<Expediente> = [];
+  lstExpPenal: Array<Expediente> = [];
+  lstExpConst: Array<Expediente> = [];
 
   lLaboralOK = false;
   lFamiliaOK = false;
@@ -81,7 +83,7 @@ export class ReportePagosComponent {
       return ref.where('sespecialidad', '==', 'LABORAL')
         .where('lactive', '==', true);
     }).valueChanges()
-      .subscribe(res => {
+      .subscribe((res: any) => {
         this.lstExpLaborales = res;
         this.lLaboralOK = true;
 
@@ -94,7 +96,7 @@ export class ReportePagosComponent {
       return ref.where('sespecialidad', '==', 'FAMILIA')
         .where('lactive', '==', true);
     }).valueChanges()
-      .subscribe(res => {
+      .subscribe((res: any) => {
         this.lstExpFamilia = res;
         this.lFamiliaOK = true;
 
@@ -107,7 +109,7 @@ export class ReportePagosComponent {
       return ref.where('sespecialidad', '==', 'CIVIL')
         .where('lactive', '==', true);
     }).valueChanges()
-      .subscribe(res => {
+      .subscribe((res: any) => {
         this.lstExpCivil = res;
         this.lCivilOK = true;
 
@@ -120,7 +122,7 @@ export class ReportePagosComponent {
       return ref.where('sespecialidad', '==', 'PENAL')
         .where('lactive', '==', true);
     }).valueChanges()
-      .subscribe(res => {
+      .subscribe((res: any) => {
         this.lstExpPenal = res;
         this.lPenalOK = true;
 
@@ -133,7 +135,7 @@ export class ReportePagosComponent {
       return ref.where('sespecialidad', '==', 'CONSTITUCIONAL')
         .where('lactive', '==', true);
     }).valueChanges()
-      .subscribe(res => {
+      .subscribe((res: any) => {
         this.lstExpConst = res;
         this.lConstOK = true;
 
@@ -155,25 +157,13 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (pago.sexpediente == e.sexpediente) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (pago.sexpediente == e.numero) {
+          sumapagos += pago.nmonto;
+          fultimopa = pago.sfecha;
+          nultimopa = pago.nmonto;
+          return true;
         } else {
-          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -198,21 +188,11 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (contr.sexpediente == e.sexpediente) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (contr.sexpediente == e.numero) {
+          sumacontratos += contr.nmonto;
+          return true;
         } else {
-          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -231,12 +211,12 @@ export class ReportePagosComponent {
       }
 
       todo_laboral.push({
-        "Expediente": e.sexpediente,
-        "Materia": e.smateria,
-        "Especialidad": e.sespecialidad,
-        "Demandante": e.sdemandante,
-        "Demandado": e.sdemandado,
-        "Inicio": e.sfechainicio,
+        "Expediente": e.numero,
+        "Materia": e.materia,
+        "Especialidad": e.especialidad,
+        "Demandante": e.demandante,
+        "Demandado": e.demandado,
+        "Inicio": e.fechaInicio,
 
         "Monto TOTAL CONTRATO": sumacontratos,
         "Detalle 1": lstDetalles[0],
@@ -322,25 +302,13 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (pago.sexpediente == e.sexpediente) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (pago.sexpediente == e.numero) {
+          sumapagos += pago.nmonto;
+          fultimopa = pago.sfecha;
+          nultimopa = pago.nmonto;
+          return true;
         } else {
-          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -365,21 +333,11 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (contr.sexpediente == e.sexpediente) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (contr.sexpediente == e.numero) {
+          sumacontratos += contr.nmonto;
+          return true;
         } else {
-          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -398,12 +356,12 @@ export class ReportePagosComponent {
       }
 
       todo_familia.push({
-        "Expediente": e.sexpediente,
-        "Materia": e.smateria,
-        "Especialidad": e.sespecialidad,
-        "Demandante": e.sdemandante,
-        "Demandado": e.sdemandado,
-        "Inicio": e.sfechainicio,
+        "Expediente": e.numero,
+        "Materia": e.materia,
+        "Especialidad": e.especialidad,
+        "Demandante": e.demandante,
+        "Demandado": e.demandado,
+        "Inicio": e.fechaInicio,
 
         "Monto TOTAL CONTRATO": sumacontratos,
         "Detalle 1": lstDetalles[0],
@@ -489,25 +447,13 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (pago.sexpediente == e.sexpediente) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (pago.sexpediente == e.numero) {
+          sumapagos += pago.nmonto;
+          fultimopa = pago.sfecha;
+          nultimopa = pago.nmonto;
+          return true;
         } else {
-          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -532,21 +478,11 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (contr.sexpediente == e.sexpediente) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (contr.sexpediente == e.numero) {
+          sumacontratos += contr.nmonto;
+          return true;
         } else {
-          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -565,12 +501,12 @@ export class ReportePagosComponent {
       }
 
       todo_civil.push({
-        "Expediente": e.sexpediente,
-        "Materia": e.smateria,
-        "Especialidad": e.sespecialidad,
-        "Demandante": e.sdemandante,
-        "Demandado": e.sdemandado,
-        "Inicio": e.sfechainicio,
+        "Expediente": e.numero,
+        "Materia": e.materia,
+        "Especialidad": e.especialidad,
+        "Demandante": e.demandante,
+        "Demandado": e.demandado,
+        "Inicio": e.fechaInicio,
 
         "Monto TOTAL CONTRATO": sumacontratos,
         "Detalle 1": lstDetalles[0],
@@ -656,25 +592,13 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (pago.sexpediente == e.sexpediente) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (pago.sexpediente == e.numero) {
+          sumapagos += pago.nmonto;
+          fultimopa = pago.sfecha;
+          nultimopa = pago.nmonto;
+          return true;
         } else {
-          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -699,21 +623,11 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (contr.sexpediente == e.sexpediente) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (contr.sexpediente == e.numero) {
+          sumacontratos += contr.nmonto;
+          return true;
         } else {
-          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -732,12 +646,12 @@ export class ReportePagosComponent {
       }
 
       todo_penal.push({
-        "Expediente": e.sexpediente,
-        "Materia": e.smateria,
-        "Especialidad": e.sespecialidad,
-        "Demandante": e.sdemandante,
-        "Demandado": e.sdemandado,
-        "Inicio": e.sfechainicio,
+        "Expediente": e.numero,
+        "Materia": e.materia,
+        "Especialidad": e.especialidad,
+        "Demandante": e.demandante,
+        "Demandado": e.demandado,
+        "Inicio": e.fechaInicio,
 
         "Monto TOTAL CONTRATO": sumacontratos,
         "Detalle 1": lstDetalles[0],
@@ -823,25 +737,13 @@ export class ReportePagosComponent {
       let fultimopa = 'NUNCA';
       let nultimopa = 0;
       let pagitos = this.lstPagos.filter(pago => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (pago.sexpediente == e.sexpediente) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (pago.sexpediente == e.numero) {
+          sumapagos += pago.nmonto;
+          fultimopa = pago.sfecha;
+          nultimopa = pago.nmonto;
+          return true;
         } else {
-          if (pago.sexpediente == e.sexpediente || pago.sexpediente == e.smatchexp) {
-            sumapagos += pago.nmonto;
-            fultimopa = pago.sfecha;
-            nultimopa = pago.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -866,21 +768,11 @@ export class ReportePagosComponent {
       // Contratos
       let sumacontratos = 0;
       let contratitos = this.lstContratos.filter(contr => {
-        // Verificar si el expediente tiene match
-        if (e.smatchexp == 'no-match') {
-          if (contr.sexpediente == e.sexpediente) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+        if (contr.sexpediente == e.numero) {
+          sumacontratos += contr.nmonto;
+          return true;
         } else {
-          if (contr.sexpediente == e.sexpediente || contr.sexpediente == e.smatchexp) {
-            sumacontratos += contr.nmonto;
-            return true;
-          } else {
-            return false;
-          }
+          return false;
         }
       });
 
@@ -899,12 +791,12 @@ export class ReportePagosComponent {
       }
 
       todo_const.push({
-        "Expediente": e.sexpediente,
-        "Materia": e.smateria,
-        "Especialidad": e.sespecialidad,
-        "Demandante": e.sdemandante,
-        "Demandado": e.sdemandado,
-        "Inicio": e.sfechainicio,
+        "Expediente": e.numero,
+        "Materia": e.materia,
+        "Especialidad": e.especialidad,
+        "Demandante": e.demandante,
+        "Demandado": e.demandado,
+        "Inicio": e.fechaInicio,
 
         "Monto TOTAL CONTRATO": sumacontratos,
         "Detalle 1": lstDetalles[0],

@@ -1,6 +1,6 @@
 <div *ngIf="expediente?.estado == 'FINALIZADO'" style="color: red;">
     <i class="bi bi-exclamation-triangle"></i>
-    Depurado
+    Depurado - {{expediente?.motivoFinalizacion}}
 </div>
 <div class="container expediente">
     <h4>
@@ -93,7 +93,7 @@
         </tr>
         <tr *ngIf="expediente?.numeroCautelar != null">
             <td>
-                <b>CAUTELAR(ES):</b>
+                <b>CUADERNOS:</b>
             </td>
             <td>
                 <ul>
