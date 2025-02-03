@@ -1,6 +1,7 @@
 export interface Expediente {
     idExpediente: string;           // Identificador único del expediente
-    clase: string;                  // Clase de documento: "PROVISIONAL", "PRINCIPAL", "CAUTELAR", "CF", "CURADURIA"
+    clase: string;                  // Clase de documento: "PROVISIONAL", "PRINCIPAL", "CUADERNO", "CF", "CURADURIA"
+    titulo: string;                 // Título del expediente
     numero: string;                 // Número alfanumérico del expediente
     especialidad: string;           // Área de especialidad: "LABORAL", "FAMILIA", "CIVIL", "PENAL", "CONSTITUCIONAL", "ADMINISTRATIVO"
     nivelIter: number;              // Indicador del nivel de ITER procesal
@@ -17,7 +18,7 @@ export interface Expediente {
     motivoFinalizacion: string | null; // Motivo por el cual el expediente fue finalizado
     fechaCreacion: number;          // Fecha de registro del expediente en formato timestamp (ej. (new Date()).getTime())
     numeroCasacion: string | null;  // Número de casación si aplica
-    numeroCautelar: string | null;  // Número de cuaderno cautelar si aplica
-    carpetaFiscal: string | null;   // Número de carpeta fiscal si aplica
     salaCasacion: string | null;    // Sala de la casación si aplica
+    numeroPrincipal: string | null; // Número del expediente principal, se usa en caso de cuadernos
+    numeroProvisional: string | null; // Número del expediente si es provisional
 }

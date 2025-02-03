@@ -1,20 +1,37 @@
 <br />
 <form class="container expediente" [formGroup]="frmExpediente" autocomplete="off">
     <h4>
-        <select class="form-select" formControlName="clase" (change)="setValidator()" style="text-align: center;">
+        <select class="form-select" formControlName="clase" (change)="onCambioClase()" style="text-align: center;">
             <option value="PRINCIPAL">EXPEDIENTE PRINCIPAL</option>
             <option value="PROVISIONAL">EXPEDIENTE PROVISIONAL</option>
-            <option value="CAUTELAR">EXPEDIENTE CAUTELAR</option>
+            <option value="CUADERNO">CUADERNO</option>
             <option value="CF">CARPETA FISCAL</option>
             <!-- <option value="CURADURIA">CURADURIA</option> -->
         </select>
     </h4>
     <h4>
-        <input type="text" placeholder="Número de Expediente" class="form-control"
-            formControlName="numero" id="numero-expediente">
+        <input type="text" placeholder="Número de Expediente" class="form-control numero-expediente"
+            formControlName="numero">
     </h4>
     <hr />
     <table style="width:100%">
+        <tr *ngIf="esCuaderno">
+            <td>
+                <b>NOMBRE DEL CUADERNO</b>
+            </td>
+            <td>
+                <input type="text" class="form-control" formControlName="titulo">
+            </td>
+        </tr>
+        <tr *ngIf="esCuaderno">
+            <td>
+                <b>EXPEDIENTE PRINCIPAL</b>
+            </td>
+            <td>
+                <input type="text" class="form-control" formControlName="numeroPrincipal"
+                    (click)="abrirModal(findExpModal)" readonly>
+            </td>
+        </tr>
         <tr>
             <td>
                 <b>ESPECIALIDAD:</b>
@@ -37,7 +54,7 @@
             <td>
                 <input type="text" class="form-control" list="materias" formControlName="materia">
                 <datalist id="materias">
-                    <option *ngFor="let mat of lstMaterias" [value]="mat.smateria"></option>
+                    <option *ngFor="let mat of materiasFiltradas" [value]="mat.smateria"></option>
                 </datalist>
             </td>
         </tr>
@@ -85,13 +102,14 @@
         <div class="col-3">
             <div style="display: flex; flex-direction: row-reverse;">
                 <button class="btn btn-success" (click)="guardarExpediente()"
-                    [disabled]="!(frmExpediente.valid && !lCreating)">
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreating">
+                    [disabled]="!(frmExpediente.valid && !estaGuardando)">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                        *ngIf="estaGuardando">
                     </span>
-                    <span class="sr-only" *ngIf="!lCreating">
+                    <span class="sr-only" *ngIf="!estaGuardando">
                         Registrar
                     </span>
-                    <span class="sr-only" *ngIf="lCreating">
+                    <span class="sr-only" *ngIf="estaGuardando">
                         Registrando...
                     </span>
                 </button>
@@ -99,3 +117,32 @@
         </div>
     </div>
 </form>
+
+<!-----------------------------------------------
+  --- MODAL PARA BUSCAR EXPEDIENTE PRINCIPAL ----
+  ----------------------------------------------->
+<ng-template #findExpModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Encontrar Expediente</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <input type="text" class="form-control" #query (keyup)="onCambioQuery(query)"
+                placeholder="Número del expediente" id="querybox">
+            <br>
+        </div>
+        <div class="lista-grupo">
+            <div class="lista-item" *ngFor="let exp of expedientesFiltrados" (click)="onSelectExp(exp)"
+                style="cursor: pointer;">
+                <span style="color: green;">
+                    <i class="bi bi-check-circle-fill"></i>
+                </span>
+                <span>
+                    {{exp.numero}}
+                </span>
+            </div>
+        </div>
+    </div>
+</ng-template>

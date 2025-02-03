@@ -30,10 +30,15 @@ export class ExpItemRdtComponent implements OnChanges {
   getTareas(): void {
     this.lLoading = true;
     this.lstTareas = [];
+    let numeros = [];
+    numeros.push(this.expediente?.numero);
+    if (this.expediente?.numeroProvisional) {
+      numeros.push(this.expediente?.numeroProvisional);
+    }
 
     let obs = this.db
       .collection('tareas', ref => {
-        return ref.where('sexpediente', '==', this.expediente?.numero).orderBy('sfecha', 'desc').limit(16);
+        return ref.where('sexpediente', 'in', numeros).orderBy('sfecha', 'desc').limit(16);
       })
       .valueChanges()
       .subscribe((tareas: any[]) => {
@@ -57,10 +62,15 @@ export class ExpItemRdtComponent implements OnChanges {
 
   getTareasTodas() {
     this.lLoadingMore = true;
+    let numeros = [];
+    numeros.push(this.expediente?.numero);
+    if (this.expediente?.numeroProvisional) {
+      numeros.push(this.expediente?.numeroProvisional);
+    }
 
     let obs = this.db
       .collection('tareas', ref => {
-        return ref.where('sexpediente', '==', this.expediente?.numero).orderBy('sfecha', 'desc').limit(50);
+        return ref.where('sexpediente', 'in', numeros).orderBy('sfecha', 'desc').limit(50);
       })
       .valueChanges()
       .subscribe((tareas: any[]) => {

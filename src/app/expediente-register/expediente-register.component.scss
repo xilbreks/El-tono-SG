@@ -14,17 +14,17 @@
         border-spacing: 10px;
     }
 
-    #numero-expediente {
+    .numero-expediente {
         text-align: center;
         background-color: lightgrey;
         border-color: #c1c1c1;
     }
 
-    #numero-expediente.ng-invalid.ng-touched {
+    .numero-expediente.ng-invalid.ng-touched {
         border: 1px solid red;
     }
 
-    #numero-expediente.ng-valid.ng-touched {
+    .numero-expediente.ng-valid.ng-touched {
         border: 1px solid limegreen;
     }
 }

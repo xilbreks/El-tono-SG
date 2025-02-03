@@ -4,7 +4,7 @@
 </div>
 <div class="container expediente">
     <h4>
-        {{expediente?.clase}}
+        {{expediente?.titulo}}
     </h4>
     <h4 id="sexpediente">
         {{expediente?.numero}}
@@ -77,7 +77,7 @@
                 </span>
             </td>
         </tr>
-        <hr *ngIf="expediente?.numeroCasacion != null || expediente?.numeroCautelar != null"/>
+        <hr *ngIf="expediente?.numeroCasacion != null || cuadernos.length > 0" />
         <tr *ngIf="expediente?.numeroCasacion != null">
             <td>
                 <b>CASACION:</b>
@@ -91,16 +91,17 @@
                 </span>
             </td>
         </tr>
-        <tr *ngIf="expediente?.numeroCautelar != null">
+        <tr *ngIf="cuadernos.length > 0">
             <td>
                 <b>CUADERNOS:</b>
             </td>
             <td>
                 <ul>
-                    <li *ngFor="let cautelar of cautelares">
-                        <a [routerLink]="'/expediente/'+cautelar">
-                            {{cautelar}}
+                    <li *ngFor="let cuaderno of cuadernos">
+                        <a [routerLink]="'/expediente/'+cuaderno.numero" style="text-decoration: none;">
+                            {{cuaderno.numero}}
                         </a>
+                        ({{cuaderno.titulo}})
                     </li>
                 </ul>
             </td>
@@ -122,6 +123,10 @@
 
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
+        <i>
+            {{expediente?.idExpediente}}
+        </i>
+        <br>
         <i>
             {{expediente?.numero}}
         </i>

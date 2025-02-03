@@ -109,10 +109,10 @@ export class ExpedientesListComponent implements AfterViewInit {
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
-        sterms.forEach(sterm => {
-          if (exp.numeroCautelar?.toLowerCase().includes(sterm)) nMatchs++;
-        })
-        if (nMatchs == sterms.length) lMatch = true;
+        // sterms.forEach(sterm => {
+        //   if (exp.numeroCautelar?.toLowerCase().includes(sterm)) nMatchs++;
+        // })
+        // if (nMatchs == sterms.length) lMatch = true;
 
         return lMatch;
       });
