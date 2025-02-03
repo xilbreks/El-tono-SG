@@ -15,7 +15,6 @@ import { Contrato } from './../__clases/contrato';
 export class ExpItemFeesComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
   idusuario: string | null;
-  ldebugger: boolean = false;
 
   // Contracts
   lstContracts: Array<Contrato> = [];
@@ -125,7 +124,7 @@ export class ExpItemFeesComponent implements OnChanges {
 
   addNewContract() {
     this.lCreatingC = true;
-    const id = new Date().getTime().toString();
+    const id = (new Date()).getTime().toString();
 
     this.db
       .collection('contratos')
@@ -136,6 +135,7 @@ export class ExpItemFeesComponent implements OnChanges {
         sexpediente: this.expediente?.numero,
         sdetalle: this.frmNewContract.value['sdetalle'],
         nmonto: this.frmNewContract.value['nmonto'],
+        idExpediente: this.expediente?.idExpediente,
       })
       .then((x) => {
         this.getContracts();
@@ -258,7 +258,7 @@ export class ExpItemFeesComponent implements OnChanges {
 
   addNewPayment() {
     this.lCreatingP = true;
-    const id = new Date().getTime();
+    const id = (new Date()).getTime();
     const sid = id.toString();
 
     this.db
@@ -271,6 +271,7 @@ export class ExpItemFeesComponent implements OnChanges {
         nmonto: this.frmNewPayment.value['nmonto'],
         sfecha: this.frmNewPayment.value['sfecha'],
         sdescripcion: this.frmNewPayment.value['sdescripcion'],
+        idExpediente: this.expediente?.idExpediente,
 
         nfechacreacion: id,
         screador: this.idusuario,
