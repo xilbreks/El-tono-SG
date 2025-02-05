@@ -100,7 +100,7 @@ export class ExpItemFeesComponent implements OnChanges {
 
     let obs = this.db
       .collection('contratos', ref => {
-        return ref.where('sexpediente', '==', this.expediente?.numero)
+        return ref.where('idExpediente', '==', this.expediente?.idExpediente)
           .where('lactive', '==', true)
       })
       .valueChanges()
@@ -217,7 +217,7 @@ export class ExpItemFeesComponent implements OnChanges {
 
     let obs = this.db
       .collection('pagos', ref => {
-        return ref.where('sexpediente', '==', this.expediente?.numero)
+        return ref.where('idExpediente', '==', this.expediente?.idExpediente)
           .where('lactive', '==', true)
       })
       .valueChanges()
