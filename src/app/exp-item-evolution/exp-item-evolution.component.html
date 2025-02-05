@@ -1,0 +1,78 @@
+<div *ngIf="expediente?.clase == 'PROVISIONAL'">
+    <h5>
+        <i class="bi bi-lightning"></i>
+        <span>Digievolucionar</span>
+        <i class="bi bi-lightning"></i>
+    </h5>
+
+    <p>
+        El expediente <b>provisional</b> pasa a ser expediente <b>principal</b> mediante este proceso.
+    </p>
+
+    <button class="btn btn-warning" (click)="openModal(digievolucionModal)">
+        DIGIEVOLUCIONAR
+    </button>
+
+
+
+
+    <div style="margin-top: 50px;">
+        <span style="font-size: 0.75rem;">
+            <i>
+                {{expediente?.numero}}
+            </i>
+        </span>
+    </div>
+    <hr>
+</div>
+
+
+<!------------------------------------------------
+  ------------ MODAL DIGIEVOLUCION ---------------
+  ----------------------------------------------->
+<ng-template #digievolucionModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">
+            <span *ngIf="!showVideo">
+                Digievolucionar
+            </span>
+            <span *ngIf="showVideo">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Digievolucionando...
+            </span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')" *ngIf="!showVideo"></button>
+    </div>
+    <div class="modal-body">
+        <form class="container" [formGroup]="frmExpediente" *ngIf="!showVideo">
+            <div class="overlay"></div>
+            <div class="content">
+                <p>Se procederá a digievolucionar el expediente, por lo que pasará de PROVISIONAL a PRINCIPAL.</p>
+                <div>
+                    <input type="text" class="form-control" formControlName="numero" placeholder="Número de expediente">
+                </div>
+                <div>
+                    <input type="text" class="form-control" formControlName="demandante" placeholder="Demandante">
+                </div>
+                <div>
+                    <input type="text" class="form-control" formControlName="demandado" placeholder="Demandado">
+                </div>
+                <div>
+                    <input type="text" class="form-control" formControlName="juzgado" placeholder="Juzgado">
+                </div>
+                <br>
+                <button class="btn btn-warning" (click)="startConfirmation()" [disabled]="!frmExpediente.valid">
+                    {{ isConfirming ? 'Confirmar Digievolución (' + countdown + 's)' : 'DIGIEVOLUCIONAR' }}
+                </button>
+                <p>Advertencia. No se puede revertir este proceso</p>
+            </div>
+        </form>
+        <div *ngIf="showVideo" class="video-container">
+            <video autoplay>
+                <source src="./../../assets/digievolucion.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de videos.
+            </video>
+        </div>
+    </div>
+</ng-template>

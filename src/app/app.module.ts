@@ -59,6 +59,7 @@ import { ExpItemCallsComponent } from './exp-item-calls/exp-item-calls.component
 import { TrialsComponent } from './trials/trials.component';
 import { ExpItemFilesComponent } from './exp-item-files/exp-item-files.component';
 import { ExpItemKComponent } from './exp-item-k/exp-item-k.component';
+import { ExpItemEvolutionComponent } from './exp-item-evolution/exp-item-evolution.component';
 
 const environment = {
   production: false,
@@ -122,6 +123,7 @@ const environment = {
     TrialsComponent,
     ExpItemFilesComponent,
     ExpItemKComponent,
+    ExpItemEvolutionComponent,
   ],
   imports: [
     BrowserModule,

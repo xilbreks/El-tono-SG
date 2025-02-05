@@ -65,8 +65,13 @@ export class ExpItemComponent implements OnInit {
     }).get();
     return firstValueFrom(obs).then(snapshot => {
       let matchs: any[] = [];
-      snapshot.forEach(doc => {
-        matchs.push(doc.data())
+      snapshot.forEach((doc: any) => {
+        let exp = doc.data();
+        let obs = exp.observaciones ? exp.observaciones : '';
+        matchs.push({
+          ...exp,
+          observaciones: obs
+        })
       })
       return matchs;
     });
