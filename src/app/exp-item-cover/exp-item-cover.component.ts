@@ -30,7 +30,7 @@ export class ExpItemCoverComponent implements OnChanges {
   colocarLinkContrato() {
     if (!this.expediente?.tieneContrato) return;
 
-    this.storage.ref(`contratos/${this.expediente?.numero}.pdf`)
+    this.storage.ref(`contratos/${this.expediente?.idExpediente}.pdf`)
       .getDownloadURL().subscribe(url => this.urlcontrato = url);
   }
 

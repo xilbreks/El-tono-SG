@@ -40,7 +40,7 @@ export class ExpItemKComponent implements OnChanges {
    * Obtiene la url de descarga del contrato
    */
   getUrlDescarga() {
-    let obs = this.storage.ref(`contratos/${this.expediente?.numero}.pdf`).getDownloadURL()
+    let obs = this.storage.ref(`contratos/${this.expediente?.idExpediente}.pdf`).getDownloadURL()
 
     firstValueFrom(obs).then((url) => {
       this.urlcontrato = url;
@@ -115,7 +115,7 @@ export class ExpItemKComponent implements OnChanges {
     if (!this.file) return;
     this.lUpdating = true;
 
-    const filePath = `contratos/${this.expediente?.numero}.pdf`;
+    const filePath = `contratos/${this.expediente?.idExpediente}.pdf`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, this.file);
 
