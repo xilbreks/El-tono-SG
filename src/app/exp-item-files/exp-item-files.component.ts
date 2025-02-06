@@ -39,7 +39,7 @@ export class ExpItemFilesComponent implements OnChanges {
   }
 
   listFiles() {
-    const storageRef = this.storage.storage.ref(`anexos/${this.expediente?.numero}`);
+    const storageRef = this.storage.storage.ref(`actuados/${this.expediente?.idExpediente}`);
 
     storageRef.listAll().then(async (result) => {
       const fileDetails = await Promise.all(
@@ -75,7 +75,7 @@ export class ExpItemFilesComponent implements OnChanges {
     if (!this.file) return;
     this.lUpdating = true;
 
-    const filePath = `anexos/${this.expediente?.numero}/${this.file.name}`;
+    const filePath = `actuados/${this.expediente?.idExpediente}/${this.file.name}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, this.file);
 
@@ -99,7 +99,7 @@ export class ExpItemFilesComponent implements OnChanges {
 
   quitarAnexo(ruta: any){
     ruta.removing = true;
-    const fileRef = this.storage.ref(`anexos/${this.expediente?.numero}/${ruta.name}`);
+    const fileRef = this.storage.ref(`actuados/${this.expediente?.idExpediente}/${ruta.name}`);
     const obs = fileRef.delete().subscribe(res => {
       console.log('eliminado: ', res);
 
