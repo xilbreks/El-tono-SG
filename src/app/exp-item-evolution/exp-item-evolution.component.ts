@@ -71,8 +71,15 @@ export class ExpItemEvolutionComponent implements OnChanges {
     clearInterval(this.countdownInterval);
     this.showVideo = true;
 
+    // Promise para que al menos sea 30 segundos
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(resolve, 31000, 'foo');
+    })
+
     // Update expediente to PRINCIPAL
-    this.evolucionarExp().then(() => {
+    const updater = this.evolucionarExp();
+
+    Promise.all([promise, updater]).then(() => {
       this.showVideo = false;
       this.modalService.dismissAll();
       let numeroNuevo = this.frmExpediente.value['numero'].trim().toUpperCase();
