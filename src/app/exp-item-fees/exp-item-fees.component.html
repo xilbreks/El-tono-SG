@@ -40,13 +40,18 @@
             </thead>
             <tbody *ngIf="!lLoadingC && lstContracts.length > 0">
                 <tr *ngFor="let c of lstContracts">
-                    <td>
+                    <td *ngIf="c.nmonto == 0" colspan="3" style="text-align: left; padding-left: 8px;">
+                        <span style="text-transform: uppercase;">
+                            <b>{{c.sdetalle}}</b>
+                        </span>
+                    </td>
+                    <td *ngIf="c.nmonto != 0" style="text-align: left; padding-left: 16px;">
                         {{c.sdetalle}}
                     </td>
-                    <td>
+                    <td *ngIf="c.nmonto != 0">
                         {{c.nmonto | number:'2.2-2' }}
                     </td>
-                    <td>
+                    <td *ngIf="c.nmonto != 0">
                         {{c.fechaUser}}
                     </td>
                     <td *ngIf="!lViewMode">
@@ -86,7 +91,7 @@
 </div>
 
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 col-md-10 col-lg-8 col-sm-12">
         <h4>
             Pagos
             <button (click)="openNewPaymentModal(newPaymentModal)" class="btn btn-success btn-sm" *ngIf="!lViewMode">
@@ -106,7 +111,7 @@
                         Monto(S/)
                     </th>
                     <th>
-                        Descripción
+                        Detalle
                     </th>
                     <th *ngIf="!lViewMode">
                         Editar
@@ -212,9 +217,10 @@
 
             <div class="row">
                 <label for="sdescripcion" class="form-label">
-                    Descripción
+                    Detalle
                 </label>
-                <textarea id="sdescripcion" rows="3" class="form-control" formControlName="sdescripcion">
+                <textarea id="sdescripcion" rows="3" class="form-control" formControlName="sdescripcion"
+                    placeholder="Transf. BCP / Yape / PLIN / Efectivo; Operacion Nro: 00000000 ; Registrado por: Usuario">
                 </textarea>
             </div>
 
@@ -312,14 +318,15 @@
             </div>
 
             <div>
-                <input type="checkbox" id="lfecha" name="lfecha" [formControl]="fcNewCFecha" (change)="setValidatorNewContract()" tabindex="-1"/>
+                <input type="checkbox" id="lfecha" name="lfecha" [formControl]="fcNewCFecha"
+                    (change)="setValidatorNewContract()" tabindex="-1" />
                 <label for="lfecha" style="padding-left: 5px;">
                     Tiene Fecha de Pago
                 </label>
             </div>
 
             <div class="row" [ngClass]="{'oculto': !fcNewCFecha.value}">
-                <input type="date" class="form-control" id="sfecha" formControlName="sfecha"/>
+                <input type="date" class="form-control" id="sfecha" formControlName="sfecha" />
             </div>
         </form>
     </div>
@@ -364,14 +371,15 @@
             </div>
 
             <div>
-                <input type="checkbox" id="lfecha" name="lfecha" [formControl]="fcEditCFecha" (change)="setValidatorEditContract()" tabindex="-1"/>
+                <input type="checkbox" id="lfecha" name="lfecha" [formControl]="fcEditCFecha"
+                    (change)="setValidatorEditContract()" tabindex="-1" />
                 <label for="lfecha" style="padding-left: 5px;">
                     Tiene Fecha de Pago
                 </label>
             </div>
 
             <div class="row" [ngClass]="{'oculto': !fcEditCFecha.value}">
-                <input type="date" class="form-control" id="sfecha" formControlName="sfecha"/>
+                <input type="date" class="form-control" id="sfecha" formControlName="sfecha" />
             </div>
         </form>
     </div>
