@@ -4,8 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
+import { Contrato } from '../_interfaces/contrato';
 import { Pago } from './../_interfaces/pago';
-import { Contrato } from './../__clases/contrato';
 
 @Component({
   selector: 'app-exp-item-fees',
@@ -21,6 +21,8 @@ export class ExpItemFeesComponent implements OnChanges {
   nSumContracts: number = 0;
   frmNewContract: FormGroup;
   frmEditContract: FormGroup;
+  fcNewCFecha: FormControl = new FormControl(false);
+  fcEditCFecha: FormControl = new FormControl(false);
 
   lLoadingC: boolean = false;
   lCreatingC: boolean = false;
@@ -52,6 +54,7 @@ export class ExpItemFeesComponent implements OnChanges {
     this.frmNewContract = new FormGroup({
       sdetalle: new FormControl(null, Validators.required),
       nmonto: new FormControl(null, Validators.required),
+      sfecha: new FormControl(null),
     });
 
     /********************************
@@ -61,6 +64,7 @@ export class ExpItemFeesComponent implements OnChanges {
       idcontrato: new FormControl(null, Validators.required),
       sdetalle: new FormControl(null, Validators.required),
       nmonto: new FormControl(null, Validators.required),
+      sfecha: new FormControl(null),
     });
 
     /******************************
@@ -105,7 +109,16 @@ export class ExpItemFeesComponent implements OnChanges {
       })
       .valueChanges()
       .subscribe((res: Array<any>) => {
-        this.lstContracts = res;
+        this.lstContracts = res.map(r => {
+          let fechaUser = '';
+          if (r.sfecha) {
+            let anio = r.sfecha.slice(0, 4);
+            let mes = r.sfecha.slice(5, 7);
+            let dia = r.sfecha.slice(8, 10);
+            fechaUser = `${dia}/${mes}/${anio}`;
+          }
+          return {...r, fechaUser}
+        });
         this.nSumContracts = 0;
         this.lstContracts.forEach(c => {
           this.nSumContracts += c.nmonto
@@ -132,10 +145,15 @@ export class ExpItemFeesComponent implements OnChanges {
       .set({
         idcontrato: id,
         lactive: true,
-        sexpediente: this.expediente?.numero,
         sdetalle: this.frmNewContract.value['sdetalle'],
         nmonto: this.frmNewContract.value['nmonto'],
+        sfecha: this.frmNewContract.value['sfecha'],
         idExpediente: this.expediente?.idExpediente,
+        sexpediente: this.expediente?.numero,
+        sdemandante: this.expediente?.demandante,
+        sdemandado: this.expediente?.demandado,
+        sespecialidad: this.expediente?.especialidad,
+        smateria: this.expediente?.materia,
       })
       .then((x) => {
         this.getContracts();
@@ -151,10 +169,20 @@ export class ExpItemFeesComponent implements OnChanges {
   }
 
   openEditContractModal(c: Contrato, modal: any) {
+    if (c.sfecha) {
+      this.fcEditCFecha.setValue(true);
+      this.setValidatorEditContract();
+    }
+    else {
+      this.fcEditCFecha.setValue(false);
+      this.setValidatorEditContract();
+    }
+
     this.frmEditContract.setValue({
       idcontrato: c.idcontrato,
       sdetalle: c.sdetalle,
       nmonto: c.nmonto,
+      sfecha: c.sfecha ? c.sfecha : null,
     })
 
     this.modalService.open(modal, {
@@ -172,6 +200,7 @@ export class ExpItemFeesComponent implements OnChanges {
       .update({
         sdetalle: this.frmEditContract.value['sdetalle'],
         nmonto: this.frmEditContract.value['nmonto'],
+        sfecha: this.frmEditContract.value['sfecha'],
       })
       .then((x) => {
         this.getContracts();
@@ -205,6 +234,30 @@ export class ExpItemFeesComponent implements OnChanges {
       .catch(err => {
         window.alert('ERROR al quitar contrato')
       });
+  }
+
+  setValidatorNewContract() {
+    let tieneFecha = this.fcNewCFecha.value;
+    if (tieneFecha) {
+      this.frmNewContract.controls['sfecha'].setValidators(Validators.required);
+      this.frmNewContract.controls['sfecha'].updateValueAndValidity();
+    } else {
+      this.frmNewContract.controls['sfecha'].clearValidators();
+      this.frmNewContract.controls['sfecha'].setValue(null);
+      this.frmNewContract.controls['sfecha'].updateValueAndValidity();
+    }
+  }
+
+  setValidatorEditContract() {
+    let tieneFecha = this.fcEditCFecha.value;
+    if (tieneFecha) {
+      this.frmEditContract.controls['sfecha'].setValidators(Validators.required);
+      this.frmEditContract.controls['sfecha'].updateValueAndValidity();
+    } else {
+      this.frmEditContract.controls['sfecha'].clearValidators();
+      this.frmEditContract.controls['sfecha'].setValue(null);
+      this.frmEditContract.controls['sfecha'].updateValueAndValidity();
+    }
   }
 
   /*********************************************

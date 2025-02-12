@@ -30,43 +30,61 @@ export class ExpItemComponent implements OnInit {
       let numeroExpediente = params['numero'];
       this.titleService.setTitle(numeroExpediente);
 
-      this.recuperarDatos(numeroExpediente);
+      this.buscarExpediente(numeroExpediente);
     });
   }
 
-  async recuperarDatos(sexpediente: string) {
+  buscarExpediente(sexpediente: string) {
     // Indicador de carga
     this.lLoading = true;
 
     // Consultar a la Base de datos por el expediente
-    let exp = await this.getExp(sexpediente);
-
-    // Caso no exista expediente
-    if (exp.length == 0) {
-      this.lLoading = false;
-      this.expediente = null;
-      return;
-    }
-
-    // Caso si exista
-    this.expediente = exp[0];
-
-    // Indicador de carga
-    this.lLoading = false;
+    let p1 = this.consultarNumeroPrincipal(sexpediente);
+    let p2 = this.consultarNumeroProvisional(sexpediente);
+    Promise.all([p1, p2]).then((res: any) => {
+      if (res[0].length > 0) {
+        console.log('Lo encontre en numero principal')
+        this.expediente = res[0][0];
+        // Indicador de carga
+        this.lLoading = false;
+      } else if (res[1].length > 0) {
+        console.log('Lo encontre en numero provisional')
+        this.expediente = res[1][0];
+        // Indicador de carga
+        this.lLoading = false;
+      } else {
+        console.log('No lo encontré')
+        this.lLoading = false;
+        this.expediente = null;
+        // Indicador de carga
+        this.lLoading = false;
+      }
+    });
   }
 
   /****************************************************
    ********** CONSULTAS A LA BASE DE DATOS ************
    ****************************************************/
 
-  getExp(numeroExpediente: string): Promise<any[]> {
+  consultarNumeroPrincipal(numero: string): Promise<any[]> {
     const obs = this.db.collection('expedientes', ref => {
-      return ref.where('numero', '==', numeroExpediente)
+      return ref.where('numero', '==', numero)
     }).get();
     return firstValueFrom(obs).then(snapshot => {
-      let matchs: any[] = [];
-      snapshot.forEach((doc: any) => matchs.push(doc.data()))
-      return matchs;
+      let listado: any[] = [];
+      snapshot.forEach((doc: any) => listado.push(doc.data()))
+      return listado;
+    });
+  }
+
+  consultarNumeroProvisional(numero: string): Promise<any[]> {
+    const obs = this.db.collection('expedientes', ref => {
+      return ref.where('numeroProvisional', '==', numero)
+    }).get();
+    return firstValueFrom(obs).then(snapshot => {
+      let listado: any[] = [];
+      snapshot.forEach((doc: any) => listado.push(doc.data()))
+      return listado;
     });
   }
 

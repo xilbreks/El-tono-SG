@@ -11,7 +11,7 @@
 </div>
 
 <div class="row">
-    <div class="col-12 col-md-6 col-lg-4 col-sm-12">
+    <div class="col-12 col-md-8 col-lg-6 col-sm-12">
         <h4>
             Contrato
             <button (click)="openNewContractModal(newContractModal)" class="btn btn-success btn-sm" *ngIf="!lViewMode">
@@ -22,10 +22,13 @@
             <thead>
                 <tr>
                     <th>
-                        Detalle
+                        Concepto
                     </th>
                     <th>
-                        Monto
+                        Monto (S/)
+                    </th>
+                    <th>
+                        Fecha a pagar
                     </th>
                     <th *ngIf="!lViewMode">
                         Editar
@@ -42,6 +45,9 @@
                     </td>
                     <td>
                         {{c.nmonto | number:'2.2-2' }}
+                    </td>
+                    <td>
+                        {{c.fechaUser}}
                     </td>
                     <td *ngIf="!lViewMode">
                         <button (click)="openEditContractModal(c, editContractModal)" class="btn btn-warning btn-sm">
@@ -70,6 +76,7 @@
                     <th>
                         {{nSumContracts | number:'2.2-2' }}
                     </th>
+                    <th></th>
                     <th colspan="2" *ngIf="!lViewMode">
                     </th>
                 </tr>
@@ -303,6 +310,17 @@
                 </label>
                 <input type="number" class="form-control" id="nmonto" formControlName="nmonto" />
             </div>
+
+            <div>
+                <input type="checkbox" id="lfecha" name="lfecha" [formControl]="fcNewCFecha" (change)="setValidatorNewContract()" tabindex="-1"/>
+                <label for="lfecha" style="padding-left: 5px;">
+                    Tiene Fecha de Pago
+                </label>
+            </div>
+
+            <div class="row" [ngClass]="{'oculto': !fcNewCFecha.value}">
+                <input type="date" class="form-control" id="sfecha" formControlName="sfecha"/>
+            </div>
         </form>
     </div>
     <div class="modal-footer">
@@ -343,6 +361,17 @@
                     Monto
                 </label>
                 <input type="number" class="form-control" id="nmonto" formControlName="nmonto" />
+            </div>
+
+            <div>
+                <input type="checkbox" id="lfecha" name="lfecha" [formControl]="fcEditCFecha" (change)="setValidatorEditContract()" tabindex="-1"/>
+                <label for="lfecha" style="padding-left: 5px;">
+                    Tiene Fecha de Pago
+                </label>
+            </div>
+
+            <div class="row" [ngClass]="{'oculto': !fcEditCFecha.value}">
+                <input type="date" class="form-control" id="sfecha" formControlName="sfecha"/>
             </div>
         </form>
     </div>

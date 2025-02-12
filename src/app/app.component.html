@@ -81,10 +81,13 @@
         </li>
 
         <li class="nav-item" *ngIf="!!user">
-          <a class="nav-link" routerLink="/expedientes-listing"> Expedientes </a>
+          <a class="nav-link" routerLink="/expedientes-listing">
+            <!-- <i class="bi bi-layout-text-sidebar"></i> -->
+            Expedientes
+          </a>
         </li>
 
-        <li class="nav-item" *ngIf="!!user">
+        <!-- <li class="nav-item" *ngIf="!!user">
           <a class="nav-link" routerLink="/audiencias"> Audiencias </a>
         </li>
 
@@ -94,7 +97,40 @@
 
         <li class="nav-item" *ngIf="!!user">
           <a class="nav-link" routerLink="/demandas"> Demandas </a>
+        </li> -->
+
+
+
+        <li class="nav-item dropdown" *ngIf="!!user">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-calendar4-range"></i>
+            Planners
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+            <li>
+              <a class="dropdown-item" routerLink="/audiencias">
+                Planner de Audiencias
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/demandas">
+                Planner de Demandas
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/citas">
+                Planner de Citas
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/cobranzas">
+                Planner de Cobranzas
+              </a>
+            </li>
+          </ul>
         </li>
+
 
         <!-- <li class="nav-item" *ngIf="!!user && user?.displayName!='Lizbet Silva Guillén' && user?.displayName!='ADMIN'">
           <a class="nav-link" routerLink="/expediente-search"> Buscador EXP </a>

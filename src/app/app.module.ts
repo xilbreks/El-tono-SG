@@ -60,6 +60,10 @@ import { TrialsComponent } from './trials/trials.component';
 import { ExpItemFilesComponent } from './exp-item-files/exp-item-files.component';
 import { ExpItemKComponent } from './exp-item-k/exp-item-k.component';
 import { ExpItemEvolutionComponent } from './exp-item-evolution/exp-item-evolution.component';
+import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas.component';
+import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
+import { PlannerDemandasComponent } from './planner-demandas/planner-demandas.component';
+import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
 
 const environment = {
   production: false,
@@ -124,6 +128,10 @@ const environment = {
     ExpItemFilesComponent,
     ExpItemKComponent,
     ExpItemEvolutionComponent,
+    PlannerCobranzasComponent,
+    PlannerAudienciasComponent,
+    PlannerDemandasComponent,
+    PlannerCitasComponent,
   ],
   imports: [
     BrowserModule,

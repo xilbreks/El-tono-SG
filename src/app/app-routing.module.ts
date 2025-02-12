@@ -34,6 +34,7 @@ import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.co
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { DemandasComponent } from './demandas/demandas.component';
 import { TrialsComponent } from './trials/trials.component';
+import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas.component';
 
 const routes: Routes = [
   {
@@ -168,6 +169,10 @@ const routes: Routes = [
   {
     path: 'demandas',
     component: DemandasComponent
+  },
+  {
+    path: 'cobranzas',
+    component: PlannerCobranzasComponent
   },
   {
     path: '**',
