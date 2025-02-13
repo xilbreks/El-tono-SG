@@ -4,6 +4,7 @@ export interface Contrato {
     nmonto: number;             // Monto del contrato
     sdetalle: string;           // Detalle del contrato
     sfecha: string;             // Fecha tentativa de pago
+    sobs: string;               // Observaciones si ubiera
     sexpediente: string;        // Numero del expediente al momento de registrar el pago
     sdemandante: string;        // Nombre del demandante
     sdemandado: string;         // Nombre del demandado

@@ -35,7 +35,7 @@
                 <tr>
                     <th style="text-align: center; width: 15%;">Fecha</th>
                     <th>Expediente</th>
-                    <th style="width: 35%;">Detalles</th>
+                    <th style="width: 35%;">Detalle</th>
                 </tr>
             </thead>
             <tbody *ngIf="!cargando && cobranzas.length > 0">
@@ -64,13 +64,16 @@
                             </li>
                         </ul>
                     </td>
-                    <td>
+                    <td (dblclick)="openModalCobranza(cobro.idcontrato, cobro.sobs, editObsModal)" style="cursor: pointer;">
                         <ul>
                             <li>
-                                Monto a cobrar: S/ {{cobro.nmonto | number:'2.2-2'}}
+                                Monto a cobrar: <b>S/ {{cobro.nmonto | number:'2.2-2'}}</b>
                             </li>
                             <li>
-                                Concepto: {{cobro.sdetalle}}
+                                Concepto: <i>{{cobro.sdetalle}}</i>
+                            </li>
+                            <li *ngIf="cobro.sobs">
+                                Nota: {{cobro.sobs}}
                             </li>
                         </ul>
                     </td>
@@ -93,3 +96,33 @@
         </p>
     </div>
 </div>
+
+<!---------------------------------------------------------
+  ----------- MODAL PARA EDITAR OBSERVACIONES -------------
+  -------------------------------------------------------->
+<ng-template #editObsModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Observaciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmCobranza">
+            <textarea rows="5" name="sacuerdos" formControlName="sobs" class="form-control">
+            </textarea>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateCobranza()"
+            [disabled]="!(frmCobranza.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Anotar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Anotando...
+            </span>
+        </button>
+    </div>
+</ng-template>

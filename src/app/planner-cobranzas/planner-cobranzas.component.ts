@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { firstValueFrom } from 'rxjs';
 
 import { Contrato } from '../_interfaces/contrato';
@@ -15,8 +16,12 @@ export class PlannerCobranzasComponent implements OnInit {
   frmDate: FormGroup;
   cargando: boolean = true;
 
+  frmCobranza: FormGroup;
+  lUpdating: boolean = false;
+
   constructor(
     private db: AngularFirestore,
+    private modalService: NgbModal,
   ) {
     this.frmDate = new FormGroup({
       sinicio: new FormControl(null, Validators.required),
@@ -24,6 +29,11 @@ export class PlannerCobranzasComponent implements OnInit {
       smes: new FormControl(null, Validators.required),
       sanio: new FormControl(null, Validators.required),
     });
+
+    this.frmCobranza = new FormGroup({
+      idcontrato: new FormControl(null, Validators.required),
+      sobs: new FormControl(null, Validators.required),
+    })
   }
 
   ngOnInit(): void {
@@ -60,12 +70,11 @@ export class PlannerCobranzasComponent implements OnInit {
       sfinal: sLastDay,
     });
 
-    this.getCobranzas();
+    this.getCobranzas(true);
   }
 
-  async getCobranzas() {
-    this.cargando = true;
-    this.cobranzas = [];
+  async getCobranzas(indicador: boolean) {
+    this.cargando = indicador;
     let inicio = this.frmDate.controls['sinicio'].value;
     let final = this.frmDate.controls['sfinal'].value;
 
@@ -95,6 +104,34 @@ export class PlannerCobranzasComponent implements OnInit {
     }).sort((a, b) => a.sfecha < b.sfecha ? -1 : 1);
 
     this.cargando = false;
+  }
+
+
+  openModalCobranza(idcontrato: string, sobs: string, modal: any) {
+    this.frmCobranza.setValue({
+      idcontrato: idcontrato,
+      sobs: sobs,
+    })
+
+    this.modalService.open(modal, {
+      windowClass: 'modal-md',
+    });
+  }
+
+  updateCobranza() {
+    this.lUpdating = true;
+    let idcontrato = this.frmCobranza.value['idcontrato'];
+    let sobs = this.frmCobranza.value['sobs'].trim();
+
+    this.db.collection('contratos').doc(idcontrato).update({
+      sobs: sobs
+    }).then(() => {
+      this.modalService.dismissAll();
+      this.lUpdating = false;
+      this.getCobranzas(false);
+    }).catch(err => {
+      window.alert('ocurrió un error');
+    })
   }
 
 

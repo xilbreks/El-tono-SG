@@ -154,6 +154,7 @@ export class ExpItemFeesComponent implements OnChanges {
         sdemandado: this.expediente?.demandado,
         sespecialidad: this.expediente?.especialidad,
         smateria: this.expediente?.materia,
+        sobs: null,
       })
       .then((x) => {
         this.getContracts();
