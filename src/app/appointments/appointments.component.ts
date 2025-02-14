@@ -35,6 +35,8 @@ export class AppointmentsComponent implements OnInit {
   frmDate: FormGroup;
   frmAcuerdos: FormGroup;
 
+  today: string = '';
+
   constructor(
     private db: AngularFirestore,
     private modalService: NgbModal,
@@ -64,6 +66,10 @@ export class AppointmentsComponent implements OnInit {
 
   setHoy() {
     const dHoy = new Date();
+    const time = (dHoy.getTime() - 18000000);
+    this.today = (new Date(time)).toISOString().slice(0, 10);
+    console.log(this.today)
+
     const nYear = dHoy.getFullYear();
     let nMonth: any = dHoy.getMonth() + 1;
 

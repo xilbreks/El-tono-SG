@@ -49,7 +49,7 @@
             </thead>
             <tbody *ngIf="!lLoading && lstCitas.length > 0">
                 <tr *ngFor="let cita of lstCitas">
-                    <td>
+                    <td [ngClass]="{'table-primary': today == cita.sfecha}">
                         <!-- {{cita.sfechauser}} -->
                         <div>
                             {{cita.nombreDia}},
@@ -107,7 +107,8 @@
                         <span class="cell-text">
                             {{cita.sacuerdos}}
                         </span>
-                        <button class="hover-button" (click)="openModalAcuerdos(cita.idcita, cita.sacuerdos, editAcuerdosModal)">
+                        <button class="hover-button"
+                            (click)="openModalAcuerdos(cita.idcita, cita.sacuerdos, editAcuerdosModal)">
                             Editar
                         </button>
                     </td>

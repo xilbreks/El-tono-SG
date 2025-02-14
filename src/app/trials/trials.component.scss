@@ -87,3 +87,12 @@ ul.nav {
 .nav-link.active#penal-tab {
     border-top: 5px solid grey;
 }
+
+// Pegar sticker si la fecha es la actual
+.hoy {
+    background: #3D8D7A;
+    border-radius: 40%;
+    padding: 9px 0px 11px 0px;
+    color: white;
+    font-weight: bold;
+}

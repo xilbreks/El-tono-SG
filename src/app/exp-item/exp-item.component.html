@@ -17,7 +17,7 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos-tab-pane" type="button"
                 role="tab" aria-controls="contrato-tab-pane" aria-selected="false">
-                Pagos
+                Inf. Economico
             </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -84,6 +84,7 @@
         <div class="tab-pane fade" id="files-tab-pane" role="tabpanel" aria-labelledby="files-tab" tabindex="0">
             <app-exp-item-k [expediente]="expediente"></app-exp-item-k>
             <app-exp-item-files [expediente]="expediente"></app-exp-item-files>
+            <app-exp-item-recursos [expediente]="expediente"></app-exp-item-recursos>
         </div>
         
         <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">

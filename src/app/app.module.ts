@@ -64,6 +64,7 @@ import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas
 import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
 import { PlannerDemandasComponent } from './planner-demandas/planner-demandas.component';
 import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
+import { ExpItemRecursosComponent } from './exp-item-recursos/exp-item-recursos.component';
 
 const environment = {
   production: false,
@@ -132,6 +133,7 @@ const environment = {
     PlannerAudienciasComponent,
     PlannerDemandasComponent,
     PlannerCitasComponent,
+    ExpItemRecursosComponent,
   ],
   imports: [
     BrowserModule,

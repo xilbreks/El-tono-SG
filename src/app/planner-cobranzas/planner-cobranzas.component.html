@@ -40,7 +40,8 @@
             </thead>
             <tbody *ngIf="!cargando && cobranzas.length > 0">
                 <tr *ngFor="let cobro of cobranzas">
-                    <td style="text-align: center; vertical-align: middle;">
+                    <td style="text-align: center; vertical-align: middle;"
+                        [ngClass]="{'table-primary': today==cobro.sfecha}">
                         {{cobro.nombreDia}},
                         <br>
                         {{cobro.numeroDia}} de {{cobro.nombreMes}}
@@ -64,7 +65,8 @@
                             </li>
                         </ul>
                     </td>
-                    <td (dblclick)="openModalCobranza(cobro.idcontrato, cobro.sobs, editObsModal)" style="cursor: pointer;">
+                    <td (dblclick)="openModalCobranza(cobro.idcontrato, cobro.sobs, editObsModal)"
+                        style="cursor: pointer;">
                         <ul>
                             <li>
                                 Monto a cobrar: <b>S/ {{cobro.nmonto | number:'2.2-2'}}</b>

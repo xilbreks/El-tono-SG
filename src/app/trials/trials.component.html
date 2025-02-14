@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="row cuerpo" *ngFor="let audiencia of lstAudiencias">
-                <div class="col-2 fecha">
+                <div class="col-2 fecha" [ngClass]="{'hoy': audiencia.sfecha == today}">
                     {{audiencia.nombreDia}}, <br /> {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
                 </div>
                 <div class="col-5 bbb">

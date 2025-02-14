@@ -19,6 +19,8 @@ export class PlannerCobranzasComponent implements OnInit {
   frmCobranza: FormGroup;
   lUpdating: boolean = false;
 
+  today: string = '';
+
   constructor(
     private db: AngularFirestore,
     private modalService: NgbModal,
@@ -43,6 +45,8 @@ export class PlannerCobranzasComponent implements OnInit {
 
   setHoy() {
     const dHoy = new Date();
+    const time = dHoy.getTime() - 18000000;
+    this.today = (new Date(time)).toISOString().slice(0, 10);
     const nYear = dHoy.getFullYear();
     let nMonth: any = dHoy.getMonth() + 1;
 

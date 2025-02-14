@@ -1,6 +1,6 @@
 <h5>
     <i class="bi bi-folder2"></i>
-    Principales Actuados
+    Recursos
 </h5>
 
 <div *ngIf="lstAnexos.length > 0">
@@ -19,31 +19,29 @@
 </div>
 
 <div *ngIf="lstAnexos.length == 0">
-    No tiene anexos
+    No tiene recursos
 </div>
 
 <div>
     <button (click)="openModal(editAnexosModal)" class="btn btn-primary">
-        Editar actuados
+        Editar recursos
     </button>
 </div>
 
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>
-            <!-- {{expediente?.numero}} -->
+            {{expediente?.numero}}
         </i>
     </span>
 </div>
-
-<hr>
 
 <!------------------------------------------------
   ------------- EDIT ANEXOS MODAL ----------------
   ----------------------------------------------->
 <ng-template #editAnexosModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Editar Anexos</h5>
+        <h5 class="modal-title" id="modal-basic-title">Editar Recursos</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             (click)="modal.dismiss('Cross click')"></button>
     </div>
@@ -79,13 +77,13 @@
             </div>
             <div *ngIf="!file">
                 <button class="btn btn-primary" disabled>
-                    Agregar anexo
+                    Agregar recurso
                 </button>
             </div>
             <div *ngIf="!!file">
                 <button class="btn btn-primary" [disabled]="uploadProgress >= 0" (click)="uploadFile()">
                     <span *ngIf="uploadProgress == -1">
-                        Agregar anexo
+                        Agregar recurso
                     </span>
                     <span *ngIf="uploadProgress >= 0">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
