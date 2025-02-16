@@ -11,25 +11,25 @@
 <div>
     Materia:
     <kbd>
-        {{materia}}
+        {{this.expediente?.materia}}
     </kbd>
 </div>
 <div>
     Demandante:
     <kbd>
-        {{demandante}}
+        {{this.expediente?.demandante}}
     </kbd>
 </div>
 <div>
     Demandado:
     <kbd>
-        {{demandado}}
+        {{this.expediente?.demandado}}
     </kbd>
 </div>
 <div>
     Fecha inicio:
     <kbd>
-        {{fechaInicio}}
+        {{this.expediente?.fechaInicio}}
     </kbd>
 </div>
 
@@ -54,25 +54,21 @@
   ----------------------------------------------->
 <ng-template #editDataModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">EDITAR {{frmData.value.idtipodoc}}</h5>
+        <h5 class="modal-title" id="modal-basic-title">EDITAR {{expediente?.clase}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="frmData" autocomplete="off">
+        <form [formGroup]="frmExpediente" autocomplete="off">
             <table style="width:100%">
-                <tr>
+                <tr [ngClass]="{'oculto': expediente?.clase != 'CUADERNO'}">
+                    <td><b>CUADERNO:</b></td>
                     <td>
-                        <b>ÁREA:</b>
-                    </td>
-                    <td>
-                        <span style="padding-left: 13px;">{{expediente?.especialidad}}</span>
+                        <input type="text" class="form-control" formControlName="titulo">
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <b>MATERIA:</b>
-                    </td>
+                    <td><b>MATERIA:</b></td>
                     <td>
                         <input type="text" class="form-control" list="materias" formControlName="materia">
                         <datalist id="materias">
@@ -81,42 +77,79 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <b>JUZGADO:</b>
-                    </td>
+                    <td><b>JUZGADO:</b></td>
                     <td>
                         <input type="text" class="form-control" formControlName="juzgado">
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <b>DEMANDANTE:</b>
-                    </td>
+                    <td><b>DEMANDANTE:</b></td>
                     <td>
                         <input type="text" class="form-control" formControlName="demandante">
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <b>DEMANDADO:</b>
-                    </td>
+                    <td><b>DEMANDADO:</b></td>
                     <td>
                         <input type="text" class="form-control" formControlName="demandado">
                     </td>
                 </tr>
                 <tr>
+                    <td><b>PRIORIDAD:</b></td>
                     <td>
-                        <b>INICIO:</b>
+                        <select class="form-control" formControlName="prioridad">
+                            <option value="ALTA">ALTA</option>
+                            <option value="MEDIA">MEDIA</option>
+                            <option value="BAJA">BAJA</option>
+                        </select>
                     </td>
+                </tr>
+                <tr>
+                    <td><b>INICIO:</b></td>
                     <td>
                         <input type="text" placeholder="DD/MM/YYYY" class="form-control" formControlName="fechaInicio">
+                    </td>
+                </tr>
+                <tr>
+                    <input type="checkbox" id="tieneCodigo" [formControl]="fcTieneCodigo"
+                        (change)="setValidatorCodigo()" tabindex="-1" />
+                    <label for="tieneCodigo" style="padding-left: 5px;">
+                        Tiene Codigo
+                    </label>
+                </tr>
+                <tr [ngClass]="{'oculto': expediente?.clase !== 'PRINCIPAL'}">
+                    <input type="checkbox" id="tieneCasacion" [formControl]="fcTieneCasacion"
+                        (change)="setValidatorCasacion()" tabindex="-1" />
+                    <label for="tieneCasacion" style="padding-left: 5px;">
+                        Tiene Casacion
+                    </label>
+                </tr>
+                <tr [ngClass]="{'oculto': !fcTieneCodigo.value}">
+                    <td><b>CODIGO:</b></td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="codigo">
+                    </td>
+                </tr>
+                <tr [ngClass]="{'oculto': !fcTieneCasacion.value}">
+                    <td><b>CASACION:</b></td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="numeroCasacion">
+                    </td>
+                </tr>
+                <tr [ngClass]="{'oculto': !fcTieneCasacion.value}">
+                    <td><b>SALA CASACION:</b></td>
+                    <td>
+                        <select class="form-control" formControlName="salaCasacion">
+                            <option value="2DA SALA">2DA SALA</option>
+                            <option value="4TA SALA">4TA SALA</option>
+                        </select>
                     </td>
                 </tr>
             </table>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="setData()" [disabled]="!(frmData.valid && !lUpdating)">
+        <button type="button" class="btn btn-primary" (click)="updateExpediente()" [disabled]="!(frmExpediente.valid && !lUpdating)">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
             </span>
             <span class="sr-only" *ngIf="!lUpdating">
