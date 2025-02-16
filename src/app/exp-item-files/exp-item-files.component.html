@@ -72,7 +72,7 @@
         </table>
 
         <div>
-            <input type="file" (change)="onFileSelected($event)"/>
+            <input type="file" (change)="onFileSelected($event)" accept="application/pdf"/>
             <div *ngIf="uploadProgress >= 0">
                 <p>Progreso: {{ uploadProgress | number: '1.0-0' }}%</p>
                 <progress [value]="uploadProgress" max="100"></progress>
@@ -95,16 +95,4 @@
             </div>
         </div>
     </div>
-    <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="updateObs()" [disabled]="!(fcObs.valid && !lUpdating)">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
-            </span>
-            <span class="sr-only" *ngIf="!lUpdating">
-                Guardar
-            </span>
-            <span class="sr-only" *ngIf="lUpdating">
-                cerrar
-            </span>
-        </button>
-    </div> -->
 </ng-template>

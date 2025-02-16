@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -92,7 +92,7 @@ export class ExpItemEditDataComponent implements OnChanges {
   setValidatorCasacion() {
     const regexp: RegExp = /^\d{5}-\d{4}-[0]-\d{4}-[A-Z]{2}-[A-Z]{2}-\d{2}$/;
     const tieneCasacion = this.fcTieneCasacion.value;
-    
+
     if (tieneCasacion) {
       this.frmExpediente.controls['numeroCasacion'].setValidators(Validators.compose([Validators.pattern(regexp), Validators.required]));
       this.frmExpediente.controls['salaCasacion'].setValidators(Validators.required);

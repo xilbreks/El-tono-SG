@@ -61,12 +61,12 @@ export class ExpItemFilesComponent implements OnChanges {
 
       this.file = selectedFile;
       // Validar que el archivo sea un PDF
-      // if (selectedFile.type === 'application/pdf') {
-      //   this.file = selectedFile;
-      // } else {
-      //   alert('Por favor, selecciona un archivo en formato PDF.');
-      //   this.file = null; // Reiniciar si no es válido
-      // }
+      if (selectedFile.type === 'application/pdf') {
+        this.file = selectedFile;
+      } else {
+        alert('Por favor, selecciona un archivo en formato PDF.');
+        this.file = null; // Reiniciar si no es válido
+      }
     } else {
       this.file = null;
     }

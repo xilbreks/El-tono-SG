@@ -43,12 +43,10 @@ export class ExpItemComponent implements OnInit {
     let p2 = this.consultarNumeroProvisional(sexpediente);
     Promise.all([p1, p2]).then((res: any) => {
       if (res[0].length > 0) {
-        console.log('Lo encontre en numero principal')
         this.expediente = res[0][0];
         // Indicador de carga
         this.lLoading = false;
       } else if (res[1].length > 0) {
-        console.log('Lo encontre en numero provisional')
         this.expediente = res[1][0];
         // Indicador de carga
         this.lLoading = false;

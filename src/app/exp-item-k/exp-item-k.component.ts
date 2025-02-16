@@ -64,6 +64,7 @@ export class ExpItemKComponent implements OnChanges {
     this.setK(false).then(() => {
       this.lcontrato = false;
       this.urlcontrato = '';
+      if (this.expediente) this.expediente.tieneContrato = false;
       this.modalService.dismissAll();
     }).catch(err => {
       window.alert('Error al quitar contrato');
@@ -80,6 +81,7 @@ export class ExpItemKComponent implements OnChanges {
     this.setK(true).then(() => {
       this.lcontrato = true;
       this.getUrlDescarga();
+      if (this.expediente) this.expediente.tieneContrato = true;
       this.modalService.dismissAll();
     }).catch(err => {
       window.alert('Error al subir contrato');
