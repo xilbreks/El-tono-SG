@@ -15,4 +15,7 @@ export interface Contrato {
     nombreDia: string;          // Nombre del dia, ejemplo: Lunes, Martes
     nombreMes: string;          // Nombre del mes, ejemplo: Enero, Febrero
     numeroDia: string;          // Numero dle dia, ejemplo: 01, 02, 03
+    preObs: string;             // Prefijo de la observacion
+    bodyObs: string;            // Cuerpo de la observacion
+    sfjObs: string;             // Sufijo de la observacion
 }

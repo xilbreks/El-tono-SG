@@ -74,8 +74,11 @@
                             <li>
                                 Concepto: <i>{{cobro.sdetalle}}</i>
                             </li>
-                            <li *ngIf="cobro.sobs">
-                                Nota: {{cobro.sobs}}
+                            <li *ngIf="cobro.sobs" style="white-space: pre-line;">
+                                Nota:
+                                <span>{{cobro.preObs}}</span>
+                                <span style="font-weight: bold; color: green;">{{cobro.bodyObs}}</span>
+                                <span>{{cobro.sfjObs}}</span>
                             </li>
                         </ul>
                     </td>

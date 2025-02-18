@@ -99,11 +99,26 @@ export class PlannerCobranzasComponent implements OnInit {
       let nombreDia = dias[numeroDiaSemana];
       let nombreMes = meses[numeroMes];
 
+      // Detectar Hash de COBRANZA_EXITOSA
+      const texto = '#COBRANZA EXITOSA';
+      let pre = doc.sobs;
+      let body = '';
+      let sfj = '';
+      if (doc.sobs && doc.sobs.includes(texto)) {
+        let splited = doc.sobs.split(texto);
+        pre = splited[0];
+        sfj = splited[1];
+        body = texto;
+      }
+
       return {
         ...doc,
         nombreDia,
         nombreMes,
         numeroDia: dia,
+        preObs: pre,
+        bodyObs: body,
+        sfjObs: sfj,
       }
     }).sort((a, b) => a.sfecha < b.sfecha ? -1 : 1);
 
