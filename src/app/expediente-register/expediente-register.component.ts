@@ -266,7 +266,7 @@ export class ExpedienteRegisterComponent {
       numeroProvisional: null,
       numeroPrincipal: this.frmExpediente.controls['numeroPrincipal'].value,
       especialidad: this.frmExpediente.controls['especialidad'].value,
-      nivelIter: 0,
+      nivelIter: null,
       demandante: this.frmExpediente.controls['demandante'].value.toUpperCase().trim(),
       demandado: this.frmExpediente.controls['demandado'].value.toUpperCase().trim(),
       materia: this.frmExpediente.controls['materia'].value.toUpperCase().trim(),

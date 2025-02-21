@@ -17,6 +17,7 @@ import {
   lstIterOtros,
   lstDiligencias
 } from './rdt-edit.clases';
+import { firstValueFrom } from 'rxjs';
 
 class ObjRdt {
   public idrdt: string = '';
@@ -279,26 +280,31 @@ export class RdtEditComponent {
         this.frmNewTask.reset();
 
         // Actualizar ITER
-        // this.db.collection('expedientes')
-        //   .doc(sexp)
-        //   .update({
-        //     niter: Number(objTarea['niter'])
-        //   })
-        //   .then(() => { })
-        //   .catch((e) => { console.log(e) });
-        // end iter
+        let numeroExp = objTarea['sexpediente'].trim().toUpperCase();
+        let oobbss = this.db.collection('expedientes', ref => {
+          return ref.where('numero', '==', numeroExp)
+        }).get();
+        firstValueFrom(oobbss).then(snapshot => {
+          let items: any = [];
+          snapshot.forEach(doc => items.push(doc.data()));
+          if (items.length > 0) {
+            let exp = items[0];
+            this.db.collection('expedientes').doc(exp.idExpediente).update({
+              nivelIter: Number(objTarea['niter'])
+            }).then(()=>{
+              // console.log('iter actualizado')
+            }).catch(err => {
+              // console.log('error al actualizar iter')
+            })
+          } else {
+            // console.log('no se debe actualizar el iter porque no esta inventariado')
+          }
+        }).catch(err => {
+          console.log(err);
+        });
 
-        // Registrar Honorario
-        // if (objTarea['ncobrohonorario'] > 0) {
-        //   this.registrarHonorario({
-        //     id: Number(id),
-        //     sexp: sexp,
-        //     nmonto: objTarea['ncobrohonorario'],
-        //     sfecha: this.objRdt.sfecha,
-        //     idcolaborador: this.objRdt.idcolaborador,
-        //     scolaborador: this.objRdt.scolaborador,
-        //   })
-        // }
+        // end update iter
+
       })
       .catch(() => {
         window.alert('ERROR al crear tarea')
@@ -308,43 +314,6 @@ export class RdtEditComponent {
       });
   }
 
-  // registrarHonorario(arg: {
-  //   id: number,
-  //   sexp: string,
-  //   nmonto: number,
-  //   sfecha: string,
-  //   idcolaborador: string,
-  //   scolaborador: string,
-  // }) {
-  //   const id = (new Date(arg.id).getTime() + 10);
-  //   const sid = id.toString();
-
-  //   this.db
-  //     .collection('pagos')
-  //     .doc(sid)
-  //     .set({
-  //       idpago: sid,
-  //       lactive: true,
-  //       sexpediente: arg.sexp,
-  //       nmonto: arg.nmonto,
-  //       sfecha: arg.sfecha,
-  //       sdescripcion: 'Pago por Honorarios - Cobrado por ' + arg.scolaborador + ' [vía RDT]',
-
-  //       nfechacreacion: id,
-  //       screador: arg.idcolaborador,
-  //       nfechaedicion: 0,
-  //       seditor: '-',
-  //     })
-  //     .then((x) => {
-  //       // success
-  //     })
-  //     .catch(() => {
-  //       // error
-  //     })
-  //     .finally(() => {
-  //       // completed
-  //     });
-  // }
 
   /**
    * Actualiza una tarea registrada en un RDT
