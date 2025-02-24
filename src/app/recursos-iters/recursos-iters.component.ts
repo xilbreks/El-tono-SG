@@ -170,6 +170,7 @@ const lstIterFamilia: Array<Iter> = [
   { code: '5.2', eligible: true, title: 'Presentación de medida cautelar' },
   { code: '5.3', eligible: true, title: 'Calificación de medida cautelar' },
   { code: '5.4', eligible: true, title: 'Ejecución de medida cautelar' },
+  { code: '5.5', eligible: true, title: 'Levantamiento de medida cautelar' },
 ];
 
 const lstIterConstitucional: Array<Iter> = [
