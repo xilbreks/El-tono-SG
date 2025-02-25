@@ -165,6 +165,7 @@ export class PlannerCobranzasComponent implements OnInit {
     let obs = this.db.collection('contratos', ref => {
       return ref.where('sfecha', '>=', inicio)
         .where('sfecha', '<=', final)
+        .where('lactive', '==', true)
     }).get();
 
     return firstValueFrom(obs).then(snapshot => {
