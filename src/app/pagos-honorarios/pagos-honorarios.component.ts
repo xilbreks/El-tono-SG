@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { PagoHonorario } from './../__clases/pago-honorario';
+import { Pago } from '../_interfaces/pago';
 import * as XLSX from 'xlsx';
 import { Chart } from 'chart.js/auto';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-pagos-honorarios',
@@ -13,7 +14,7 @@ import { Chart } from 'chart.js/auto';
 })
 export class PagosHonorariosComponent implements OnInit {
   frmPagos: FormGroup;
-  lstPagos: Array<PagoHonorario> = [];
+  lstPagos: Array<Pago> = [];
   lLoading = false;
   pagosChart: any;
   nSumaTotal = 0;
@@ -54,30 +55,24 @@ export class PagosHonorariosComponent implements OnInit {
       return ref.where('lactive', '==', true)
         .where('sfecha', '>=', sinicio)
         .where('sfecha', '<=', sfinal);
-    }).valueChanges()
-      .subscribe((res: Array<any>) => {
-        this.lstPagos = [];
-        this.nSumaTotal = 0;
-        res.forEach(payment => {
-          let objPago = new PagoHonorario();
-          objPago.idpago = payment.idpago;
-          objPago.nmonto = payment.nmonto;
-          objPago.sdescripcion = payment.sdescripcion;
-          objPago.sexpediente = payment.sexpediente;
-          objPago.sfecha = payment.sfecha;
-          objPago.sfechalocal = payment.sfecha.slice(8, 10) + '/' + payment.sfecha.slice(5, 7) + '/' + payment.sfecha.slice(0, 4);
+    }).get();
 
-          this.lstPagos.push(objPago);
-          this.nSumaTotal += payment.nmonto;
-        });
+    firstValueFrom(obs).then(snapshot => {
+      let pagos: any = [];
+      this.nSumaTotal = 0;
 
-
-        this.lLoading = false;
-        // this.frmPagos.reset();
-
-        this.armarChart();
-        obs.unsubscribe();
+      snapshot.forEach(doc => {
+        let data: any = doc.data();
+        let sfechalocal: string = data.sfecha.slice(8, 10) + '/' + data.sfecha.slice(5, 7) + '/' + data.sfecha.slice(0, 4);
+        pagos.push({ ...data, sfechalocal });
+        this.nSumaTotal = this.nSumaTotal + data.nmonto;
       });
+
+      this.lstPagos = pagos;
+
+      this.lLoading = false;
+      this.armarChart();
+    })
   }
 
   armarChart() {

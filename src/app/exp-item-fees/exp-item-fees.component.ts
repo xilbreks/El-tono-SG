@@ -326,6 +326,9 @@ export class ExpItemFeesComponent implements OnChanges {
         sfecha: this.frmNewPayment.value['sfecha'],
         sdescripcion: this.frmNewPayment.value['sdescripcion'],
         idExpediente: this.expediente?.idExpediente,
+        sdemandante: this.expediente?.demandante,
+        sdemandado: this.expediente?.demandado,
+        sespecialidad: this.expediente?.especialidad,
 
         nfechacreacion: id,
         screador: this.idusuario,
