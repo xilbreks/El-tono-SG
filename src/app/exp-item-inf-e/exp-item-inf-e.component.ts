@@ -19,6 +19,11 @@ export class ExpItemInfEComponent implements OnChanges {
   cuotas: Array<Contrato> = [];
   pagos: Array<Pago> = [];
 
+  llave1 = false;
+  llave2 = false;
+  llave3 = false;
+  llave4 = false;
+
   constructor(
     private db: AngularFirestore,
   ) {
@@ -26,8 +31,8 @@ export class ExpItemInfEComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.expediente) {
-      this.getCuotas();
-      this.getPagos();
+      // this.getCuotas();
+      // this.getPagos();
     }
   }
 
@@ -43,6 +48,7 @@ export class ExpItemInfEComponent implements OnChanges {
         lista.push(doc.data())
       });
       this.cuotas = lista;
+      this.llave2 = true;
     })
   }
 
@@ -56,8 +62,24 @@ export class ExpItemInfEComponent implements OnChanges {
       snapshot.forEach(doc => {
         lista.push(doc.data())
       })
-      this.pagos = lista;
+      this.pagos = lista.map(p => {
+        return {
+          ...p,
+          sdescripcion: p.sdescripcion.replace(/\n/g, ' '),
+        }
+      })
+      this.llave3 = true;
     })
+  }
+
+  activarLlave1() {
+    this.llave1 = true;
+    this.getCuotas();
+    this.getPagos();
+  }
+
+  activarLlave4() {
+    this.llave4 = true;
   }
 
   generatePDF() {
@@ -66,6 +88,10 @@ export class ExpItemInfEComponent implements OnChanges {
     const pageHeight = doc.internal.pageSize.getHeight();
     const headerHeight = 35;
 
+    // add image
+    // const logoImg = 'assets/logo.png';
+    // doc.addImage(logoImg, 'PNG', 10, 55, 190, 20);
+
     // Imagen del membrete (Base64 o URL convertida a Base64)
     fetch('assets/superior.png')
       .then(response => response.blob())
@@ -73,83 +99,150 @@ export class ExpItemInfEComponent implements OnChanges {
         const reader = new FileReader();
         reader.readAsDataURL(blob);
         const expediente = this.expediente;
-        const iter = 'falta recuperar el iter';
-        const contrato = this.cuotas;
+        const iter = '5.2	Audiencia vista de la causa';
+        const contrato = this.cuotas.filter(c => c.nmonto > 0);
         const pagos = this.pagos;
 
         reader.onloadend = function () {
           const base64data = reader.result as string;
 
-          // Ajustar contenido después del membrete
-          let yPosition = headerHeight + 10;
-          doc.setFontSize(16);
+          // TITULO -----------------------------------------------------------
+          let yPosition = headerHeight + 15;
+          doc.setFontSize(14);
           doc.setFont('helvetica', 'bold');
           doc.text("INFORME ECONOMICO", 105, yPosition, { align: 'center' });
 
-          doc.setFontSize(12);
+          doc.setFontSize(11);
 
+          // DESTINATARIO -----------------------------------------------------
           yPosition += 10;
           doc.setFont('helvetica', 'bold');
-          doc.text("PARA", 25, yPosition);
+          doc.text("A", 25, yPosition);
           doc.setFont('helvetica', 'normal');
           doc.text(`: ${expediente?.demandante}`, 42, yPosition);
 
+          // REMITENTE --------------------------------------------------------
           yPosition += 7;
           doc.setFont('helvetica', 'bold');
           doc.text("DE", 25, yPosition);
           doc.setFont('helvetica', 'normal');
           doc.text(": Silva Guillen Abogados S.A.C.", 42, yPosition);
 
+          // FECHA ------------------------------------------------------------
           yPosition += 7;
           doc.setFont('helvetica', 'bold');
           doc.text("FECHA", 25, yPosition);
           doc.setFont('helvetica', 'normal');
           doc.text(`: ${'01/03/2025'}`, 42, yPosition);
 
-          // Motivo del informe
+          // I. OBJETO --------------------------------------------------------
           yPosition += 10;
-          const texto = `El objeto del presente informe es desarrollar y establecer los actos realizados en el presente proceso, asimismo informar al cliente los pagos realizados, ello acorde al contrato realizado con el Estudio Jurídico Silva Guillén Abogados S.A.C. respecto al proceso sobre ${expediente?.materia} que se sigue en contra de ${expediente?.demandado} recaído en el expediente con numero ${expediente?.numero}.`;
-          const margenIzquierdo = 25;
-          const anchoPagina = 170;
-          const textoFormateado = doc.splitTextToSize(texto, anchoPagina);
-          doc.text(textoFormateado, margenIzquierdo, yPosition);
-          const textHeight = doc.getTextDimensions(textoFormateado).h;
-
-          // Configuración de la tabla
-          yPosition = yPosition + textHeight + 7;
           doc.setFont('helvetica', 'bold');
-          doc.text(`CONTRATO`, 25, yPosition);
-          yPosition = yPosition + 5;
+          doc.text("I. OBJETO", 25, yPosition);
+
+          // OBJETO - texto
+          yPosition += 7;
+          doc.setFont('helvetica', 'normal');
+          let texto = `Por medio de la presente, nos dirigimos a usted para saludarle cordialmente y esperando que tenga un buen día. El objeto del presente informe es desarrollar y establecer los actos realizados en el presente proceso, asimismo informar al cliente los pagos realizados, ello acorde al contrato realizado con el Estudio Jurídico Silva Guillén Abogados S.A.C.`;
+          let textoFormateado = doc.splitTextToSize(texto, 160);
+          doc.text(textoFormateado, 25, yPosition, { align: 'justify', maxWidth: 160, lineHeightFactor: 1.5 });
+          let textHeight = textoFormateado.length * 5;
+          yPosition += textHeight + 7;
+
+          // II. EXPEDIENTE ---------------------------------------------------
+          yPosition += 0;
+          doc.setFont('helvetica', 'bold');
+          doc.text("II. EXPEDIENTE", 25, yPosition);
+          yPosition += 0;
+
+          // EXPEDIENTE - texto
+          yPosition += 7;
+          doc.setFont('helvetica', 'normal');
+          texto = `Los datos del expediente son:`;
+          textoFormateado = doc.splitTextToSize(texto, 160);
+          doc.text(textoFormateado, 25, yPosition, { align: 'justify', maxWidth: 160, lineHeightFactor: 1.5 });
+          textHeight = textoFormateado.length * 5;
+          yPosition += textHeight + 3;
+
+          // EXPEDIENTE - numero - key
+          yPosition += 0;
+          doc.text("Número", 35, yPosition);
+          yPosition += 0;
+
+          // EXPEDIENTE - numero - value
+          yPosition += 0;
+          doc.text(`: ${expediente?.numero}`, 60, yPosition);
+          yPosition += 7;
+
+          // EXPEDIENTE - materia - key
+          yPosition += 0;
+          doc.text("Materia", 35, yPosition);
+          yPosition += 0;
+
+          // EXPEDIENTE - materia - value
+          yPosition += 0;
+          doc.text(`: ${expediente?.materia}`, 60, yPosition);
+          yPosition += 7;
+
+          // EXPEDIENTE - demandante - key
+          yPosition += 0;
+          doc.text("Demandante", 35, yPosition);
+          yPosition += 0;
+
+          // EXPEDIENTE - demandante - value
+          yPosition += 0;
+          doc.text(`: ${expediente?.demandante}`, 60, yPosition);
+          yPosition += 7;
+
+          // EXPEDIENTE - demandado - key
+          yPosition += 0;
+          doc.text("Demandado", 35, yPosition);
+          yPosition += 0;
+
+          // EXPEDIENTE - demandado - value
+          yPosition += 0;
+          doc.text(`: ${expediente?.demandado}`, 60, yPosition);
+          yPosition += 7;
+
+          // III. CONTRATO ----------------------------------------------------
+          yPosition += 3;
+          doc.setFont('helvetica', 'bold');
+          doc.text(`III. CONTRATO`, 25, yPosition);
+          yPosition += 7;
+
+          // CONTRATO - texto
+          yPosition += 0;
+          doc.setFont('helvetica', 'normal');
+          doc.text("El contrato acordado entre ambas partes se detalla de la siguiente manera:", 25, yPosition);
+          yPosition += 5;
+          
+          // CONTRATO - tabla
           autoTable(doc, {
             startY: yPosition,
 
             head: [["Concepto", "Monto"]],
             body: contrato.map(item => [item.sdetalle, item.nmonto.toFixed(2)]),
             theme: "grid",
-            margin: { top: 30, right: 50, left: 25 },
+            margin: { top: 45, right: 25, bottom: 25, left: 25 },
             didDrawPage: (data) => {
-              // Repetir el membrete en cada página
               doc.addImage(base64data, "PNG", 0, 0, pageWidth, headerHeight);
-              doc.setFontSize(10);
-              doc.text(`Página ${doc.internal.pages.length - 1}`, pageWidth - 20, pageHeight - 10);
             }
           });
           const finalTableY = (doc as any).lastAutoTable.finalY;
+          yPosition = finalTableY + 3;
 
-          // Texto Largo 2 del informe
-          yPosition = finalTableY + 7;
-          doc.text(textoFormateado, margenIzquierdo, yPosition);
-
-          // TITULO PAGOS
-          yPosition = yPosition + textHeight + 7;
+          // IV. PAGOS --------------------------------------------------------
+          yPosition += 7;
           doc.setFont('helvetica', 'bold');
-          doc.text(`PAGOS`, 25, yPosition);
+          doc.text(`IV. PAGOS`, 25, yPosition);
+          yPosition += 0;
 
+          // PAGOS - texto
           yPosition = yPosition + 7;
           doc.setFont('helvetica', 'normal');
           doc.text(`El Estudio Jurídico declara haber recibido los siguientes pagos:`, 25, yPosition);
 
-          // TABLA DE PAGOS
+          // PAGOS - tabla
           yPosition = yPosition + 5;
           autoTable(doc, {
             startY: yPosition,
@@ -157,16 +250,12 @@ export class ExpItemInfEComponent implements OnChanges {
             head: [["Fecha", "Monto", "Detalle"]],
             body: pagos.map(item => [item.sfecha, item.nmonto.toFixed(2), item.sdescripcion]),
             theme: "grid",
-            margin: { top: 40, right: 25, left: 25 },
+            margin: { top: 45, right: 25, bottom: 25, left: 25 },
             didDrawPage: (data) => {
-              // Repetir el membrete en cada página
               doc.addImage(base64data, "PNG", 0, 0, pageWidth, headerHeight);
-              doc.setFontSize(10);
-              doc.text(`Página ${doc.internal.pages.length - 1}`, pageWidth - 20, pageHeight - 10);
             }
           });
           const finalTableY2 = (doc as any).lastAutoTable.finalY;
-
 
           // Verificar si la imagen cabe en la última página, si no, crear una nueva página
           const espacioDisponible = pageHeight - finalTableY2 - 30; // Considerar márgenes
@@ -174,26 +263,20 @@ export class ExpItemInfEComponent implements OnChanges {
           if (espacioDisponible < 30) {
             doc.addPage();
             yPosition = 30; // Reiniciar la posición en la nueva página
+          } else {
+            yPosition = finalTableY2;
           }
 
 
-          // TITULO PAGOS
-          yPosition = yPosition + 10;
+          // ATENTAMENTE ------------------------------------------------------
+          yPosition += 15;
           doc.setFont('helvetica', 'bold');
-          doc.text(`ESTADO`, 25, yPosition);
-
-
-          // Motivo del informe
-          yPosition += 7;
-          doc.setFont('helvetica', 'normal');
-          const texto3 = `La situacion actual en la que se encuentra el expedientes es en el ITER: ${iter}`;
-          const textoFormateado3 = doc.splitTextToSize(texto3, 170);
-          doc.text(textoFormateado3, margenIzquierdo, yPosition);
-          const textHeight3 = doc.getTextDimensions(textoFormateado3).h;
+          doc.text(`Atentamente:`, 25, yPosition);
+          yPosition += 0;
 
 
           // ESPACIO FIRMA DIGITAL
-          yPosition += textHeight3 + 40;
+          yPosition += 35;
           doc.setFont('helvetica', 'normal');
           doc.text("_________________________________", 105, yPosition, { align: 'center' });
           yPosition += 7;
