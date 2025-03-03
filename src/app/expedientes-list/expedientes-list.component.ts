@@ -21,6 +21,7 @@ export class ExpedientesListComponent implements AfterViewInit {
   laborales: Expediente[] = [];
   familias: Expediente[] = [];
   civiles: Expediente[] = [];
+  notariales: Expediente[] = [];
   penales: Expediente[] = [];
   constitucionales: Expediente[] = [];
   curadurias: Expediente[] = [];
@@ -56,6 +57,7 @@ export class ExpedientesListComponent implements AfterViewInit {
     this.laborales = this.expedientes.filter(e => e.numeroCasacion == null).filter(e => e.especialidad == 'LABORAL');
     this.familias = this.expedientes.filter(e => e.especialidad == 'FAMILIA');
     this.civiles = this.expedientes.filter(e => e.especialidad == 'CIVIL');
+    this.notariales = this.expedientes.filter(e => e.especialidad == 'NOTARIAL');
     this.penales = this.expedientes.filter(e => e.especialidad == 'PENAL').filter(e => e.clase != 'CF')
     this.constitucionales = this.expedientes.filter(e => e.especialidad == 'CONSTITUCIONAL');
     this.carpetas = this.expedientes.filter(e => e.clase == 'CF');

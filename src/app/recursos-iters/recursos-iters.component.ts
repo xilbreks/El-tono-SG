@@ -119,19 +119,22 @@ const lstIterCivil: Array<Iter> = [
   { code: '28', eligible: true, title: 'Vista de la causa' },
   { code: '29', eligible: true, title: 'Solicitar informe oral por parte de las partes' },
   { code: '30', eligible: true, title: 'Sentencia de casación' },
-  { code: '0', eligible: false, title: 'ETAPAS NOTARIALES' },
-  { code: '101', eligible: true, title: 'Solicitud de requisitos' },
-  { code: '102', eligible: true, title: 'Citas con el modulo especializado' },
-  { code: '103', eligible: true, title: 'Firmas de escritura' },
-  { code: '104', eligible: true, title: 'Publicacion en edictos' },
-  { code: '105', eligible: true, title: 'Entrega de escrituras' },
-  { code: '0', eligible: false, title: 'ETAPAS REGISTRALES' },
-  { code: '201', eligible: true, title: 'Inscripcion en Registros Publicos' },
-  { code: '202', eligible: true, title: 'Observaciones en Registros Publicos' },
-  { code: '203', eligible: true, title: 'Subsanacion de observaciones' },
-  { code: '204', eligible: true, title: 'Cita con registrador' },
-  { code: '205', eligible: true, title: 'Inscripcion preventiva con publicacion' },
-  { code: '206', eligible: true, title: 'Inscripcion definitiva' },
+];
+
+const lstIterNotarial: Array<Iter> = [
+  { code: '1.0', eligible: false, title: 'ETAPAS NOTARIALES' },
+  { code: '1.1', eligible: true, title: 'Solicitud de requisitos' },
+  { code: '1.2', eligible: true, title: 'Citas con el modulo especializado' },
+  { code: '1.3', eligible: true, title: 'Firmas de escritura' },
+  { code: '1.4', eligible: true, title: 'Publicacion en edictos' },
+  { code: '1.5', eligible: true, title: 'Entrega de escrituras' },
+  { code: '2.0', eligible: false, title: 'ETAPAS REGISTRALES' },
+  { code: '2.1', eligible: true, title: 'Inscripcion en Registros Publicos' },
+  { code: '2.2', eligible: true, title: 'Observaciones en Registros Publicos' },
+  { code: '2.3', eligible: true, title: 'Subsanacion de observaciones' },
+  { code: '2.4', eligible: true, title: 'Cita con registrador' },
+  { code: '2.5', eligible: true, title: 'Inscripcion preventiva con publicacion' },
+  { code: '2.6', eligible: true, title: 'Inscripcion definitiva' },
 ];
 
 const lstIterFamilia: Array<Iter> = [
@@ -210,6 +213,7 @@ export class RecursosItersComponent {
   lstIterCivil: Array<Iter> = lstIterCivil;
   lstIterPenal: Array<Iter> = lstIterPenal;
   lstIterConstitucional: Array<Iter> = lstIterConstitucional;
+  lstIterNotarial: Array<Iter> = lstIterNotarial;
 
   constructor() { }
 

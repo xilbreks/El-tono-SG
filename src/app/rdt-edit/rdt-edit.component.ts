@@ -14,6 +14,7 @@ import {
   lstIterCivil,
   lstIterPenal,
   lstIterConstitucional,
+  lstIterNotarial,
   lstIterOtros,
   lstDiligencias
 } from './rdt-edit.clases';
@@ -154,6 +155,8 @@ export class RdtEditComponent {
 
   get lstIterCivil() { return lstIterCivil; }
 
+  get lstIterNotarial() { return lstIterNotarial; }
+
   get lstIterFamilia() { return lstIterFamilia; }
 
   get lstIterConstitucional() { return lstIterConstitucional }
@@ -291,7 +294,7 @@ export class RdtEditComponent {
             let exp = items[0];
             this.db.collection('expedientes').doc(exp.idExpediente).update({
               nivelIter: Number(objTarea['niter'])
-            }).then(()=>{
+            }).then(() => {
               // console.log('iter actualizado')
             }).catch(err => {
               // console.log('error al actualizar iter')
@@ -416,6 +419,9 @@ export class RdtEditComponent {
       case 'constitucional':
         this.lstIter = this.lstIterConstitucional;
         break;
+      case 'notarial':
+        this.lstIter = this.lstIterNotarial;
+        break;
       default:
         this.lstIter = this.lstIterOtros;
     }
@@ -441,6 +447,9 @@ export class RdtEditComponent {
         break;
       case 'constitucional':
         this.lstIter = this.lstIterConstitucional;
+        break;
+      case 'notarial':
+        this.lstIter = this.lstIterNotarial;
         break;
       default:
         this.lstIter = this.lstIterOtros;

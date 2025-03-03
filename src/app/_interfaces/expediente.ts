@@ -3,7 +3,7 @@ export interface Expediente {
     clase: string;                  // Clase de documento: "PROVISIONAL", "PRINCIPAL", "CUADERNO", "CF", "CURADURIA"
     titulo: string;                 // Título del expediente
     numero: string;                 // Número alfanumérico del expediente
-    especialidad: string;           // Área de especialidad: "LABORAL", "FAMILIA", "CIVIL", "PENAL", "CONSTITUCIONAL", "ADMINISTRATIVO"
+    especialidad: string;           // Área de especialidad: "LABORAL", "FAMILIA", "CIVIL", "PENAL", "CONSTITUCIONAL", "ADMINISTRATIVO", "NOTARIAL"
     nivelIter: number;              // Indicador del nivel de ITER procesal
     demandante: string;             // Nombres completos de la parte demandante
     demandado: string;              // Nombres completos de la parte demandada

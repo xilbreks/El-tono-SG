@@ -80,6 +80,32 @@
 
     <table class="table table-bordered">
         <thead>
+            <tr class="table-warning">
+                <th colspan="2" style="text-align: center;">
+                    ITER NOTARIAL - REGISTRAL
+                </th>
+            </tr>
+            <tr class="table-warning">
+                <th style="text-align: center;">CÓDIGO</th>
+                <th>DESCRIPCIÓN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let iter of lstIterNotarial" [ngClass]="{'table-warning': !iter.eligible}">
+                <td style="text-align: center;">
+                    {{iter.code}}
+                </td>
+                <td [ngClass]="{'centrado': !iter.eligible}">
+                    {{iter.title}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
             <tr class="table-secondary">
                 <th colspan="2" style="text-align: center;">
                     ITER PENAL
