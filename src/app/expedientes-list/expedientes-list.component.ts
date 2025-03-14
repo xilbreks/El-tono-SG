@@ -26,7 +26,6 @@ export class ExpedientesListComponent implements AfterViewInit {
   constitucionales: Expediente[] = [];
   curadurias: Expediente[] = [];
   carpetas: Expediente[] = [];
-  provicionales: Expediente[] = [];
 
   constructor(
     private service: AppService,
@@ -40,14 +39,15 @@ export class ExpedientesListComponent implements AfterViewInit {
 
   obtenerExpedientes() {
     this.service.expedientes.subscribe(res => {
-      this.expedientes = res.filter((e: any) => e.estado == 'EN PROCESO');
+      this.expedientes = res.filter((e: any) => e.estado == 'EN PROCESO')
+        .sort((a: any, b: any) => a.numero < b.numero ? -1 : 1);
 
       this.separarAreas();
 
       if (this.expedientes.length > 0) {
         this.lLoading = false;
       }
-      
+
     });
   }
 
@@ -62,7 +62,6 @@ export class ExpedientesListComponent implements AfterViewInit {
     this.constitucionales = this.expedientes.filter(e => e.especialidad == 'CONSTITUCIONAL');
     this.carpetas = this.expedientes.filter(e => e.clase == 'CF');
     this.curadurias = this.expedientes.filter(e => e.clase == 'CURADURIA');
-    this.provicionales = this.expedientes.filter(e => e.clase == 'PROVISIONAL');
   }
 
   filtrar(val: string) {

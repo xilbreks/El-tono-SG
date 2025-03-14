@@ -78,12 +78,6 @@
                 Curaduria
             </button>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="provisional-tab" data-bs-toggle="tab" data-bs-target="#provisional-tab-pane"
-                type="button" role="tab" aria-selected="false">
-                Provisional
-            </button>
-        </li>
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="cas-2-tab-pane" role="tabpanel" aria-labelledby="cas-2-tab" tabindex="0">
@@ -648,65 +642,6 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let expediente of curadurias; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="provisional-tab-pane" role="tabpanel" aria-labelledby="provisional-tab"
-            tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Agraviado
-                            </th>
-                            <th>
-                                Imputado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of provicionales; let i = index">
                             <td>
                                 {{i+1}}
                             </td>

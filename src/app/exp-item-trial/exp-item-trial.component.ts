@@ -87,7 +87,7 @@ export class ExpItemTrialComponent implements OnChanges {
         }).sort((a, b) => {
           let sfecha1 = a.sfecha + '-' + a.shora;
           let sfecha2 = b.sfecha + '-' + b.shora;
-          return sfecha1 < sfecha2 ? -1 : 1;
+          return sfecha1 > sfecha2 ? -1 : 1;
         });
 
         this.lLoading = false;
