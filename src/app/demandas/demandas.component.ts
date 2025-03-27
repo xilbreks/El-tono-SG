@@ -75,7 +75,7 @@ export class DemandasComponent implements OnInit {
   getDemandas(indicator: boolean) {
     this.isLoading = indicator;
 
-    let obs = this.db.collection('demandas', ref => ref.limit(25)).get();
+    let obs = this.db.collection('demandas', ref => ref.limit(100)).get();
     firstValueFrom(obs).then(snapshot => {
       this.lstDemandas = [];
 
