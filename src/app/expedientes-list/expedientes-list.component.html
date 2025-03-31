@@ -1,679 +1,26 @@
 <a [routerLink]="'/expedientes-depurados'">Ver expedientes depurados aqui</a>
-
-<h3>Listado de Expedientes</h3>
-
+<h3>Buscador de expedientes</h3>
 <div class="container">
     <div class="input-group">
         <div class="input-group-text">
             <i class="bi bi-search">
             </i>
         </div>
-        <input type="search" id="texto-busqueda" class="form-control" #fff (input)="filtrar(fff.value)"
-            autocomplete="off" #searchTerm>
+        <input type="search" id="texto-busqueda" class="form-control" #fff (input)="cambiarURL(fff.value)"
+            autocomplete="off">
         <div class="input-group-text">
             <i class="bi bi-search"></i>
         </div>
     </div>
 </div>
 
-<div *ngIf="!lModeFiltering">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="cas-2-tab" data-bs-toggle="tab" data-bs-target="#cas-2-tab-pane" type="button"
-                role="tab" aria-selected="true">
-                2da Sala
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="cas-4-tab" data-bs-toggle="tab" data-bs-target="#cas-4-tab-pane" type="button"
-                role="tab" aria-selected="true">
-                4ta Sala
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="lab4-tab" data-bs-toggle="tab" data-bs-target="#lab4-tab-pane" type="button"
-                role="tab" aria-selected="true">
-                Laboral
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="constitucional-tab" data-bs-toggle="tab"
-                data-bs-target="#constitucional-tab-pane" type="button" role="tab" aria-selected="false">
-                Constitu.
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="familia-tab" data-bs-toggle="tab" data-bs-target="#familia-tab-pane"
-                type="button" role="tab" aria-selected="false">
-                Familia
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="civil-tab" data-bs-toggle="tab" data-bs-target="#civil-tab-pane" type="button"
-                role="tab" aria-selected="false">
-                Civil
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="notarial-tab" data-bs-toggle="tab" data-bs-target="#notarial-tab-pane" type="button"
-                role="tab" aria-selected="false">
-                Notarial
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="penal-tab" data-bs-toggle="tab" data-bs-target="#penal-tab-pane" type="button"
-                role="tab" aria-selected="false">
-                Penal
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="carp-fiscal-tab" data-bs-toggle="tab" data-bs-target="#carp-fiscal-tab-pane"
-                type="button" role="tab" aria-selected="false">
-                Carp. Fiscales
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="curaduria-tab" data-bs-toggle="tab" data-bs-target="#curaduria-tab-pane"
-                type="button" role="tab" aria-selected="false">
-                Curaduria
-            </button>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="cas-2-tab-pane" role="tabpanel" aria-labelledby="cas-2-tab" tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Demandante
-                            </th>
-                            <th>
-                                Demandado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of casaciones2da; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="cas-4-tab-pane" role="tabpanel" aria-labelledby="cas-4-tab" tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Demandante
-                            </th>
-                            <th>
-                                Demandado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of casaciones4ta; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="lab4-tab-pane" role="tabpanel" aria-labelledby="lab4-tab" tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Demandante
-                            </th>
-                            <th>
-                                Demandado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of laborales; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="constitucional-tab-pane" role="tabpanel" aria-labelledby="constitucional-tab"
-            tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Demandante
-                            </th>
-                            <th>
-                                Demandado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of constitucionales; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="familia-tab-pane" role="tabpanel" aria-labelledby="familia-tab" tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Demandante
-                            </th>
-                            <th>
-                                Demandado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of familias; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="civil-tab-pane" role="tabpanel" aria-labelledby="civil-tab" tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Demandante
-                            </th>
-                            <th>
-                                Demandado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of civiles; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="notarial-tab-pane" role="tabpanel" aria-labelledby="notarial-tab" tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Demandante
-                            </th>
-                            <th>
-                                Demandado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of notariales; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="penal-tab-pane" role="tabpanel" aria-labelledby="penal-tab" tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Agraviado
-                            </th>
-                            <th>
-                                Imputado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of penales; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="carp-fiscal-tab-pane" role="tabpanel" aria-labelledby="carp-fiscal-tab"
-            tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Agraviado
-                            </th>
-                            <th>
-                                Imputado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of carpetas; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-        <div class="tab-pane fade" id="curaduria-tab-pane" role="tabpanel" aria-labelledby="curaduria-tab"
-            tabindex="0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Expediente
-                            </th>
-                            <th>
-                                Materia
-                            </th>
-                            <th>
-                                Especialidad
-                            </th>
-                            <th>
-                                Agraviado
-                            </th>
-                            <th>
-                                Imputado
-                            </th>
-                            <th>
-                                Inicio
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let expediente of curadurias; let i = index">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                <a [routerLink]="'/expediente/'+expediente.numero">
-                                    {{expediente.numero}}
-                                </a>
-                            </td>
-                            <td>
-                                {{expediente.materia}}
-                            </td>
-                            <td>
-                                {{expediente.especialidad}}
-                            </td>
-                            <td>
-                                {{expediente.demandante}}
-                            </td>
-                            <td>
-                                {{expediente.demandado}}
-                            </td>
-                            <td>
-                                {{expediente.fechaInicio}}
-                            </td>
-                    </tbody>
-                </table>
-            </div>
-            <!--  -->
-        </div>
-    </div>
+<div *ngIf="!isReady">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    cargando...
 </div>
-<div *ngIf="lModeFiltering">
-    <div class="table-responsive">
+
+<div *ngIf="isReady">
+    <div class="table-responsive" *ngIf="!viewMode">
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -700,7 +47,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="expedientesFiltered.length > 0">
                 <tr *ngFor="let expediente of expedientesFiltered; let i = index">
                     <td>
                         {{i+1}}
@@ -727,11 +74,667 @@
                     </td>
                 </tr>
             </tbody>
+            <tbody *ngIf="expedientesFiltered.length == 0">
+                <span style="font-size: 14px;">
+                    No hay coincidencias con la busqueda :/
+                </span>
+            </tbody>
         </table>
     </div>
-</div>
-
-<div *ngIf="lLoading">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-    Cargando...
+    <div *ngIf="viewMode">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="cas-2-tab" data-bs-toggle="tab" data-bs-target="#cas-2-tab-pane" type="button"
+                    role="tab" aria-selected="true">
+                    2da Sala
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="cas-4-tab" data-bs-toggle="tab" data-bs-target="#cas-4-tab-pane" type="button"
+                    role="tab" aria-selected="true">
+                    4ta Sala
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="lab4-tab" data-bs-toggle="tab" data-bs-target="#lab4-tab-pane" type="button"
+                    role="tab" aria-selected="true">
+                    Laboral
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="constitucional-tab" data-bs-toggle="tab"
+                    data-bs-target="#constitucional-tab-pane" type="button" role="tab" aria-selected="false">
+                    Constitu.
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="familia-tab" data-bs-toggle="tab" data-bs-target="#familia-tab-pane"
+                    type="button" role="tab" aria-selected="false">
+                    Familia
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="civil-tab" data-bs-toggle="tab" data-bs-target="#civil-tab-pane" type="button"
+                    role="tab" aria-selected="false">
+                    Civil
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="notarial-tab" data-bs-toggle="tab" data-bs-target="#notarial-tab-pane" type="button"
+                    role="tab" aria-selected="false">
+                    Notarial
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="penal-tab" data-bs-toggle="tab" data-bs-target="#penal-tab-pane" type="button"
+                    role="tab" aria-selected="false">
+                    Penal
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="carp-fiscal-tab" data-bs-toggle="tab" data-bs-target="#carp-fiscal-tab-pane"
+                    type="button" role="tab" aria-selected="false">
+                    Carp. Fiscales
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="curaduria-tab" data-bs-toggle="tab" data-bs-target="#curaduria-tab-pane"
+                    type="button" role="tab" aria-selected="false">
+                    Curaduria
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="cas-2-tab-pane" role="tabpanel" aria-labelledby="cas-2-tab" tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Demandante
+                                </th>
+                                <th>
+                                    Demandado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of casaciones2da; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="cas-4-tab-pane" role="tabpanel" aria-labelledby="cas-4-tab" tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Demandante
+                                </th>
+                                <th>
+                                    Demandado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of casaciones4ta; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="lab4-tab-pane" role="tabpanel" aria-labelledby="lab4-tab" tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Demandante
+                                </th>
+                                <th>
+                                    Demandado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of laborales; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="constitucional-tab-pane" role="tabpanel" aria-labelledby="constitucional-tab"
+                tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Demandante
+                                </th>
+                                <th>
+                                    Demandado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of constitucionales; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="familia-tab-pane" role="tabpanel" aria-labelledby="familia-tab" tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Demandante
+                                </th>
+                                <th>
+                                    Demandado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of familias; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="civil-tab-pane" role="tabpanel" aria-labelledby="civil-tab" tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Demandante
+                                </th>
+                                <th>
+                                    Demandado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of civiles; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="notarial-tab-pane" role="tabpanel" aria-labelledby="notarial-tab" tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Demandante
+                                </th>
+                                <th>
+                                    Demandado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of notariales; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="penal-tab-pane" role="tabpanel" aria-labelledby="penal-tab" tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Agraviado
+                                </th>
+                                <th>
+                                    Imputado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of penales; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="carp-fiscal-tab-pane" role="tabpanel" aria-labelledby="carp-fiscal-tab"
+                tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Agraviado
+                                </th>
+                                <th>
+                                    Imputado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of carpetas; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="curaduria-tab-pane" role="tabpanel" aria-labelledby="curaduria-tab"
+                tabindex="0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Expediente
+                                </th>
+                                <th>
+                                    Materia
+                                </th>
+                                <th>
+                                    Especialidad
+                                </th>
+                                <th>
+                                    Agraviado
+                                </th>
+                                <th>
+                                    Imputado
+                                </th>
+                                <th>
+                                    Inicio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expediente of curadurias; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/expediente/'+expediente.numero">
+                                        {{expediente.numero}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{expediente.materia}}
+                                </td>
+                                <td>
+                                    {{expediente.especialidad}}
+                                </td>
+                                <td>
+                                    {{expediente.demandante}}
+                                </td>
+                                <td>
+                                    {{expediente.demandado}}
+                                </td>
+                                <td>
+                                    {{expediente.fechaInicio}}
+                                </td>
+                        </tbody>
+                    </table>
+                </div>
+                <!--  -->
+            </div>
+        </div>
+    </div>
 </div>

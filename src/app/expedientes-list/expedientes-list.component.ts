@@ -1,21 +1,24 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AppService } from './../app.service';
 
 import { Expediente } from '../_interfaces/expediente';
+import { filter, firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-expedientes-list',
   templateUrl: './expedientes-list.component.html',
   styleUrls: ['./expedientes-list.component.scss']
 })
-export class ExpedientesListComponent implements AfterViewInit {
-  @ViewChild('searchTerm') searchTerm: any;
+export class ExpedientesListComponent implements AfterViewInit, OnInit {
+  isReady: boolean = false;
+
   expedientes: Expediente[] = [];
   expedientesFiltered: Array<any> = [];
-  lModeFiltering = false;
-  sFecha: string = '';
-  lLoading = true;
+  limitSearch: number = 15;
 
+  viewMode = true;
   casaciones2da: Expediente[] = [];
   casaciones4ta: Expediente[] = [];
   laborales: Expediente[] = [];
@@ -24,31 +27,36 @@ export class ExpedientesListComponent implements AfterViewInit {
   notariales: Expediente[] = [];
   penales: Expediente[] = [];
   constitucionales: Expediente[] = [];
-  curadurias: Expediente[] = [];
   carpetas: Expediente[] = [];
+  curadurias: Expediente[] = [];
 
   constructor(
     private service: AppService,
-  ) {
-    this.obtenerExpedientes();
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
+
+  async ngOnInit() {
+    const query = this.route.snapshot.queryParams['q'];
+
+    let obs = this.service.expedientes.pipe(filter(x => x.length > 0));
+    const expedientes = await firstValueFrom(obs);
+
+    this.expedientes = expedientes.filter((e: any) => e.estado == 'EN PROCESO')
+      .sort((a: any, b: any) => a.numero < b.numero ? -1 : 1);
+
+    this.separarAreas();
+
+    if (query) this.buscar(query);
+
+    this.isReady = true;
   }
 
   ngAfterViewInit(): void {
-    this.searchTerm.nativeElement.focus();
-  }
-
-  obtenerExpedientes() {
-    this.service.expedientes.subscribe(res => {
-      this.expedientes = res.filter((e: any) => e.estado == 'EN PROCESO')
-        .sort((a: any, b: any) => a.numero < b.numero ? -1 : 1);
-
-      this.separarAreas();
-
-      if (this.expedientes.length > 0) {
-        this.lLoading = false;
-      }
-
-    });
+    const input: any = document.getElementById('texto-busqueda');
+    const query = this.route.snapshot.queryParams['q'];
+    if (input) input.focus();
+    if (query) input.value = query;
   }
 
   separarAreas() {
@@ -64,16 +72,22 @@ export class ExpedientesListComponent implements AfterViewInit {
     this.curadurias = this.expedientes.filter(e => e.clase == 'CURADURIA');
   }
 
-  filtrar(val: string) {
-    let sterms = val.trim().toLowerCase().split(' ');
+  cambiarURL(query: string) {
+    this.router.navigate(['/expedientes-listing'], { queryParams: { q: query } });
+    this.buscar(query);
+  }
+
+  buscar(query: string) {
+    let sterms = query.trim().toLowerCase().split(' ');
 
     sterms = sterms.filter(sterm => sterm.length >= 3);
 
     if (sterms.length == 0) {
-      this.expedientesFiltered = this.expedientes;
-      this.lModeFiltering = false;
+      this.expedientesFiltered = [];
+      this.viewMode = true;
       return;
     }
+    this.viewMode = false;
 
     this.expedientesFiltered = this.expedientes
       .filter(exp => {
@@ -110,14 +124,13 @@ export class ExpedientesListComponent implements AfterViewInit {
         if (nMatchs == sterms.length) lMatch = true;
         nMatchs = 0;
 
-        // sterms.forEach(sterm => {
-        //   if (exp.numeroCautelar?.toLowerCase().includes(sterm)) nMatchs++;
-        // })
-        // if (nMatchs == sterms.length) lMatch = true;
+        sterms.forEach(sterm => {
+          if (exp.numeroProvisional?.toLowerCase().includes(sterm)) nMatchs++;
+        })
+        if (nMatchs == sterms.length) lMatch = true;
 
         return lMatch;
-      });
-    this.lModeFiltering = true;
+      }).filter((v, i) => i < this.limitSearch);
   }
 
 }
