@@ -74,32 +74,56 @@
             <li>
               <a class="dropdown-item" routerLink="/informe-comunicacion"> Comunicaciones </a>
             </li>
-            <li>
-              <a class="dropdown-item" routerLink="/sinoe-admin"> Tareas - SINOE </a>
-            </li>
           </ul>
         </li>
 
         <li class="nav-item" *ngIf="!!user">
           <a class="nav-link" routerLink="/expedientes-listing">
-            <!-- <i class="bi bi-layout-text-sidebar"></i> -->
             Expedientes
           </a>
         </li>
-
-        <!-- <li class="nav-item" *ngIf="!!user">
-          <a class="nav-link" routerLink="/audiencias"> Audiencias </a>
+        <li class="nav-item dropdown" *ngIf="!!user">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Sprints
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+            <li>
+              <a class="dropdown-item" routerLink="/sprints">
+                <!-- <i class="bi bi-flag"></i> -->
+                <i class="bi bi-ticket-perforated"></i>
+                <span style="padding-left: 5px;">
+                  Tickets
+                </span>
+              </a>
+              <a class="dropdown-item" routerLink="/sprint-new" *ngIf="user?.displayName=='ADMIN' && false">
+                <i class="bi bi-node-plus"></i>
+                <span style="padding-left: 5px;">
+                  Tickets
+                </span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/sinoe-worker">
+                <i class="bi bi-mailbox"></i>
+                <span style="padding-left: 5px;">
+                  SINOE
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/demandas">
+                <i class="bi bi-file-earmark-text"></i>
+                <span style="padding-left: 5px;">
+                  Demandas
+                </span>
+              </a>
+            </li>
+          </ul>
         </li>
-
-        <li class="nav-item" *ngIf="!!user">
-          <a class="nav-link" routerLink="/citas"> Citas </a>
-        </li>
-
-        <li class="nav-item" *ngIf="!!user">
-          <a class="nav-link" routerLink="/demandas"> Demandas </a>
-        </li> -->
-
-
 
         <li class="nav-item dropdown" *ngIf="!!user">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
@@ -111,11 +135,6 @@
             <li>
               <a class="dropdown-item" routerLink="/audiencias">
                 Planner de Audiencias
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/demandas">
-                Planner de Demandas
               </a>
             </li>
             <li>
@@ -135,10 +154,6 @@
         <!-- <li class="nav-item" *ngIf="!!user && user?.displayName!='Lizbet Silva Guillén' && user?.displayName!='ADMIN'">
           <a class="nav-link" routerLink="/expediente-search"> Buscador EXP </a>
         </li> -->
-
-        <li class="nav-item" *ngIf="!!user && user?.displayName!='Lizbet Silva Guillén' && user?.displayName!='ADMIN'">
-          <a class="nav-link" routerLink="/sinoe-worker"> SINOE </a>
-        </li>
 
         <li class="nav-item" *ngIf="user?.displayName=='Lizbet Silva Guillén'">
           <a class="nav-link" routerLink="/admin-rdt"> RDTs </a>
@@ -168,7 +183,3 @@
 </nav>
 
 <router-outlet></router-outlet>
-
-<!-- <div style="height: 50px; background-color: #087060;">
-
-</div> -->

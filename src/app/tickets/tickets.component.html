@@ -1,0 +1,756 @@
+<h4>
+    Tickets
+</h4>
+<div>
+    <span>
+        <label for="select-area">Área: </label>
+        <select name="select-area" id="select-area">
+            <option value="TODOS">Todos</option>
+            <option value="TODOS">Laboral</option>
+            <option value="TODOS">Familia</option>
+            <option value="TODOS">Civil</option>
+            <option value="TODOS">Notarial</option>
+            <option value="TODOS">Penal</option>
+            <option value="TODOS">Constitucional</option>
+        </select>
+    </span>
+    <span>
+        <label for="select-tipo">Clase: </label>
+        <select name="select-tipo" id="select-tipo">
+            <option value="TODOS">Todos</option>
+            <option value="TODOS">S</option>
+            <option value="TODOS">A</option>
+            <option value="TODOS">B</option>
+            <option value="TODOS">C</option>
+        </select>
+    </span>
+    <span>
+        <label for="select-asignado-a">Asignado a: </label>
+        <select name="select-estado" id="select-asignado-a">
+            <option value="a">Usuario 1</option>
+            <option value="a">Usuario 2</option>
+            <option value="a">Usuario 3</option>
+            <option value="a">Usuario 4</option>
+            <option value="a">Usuario 5</option>
+            <option value="a">Usuario 6</option>
+            <option value="a">Usuario 7</option>
+            <option value="a">Usuario 8</option>
+            <option value="a">Usuario 9</option>
+            <option value="a">Usuario 10</option>
+            <option value="a">Usuario 11</option>
+            <option value="a">Usuario 12</option>
+            <option value="a">Usuario 13</option>
+            <option value="a">Usuario 14</option>
+            <option value="a">Usuario 15</option>
+            <option value="a">Usuario 16</option>
+            <option value="a">Usuario 17</option>
+            <option value="a">Usuario 18</option>
+            <option value="a">Usuario 19</option>
+            <option value="a">Usuario 20</option>
+            <option value="a">Usuario 21</option>
+            <option value="a">Usuario 22</option>
+            <option value="a">Usuario 23</option>
+        </select>
+    </span>
+    <span>
+        <label for="select-asignado-a">Supervisado por: </label>
+        <select name="select-estado" id="select-asignado-a">
+            <option value="a">Usuario 1</option>
+            <option value="a">Usuario 2</option>
+            <option value="a">Usuario 3</option>
+            <option value="a">Usuario 4</option>
+            <option value="a">Usuario 5</option>
+            <option value="a">Usuario 6</option>
+            <option value="a">Usuario 7</option>
+            <option value="a">Usuario 8</option>
+            <option value="a">Usuario 9</option>
+            <option value="a">Usuario 10</option>
+            <option value="a">Usuario 11</option>
+            <option value="a">Usuario 12</option>
+            <option value="a">Usuario 13</option>
+            <option value="a">Usuario 14</option>
+            <option value="a">Usuario 15</option>
+            <option value="a">Usuario 16</option>
+            <option value="a">Usuario 17</option>
+            <option value="a">Usuario 18</option>
+            <option value="a">Usuario 19</option>
+            <option value="a">Usuario 20</option>
+            <option value="a">Usuario 21</option>
+            <option value="a">Usuario 22</option>
+            <option value="a">Usuario 23</option>
+        </select>
+    </span>
+    <span>
+        <button type="button">
+            <i class="bi bi-filter"></i>
+            Filtrar
+        </button>
+    </span>
+</div>
+<div>
+    <button (click)="abrirModalTicket(modalNuevoTicket)">
+        Nuevo Ticket
+    </button>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover" style="min-width: 1000px;">
+        <thead>
+            <tr>
+                <th style="width: 7%;">
+                    Ticket
+                </th>
+                <th style="width: 20%;">
+                    Expediente
+                </th>
+                <th style="width: 40%;">
+                    Tarea
+                </th>
+                <th style="width: 5%;">
+                    Estado
+                </th>
+                <th style="width: 25%;">
+                    Anotaciones
+                </th>
+                <th style="width: 3%;">
+                    Accion
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ticket of tickets">
+                <td>
+                    <i class="bi bi-ticket-perforated"></i>
+                    <br>
+                    <span>{{ticket.idTicket}}</span>
+                </td>
+                <td>
+                    <i class="bi bi-chevron-double-right"></i>
+                    <span>
+                        <a href="https://www.duckduckgo.com" target="_blank" style="text-decoration: none;">
+                            {{ticket.expediente}}
+                        </a>
+                    </span>
+                    <br>
+                    <span> {{ticket.demandante}} </span>
+                    <br>
+                    <span> {{ticket.demandado}} </span>
+                    <br>
+                    <span> {{ticket.materia}} </span>
+                </td>
+                <td>
+                    <strong>{{ticket.titulo}}</strong>
+                    <br>
+                    <span>{{ticket.descripcion}}</span>
+                    <ul style="margin: 0;">
+                        <li>
+                            Clase: ...
+                        </li>
+                        <li>
+                            Asignado a: <span>{{ticket.asignadoA}}</span>
+                        </li>
+                    </ul>
+                </td>
+                <td style="vertical-align: middle; text-align: center;">
+                    ...
+                </td>
+                <td>
+                    <div>{{ (ticket.anotaciones.length>150)? (ticket.anotaciones | slice:0:150)+'
+                        ...':(ticket.anotaciones) }}</div>
+                </td>
+                <td>
+                    <div class="dropstart">
+                        <button type="button" class="btn" data-bs-toggle="dropdown">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button class="dropdown-item" type="button"
+                                    (click)="darConformidad(modalDarConformidad, ticket)">
+                                    <i class="bi bi-check-circle"></i>
+                                    <span style="padding-left: 5px;">
+                                        Dar conformida
+                                    </span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" type="button" (click)="comentar(modalComentar, ticket)">
+                                    <i class="bi bi-chat"></i>
+                                    <span style="padding-left: 5px;">
+                                        Comentar
+                                    </span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" type="button" (click)="avanzar(modalAvanzar, ticket)">
+                                    <i class="bi bi-speedometer2"></i>
+                                    <span style="padding-left: 5px;">
+                                        Estado
+                                    </span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" type="button" (click)="abrirModalEditarTicket(modalEditarTicket, ticket)">
+                                    <i class="bi bi-pencil"></i>
+                                    <span style="padding-left: 5px;">
+                                        Editar
+                                    </span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" type="button"
+                                    (click)="verDetalles(modalVerDetalles, ticket)">
+                                    <i class="bi bi-info-circle"></i>
+                                    <span style="padding-left: 5px;">
+                                        Detalles
+                                    </span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+
+</div>
+
+
+<!------------------------------------------------
+  ------------- MODAL: VER DETALLES --------------
+  ------------------------------------------------>
+<ng-template #modalVerDetalles let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket: <span style="font-weight: normal;">{{ticket?.idTicket}}</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row g-3 mb-3">
+            <div class="col-md-6 col-12">
+                <strong>{{ticket?.titulo}}</strong>
+                <br>
+                <p>{{ticket?.descripcion}}</p>
+            </div>
+            <div class="col-md-6 col-12">
+                <strong>Expediente</strong>
+                <br>
+                <span>
+                    <i class="bi bi-chevron-double-right"></i>
+                    <a href="https://www.duckduckgo.com" target="_blank" style="text-decoration: none;">
+                        {{ticket?.expediente}}</a>
+                </span>
+                <br>
+                <span><span style="font-family: monospace;">DTE:</span> {{ticket?.demandante}}</span>
+                <br>
+                <span><span style="font-family: monospace;">DDO:</span> {{ticket?.demandado}}</span>
+                <br>
+                <span>{{ticket?.materia}}</span>
+                <br>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-6 col-12">
+                <strong>STATS</strong>
+                <ul style="list-style: none; padding: 0;">
+                    <li>
+                        <i class="bi bi-person-fill"></i>
+                        <i style="padding-left: 5px;">Asignado a: </i> <span>{{ticket?.asignadoA}}</span>
+                    </li>
+                    <li>
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <i style="padding-left: 5px;">Avance: </i> <span>{{ticket?.avance}}%</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-12">
+                <strong>Anotaciones</strong>
+                <br>
+                <p style="background-color: #eaeaea; padding: 0 5px; min-height: 100px;">
+                    {{ticket?.anotaciones}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="modal.dismiss('Cross click')">
+            OK
+        </button>
+    </div>
+</ng-template>
+
+
+<!------------------------------------------------
+  ------------- MODAL: COMENTAR --------------
+  ------------------------------------------------>
+<ng-template #modalComentar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket: <span style="font-weight: normal;">{{ticket?.idTicket}}</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <strong>Comentario</strong>
+        <textarea class="form-control" [value]="ticket?.anotaciones" rows="5" #comment>
+        </textarea>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+            Volver
+        </button>
+        <button type="button" class="btn btn-primary" (click)="imprimir(comment.value)">
+            Comentar
+        </button>
+    </div>
+</ng-template>
+
+
+<!------------------------------------------------
+  ------------- MODAL: AVANZAR -------------------
+  ------------------------------------------------>
+<ng-template #modalAvanzar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket: <span style="font-weight: normal;">{{ticket?.idTicket}}</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <h5>Progreso</h5>
+        <label for="avance" style="padding-right: 10px;">Nivel de avance: </label>
+        <select name="avance" id="avance" [value]="ticket?.avance">
+            <option value="0">0%</option>
+            <option value="10">10%</option>
+            <option value="20">20%</option>
+            <option value="30">30%</option>
+            <option value="40">40%</option>
+            <option value="50">50%</option>
+            <option value="60">60%</option>
+            <option value="70">70%</option>
+            <option value="80">80%</option>
+            <option value="90">90%</option>
+            <option value="100">100%</option>
+        </select>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+            Volver
+        </button>
+        <button type="button" class="btn btn-primary">
+            Guardar
+        </button>
+    </div>
+</ng-template>
+
+
+<!------------------------------------------------
+  ------------- MODAL: DAR CONFORMIDAD  --------------
+  ------------------------------------------------>
+<ng-template #modalDarConformidad let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket: <span style="font-weight: normal;">{{ticket?.idTicket}}</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <h5>Acta de conformidad</h5>
+        <div class="alert alert-primary" role="alert" *ngIf="ticket ? (ticket.avance == 100) : false">
+            <p>
+                <i class="bi bi-trophy-fill"></i> Felicidades aventurero
+            </p>
+            <p>
+                Has completado la mision "{{ticket?.titulo}}" ya puedes descanzar y disfrutar de la vida.
+            </p>
+            <p>
+                Se procederá a dar conformidad al <strong>Ticket {{ticket?.idTicket}}</strong> y cerrarlo. ¿Desea
+                continuar?
+            </p>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="ticket ? (ticket.avance < 100) : false">
+            El avance tiene que ser del 100% para dar conformidad.
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+            Volver
+        </button>
+        <button type="button" class="btn btn-primary" *ngIf="ticket ? (ticket.avance == 100) : false">
+            <i class="bi bi-check2-all"></i>
+            Dar conformidad
+        </button>
+    </div>
+</ng-template>
+
+
+<!------------------------------------------------
+  ------------- MODAL: NUEVO TICKET  --------------
+  ------------------------------------------------>
+<ng-template #modalNuevoTicket let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket Nuevo
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Expediente:</b>
+                </div>
+                <div class="col-8">
+                    <div class="dropdown">
+                        <button type="button" class="form-control" data-bs-toggle="dropdown" aria-expanded="false"
+                            data-bs-auto-close="outside">
+                            Numero expediente
+                        </button>
+                        <div class="dropdown-menu p-4">
+                            <div class="mb-3">
+                                <input type="tetxt" class="form-control">
+                            </div>
+                            <div>
+                                <div>
+                                    item 1
+                                </div>
+                                <div>
+                                    item 2
+                                </div>
+                                <div>
+                                    item 3
+                                </div>
+                                <div>
+                                    item 4
+                                </div>
+                                <div>
+                                    item 5
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <span style="color: green;">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </span>
+                    <!-- <span style="color: red;">
+                        <i class="bi bi-dash-circle-fill"></i>
+                    </span> -->
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Titulo:</b>
+                </div>
+                <div class="col-9">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Descripción:</b>
+                </div>
+                <div class="col-9">
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Asignado a:</b>
+                </div>
+                <div class="col-6">
+                    <select class="form-select">
+                        <option value="a">Usuario 1</option>
+                        <option value="a">Usuario 2</option>
+                        <option value="a">Usuario 3</option>
+                        <option value="a">Usuario 4</option>
+                        <option value="a">Usuario 5</option>
+                        <option value="a">Usuario 6</option>
+                        <option value="a">Usuario 7</option>
+                        <option value="a">Usuario 8</option>
+                        <option value="a">Usuario 9</option>
+                        <option value="a">Usuario 10</option>
+                        <option value="a">Usuario 11</option>
+                        <option value="a">Usuario 12</option>
+                        <option value="a">Usuario 13</option>
+                        <option value="a">Usuario 14</option>
+                        <option value="a">Usuario 15</option>
+                        <option value="a">Usuario 16</option>
+                        <option value="a">Usuario 17</option>
+                        <option value="a">Usuario 18</option>
+                        <option value="a">Usuario 19</option>
+                        <option value="a">Usuario 20</option>
+                        <option value="a">Usuario 21</option>
+                        <option value="a">Usuario 22</option>
+                        <option value="a">Usuario 23</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Supervisor:</b>
+                </div>
+                <div class="col-6">
+                    <select class="form-select">
+                        <option value="a">Usuario 1</option>
+                        <option value="a">Usuario 2</option>
+                        <option value="a">Usuario 3</option>
+                        <option value="a">Usuario 4</option>
+                        <option value="a">Usuario 5</option>
+                        <option value="a">Usuario 6</option>
+                        <option value="a">Usuario 7</option>
+                        <option value="a">Usuario 8</option>
+                        <option value="a">Usuario 9</option>
+                        <option value="a">Usuario 10</option>
+                        <option value="a">Usuario 11</option>
+                        <option value="a">Usuario 12</option>
+                        <option value="a">Usuario 13</option>
+                        <option value="a">Usuario 14</option>
+                        <option value="a">Usuario 15</option>
+                        <option value="a">Usuario 16</option>
+                        <option value="a">Usuario 17</option>
+                        <option value="a">Usuario 18</option>
+                        <option value="a">Usuario 19</option>
+                        <option value="a">Usuario 20</option>
+                        <option value="a">Usuario 21</option>
+                        <option value="a">Usuario 22</option>
+                        <option value="a">Usuario 23</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3 col-3">
+                    <b>Clase:</b>
+                </div>
+                <div class="col-md-4 col-6">
+                    <select class="form-select">
+                        <option value="s">S</option>
+                        <option value="s">A</option>
+                        <option value="s">B</option>
+                        <option value="s">C</option>
+                    </select>
+                </div>
+                <div class="col-md-5 col-3">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3 col-3">
+                    <b>Fecha límite:</b>
+                </div>
+                <div class="col-md-4 col-6">
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-5 col-3">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+            Volver
+        </button>
+        <button type="button" class="btn btn-primary">
+            <i class="bi bi-hammer"></i>
+            Crear Ticket
+        </button>
+    </div>
+</ng-template>
+
+
+
+<!------------------------------------------------
+  ------------- MODAL: EDITAR TICKET  --------------
+  ------------------------------------------------>
+  <ng-template #modalEditarTicket let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket: <span style="font-weight: normal;">{{ticket?.idTicket}}</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Expediente:</b>
+                </div>
+                <div class="col-8">
+                    <div class="dropdown">
+                        <button type="button" class="form-control" data-bs-toggle="dropdown" aria-expanded="false"
+                            data-bs-auto-close="outside">
+                            Numero expediente
+                        </button>
+                        <div class="dropdown-menu p-4">
+                            <div class="mb-3">
+                                <input type="tetxt" class="form-control">
+                            </div>
+                            <div>
+                                <div>
+                                    item 1
+                                </div>
+                                <div>
+                                    item 2
+                                </div>
+                                <div>
+                                    item 3
+                                </div>
+                                <div>
+                                    item 4
+                                </div>
+                                <div>
+                                    item 5
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <span style="color: green;">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </span>
+                    <!-- <span style="color: red;">
+                        <i class="bi bi-dash-circle-fill"></i>
+                    </span> -->
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Titulo:</b>
+                </div>
+                <div class="col-9">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Descripción:</b>
+                </div>
+                <div class="col-9">
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Asignado a:</b>
+                </div>
+                <div class="col-6">
+                    <select class="form-select">
+                        <option value="a">Usuario 1</option>
+                        <option value="a">Usuario 2</option>
+                        <option value="a">Usuario 3</option>
+                        <option value="a">Usuario 4</option>
+                        <option value="a">Usuario 5</option>
+                        <option value="a">Usuario 6</option>
+                        <option value="a">Usuario 7</option>
+                        <option value="a">Usuario 8</option>
+                        <option value="a">Usuario 9</option>
+                        <option value="a">Usuario 10</option>
+                        <option value="a">Usuario 11</option>
+                        <option value="a">Usuario 12</option>
+                        <option value="a">Usuario 13</option>
+                        <option value="a">Usuario 14</option>
+                        <option value="a">Usuario 15</option>
+                        <option value="a">Usuario 16</option>
+                        <option value="a">Usuario 17</option>
+                        <option value="a">Usuario 18</option>
+                        <option value="a">Usuario 19</option>
+                        <option value="a">Usuario 20</option>
+                        <option value="a">Usuario 21</option>
+                        <option value="a">Usuario 22</option>
+                        <option value="a">Usuario 23</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <b>Supervisor:</b>
+                </div>
+                <div class="col-6">
+                    <select class="form-select">
+                        <option value="a">Usuario 1</option>
+                        <option value="a">Usuario 2</option>
+                        <option value="a">Usuario 3</option>
+                        <option value="a">Usuario 4</option>
+                        <option value="a">Usuario 5</option>
+                        <option value="a">Usuario 6</option>
+                        <option value="a">Usuario 7</option>
+                        <option value="a">Usuario 8</option>
+                        <option value="a">Usuario 9</option>
+                        <option value="a">Usuario 10</option>
+                        <option value="a">Usuario 11</option>
+                        <option value="a">Usuario 12</option>
+                        <option value="a">Usuario 13</option>
+                        <option value="a">Usuario 14</option>
+                        <option value="a">Usuario 15</option>
+                        <option value="a">Usuario 16</option>
+                        <option value="a">Usuario 17</option>
+                        <option value="a">Usuario 18</option>
+                        <option value="a">Usuario 19</option>
+                        <option value="a">Usuario 20</option>
+                        <option value="a">Usuario 21</option>
+                        <option value="a">Usuario 22</option>
+                        <option value="a">Usuario 23</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3 col-3">
+                    <b>Clase:</b>
+                </div>
+                <div class="col-md-4 col-6">
+                    <select class="form-select">
+                        <option value="s">S</option>
+                        <option value="s">A</option>
+                        <option value="s">B</option>
+                        <option value="s">C</option>
+                    </select>
+                </div>
+                <div class="col-md-5 col-3">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3 col-3">
+                    <b>Fecha límite:</b>
+                </div>
+                <div class="col-md-4 col-6">
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-5 col-3">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+            Volver
+        </button>
+        <button type="button" class="btn btn-primary">
+            <i class="bi bi-magic"></i>
+            Actualizar Ticket
+        </button>
+    </div>
+</ng-template>

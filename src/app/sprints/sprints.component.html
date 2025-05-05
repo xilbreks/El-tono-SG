@@ -1,0 +1,311 @@
+<div>
+    <h4 style="text-align: center;">Mis tickets</h4>
+    <!-- <span>Sprint: </span> -->
+    <!-- <select [formControl]="fcSprintId" (change)="seleccionarSprint()">
+        <option *ngFor="let sprint of sprints" [value]="sprint.idSprint">
+            {{sprint.nombre}}
+        </option>
+        <option value="S0002">esprin dos</option>
+        <option value="S0003">esprin tres</option>
+    </select> -->
+    <!-- <span>Area: </span>
+    <select [formControl]="fcDepartamento" (change)="filtrarPorArea()">
+        <option value="todos">Todos</option>
+        <option value="laboral">Laboral</option>
+        <option value="familia">Familia</option>
+        <option value="civil">Civil</option>
+        <option value="notarial">Notarial</option>
+        <option value="penal">Penal</option>
+        <option value="constitucional">Constitucional</option>
+    </select> -->
+    <!-- <span>Responsable: </span>
+    <select>
+        <option value="a">Todos</option>
+        <option value="a">Usuario 1</option>
+        <option value="a">Usuario 2</option>
+        <option value="a">Usuario 3</option>
+        <option value="a">Usuario 4</option>
+        <option value="a">Usuario 5</option>
+        <option value="a">Usuario 6</option>
+        <option value="a">Usuario 7</option>
+        <option value="a">Usuario 8</option>
+        <option value="a">Usuario 9</option>
+        <option value="a">Usuario 10</option>
+        <option value="a">Usuario 11</option>
+        <option value="a">Usuario 12</option>
+        <option value="a">Usuario 13</option>
+        <option value="a">Usuario 14</option>
+        <option value="a">Usuario 15</option>
+        <option value="a">Usuario 16</option>
+        <option value="a">Usuario 17</option>
+        <option value="a">Usuario 18</option>
+        <option value="a">Usuario 19</option>
+        <option value="a">Usuario 20</option>
+        <option value="a">Usuario 21</option>
+        <option value="a">Usuario 22</option>
+        <option value="a">Usuario 23</option>
+    </select> -->
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover" style="min-width: 1000px;">
+        <thead>
+            <tr>
+                <th style="width: 7%;">
+                    Ticket
+                </th>
+                <th style="width: 20%;">
+                    Expediente
+                </th>
+                <th style="width: 40%;">
+                    Tarea
+                </th>
+                <th style="width: 5%;">
+                    Avance
+                </th>
+                <th style="width: 25%;">
+                    Anotaciones
+                </th>
+                <th style="width: 3%;">
+                    Accion
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!cargando">
+            <tr *ngFor="let ticket of ticketsF">
+                <td>
+                    <i class="bi bi-ticket-perforated"></i>
+                    <br>
+                    <span>{{ticket.idTicket}}</span>
+                </td>
+                <td>
+                    <i class="bi bi-chevron-double-right"></i>
+                    <span>
+                        <a [routerLink]="'/expediente/'+ticket.expediente">
+                            {{ticket.expediente}}
+                        </a>
+                    </span>
+                    <br>
+                    <span> {{ticket.demandante}} </span>
+                    <br>
+                    <span> {{ticket.demandado}} </span>
+                    <br>
+                    <span> {{ticket.materia}} </span>
+                </td>
+                <td>
+                    <strong>{{ticket.titulo}}</strong>
+                    <br>
+                    <span>{{ticket.descripcion}}</span>
+                    <ul style="margin: 0;">
+                        <li>
+                            Responsable: <span>{{ticket.asignadoA}}</span>
+                        </li>
+                        <li>
+                            Tiempo estimado: <span>{{ticket.tiempoEstimado}} horas</span>
+                        </li>
+                    </ul>
+                </td>
+                <td style="vertical-align: middle; text-align: center;">
+                    <span *ngIf="ticket.avance == 0" style="color: green;">
+                        <i class="bi bi-circle"></i>                        
+                    </span>
+                    <span *ngIf="ticket.avance > 0 && ticket.avance < 100" style="color: green;">
+                        <i class="bi bi-circle-half"></i>
+                    </span>
+                    <span *ngIf="ticket.avance == 100" style="color: green;">
+                        <i class="bi bi-circle-fill"></i>
+                    </span>
+                </td>
+                <td>
+                    <div>{{ (ticket.anotaciones.length>150)? (ticket.anotaciones | slice:0:150)+'
+                        ...':(ticket.anotaciones) }}</div>
+                </td>
+                <td>
+                    <div class="dropstart">
+                        <button type="button" class="btn" data-bs-toggle="dropdown">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button class="dropdown-item" type="button"
+                                    (click)="abrirModalAnotacion(modalComentar, ticket)">
+                                    <i class="bi bi-chat"></i>
+                                    <span style="padding-left: 5px;">
+                                        Anotes
+                                    </span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" type="button"
+                                    (click)="abrirModalAvance(modalAvanzar, ticket)">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                    <span style="padding-left: 5px;">
+                                        Avance
+                                    </span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" type="button"
+                                    (click)="abrirModalVerDetalles(modalVerDetalles, ticket)">
+                                    <i class="bi bi-info-circle"></i>
+                                    <span style="padding-left: 5px;">
+                                        Detalles
+                                    </span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="cargando">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            cargando...
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>
+
+
+<!------------------------------------------------
+  ------------- MODAL: VER DETALLES --------------
+  ------------------------------------------------>
+<ng-template #modalVerDetalles let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket: <span style="font-weight: normal;">{{ticketSeleccionado?.idTicket}}</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row g-3 mb-3">
+            <div class="col-md-6 col-12">
+                <strong>{{ticketSeleccionado?.titulo}}</strong>
+                <br>
+                <p>{{ticketSeleccionado?.descripcion}}</p>
+            </div>
+            <div class="col-md-6 col-12">
+                <strong>Expediente</strong>
+                <br>
+                <span>
+                    <i class="bi bi-chevron-double-right"></i>
+                    <a [routerLink]="'/expediente/'+ticketSeleccionado?.expediente" target="_blank">
+                        {{ticketSeleccionado?.expediente}}
+                    </a>
+                </span>
+                <br>
+                <span><span style="font-family: monospace;">DTE:</span> {{ticketSeleccionado?.demandante}}</span>
+                <br>
+                <span><span style="font-family: monospace;">DDO:</span> {{ticketSeleccionado?.demandado}}</span>
+                <br>
+                <span>{{ticketSeleccionado?.materia}}</span>
+                <br>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-6 col-12">
+                <strong>STATS</strong>
+                <ul style="list-style: none; padding: 0;">
+                    <li>
+                        <i class="bi bi-person-fill"></i>
+                        <i style="padding-left: 5px;">Asignado a: </i> <span>{{ticketSeleccionado?.asignadoA}}</span>
+                    </li>
+                    <li>
+                        <i class="bi bi-clock-history"></i>
+                        <i style="padding-left: 5px;">Tiempo estimado: </i> <span>{{ticketSeleccionado?.tiempoEstimado}}
+                            horas</span>
+                    </li>
+                    <li>
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <i style="padding-left: 5px;">Avance: </i> <span>{{ticketSeleccionado?.avance}}%</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-12">
+                <strong>Anotaciones</strong>
+                <br>
+                <p style="background-color: #eaeaea; padding: 0 5px; min-height: 100px;">
+                    {{ticketSeleccionado?.anotaciones}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="modal.dismiss('Cross click')">
+            OK
+        </button>
+    </div>
+</ng-template>
+
+
+<!------------------------------------------------
+  ------------- MODAL: COMENTAR --------------
+  ------------------------------------------------>
+<ng-template #modalComentar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket: <span style="font-weight: normal;">{{ticketSeleccionado?.idTicket}}</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <strong>Comentario</strong>
+        <textarea class="form-control" [formControl]="fcTicketAnotacion" rows="5">
+        </textarea>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" *ngIf="!actualizando" (click)="actualizarAnotacion()">
+            Anotar
+        </button>
+        <button type="button" class="btn btn-primary" *ngIf="actualizando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Anotando...
+        </button>
+    </div>
+</ng-template>
+
+
+<!------------------------------------------------
+  ------------- MODAL: AVANZAR -------------------
+  ------------------------------------------------>
+<ng-template #modalAvanzar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket: <span style="font-weight: normal;">{{ticketSeleccionado?.idTicket}}</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <h5>Progreso</h5>
+        <label for="avance" style="padding-right: 10px;">Nivel de avance: </label>
+        <select name="avance" id="avance" [formControl]="fcTicketAvance">
+            <option value="0">0%</option>
+            <option value="10">10%</option>
+            <option value="20">20%</option>
+            <option value="30">30%</option>
+            <option value="40">40%</option>
+            <option value="50">50%</option>
+            <option value="60">60%</option>
+            <option value="70">70%</option>
+            <option value="80">80%</option>
+            <option value="90">90%</option>
+            <option value="100">100%</option>
+        </select>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" *ngIf="!actualizando" (click)="actualizarAvance()">
+            Actualizar
+        </button>
+        <button type="button" class="btn btn-primary" *ngIf="actualizando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Actualizando...
+        </button>
+    </div>
+</ng-template>

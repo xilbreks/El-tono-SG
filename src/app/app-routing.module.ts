@@ -35,6 +35,8 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { DemandasComponent } from './demandas/demandas.component';
 import { TrialsComponent } from './trials/trials.component';
 import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas.component';
+import { SprintsComponent } from './sprints/sprints.component';
+import { SprintNewComponent } from './sprint-new/sprint-new.component';
 
 const routes: Routes = [
   {
@@ -44,51 +46,43 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'logout',
     component: LogoutComponent
   },
   {
-    path: 'expediente-new',
-    component: ExpedienteRegisterComponent,
-    canActivate: [autenticacionGuard]
-  },
-  {
-    path: 'expediente-search',
-    component: ExpedienteSearchComponent,
-    canActivate: [autenticacionGuard]
-  },
-  {
-    path: 'expediente/:numero',
-    component: ExpItemComponent,
-    canActivate: [autenticacionGuard]
-  },
-  {
     path: 'admin-rdt',
     component: AdminRdtComponent,
-    canActivate: [autenticacionGuard]
   },
   {
     path: 'colaborador-rdt',
     component: ColaboradorRdtComponent,
-    canActivate: [autenticacionGuard]
+  },
+  {
+    path: 'expediente-new',
+    component: ExpedienteRegisterComponent,
+  },
+  {
+    path: 'expediente-search',
+    component: ExpedienteSearchComponent,
+  },
+  {
+    path: 'expediente/:numero',
+    component: ExpItemComponent,
   },
   {
     path: 'rdt/:id',
     component: RdtViewComponent,
-    canActivate: [autenticacionGuard]
   },
   {
     path: 'rdt-edit/:id',
     component: RdtEditComponent,
-    canActivate: [autenticacionGuard]
   },
   {
     path: 'rdt-generator',
     component: RdtGeneratorComponent,
-    canActivate: [autenticacionGuard]
   },
   {
     path: 'recursos',
@@ -173,6 +167,14 @@ const routes: Routes = [
   {
     path: 'cobranzas',
     component: PlannerCobranzasComponent
+  },
+  {
+    path: 'sprints',
+    component: SprintsComponent
+  },
+  {
+    path: 'sprint-new',
+    component: SprintNewComponent
   },
   {
     path: '**',
