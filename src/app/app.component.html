@@ -89,11 +89,19 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
             <li>
-              <a class="dropdown-item" routerLink="/sprints">
+              <a class="dropdown-item" routerLink="/sprints" *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
+                <i class="bi bi-flag"></i>
+                <!-- <i class="bi bi-ticket-perforated"></i> -->
+                <!-- <i class="bi bi-flag-fill"></i> -->
+                <span style="padding-left: 5px;">
+                  Todos los Tickets
+                </span>
+              </a>
+              <a class="dropdown-item" routerLink="/mis-tickets">
                 <!-- <i class="bi bi-flag"></i> -->
                 <i class="bi bi-ticket-perforated"></i>
                 <span style="padding-left: 5px;">
-                  Tickets
+                  Mis Tickets
                 </span>
               </a>
               <a class="dropdown-item" routerLink="/sprint-new" *ngIf="user?.displayName=='ADMIN' && false">

@@ -36,7 +36,7 @@ export class SinoeWorkerComponent {
     this.lLoading = true;
 
     let obs = this.db.collection('tareasg', ref => {
-      return ref.where('idencargado', '==', this.idColaborador)
+      return ref.where('idencargado', '==', this.idColaborador).limit(20)
     }).valueChanges()
       .subscribe((res: any) => {
         this.lstTareas = res.map((t: any) => {

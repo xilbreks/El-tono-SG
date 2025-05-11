@@ -1,28 +1,5 @@
 <div>
-    <h4 style="text-align: center;">Archivo de Tickets</h4>
-    <span>Sprint: </span>
-    <select [formControl]="fcSprintId" (change)="recuperarTickets()">
-        <option *ngFor="let sprint of sprints" [value]="sprint.idSprint">
-            {{sprint.nombre}}
-        </option>
-    </select>
-    <span>Area: </span>
-    <select [formControl]="fcDepartamento" (change)="filtrarPorArea()">
-        <option value="todos">Todos</option>
-        <option value="laboral">Laboral</option>
-        <option value="familia">Familia</option>
-        <option value="civil">Civil</option>
-        <option value="notarial">Notarial</option>
-        <option value="penal">Penal</option>
-        <option value="constitucional">Constitucional</option>
-    </select>
-    <span>Responsable: </span>
-    <select [formControl]="fcUsuario" (change)="filtrarPorUsuario()">
-        <option value="todos">Todos</option>
-        <option [value]="u.id" *ngFor="let u of usuarios">
-            {{u.snombre}}
-        </option>
-    </select>
+    <h4 style="text-align: center;">Mis tickets</h4>
 </div>
 
 <div class="table-responsive">
@@ -99,6 +76,15 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <button class="dropdown-item" type="button"
+                                    (click)="abrirModalAvance(modalAvanzar, ticket)">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                    <span style="padding-left: 5px;">
+                                        Avance
+                                    </span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" type="button"
                                     (click)="abrirModalVerDetalles(modalVerDetalles, ticket)">
                                     <i class="bi bi-info-circle"></i>
                                     <span style="padding-left: 5px;">
@@ -150,11 +136,20 @@
                     </a>
                 </span>
                 <br>
-                <span><span style="font-family: monospace;">DTE:</span> {{ticketSeleccionado?.demandante}}</span>
+                <span>
+                    <span style="font-family: monospace;"><b>DTE:</b></span> 
+                    {{ticketSeleccionado?.demandante}}
+                </span>
                 <br>
-                <span><span style="font-family: monospace;">DDO:</span> {{ticketSeleccionado?.demandado}}</span>
+                <span>
+                    <span style="font-family: monospace;"><b>DDO:</b></span>
+                    {{ticketSeleccionado?.demandado}}
+                </span>
                 <br>
-                <span>{{ticketSeleccionado?.materia}}</span>
+                <span>
+                    <span style="font-family: monospace;"><b>MATERIA:</b></span>
+                    {{ticketSeleccionado?.materia}}
+                </span>
                 <br>
             </div>
         </div>
@@ -178,7 +173,7 @@
                 </ul>
             </div>
             <div class="col-md-6 col-12">
-                
+
             </div>
         </div>
         <div class="row g-3">
@@ -215,6 +210,47 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-warning" (click)="modal.dismiss('Cross click')">
             OK
+        </button>
+    </div>
+</ng-template>
+
+
+<!------------------------------------------------
+  ------------- MODAL: AVANZAR -------------------
+  ------------------------------------------------>
+<ng-template #modalAvanzar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="bi bi-ticket-perforated"></i>
+            Ticket: <span style="font-weight: normal;">{{ticketSeleccionado?.idTicket}}</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <h5>Progreso</h5>
+        <label for="avance" style="padding-right: 10px;">Nivel de avance: </label>
+        <select name="avance" id="avance" [formControl]="fcTicketAvance">
+            <option value="0">0%</option>
+            <option value="10">10%</option>
+            <option value="20">20%</option>
+            <option value="30">30%</option>
+            <option value="40">40%</option>
+            <option value="50">50%</option>
+            <option value="60">60%</option>
+            <option value="70">70%</option>
+            <option value="80">80%</option>
+            <option value="90">90%</option>
+            <option value="100">100%</option>
+        </select>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" *ngIf="!actualizando" (click)="actualizarAvance()">
+            Actualizar
+        </button>
+        <button type="button" class="btn btn-primary" *ngIf="actualizando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Actualizando...
         </button>
     </div>
 </ng-template>

@@ -100,23 +100,23 @@ export class SinoeAdminComponent {
     // POSIBILIDADES DE SUCESOS EN EL FILTRO
     if (lcumplimiento == 'all' && idcolaborador == 'all') {
       obs = this.db.collection('tareasg', ref => {
-        return ref.limit(50);
+        return ref.limit(25);
       });
     } else if (lcumplimiento == 'all' && idcolaborador != 'all') {
       obs = this.db.collection('tareasg', ref => {
         return ref.where('idencargado', '==', idcolaborador)
-          .limit(50);
+          .limit(25);
       });
     } else if (lcumplimiento != 'all' && idcolaborador == 'all') {
       obs = this.db.collection('tareasg', ref => {
         return ref.where('lcumplimiento', '==', /^true$/i.test(lcumplimiento))
-          .limit(50);
+          .limit(25);
       });
     } else if (lcumplimiento != 'all' && idcolaborador != 'all') {
       obs = this.db.collection('tareasg', ref => {
         return ref.where('lcumplimiento', '==', /^true$/i.test(lcumplimiento))
           .where('idencargado', '==', idcolaborador)
-          .limit(50);
+          .limit(25);
       });
     }
 

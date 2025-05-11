@@ -37,6 +37,7 @@ import { TrialsComponent } from './trials/trials.component';
 import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas.component';
 import { SprintsComponent } from './sprints/sprints.component';
 import { SprintNewComponent } from './sprint-new/sprint-new.component';
+import { TicketsMeComponent } from './tickets-me/tickets-me.component';
 
 const routes: Routes = [
   {
@@ -175,6 +176,10 @@ const routes: Routes = [
   {
     path: 'sprint-new',
     component: SprintNewComponent
+  },
+  {
+    path: 'mis-tickets',
+    component: TicketsMeComponent
   },
   {
     path: '**',

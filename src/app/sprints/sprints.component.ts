@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { firstValueFrom } from 'rxjs';
-import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Sprint } from '../_interfaces/sprint';
 import { Ticket } from '../_interfaces/ticket';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-sprints',
@@ -13,81 +13,77 @@ import { Ticket } from '../_interfaces/ticket';
   styleUrl: './sprints.component.scss'
 })
 export class SprintsComponent {
-  idusuario: string;
-  cargando = true;
+  cargando = false;
 
   sprints: Sprint[] = [];
+  usuarios: any = [];
   tickets: Ticket[] = [];
   ticketsF: Ticket[] = [];
 
-  fcSprintId: FormControl = new FormControl(null);
-  fcDepartamento: FormControl = new FormControl(null);
-  fcUsuario: FormControl = new FormControl(null);
+  fcSprintId: FormControl = new FormControl();
+  fcDepartamento: FormControl = new FormControl('todos');
+  fcUsuario: FormControl = new FormControl('todos');
 
   ticketSeleccionado: Ticket | undefined = undefined;
-  fcTicketAnotacion: FormControl = new FormControl(null);
-  fcTicketAvance: FormControl = new FormControl(null);
-  actualizando = false;
+  cargandoRDT = false;
+  tareasRdt: any[] = [];
 
   constructor(
     private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
-    let usu = localStorage.getItem('idusuario');
-    this.idusuario = usu ? usu : '';
-
-    // this.recuperarSprints();
-    this.recuperarTickets();
+    // Recuperar sprints y usuarios
+    this.recuperarSprints();
+    this.recuperarUsuarios();
   }
 
   // Solo se ejecuta una vez
-  // recuperarSprints() {
-  //   let obs = this.db.collection('sprints', ref => {
-  //     return ref.orderBy('fechaCreacion', 'desc').limit(24)
-  //   }).get();
-  //   firstValueFrom(obs).then((snapshot) => {
-  //     let items: any[] = [];
-  //     snapshot.forEach(doc => {
-  //       items.push(doc.data())
-  //     });
-  //     this.sprints = items;
+  recuperarSprints() {
+    let obs = this.db.collection('sprints', ref => {
+      return ref.where('esVisible', '==', true).orderBy('fechaCreacion', 'desc').limit(12)
+    }).get();
+    firstValueFrom(obs).then((snapshot) => {
+      let items: any[] = [];
+      snapshot.forEach(doc => {
+        items.push(doc.data())
+      });
+      this.sprints = items;
+    })
+  }
 
-  //     this.selecionarSprintActual();
-  //     this.recuperarTickets();
-  //   })
-  // 
-
-  // Auto selecionar el sprint actual
-  // selecionarSprintActual() {
-  //   let sprintEnCurso = this.sprints.filter(s => s.enCurso)[0];
-  //   this.fcSprintId.setValue(sprintEnCurso.idSprint);
-  //   this.fcDepartamento.setValue('todos');
-  //   this.fcUsuario.setValue('todos');
-  // }
-
-  // Seleccion manual del sprint
-  // seleccionarSprint() {
-  //   this.fcDepartamento.setValue('todos');
-  //   this.fcUsuario.setValue('todos');
-
-  //   this.recuperarTickets();
-  // }
+  // Recuperar usuarios 
+  recuperarUsuarios() {
+    let obs = this.db.collection('colaboradores', ref => {
+      return ref.where('lactive', '==', true)
+    }).get();
+    firstValueFrom(obs).then((snapshot) => {
+      let items: any[] = [];
+      snapshot.forEach(doc => {
+        items.push(doc.data())
+      });
+      this.usuarios = items;
+    })
+  }
 
   // Recupera los tickets del sprint seleccionado
   recuperarTickets() {
-    // let idSprint = this.fcSprintId.value;
+    this.cargando = true;
+    let idSprint = this.fcSprintId.value;
     let obs = this.db.collection('tickets', ref => {
-      return ref.where('asignadoA', '==', this.idusuario)
+      return ref.where('idSprint', '==', idSprint)
     }).get();
 
     firstValueFrom(obs).then(snapshot => {
       this.tickets = [];
-      this.ticketsF = [];
       snapshot.forEach(doc => {
         let t: any = doc.data();
         this.tickets.push(t);
-        this.ticketsF.push(t);
       });
+      this.ticketsF = this.tickets.map(t => t);
+
+      // resetear filtros
+      this.fcDepartamento.setValue('todos');
+      this.fcUsuario.setValue('todos');
     }).catch(err => {
       console.log('Error al recuperar los tickets', err)
     }).finally(() => {
@@ -98,72 +94,33 @@ export class SprintsComponent {
   // Modals
   abrirModalVerDetalles(modal: any, ticket: Ticket) {
     this.ticketSeleccionado = ticket;
+    this.recuperarTareasRdt();
     this.modalService.open(modal, {
       size: 'lg'
     });
   }
 
-  abrirModalAvance(modal: any, ticket: Ticket) {
-    this.ticketSeleccionado = ticket;
-    this.fcTicketAvance.setValue(ticket.avance);
+  // Recuperar rdt del ticket
+  recuperarTareasRdt() {
+    let sexpediente = this.ticketSeleccionado?.expediente;
+    let fechaInicio = this.ticketSeleccionado?.fechaInicio;
+    let fechaFinal = this.ticketSeleccionado?.fechaFinal;
 
-    this.modalService.open(modal, {
-      size: 'sm'
-    });
-  }
+    this.cargandoRDT = true;
+    let obs = this.db.collection('tareas', ref => {
+      return ref.where('sexpediente', '==', sexpediente).where('sfecha', '>=', fechaInicio)
+        .where('sfecha', '<=', fechaFinal).orderBy('sfecha', 'desc')
+    }).get();
 
-  abrirModalAnotacion(modal: any, ticket: Ticket) {
-    this.ticketSeleccionado = ticket;
-    this.fcTicketAnotacion.setValue(ticket.anotaciones);
+    firstValueFrom(obs).then(snapshot => {
+      let items: any[] = [];
+      snapshot.forEach(doc => {
+        items.push(doc.data())
+      });
+      this.tareasRdt = items;
 
-    this.modalService.open(modal, {
-      size: 'md'
-    });
-  }
-  // fin modals
-
-  // Modificar nivel de avance del ticket
-  actualizarAvance() {
-    let nuevoAvance = this.fcTicketAvance.value;
-    let idTicket = this.ticketSeleccionado?.idTicket;
-
-    this.actualizando = true;
-    this.db.collection('tickets').doc(idTicket).update({
-      avance: Number(nuevoAvance)
-    }).then(() => {
-      // ok
-      if (this.ticketSeleccionado)
-        this.ticketSeleccionado.avance = nuevoAvance;
-      this.modalService.dismissAll();
-    }).catch(err => {
-      // error
-      window.alert('Ocurrio un error');
-    }).finally(() => {
-      // a
-      this.actualizando = false;
-    });
-  }
-
-  // Modificar anotacion del ticket
-  actualizarAnotacion() {
-    let nuevaAnotacion = this.fcTicketAnotacion.value;
-    let idTicket = this.ticketSeleccionado?.idTicket;
-
-    this.actualizando = true;
-    this.db.collection('tickets').doc(idTicket).update({
-      anotaciones: nuevaAnotacion.trim()
-    }).then(() => {
-      // ok
-      if (this.ticketSeleccionado)
-        this.ticketSeleccionado.anotaciones = nuevaAnotacion;
-      this.modalService.dismissAll();
-    }).catch(err => {
-      // error
-      window.alert('Ocurrio un error');
-    }).finally(() => {
-      // a
-      this.actualizando = false;
-    });
+      this.cargandoRDT = false;
+    })
   }
 
   // Filtrar por areas
@@ -176,5 +133,14 @@ export class SprintsComponent {
     }
   }
 
+  // Filtrar por usuario
+  filtrarPorUsuario() {
+    let usuarioSeleccionado = this.fcUsuario.value;
+    if (usuarioSeleccionado == 'todos') {
+      this.ticketsF = this.tickets.filter(_ => true);
+    } else {
+      this.ticketsF = this.tickets.filter(t => t.asignadoA == usuarioSeleccionado);
+    }
+  }
 
 }

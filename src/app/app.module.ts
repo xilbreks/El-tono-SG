@@ -69,6 +69,7 @@ import { ExpItemInfEComponent } from './exp-item-inf-e/exp-item-inf-e.component'
 import { TicketsComponent } from './tickets/tickets.component';
 import { SprintsComponent } from './sprints/sprints.component';
 import { SprintNewComponent } from './sprint-new/sprint-new.component';
+import { TicketsMeComponent } from './tickets-me/tickets-me.component';
 
 const environment = {
   production: false,
@@ -142,6 +143,7 @@ const environment = {
     TicketsComponent,
     SprintsComponent,
     SprintNewComponent,
+    TicketsMeComponent,
   ],
   imports: [
     BrowserModule,
