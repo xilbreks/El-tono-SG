@@ -9,12 +9,12 @@
     <span>Area: </span>
     <select [formControl]="fcDepartamento" (change)="filtrarPorArea()">
         <option value="todos">Todos</option>
-        <option value="laboral">Laboral</option>
-        <option value="familia">Familia</option>
-        <option value="civil">Civil</option>
-        <option value="notarial">Notarial</option>
-        <option value="penal">Penal</option>
-        <option value="constitucional">Constitucional</option>
+        <option value="LABORAL">Laboral</option>
+        <option value="FAMILIA">Familia</option>
+        <option value="CIVIL">Civil</option>
+        <option value="NNOTARIAL">Notarial</option>
+        <option value="PENAL">Penal</option>
+        <option value="CONSTITUCIONAL">Constitucional</option>
     </select>
     <span>Responsable: </span>
     <select [formControl]="fcUsuario" (change)="filtrarPorUsuario()">
@@ -34,6 +34,9 @@
                 </th>
                 <th style="width: 25%;">
                     Expediente
+                </th>
+                <th>
+                    Especialidad
                 </th>
                 <th style="width: 50%;">
                     Tarea
@@ -68,6 +71,9 @@
                     <span> {{ticket.materia}} </span>
                 </td>
                 <td>
+                    {{ticket.especialidad}}
+                </td>
+                <td>
                     <strong>{{ticket.titulo}}</strong>
                     <br>
                     <span>{{ticket.descripcion}}</span>
@@ -81,15 +87,7 @@
                     </ul>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <span *ngIf="ticket.avance == 0" style="color: green;">
-                        <i class="bi bi-circle"></i>
-                    </span>
-                    <span *ngIf="ticket.avance > 0 && ticket.avance < 100" style="color: green;">
-                        <i class="bi bi-circle-half"></i>
-                    </span>
-                    <span *ngIf="ticket.avance == 100" style="color: green;">
-                        <i class="bi bi-circle-fill"></i>
-                    </span>
+                    {{ticket.avance}}
                 </td>
                 <td>
                     <div class="dropstart">
