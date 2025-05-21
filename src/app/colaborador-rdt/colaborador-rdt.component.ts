@@ -16,6 +16,7 @@ interface ObjRdt {
   shorasalida: string;
   sminutoingreso: string;
   sminutosalida: string;
+  observaciones: string;
 }
 
 @Component({
@@ -85,6 +86,7 @@ export class ColaboradorRdtComponent {
           shorasalida: x.shorasalida,
           sminutoingreso: x.sminutoingreso,
           sminutosalida: x.sminutosalida,
+          observaciones: x.observaciones,
         }
       });
       this.lLoading = false;

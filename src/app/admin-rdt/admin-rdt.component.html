@@ -17,6 +17,8 @@
         <th>Hora entrada</th>
         <th>Hora salida</th>
         <th>Editable</th>
+        <!-- <th>Ha faltado</th> -->
+        <th>Observaciones</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -34,11 +36,22 @@
           <button class="btn btn-outline-dark" (click)="openSalidaModal(rdt.idrdt, modalSalida)">
             {{ rdt.shorasalida + ":" + rdt.sminutosalida }}
           </button>
-        <td>
+          <td>
           <div class="form-check form-switch">
             <input mdbCheckbox class="form-check-input" type="checkbox" [checked]="rdt.leditable"
               (click)="toggleEditable(rdt.idrdt, rdt.leditable)" />
           </div>
+        </td>
+        <!-- <td>
+          <div class="form-check form-switch">
+            <input mdbCheckbox class="form-check-input" type="checkbox" [checked]="rdt.haFaltado"
+              (click)="toggleHaFaltado(rdt.idrdt, rdt.haFaltado)" />
+          </div>
+        </td> -->
+        <td>
+          <span (dblclick)="abrirModalObservacion(rdt, modalObservacion)">
+            {{rdt.observaciones | json}}
+          </span>
         </td>
         <td>
           <a class="btn btn-outline-success" [routerLink]="'/rdt/' + rdt.idrdt">
@@ -298,6 +311,37 @@
       <span class="sr-only" *ngIf="lUpdating">
         Marcando...
       </span>
+    </button>
+  </div>
+</ng-template>
+
+<!-----------------------------------------------
+  -------------- OBSERVACION MODAL -------------
+  ----------------------------------------------->
+<ng-template #modalObservacion let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Observaciones</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form autocomplete="off">
+      <div class="row">
+        <div class="col-12">
+          <textarea [formControl]="fcObservacion" class="form-control"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="grabarObservacion()" *ngIf="!lUpdating"
+      [disabled]="!fcObservacion.valid">
+      Grabar observación
+    </button>
+    <button class="btn btn-primary" *ngIf="lUpdating">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+      </span>
+      Grabando...
     </button>
   </div>
 </ng-template>

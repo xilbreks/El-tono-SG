@@ -15,6 +15,7 @@
         <th>Fecha</th>
         <th>Hora entrada</th>
         <th>Hora salida</th>
+        <th>Observaciones</th>
         <th>Acción</th>
       </tr>
     </thead>
@@ -26,6 +27,9 @@
         </td>
         <td>
           {{ rdt.shorasalida + ":" + rdt.sminutosalida }}
+        </td>
+        <td>
+          {{rdt.observaciones}}
         </td>
         <td>
           <a class="btn btn-outline-dark" *ngIf="!rdt.leditable" [routerLink]="'/rdt/'+rdt.idrdt">

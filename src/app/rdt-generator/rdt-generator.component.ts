@@ -117,6 +117,7 @@ export class RdtGeneratorComponent {
           shorasalida: '--',
           sminutoingreso: '--',
           sminutosalida: '--',
+          observaciones: '',
         })
         .then((res) => {
           console.log(res);

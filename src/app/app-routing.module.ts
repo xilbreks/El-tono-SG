@@ -32,7 +32,6 @@ import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/ex
 import { autenticacionGuard } from './autenticacion.guard';
 import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
-import { DemandasComponent } from './demandas/demandas.component';
 import { TrialsComponent } from './trials/trials.component';
 import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas.component';
 import { SprintsComponent } from './sprints/sprints.component';
@@ -160,10 +159,6 @@ const routes: Routes = [
   {
     path: 'citas',
     component: AppointmentsComponent
-  },
-  {
-    path: 'demandas',
-    component: DemandasComponent
   },
   {
     path: 'cobranzas',

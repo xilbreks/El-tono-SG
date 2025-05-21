@@ -52,7 +52,6 @@ import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/ex
 import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { ExpItemApptComponent } from './exp-item-appt/exp-item-appt.component';
-import { DemandasComponent } from './demandas/demandas.component';
 import { ExpItemRdtComponent } from './exp-item-rdt/exp-item-rdt.component';
 import { ExpItemTrialComponent } from './exp-item-trial/exp-item-trial.component';
 import { ExpItemCallsComponent } from './exp-item-calls/exp-item-calls.component';
@@ -62,7 +61,6 @@ import { ExpItemKComponent } from './exp-item-k/exp-item-k.component';
 import { ExpItemEvolutionComponent } from './exp-item-evolution/exp-item-evolution.component';
 import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas.component';
 import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
-import { PlannerDemandasComponent } from './planner-demandas/planner-demandas.component';
 import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
 import { ExpItemRecursosComponent } from './exp-item-recursos/exp-item-recursos.component';
 import { ExpItemInfEComponent } from './exp-item-inf-e/exp-item-inf-e.component';
@@ -126,7 +124,6 @@ const environment = {
     InfComunicacionComponent,
     AppointmentsComponent,
     ExpItemApptComponent,
-    DemandasComponent,
     ExpItemRdtComponent,
     ExpItemTrialComponent,
     ExpItemCallsComponent,
@@ -136,7 +133,6 @@ const environment = {
     ExpItemEvolutionComponent,
     PlannerCobranzasComponent,
     PlannerAudienciasComponent,
-    PlannerDemandasComponent,
     PlannerCitasComponent,
     ExpItemRecursosComponent,
     ExpItemInfEComponent,

@@ -18,6 +18,8 @@ class ObjRdt {
   public nsemana: number = 0;
   public nTiempoOficina: number = 0;
   public nTiempoTareas: number = 0;
+  public haFaltado: boolean = false;
+  public observaciones: string = '';
   constructor(a: {
     idrdt: string,
     idcolaborador: string,
@@ -28,7 +30,9 @@ class ObjRdt {
     sminutoingreso: string,
     sminutosalida: string,
     leditable: boolean,
-    nsemana: number
+    nsemana: number,
+    haFaltado: boolean,
+    observaciones: string,
   }) {
     this.idrdt = a.idrdt;
     this.idcolaborador = a.idcolaborador;
@@ -40,6 +44,8 @@ class ObjRdt {
     this.sminutosalida = a.sminutosalida;
     this.leditable = a.leditable;
     this.nsemana = a.nsemana;
+    this.haFaltado = a.haFaltado;
+    this.observaciones = a.observaciones;
 
     let horasTrabajadas = Number(a.shorasalida) - Number(a.shoraingreso);
     let minutosTrbajados = Number(a.sminutosalida) - Number(a.sminutoingreso);
@@ -59,6 +65,9 @@ export class AdminRdtComponent {
   frmSalida: FormGroup;
   lUpdating: boolean = false;
   lLoading: boolean = false;
+
+  rdtSeleccionado: any = null;
+  fcObservacion: FormControl = new FormControl(null, Validators.required);
 
   constructor(
     private db: AngularFirestore,
@@ -122,6 +131,12 @@ export class AdminRdtComponent {
     });
   }
 
+  public toggleHaFaltado(idrdt: string, haFaltado: boolean): void {
+    this.db.collection('rdts').doc(idrdt).update({
+      haFaltado: !haFaltado,
+    });
+  }
+
   public openEntradaModal(idrdt: string, modal: any): void {
     this.frmEntrada.setValue({
       idrdt: idrdt,
@@ -139,6 +154,15 @@ export class AdminRdtComponent {
       shorasalida: null,
       sminutosalida: null
     })
+    this.modalService.open(modal, {
+      windowClass: 'modal-sm',
+    });
+  }
+
+  public abrirModalObservacion(rdt: any, modal: any): void {
+    this.rdtSeleccionado = rdt;
+    this.fcObservacion.setValue('');
+
     this.modalService.open(modal, {
       windowClass: 'modal-sm',
     });
@@ -183,6 +207,32 @@ export class AdminRdtComponent {
       })
       .catch(() => {
         window.alert('ERROR al marcar salida')
+      })
+      .finally(() => {
+        this.modalService.dismissAll();
+        this.lUpdating = false;
+      });
+  }
+
+  grabarObservacion() {
+    this.lUpdating = true;
+    let idrdt = this.rdtSeleccionado.idrdt;
+    let observacion = this.fcObservacion.value;
+
+    console.log('vamos a guardar observacion', {
+      idrdt, observacion
+    })
+    this.db
+      .collection('rdts')
+      .doc(idrdt)
+      .update({
+        observaciones: observacion
+      })
+      .then(() => {
+        this.fcObservacion.reset();
+      })
+      .catch(() => {
+        window.alert('ERROR al grabar observacion')
       })
       .finally(() => {
         this.modalService.dismissAll();
@@ -253,9 +303,9 @@ export class AdminRdtComponent {
               // Agregando la fecha de registro de la tarea
               let dfreg = new Date(Number(tarea.idtarea));
               tarea['sfechareg'] = dfreg.getDate() + '/' +
-              (dfreg.getMonth() + 1) + '/' + dfreg.getFullYear() + ' ' +
-              (dfreg.getHours()>10?dfreg.getHours():'0'+dfreg.getHours()) + ':' + 
-              (dfreg.getMinutes()>10?dfreg.getMinutes():'0'+dfreg.getMinutes());
+                (dfreg.getMonth() + 1) + '/' + dfreg.getFullYear() + ' ' +
+                (dfreg.getHours() > 10 ? dfreg.getHours() : '0' + dfreg.getHours()) + ':' +
+                (dfreg.getMinutes() > 10 ? dfreg.getMinutes() : '0' + dfreg.getMinutes());
 
               // Agregar Hora de entrada y salida
               tarea['hentrada'] = rdt.shoraingreso + ':' + rdt.sminutoingreso;
@@ -296,8 +346,8 @@ export class AdminRdtComponent {
             "Prod. Segun horario": tarea['productidad2'],
             "Hora Entrada": tarea['hentrada'],
             "Hora Salida": tarea['hsalida'],
-            "Descripción de la tarea": tarea['sdeseje'].trim().slice(0,2500),
-            "Acciones por realizar": tarea['sacceje'].trim().slice(0,2500),
+            "Descripción de la tarea": tarea['sdeseje'].trim().slice(0, 2500),
+            "Acciones por realizar": tarea['sacceje'].trim().slice(0, 2500),
             "Fecha y Hora de guardado": tarea['sfechareg']
           })
         });
