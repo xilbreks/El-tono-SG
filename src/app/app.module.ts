@@ -68,6 +68,7 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { SprintsComponent } from './sprints/sprints.component';
 import { SprintNewComponent } from './sprint-new/sprint-new.component';
 import { TicketsMeComponent } from './tickets-me/tickets-me.component';
+import { TareoMensualComponent } from './tareo-mensual/tareo-mensual.component';
 
 const environment = {
   production: false,
@@ -140,6 +141,7 @@ const environment = {
     SprintsComponent,
     SprintNewComponent,
     TicketsMeComponent,
+    TareoMensualComponent,
   ],
   imports: [
     BrowserModule,

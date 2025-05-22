@@ -37,6 +37,7 @@ import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas
 import { SprintsComponent } from './sprints/sprints.component';
 import { SprintNewComponent } from './sprint-new/sprint-new.component';
 import { TicketsMeComponent } from './tickets-me/tickets-me.component';
+import { TareoMensualComponent } from './tareo-mensual/tareo-mensual.component';
 
 const routes: Routes = [
   {
@@ -175,6 +176,10 @@ const routes: Routes = [
   {
     path: 'mis-tickets',
     component: TicketsMeComponent
+  },
+  {
+    path: 'tareo-mensual',
+    component: TareoMensualComponent
   },
   {
     path: '**',

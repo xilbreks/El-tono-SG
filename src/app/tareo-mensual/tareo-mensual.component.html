@@ -1,0 +1,84 @@
+<h5 style="text-align: center;">
+    Tareo Mensual
+</h5>
+<div>
+    <span>
+        <label>Mes:</label>
+        <select [formControl]="fcMes">
+            <option *ngFor="let mes of meses" [value]="mes.inicio + ':' + mes.final">
+                {{mes.nombre}}
+            </option>
+        </select>
+    </span>
+    <span>
+        <label>Usuario:</label>
+        <select [formControl]="fcUsuario">
+            <option *ngFor="let usuario of usuarios" [value]="usuario.id">
+                {{usuario.snombre}}
+            </option>
+        </select>
+    </span>
+    <span>
+        <button [disabled]="!fcMes.valid || !fcUsuario.valid" (click)="recuperarRdts()">
+            Ver Tareo
+        </button>
+    </span>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Día
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Hora Entrada
+                </th>
+                <th>
+                    Hora Salida
+                </th>
+                <th>
+                    Tareas
+                </th>
+                <th>
+                    Observaciones
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!cargando">
+            <tr *ngFor="let tareo of rdts">
+                <td>
+                    {{tareo.sfecha}}
+                </td>
+                <td>
+                    {{tareo.diaSemana}}
+                </td>
+                <td>
+                    {{tareo.scolaborador}}
+                </td>
+                <td>
+                    {{tareo.shoraingreso}}:{{tareo.sminutoingreso}}
+                </td>
+                <td>
+                    {{tareo.shorasalida}}:{{tareo.sminutosalida}}
+                </td>
+                <td>
+                    {{tareo.tareas.length}}
+                </td>
+                <td>
+                    {{tareo.observaciones}}
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="cargando">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            cargando...
+        </tbody>
+    </table>
+</div>
