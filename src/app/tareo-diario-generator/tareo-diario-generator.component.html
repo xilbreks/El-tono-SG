@@ -1,0 +1,35 @@
+<h3>
+    Generador de Tareos (RDT)
+</h3>
+
+<div>
+    <b>DATOS:</b>
+    <ul>
+        <li>Fecha: {{fcFecha.value}}</li>
+    </ul>
+</div>
+
+<div>
+    <button class="btn btn-primary" *ngIf="!generando" (click)="generarTareo()">
+        Generar RDT
+    </button>
+
+    <button class="btn btn-primary" *ngIf="generando">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Generando...
+    </button>
+</div>
+
+<div>
+    <p>
+        Listado de colaboradores que deben realizar su RDT:
+    </p>
+    <ol>
+        <li *ngFor="let usuario of usuarios">
+            {{usuario.snombre}}: [{{usuario.id}}]
+        </li>
+    </ol>
+    <div *ngIf="cargando">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </div>
+</div>

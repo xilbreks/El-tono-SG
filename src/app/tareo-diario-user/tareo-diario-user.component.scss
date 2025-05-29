@@ -1,0 +1,61 @@
+/* Estilo principal de la tabla */
+.excel-style-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 0 0 20px 0;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+/* Encabezados de columna */
+.excel-style-table thead th {
+    // background-color: #4472C4;
+    /* Azul corporativo similar a Excel */
+    // color: white;
+    font-weight: 600;
+    text-align: center;
+    padding: 12px 15px;
+    // border: 1px solid #3a5f9e;
+    border: 1px solid #e0e0e0;
+}
+
+/* Celdas del cuerpo */
+.excel-style-table tbody td {
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Filas alternadas - banding como Excel */
+.excel-style-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+    /* Gris muy claro */
+}
+
+.excel-style-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+    /* Blanco */
+}
+
+/* Efecto hover sobre filas */
+.excel-style-table tbody tr:hover {
+    background-color: #e9f0fb;
+    /* Azul claro al pasar mouse */
+    transition: background-color 0.2s ease;
+}
+
+/* Estilo para encabezados de fila si los tienes */
+.excel-style-table .row-header {
+    background-color: #e7e9ed;
+    font-weight: 600;
+    border-right: 2px solid #d0d3d8;
+}
+
+/* Bordes suavizados */
+.excel-style-table {
+    border: 1px solid #d0d7e5;
+}

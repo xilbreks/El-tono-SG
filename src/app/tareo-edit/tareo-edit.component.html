@@ -1,0 +1,646 @@
+<h4>
+    REPORTE DIARIO DE TRABAJO new
+</h4>
+
+<table class="tbl-cabecera">
+    <tr>
+        <td>Realizado por:</td>
+        <td class="objrdt">{{objRdt.scolaborador}}</td>
+    </tr>
+    <tr>
+        <td>Fecha:</td>
+        <td class="objrdt">{{objRdt.sfecha2}}</td>
+    </tr>
+</table>
+
+<div>
+    <button class="btn btn-outline-success" (click)="openNewTaskModal(newTaskModal)">
+        + Agregar tarea
+    </button>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="tareas_rdt">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Cliente</th>
+                <th>Atención</th>
+                <th>Delegado por</th>
+                <th>Expediente</th>
+                <th>Tipo de proceso</th>
+                <th>DTE</th>
+                <th>DDO</th>
+                <th>ITER</th>
+                <th>Contrato</th>
+                <!-- <th>Cobro de Honorarios</th>
+          <th>Cobros para Aranceles u otros</th>
+          <th>Gasto realizado en aranceles u otros</th> -->
+                <th>T. Atención</th>
+                <th>Código de tarea</th>
+                <th>Mención de la tarea</th>
+                <th>Acciones a realizar</th>
+                <th>Saldo</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!lLoading">
+            <tr *ngFor="let tarea of lstTareas; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>
+                    {{ tarea.stipocliente }}
+                </td>
+                <td>
+                    {{ tarea.stipoatencion }}
+                </td>
+                <td>
+                    {{ tarea.sdelegadopor }}
+                </td>
+                <td>
+                    {{ tarea.sexpediente }}
+                </td>
+                <td>
+                    {{ tarea.sespecialidad }}
+                </td>
+                <td>
+                    {{ tarea.sdemandante }}
+                </td>
+                <td>
+                    {{ tarea.sdemandado }}
+                </td>
+                <td>
+                    {{ tarea.niter }}
+                </td>
+                <td>
+                    {{ tarea.lcontrato }}
+                </td>
+                <!-- <td>
+            {{ tarea.ncobrohonorario }}
+          </td>
+          <td>
+            {{ tarea.ningresoarancel }}
+          </td>
+          <td>
+            {{ tarea.nsalidaarancel }}
+          </td> -->
+                <td>
+                    {{tarea.shorasatencion}}:{{tarea.sminutosatencion}}
+                </td>
+                <td>
+                    {{ tarea.ncodeje }}
+                </td>
+                <td>
+                    {{ tarea.sdeseje }}
+                </td>
+                <td>
+                    {{ tarea.sacceje }}
+                </td>
+                <td>
+                    {{ tarea.nsaldo }}
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" (click)="openEditTaskModal(tarea, editTaskModal)"
+                        ngbTooltip="Editar">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" (click)="eliminarTarea(tarea.idtarea)" ngbTooltip="Eliminar">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
+        <tfoot>
+            <tr>
+                <th colspan="10" style="text-align: right;">
+                    SUMA TOTAL DE TIEMPO UTILIZADO
+                </th>
+                <th>
+                    {{nSumaTiempoTareas}}
+                </th>
+                <th colspan="6">
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<!-----------------------------------------------
+    --------------- ADD TASK MODAL ----------------
+    ----------------------------------------------->
+<ng-template #newTaskModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Informar lo que hice hoy</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmNewTask" autocomplete="off">
+            <div class="row mb-3">
+                <div class="col-6 col-md-3" style="position: relative;">
+                    <div class="search-box">
+                        <label for="sExpediente" class="form-label">Expediente</label>
+                        <input #fff id="sExpediente" type="text" placeholder="Texto de búsqueda" class="form-control"
+                            (input)="filtrar(fff.value)" (blur)="desfocusear()" (focus)="filtrar(fff.value)"
+                            formControlName="sexpediente" (keyup.enter)="pressEnter()">
+                    </div>
+                    <div class="result-box">
+                        <div class="result-item" *ngFor="let expediente of lstExpedientesFiltered"
+                            (click)="pickExpediente(expediente)" (mousedown)="prevenir($event)">
+                            <div class="exp">
+                                {{expediente.numero}}
+                            </div>
+                            <div class="dte">
+                                {{expediente.demandante}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="sEspecialidad" class="form-label">Tipo de proceso</label>
+                    <select class="form-select" id="sEspecialidad" formControlName="sespecialidad"
+                        (change)="setLstIterNewTask()">
+                        <option value="nc">No corresponde</option>
+                        <option value="laboral">Laboral</option>
+                        <option value="penal">Penal</option>
+                        <option value="civil">Civil</option>
+                        <option value="familia">Familia</option>
+                        <option value="constitucional">Constitucional</option>
+                        <option value="notarial">Notarial</option>
+                        <option value="administrativo">Administrativo</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="iteractividad" class="form-label"> ITER Procesal </label>
+                    <select class="form-select" id="iteractividad" formControlName="niter">
+                        <option *ngFor="let iter of lstIter" [value]="iter.code" [disabled]="!iter.eligible">
+                            {{iter.code}} - {{iter.title}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-3 col-md-2">
+                    <label for="sTipoCliente" class="form-label">Cliente</label>
+                    <select class="form-select" formControlName="stipocliente" id="sTipoCliente">
+                        <option value="nc">No corresponde</option>
+                        <option value="consulta">Consulta Nueva</option>
+                        <option value="nuevo">Nuevo</option>
+                        <option value="antiguo">Antiguo</option>
+                    </select>
+                </div>
+                <div class="col-3 col-md-1">
+                    <label for="lcontrato" class="form-label">Contrato</label>
+                    <select class="form-select" formControlName="lcontrato" id="lcontrato">
+                        <option value="nc">No corresponde</option>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                    <label for="nombreDemandante" class="form-label">
+                        Demandante
+                    </label>
+                    <input type="text" class="form-control" id="nombreDemandante" formControlName="sdemandante" />
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="nombreDemandado" class="form-label">
+                        Demandado
+                    </label>
+                    <input type="text" class="form-control" id="nombreDemandado" formControlName="sdemandado" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="codigoEjecutivo" class="form-label"> Código de tarea </label>
+                    <select class="form-select" id="codigoEjecutivo" formControlName="ncodeje">
+                        <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
+                            {{dil.desc}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                    <label for="descripcionEjecutiva" class="form-label">
+                        Mención del caso, tarea, trabajo
+                    </label>
+                    <textarea class="form-control" id="descripcionEjecutiva" formControlName="sdeseje">
+            </textarea>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="accionesEjecutivas" class="form-label">
+                        Acciones a Realizar
+                    </label>
+                    <textarea class="form-control" id="accionesEjecutivas" formControlName="sacceje">
+            </textarea>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6 col-md-3">
+                    <label for="sTipoAtencion" class="form-label">Atención</label>
+                    <select class="form-select" formControlName="stipoatencion" id="sTipoAtencion">
+                        <option value="nc">No corresponde</option>
+                        <option value="por-expediente">Por expediente</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="via-celular">Vía celular</option>
+                        <option value="via-internet">Vía internet</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="delegadoPor" class="form-label"> Delegado por </label>
+
+                    <!-- <input type="text" class="form-control" list="delegadores" formControlName="sdelegadopor">
+            <datalist id="delegadores">
+              <option value="Dra. Lizbet Silva"></option>
+              <option value="Ing. Wilber"></option>
+              <option value="Iniciativa propia"></option>
+            </datalist> -->
+
+                    <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
+                        <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
+                        <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
+                        <option value="Abg. Paola Mendoza">Abg. Paola Mendoza</option>
+                        <option value="Abg. Huander Montoya">Abg. Huander Montoya</option>
+                        <option value="Bach. Eduardo Soto">Bach. Eduardo Soto</option>
+                        <option value="Bach. Gabylu Siu. ">Bach. Gabylu Siu.</option>
+                        <option value="Abg. Maria Tunquipa">Abg. Maria Tunquipa</option>
+
+                        <option value="ing-wilber">Ing. Wilber</option>
+                        <option value="iniciativa-propia">Iniciativa Propia</option>
+                        <option value="nc">No Corresponde</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="tiempoAtencion" class="form-label">
+                        Tiempo de Atención
+                    </label>
+                    <br />
+                    <div style="display: flex;">
+                        <select class="form-control" style="display: inline-block;" id="tiempoAtencion"
+                            formControlName="shorasatencion">
+                            <option value="00">0h</option>
+                            <option value="01">1h</option>
+                            <option value="02">2h</option>
+                            <option value="03">3h</option>
+                            <option value="04">4h</option>
+                            <option value="05">5h</option>
+                            <option value="06">6h</option>
+                            <option value="07">7h</option>
+                            <option value="08">8h</option>
+                            <option value="09">9h</option>
+                            <option value="10">10h</option>
+                            <option value="11">11h</option>
+                            <option value="12">12h</option>
+                        </select>
+                        <select class="form-control" style="display: inline-block;" formControlName="sminutosatencion">
+                            <option value="00">00m</option>
+                            <option value="05">05m</option>
+                            <option value="10">10m</option>
+                            <option value="15">15m</option>
+                            <option value="20">20m</option>
+                            <option value="25">25m</option>
+                            <option value="30">30m</option>
+                            <option value="35">35m</option>
+                            <option value="40">40m</option>
+                            <option value="45">45m</option>
+                            <option value="50">50m</option>
+                            <option value="55">55m</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="nsaldo" class="form-label">
+                        Saldo Pendiente (S/)
+                    </label>
+                    <input type="text" class="form-control" id="nsaldo" formControlName="nsaldo" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6 col-md-2">
+                    <label for="fechaCulminacion" class="form-label">
+                        Culminación de la tarea
+                    </label>
+                    <input type="date" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
+                </div>
+
+                <div class="col-6 col-md-1">
+                    <label for="cumplimiento" class="form-label"> Avance(%) </label>
+                    <select class="form-select" id="cumplimiento" formControlName="navance">
+                        <option value="10%">10%</option>
+                        <option value="20%">20%</option>
+                        <option value="30%">30%</option>
+                        <option value="40%">40%</option>
+                        <option value="50%">50%</option>
+                        <option value="60%">60%</option>
+                        <option value="70%">70%</option>
+                        <option value="80%">80%</option>
+                        <option value="90%">90%</option>
+                        <option value="100%">100%</option>
+                    </select>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <!-- <label for="ingresoArancel" class="form-label">
+              Cobro para aranceles u otros (S/)
+            </label>
+            <input type="number" class="form-control" id="ingresoArancel" formControlName="ningresoarancel" /> -->
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <!-- <label for="salidaArancel" class="form-label">
+              Gasto realizado en aranceles (S/)
+            </label>
+            <input type="number" class="form-control" id="salidaArancel" formControlName="nsalidaarancel" /> -->
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <!-- <label for="honorarioCobrado" class="form-label">
+              Cobro realizado por honorarios (S/)
+            </label>
+            <input type="number" class="form-control" id="honorarioCobrado" formControlName="ncobrohonorario" /> -->
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="agregarTarea()"
+            [disabled]="!(frmNewTask.valid && !lCreating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lCreating">
+            </span>
+            <span class="sr-only" *ngIf="!lCreating">
+                Guardar
+            </span>
+            <span class="sr-only" *ngIf="lCreating">
+                Guardando...
+            </span>
+        </button>
+    </div>
+</ng-template>
+
+<!-----------------------------------------------
+    ------------- EDIT TASK MODAL -----------------
+    ----------------------------------------------->
+<ng-template #editTaskModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar Tarea</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmEditTask" autocomplete="off">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="codigoEjecutivo" class="form-label"> Código de tarea </label>
+                    <select class="form-select" id="codigoEjecutivo" formControlName="ncodeje">
+                        <option *ngFor="let dil of lstDiligencias" [value]="dil.id" [disabled]="!dil.pick">
+                            {{dil.desc}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                    <label for="descripcionEjecutiva" class="form-label">
+                        Mención del caso, tarea, trabajo
+                    </label>
+                    <textarea class="form-control" id="descripcionEjecutiva" formControlName="sdeseje">
+            </textarea>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="accionesEjecutivas" class="form-label">
+                        Acciones a Realizar
+                    </label>
+                    <textarea class="form-control" id="accionesEjecutivas" formControlName="sacceje">
+            </textarea>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6 col-md-3">
+                    <label for="sTipoCliente" class="form-label">Cliente</label>
+                    <select class="form-select" formControlName="stipocliente" id="sTipoCliente">
+                        <option value="nc">No corresponde</option>
+                        <option value="consulta">Consulta Nueva</option>
+                        <option value="nuevo">Nuevo</option>
+                        <option value="antiguo">Antiguo</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="sTipoAtencion" class="form-label">Atención</label>
+                    <select class="form-select" formControlName="stipoatencion" id="sTipoAtencion">
+                        <option value="nc">No corresponde</option>
+                        <option value="por-expediente">Por expediente</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="via-celular">Vía celular</option>
+                        <option value="via-internet">Vía internet</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="sExpediente" class="form-label">Expediente</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="sExpediente" formControlName="sexpediente"
+                            aria-describedby="exp-addon1" />
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="sEspecialidad" class="form-label">Tipo de proceso</label>
+                    <select class="form-select" id="sEspecialidad" formControlName="sespecialidad"
+                        (change)="setLstIterEditTask()">
+                        <option value="nc">No corresponde</option>
+                        <option value="laboral">Laboral</option>
+                        <option value="penal">Penal</option>
+                        <option value="civil">Civil</option>
+                        <option value="familia">Familia</option>
+                        <option value="constitucional">Constitucional</option>
+                        <option value="notarial">Notarial</option>
+                        <option value="administrativo">Administrativo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                    <label for="nombreDemandante" class="form-label">
+                        Demandante
+                    </label>
+                    <input type="text" class="form-control" id="nombreDemandante" formControlName="sdemandante" />
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="nombreDemandado" class="form-label">
+                        Demandado
+                    </label>
+                    <input type="text" class="form-control" id="nombreDemandado" formControlName="sdemandado" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                    <label for="iteractividad" class="form-label"> ITER Procesal </label>
+                    <select class="form-select" id="iteractividad" formControlName="niter">
+                        <option *ngFor="let iter of lstIter" [value]="iter.code" [disabled]="!iter.eligible">
+                            {{iter.code}} - {{iter.title}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="delegadoPor" class="form-label"> Delegado por </label>
+
+                    <input type="text" class="form-control" list="delegadores" formControlName="sdelegadopor">
+                    <datalist id="delegadores">
+                        <option value="Dra. Lizbet Silva"></option>
+                        <option value="Ing. Wilber"></option>
+                        <option value="Iniciativa propia"></option>
+                    </datalist>
+
+                    <!-- <select class="form-select" id="delegadoPor" formControlName="sdelegadopor">
+              <option *ngFor="let dr of lstDelegadores" [value]="dr.id">
+                {{dr.name}}
+              </option>
+              <option value="ing-wilber">Ing. Wilber</option>
+              <option value="iniciativa-propia">Iniciativa Propia</option>
+              <option value="nc">No Corresponde</option>
+            </select> -->
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6 col-md-3">
+                    <label for="cumplimiento" class="form-label"> Cumplimiento(%) </label>
+                    <select class="form-select" id="cumplimiento" formControlName="navance">
+                        <option value="nc">No corresponde</option>
+                        <option value="10%">10%</option>
+                        <option value="20%">20%</option>
+                        <option value="30%">30%</option>
+                        <option value="40%">40%</option>
+                        <option value="50%">50%</option>
+                        <option value="60%">60%</option>
+                        <option value="70%">70%</option>
+                        <option value="80%">80%</option>
+                        <option value="90%">90%</option>
+                        <option value="100%">100%</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="tiempoAtencion" class="form-label">
+                        Tiempo de Atención
+                    </label>
+                    <br />
+                    <div style="display: flex;">
+                        <select class="form-control" style="display: inline-block;" id="tiempoAtencion"
+                            formControlName="shorasatencion">
+                            <option value="00">0h</option>
+                            <option value="01">1h</option>
+                            <option value="02">2h</option>
+                            <option value="03">3h</option>
+                            <option value="04">4h</option>
+                            <option value="05">5h</option>
+                            <option value="06">6h</option>
+                            <option value="07">7h</option>
+                            <option value="08">8h</option>
+                            <option value="09">9h</option>
+                            <option value="10">10h</option>
+                            <option value="11">11h</option>
+                            <option value="12">12h</option>
+                        </select>
+                        <select class="form-control" style="display: inline-block;" formControlName="sminutosatencion">
+                            <option value="00">00m</option>
+                            <option value="05">05m</option>
+                            <option value="10">10m</option>
+                            <option value="15">15m</option>
+                            <option value="20">20m</option>
+                            <option value="25">25m</option>
+                            <option value="30">30m</option>
+                            <option value="35">35m</option>
+                            <option value="40">40m</option>
+                            <option value="45">45m</option>
+                            <option value="50">50m</option>
+                            <option value="55">55m</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="fechaCulminacion" class="form-label">
+                        Fecha culminación
+                    </label>
+                    <input type="date" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="nsaldo" class="form-label">
+                        Saldo Pendiente (S/)
+                    </label>
+                    <input type="text" class="form-control" id="nsaldo" formControlName="nsaldo" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6 col-md-3">
+                    <!-- <label for="ingresoArancel" class="form-label">
+              Cobro para aranceles u otros
+            </label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">S/</span>
+              <input type="number" class="form-control" id="ingresoArancel" formControlName="ningresoarancel" />
+            </div> -->
+                </div>
+                <div class="col-6 col-md-3">
+                    <!-- <label for="salidaArancel" class="form-label">
+              Gasto realizado en aranceles u otros
+            </label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">S/</span>
+              <input type="number" class="form-control" id="salidaArancel" formControlName="nsalidaarancel" />
+            </div> -->
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <!-- <label for="honorarioCobrado" class="form-label">
+              Cobro realizado por honorarios
+            </label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">S/</span>
+              <input type="number" class="form-control" id="honorarioCobrado" formControlName="ncobrohonorario" />
+            </div> -->
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="lcontrato" class="form-label">Contrato</label>
+                    <select class="form-select" formControlName="lcontrato" id="lcontrato">
+                        <option value="nc">No corresponde</option>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div *ngIf="frmEditTask.invalid" class="alert alert-warning">
+            Complete todos los campos
+        </div>
+        <div *ngIf="!frmEditTask.invalid" class="alert alert-success">
+            Formulario válido
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editarTarea()"
+            [disabled]="!(frmEditTask.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Actualizar tarea
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Actualizando...
+            </span>
+        </button>
+    </div>
+</ng-template>

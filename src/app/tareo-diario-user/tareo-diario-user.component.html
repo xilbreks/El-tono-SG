@@ -1,0 +1,64 @@
+<h4 style="text-align: center;">
+    Tareo Diario (RDT)
+</h4>
+<div>
+    <table class="excel-style-table">
+        <thead>
+            <tr>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Día
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Hora entrada
+                </th>
+                <th>
+                    Hora salida
+                </th>
+                <th style="min-width: 400px;">
+                    Observaciones
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!cargando">
+            <tr *ngFor="let tareo of tareos">
+                <td>
+                    {{tareo.fecha}}
+                </td>
+                <td>
+                    {{tareo.nombreDia}}
+                </td>
+                <td>
+                    {{tareo.nombreUsuario}}
+                </td>
+                <td>
+                    {{tareo.entradaHora}}:{{tareo.entradaMinuto}}
+                </td>
+                <td>
+                    {{tareo.salidaHora}}:{{tareo.salidaMinuto}}
+                </td>
+                <td>
+                    {{tareo.observaciones}}
+                </td>
+                <td>
+                    <a class="btn btn-outline-success btn-sm" [routerLink]="'/rdt-edit/' + tareo.idTareo">
+                        Completar
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+
+        <tbody *ngIf="cargando">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            cargando...
+        </tbody>
+    </table>
+</div>

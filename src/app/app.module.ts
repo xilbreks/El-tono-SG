@@ -12,15 +12,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
-import { AdminRdtComponent } from './admin-rdt/admin-rdt.component';
-import { ColaboradorRdtComponent } from './colaborador-rdt/colaborador-rdt.component';
-import { RdtViewComponent } from './rdt-view/rdt-view.component';
-import { RdtEditComponent } from './rdt-edit/rdt-edit.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { RdtStatsComponent } from './rdt-stats/rdt-stats.component';
-import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
-import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
@@ -69,6 +62,14 @@ import { SprintsComponent } from './sprints/sprints.component';
 import { SprintNewComponent } from './sprint-new/sprint-new.component';
 import { TicketsMeComponent } from './tickets-me/tickets-me.component';
 import { TareoMensualComponent } from './tareo-mensual/tareo-mensual.component';
+import { TareoDiarioComponent } from './tareo-diario/tareo-diario.component';
+import { TareoDiarioUserComponent } from './tareo-diario-user/tareo-diario-user.component';
+import { SprintComponent } from './sprint/sprint.component';
+import { SprintUserComponent } from './sprint-user/sprint-user.component';
+import { SprintMasterComponent } from './sprint-master/sprint-master.component';
+import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-diario-generator.component';
+import { TareoEditComponent } from './tareo-edit/tareo-edit.component';
+import { TareoViewComponent } from './tareo-view/tareo-view.component';
 
 const environment = {
   production: false,
@@ -86,15 +87,8 @@ const environment = {
 @NgModule({
   declarations: [
     AppComponent,
-    AdminRdtComponent,
-    ColaboradorRdtComponent,
-    RdtViewComponent,
-    RdtEditComponent,
     LoginComponent,
     LogoutComponent,
-    RdtStatsComponent,
-    ExpedienteSearchComponent,
-    RdtGeneratorComponent,
     ExpedienteRegisterComponent,
     RecursosComponent,
     RecursosItersComponent,
@@ -142,6 +136,14 @@ const environment = {
     SprintNewComponent,
     TicketsMeComponent,
     TareoMensualComponent,
+    TareoDiarioComponent,
+    TareoDiarioUserComponent,
+    SprintComponent,
+    SprintUserComponent,
+    SprintMasterComponent,
+    TareoDiarioGeneratorComponent,
+    TareoEditComponent,
+    TareoViewComponent,
   ],
   imports: [
     BrowserModule,

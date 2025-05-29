@@ -2,15 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
-import { AdminRdtComponent } from './admin-rdt/admin-rdt.component';
-import { ColaboradorRdtComponent } from './colaborador-rdt/colaborador-rdt.component';
-import { RdtViewComponent } from './rdt-view/rdt-view.component';
-import { RdtEditComponent } from './rdt-edit/rdt-edit.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { RdtStatsComponent } from './rdt-stats/rdt-stats.component';
-import { ExpedienteSearchComponent } from './expediente-search/expediente-search.component';
-import { RdtGeneratorComponent } from './rdt-generator/rdt-generator.component';
 import { ExpItemComponent } from './exp-item/exp-item.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
@@ -38,6 +31,11 @@ import { SprintsComponent } from './sprints/sprints.component';
 import { SprintNewComponent } from './sprint-new/sprint-new.component';
 import { TicketsMeComponent } from './tickets-me/tickets-me.component';
 import { TareoMensualComponent } from './tareo-mensual/tareo-mensual.component';
+import { TareoDiarioUserComponent } from './tareo-diario-user/tareo-diario-user.component';
+import { TareoDiarioComponent } from './tareo-diario/tareo-diario.component';
+import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-diario-generator.component';
+import { TareoEditComponent } from './tareo-edit/tareo-edit.component';
+import { TareoViewComponent } from './tareo-view/tareo-view.component';
 
 const routes: Routes = [
   {
@@ -55,19 +53,15 @@ const routes: Routes = [
   },
   {
     path: 'admin-rdt',
-    component: AdminRdtComponent,
+    component: TareoDiarioComponent,
   },
   {
     path: 'colaborador-rdt',
-    component: ColaboradorRdtComponent,
+    component: TareoDiarioUserComponent,
   },
   {
     path: 'expediente-new',
     component: ExpedienteRegisterComponent,
-  },
-  {
-    path: 'expediente-search',
-    component: ExpedienteSearchComponent,
   },
   {
     path: 'expediente/:numero',
@@ -75,23 +69,19 @@ const routes: Routes = [
   },
   {
     path: 'rdt/:id',
-    component: RdtViewComponent,
+    component: TareoViewComponent,
   },
   {
     path: 'rdt-edit/:id',
-    component: RdtEditComponent,
+    component: TareoEditComponent,
   },
   {
     path: 'rdt-generator',
-    component: RdtGeneratorComponent,
+    component: TareoDiarioGeneratorComponent,
   },
   {
     path: 'recursos',
     component: RecursosComponent
-  },
-  {
-    path: 'stats-rdt',
-    component: RdtStatsComponent,
   },
   {
     path: 'stats-generator',

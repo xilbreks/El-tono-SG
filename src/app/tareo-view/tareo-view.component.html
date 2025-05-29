@@ -1,0 +1,100 @@
+<h4>
+    REPORTE DIARIO DE TRABAJO new
+</h4>
+
+<table class="tbl-cabecera">
+    <tr>
+        <td>Realizado por:</td>
+        <td class="objrdt">{{objRdt.scolaborador}}</td>
+    </tr>
+    <tr>
+        <td>Fecha:</td>
+        <td class="objrdt">{{objRdt.sfecha2}}</td>
+    </tr>
+</table>
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="tareas_rdt">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Cliente</th>
+                <th>Atención</th>
+                <th>Delegado por</th>
+                <th>Expediente</th>
+                <th>Tipo de proceso</th>
+                <th>DTE</th>
+                <th>DDO</th>
+                <th>ITER</th>
+                <th>Contrato</th>
+                <th>T. Atención</th>
+                <th>Código de tarea</th>
+                <th>Mención de la tarea</th>
+                <th>Acciones a realizar</th>
+                <th>Saldo</th>
+                <th>Fecha y Hora de guardado</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!lLoading">
+            <tr *ngFor="let tarea of lstTareas; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>
+                    {{ tarea.stipocliente }}
+                </td>
+                <td>
+                    {{ tarea.stipoatencion }}
+                </td>
+                <td>
+                    {{ tarea.sdelegadopor }}
+                </td>
+                <td>
+                    {{ tarea.sexpediente }}
+                </td>
+                <td>
+                    {{ tarea.sespecialidad }}
+                </td>
+                <td>
+                    {{ tarea.sdemandante}}
+                </td>
+                <td>
+                    {{ tarea.sdemandado }}
+                </td>
+                <td>
+                    {{ tarea.niter }}
+                </td>
+                <td>
+                    {{ tarea.lcontrato }}
+                </td>
+                <td>
+                    {{tarea.shorasatencion}}:{{tarea.sminutosatencion}}
+                </td>
+                <td>
+                    {{ tarea.ncodeje }}
+                </td>
+                <td>
+                    {{ tarea.sdeseje }}
+                </td>
+                <td>
+                    {{ tarea.sacceje }}
+                </td>
+                <td>
+                    {{ tarea.nsaldo }}
+                </td>
+                <td>
+                    {{ tarea.sfecharegistro }}
+                </td>
+            </tr>
+            <tr>
+                <th colspan="10" style="text-align: right;">
+                    <b>SUMA TOTAL DE TIEMPO UTILIZADO</b>
+                </th>
+                <th>
+                    <b>{{nSumaTiempoTareas}}</b>
+                </th>
+                <th colspan="6">
+                </th>
+            </tr>
+        </tbody>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
+    </table>
+</div>
