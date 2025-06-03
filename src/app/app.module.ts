@@ -70,6 +70,7 @@ import { SprintMasterComponent } from './sprint-master/sprint-master.component';
 import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-diario-generator.component';
 import { TareoEditComponent } from './tareo-edit/tareo-edit.component';
 import { TareoViewComponent } from './tareo-view/tareo-view.component';
+import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.component';
 
 const environment = {
   production: false,
@@ -144,6 +145,7 @@ const environment = {
     TareoDiarioGeneratorComponent,
     TareoEditComponent,
     TareoViewComponent,
+    TareoSupervisorComponent,
   ],
   imports: [
     BrowserModule,

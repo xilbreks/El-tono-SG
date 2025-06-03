@@ -36,6 +36,7 @@ import { TareoDiarioComponent } from './tareo-diario/tareo-diario.component';
 import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-diario-generator.component';
 import { TareoEditComponent } from './tareo-edit/tareo-edit.component';
 import { TareoViewComponent } from './tareo-view/tareo-view.component';
+import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.component';
 
 const routes: Routes = [
   {
@@ -170,6 +171,10 @@ const routes: Routes = [
   {
     path: 'tareo-mensual',
     component: TareoMensualComponent
+  },
+  {
+    path: 'tareo-supervisor',
+    component: TareoSupervisorComponent
   },
   {
     path: '**',

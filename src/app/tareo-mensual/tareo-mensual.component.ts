@@ -64,10 +64,12 @@ export class TareoMensualComponent {
     const inicioMes = mes.split(':')[0];
     const finalMes = mes.split(':')[1];
 
-    let query = this.db.collection('rdts', ref => {
-      return ref.where('sfecha', '>=', inicioMes)
-        .where('sfecha', '<=', finalMes)
-        .where('idcolaborador', '==', usuario)
+    console.log(`query: ${inicioMes} hasta ${finalMes} del usuario ${usuario}`);
+
+    let query = this.db.collection('tareo', ref => {
+      return ref.where('fecha', '>=', inicioMes)
+        .where('fecha', '<=', finalMes)
+        .where('idUsuario', '==', usuario)
     }).get();
 
     let rdts: any[] = await firstValueFrom(query).then(snapshot => {
@@ -80,7 +82,7 @@ export class TareoMensualComponent {
       const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
       items = items.map(i => {
-        const [anio, mes, dia] = i.sfecha.split('-').map(Number);
+        const [anio, mes, dia] = i.fecha.split('-').map(Number);
         const fechaUTC = new Date(Date.UTC(anio, mes - 1, dia));
         const numeroDia = fechaUTC.getUTCDay();
         const nombreDia = diasSemana[numeroDia];
@@ -92,15 +94,15 @@ export class TareoMensualComponent {
       })
 
       return items;
-    }).catch(() => {
-      return [];
+    }).catch(err => {
+      throw err;
     })
 
     for (let index = 0; index < rdts.length; index++) {
       const rdt = rdts[index];
 
       let query = this.db.collection('tareas', ref => {
-        return ref.where('idrdt', '==', rdt.idrdt)
+        return ref.where('idrdt', '==', rdt.idTareo)
       }).get();
   
       let tareitas = await firstValueFrom(query).then(snap => {

@@ -54,19 +54,19 @@
         <tbody *ngIf="!cargando">
             <tr *ngFor="let tareo of rdts">
                 <td>
-                    {{tareo.sfecha}}
+                    {{tareo.fecha}}
                 </td>
                 <td>
                     {{tareo.diaSemana}}
                 </td>
                 <td>
-                    {{tareo.scolaborador}}
+                    {{tareo.nombreUsuario}}
                 </td>
                 <td>
-                    {{tareo.shoraingreso}}:{{tareo.sminutoingreso}}
+                    {{tareo.entradaHora}}:{{tareo.entradaMinuto}}
                 </td>
                 <td>
-                    {{tareo.shorasalida}}:{{tareo.sminutosalida}}
+                    {{tareo.salidaHora}}:{{tareo.salidaMinuto}}
                 </td>
                 <td>
                     {{tareo.tareas.length}}
