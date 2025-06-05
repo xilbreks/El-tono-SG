@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Tareo } from '../_interfaces/tareo';
 import { firstValueFrom } from 'rxjs';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-tareo-diario',
@@ -164,6 +165,88 @@ export class TareoDiarioComponent {
 
     this.guardando = false;
     this.modalService.dismissAll();
+  }
+
+  /**
+   * DESCARGAR EXCEL
+   */
+
+  async descargarExcel() {
+    let todo_Excel: Array<any> = [];
+    const fecha = this.fcFecha.value;
+
+    const query = this.db
+      .collection('tareas', (ref) => {
+        return ref.where('sfecha', '==', fecha)
+      }).get();
+
+    let tareas = await firstValueFrom(query).then(snapshot => {
+      let items: any[] = [];
+      snapshot.forEach(doc => {
+        items.push(doc.data())
+      })
+      return items;
+    }).catch(err => {
+      throw err;
+    });
+
+    // Encontrar Tareas correspondientes al Tareo
+    // this.tareos.forEach(tareo => {
+    //   let horas = 0;
+    //   let minutos = 0;
+    //   tareas.filter(tarea => tarea.idrdt == tareo.idTareo).forEach(tarea => {
+    //     horas = horas + Number(tarea['shorasatencion']);
+    //     minutos = minutos + Number(tarea['sminutosatencion']);
+    //   })
+    // });
+
+    tareas.sort((a, b) => {
+      if (a.idrdt > b.idrdt) return 1;
+      else return -1;
+    }).forEach(tarea => {
+      console.log(tarea);
+      const fechaTmp = new Date(Number(tarea.idtarea));
+      const date = fechaTmp.toLocaleDateString();
+      const time = fechaTmp.toLocaleTimeString();
+      const fechaRegistro = `${date} - ${time}`;
+
+      todo_Excel.push({
+        "Usuario": tarea['idrdt'],
+        "Tipo cliente": tarea['stipocliente'],
+        "Tipo de Atencion": tarea['stipoatencion'],
+        "Delegado por": tarea['sdelegadopor'],
+        "Expediente": tarea['sexpediente'],
+        "Tipo de Proceso": tarea['sespecialidad'],
+        "Demandante": tarea['sdemandante'],
+        "Demandado": tarea['sdemandado'],
+        "ITER": tarea['niter'],
+        "Contrato": tarea['lcontrato'],
+        // "Saldo": tarea['nsaldo'],
+        // "Avance": tarea['navance'],
+        // "Cobro de Honorarios": tarea['ncobrohonorario'],
+        // "Ingreso para Aranceles": tarea['ningresoarancel'],
+        // "Salida para Aranceles": tarea['nsalidaarancel'],
+        // "Fecha de culminacion": tarea['sfculminacion'],
+        // "Suma Tiempo Atencion": { t: 'n', f: '=' + tarea['nTiempoTareas'] + '/1440' },
+        "Tiempo de Atencion": tarea['shorasatencion'] + ':' + tarea['sminutosatencion'],
+        "Codigo ejecutivo": tarea['ncodeje'],
+        // "Horas en el estudio": { t: 'n', f: '=' + tarea['nTiempoOficina'] + '/1440' },
+        // "Tiempo real": tarea['srealtime'],
+        // "Prod. Segun RDT": tarea['productidad1'],
+        // "Prod. Segun horario": tarea['productidad2'],
+        // "Hora Entrada": tarea['hentrada'],
+        // "Hora Salida": tarea['hsalida'],
+        "Descripción de la tarea": tarea['sdeseje'].trim().slice(0, 2500),
+        "Acciones por realizar": tarea['sacceje'].trim().slice(0, 2500),
+        "Fecha y Hora de guardado": fechaRegistro,
+      })
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(todo_Excel);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Tareas");
+    XLSX.writeFile(workbook, 'RDTs - fecha ' + this.fcFecha.value + '.xlsx', { compression: true });
+
   }
 
   // Operaciones a la base de datos

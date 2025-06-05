@@ -6,9 +6,69 @@
     <input type="date" id="fecha" [formControl]="fcFecha" (change)="obtenerTareos()">
 
     <label for="usuario">Usuario: </label>
-    <select id="usuario" [formControl]="fcUsuario">
-        <option *ngFor="let usuario of usuarios" value="usuario.id">
+    <select id="usuario" [formControl]="fcUsuario" (change)="obtenerTareos()">
+        <option value="null">- Seleccione -</option>
+        <option *ngFor="let usuario of usuarios" [value]="usuario.id">
             {{usuario.nombre}}
         </option>
     </select>
+</div>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Hora entrada
+                </th>
+                <th>
+                    Hora salida
+                </th>
+                <th>
+                    Observaciones
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!cargando && tareos.length > 0">
+            <tr *ngFor="let tareo of tareos">
+                <td>
+                    {{tareo.nombreUsuario}}
+                </td>
+                <td>
+                    {{tareo.fecha}}
+                </td>
+                <td>
+                    {{tareo.entradaHora}}:{{tareo.entradaMinuto}}
+                </td>
+                <td>
+                    {{tareo.salidaHora}}:{{tareo.salidaMinuto}}
+                </td>
+                <td>
+                   {{tareo.observaciones}} 
+                </td>
+                <td>
+                    <a class="btn btn-outline-success btn-sm" [routerLink]="'/rdt/' + tareo.idTareo" target="_blank">
+                        Ver
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+
+        <tbody *ngIf="!cargando && tareos.length == 0">
+            Sin datos :/
+        </tbody>
+
+        <tbody *ngIf="cargando">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            cargando...
+        </tbody>
+    </table>
 </div>

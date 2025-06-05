@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './tareo-supervisor.component.scss'
 })
 export class TareoSupervisorComponent {
-  tareo: Tareo | null = null;
+  tareos: Tareo[] = [];
   usuarios: any[] = [];
 
   fcFecha: FormControl = new FormControl(null);
@@ -49,7 +49,7 @@ export class TareoSupervisorComponent {
   saberQuienSoy() {
     let usuario = localStorage.getItem('idusuario');
     console.log('soy: ', usuario);
-    // usuario = 'Huander-Montoya';  // Quitar luego
+    // usuario = 'Maria-Tunquipa';  // Quitar luego
     switch(usuario) {
       case 'Crishtian-Paucar':
         this.usuarios = [
@@ -146,25 +146,28 @@ export class TareoSupervisorComponent {
 
   async obtenerTareos() {
     this.cargando = true;
-
     let fecha = this.fcFecha.value;
     let idUsuario = this.fcUsuario.value;
-    let tareo = await this.recuperarTareo(fecha, idUsuario);
-    this.tareo = tareo;
+    let tareos = await this.recuperarTareo(fecha, idUsuario);
+    this.tareos = tareos;
 
     this.cargando = false;
   }
 
   // Operaciones a la base de datos
 
-  recuperarTareo(fecha: string, idUsuario: string): Promise<any> {
+  recuperarTareo(fecha: string, idUsuario: string): Promise<any[]> {
     const idTareo = `${fecha}-${idUsuario}`;
-    const query = this.db.collection('tareo').doc(idTareo).get();
+    const query = this.db.collection('tareo', ref => {
+      return ref.where('idTareo', '==', idTareo)
+    }).get();
 
     return firstValueFrom(query).then(snapshot => {
-      let item = snapshot.data();
-
-      return item;
+      let items: any = [];
+      snapshot.forEach(doc => {
+        items.push(doc.data())
+      })
+      return items;
     }).catch(err => {
       throw err;
     })
