@@ -190,15 +190,18 @@ export class TareoDiarioComponent {
       throw err;
     });
 
-    // Encontrar Tareas correspondientes al Tareo
-    // this.tareos.forEach(tareo => {
-    //   let horas = 0;
-    //   let minutos = 0;
-    //   tareas.filter(tarea => tarea.idrdt == tareo.idTareo).forEach(tarea => {
-    //     horas = horas + Number(tarea['shorasatencion']);
-    //     minutos = minutos + Number(tarea['sminutosatencion']);
-    //   })
-    // });
+    // Agregar Hora de entrada y salida del tareo
+    tareas = tareas.map(tarea => {
+      const tareo = this.tareos.find(tareo => tareo.idTareo == tarea.idrdt);
+      const entrada = `${tareo?.entradaHora}:${tareo?.entradaMinuto}`;
+      const salida = `${tareo?.salidaHora}:${tareo?.salidaMinuto}`;
+
+      return {
+        ...tarea,
+        entrada,
+        salida,
+      }
+    })
 
     tareas.sort((a, b) => {
       if (a.idrdt > b.idrdt) return 1;
@@ -212,6 +215,8 @@ export class TareoDiarioComponent {
 
       todo_Excel.push({
         "Usuario": tarea['idrdt'],
+        "Hora de entrada": tarea['entrada'],
+        "Hora de salida": tarea['salida'],
         "Tipo cliente": tarea['stipocliente'],
         "Tipo de Atencion": tarea['stipoatencion'],
         "Delegado por": tarea['sdelegadopor'],
