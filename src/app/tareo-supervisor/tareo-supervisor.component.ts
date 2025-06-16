@@ -53,10 +53,10 @@ export class TareoSupervisorComponent {
     switch(usuario) {
       case 'Crishtian-Paucar':
         this.usuarios = [
-          {
-            id: 'Nicole-Cardenas',
-            nombre: 'Nicol',
-          },
+          // {
+          //   id: 'Nicole-Cardenas',
+          //   nombre: 'Nicol',
+          // },
           {
             id: 'Miryam-Huamani',
             nombre: 'Miryam',
@@ -64,10 +64,6 @@ export class TareoSupervisorComponent {
           {
             id: 'Leonardo-Flores',
             nombre: 'Leonardo',
-          },
-          {
-            id: 'michael-vilca',
-            nombre: 'Michael',
           },
           {
             id: 'wilson-apaza',
@@ -121,6 +117,10 @@ export class TareoSupervisorComponent {
             id: 'Alisson-Guillen',
             nombre: 'Alisson',
           },
+          {
+            id: 'michael-vilca',
+            nombre: 'Michael',
+          },
         ];
       break;
       case 'Edu-Soto':
@@ -136,6 +136,14 @@ export class TareoSupervisorComponent {
           {
             id: 'Antonella-Flores',
             nombre: 'Antonella',
+          },
+          {
+            id: '	mlarico',
+            nombre: 'Snayder',
+          },
+          {
+            id: '	gmoa',
+            nombre: 'Gabriella',
           },
         ];
       break;
