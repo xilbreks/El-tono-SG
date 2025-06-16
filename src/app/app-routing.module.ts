@@ -7,7 +7,6 @@ import { LogoutComponent } from './logout/logout.component';
 import { ExpItemComponent } from './exp-item/exp-item.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
-import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
@@ -23,10 +22,9 @@ import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
-import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
-import { AppointmentsComponent } from './appointments/appointments.component';
-import { TrialsComponent } from './trials/trials.component';
 import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas.component';
+import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
+import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
 import { SprintsComponent } from './sprints/sprints.component';
 import { SprintNewComponent } from './sprint-new/sprint-new.component';
 import { TicketsMeComponent } from './tickets-me/tickets-me.component';
@@ -89,12 +87,8 @@ const routes: Routes = [
     component: StatsGeneratorComponent,
   },
   {
-    path: 'asistencia',
-    component: AsistenciaComponent
-  },
-  {
     path: 'audiencias',
-    component: TrialsComponent
+    component: PlannerAudienciasComponent
   },
   {
     path: 'testing',
@@ -145,12 +139,8 @@ const routes: Routes = [
     component: ZDownloaderComponent
   },
   {
-    path: 'informe-comunicacion',
-    component: InfComunicacionComponent
-  },
-  {
     path: 'citas',
-    component: AppointmentsComponent
+    component: PlannerCitasComponent
   },
   {
     path: 'cobranzas',

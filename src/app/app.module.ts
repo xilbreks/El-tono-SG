@@ -19,7 +19,6 @@ import { RecursosComponent } from './recursos/recursos.component';
 import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
 import { RecursosTareasComponent } from './recursos-tareas/recursos-tareas.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
-import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { TestingComponent } from './testing/testing.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
@@ -42,13 +41,10 @@ import { ExpItemFeesComponent } from './exp-item-fees/exp-item-fees.component';
 
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
-import { InfComunicacionComponent } from './inf-comunicacion/inf-comunicacion.component';
-import { AppointmentsComponent } from './appointments/appointments.component';
 import { ExpItemApptComponent } from './exp-item-appt/exp-item-appt.component';
 import { ExpItemRdtComponent } from './exp-item-rdt/exp-item-rdt.component';
 import { ExpItemTrialComponent } from './exp-item-trial/exp-item-trial.component';
 import { ExpItemCallsComponent } from './exp-item-calls/exp-item-calls.component';
-import { TrialsComponent } from './trials/trials.component';
 import { ExpItemFilesComponent } from './exp-item-files/exp-item-files.component';
 import { ExpItemKComponent } from './exp-item-k/exp-item-k.component';
 import { ExpItemEvolutionComponent } from './exp-item-evolution/exp-item-evolution.component';
@@ -95,7 +91,6 @@ const environment = {
     RecursosItersComponent,
     RecursosTareasComponent,
     StatsGeneratorComponent,
-    AsistenciaComponent,
     TestingComponent,
     UsersComponent,
     UserItemComponent,
@@ -117,13 +112,10 @@ const environment = {
     ExpItemFeesComponent,
     ZDownloaderComponent,
     ExpedientesListInactiveComponent,
-    InfComunicacionComponent,
-    AppointmentsComponent,
     ExpItemApptComponent,
     ExpItemRdtComponent,
     ExpItemTrialComponent,
     ExpItemCallsComponent,
-    TrialsComponent,
     ExpItemFilesComponent,
     ExpItemKComponent,
     ExpItemEvolutionComponent,

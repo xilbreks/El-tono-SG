@@ -1,1 +1,156 @@
-<p>planner-citas works!</p>
+<div class="container">
+    <h4 style="text-align: center;">Planner de Citas con Clientes</h4>
+
+    <form [formGroup]="frmDate">
+        Hay <b> {{lstCitas.length}} citas programadas</b>.
+
+        <label for="smes">Mes:</label>
+        <select id="smes" formControlName="smes" (change)="cambiarFecha()">
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+        <label for="sanio" style="padding-left: 5px;">Año:</label>
+        <select id="sanio" formControlName="sanio" (change)="cambiarFecha()">
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <!-- <option value="2026">2026</option> -->
+        </select>
+    </form>
+</div>
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="min-width: 600px;">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">
+                        Fecha
+                    </th>
+                    <th style="width: 28%;">
+                        Cliente
+                    </th>
+                    <th style="width: 31%;">
+                        Anotaciones
+                    </th>
+                    <th style="width: 31%;">
+                        Acuerdos
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!lLoading && lstCitas.length > 0">
+                <tr *ngFor="let cita of lstCitas">
+                    <td [ngClass]="{'table-primary': today == cita.sfecha}">
+                        <!-- {{cita.sfechauser}} -->
+                        <div>
+                            {{cita.nombreDia}},
+                        </div>
+                        <div>
+                            {{cita.numeroDia}} de {{cita.nombreMes}}
+                        </div>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                AREA:
+                                <span class="tipo-audiencia {{cita.sespecialidad}}">
+                                    {{cita.sespecialidad}}
+                                </span>
+                            </li>
+                            <!-- <li>
+                                DTE: <span>{{audiencia.sdemandante}}</span>
+                            </li>
+                            <li>
+                                DDO: <span>{{audiencia.sdemandado}}</span>
+                            </li> -->
+                            <li>
+                                CLIENTE:
+                                <span>
+                                    {{cita.scliente}}
+                                </span>
+                            </li>
+                            <li>
+                                EXP:
+                                <span>
+                                    <a [routerLink]="'/expediente/'+cita.sexpediente">{{cita.sexpediente}}
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                Hora: {{cita.shora}}
+                            </li>
+                            <li>
+                                Cita: {{cita.stipo}}
+                            </li>
+                            <li>
+                                Encargados: {{cita.sencargados}}
+                            </li>
+                            <li>
+                                Tema a tratar: {{cita.stema}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="hover-cell">
+                        <span class="cell-text">
+                            {{cita.sacuerdos}}
+                        </span>
+                        <button class="hover-button"
+                            (click)="openModalAcuerdos(cita.idcita, cita.sacuerdos, editAcuerdosModal)">
+                            Editar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!lLoading && lstCitas.length == 0">
+                No hay citas en el mes
+            </tbody>
+            <tbody *ngIf="lLoading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Cargando...
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!---------------------------------------------------------
+  ------------- MODAL PARA EDITAR ACUERDOS ----------------
+  -------------------------------------------------------->
+<ng-template #editAcuerdosModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Editar Acuerdos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="frmAcuerdos">
+            <textarea rows="5" name="sacuerdos" id="sacuerdos" formControlName="sacuerdos" class="form-control">
+            </textarea>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateAcuerdos()"
+            [disabled]="!(frmAcuerdos.valid && !lUpdating)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
+            </span>
+            <span class="sr-only" *ngIf="!lUpdating">
+                Anotar
+            </span>
+            <span class="sr-only" *ngIf="lUpdating">
+                Anotando...
+            </span>
+        </button>
+    </div>
+</ng-template>
