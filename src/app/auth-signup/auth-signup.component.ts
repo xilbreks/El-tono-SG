@@ -5,11 +5,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  selector: 'app-auth-signup',
+  templateUrl: './auth-signup.component.html',
+  styleUrl: './auth-signup.component.scss'
 })
-export class SignUpComponent {
+export class AuthSignupComponent {
   lCreating = false;
   frmUsuario: FormGroup;
 

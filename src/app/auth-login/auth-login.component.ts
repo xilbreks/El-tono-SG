@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-auth-login',
+  templateUrl: './auth-login.component.html',
+  styleUrl: './auth-login.component.scss'
 })
-export class LoginComponent {
+export class AuthLoginComponent {
   lLoggin: boolean = false;
-  sError  = null;
+  sError = null;
 
   constructor(
     private router: Router,
@@ -20,7 +20,7 @@ export class LoginComponent {
     /////////////////////////////////////////////
     this.afAuth.user.subscribe(u => {
       if (u) {
-        if(u.displayName == 'ADMIN') {
+        if (u.displayName == 'ADMIN') {
           this.router.navigate(['/', 'admin-rdt']);
         } else {
           this.router.navigate(['/', 'colaborador-rdt']);
@@ -33,7 +33,7 @@ export class LoginComponent {
     this.lLoggin = true;
     this.afAuth
       .signInWithEmailAndPassword(suser + '@silvaguillenabogados.com', spassword)
-      .then((result)=>{
+      .then((result) => {
         this.sError = null;
         localStorage.setItem('idusuario', suser);
         if (suser == 'admin') {
@@ -42,12 +42,12 @@ export class LoginComponent {
           this.router.navigate(['/', 'colaborador-rdt']);
         }
       })
-      .catch((error)=>{
+      .catch((error) => {
         this.sError = error.code;
       })
-      .finally(()=>{
+      .finally(() => {
         this.lLoggin = false;
       });
-      return false;
+    return false;
   }
 }

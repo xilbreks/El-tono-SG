@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
-  selector: 'app-logout',
-  templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.scss'],
+  selector: 'app-auth-logout',
+  templateUrl: './auth-logout.component.html',
+  styleUrl: './auth-logout.component.scss'
 })
-export class LogoutComponent {
+export class AuthLogoutComponent {
   constructor(
     private router: Router,
     public afAuth: AngularFireAuth,
@@ -15,8 +15,8 @@ export class LogoutComponent {
     localStorage.clear();
     this.afAuth
       .signOut()
-      .then(()=>{
-        this.router.navigate(['/','login']);
+      .then(() => {
+        this.router.navigate(['/', 'login']);
       })
       .catch((reason: any) => {
         window.alert(reason);

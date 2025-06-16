@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthLoginComponent } from './auth-login/auth-login.component';
+import { AuthLogoutComponent } from './auth-logout/auth-logout.component';
+import { AuthSignupComponent } from './auth-signup/auth-signup.component';
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
-import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
 import { ExpItemComponent } from './exp-item/exp-item.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
@@ -17,7 +18,6 @@ import { ExpedientesListComponent } from './expedientes-list/expedientes-list.co
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
 
@@ -44,11 +44,11 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    component: AuthLoginComponent,
   },
   {
     path: 'logout',
-    component: LogoutComponent
+    component: AuthLogoutComponent
   },
   {
     path: 'admin-rdt',
@@ -132,7 +132,7 @@ const routes: Routes = [
   },
   {
     path: 'sign-up',
-    component: SignUpComponent
+    component: AuthSignupComponent
   },
   {
     path: 'downloader',

@@ -12,8 +12,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
-import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
@@ -29,7 +27,6 @@ import { ExpedientesListComponent } from './expedientes-list/expedientes-list.co
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { ExpItemComponent } from './exp-item/exp-item.component';
 import { ExpItemCoverComponent } from './exp-item-cover/exp-item-cover.component';
 import { ExpItemEditCodeComponent } from './exp-item-edit-code/exp-item-edit-code.component';
@@ -67,6 +64,9 @@ import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-di
 import { TareoEditComponent } from './tareo-edit/tareo-edit.component';
 import { TareoViewComponent } from './tareo-view/tareo-view.component';
 import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.component';
+import { AuthLoginComponent } from './auth-login/auth-login.component';
+import { AuthLogoutComponent } from './auth-logout/auth-logout.component';
+import { AuthSignupComponent } from './auth-signup/auth-signup.component';
 
 const environment = {
   production: false,
@@ -84,8 +84,6 @@ const environment = {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    LogoutComponent,
     ExpedienteRegisterComponent,
     RecursosComponent,
     RecursosItersComponent,
@@ -101,7 +99,6 @@ const environment = {
     NotFoundComponent,
     SinoeWorkerComponent,
     SinoeAdminComponent,
-    SignUpComponent,
     ExpItemComponent,
     ExpItemCoverComponent,
     ExpItemEditCodeComponent,
@@ -138,6 +135,9 @@ const environment = {
     TareoEditComponent,
     TareoViewComponent,
     TareoSupervisorComponent,
+    AuthLoginComponent,
+    AuthLogoutComponent,
+    AuthSignupComponent,
   ],
   imports: [
     BrowserModule,
