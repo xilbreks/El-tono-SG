@@ -1,0 +1,259 @@
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between">
+        <h5 class="m-0">
+            III. Abonos realizados
+        </h5>
+        <div>
+            <label role="button" *ngIf="!esEditable" (click)="cambiarEstadoEditable()">
+                <i class="bi bi-lock-fill"></i>
+            </label>
+            <label role="button" *ngIf="esEditable" (click)="cambiarEstadoEditable()">
+                <i class="bi bi-unlock-fill"></i>
+            </label>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div *ngIf="esEditable">
+            <button class="btn btn-success btn-sm" (click)="abrirModalAgregarAbono(modalAgregarAbono)">
+                + Agregar abono
+            </button>
+        </div>
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Monto
+                    </th>
+                    <th>
+                        Método
+                    </th>
+                    <th>
+                        Glosa
+                    </th>
+                    <th *ngIf="esEditable">
+                        Editar
+                    </th>
+                    <th *ngIf="esEditable">
+                        Quitar
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!cargando && abonos.length > 0">
+                <tr *ngFor="let abono of abonos">
+                    <td>
+                        {{abono.fecha}}
+                    </td>
+                    <td>
+                        {{abono.monto | number: '2.2-2'}}
+                    </td>
+                    <td>
+                        {{abono.metodo}}
+                    </td>
+                    <td>
+                        {{abono.observaciones}}
+                    </td>
+                    <td *ngIf="esEditable">
+                        <button class="btn btn-warning btn-sm" (click)="abrirModalEditarAbono(abono, modalEditarAbono)">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                    </td>
+                    <td *ngIf="esEditable">
+                        <button class="btn btn-danger btn-sm" (click)="abrirModalQuitarAbono(abono, modalQuitarAbono)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!cargando && abonos.length == 0">
+                Sin registros :/
+            </tbody>
+            <tbody *ngIf="cargando">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                cargando...
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th style="border: 0;">Total</th>
+                    <th style="border: 0;">
+                        {{sumaAbonos | number: '2.2-2'}}
+                    </th>
+                    <td style="border: 0;" colspan="2"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-------------------------------------------------
+  ------------- MODAL AGREGAR ABONO ---------------
+  ------------------------------------------------>
+<ng-template #modalAgregarAbono let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Agregar Abono</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form class="row" [formGroup]="frmNuevoAbono">
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Fecha</span>
+                    <input type="date" class="form-control" placeholder="1" min="1" formControlName="fecha">
+                </div>
+            </div>
+
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Método</span>
+                    <select class="form-select" formControlName="metodo">
+                        <option value="BCP">
+                            BCP
+                        </option>
+                        <option value="YAPE">
+                            YAPE
+                        </option>
+                        <option value="PLIN">
+                            PLIN
+                        </option>
+                        <option value="BBVA">
+                            BBVA
+                        </option>
+                        <option value="EFECTIVO">
+                            EFECTIVO
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Monto</span>
+                    <input type="number" class="form-control" min="1" formControlName="monto">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <span class="input-group-text">Observaciones</span>
+                    <textarea class="form-control" placeholder="Algun comentario"
+                        formControlName="observaciones"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" *ngIf="!guardando" [disabled]="!frmNuevoAbono.valid"
+            (click)="guardarNuevoAbono()">
+            Guardar
+        </button>
+        <button class="btn btn-primary" *ngIf="guardando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Guardando...
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  ------------- MODAL EDITAR ABONO ---------------
+  ------------------------------------------------>
+<ng-template #modalEditarAbono let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Editar abono</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form class="row" [formGroup]="frmEditaAbono">
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Fecha</span>
+                    <input type="date" class="form-control" placeholder="1" min="1" formControlName="fecha">
+                </div>
+            </div>
+
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Método</span>
+                    <select class="form-select" formControlName="metodo">
+                        <option value="BCP">
+                            BCP
+                        </option>
+                        <option value="YAPE">
+                            YAPE
+                        </option>
+                        <option value="PLIN">
+                            PLIN
+                        </option>
+                        <option value="BBVA">
+                            BBVA
+                        </option>
+                        <option value="EFECTIVO">
+                            EFECTIVO
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Monto</span>
+                    <input type="number" class="form-control" placeholder="100.00" min="0" formControlName="monto">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <span class="input-group-text">Observaciones</span>
+                    <textarea class="form-control" placeholder="Algun comentario"
+                        formControlName="observaciones"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" *ngIf="!actualizando" [disabled]="!frmEditaAbono.valid"
+            (click)="modificarAbono()">
+            Actualizar
+        </button>
+        <button class="btn btn-primary" *ngIf="actualizando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Actualizando...
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  ------------- MODAL QUITAR ABONO ---------------
+  ------------------------------------------------>
+<ng-template #modalQuitarAbono let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Quitar abono</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div>
+                Se quitará el abono con monto
+                <b>{{frmQuitaAbono.value['monto']}}</b>
+            </div>
+            <div>
+                Cuyo cuya fecha es:
+                <b>{{frmQuitaAbono.value['fecha']}}</b>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" *ngIf="!quitando" (click)="removerAbono()">
+            Quitar
+        </button>
+        <button class="btn btn-danger" *ngIf="quitando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Quitando...
+        </button>
+    </div>
+</ng-template>

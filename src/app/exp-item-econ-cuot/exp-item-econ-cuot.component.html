@@ -1,0 +1,371 @@
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between">
+        <h5 class="m-0">
+            I. Honorarios pactados
+        </h5>
+        <div>
+            <label role="button" *ngIf="!esEditable" (click)="cambiarEstadoEditable()">
+                <i class="bi bi-lock-fill"></i>
+            </label>
+            <label role="button" *ngIf="esEditable" (click)="cambiarEstadoEditable()">
+                <i class="bi bi-unlock-fill"></i>
+            </label>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="row mb-3">
+            <div class="col-12 col-md-9">
+                Cliente: <b>{{expediente?.nombreCliente}}</b>
+                <!-- Cliente: CAMILA ALEXANDRA ARNICA CCOA -->
+                <label role="button" *ngIf="esEditable" (click)="abrirModalEditarCliente(clienteModal)"
+                    class="btn btn-warning btn-sm">
+                    <i class="bi bi-pencil-fill"></i>
+                    Editar
+                </label>
+            </div>
+            <div class="col-12 col-md-3">
+                DNI: {{expediente?.dni}}
+            </div>
+            <div class="col-12 col-md-9">
+                Detalle: {{expediente?.detalleContrato}}
+            </div>
+            <div class="col-12 col-md-3">
+                <i class="bi bi-telephone"></i>
+                : {{expediente?.celular}}
+            </div>
+        </div>
+
+        <div *ngIf="esEditable">
+            <button class="btn btn-success btn-sm" (click)="abrirModalAgregarCuota(agregarCuotaModal)">
+                + Agregar cuota
+            </button>
+        </div>
+        <table class="table m-0">
+            <thead>
+                <tr>
+                    <th>
+                        Cuota
+                    </th>
+                    <th>
+                        Monto (S/)
+                    </th>
+                    <th>
+                        Fecha de vencimiento
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th>
+                        Observaciones
+                    </th>
+                    <th *ngIf="esEditable">
+                        Editar
+                    </th>
+                    <th *ngIf="esEditable">
+                        Quitar
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!cargando && cuotas.length > 0">
+                <tr *ngFor="let cuota of cuotas">
+                    <td>
+                        {{cuota.numero}}
+                    </td>
+                    <td>
+                        {{cuota.monto | number: '2.2-2'}}
+                    </td>
+                    <td>
+                        <span *ngIf="cuota.vencimiento">
+                            {{cuota.vencimiento}}
+                        </span>
+                        <span *ngIf="!cuota.vencimiento">
+                            - sin fecha -
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngIf="cuota.estado == 'PAGADA'">
+                            <b style="color: green;">Pagada</b>
+                        </span>
+                        <span *ngIf="cuota.estado == 'EN-PLAZO'">
+                            -
+                        </span>
+                        <span *ngIf="cuota.estado == 'VENCIDA'">
+                            <b style="color: red;">Vencida</b>
+                        </span>
+                    </td>
+                    <td>
+                        {{cuota.observaciones}}
+                    </td>
+                    <td *ngIf="esEditable">
+                        <button class="btn btn-warning btn-sm" (click)="abrirModalEditarCuota(cuota, editarCuotaModal)">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                    </td>
+                    <td *ngIf="esEditable">
+                        <button class="btn btn-danger btn-sm" (click)="abrirModalQuitarCuota(cuota, quitarCuotaModal)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!cargando && cuotas.length == 0">
+                Sin registros :/
+            </tbody>
+            <tbody *ngIf="cargando">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                cargando...
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th style="border: 0;">
+                        Total:
+                    </th>
+                    <th style="border: 0;">
+                        {{sumaCuotas | number: '2.2-2'}}
+                    </th>
+                    <td colspan="3" style="border: 0;">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-------------------------------------------------
+  ------------- MODAL EDITAR CLIENTE --------------
+  ------------------------------------------------>
+<ng-template #clienteModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Honorarios pactados</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form class="row" [formGroup]="frmCliente">
+            <div class="col-12 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Cliente:</span>
+                    <input type="text" class="form-control" formControlName="nombreCliente"
+                        placeholder="Nombre del cliente">
+                </div>
+            </div>
+
+            <div class="col-12 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Detalle:</span>
+                    <textarea class="form-control" rows="3" placeholder="Descrion del contrato"
+                        formControlName="detalleContrato"></textarea>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="input-group">
+                    <span class="input-group-text">DNI:</span>
+                    <input type="text" class="form-control" formControlName="dni">
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                    <input type="text" class="form-control" formControlName="celular">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" *ngIf="!guardando" [disabled]="!frmCliente.valid"
+            (click)="guardarDatosCliente()">
+            Guardar
+        </button>
+        <button class="btn btn-primary" *ngIf="guardando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Guardando...
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  ------------- MODAL AGREGAR CUOTA ---------------
+  ------------------------------------------------>
+<ng-template #agregarCuotaModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Agregar cuota</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form class="row" [formGroup]="frmNuevaCuota">
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">N° de cuota</span>
+                    <input type="number" class="form-control" placeholder="1" min="1" formControlName="numero">
+                </div>
+            </div>
+
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Monto</span>
+                    <input type="number" class="form-control" min="1" formControlName="monto">
+                </div>
+            </div>
+
+            <div class="col-8 mb-3">
+                <div class="input-group" *ngIf="!fcNoVenceNuevaCuota.value">
+                    <span class="input-group-text">Vencimiento</span>
+                    <input type="date" class="form-control" formControlName="vencimiento">
+                </div>
+                <div class="input-group" *ngIf="fcNoVenceNuevaCuota.value">
+                    <span class="input-group-text">Vencimiento:</span>
+                    <input type="text" class="form-control" style="background-color: #212529;" tabindex="-1">
+                </div>
+            </div>
+
+            <div class="col-4 mb-3">
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" [formControl]="fcNoVenceNuevaCuota"
+                            (change)="revisarVencimientoNuevaCuota()" tabindex="-1">
+                    </div>
+                    <input type="text" value="No vence" class="form-control" disabled>
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <span class="input-group-text">Observaciones</span>
+                    <textarea class="form-control" placeholder="Algun comentario"
+                        formControlName="observaciones"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" *ngIf="!guardando" [disabled]="!frmNuevaCuota.valid"
+            (click)="guardarNuevaCuota()">
+            Guardar
+        </button>
+        <button class="btn btn-primary" *ngIf="guardando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Guardando...
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  ------------- MODAL EDITAR CUOTA ---------------
+  ------------------------------------------------>
+<ng-template #editarCuotaModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Editar cuota</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form class="row" [formGroup]="frmEditaCuota">
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">N° de cuota</span>
+                    <input type="number" class="form-control" min="1" formControlName="numero">
+                </div>
+            </div>
+
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Monto</span>
+                    <input type="number" class="form-control" min="1" formControlName="monto">
+                </div>
+            </div>
+
+            <div class="col-8 mb-3">
+                <div class="input-group" *ngIf="!fcNoVenceEditaCuota.value">
+                    <span class="input-group-text">Vencimiento</span>
+                    <input type="date" class="form-control" formControlName="vencimiento">
+                </div>
+                <div class="input-group" *ngIf="fcNoVenceEditaCuota.value">
+                    <span class="input-group-text">Vencimiento:</span>
+                    <input type="text" class="form-control" style="background-color: #212529;" tabindex="-1">
+                </div>
+            </div>
+
+            <div class="col-4 mb-3">
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" [formControl]="fcNoVenceEditaCuota"
+                            (change)="revisarVencimientoEditaCuota()" tabindex="-1">
+                    </div>
+                    <input type="text" value="No vence" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="col-12 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Observaciones</span>
+                    <textarea class="form-control" placeholder="Algun comentario"
+                        formControlName="observaciones"></textarea>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="input-group">
+                    <span class="input-group-text">Estado</span>
+                    <select class="form-select" formControlName="estado">
+                        <option value="EN-PLAZO">
+                            En plazo
+                        </option>
+                        <option value="PAGADA">
+                            Pagada
+                        </option>
+                        <option value="VENCIDA">
+                            Vencida
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" *ngIf="!actualizando" [disabled]="!frmEditaCuota.valid"
+            (click)="modificarCuota()">
+            Actualizar
+        </button>
+        <button class="btn btn-primary" *ngIf="actualizando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Actualizando...
+        </button>
+    </div>
+</ng-template>
+
+<!-------------------------------------------------
+  ------------- MODAL QUITAR CUOTA ---------------
+  ------------------------------------------------>
+<ng-template #quitarCuotaModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Quitar cuota</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div>
+                Se quitará la cuota:
+                <b>{{frmQuitaCuota.value['numero']}}</b>
+            </div>
+            <div>
+                Cuyo monto es:
+                <b>{{frmQuitaCuota.value['monto']}}</b>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" *ngIf="!quitando" (click)="removerCuota()">
+            Quitar
+        </button>
+        <button class="btn btn-danger" *ngIf="quitando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Quitando...
+        </button>
+    </div>
+</ng-template>

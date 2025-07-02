@@ -21,4 +21,9 @@ export interface Expediente {
     salaCasacion: string | null;    // Sala de la casación si aplica
     numeroPrincipal: string | null; // Número del expediente principal, se usa en caso de cuadernos
     numeroProvisional: string | null; // Número del expediente si es provisional
+
+    nombreCliente: string;          // Nombre completo del cliente
+    dni: string;                    // Documento DNI del cliente
+    celular: string;                // Numero de celular del cliente
+    detalleContrato: string;        // Detalle de los acuerdos del contrato de honorarios
 }

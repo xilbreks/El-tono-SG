@@ -67,6 +67,10 @@ import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.co
 import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { AuthLogoutComponent } from './auth-logout/auth-logout.component';
 import { AuthSignupComponent } from './auth-signup/auth-signup.component';
+import { ExpItemEconAbonComponent } from './exp-item-econ-abon/exp-item-econ-abon.component';
+import { ExpItemEconAranComponent } from './exp-item-econ-aran/exp-item-econ-aran.component';
+import { ExpItemEconCuotComponent } from './exp-item-econ-cuot/exp-item-econ-cuot.component';
+import { ExpItemEconComponent } from './exp-item-econ/exp-item-econ.component';
 
 const environment = {
   production: false,
@@ -138,6 +142,10 @@ const environment = {
     AuthLoginComponent,
     AuthLogoutComponent,
     AuthSignupComponent,
+    ExpItemEconAbonComponent,
+    ExpItemEconAranComponent,
+    ExpItemEconCuotComponent,
+    ExpItemEconComponent,
   ],
   imports: [
     BrowserModule,
