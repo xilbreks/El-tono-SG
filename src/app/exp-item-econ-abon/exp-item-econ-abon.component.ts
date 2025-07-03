@@ -124,7 +124,7 @@ export class ExpItemEconAbonComponent implements OnChanges {
       fecha: this.frmNuevoAbono.value['fecha'],
       monto: this.frmNuevoAbono.value['monto'],
       metodo: this.frmNuevoAbono.value['metodo'],
-      observaciones: this.frmNuevoAbono.value['observaciones'],
+      observaciones: this.frmNuevoAbono.value['observaciones'].trim(),
 
       numeroExpediente: this.expediente ? this.expediente.numero : 'void',
       demandante: this.expediente ? this.expediente.demandante : 'void',

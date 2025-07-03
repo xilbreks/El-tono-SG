@@ -183,7 +183,7 @@ export class ExpItemEconCuotComponent implements OnChanges {
       monto: this.frmNuevaCuota.value['monto'],
       vencimiento: this.frmNuevaCuota.value['vencimiento'],
       estado: 'EN-PLAZO',
-      observaciones: this.frmNuevaCuota.value['observaciones'],
+      observaciones: this.frmNuevaCuota.value['observaciones'].trim(),
 
       numeroExpediente: this.expediente ? this.expediente.numero : 'void',
       demandante: this.expediente ? this.expediente.demandante : 'void',

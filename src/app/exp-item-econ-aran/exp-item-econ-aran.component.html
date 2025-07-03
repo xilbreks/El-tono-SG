@@ -19,12 +19,15 @@
 
         <div *ngIf="esEditable">
             <button class="btn btn-success btn-sm" (click)="abrirModalAgregarGasto(modalAgregarGasto)">
-                + Agregar abono
+                + Agregar
             </button>
         </div>
         <table class="table mb-0">
             <thead>
                 <tr>
+                    <th>
+                        Fecha
+                    </th>
                     <th>
                         Concepto
                     </th>
@@ -41,6 +44,9 @@
             </thead>
             <tbody *ngIf="!cargando && gastosComplementarios.length > 0">
                 <tr *ngFor="let gasto of gastosComplementarios">
+                    <td>
+                        {{gasto.fecha}}
+                    </td>
                     <td>
                         {{gasto.concepto}}
                     </td>
@@ -94,7 +100,14 @@
             <div class="col-6 mb-3">
                 <div class="input-group">
                     <span class="input-group-text">Monto</span>
-                    <input type="number" class="form-control" placeholder="1" min="1" formControlName="monto">
+                    <input type="number" class="form-control" min="1" formControlName="monto">
+                </div>
+            </div>
+
+            <div class="col-7 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text" style="padding-right: 20px;">Fecha</span>
+                    <input type="date" class="form-control" formControlName="fecha">
                 </div>
             </div>
 
@@ -133,6 +146,13 @@
                 <div class="input-group">
                     <span class="input-group-text">Monto</span>
                     <input type="number" class="form-control" placeholder="1" min="1" formControlName="monto">
+                </div>
+            </div>
+
+            <div class="col-7 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text" style="padding-right: 20px;">Fecha</span>
+                    <input type="date" class="form-control" formControlName="fecha">
                 </div>
             </div>
 

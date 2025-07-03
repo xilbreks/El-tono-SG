@@ -3,6 +3,7 @@ export interface Arancel {
     idExpediente: string;       // Identificador del expediente asociado
     concepto: number;           // Concepto del gasto complementario
     monto: number;              // Monto del gasto complementario
+    fecha: string;              // Fecha del pago del arancel
 
     numeroExpediente: string;   // Numero del expediente
     demandante: string;         // Nombre del demandante

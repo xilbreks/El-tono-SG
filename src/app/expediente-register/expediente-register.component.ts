@@ -281,6 +281,11 @@ export class ExpedienteRegisterComponent {
       fechaCreacion: timestamp,
       numeroCasacion: null,
       salaCasacion: null,
+
+      nombreCliente: '-',
+      dni: '-',
+      celular: '-',
+      detalleContrato: '-',
     }
 
     return this.db.collection('expedientes').doc(idExpediente).set(expediente);

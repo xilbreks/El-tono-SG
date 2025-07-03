@@ -38,12 +38,14 @@ export class ExpItemEconAranComponent implements OnChanges {
     this.frmNuevoGasto = new FormGroup({
       concepto: new FormControl(null, Validators.required),
       monto: new FormControl(null, Validators.required),
+      fecha: new FormControl(null, Validators.required),
     });
 
     this.frmEditaGasto = new FormGroup({
       idArancel: new FormControl(null, Validators.required),
       concepto: new FormControl(null, Validators.required),
       monto: new FormControl(null, Validators.required),
+      fecha: new FormControl(null, Validators.required),
     });
 
     this.frmQuitaGasto = new FormGroup({
@@ -88,6 +90,7 @@ export class ExpItemEconAranComponent implements OnChanges {
       idArancel: gasto.idArancel,
       concepto: gasto.concepto,
       monto: gasto.monto,
+      fecha: gasto.fecha,
     });
 
     this.modalService.open(modal, {
@@ -115,8 +118,9 @@ export class ExpItemEconAranComponent implements OnChanges {
     let gasto: Arancel = {
       idArancel: idArancel,
       idExpediente: this.expediente ? this.expediente.idExpediente : 'void',
-      concepto: this.frmNuevoGasto.value['concepto'],
+      concepto: this.frmNuevoGasto.value['concepto'].trim(),
       monto: this.frmNuevoGasto.value['monto'],
+      fecha: this.frmNuevoGasto.value['fecha'],
 
       numeroExpediente: this.expediente ? this.expediente.numero : 'void',
       demandante: this.expediente ? this.expediente.demandante : 'void',
