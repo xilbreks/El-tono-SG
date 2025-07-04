@@ -71,9 +71,6 @@
             <li>
               <a class="dropdown-item" routerLink="/pagos-honorarios"> Cobranzas </a>
             </li>
-            <li>
-              <a class="dropdown-item" routerLink="/informe-comunicacion"> Comunicaciones </a>
-            </li>
           </ul>
         </li>
 
@@ -148,9 +145,9 @@
                 Planner de Citas
               </a>
             </li>
-            <li>
-              <a class="dropdown-item" routerLink="/cobranzas">
-                Planner de Cobranzas
+            <li *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
+              <a class="dropdown-item" routerLink="/cuotas">
+                Vencimientos
               </a>
             </li>
           </ul>

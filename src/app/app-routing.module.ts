@@ -22,7 +22,6 @@ import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
 
 import { autenticacionGuard } from './autenticacion.guard';
-import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas.component';
 import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
 import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
 import { SprintsComponent } from './sprints/sprints.component';
@@ -35,6 +34,7 @@ import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-di
 import { TareoEditComponent } from './tareo-edit/tareo-edit.component';
 import { TareoViewComponent } from './tareo-view/tareo-view.component';
 import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.component';
+import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.component';
 
 const routes: Routes = [
   {
@@ -143,8 +143,8 @@ const routes: Routes = [
     component: PlannerCitasComponent
   },
   {
-    path: 'cobranzas',
-    component: PlannerCobranzasComponent
+    path: 'cuotas',
+    component: PlannerCuotasComponent
   },
   {
     path: 'sprints',

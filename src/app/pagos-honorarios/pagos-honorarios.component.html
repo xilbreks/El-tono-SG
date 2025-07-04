@@ -1,37 +1,37 @@
 <h3>
-    Cobranzas Realizadas
+    Abonos Realizados
 </h3>
 
 <div style="max-width: 250px;">
     <form [formGroup]="frmPagos" autocomplete="off">
         <div>
             <label class="label-form" for="start">Desde: </label>
-            <input type="date" id="start" class="form-control" formControlName="sinicio">
+            <input type="date" id="start" class="form-control" formControlName="inicio">
         </div>
         <div>
             <label class="label-form" for="end">Hasta: </label>
-            <input type="date" id="end" class="form-control" formControlName="sfinal">
+            <input type="date" id="end" class="form-control" formControlName="final">
         </div>
     </form>
 </div>
 
 <hr>
 
-<div *ngIf="!lLoading">
-    <button (click)="getPagos()" class="btn btn-primary" [disabled]="!frmPagos.valid">
-        Ver pagos
+<div *ngIf="!cargando">
+    <button (click)="obtenerAbonos()" class="btn btn-primary" [disabled]="!frmPagos.valid">
+        Ver abonos
     </button>
 </div>
 
-<div *ngIf="lLoading">
+<div *ngIf="cargando">
     <button class="btn btn-primary">
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     </button>
 </div>
 
-<div class="chart-container">
+<!-- <div class="chart-container">
     <canvas id="PagosChart">{{ pagosChart }}</canvas>
-</div>
+</div> -->
 
 <br>
 
@@ -59,41 +59,41 @@
                 </th>
             </tr>
         </thead>
-        <tbody *ngIf="lstPagos.length > 0">
-            <tr *ngFor="let p of lstPagos; let i = index">
+        <tbody *ngIf="abonos.length > 0">
+            <tr *ngFor="let abono of abonos; let i = index">
                 <td style="text-align: center;">
                     {{i + 1}}
                 </td>
                 <td>
-                    {{p.sfechalocal}}
+                    {{abono.fecha}}
                 </td>
                 <td>
-                    {{p.sespecialidad}}
+                    {{abono.especialidad}}
                 </td>
                 <td>
                     <ul>
                         <li>
-                            <a [routerLink]="'/expediente/' + p.sexpediente" target="_blank">
-                                {{p.sexpediente}}
+                            <a [routerLink]="'/expediente/' + abono.numeroExpediente" target="_blank">
+                                {{abono.numeroExpediente}}
                             </a>
                         </li>
                         <li>
-                            DTE: {{p.sdemandante}}
+                            DTE: {{abono.demandante}}
                         </li>
                         <li>
-                            DDO: {{p.sdemandado}}
+                            DDO: {{abono.demandado}}
                         </li>
                     </ul>
                 </td>
                 <td style="text-align: center;">
-                    {{p.nmonto | number:'2.2-2'}}
+                    {{abono.monto | number:'2.2-2'}}
                 </td>
                 <td>
-                    {{p.sdescripcion}}
+                    {{abono.observaciones}}
                 </td>
             </tr>
         </tbody>
-        <tbody *ngIf="lstPagos.length == 0">
+        <tbody *ngIf="abonos.length == 0">
             Sin pagos
         </tbody>
         <tfoot>
@@ -102,7 +102,7 @@
 
                 </td>
                 <th style="text-align: center;">
-                    {{nSumaTotal | number:'2.2-2'}}
+                    {{sumaAbonos | number:'2.2-2'}}
                 </th>
                 <td>
 

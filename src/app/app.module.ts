@@ -34,7 +34,6 @@ import { ExpItemEditDataComponent } from './exp-item-edit-data/exp-item-edit-dat
 import { ExpItemEditMatchComponent } from './exp-item-edit-match/exp-item-edit-match.component';
 import { ExpItemEditStatusComponent } from './exp-item-edit-status/exp-item-edit-status.component';
 import { ExpItemObsComponent } from './exp-item-obs/exp-item-obs.component';
-import { ExpItemFeesComponent } from './exp-item-fees/exp-item-fees.component';
 
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
@@ -45,11 +44,9 @@ import { ExpItemCallsComponent } from './exp-item-calls/exp-item-calls.component
 import { ExpItemFilesComponent } from './exp-item-files/exp-item-files.component';
 import { ExpItemKComponent } from './exp-item-k/exp-item-k.component';
 import { ExpItemEvolutionComponent } from './exp-item-evolution/exp-item-evolution.component';
-import { PlannerCobranzasComponent } from './planner-cobranzas/planner-cobranzas.component';
 import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
 import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
 import { ExpItemRecursosComponent } from './exp-item-recursos/exp-item-recursos.component';
-import { ExpItemInfEComponent } from './exp-item-inf-e/exp-item-inf-e.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { SprintsComponent } from './sprints/sprints.component';
 import { SprintNewComponent } from './sprint-new/sprint-new.component';
@@ -71,6 +68,7 @@ import { ExpItemEconAbonComponent } from './exp-item-econ-abon/exp-item-econ-abo
 import { ExpItemEconAranComponent } from './exp-item-econ-aran/exp-item-econ-aran.component';
 import { ExpItemEconCuotComponent } from './exp-item-econ-cuot/exp-item-econ-cuot.component';
 import { ExpItemEconComponent } from './exp-item-econ/exp-item-econ.component';
+import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.component';
 
 const environment = {
   production: false,
@@ -110,7 +108,6 @@ const environment = {
     ExpItemEditMatchComponent,
     ExpItemEditStatusComponent,
     ExpItemObsComponent,
-    ExpItemFeesComponent,
     ZDownloaderComponent,
     ExpedientesListInactiveComponent,
     ExpItemApptComponent,
@@ -120,11 +117,9 @@ const environment = {
     ExpItemFilesComponent,
     ExpItemKComponent,
     ExpItemEvolutionComponent,
-    PlannerCobranzasComponent,
     PlannerAudienciasComponent,
     PlannerCitasComponent,
     ExpItemRecursosComponent,
-    ExpItemInfEComponent,
     TicketsComponent,
     SprintsComponent,
     SprintNewComponent,
@@ -146,6 +141,7 @@ const environment = {
     ExpItemEconAranComponent,
     ExpItemEconCuotComponent,
     ExpItemEconComponent,
+    PlannerCuotasComponent,
   ],
   imports: [
     BrowserModule,

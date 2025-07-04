@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExpItemInfEComponent } from './exp-item-inf-e.component';
+import { PlannerCuotasComponent } from './planner-cuotas.component';
 
-describe('ExpItemInfEComponent', () => {
-  let component: ExpItemInfEComponent;
-  let fixture: ComponentFixture<ExpItemInfEComponent>;
+describe('PlannerCuotasComponent', () => {
+  let component: PlannerCuotasComponent;
+  let fixture: ComponentFixture<PlannerCuotasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExpItemInfEComponent]
+      declarations: [PlannerCuotasComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ExpItemInfEComponent);
+    fixture = TestBed.createComponent(PlannerCuotasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
