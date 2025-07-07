@@ -3,7 +3,7 @@
         <h5 class="m-0">
             I. Honorarios pactados
         </h5>
-        <div>
+        <div *ngIf="idusuario == 'admin4' || idusuario == 'lizbet-silva'">
             <label role="button" *ngIf="!esEditable" (click)="cambiarEstadoEditable()">
                 <i class="bi bi-lock-fill"></i>
             </label>

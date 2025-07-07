@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-z-downloader',
@@ -56,94 +57,97 @@ export class ZDownloaderComponent {
 
   backUpExpedientes() {
     let obs = this.db.collection('expedientes')
-    .valueChanges()
-    .subscribe(res => {
-      // Convert JSON to string
-      const data = JSON.stringify(res);
+      .valueChanges()
+      .subscribe(res => {
+        // Convert JSON to string
+        const data = JSON.stringify(res);
 
-      // Create a Blob object
-      const blob = new Blob([data], { type: 'application/json' });
+        // Create a Blob object
+        const blob = new Blob([data], { type: 'application/json' });
 
-      // Create an object URL
-      const url = URL.createObjectURL(blob);
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
 
-      // Download file
-      let link = document.createElement('a');
-      link.download = 'expedientes.json';
-      link.href = url;
-      link.click();
+        // Download file
+        let link = document.createElement('a');
+        link.download = 'expedientes.json';
+        link.href = url;
+        link.click();
 
-      // Release the object URL
-      URL.revokeObjectURL(url);
+        // Release the object URL
+        URL.revokeObjectURL(url);
 
-      obs.unsubscribe();
-    });
+        obs.unsubscribe();
+      });
   }
 
   backUpChats() {
     let obs = this.db.collection('chats', ref => {
       return ref.where('lactive', '==', true);
     })
-    .valueChanges()
-    .subscribe(res => {
-      // Convert JSON to string
-      const data = JSON.stringify(res);
+      .valueChanges()
+      .subscribe(res => {
+        // Convert JSON to string
+        const data = JSON.stringify(res);
 
-      // Create a Blob object
-      const blob = new Blob([data], { type: 'application/json' });
+        // Create a Blob object
+        const blob = new Blob([data], { type: 'application/json' });
 
-      // Create an object URL
-      const url = URL.createObjectURL(blob);
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
 
-      // Download file
-      let link = document.createElement('a');
-      link.download = 'chats.json';
-      link.href = url;
-      link.click();
+        // Download file
+        let link = document.createElement('a');
+        link.download = 'chats.json';
+        link.href = url;
+        link.click();
 
-      // Release the object URL
-      URL.revokeObjectURL(url);
+        // Release the object URL
+        URL.revokeObjectURL(url);
 
-      obs.unsubscribe();
-    });
+        obs.unsubscribe();
+      });
   }
 
   backUpColaboradores() {
     let obs = this.db.collection('colaboradores', ref => {
       return ref.where('lactive', '==', true)
     })
-    .valueChanges()
-    .subscribe(res => {
-      // Convert JSON to string
-      const data = JSON.stringify(res);
+      .valueChanges()
+      .subscribe(res => {
+        // Convert JSON to string
+        const data = JSON.stringify(res);
 
-      // Create a Blob object
-      const blob = new Blob([data], { type: 'application/json' });
+        // Create a Blob object
+        const blob = new Blob([data], { type: 'application/json' });
 
-      // Create an object URL
-      const url = URL.createObjectURL(blob);
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
 
-      // Download file
-      let link = document.createElement('a');
-      link.download = 'colaboradores.json';
-      link.href = url;
-      link.click();
+        // Download file
+        let link = document.createElement('a');
+        link.download = 'colaboradores.json';
+        link.href = url;
+        link.click();
 
-      // Release the object URL
-      URL.revokeObjectURL(url);
+        // Release the object URL
+        URL.revokeObjectURL(url);
 
-      obs.unsubscribe();
-    });
+        obs.unsubscribe();
+      });
   }
 
-  backUpContratos() {
-    let obs = this.db.collection('contratos', ref => {
-      return ref.where('lactive', '==', true);
-    })
-    .valueChanges()
-    .subscribe(res => {
+  backUpCuotas() {
+    let query = this.db.collection('cuotas').get();
+
+    firstValueFrom(query).then(snapshot => {
+      let items: any[] = [];
+      snapshot.forEach(doc => {
+        items.push(doc.data())
+      });
+
       // Convert JSON to string
-      const data = JSON.stringify(res);
+      const data = JSON.stringify(items);
 
       // Create a Blob object
       const blob = new Blob([data], { type: 'application/json' });
@@ -153,178 +157,179 @@ export class ZDownloaderComponent {
 
       // Download file
       let link = document.createElement('a');
-      link.download = 'contratos.json';
+      link.download = 'cuotas.json';
       link.href = url;
       link.click();
 
       // Release the object URL
       URL.revokeObjectURL(url);
 
-      obs.unsubscribe();
-    });
+    })
   }
 
-  backUpPagos() {
-    let obs = this.db.collection('pagos', ref => {
-      return ref.where('lactive', '==', true);
-    })
-    .valueChanges()
-    .subscribe(res => {
+  backUpAbonos() {
+    let query = this.db.collection('abonos').get();
+
+    firstValueFrom(query).then(snapshot => {
+      let items: any[] = [];
+
+      snapshot.forEach(doc => {
+        items.push(doc.data())
+      });
+
       // Convert JSON to string
-      const data = JSON.stringify(res);
+        const data = JSON.stringify(items);
 
-      // Create a Blob object
-      const blob = new Blob([data], { type: 'application/json' });
+        // Create a Blob object
+        const blob = new Blob([data], { type: 'application/json' });
 
-      // Create an object URL
-      const url = URL.createObjectURL(blob);
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
 
-      // Download file
-      let link = document.createElement('a');
-      link.download = 'pagos.json';
-      link.href = url;
-      link.click();
+        // Download file
+        let link = document.createElement('a');
+        link.download = 'abonos.json';
+        link.href = url;
+        link.click();
 
-      // Release the object URL
-      URL.revokeObjectURL(url);
-
-      obs.unsubscribe();
-    });
+        // Release the object URL
+        URL.revokeObjectURL(url);
+    })
   }
 
   backUpMaterias() {
     let obs = this.db.collection('materias')
-    .valueChanges()
-    .subscribe(res => {
-      // Convert JSON to string
-      const data = JSON.stringify(res);
+      .valueChanges()
+      .subscribe(res => {
+        // Convert JSON to string
+        const data = JSON.stringify(res);
 
-      // Create a Blob object
-      const blob = new Blob([data], { type: 'application/json' });
+        // Create a Blob object
+        const blob = new Blob([data], { type: 'application/json' });
 
-      // Create an object URL
-      const url = URL.createObjectURL(blob);
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
 
-      // Download file
-      let link = document.createElement('a');
-      link.download = 'materias.json';
-      link.href = url;
-      link.click();
+        // Download file
+        let link = document.createElement('a');
+        link.download = 'materias.json';
+        link.href = url;
+        link.click();
 
-      // Release the object URL
-      URL.revokeObjectURL(url);
+        // Release the object URL
+        URL.revokeObjectURL(url);
 
-      obs.unsubscribe();
-    });
+        obs.unsubscribe();
+      });
   }
 
   backUpRDTs() {
     let obs = this.db.collection('rdts')
-    .valueChanges()
-    .subscribe(res => {
-      // Convert JSON to string
-      const data = JSON.stringify(res);
+      .valueChanges()
+      .subscribe(res => {
+        // Convert JSON to string
+        const data = JSON.stringify(res);
 
-      // Create a Blob object
-      const blob = new Blob([data], { type: 'application/json' });
+        // Create a Blob object
+        const blob = new Blob([data], { type: 'application/json' });
 
-      // Create an object URL
-      const url = URL.createObjectURL(blob);
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
 
-      // Download file
-      let link = document.createElement('a');
-      link.download = 'rdts.json';
-      link.href = url;
-      link.click();
+        // Download file
+        let link = document.createElement('a');
+        link.download = 'rdts.json';
+        link.href = url;
+        link.click();
 
-      // Release the object URL
-      URL.revokeObjectURL(url);
+        // Release the object URL
+        URL.revokeObjectURL(url);
 
-      obs.unsubscribe();
-    });
+        obs.unsubscribe();
+      });
   }
 
   backUpTareas() {
     let obs = this.db.collection('tareas', ref => {
       return ref.where('lactive', '==', true);
     })
-    .valueChanges()
-    .subscribe(res => {
-      // Convert JSON to string
-      const data = JSON.stringify(res);
+      .valueChanges()
+      .subscribe(res => {
+        // Convert JSON to string
+        const data = JSON.stringify(res);
 
-      // Create a Blob object
-      const blob = new Blob([data], { type: 'application/json' });
+        // Create a Blob object
+        const blob = new Blob([data], { type: 'application/json' });
 
-      // Create an object URL
-      const url = URL.createObjectURL(blob);
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
 
-      // Download file
-      let link = document.createElement('a');
-      link.download = 'tareas.json';
-      link.href = url;
-      link.click();
+        // Download file
+        let link = document.createElement('a');
+        link.download = 'tareas.json';
+        link.href = url;
+        link.click();
 
-      // Release the object URL
-      URL.revokeObjectURL(url);
+        // Release the object URL
+        URL.revokeObjectURL(url);
 
-      obs.unsubscribe();
-    });
+        obs.unsubscribe();
+      });
   }
 
   backUpTareasG() {
     let obs = this.db.collection('tareasg', ref => {
       return ref.where('lactive', '==', true);
     })
-    .valueChanges()
-    .subscribe(res => {
-      // Convert JSON to string
-      const data = JSON.stringify(res);
+      .valueChanges()
+      .subscribe(res => {
+        // Convert JSON to string
+        const data = JSON.stringify(res);
 
-      // Create a Blob object
-      const blob = new Blob([data], { type: 'application/json' });
+        // Create a Blob object
+        const blob = new Blob([data], { type: 'application/json' });
 
-      // Create an object URL
-      const url = URL.createObjectURL(blob);
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
 
-      // Download file
-      let link = document.createElement('a');
-      link.download = 'tareasg.json';
-      link.href = url;
-      link.click();
+        // Download file
+        let link = document.createElement('a');
+        link.download = 'tareasg.json';
+        link.href = url;
+        link.click();
 
-      // Release the object URL
-      URL.revokeObjectURL(url);
+        // Release the object URL
+        URL.revokeObjectURL(url);
 
-      obs.unsubscribe();
-    });
+        obs.unsubscribe();
+      });
   }
 
   backUpVersionado() {
     let obs = this.db.collection('versionado', ref => {
       return ref.where('lactive', '==', true);
     })
-    .valueChanges()
-    .subscribe(res => {
-      // Convert JSON to string
-      const data = JSON.stringify(res);
+      .valueChanges()
+      .subscribe(res => {
+        // Convert JSON to string
+        const data = JSON.stringify(res);
 
-      // Create a Blob object
-      const blob = new Blob([data], { type: 'application/json' });
+        // Create a Blob object
+        const blob = new Blob([data], { type: 'application/json' });
 
-      // Create an object URL
-      const url = URL.createObjectURL(blob);
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
 
-      // Download file
-      let link = document.createElement('a');
-      link.download = 'versionado.json';
-      link.href = url;
-      link.click();
+        // Download file
+        let link = document.createElement('a');
+        link.download = 'versionado.json';
+        link.href = url;
+        link.click();
 
-      // Release the object URL
-      URL.revokeObjectURL(url);
+        // Release the object URL
+        URL.revokeObjectURL(url);
 
-      obs.unsubscribe();
-    });
+        obs.unsubscribe();
+      });
   }
 }
