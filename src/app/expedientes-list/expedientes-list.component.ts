@@ -60,9 +60,10 @@ export class ExpedientesListComponent implements AfterViewInit, OnInit {
   }
 
   separarAreas() {
-    this.casaciones2da = this.expedientes.filter(e => e.numeroCasacion != null).filter(e => e.salaCasacion == '2DA SALA');
-    this.casaciones4ta = this.expedientes.filter(e => e.numeroCasacion != null).filter(e => e.salaCasacion == '4TA SALA');
-    this.laborales = this.expedientes.filter(e => e.numeroCasacion == null).filter(e => e.especialidad == 'LABORAL');
+    // this.casaciones2da = this.expedientes.filter(e => e.numeroCasacion != null).filter(e => e.salaCasacion == '2DA SALA');
+    // this.casaciones4ta = this.expedientes.filter(e => e.numeroCasacion != null).filter(e => e.salaCasacion == '4TA SALA');
+    // this.laborales = this.expedientes.filter(e => e.numeroCasacion == null).filter(e => e.especialidad == 'LABORAL');
+    this.laborales = this.expedientes.filter(e => e.especialidad == 'LABORAL');
     this.familias = this.expedientes.filter(e => e.especialidad == 'FAMILIA');
     this.civiles = this.expedientes.filter(e => e.especialidad == 'CIVIL');
     this.notariales = this.expedientes.filter(e => e.especialidad == 'NOTARIAL');
