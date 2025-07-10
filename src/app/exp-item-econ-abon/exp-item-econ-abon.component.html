@@ -22,7 +22,7 @@
         <table class="table mb-0">
             <thead>
                 <tr>
-                    <th>
+                    <th style="white-space: nowrap;">
                         Fecha
                     </th>
                     <th>
@@ -45,7 +45,9 @@
             <tbody *ngIf="!cargando && abonos.length > 0">
                 <tr *ngFor="let abono of abonos">
                     <td>
-                        {{abono.fecha}}
+                        <span *ngIf="abono.fecha">
+                            {{abono.fecha.slice(8,10)}}/{{abono.fecha.slice(5,7)}}/{{abono.fecha.slice(0,4)}}
+                        </span>
                     </td>
                     <td>
                         {{abono.monto | number: '2.2-2'}}

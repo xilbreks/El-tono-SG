@@ -25,7 +25,7 @@
         <table class="table mb-0">
             <thead>
                 <tr>
-                    <th>
+                    <th style="white-space: nowrap;">
                         Fecha
                     </th>
                     <th>
@@ -45,7 +45,9 @@
             <tbody *ngIf="!cargando && gastosComplementarios.length > 0">
                 <tr *ngFor="let gasto of gastosComplementarios">
                     <td>
-                        {{gasto.fecha}}
+                        <span *ngIf="gasto.fecha">
+                            {{gasto.fecha.slice(8,10)}}/{{gasto.fecha.slice(5,7)}}/{{gasto.fecha.slice(0,4)}}
+                        </span>
                     </td>
                     <td>
                         {{gasto.concepto}}

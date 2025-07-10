@@ -27,79 +27,72 @@
     </form>
 </div>
 
-<div class="container">
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th style="text-align: center; width: 15%;">Fecha</th>
-                    <th>Expediente</th>
-                    <th style="width: 35%;">Anotaciones</th>
-                </tr>
-            </thead>
-            <tbody *ngIf="!cargando && cuotas.length > 0">
-                <tr *ngFor="let cuota of cuotas">
-                    <td style="text-align: center; vertical-align: middle;">
-                        {{cuota.vencimiento}}
-                    </td>
-                    <td>
-                        <ul>
-                            <li>
-                                Area: <span class="tipo-cobro {{cuota.especialidad}}">
-                                    {{cuota.especialidad}}
-                                </span>
-                            </li>
-                            <li>
-                                DTE: {{cuota.demandante}}
-                            </li>
-                            <li>
-                                DDO: {{cuota.demandado}}
-                            </li>
-                            <li>
-                                EXP: <a
-                                    [routerLink]="'/expediente/'+cuota.numeroExpediente">{{cuota.numeroExpediente}}</a>
-                                ({{cuota.materia}})
-                            </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <li>
-                                Monto: {{cuota.monto}}
-                            </li>
-                            <li>
-                                Estado:
-                                <span *ngIf="cuota.estado == 'PAGADA'" style="font-weight: bold; color: green;">
-                                    {{cuota.estado}}
-                                </span>
-                                <span *ngIf="cuota.estado == 'VENCIDA'" style="font-weight: bold; color: red;">
-                                    {{cuota.estado}}
-                                </span>
-                                <span *ngIf="cuota.estado == 'EN-PLAZO'">
-                                    -
-                                </span>
-                            </li>
-                            <li>
-                                Motivo: {{cuota.observaciones}}
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody *ngIf="!cargando && cuotas.length == 0">
-                No hay cobros programados en este mes
-            </tbody>
-            <tbody *ngIf="cargando">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Cargando...
-            </tbody>
-        </table>
-    </div>
-    <div style="font-size: 12px;" *ngIf="!cargando">
-        <strong>NOTA:</strong>
-        <p>
-            Registro obtenido a partir de los <i>CONTRATOS</i> o <i>COMPROMISOS DE PAGO</i> registrados en los
-            expedientes.
-        </p>
-    </div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                <th>Expediente</th>
+                <th>Demandante</th>
+                <th>Demandado</th>
+                <th>Proceso</th>
+                <th>Cuota</th>
+                <th style="text-align: center;" class="no-wrap">F. V.</th>
+                <th>Estado</th>
+                <th>Monto</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!cargando && cuotas.length > 0">
+            <tr *ngFor="let cuota of cuotas">
+                <td class="no-wrap">
+                    <a [routerLink]="'/expediente/'+cuota.numeroExpediente">{{cuota.numeroExpediente}}</a>
+                </td>
+                <td>
+                    {{cuota.demandante}}
+                </td>
+                <td>
+                    {{cuota.demandado}}
+                </td>
+                <td>
+                    {{cuota.materia}}
+                </td>
+                <td style="text-align: center;">
+                    {{cuota.numero}}
+                </td>
+                <td class="no-wrap">
+                    <span *ngIf="cuota.vencimiento">
+                        {{cuota.vencimiento.slice(8,10)}}/{{cuota.vencimiento.slice(5,7)}}/{{cuota.vencimiento.slice(0,4)}}
+                    </span>
+                </td>
+                <td>
+                    <span *ngIf="cuota.estado == 'PAGADA'" style="font-weight: bold; color: green;">
+                        {{cuota.estado}}
+                    </span>
+                    <span *ngIf="cuota.estado == 'VENCIDA'" style="font-weight: bold; color: red;">
+                        {{cuota.estado}}
+                    </span>
+                    <span *ngIf="cuota.estado == 'EN-PLAZO'">
+                        -
+                    </span>
+                </td>
+                <td style="text-align: right; padding-right: 5px;">
+                    {{cuota.monto}}
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!cargando && cuotas.length == 0">
+            No hay cobros programados en este mes
+        </tbody>
+        <tbody *ngIf="cargando">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Cargando...
+        </tbody>
+    </table>
+</div>
+<div style="font-size: 12px;" *ngIf="!cargando">
+    <strong>NOTA:</strong>
+    <p>
+        Registro obtenido a partir de los <i>CONTRATOS</i> o <i>COMPROMISOS DE PAGO</i> registrados en los
+        expedientes.
+    </p>
 </div>

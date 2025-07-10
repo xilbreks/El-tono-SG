@@ -78,13 +78,13 @@ export class ExpItemEconAranComponent implements OnChanges {
   }
 
   // MODAL ACCIONES DEL USUARIO
-  // listo
+  
   abrirModalAgregarGasto(modal: any) {
     this.modalService.open(modal, {
       size: 'md'
     });
   }
-  // listo
+  
   abrirModalEditarGasto(gasto: Arancel, modal: any) {
     this.frmEditaGasto.setValue({
       idArancel: gasto.idArancel,
@@ -97,7 +97,7 @@ export class ExpItemEconAranComponent implements OnChanges {
       size: 'md'
     });
   }
-  // listo
+  
   abrirModalQuitarGasto(gasto: Arancel, modal: any) {
     this.frmQuitaGasto.setValue({
       idArancel: gasto.idArancel,
@@ -180,7 +180,8 @@ export class ExpItemEconAranComponent implements OnChanges {
         items.push(doc.data())
       });
 
-      // console.log(items)
+      items = items.sort((a, b) => a.fecha < b.fecha ? -1 : 1);
+
       return items;
     }).catch(err => {
       throw err;

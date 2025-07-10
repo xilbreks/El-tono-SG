@@ -1,29 +1,11 @@
-.tipo-cobro {
-    font-family: monospace;
-    padding: 0 10px;
-    border-radius: 5px;
-
-    &.FAMILIA {
-        background-color: pink;
+table {
+    tr {
+        td {
+            text-transform: lowercase;
+        }
     }
 
-    &.LABORAL {
-        background-color: lightgreen;
+    .no-wrap {
+        white-space: nowrap;
     }
-
-    &.CIVIL {
-        background-color: yellow;
-    }
-
-    &.PENAL {
-        background-color: lightgrey;
-    }
-
-    &.CONSTITUCIONAL {
-        background-color: red;
-    }
-}
-
-ul {
-    margin: 0;
 }

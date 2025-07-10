@@ -50,7 +50,7 @@
                     <th>
                         Monto (S/)
                     </th>
-                    <th>
+                    <th style="white-space: nowrap;">
                         Fecha de vencimiento
                     </th>
                     <th>
@@ -77,10 +77,10 @@
                     </td>
                     <td>
                         <span *ngIf="cuota.vencimiento">
-                            {{cuota.vencimiento}}
+                            {{cuota.vencimiento.slice(8,10)}}/{{cuota.vencimiento.slice(5,7)}}/{{cuota.vencimiento.slice(0,4)}}
                         </span>
-                        <span *ngIf="!cuota.vencimiento">
-                            - sin fecha -
+                        <span *ngIf="!cuota.vencimiento" style="color: grey;">
+                            <i>- sin fecha -</i>
                         </span>
                     </td>
                     <td>
