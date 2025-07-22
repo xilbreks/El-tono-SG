@@ -1,0 +1,10 @@
+.card-btn {
+    opacity: 0;
+    /* Inicialmente invisible */
+    transition: opacity 0.3s ease;
+    /* Transición suave */
+}
+
+.card-header:hover .card-btn {
+    opacity: 1;
+}

@@ -3,13 +3,18 @@
         <h5 class="m-0">
             I. Honorarios pactados
         </h5>
-        <div *ngIf="idusuario == 'admin4' || idusuario == 'lizbet-silva'">
-            <label role="button" *ngIf="!esEditable" (click)="cambiarEstadoEditable()">
-                <i class="bi bi-lock-fill"></i>
-            </label>
-            <label role="button" *ngIf="esEditable" (click)="cambiarEstadoEditable()">
-                <i class="bi bi-unlock-fill"></i>
-            </label>
+        <div>
+            <span style="color: grey; font-size: 14px;">
+                {{expediente?.numero}}
+            </span>
+            <span *ngIf="idusuario == 'admin4' || idusuario == 'lizbet-silva'" class="card-btn">
+                <label role="button" *ngIf="!esEditable" (click)="cambiarEstadoEditable()">
+                    <i class="bi bi-lock-fill"></i>
+                </label>
+                <label role="button" *ngIf="esEditable" (click)="cambiarEstadoEditable()">
+                    <i class="bi bi-unlock-fill"></i>
+                </label>
+            </span>
         </div>
     </div>
     <div class="card-body table-responsive">
