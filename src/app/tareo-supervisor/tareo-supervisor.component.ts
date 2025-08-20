@@ -50,16 +50,12 @@ export class TareoSupervisorComponent {
     let usuario = localStorage.getItem('idusuario');
     console.log('soy: ', usuario);
     // usuario = 'Maria-Tunquipa';  // Quitar luego
-    switch(usuario) {
+    switch (usuario) {
       case 'Crishtian-Paucar':
         this.usuarios = [
-          // {
-          //   id: 'Nicole-Cardenas',
-          //   nombre: 'Nicol',
-          // },
           {
-            id: 'Miryam-Huamani',
-            nombre: 'Miryam',
+            id: 'Nicole-Cardenas',
+            nombre: 'Nicole',
           },
           {
             id: 'Leonardo-Flores',
@@ -69,17 +65,29 @@ export class TareoSupervisorComponent {
             id: 'wilson-apaza',
             nombre: 'Wilson',
           },
+          {
+            id: 'Katherine-Gallegos',
+            nombre: 'Yuly'
+          },
         ];
-      break;
+        break;
       case 'Huander-Montoya':
         this.usuarios = [
+          {
+            id: 'Paola-Guzman',
+            nombre: 'Paola',
+          },
+          {
+            id: 'Yajayra-Portocarrero',
+            nombre: 'Yajayra',
+          },
           {
             id: 'Alejandra-Chacaltana',
             nombre: 'Gabylu',
           },
           {
-            id: 'Angela-Martinez',
-            nombre: 'Angela',
+            id: 'Shaunny-Fernandez',
+            nombre: 'Shaunny',
           },
           {
             id: 'Angelly-Castillo',
@@ -90,25 +98,17 @@ export class TareoSupervisorComponent {
             nombre: 'Esmeralda',
           },
           {
-            id: 'Fabi-Mayta',
-            nombre: 'Fabiola',
-          },
-          {
-            id: 'Paola-Guzman',
-            nombre: 'Paola',
-          },
-          {
             id: 'Viameli-Ccama',
             nombre: 'Viameli',
           },
+          {
+            id: 'rccuno',
+            nombre: 'Rodrigo',
+          },
         ];
-      break;
+        break;
       case 'Maria-Tunquipa':
         this.usuarios = [
-          {
-            id: 'Shaunny-Fernandez',
-            nombre: 'Shaunny',
-          },
           {
             id: 'Maria-Fernanda-Rondon',
             nombre: 'Mafer',
@@ -121,10 +121,18 @@ export class TareoSupervisorComponent {
             id: 'michael-vilca',
             nombre: 'Michael',
           },
+          {
+            id: 'azaravia',
+            nombre: 'Alejandro',
+          }
         ];
-      break;
-      case 'Edu-Soto':
+        break;
+      case 'Miryam-Huamani':
         this.usuarios = [
+          {
+            id: '	gmoa',
+            nombre: 'Gabriella',
+          },
           {
             id: 'Jackeline-Huaman',
             nombre: 'Jacky',
@@ -133,20 +141,8 @@ export class TareoSupervisorComponent {
             id: 'marco-mamani',
             nombre: 'Marco',
           },
-          {
-            id: 'Antonella-Flores',
-            nombre: 'Antonella',
-          },
-          {
-            id: '	mlarico',
-            nombre: 'Snayder',
-          },
-          {
-            id: '	gmoa',
-            nombre: 'Gabriella',
-          },
         ];
-      break;
+        break;
     }
   }
 
