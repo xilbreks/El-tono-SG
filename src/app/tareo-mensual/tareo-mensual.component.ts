@@ -12,19 +12,34 @@ export class TareoMensualComponent {
   usuarios: any[] = [];
   meses = [
     {
-      nombre: 'Mayo',
-      inicio: '2025-05-01',
-      final: '2025-05-31'
-    },
-    {
-      nombre: 'Junio',
-      inicio: '2025-06-01',
-      final: '2025-06-30'
-    },
-    {
       nombre: 'Julio',
       inicio: '2025-07-01',
       final: '2025-07-31'
+    },
+    {
+      nombre: 'Agosto',
+      inicio: '2025-08-01',
+      final: '2025-08-31'
+    },
+    {
+      nombre: 'Septiembre',
+      inicio: '2025-09-01',
+      final: '2025-09-30'
+    },
+    {
+      nombre: 'Octubre',
+      inicio: '2025-10-01',
+      final: '2025-10-31'
+    },
+    {
+      nombre: 'Noviembre',
+      inicio: '2025-11-01',
+      final: '2025-11-30'
+    },
+    {
+      nombre: 'Diciembre',
+      inicio: '2025-12-01',
+      final: '2025-12-31'
     },
   ];
 

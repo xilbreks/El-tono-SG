@@ -1,0 +1,57 @@
+<h5>
+    A partir de las notificaciones del SINOE
+</h5>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Creado el
+                </th>
+                <th>
+                    Tarea
+                </th>
+                <th>
+                    Asignado
+                </th>
+                <th style="text-align: center;">
+                    Estado
+                </th>
+                <!-- <th>
+                    Observaciones
+                </th> -->
+            </tr>
+        </thead>
+        <tbody *ngIf="!cargando && notificaciones.length > 0">
+            <tr *ngFor="let noti of notificaciones">
+                <td>
+                    {{noti.fecha}}
+                </td>
+                <td>
+                    {{noti.starea}}
+                </td>
+                <td>
+                    {{noti.idencargado}}
+                </td>
+                <td style="text-align: center;">
+                    <span *ngIf="noti.lcumplimiento" style="color: green;">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </span>
+                    <span *ngIf="!noti.lcumplimiento" style="color: darkgreen;">
+                        <i class="bi bi-slash-circle"></i>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!cargando && notificaciones.length == 0">
+            Sin registros :/
+        </tbody>
+        <tbody *ngIf="cargando">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            cargando...
+        </tbody>
+    </table>
+</div>
+<div style="font-size: 0.85rem;">
+    <i>Ultimos <b>10</b> items del backlog</i>
+</div>
