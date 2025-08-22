@@ -31,7 +31,11 @@
                 <th>Código de tarea</th>
                 <th>Mención de la tarea</th>
                 <th>Acciones a realizar</th>
-                <th>Saldo</th>
+                <!-- <th>Saldo</th> -->
+                <th>Monto pactado</th>
+                <th>Pagos hechos</th>
+                <th>Ultimo pago</th>
+                <th>Fecha ultimo pago</th>
                 <th>Fecha y Hora de guardado</th>
             </tr>
         </thead>
@@ -77,8 +81,20 @@
                 <td>
                     {{ tarea.sacceje }}
                 </td>
-                <td>
+                <!-- <td>
                     {{ tarea.nsaldo }}
+                </td> -->
+                <td>
+                    {{ tarea.nmontocontrato }}
+                </td>
+                <td>
+                    {{ tarea.npagoshechos }}
+                </td>
+                <td>
+                    {{ tarea.nmontoultimopago }}
+                </td>
+                <td>
+                    {{ tarea.sfechaultimopago }}
                 </td>
                 <td>
                     {{ tarea.sfecharegistro }}
@@ -91,7 +107,7 @@
                 <th>
                     <b>{{nSumaTiempoTareas}}</b>
                 </th>
-                <th colspan="6">
+                <th colspan="10">
                 </th>
             </tr>
         </tbody>

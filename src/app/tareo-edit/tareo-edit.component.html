@@ -40,7 +40,11 @@
                 <th>Código de tarea</th>
                 <th>Mención de la tarea</th>
                 <th>Acciones a realizar</th>
-                <th>Saldo</th>
+                <!-- <th>Saldo</th> -->
+                <th>Monto pactado</th>
+                <th>Pagos hechos</th>
+                <th>Ultimo pago</th>
+                <th>Fecha ultimo pago</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -96,8 +100,20 @@
                 <td>
                     {{ tarea.sacceje }}
                 </td>
-                <td>
+                <!-- <td>
                     {{ tarea.nsaldo }}
+                </td> -->
+                <td>
+                    {{ tarea.nmontocontrato }}
+                </td>
+                <td>
+                    {{ tarea.npagoshechos }}
+                </td>
+                <td>
+                    {{ tarea.nmontoultimopago }}
+                </td>
+                <td>
+                    {{ tarea.sfechaultimopago }}
                 </td>
                 <td>
                     <button class="btn btn-outline-dark" (click)="openEditTaskModal(tarea, editTaskModal)"
@@ -121,7 +137,7 @@
                 <th>
                     {{nSumaTiempoTareas}}
                 </th>
-                <th colspan="6">
+                <th colspan="10">
                 </th>
             </tr>
         </tfoot>
@@ -318,22 +334,50 @@
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
-                    <label for="nsaldo" class="form-label">
+                    <!-- <label for="nsaldo" class="form-label">
                         Saldo Pendiente (S/)
                     </label>
-                    <input type="text" class="form-control" id="nsaldo" formControlName="nsaldo" />
+                    <input type="text" class="form-control" id="nsaldo" formControlName="nsaldo" /> -->
                 </div>
             </div>
 
             <div class="row mb-3">
-                <div class="col-6 col-md-2">
+                <div class="col-6 col-md-3">
+                    <label for="montopactado" class="form-label">
+                        Monto pactado
+                    </label>
+                    <input type="text" class="form-control" id="montopactado" formControlName="nmontocontrato" />
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="pagoshechos" class="form-label">
+                        Pagos hechos hasta la fecha
+                    </label>
+                    <input type="text" class="form-control" id="pagoshechos" formControlName="npagoshechos" />
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="multimopago" class="form-label">
+                        Monto del último pago
+                    </label>
+                    <input type="text" class="form-control" id="multimopago" formControlName="nmontoultimopago" />
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="sultimopago" class="form-label">
+                        Fecha del último pago
+                    </label>
+                    <input type="text" class="form-control" id="sultimopago" formControlName="sfechaultimopago" />
+                </div>
+
+                <!-- <div class="col-6 col-md-2">
                     <label for="fechaCulminacion" class="form-label">
                         Culminación de la tarea
                     </label>
                     <input type="date" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
-                </div>
+                </div> -->
 
-                <div class="col-6 col-md-1">
+                <!-- <div class="col-6 col-md-1">
                     <label for="cumplimiento" class="form-label"> Avance(%) </label>
                     <select class="form-select" id="cumplimiento" formControlName="navance">
                         <option value="10%">10%</option>
@@ -347,27 +391,27 @@
                         <option value="90%">90%</option>
                         <option value="100%">100%</option>
                     </select>
-                </div>
+                </div> -->
 
                 <div class="col-6 col-md-3">
                     <!-- <label for="ingresoArancel" class="form-label">
-              Cobro para aranceles u otros (S/)
-            </label>
-            <input type="number" class="form-control" id="ingresoArancel" formControlName="ningresoarancel" /> -->
+                        Cobro para aranceles u otros (S/)
+                    </label>
+                    <input type="number" class="form-control" id="ingresoArancel" formControlName="ningresoarancel" /> -->
                 </div>
 
                 <div class="col-6 col-md-3">
                     <!-- <label for="salidaArancel" class="form-label">
-              Gasto realizado en aranceles (S/)
-            </label>
-            <input type="number" class="form-control" id="salidaArancel" formControlName="nsalidaarancel" /> -->
+                        Gasto realizado en aranceles (S/)
+                    </label>
+                    <input type="number" class="form-control" id="salidaArancel" formControlName="nsalidaarancel" /> -->
                 </div>
 
                 <div class="col-6 col-md-3">
                     <!-- <label for="honorarioCobrado" class="form-label">
-              Cobro realizado por honorarios (S/)
-            </label>
-            <input type="number" class="form-control" id="honorarioCobrado" formControlName="ncobrohonorario" /> -->
+                        Cobro realizado por honorarios (S/)
+                    </label>
+                    <input type="number" class="form-control" id="honorarioCobrado" formControlName="ncobrohonorario" /> -->
                 </div>
             </div>
         </form>
@@ -578,10 +622,17 @@
                     <input type="date" class="form-control" id="fechaCulminacion" formControlName="sfculminacion" />
                 </div>
                 <div class="col-6 col-md-3">
-                    <label for="nsaldo" class="form-label">
+                    <!-- <label for="nsaldo" class="form-label">
                         Saldo Pendiente (S/)
                     </label>
-                    <input type="text" class="form-control" id="nsaldo" formControlName="nsaldo" />
+                    <input type="text" class="form-control" id="nsaldo" formControlName="nsaldo" /> -->
+                    
+                    <label for="lcontrato" class="form-label">Contrato</label>
+                    <select class="form-select" formControlName="lcontrato" id="lcontrato">
+                        <option value="nc">No corresponde</option>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
                 </div>
             </div>
 
@@ -615,12 +666,37 @@
             </div> -->
                 </div>
                 <div class="col-6 col-md-3">
-                    <label for="lcontrato" class="form-label">Contrato</label>
-                    <select class="form-select" formControlName="lcontrato" id="lcontrato">
-                        <option value="nc">No corresponde</option>
-                        <option value="si">Si</option>
-                        <option value="no">No</option>
-                    </select>
+                    
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6 col-md-3">
+                    <label for="montopactado" class="form-label">
+                        Monto pactado
+                    </label>
+                    <input type="text" class="form-control" id="montopactado" formControlName="nmontocontrato" />
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="pagoshechos" class="form-label">
+                        Pagos hechos hasta la fecha
+                    </label>
+                    <input type="text" class="form-control" id="pagoshechos" formControlName="npagoshechos" />
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="multimopago" class="form-label">
+                        Monto del último pago
+                    </label>
+                    <input type="text" class="form-control" id="multimopago" formControlName="nmontoultimopago" />
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="sultimopago" class="form-label">
+                        Fecha del último pago
+                    </label>
+                    <input type="text" class="form-control" id="sultimopago" formControlName="sfechaultimopago" />
                 </div>
             </div>
         </form>

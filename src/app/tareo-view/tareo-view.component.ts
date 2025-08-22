@@ -45,7 +45,11 @@ class ObjTarea {
   // public ningresoarancel: number = 0;
   // public nsalidaarancel: number = 0;
   public lcontrato: boolean = false;
-  public nsaldo: number = 0;
+  // public nsaldo: number = 0;
+  public nmontocontrato: number = 0;
+  public npagoshechos: number = 0;
+  public nmontoultimopago: number = 0;
+  public sfechaultimopago: number = 0;
 
   constructor() { }
 }
@@ -146,7 +150,11 @@ export class TareoViewComponent {
           // objTarea.ningresoarancel = tarea.ningresoarancel;
           // objTarea.nsalidaarancel = tarea.nsalidaarancel;
           objTarea.lcontrato = tarea.lcontrato;
-          objTarea.nsaldo = tarea.nsaldo;
+          // objTarea.nsaldo = tarea.nsaldo ? tarea.nsaldo : '-';
+          objTarea.nmontocontrato = tarea.nmontocontrato ? tarea.nmontocontrato : '-';
+          objTarea.npagoshechos = tarea.npagoshechos ? tarea.npagoshechos : '-';
+          objTarea.nmontoultimopago = tarea.nmontoultimopago ? tarea.nmontoultimopago : '-';
+          objTarea.sfechaultimopago = tarea.sfechaultimopago ? tarea.sfechaultimopago : '-';
 
           this.lstTareas.push(objTarea);
           horas = horas + Number(tarea.shorasatencion);

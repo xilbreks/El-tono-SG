@@ -57,7 +57,12 @@ class ObjTarea {
   // public ningresoarancel: number = 0;
   // public nsalidaarancel: number = 0;
   public lcontrato: boolean = false;
-  public nsaldo: number = 0;
+  // public nsaldo: number = 0;
+  public nmontocontrato: number = 0;
+  public npagoshechos: number = 0;
+  public nmontoultimopago: number = 0;
+  public sfechaultimopago: number = 0;
+
   constructor() { }
 }
 
@@ -119,7 +124,11 @@ export class TareoEditComponent {
       // ningresoarancel: new FormControl(null, Validators.required),
       // nsalidaarancel: new FormControl(null, Validators.required),
       lcontrato: new FormControl(null, Validators.required),
-      nsaldo: new FormControl(null, Validators.required),
+      // nsaldo: new FormControl(null, Validators.required),
+      nmontocontrato: new FormControl(null, Validators.required),
+      npagoshechos: new FormControl(null, Validators.required),
+      nmontoultimopago: new FormControl(null, Validators.required),
+      sfechaultimopago: new FormControl(null, Validators.required),
     });
 
     /***********************
@@ -146,7 +155,11 @@ export class TareoEditComponent {
       // ningresoarancel: new FormControl(null, Validators.required),
       // nsalidaarancel: new FormControl(null, Validators.required),
       lcontrato: new FormControl(null, Validators.required),
-      nsaldo: new FormControl(null, Validators.required),
+      // nsaldo: new FormControl(null, Validators.required),
+      nmontocontrato: new FormControl(null, Validators.required),
+      npagoshechos: new FormControl(null, Validators.required),
+      nmontoultimopago: new FormControl(null, Validators.required),
+      sfechaultimopago: new FormControl(null, Validators.required),
     });
   }
 
@@ -249,7 +262,11 @@ export class TareoEditComponent {
           // objTarea.ningresoarancel = tarea.ningresoarancel;
           // objTarea.nsalidaarancel = tarea.nsalidaarancel;
           objTarea.lcontrato = tarea.lcontrato ? tarea.lcontrato : 'nc';
-          objTarea.nsaldo = tarea.nsaldo ? tarea.nsaldo : '-';
+          // objTarea.nsaldo = tarea.nsaldo ? tarea.nsaldo : '-';
+          objTarea.nmontocontrato = tarea.nmontocontrato ? tarea.nmontocontrato : '-';
+          objTarea.npagoshechos = tarea.npagoshechos ? tarea.npagoshechos : '-';
+          objTarea.nmontoultimopago = tarea.nmontoultimopago ? tarea.nmontoultimopago : '-';
+          objTarea.sfechaultimopago = tarea.sfechaultimopago ? tarea.sfechaultimopago : '-';
 
           this.lstTareas.push(objTarea);
 
@@ -403,8 +420,12 @@ export class TareoEditComponent {
       // ncobrohonorario: tarea.ncobrohonorario,
       // ningresoarancel: tarea.ningresoarancel,
       // nsalidaarancel: tarea.nsalidaarancel,
-      nsaldo: tarea.nsaldo,
       lcontrato: tarea.lcontrato,
+      // nsaldo: tarea.nsaldo,
+      nmontocontrato: tarea.nmontocontrato,
+      npagoshechos: tarea.npagoshechos,
+      nmontoultimopago: tarea.nmontoultimopago,
+      sfechaultimopago: tarea.sfechaultimopago,
     });
     this.setLstIterEditTask(true);
     this.modalService.open(modal, {
