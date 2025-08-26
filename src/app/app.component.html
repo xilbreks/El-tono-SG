@@ -25,8 +25,22 @@
           </ul>
         </li>
 
-        <li class="nav-item" *ngIf="!!user">
+        <!-- <li class="nav-item" *ngIf="!!user">
           <a class="nav-link" routerLink="/recursos"> Recursos </a>
+        </li> -->
+        <li class="nav-item dropdown" *ngIf="!!user">
+          <a class="nav-link dropdown-toggle" href="#" id="recursosNav" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Recursos
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/recursos"> ITER's </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/plantillas"> Plantillas </a>
+            </li>
+          </ul>
         </li>
 
         <li class="nav-item dropdown" *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
@@ -86,7 +100,8 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
             <li>
-              <a class="dropdown-item" routerLink="/sprints" *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
+              <a class="dropdown-item" routerLink="/sprints"
+                *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
                 <i class="bi bi-flag"></i>
                 <!-- <i class="bi bi-ticket-perforated"></i> -->
                 <!-- <i class="bi bi-flag-fill"></i> -->

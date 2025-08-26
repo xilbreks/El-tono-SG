@@ -35,6 +35,7 @@ import { TareoEditComponent } from './tareo-edit/tareo-edit.component';
 import { TareoViewComponent } from './tareo-view/tareo-view.component';
 import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.component';
 import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.component';
+import { PlantillasComponent } from './plantillas/plantillas.component';
 
 const routes: Routes = [
   {
@@ -165,6 +166,10 @@ const routes: Routes = [
   {
     path: 'tareo-supervisor',
     component: TareoSupervisorComponent
+  },
+  {
+    path: 'plantillas',
+    component: PlantillasComponent
   },
   {
     path: '**',

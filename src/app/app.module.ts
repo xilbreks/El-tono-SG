@@ -70,6 +70,7 @@ import { ExpItemEconCuotComponent } from './exp-item-econ-cuot/exp-item-econ-cuo
 import { ExpItemEconComponent } from './exp-item-econ/exp-item-econ.component';
 import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.component';
 import { ExpItemSinoeComponent } from './exp-item-sinoe/exp-item-sinoe.component';
+import { PlantillasComponent } from './plantillas/plantillas.component';
 
 const environment = {
   production: false,
@@ -144,6 +145,7 @@ const environment = {
     ExpItemEconComponent,
     PlannerCuotasComponent,
     ExpItemSinoeComponent,
+    PlantillasComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,53 @@
+<div class="container">
+    <h3>
+        MODELOS DE CONTRATOS
+    </h3>
+    <p>
+        En este lugar encontrarás modelos de contratos para los clientes en
+        formato word :3
+    </p>
+
+    <div class="row">
+        <div class="alert" role="alert">
+            <h5>
+                <span>
+                    <i class="bi bi-file-word-fill"></i>
+                </span>
+                Desnaturalización de Contrato
+            </h5>
+            <div *ngIf="urlPlantilla1">
+                Descarga la plantilla <a [href]="urlPlantilla1"><b>Aquí</b></a>
+            </div>
+            <div *ngIf="!urlPlantilla1">
+                <button *ngIf="!cargando1" class="btn btn-primary btn-sm" (click)="getDownloadLinkContrato1()">
+                    Obtener link de descarga
+                </button>
+                <button *ngIf="cargando1" class="btn btn-primary btn-sm">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Obteniendo...
+                </button>
+            </div>
+        </div>
+
+        <div class="alert" role="alert">
+            <h5>
+                <span>
+                    <i class="bi bi-file-word-fill"></i>
+                </span>
+                Convenio Colectivo
+            </h5>
+            <div *ngIf="urlPlantilla2">
+                Descarga la plantilla <a [href]="urlPlantilla2"><b>Aquí</b></a>
+            </div>
+            <div *ngIf="!urlPlantilla2">
+                <button *ngIf="!cargando2" class="btn btn-primary btn-sm" (click)="getDownloadLinkContrato2()">
+                    Obtener link de descarga
+                </button>
+                <button *ngIf="cargando2" class="btn btn-primary btn-sm">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Obteniendo...
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
