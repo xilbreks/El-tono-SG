@@ -244,6 +244,10 @@ export class TareoDiarioComponent {
         "Descripción de la tarea": tarea['sdeseje'].trim().slice(0, 2500),
         "Acciones por realizar": tarea['sacceje'].trim().slice(0, 2500),
         "Fecha y Hora de guardado": fechaRegistro,
+        "Monto pactado": tarea['nmontocontrato'],
+        "Pagos realizados": tarea['npagoshechos'],
+        "Ultimo pago": tarea['nmontoultimopago'],
+        "Fecha Ultimo Pago": tarea['sfechaultimopago'],
       })
     });
 
