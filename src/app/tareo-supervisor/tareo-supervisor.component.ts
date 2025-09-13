@@ -54,20 +54,16 @@ export class TareoSupervisorComponent {
       case 'Crishtian-Paucar':
         this.usuarios = [
           {
-            id: 'Nicole-Cardenas',
-            nombre: 'Nicole',
+            id: 'spuma',
+            nombre: 'Stephany',
           },
           {
             id: 'Leonardo-Flores',
             nombre: 'Leonardo',
           },
           {
-            id: 'wilson-apaza',
-            nombre: 'Wilson',
-          },
-          {
-            id: 'Katherine-Gallegos',
-            nombre: 'Yuly'
+            id: 'fespinoza',
+            nombre: 'Flavia',
           },
         ];
         break;
@@ -78,8 +74,8 @@ export class TareoSupervisorComponent {
             nombre: 'Paola',
           },
           {
-            id: 'Yajayra-Portocarrero',
-            nombre: 'Yajayra',
+            id: 'wilson-apaza',
+            nombre: 'Wilson',
           },
           {
             id: 'Alejandra-Chacaltana',
@@ -110,8 +106,8 @@ export class TareoSupervisorComponent {
       case 'Maria-Tunquipa':
         this.usuarios = [
           {
-            id: 'Maria-Fernanda-Rondon',
-            nombre: 'Mafer',
+            id: 'minfantas',
+            nombre: 'Marisol',
           },
           {
             id: 'Alisson-Guillen',
