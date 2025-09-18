@@ -41,7 +41,7 @@ export class TicketsMeComponent {
     // let idSprint = this.fcSprintId.value;
     let obs = this.db.collection('tickets', ref => {
       return ref.where('asignadoA', '==', this.idusuario)
-        .where('idSprint', '==', 'S0009')
+        .where('idSprint', '==', 'S0010')
     }).get();
 
     firstValueFrom(obs).then(snapshot => {
