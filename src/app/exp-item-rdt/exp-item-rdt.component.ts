@@ -12,7 +12,7 @@ import { Tarea } from './../_interfaces/tarea';
 export class ExpItemRdtComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
   
-  lstTareas: Array<Tarea> = [];
+  lstTareas: Array<any> = [];
   lhasmore: boolean = false;
   lLoading: boolean = true;
   lLoadingMore = false;

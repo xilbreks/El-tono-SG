@@ -38,6 +38,7 @@ export class ExpItemEditDataComponent implements OnChanges {
       demandante: new FormControl(null, Validators.required),
       juzgado: new FormControl(null, Validators.required),
       prioridad: new FormControl(null, Validators.required),
+      observaciones: new FormControl(null, Validators.required),
       fechaInicio: new FormControl(null, Validators.required),
       codigo: new FormControl(null, Validators.required),
       numeroCasacion: new FormControl(null, Validators.required),
@@ -78,6 +79,7 @@ export class ExpItemEditDataComponent implements OnChanges {
       demandante: this.expediente?.demandante,
       juzgado: this.expediente?.juzgado,
       prioridad: this.expediente?.prioridad,
+      observaciones: this.expediente?.observaciones,
       fechaInicio: this.expediente?.fechaInicio,
       codigo: this.expediente?.codigo,
       numeroCasacion: this.expediente?.numeroCasacion,
@@ -127,6 +129,7 @@ export class ExpItemEditDataComponent implements OnChanges {
         this.expediente.demandante = this.frmExpediente.value['demandante'].trim().toUpperCase();
         this.expediente.juzgado = this.frmExpediente.value['juzgado'].trim().toUpperCase();
         this.expediente.prioridad = this.frmExpediente.value['prioridad'];
+        this.expediente.observaciones = this.frmExpediente.value['observaciones'].trim();
         this.expediente.fechaInicio = this.frmExpediente.value['fechaInicio'].trim().toUpperCase();
         this.expediente.codigo = this.frmExpediente.value['codigo'];
         this.expediente.numeroCasacion = this.frmExpediente.value['numeroCasacion'];
@@ -154,6 +157,7 @@ export class ExpItemEditDataComponent implements OnChanges {
         demandante: this.frmExpediente.value['demandante'].trim().toUpperCase(),
         juzgado: this.frmExpediente.value['juzgado'].trim().toUpperCase(),
         prioridad: this.frmExpediente.value['prioridad'],
+        observaciones: this.frmExpediente.value['observaciones'].trim(),
         fechaInicio: this.frmExpediente.value['fechaInicio'].trim().toUpperCase(),
         codigo: this.frmExpediente.value['codigo'],
         numeroCasacion: this.frmExpediente.value['numeroCasacion'],

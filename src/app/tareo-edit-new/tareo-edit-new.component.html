@@ -1,0 +1,1664 @@
+<h4>
+    REPORTE DIARIO DE TRABAJO lite
+</h4>
+<table class="tbl-cabecera">
+    <tr>
+        <td>Realizado por:</td>
+        <td class="objrdt">{{tareo?.nombreUsuario}}</td>
+    </tr>
+    <tr>
+        <td>Fecha:</td>
+        <td class="objrdt">{{tareo?.fecha}}</td>
+    </tr>
+</table>
+<button (click)="empezarNuevaTarea(modalNuevaTarea)" class="btn btn-sm btn-outline-success">
+    + Agregar tarea
+</button>
+
+<!-- Listado de las tareas del día -->
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Atencion</th>
+                <th>Delegado por</th>
+                <!-- <th>Naturaleza</th> -->
+                <th>Demandante</th>
+                <th>Demandado</th>
+                <th>Área</th>
+                <th>Expediente</th>
+                <th>ITER</th>
+                <th>Contrato</th>
+                <th>T. Atencion</th>
+                <th>Codigo tarea</th>
+                <th>Detalle tarea</th>
+                <th>Pendiente tarea</th>
+                <th>Monto pactado</th>
+                <th>Pagos hechos</th>
+                <th>Ultimo pago</th>
+                <th>Fecha ultimo pago</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!cargando && tareas.length > 0">
+            <tr *ngFor="let tarea of tareas; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{tarea.tipoAtencion}}</td>
+                <td>{{tarea.delegadoPor}}</td>
+                <!-- <td>
+                    <span *ngIf="tarea.idNaturaleza == 'con'">Tiene Expediente en el RDT</span>
+                    <span *ngIf="tarea.idNaturaleza == 'sin'">No tiene expediente en el RDT</span>
+                    <span *ngIf="tarea.idNaturaleza == 'nc'">Actividades varias</span>
+                </td> -->
+                <td>{{tarea.demandante}}</td>
+                <td>{{tarea.demandado}}</td>
+                <td>{{tarea.especialidad}}</td>
+                <td>{{tarea.numero}}</td>
+                <td>{{tarea.nombreCheckpoint}}</td>
+                <td>{{tarea.tieneContrato}}</td>
+                <td>{{tarea.horasAtencion}}:{{tarea.minutosAtencion}}</td>
+                <td>{{tarea.codigoTarea}}</td>
+                <td>{{tarea.detalleTarea}}</td>
+                <td>{{tarea.pendienteTarea}}</td>
+                <td>{{tarea.montoPactado}}</td>
+                <td>{{tarea.abonoTotal}}</td>
+                <td>{{tarea.montoUltimoAbono}}</td>
+                <td>{{tarea.fechaUltimoAbono}}</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-dark" (click)="empezarEdicionTarea(tarea, modalEditarTarea)"
+                        ngbTooltip="Editar">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-outline-dark" (click)="empezarEliminacionTarea(tarea)"
+                        ngbTooltip="Eliminar">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!cargando && tareas.length == 0">
+            <tr>
+                <td colspan="5">
+                    Aun sin tareas registradas :/
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="cargando">
+            <tr>
+                <td colspan="5">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Cargando...
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!---------------------------------------------- 
+----------------- MODAL       ------------------
+----------------- NUEVA TAREA ------------------
+------------------------------------------------>
+<ng-template #modalNuevaTarea let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">
+            Informar lo que hice hoy
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <!-- Para seleccionar el tipo de formulario -->
+        <div>
+            <input type="radio" id="con" name="drone" value="con" [formControl]="fcTipoTarea"
+                (change)="cambioTipoFormulario($event)" />
+            <label for="con">Con expediente en el RDT</label>
+        </div>
+        <div>
+            <input type="radio" id="sin" name="drone" value="sin" [formControl]="fcTipoTarea"
+                (change)="cambioTipoFormulario($event)" />
+            <label for="sin">Sin expediente en el RDT / Consulta nueva</label>
+        </div>
+        <div>
+            <input type="radio" id="nc" name="drone" value="nc" [formControl]="fcTipoTarea"
+                (change)="cambioTipoFormulario($event)" />
+            <label for="nc">Actividades varias</label>
+        </div>
+
+        <!-- FORMULARIOS ACORDE A LA SELECCION DE TIPO TAREA: -->
+
+        <!-- Formulario cuando hay expediente -->
+        <form *ngIf="fcTipoTarea.value == 'con'" [formGroup]="frmNuevaTarea" autocomplete="off">
+            <div class="row mb-2">
+                <div class="col-6 col-md-3" style="position: relative;">
+                    <div class="search-box">
+                        <label for="sExpediente" class="form-label">Expediente</label>
+                        <div class="input-group">
+                            <input id="sExpediente" type="text" placeholder="Texto de búsqueda" class="form-control"
+                                [formControl]="fcQueryBox" (input)="mostrarAutocompletado()"
+                                (keyup.enter)="pressEnter()" (blur)="desfocusear()" (focus)="mostrarAutocompletado()">
+                            <button class="btn btn-sm btn-outline-dark" type="button" (click)="reiniciarExpediente()">
+                                (x)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="result-box">
+                        <div class="result-item" *ngFor="let expediente of expedientes"
+                            (click)="pickExpediente(expediente)" (mousedown)="prevenir($event)">
+                            <div class="exp">
+                                {{expediente.numero}}
+                            </div>
+                            <div class="dte">
+                                {{expediente.demandante}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="especialidad" class="form-label">Tipo de proceso</label>
+                    <input type="text" class="form-control" id="especialidad" formControlName="especialidad" readonly>
+                </div>
+                <div class="col-6 col-md-5">
+                    <label for="nivelIter" class="form-label"> ITER Procesal </label>
+                    <div class="input-container-shimmer" *ngIf="encontrando">
+                        <input type="text" class="form-control" id="nivelIter" readonly>
+                        <div class="shimmer-wave"></div>
+                    </div>
+                    <div *ngIf="!encontrando">
+                        <input type="text" class="form-control" id="nivelIter" formControlName="nombreCheckpoint" readonly>
+                    </div>
+                </div>
+                <div class="col-3 col-md-1">
+                    <label for="tieneContrato" class="form-label">Contrato</label>
+                    <div class="input-container-shimmer" *ngIf="encontrando">
+                        <input type="text" class="form-control" id="tieneContrato" readonly>
+                        <div class="shimmer-wave"></div>
+                    </div>
+                    <div *ngIf="!encontrando">
+                        <input type="text" class="form-control" formControlName="tieneContrato" id="tieneContrato"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 col-md-6">
+                    <label for="nombreDemandante" class="form-label">
+                        Demandante
+                    </label>
+                    <input type="text" class="form-control" id="nombreDemandante" formControlName="demandante"
+                        readonly />
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="nombreDemandado" class="form-label">
+                        Demandado
+                    </label>
+                    <input type="text" class="form-control" id="nombreDemandado" formControlName="demandado" readonly />
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12">
+                    <label for="codigoTarea" class="form-label"> Código de tarea </label>
+                    <select class="form-select" id="codigoTarea" formControlName="codigoTarea">
+                        <option value="1">
+                            1.- INFORMES - INICIALES
+                        </option>
+                        <option value="2">
+                            2.- INFORMES - DE 1RA INSTANCIA
+                        </option>
+                        <option value="3">
+                            3.- INFORMES - DE 2DA INSTANCIA
+                        </option>
+                        <option value="4">
+                            4.- INFORMES - DE CASACIÓN (EJECUTORIAS SUPREMAS)
+                        </option>
+                        <option value="5">
+                            5.- INFORMES - FINALES
+                        </option>
+                        <option value="6">
+                            6.- REDACCIÓN DE ESCRITOS DE MERO TRÁMITE SEGÚN SINOE E IMPULSO DE PARTE
+                        </option>
+                        <option value="7">
+                            7.- IMPRIMIR ANEXOS RESOLUCIONES
+                        </option>
+                        <option value="8">
+                            8.- REDACCIÓN DE ACTAS DE ACUERDOS, TRANSACCIONES, CONCILIACIONES
+                        </option>
+                        <option value="9">
+                            9.- REDACCIÓN CONTRATOS PARA CLIENTES
+                        </option>
+                        <option value="10">
+                            10.- BORRADORES DE DEMANDAS, CONTESTACIONES, RECONVENCIONES, EXCEPCIONES, TACHAS Y
+                            OPOSICIONES
+                        </option>
+                        <option value="11">
+                            11.- PROPUESTAS ECONÓMICAS CLIENTES E INFORMES
+                        </option>
+                        <option value="12">
+                            12.- TRÁMITES - NOTARIALES Y REGISTRALES
+                        </option>
+                        <option value="13">
+                            13.- REDACCIÓN CARTAS, SOLICITUDES Y MINUTAS
+                        </option>
+                        <option value="14">
+                            14.- BORRADORES - MEDIDAS CAUTELARES
+                        </option>
+                        <option value="15">
+                            15.- ASISTIR CENTROS DE CONCILIACIÓN
+                        </option>
+                        <option value="16">
+                            16.- PREPARAR ALEGATOS, DIAPOSITIVAS, PLIEGOS INTERROGATORIOS
+                        </option>
+                        <option value="17">
+                            17.- ASISTIR A LOS CLIENTES EN AUDIENCIAS
+                        </option>
+                        <option value="18">
+                            18.- ASISTIR AL PJ Y/O MP PARA CONVERSAR CON JUECES, FISCALES, ESPECIALISTAS
+                        </option>
+                        <option value="19">
+                            19.- TRÁMITES ADMINISTRATIVOS PAGAR ARANCELES JUDICIALES, TASAS Y OTROS
+                        </option>
+                        <option value="20">
+                            20.- APOYAR EN COBRANZAS (HACERLAS EFECTIVAS)
+                        </option>
+                        <option value="21">
+                            21.- BÚSQUEDA DE EXPEDIENTE
+                        </option>
+                        <option value="22">
+                            22.- DESARCHIVAR EXPEDIENTES DEL ARCHIVO CENTRAL DEL PJ
+                        </option>
+                        <option value="23">
+                            23.- REVISAR, ORDENAR Y ACTUALIZACIÓN DE EXPEDIENTE
+                        </option>
+                        <option value="24">
+                            24.- COORDINAR AUDIENCIAS
+                        </option>
+                        <option value="25">
+                            25.- SIMULACIÓN DE AUDIENCIAS
+                        </option>
+                        <option value="26">
+                            26.- SEGUIMIENTO DEL PROCESO (CEJ Y SINOE)
+                        </option>
+                        <option value="27">
+                            27.- RECABAR MEDIOS PROBATORIOS
+                        </option>
+                        <option value="28">
+                            28.- RECEPCIÓN-REGISTRO Y/O ATENCIÓN DE CLIENTES VÍA CELULAR
+                        </option>
+                        <option value="29">
+                            29.- ASISTIR A MUNICIPALIDADES, MINISTERIOS U OTRAS INSTITUCIONES
+                        </option>
+                        <option value="-" disabled>
+                            COMPLEJOS
+                        </option>
+                        <option value="30">
+                            30.- ATENDER CLIENTES ANTIGUOS, NUEVOS Y CAPTAR CLIENTES
+                        </option>
+                        <option value="31">
+                            31.- ANALIZAR Y REVISAR DOCUMENTOS (MEDIOS PROBATORIOS)
+                        </option>
+                        <option value="32">
+                            32.- ASIGNACIÓN Y SUPERVISIÓN DEL SINOE DE ESCRITOS DE MERO TRÁMITE Y COMPLEJOS REALIZADOS
+                            POR
+                            LOS ASISTENTES Y PRACTICANTES
+                        </option>
+                        <option value="33">
+                            33.- SUPERVISAR ESCRITO DE MERO TRÁMITE E IMPULSO DE PARTE
+                        </option>
+                        <option value="34">
+                            34.- SUPERVISAR ESCRITOS COMPLEJOS SEAN DEMANDAS, DENUNCIAS, APELACIONES, CASACIONES, ETC.
+                        </option>
+                        <option value="35">
+                            35.- DILIGENCIAS EXTERNAS, VISUALIZACIONES, DECLARACIONES, CÁMARAS GESSEL
+                        </option>
+                        <option value="36">
+                            36.- REVISAR Y ELABORAR INFORMES LEGALES DE LOS EXPEDIENTES
+                        </option>
+                        <option value="37">
+                            37.- REVISAR DEMANDAS QUE ESTÉN AL 100%
+                        </option>
+                        <option value="38">
+                            38.- REVISAR REDACCIÓN DE DENUNCIAS, QUERELLAS AL 100% Y OTROS
+                        </option>
+                        <option value="39">
+                            39.- REVISIÓN DE MEDIDAS CAUTELARES
+                        </option>
+                        <option value="40">
+                            40.- REVISIÓN DE CONTESTACIÓN DE DEMANDAS Y RECONVENCIONES
+                        </option>
+                        <option value="41">
+                            41.- REVISIÓN/MODIFICACIÓN DE ABSOLUCIÓN DE DENUNCIAS Y QUERELLAS
+                        </option>
+                        <option value="42">
+                            42.- REVISIÓN/MODIFICACIÓN DE RECURSO APELACIÓN
+                        </option>
+                        <option value="43">
+                            43.- REVISIÓN DE RECURSOS DE CASACIÓN
+                        </option>
+                        <option value="44">
+                            44.- REVISIÓN DE ALEGATOS, DISPOSITIVAS Y PLIEGOS INTERROGATORIOS
+                        </option>
+                        <option value="45">
+                            45.- REVISAR QUE LAS DEMANDAS, MC Y OTROS ESCRITOS SEAN PRESENTADOS CON ARANCELES JUDICIALES
+                        </option>
+                        <option value="46">
+                            46.- PREPARACIÓN DE CLIENTES, TESTIGOS PARA AUDIENCIAS
+                        </option>
+                        <option value="47">
+                            47.- ORALIZAR AUDIENCIAS DE CONCILIACIÓN Y JUZGAMIENTO
+                        </option>
+                        <option value="48">
+                            48.- ORALIZAR VISTAS DE CAUSA ANTE SALAS SUPERIORES
+                        </option>
+                        <option value="49">
+                            49.- ORALIZAR VISTAS DE LA CAUSA ANTE CORTE SUPREMA
+                        </option>
+                        <option value="50">
+                            50.- ENTREVISTAS CON JUECES, FISCALES, ESPECIALISTAS
+                        </option>
+                        <option value="51">
+                            51.- CONFERENCIAR CON LA CONTRA PARTE Y ABOGADOS
+                        </option>
+                        <option value="52">
+                            52.- ATENCIÓN CLIENTES VÍA CELULAR
+                        </option>
+                        <option value="53">
+                            53.- ORGANIZAR ASAMBLEAS, REUNIONES VIRTUALES
+                        </option>
+                        <option value="54">
+                            54.- COBRAR CLIENTES (HACERLAS EFECTIVAS)
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 col-md-6">
+                    <label for="detalleTarea" class="form-label">
+                        Mención del caso, tarea, trabajo
+                    </label>
+                    <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea">
+            </textarea>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="pendienteTarea" class="form-label">
+                        Acciones a Realizar
+                    </label>
+                    <textarea class="form-control" id="pendienteTarea" formControlName="pendienteTarea">
+            </textarea>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-6 col-md-3">
+                    <label for="tipoAtencion" class="form-label">Atención</label>
+                    <select class="form-select" formControlName="tipoAtencion" id="tipoAtencion">
+                        <option value="por-expediente">Por expediente</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="via-celular">Vía celular</option>
+                        <option value="via-internet">Vía internet</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="delegadoPor" class="form-label"> Delegado por </label>
+                    <input type="text" class="form-control" id="delegadoPor" formControlName="delegadoPor">
+                    <!-- <select class="form-select" id="delegadoPor" formControlName="delegadoPor">
+                        <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
+                        <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
+                        <option value="Abg. Paola Mendoza">Abg. Paola Mendoza</option>
+                        <option value="Abg. Huander Montoya">Abg. Huander Montoya</option>
+                        <option value="Abg. Maria Tunquipa">Abg. Maria Tunquipa</option>
+                        <option value="Abg. Yajayra Portocarrero">Abg. Yajayra Portocarrero</option>
+                        <option value="Abg. Miryam Huamani">Abg. Miryam Huamani</option>
+                        <option value="Bach. Gabylu Siu. ">Bach. Gabylu Siu.</option>
+
+                        <option value="ing-wilber">Ing. Wilber</option>
+                        <option value="iniciativa-propia">Iniciativa Propia</option>
+                    </select> -->
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="tiempoAtencion" class="form-label">
+                        Tiempo de Atención
+                    </label>
+                    <br />
+                    <div style="display: flex;">
+                        <select class="form-select" style="display: inline-block;" id="tiempoAtencion"
+                            formControlName="horasAtencion">
+                            <option value="00">0h</option>
+                            <option value="01">1h</option>
+                            <option value="02">2h</option>
+                            <option value="03">3h</option>
+                            <option value="04">4h</option>
+                            <option value="05">5h</option>
+                            <option value="06">6h</option>
+                            <option value="07">7h</option>
+                            <option value="08">8h</option>
+                            <option value="09">9h</option>
+                            <option value="10">10h</option>
+                            <option value="11">11h</option>
+                            <option value="12">12h</option>
+                        </select>
+                        <select class="form-select" style="display: inline-block;" formControlName="minutosAtencion">
+                            <option value="00">00m</option>
+                            <option value="05">05m</option>
+                            <option value="10">10m</option>
+                            <option value="15">15m</option>
+                            <option value="20">20m</option>
+                            <option value="25">25m</option>
+                            <option value="30">30m</option>
+                            <option value="35">35m</option>
+                            <option value="40">40m</option>
+                            <option value="45">45m</option>
+                            <option value="50">50m</option>
+                            <option value="55">55m</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-6 col-md-3">
+                    <label for="montopactado" class="form-label">
+                        Monto pactado
+                    </label>
+                    <input type="text" class="form-control" id="montopactado" formControlName="montoPactado" />
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="abonoTotal" class="form-label">
+                        Pagos hechos hasta la fecha
+                    </label>
+                    <input type="text" class="form-control" id="abonoTotal" formControlName="abonoTotal" />
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="montoUltimoAbono" class="form-label">
+                        Monto del último pago
+                    </label>
+                    <input type="text" class="form-control" id="montoUltimoAbono" formControlName="montoUltimoAbono" />
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="fechaUltimoAbono" class="form-label">
+                        Fecha del último pago
+                    </label>
+                    <input type="text" class="form-control" id="fechaUltimoAbono" formControlName="fechaUltimoAbono" />
+                </div>
+            </div>
+        </form>
+
+        <!-- Formulario cuando no hay expediente -->
+        <form *ngIf="fcTipoTarea.value == 'sin'" [formGroup]="frmNuevaTarea" autocomplete="off">
+            <div class="row mb-2">
+                <div class="col-12 col-md-6">
+                    <label for="nombreDemandante" class="form-label">
+                        Demandante
+                    </label>
+                    <input type="text" class="form-control" id="nombreDemandante" formControlName="demandante" />
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="nombreDemandado" class="form-label">
+                        Demandado
+                    </label>
+                    <input type="text" class="form-control" id="nombreDemandado" formControlName="demandado" />
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="codigoTarea" class="form-label"> Código de tarea </label>
+                    <select class="form-select" id="codigoTarea" formControlName="codigoTarea">
+                        <option value="1">
+                            1.- INFORMES - INICIALES
+                        </option>
+                        <option value="2">
+                            2.- INFORMES - DE 1RA INSTANCIA
+                        </option>
+                        <option value="3">
+                            3.- INFORMES - DE 2DA INSTANCIA
+                        </option>
+                        <option value="4">
+                            4.- INFORMES - DE CASACIÓN (EJECUTORIAS SUPREMAS)
+                        </option>
+                        <option value="5">
+                            5.- INFORMES - FINALES
+                        </option>
+                        <option value="6">
+                            6.- REDACCIÓN DE ESCRITOS DE MERO TRÁMITE SEGÚN SINOE E IMPULSO DE PARTE
+                        </option>
+                        <option value="7">
+                            7.- IMPRIMIR ANEXOS RESOLUCIONES
+                        </option>
+                        <option value="8">
+                            8.- REDACCIÓN DE ACTAS DE ACUERDOS, TRANSACCIONES, CONCILIACIONES
+                        </option>
+                        <option value="9">
+                            9.- REDACCIÓN CONTRATOS PARA CLIENTES
+                        </option>
+                        <option value="10">
+                            10.- BORRADORES DE DEMANDAS, CONTESTACIONES, RECONVENCIONES, EXCEPCIONES, TACHAS Y
+                            OPOSICIONES
+                        </option>
+                        <option value="11">
+                            11.- PROPUESTAS ECONÓMICAS CLIENTES E INFORMES
+                        </option>
+                        <option value="12">
+                            12.- TRÁMITES - NOTARIALES Y REGISTRALES
+                        </option>
+                        <option value="13">
+                            13.- REDACCIÓN CARTAS, SOLICITUDES Y MINUTAS
+                        </option>
+                        <option value="14">
+                            14.- BORRADORES - MEDIDAS CAUTELARES
+                        </option>
+                        <option value="15">
+                            15.- ASISTIR CENTROS DE CONCILIACIÓN
+                        </option>
+                        <option value="16">
+                            16.- PREPARAR ALEGATOS, DIAPOSITIVAS, PLIEGOS INTERROGATORIOS
+                        </option>
+                        <option value="17">
+                            17.- ASISTIR A LOS CLIENTES EN AUDIENCIAS
+                        </option>
+                        <option value="18">
+                            18.- ASISTIR AL PJ Y/O MP PARA CONVERSAR CON JUECES, FISCALES, ESPECIALISTAS
+                        </option>
+                        <option value="19">
+                            19.- TRÁMITES ADMINISTRATIVOS PAGAR ARANCELES JUDICIALES, TASAS Y OTROS
+                        </option>
+                        <option value="20">
+                            20.- APOYAR EN COBRANZAS (HACERLAS EFECTIVAS)
+                        </option>
+                        <option value="21">
+                            21.- BÚSQUEDA DE EXPEDIENTE
+                        </option>
+                        <option value="22">
+                            22.- DESARCHIVAR EXPEDIENTES DEL ARCHIVO CENTRAL DEL PJ
+                        </option>
+                        <option value="23">
+                            23.- REVISAR, ORDENAR Y ACTUALIZACIÓN DE EXPEDIENTE
+                        </option>
+                        <option value="24">
+                            24.- COORDINAR AUDIENCIAS
+                        </option>
+                        <option value="25">
+                            25.- SIMULACIÓN DE AUDIENCIAS
+                        </option>
+                        <option value="26">
+                            26.- SEGUIMIENTO DEL PROCESO (CEJ Y SINOE)
+                        </option>
+                        <option value="27">
+                            27.- RECABAR MEDIOS PROBATORIOS
+                        </option>
+                        <option value="28">
+                            28.- RECEPCIÓN-REGISTRO Y/O ATENCIÓN DE CLIENTES VÍA CELULAR
+                        </option>
+                        <option value="29">
+                            29.- ASISTIR A MUNICIPALIDADES, MINISTERIOS U OTRAS INSTITUCIONES
+                        </option>
+                        <option value="-" disabled>
+                            COMPLEJOS
+                        </option>
+                        <option value="30">
+                            30.- ATENDER CLIENTES ANTIGUOS, NUEVOS Y CAPTAR CLIENTES
+                        </option>
+                        <option value="31">
+                            31.- ANALIZAR Y REVISAR DOCUMENTOS (MEDIOS PROBATORIOS)
+                        </option>
+                        <option value="32">
+                            32.- ASIGNACIÓN Y SUPERVISIÓN DEL SINOE DE ESCRITOS DE MERO TRÁMITE Y COMPLEJOS REALIZADOS
+                            POR
+                            LOS ASISTENTES Y PRACTICANTES
+                        </option>
+                        <option value="33">
+                            33.- SUPERVISAR ESCRITO DE MERO TRÁMITE E IMPULSO DE PARTE
+                        </option>
+                        <option value="34">
+                            34.- SUPERVISAR ESCRITOS COMPLEJOS SEAN DEMANDAS, DENUNCIAS, APELACIONES, CASACIONES, ETC.
+                        </option>
+                        <option value="35">
+                            35.- DILIGENCIAS EXTERNAS, VISUALIZACIONES, DECLARACIONES, CÁMARAS GESSEL
+                        </option>
+                        <option value="36">
+                            36.- REVISAR Y ELABORAR INFORMES LEGALES DE LOS EXPEDIENTES
+                        </option>
+                        <option value="37">
+                            37.- REVISAR DEMANDAS QUE ESTÉN AL 100%
+                        </option>
+                        <option value="38">
+                            38.- REVISAR REDACCIÓN DE DENUNCIAS, QUERELLAS AL 100% Y OTROS
+                        </option>
+                        <option value="39">
+                            39.- REVISIÓN DE MEDIDAS CAUTELARES
+                        </option>
+                        <option value="40">
+                            40.- REVISIÓN DE CONTESTACIÓN DE DEMANDAS Y RECONVENCIONES
+                        </option>
+                        <option value="41">
+                            41.- REVISIÓN/MODIFICACIÓN DE ABSOLUCIÓN DE DENUNCIAS Y QUERELLAS
+                        </option>
+                        <option value="42">
+                            42.- REVISIÓN/MODIFICACIÓN DE RECURSO APELACIÓN
+                        </option>
+                        <option value="43">
+                            43.- REVISIÓN DE RECURSOS DE CASACIÓN
+                        </option>
+                        <option value="44">
+                            44.- REVISIÓN DE ALEGATOS, DISPOSITIVAS Y PLIEGOS INTERROGATORIOS
+                        </option>
+                        <option value="45">
+                            45.- REVISAR QUE LAS DEMANDAS, MC Y OTROS ESCRITOS SEAN PRESENTADOS CON ARANCELES JUDICIALES
+                        </option>
+                        <option value="46">
+                            46.- PREPARACIÓN DE CLIENTES, TESTIGOS PARA AUDIENCIAS
+                        </option>
+                        <option value="47">
+                            47.- ORALIZAR AUDIENCIAS DE CONCILIACIÓN Y JUZGAMIENTO
+                        </option>
+                        <option value="48">
+                            48.- ORALIZAR VISTAS DE CAUSA ANTE SALAS SUPERIORES
+                        </option>
+                        <option value="49">
+                            49.- ORALIZAR VISTAS DE LA CAUSA ANTE CORTE SUPREMA
+                        </option>
+                        <option value="50">
+                            50.- ENTREVISTAS CON JUECES, FISCALES, ESPECIALISTAS
+                        </option>
+                        <option value="51">
+                            51.- CONFERENCIAR CON LA CONTRA PARTE Y ABOGADOS
+                        </option>
+                        <option value="52">
+                            52.- ATENCIÓN CLIENTES VÍA CELULAR
+                        </option>
+                        <option value="53">
+                            53.- ORGANIZAR ASAMBLEAS, REUNIONES VIRTUALES
+                        </option>
+                        <option value="54">
+                            54.- COBRAR CLIENTES (HACERLAS EFECTIVAS)
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12">
+                    <label for="detalleTarea" class="form-label">
+                        Mención del caso, tarea, trabajo
+                    </label>
+                    <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea">
+                </textarea>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-6 col-md-3">
+                    <label for="tipoAtencion" class="form-label">Atención</label>
+                    <select class="form-select" formControlName="tipoAtencion" id="tipoAtencion">
+                        <option value="por-expediente">Por expediente</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="via-celular">Vía celular</option>
+                        <option value="via-internet">Vía internet</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="delegadoPor" class="form-label"> Delegado por </label>
+                    <input type="text" class="form-control" id="delegadoPor" formControlName="delegadoPor">
+                    <!-- <select class="form-select" id="delegadoPor" formControlName="delegadoPor">
+                        <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
+                        <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
+                        <option value="Abg. Paola Mendoza">Abg. Paola Mendoza</option>
+                        <option value="Abg. Huander Montoya">Abg. Huander Montoya</option>
+                        <option value="Abg. Maria Tunquipa">Abg. Maria Tunquipa</option>
+                        <option value="Bach. Gabylu Siu. ">Bach. Gabylu Siu.</option>
+
+                        <option value="ing-wilber">Ing. Wilber</option>
+                        <option value="iniciativa-propia">Iniciativa Propia</option>
+                    </select> -->
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="tiempoAtencion" class="form-label">
+                        Tiempo de Atención
+                    </label>
+                    <br />
+                    <div style="display: flex;">
+                        <select class="form-select" style="display: inline-block;" id="tiempoAtencion"
+                            formControlName="horasAtencion">
+                            <option value="00">0h</option>
+                            <option value="01">1h</option>
+                            <option value="02">2h</option>
+                            <option value="03">3h</option>
+                            <option value="04">4h</option>
+                            <option value="05">5h</option>
+                            <option value="06">6h</option>
+                            <option value="07">7h</option>
+                            <option value="08">8h</option>
+                            <option value="09">9h</option>
+                            <option value="10">10h</option>
+                            <option value="11">11h</option>
+                            <option value="12">12h</option>
+                        </select>
+                        <select class="form-select" style="display: inline-block;" formControlName="minutosAtencion">
+                            <option value="00">00m</option>
+                            <option value="05">05m</option>
+                            <option value="10">10m</option>
+                            <option value="15">15m</option>
+                            <option value="20">20m</option>
+                            <option value="25">25m</option>
+                            <option value="30">30m</option>
+                            <option value="35">35m</option>
+                            <option value="40">40m</option>
+                            <option value="45">45m</option>
+                            <option value="50">50m</option>
+                            <option value="55">55m</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="especialidad" class="form-label">Tipo de proceso</label>
+                    <select id="especialidad" class="form-select" formControlName="especialidad">
+                        <option value="laboral">LABORAL</option>
+                        <option value="familia">FAMILIA</option>
+                        <option value="civil">CIVIL</option>
+                        <option value="penal">PENAL</option>
+                        <option value="constitucional">CONSTITUCIONAL</option>
+                        <option value="administrativo">ADMINISTRATIVO</option>
+                        <option value="notarial">NOTARIAL</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        <!-- Formulario actividades varias -->
+        <form *ngIf="fcTipoTarea.value == 'nc'" [formGroup]="frmNuevaTarea" autocomplete="off">
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="codigoTarea" class="form-label"> Código de tarea </label>
+                    <select class="form-select" id="codigoTarea" formControlName="codigoTarea">
+                        <option value="100">
+                            100.- SESIONES SEMANALES
+                        </option>
+                        <option value="101">
+                            101.- ALMUERZO
+                        </option>
+                        <option value="102">
+                            102.- ORDEN Y LIMPIEZA
+                        </option>
+                        <option value="103">
+                            103.- ACTUALIZACION DEL PLANER y/o EXCELS
+                        </option>
+                        <option value="104">
+                            104.- SESIONES DE COMPARTIR(ANIVERSARIOS, CUMPLEAÑOS, FESTIVIDADES, ETC)
+                        </option>
+                        <option value="105">
+                            105.- SACAR COPIAS / IMPRIMIR / QUEMAR CDs
+                        </option>
+                        <option value="106">
+                            106.- GRABACION DE VIDEOS y/o TOMA DE FOTOS
+                        </option>
+                        <option value="107">
+                            107.- TRANSCRIPCION DE AUDIOS y/o VIDEOS
+                        </option>
+                        <option value="110">
+                            110.- LLENADO DE RDT
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12">
+                    <label for="detalleTarea" class="form-label">
+                        Mención del caso, tarea, trabajo
+                    </label>
+                    <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-6 col-md-3">
+                    <label for="delegadoPor" class="form-label"> Delegado por </label>
+                    <input type="text" class="form-control" id="delegadoPor" formControlName="delegadoPor">
+
+                    <!-- <select class="form-select" id="delegadoPor" formControlName="delegadoPor">
+                        <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
+                        <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
+                        <option value="Abg. Paola Mendoza">Abg. Paola Mendoza</option>
+                        <option value="Abg. Huander Montoya">Abg. Huander Montoya</option>
+                        <option value="Abg. Maria Tunquipa">Abg. Maria Tunquipa</option>
+                        <option value="Abg. Yajayra Portocarrero">Abg. Yajayra Portocarrero</option>
+                        <option value="Abg. Miryam Huamani">Abg. Miryam Huamani</option>
+                        <option value="Bach. Gabylu Siu. ">Bach. Gabylu Siu.</option>
+
+                        <option value="ing-wilber">Ing. Wilber</option>
+                        <option value="iniciativa-propia">Iniciativa Propia</option>
+                    </select> -->
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="tiempoAtencion" class="form-label">
+                        Tiempo de Atención
+                    </label>
+                    <br />
+                    <div style="display: flex;">
+                        <select class="form-select" style="display: inline-block;" id="tiempoAtencion"
+                            formControlName="horasAtencion">
+                            <option value="00">0h</option>
+                            <option value="01">1h</option>
+                            <option value="02">2h</option>
+                            <option value="03">3h</option>
+                            <option value="04">4h</option>
+                            <option value="05">5h</option>
+                            <option value="06">6h</option>
+                            <option value="07">7h</option>
+                            <option value="08">8h</option>
+                            <option value="09">9h</option>
+                            <option value="10">10h</option>
+                            <option value="11">11h</option>
+                            <option value="12">12h</option>
+                        </select>
+                        <select class="form-select" style="display: inline-block;" formControlName="minutosAtencion">
+                            <option value="00">00m</option>
+                            <option value="05">05m</option>
+                            <option value="10">10m</option>
+                            <option value="15">15m</option>
+                            <option value="20">20m</option>
+                            <option value="25">25m</option>
+                            <option value="30">30m</option>
+                            <option value="35">35m</option>
+                            <option value="40">40m</option>
+                            <option value="45">45m</option>
+                            <option value="50">50m</option>
+                            <option value="55">55m</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <pre>
+            {{fcQueryBox.value | json}}
+            {{frmNuevaTarea.value | json}}
+        </pre>
+        <span>
+            Valido: {{frmNuevaTarea.valid}}
+        </span>
+    </div>
+    <div class="modal-footer">
+        <button *ngIf="!registrando" class="btn btn-primary" [disabled]="!frmNuevaTarea.valid" (click)="concretarNuevaTarea()">
+            Guardar
+        </button>
+        <button *ngIf="registrando" class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Guardando...
+        </button>
+    </div>
+</ng-template>
+
+
+<!---------------------------------------------- 
+----------------- MODAL        -----------------
+----------------- EDITAR TAREA -----------------
+------------------------------------------------>
+<ng-template #modalEditarTarea let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">
+            Informe de mi trabajo
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form autocomplete="off" [formGroup]="frmEditarTarea">
+            <div *ngIf="frmEditarTarea.value.idNaturaleza == 'con'">
+                <div class="row mb-2">
+                    <div class="col-6 col-md-3" style="position: relative;">
+                        <div>
+                            <label for="numero" class="form-label">Expediente</label>
+                            <input id="numero" type="text" class="form-control" formControlName="numero" readonly>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="especialidad" class="form-label">Tipo de proceso</label>
+                        <input type="text" class="form-control" id="especialidad" formControlName="especialidad"
+                            readonly>
+                    </div>
+                    <div class="col-6 col-md-5">
+                        <label for="nivelIter" class="form-label"> ITER Procesal </label>
+                        <input type="text" class="form-control" id="nivelIter" formControlName="nombreCheckpoint" readonly>
+                    </div>
+                    <div class="col-3 col-md-1">
+                        <label for="tieneContrato" class="form-label">Contrato</label>
+                        <input type="text" class="form-control" formControlName="tieneContrato" id="tieneContrato"
+                            readonly>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12 col-md-6">
+                        <label for="nombreDemandante" class="form-label">
+                            Demandante
+                        </label>
+                        <input type="text" class="form-control" id="nombreDemandante" formControlName="demandante"
+                            readonly />
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="nombreDemandado" class="form-label">
+                            Demandado
+                        </label>
+                        <input type="text" class="form-control" id="nombreDemandado" formControlName="demandado"
+                            readonly />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <label for="codigoTarea" class="form-label"> Código de tarea </label>
+                        <select class="form-select" id="codigoTarea" formControlName="codigoTarea">
+                            <option value="1">
+                                1.- INFORMES - INICIALES
+                            </option>
+                            <option value="2">
+                                2.- INFORMES - DE 1RA INSTANCIA
+                            </option>
+                            <option value="3">
+                                3.- INFORMES - DE 2DA INSTANCIA
+                            </option>
+                            <option value="4">
+                                4.- INFORMES - DE CASACIÓN (EJECUTORIAS SUPREMAS)
+                            </option>
+                            <option value="5">
+                                5.- INFORMES - FINALES
+                            </option>
+                            <option value="6">
+                                6.- REDACCIÓN DE ESCRITOS DE MERO TRÁMITE SEGÚN SINOE E IMPULSO DE PARTE
+                            </option>
+                            <option value="7">
+                                7.- IMPRIMIR ANEXOS RESOLUCIONES
+                            </option>
+                            <option value="8">
+                                8.- REDACCIÓN DE ACTAS DE ACUERDOS, TRANSACCIONES, CONCILIACIONES
+                            </option>
+                            <option value="9">
+                                9.- REDACCIÓN CONTRATOS PARA CLIENTES
+                            </option>
+                            <option value="10">
+                                10.- BORRADORES DE DEMANDAS, CONTESTACIONES, RECONVENCIONES, EXCEPCIONES, TACHAS Y
+                                OPOSICIONES
+                            </option>
+                            <option value="11">
+                                11.- PROPUESTAS ECONÓMICAS CLIENTES E INFORMES
+                            </option>
+                            <option value="12">
+                                12.- TRÁMITES - NOTARIALES Y REGISTRALES
+                            </option>
+                            <option value="13">
+                                13.- REDACCIÓN CARTAS, SOLICITUDES Y MINUTAS
+                            </option>
+                            <option value="14">
+                                14.- BORRADORES - MEDIDAS CAUTELARES
+                            </option>
+                            <option value="15">
+                                15.- ASISTIR CENTROS DE CONCILIACIÓN
+                            </option>
+                            <option value="16">
+                                16.- PREPARAR ALEGATOS, DIAPOSITIVAS, PLIEGOS INTERROGATORIOS
+                            </option>
+                            <option value="17">
+                                17.- ASISTIR A LOS CLIENTES EN AUDIENCIAS
+                            </option>
+                            <option value="18">
+                                18.- ASISTIR AL PJ Y/O MP PARA CONVERSAR CON JUECES, FISCALES, ESPECIALISTAS
+                            </option>
+                            <option value="19">
+                                19.- TRÁMITES ADMINISTRATIVOS PAGAR ARANCELES JUDICIALES, TASAS Y OTROS
+                            </option>
+                            <option value="20">
+                                20.- APOYAR EN COBRANZAS (HACERLAS EFECTIVAS)
+                            </option>
+                            <option value="21">
+                                21.- BÚSQUEDA DE EXPEDIENTE
+                            </option>
+                            <option value="22">
+                                22.- DESARCHIVAR EXPEDIENTES DEL ARCHIVO CENTRAL DEL PJ
+                            </option>
+                            <option value="23">
+                                23.- REVISAR, ORDENAR Y ACTUALIZACIÓN DE EXPEDIENTE
+                            </option>
+                            <option value="24">
+                                24.- COORDINAR AUDIENCIAS
+                            </option>
+                            <option value="25">
+                                25.- SIMULACIÓN DE AUDIENCIAS
+                            </option>
+                            <option value="26">
+                                26.- SEGUIMIENTO DEL PROCESO (CEJ Y SINOE)
+                            </option>
+                            <option value="27">
+                                27.- RECABAR MEDIOS PROBATORIOS
+                            </option>
+                            <option value="28">
+                                28.- RECEPCIÓN-REGISTRO Y/O ATENCIÓN DE CLIENTES VÍA CELULAR
+                            </option>
+                            <option value="29">
+                                29.- ASISTIR A MUNICIPALIDADES, MINISTERIOS U OTRAS INSTITUCIONES
+                            </option>
+                            <option value="-" disabled>
+                                COMPLEJOS
+                            </option>
+                            <option value="30">
+                                30.- ATENDER CLIENTES ANTIGUOS, NUEVOS Y CAPTAR CLIENTES
+                            </option>
+                            <option value="31">
+                                31.- ANALIZAR Y REVISAR DOCUMENTOS (MEDIOS PROBATORIOS)
+                            </option>
+                            <option value="32">
+                                32.- ASIGNACIÓN Y SUPERVISIÓN DEL SINOE DE ESCRITOS DE MERO TRÁMITE Y COMPLEJOS
+                                REALIZADOS
+                                POR
+                                LOS ASISTENTES Y PRACTICANTES
+                            </option>
+                            <option value="33">
+                                33.- SUPERVISAR ESCRITO DE MERO TRÁMITE E IMPULSO DE PARTE
+                            </option>
+                            <option value="34">
+                                34.- SUPERVISAR ESCRITOS COMPLEJOS SEAN DEMANDAS, DENUNCIAS, APELACIONES, CASACIONES,
+                                ETC.
+                            </option>
+                            <option value="35">
+                                35.- DILIGENCIAS EXTERNAS, VISUALIZACIONES, DECLARACIONES, CÁMARAS GESSEL
+                            </option>
+                            <option value="36">
+                                36.- REVISAR Y ELABORAR INFORMES LEGALES DE LOS EXPEDIENTES
+                            </option>
+                            <option value="37">
+                                37.- REVISAR DEMANDAS QUE ESTÉN AL 100%
+                            </option>
+                            <option value="38">
+                                38.- REVISAR REDACCIÓN DE DENUNCIAS, QUERELLAS AL 100% Y OTROS
+                            </option>
+                            <option value="39">
+                                39.- REVISIÓN DE MEDIDAS CAUTELARES
+                            </option>
+                            <option value="40">
+                                40.- REVISIÓN DE CONTESTACIÓN DE DEMANDAS Y RECONVENCIONES
+                            </option>
+                            <option value="41">
+                                41.- REVISIÓN/MODIFICACIÓN DE ABSOLUCIÓN DE DENUNCIAS Y QUERELLAS
+                            </option>
+                            <option value="42">
+                                42.- REVISIÓN/MODIFICACIÓN DE RECURSO APELACIÓN
+                            </option>
+                            <option value="43">
+                                43.- REVISIÓN DE RECURSOS DE CASACIÓN
+                            </option>
+                            <option value="44">
+                                44.- REVISIÓN DE ALEGATOS, DISPOSITIVAS Y PLIEGOS INTERROGATORIOS
+                            </option>
+                            <option value="45">
+                                45.- REVISAR QUE LAS DEMANDAS, MC Y OTROS ESCRITOS SEAN PRESENTADOS CON ARANCELES
+                                JUDICIALES
+                            </option>
+                            <option value="46">
+                                46.- PREPARACIÓN DE CLIENTES, TESTIGOS PARA AUDIENCIAS
+                            </option>
+                            <option value="47">
+                                47.- ORALIZAR AUDIENCIAS DE CONCILIACIÓN Y JUZGAMIENTO
+                            </option>
+                            <option value="48">
+                                48.- ORALIZAR VISTAS DE CAUSA ANTE SALAS SUPERIORES
+                            </option>
+                            <option value="49">
+                                49.- ORALIZAR VISTAS DE LA CAUSA ANTE CORTE SUPREMA
+                            </option>
+                            <option value="50">
+                                50.- ENTREVISTAS CON JUECES, FISCALES, ESPECIALISTAS
+                            </option>
+                            <option value="51">
+                                51.- CONFERENCIAR CON LA CONTRA PARTE Y ABOGADOS
+                            </option>
+                            <option value="52">
+                                52.- ATENCIÓN CLIENTES VÍA CELULAR
+                            </option>
+                            <option value="53">
+                                53.- ORGANIZAR ASAMBLEAS, REUNIONES VIRTUALES
+                            </option>
+                            <option value="54">
+                                54.- COBRAR CLIENTES (HACERLAS EFECTIVAS)
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12 col-md-6">
+                        <label for="detalleTarea" class="form-label">
+                            Mención del caso, tarea, trabajo
+                        </label>
+                        <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea">
+            </textarea>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="pendienteTarea" class="form-label">
+                            Acciones a Realizar
+                        </label>
+                        <textarea class="form-control" id="pendienteTarea" formControlName="pendienteTarea">
+            </textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-6 col-md-3">
+                        <label for="tipoAtencion" class="form-label">Atención</label>
+                        <select class="form-select" formControlName="tipoAtencion" id="tipoAtencion">
+                            <option value="por-expediente">Por expediente</option>
+                            <option value="presencial">Presencial</option>
+                            <option value="via-celular">Vía celular</option>
+                            <option value="via-internet">Vía internet</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="delegadoPor" class="form-label"> Delegado por </label>
+                        <input type="text" class="form-control" id="delegadoPor" formControlName="delegadoPor">
+                        <!-- <select class="form-select" id="delegadoPor" formControlName="delegadoPor">
+                            <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
+                            <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
+                            <option value="Abg. Paola Mendoza">Abg. Paola Mendoza</option>
+                            <option value="Abg. Huander Montoya">Abg. Huander Montoya</option>
+                            <option value="Abg. Maria Tunquipa">Abg. Maria Tunquipa</option>
+                            <option value="Abg. Yajayra Portocarrero">Abg. Yajayra Portocarrero</option>
+                            <option value="Abg. Miryam Huamani">Abg. Miryam Huamani</option>
+                            <option value="Bach. Gabylu Siu. ">Bach. Gabylu Siu.</option>
+
+                            <option value="ing-wilber">Ing. Wilber</option>
+                            <option value="iniciativa-propia">Iniciativa Propia</option>
+                        </select> -->
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="tiempoAtencion" class="form-label">
+                            Tiempo de Atención
+                        </label>
+                        <br />
+                        <div style="display: flex;">
+                            <select class="form-select" style="display: inline-block;" id="tiempoAtencion"
+                                formControlName="horasAtencion">
+                                <option value="00">0h</option>
+                                <option value="01">1h</option>
+                                <option value="02">2h</option>
+                                <option value="03">3h</option>
+                                <option value="04">4h</option>
+                                <option value="05">5h</option>
+                                <option value="06">6h</option>
+                                <option value="07">7h</option>
+                                <option value="08">8h</option>
+                                <option value="09">9h</option>
+                                <option value="10">10h</option>
+                                <option value="11">11h</option>
+                                <option value="12">12h</option>
+                            </select>
+                            <select class="form-select" style="display: inline-block;"
+                                formControlName="minutosAtencion">
+                                <option value="00">00m</option>
+                                <option value="05">05m</option>
+                                <option value="10">10m</option>
+                                <option value="15">15m</option>
+                                <option value="20">20m</option>
+                                <option value="25">25m</option>
+                                <option value="30">30m</option>
+                                <option value="35">35m</option>
+                                <option value="40">40m</option>
+                                <option value="45">45m</option>
+                                <option value="50">50m</option>
+                                <option value="55">55m</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-6 col-md-3">
+                        <label for="montopactado" class="form-label">
+                            Monto pactado
+                        </label>
+                        <input type="text" class="form-control" id="montopactado" formControlName="montoPactado" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label for="abonoTotal" class="form-label">
+                            Pagos hechos hasta la fecha
+                        </label>
+                        <input type="text" class="form-control" id="abonoTotal" formControlName="abonoTotal" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label for="montoUltimoAbono" class="form-label">
+                            Monto del último pago
+                        </label>
+                        <input type="text" class="form-control" id="montoUltimoAbono"
+                            formControlName="montoUltimoAbono" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label for="fechaUltimoAbono" class="form-label">
+                            Fecha del último pago
+                        </label>
+                        <input type="text" class="form-control" id="fechaUltimoAbono"
+                            formControlName="fechaUltimoAbono" />
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="frmEditarTarea.value.idNaturaleza == 'sin'">
+                <div class="row mb-2">
+                    <div class="col-12 col-md-6">
+                        <label for="nombreDemandante" class="form-label">
+                            Demandante
+                        </label>
+                        <input type="text" class="form-control" id="nombreDemandante" formControlName="demandante" />
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="nombreDemandado" class="form-label">
+                            Demandado
+                        </label>
+                        <input type="text" class="form-control" id="nombreDemandado" formControlName="demandado" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="codigoTarea" class="form-label"> Código de tarea </label>
+                        <select class="form-select" id="codigoTarea" formControlName="codigoTarea">
+                            <option value="1">
+                                1.- INFORMES - INICIALES
+                            </option>
+                            <option value="2">
+                                2.- INFORMES - DE 1RA INSTANCIA
+                            </option>
+                            <option value="3">
+                                3.- INFORMES - DE 2DA INSTANCIA
+                            </option>
+                            <option value="4">
+                                4.- INFORMES - DE CASACIÓN (EJECUTORIAS SUPREMAS)
+                            </option>
+                            <option value="5">
+                                5.- INFORMES - FINALES
+                            </option>
+                            <option value="6">
+                                6.- REDACCIÓN DE ESCRITOS DE MERO TRÁMITE SEGÚN SINOE E IMPULSO DE PARTE
+                            </option>
+                            <option value="7">
+                                7.- IMPRIMIR ANEXOS RESOLUCIONES
+                            </option>
+                            <option value="8">
+                                8.- REDACCIÓN DE ACTAS DE ACUERDOS, TRANSACCIONES, CONCILIACIONES
+                            </option>
+                            <option value="9">
+                                9.- REDACCIÓN CONTRATOS PARA CLIENTES
+                            </option>
+                            <option value="10">
+                                10.- BORRADORES DE DEMANDAS, CONTESTACIONES, RECONVENCIONES, EXCEPCIONES, TACHAS Y
+                                OPOSICIONES
+                            </option>
+                            <option value="11">
+                                11.- PROPUESTAS ECONÓMICAS CLIENTES E INFORMES
+                            </option>
+                            <option value="12">
+                                12.- TRÁMITES - NOTARIALES Y REGISTRALES
+                            </option>
+                            <option value="13">
+                                13.- REDACCIÓN CARTAS, SOLICITUDES Y MINUTAS
+                            </option>
+                            <option value="14">
+                                14.- BORRADORES - MEDIDAS CAUTELARES
+                            </option>
+                            <option value="15">
+                                15.- ASISTIR CENTROS DE CONCILIACIÓN
+                            </option>
+                            <option value="16">
+                                16.- PREPARAR ALEGATOS, DIAPOSITIVAS, PLIEGOS INTERROGATORIOS
+                            </option>
+                            <option value="17">
+                                17.- ASISTIR A LOS CLIENTES EN AUDIENCIAS
+                            </option>
+                            <option value="18">
+                                18.- ASISTIR AL PJ Y/O MP PARA CONVERSAR CON JUECES, FISCALES, ESPECIALISTAS
+                            </option>
+                            <option value="19">
+                                19.- TRÁMITES ADMINISTRATIVOS PAGAR ARANCELES JUDICIALES, TASAS Y OTROS
+                            </option>
+                            <option value="20">
+                                20.- APOYAR EN COBRANZAS (HACERLAS EFECTIVAS)
+                            </option>
+                            <option value="21">
+                                21.- BÚSQUEDA DE EXPEDIENTE
+                            </option>
+                            <option value="22">
+                                22.- DESARCHIVAR EXPEDIENTES DEL ARCHIVO CENTRAL DEL PJ
+                            </option>
+                            <option value="23">
+                                23.- REVISAR, ORDENAR Y ACTUALIZACIÓN DE EXPEDIENTE
+                            </option>
+                            <option value="24">
+                                24.- COORDINAR AUDIENCIAS
+                            </option>
+                            <option value="25">
+                                25.- SIMULACIÓN DE AUDIENCIAS
+                            </option>
+                            <option value="26">
+                                26.- SEGUIMIENTO DEL PROCESO (CEJ Y SINOE)
+                            </option>
+                            <option value="27">
+                                27.- RECABAR MEDIOS PROBATORIOS
+                            </option>
+                            <option value="28">
+                                28.- RECEPCIÓN-REGISTRO Y/O ATENCIÓN DE CLIENTES VÍA CELULAR
+                            </option>
+                            <option value="29">
+                                29.- ASISTIR A MUNICIPALIDADES, MINISTERIOS U OTRAS INSTITUCIONES
+                            </option>
+                            <option value="-" disabled>
+                                COMPLEJOS
+                            </option>
+                            <option value="30">
+                                30.- ATENDER CLIENTES ANTIGUOS, NUEVOS Y CAPTAR CLIENTES
+                            </option>
+                            <option value="31">
+                                31.- ANALIZAR Y REVISAR DOCUMENTOS (MEDIOS PROBATORIOS)
+                            </option>
+                            <option value="32">
+                                32.- ASIGNACIÓN Y SUPERVISIÓN DEL SINOE DE ESCRITOS DE MERO TRÁMITE Y COMPLEJOS
+                                REALIZADOS
+                                POR
+                                LOS ASISTENTES Y PRACTICANTES
+                            </option>
+                            <option value="33">
+                                33.- SUPERVISAR ESCRITO DE MERO TRÁMITE E IMPULSO DE PARTE
+                            </option>
+                            <option value="34">
+                                34.- SUPERVISAR ESCRITOS COMPLEJOS SEAN DEMANDAS, DENUNCIAS, APELACIONES, CASACIONES,
+                                ETC.
+                            </option>
+                            <option value="35">
+                                35.- DILIGENCIAS EXTERNAS, VISUALIZACIONES, DECLARACIONES, CÁMARAS GESSEL
+                            </option>
+                            <option value="36">
+                                36.- REVISAR Y ELABORAR INFORMES LEGALES DE LOS EXPEDIENTES
+                            </option>
+                            <option value="37">
+                                37.- REVISAR DEMANDAS QUE ESTÉN AL 100%
+                            </option>
+                            <option value="38">
+                                38.- REVISAR REDACCIÓN DE DENUNCIAS, QUERELLAS AL 100% Y OTROS
+                            </option>
+                            <option value="39">
+                                39.- REVISIÓN DE MEDIDAS CAUTELARES
+                            </option>
+                            <option value="40">
+                                40.- REVISIÓN DE CONTESTACIÓN DE DEMANDAS Y RECONVENCIONES
+                            </option>
+                            <option value="41">
+                                41.- REVISIÓN/MODIFICACIÓN DE ABSOLUCIÓN DE DENUNCIAS Y QUERELLAS
+                            </option>
+                            <option value="42">
+                                42.- REVISIÓN/MODIFICACIÓN DE RECURSO APELACIÓN
+                            </option>
+                            <option value="43">
+                                43.- REVISIÓN DE RECURSOS DE CASACIÓN
+                            </option>
+                            <option value="44">
+                                44.- REVISIÓN DE ALEGATOS, DISPOSITIVAS Y PLIEGOS INTERROGATORIOS
+                            </option>
+                            <option value="45">
+                                45.- REVISAR QUE LAS DEMANDAS, MC Y OTROS ESCRITOS SEAN PRESENTADOS CON ARANCELES
+                                JUDICIALES
+                            </option>
+                            <option value="46">
+                                46.- PREPARACIÓN DE CLIENTES, TESTIGOS PARA AUDIENCIAS
+                            </option>
+                            <option value="47">
+                                47.- ORALIZAR AUDIENCIAS DE CONCILIACIÓN Y JUZGAMIENTO
+                            </option>
+                            <option value="48">
+                                48.- ORALIZAR VISTAS DE CAUSA ANTE SALAS SUPERIORES
+                            </option>
+                            <option value="49">
+                                49.- ORALIZAR VISTAS DE LA CAUSA ANTE CORTE SUPREMA
+                            </option>
+                            <option value="50">
+                                50.- ENTREVISTAS CON JUECES, FISCALES, ESPECIALISTAS
+                            </option>
+                            <option value="51">
+                                51.- CONFERENCIAR CON LA CONTRA PARTE Y ABOGADOS
+                            </option>
+                            <option value="52">
+                                52.- ATENCIÓN CLIENTES VÍA CELULAR
+                            </option>
+                            <option value="53">
+                                53.- ORGANIZAR ASAMBLEAS, REUNIONES VIRTUALES
+                            </option>
+                            <option value="54">
+                                54.- COBRAR CLIENTES (HACERLAS EFECTIVAS)
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <label for="detalleTarea" class="form-label">
+                            Mención del caso, tarea, trabajo
+                        </label>
+                        <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea">
+                </textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-6 col-md-3">
+                        <label for="tipoAtencion" class="form-label">Atención</label>
+                        <select class="form-select" formControlName="tipoAtencion" id="tipoAtencion">
+                            <option value="por-expediente">Por expediente</option>
+                            <option value="presencial">Presencial</option>
+                            <option value="via-celular">Vía celular</option>
+                            <option value="via-internet">Vía internet</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="delegadoPor" class="form-label"> Delegado por </label>
+                        <input type="text" class="form-control" id="delegadoPor" formControlName="delegadoPor">
+
+                        <!-- <select class="form-select" id="delegadoPor" formControlName="delegadoPor">
+                            <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
+                            <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
+                            <option value="Abg. Paola Mendoza">Abg. Paola Mendoza</option>
+                            <option value="Abg. Huander Montoya">Abg. Huander Montoya</option>
+                            <option value="Abg. Maria Tunquipa">Abg. Maria Tunquipa</option>
+                            <option value="Bach. Gabylu Siu. ">Bach. Gabylu Siu.</option>
+
+                            <option value="ing-wilber">Ing. Wilber</option>
+                            <option value="iniciativa-propia">Iniciativa Propia</option>
+                        </select> -->
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="tiempoAtencion" class="form-label">
+                            Tiempo de Atención
+                        </label>
+                        <br />
+                        <div style="display: flex;">
+                            <select class="form-select" style="display: inline-block;" id="tiempoAtencion"
+                                formControlName="horasAtencion">
+                                <option value="00">0h</option>
+                                <option value="01">1h</option>
+                                <option value="02">2h</option>
+                                <option value="03">3h</option>
+                                <option value="04">4h</option>
+                                <option value="05">5h</option>
+                                <option value="06">6h</option>
+                                <option value="07">7h</option>
+                                <option value="08">8h</option>
+                                <option value="09">9h</option>
+                                <option value="10">10h</option>
+                                <option value="11">11h</option>
+                                <option value="12">12h</option>
+                            </select>
+                            <select class="form-select" style="display: inline-block;"
+                                formControlName="minutosAtencion">
+                                <option value="00">00m</option>
+                                <option value="05">05m</option>
+                                <option value="10">10m</option>
+                                <option value="15">15m</option>
+                                <option value="20">20m</option>
+                                <option value="25">25m</option>
+                                <option value="30">30m</option>
+                                <option value="35">35m</option>
+                                <option value="40">40m</option>
+                                <option value="45">45m</option>
+                                <option value="50">50m</option>
+                                <option value="55">55m</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                    <label for="especialidad" class="form-label">Tipo de proceso</label>
+                    <select id="especialidad" class="form-select" formControlName="especialidad">
+                        <option value="laboral">LABORAL</option>
+                        <option value="familia">FAMILIA</option>
+                        <option value="civil">CIVIL</option>
+                        <option value="penal">PENAL</option>
+                        <option value="constitucional">CONSTITUCIONAL</option>
+                        <option value="administrativo">ADMINISTRATIVO</option>
+                        <option value="notarial">NOTARIAL</option>
+                    </select>
+                </div>
+                </div>
+            </div>
+            <div *ngIf="frmEditarTarea.value.idNaturaleza == 'nc'">
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="codigoTarea" class="form-label"> Código de tarea </label>
+                        <select class="form-select" id="codigoTarea" formControlName="codigoTarea">
+                            <option value="100">
+                                100.- SESIONES SEMANALES
+                            </option>
+                            <option value="101">
+                                101.- ALMUERZO
+                            </option>
+                            <option value="102">
+                                102.- ORDEN Y LIMPIEZA
+                            </option>
+                            <option value="103">
+                                103.- ACTUALIZACION DEL PLANER y/o EXCELS
+                            </option>
+                            <option value="104">
+                                104.- SESIONES DE COMPARTIR(ANIVERSARIOS, CUMPLEAÑOS, FESTIVIDADES, ETC)
+                            </option>
+                            <option value="105">
+                                105.- SACAR COPIAS / IMPRIMIR / QUEMAR CDs
+                            </option>
+                            <option value="106">
+                                106.- GRABACION DE VIDEOS y/o TOMA DE FOTOS
+                            </option>
+                            <option value="107">
+                                107.- TRANSCRIPCION DE AUDIOS y/o VIDEOS
+                            </option>
+                            <option value="110">
+                                110.- LLENADO DE RDT
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <label for="detalleTarea" class="form-label">
+                            Mención del caso, tarea, trabajo
+                        </label>
+                        <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-6 col-md-3">
+                        <label for="delegadoPor" class="form-label"> Delegado por </label>
+                        <input type="text" class="form-control" id="delegadoPor" formControlName="delegadoPor">
+
+                        <!-- <select class="form-select" id="delegadoPor" formControlName="delegadoPor">
+                            <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
+                            <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
+                            <option value="Abg. Paola Mendoza">Abg. Paola Mendoza</option>
+                            <option value="Abg. Huander Montoya">Abg. Huander Montoya</option>
+                            <option value="Abg. Maria Tunquipa">Abg. Maria Tunquipa</option>
+                            <option value="Abg. Yajayra Portocarrero">Abg. Yajayra Portocarrero</option>
+                            <option value="Abg. Miryam Huamani">Abg. Miryam Huamani</option>
+                            <option value="Bach. Gabylu Siu. ">Bach. Gabylu Siu.</option>
+
+                            <option value="ing-wilber">Ing. Wilber</option>
+                            <option value="iniciativa-propia">Iniciativa Propia</option>
+                        </select> -->
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="tiempoAtencion" class="form-label">
+                            Tiempo de Atención
+                        </label>
+                        <br />
+                        <div style="display: flex;">
+                            <select class="form-select" style="display: inline-block;" id="tiempoAtencion"
+                                formControlName="horasAtencion">
+                                <option value="00">0h</option>
+                                <option value="01">1h</option>
+                                <option value="02">2h</option>
+                                <option value="03">3h</option>
+                                <option value="04">4h</option>
+                                <option value="05">5h</option>
+                                <option value="06">6h</option>
+                                <option value="07">7h</option>
+                                <option value="08">8h</option>
+                                <option value="09">9h</option>
+                                <option value="10">10h</option>
+                                <option value="11">11h</option>
+                                <option value="12">12h</option>
+                            </select>
+                            <select class="form-select" style="display: inline-block;"
+                                formControlName="minutosAtencion">
+                                <option value="00">00m</option>
+                                <option value="05">05m</option>
+                                <option value="10">10m</option>
+                                <option value="15">15m</option>
+                                <option value="20">20m</option>
+                                <option value="25">25m</option>
+                                <option value="30">30m</option>
+                                <option value="35">35m</option>
+                                <option value="40">40m</option>
+                                <option value="45">45m</option>
+                                <option value="50">50m</option>
+                                <option value="55">55m</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <pre>
+        {{frmEditarTarea.value | json}}
+    </pre>
+        <span>
+            Valido: {{frmEditarTarea.valid}}
+        </span>
+    </div>
+    <div class="modal-footer">
+        <button *ngIf="!actualizando" class="btn btn-primary" [disabled]="!frmEditarTarea.valid" (click)="concretarEdicionTarea()">
+            Actualizar
+        </button>
+        <button *ngIf="actualizando" class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Actualizando...
+        </button>
+    </div>
+</ng-template>

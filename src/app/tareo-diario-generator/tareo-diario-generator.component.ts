@@ -72,7 +72,7 @@ export class TareoDiarioGeneratorComponent {
       let idUsuario = u.id;
       let nombreUsuario = u.snombre;
 
-      const tareo: Tareo = {
+      const tareo: any = {
         idTareo: `${fecha}-${idUsuario}`,
         fecha: fecha,
         nombreDia: nombreDia,

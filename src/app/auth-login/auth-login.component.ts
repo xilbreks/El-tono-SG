@@ -36,6 +36,7 @@ export class AuthLoginComponent {
       .then((result) => {
         this.sError = null;
         localStorage.setItem('idusuario', suser);
+        localStorage.setItem('nombre', result.user?.displayName || 'error 12345');
         if (suser == 'admin') {
           this.router.navigate(['/', 'admin-rdt']);
         } else {

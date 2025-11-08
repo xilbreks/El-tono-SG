@@ -36,6 +36,7 @@ import { TareoViewComponent } from './tareo-view/tareo-view.component';
 import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.component';
 import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.component';
 import { PlantillasComponent } from './plantillas/plantillas.component';
+import { TareoEditNewComponent } from './tareo-edit-new/tareo-edit-new.component';
 
 const routes: Routes = [
   {
@@ -71,9 +72,13 @@ const routes: Routes = [
     path: 'rdt/:id',
     component: TareoViewComponent,
   },
+  // {
+  //   path: 'rdt-edit/:id',
+  //   component: TareoEditComponent,
+  // },
   {
     path: 'rdt-edit/:id',
-    component: TareoEditComponent,
+    component: TareoEditNewComponent,
   },
   {
     path: 'rdt-generator',

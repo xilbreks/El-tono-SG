@@ -61,7 +61,7 @@ class ObjTarea {
 })
 export class TareoViewComponent {
   idrdt: string;
-  objRdt: ObjRdt = new ObjRdt();
+  objRdt: any = new ObjRdt();
   lstTareas: ObjTarea[] = [];
   nSumaTiempoTareas: string = '--:--';
   lLoading: boolean = false;
@@ -99,7 +99,7 @@ export class TareoViewComponent {
     // New code
     const query = this.db.collection('tareo').doc(this.idrdt).get();
     firstValueFrom(query).then((snapshot: any) => {
-      let tareo: Tareo = snapshot.data();
+      let tareo: any = snapshot.data();
 
       this.objRdt.scolaborador = tareo.nombreUsuario;
       this.objRdt.sfecha2 = tareo.fecha;

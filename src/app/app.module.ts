@@ -71,6 +71,8 @@ import { ExpItemEconComponent } from './exp-item-econ/exp-item-econ.component';
 import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.component';
 import { ExpItemSinoeComponent } from './exp-item-sinoe/exp-item-sinoe.component';
 import { PlantillasComponent } from './plantillas/plantillas.component';
+import { ExpItemRoadmapComponent } from './exp-item-roadmap/exp-item-roadmap.component';
+import { TareoEditNewComponent } from './tareo-edit-new/tareo-edit-new.component';
 
 const environment = {
   production: false,
@@ -146,6 +148,8 @@ const environment = {
     PlannerCuotasComponent,
     ExpItemSinoeComponent,
     PlantillasComponent,
+    ExpItemRoadmapComponent,
+    TareoEditNewComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class TareoDiarioComponent {
   fcFecha: FormControl = new FormControl(null);
-  tareos: Tareo[] = [];
+  tareos: any[] = [];
 
   frmEntrada: FormGroup;
   frmSalida: FormGroup;

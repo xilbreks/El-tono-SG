@@ -9,6 +9,9 @@
     <h4 id="sexpediente">
         {{expediente?.numero}}
     </h4>
+    <h6>
+        <app-exp-item-roadmap [expediente]="expediente"></app-exp-item-roadmap>
+    </h6>
     <hr />
     <table style="width: 100%;">
         <tr>
@@ -191,6 +194,13 @@
             Maria del Pilar Tunquipa Zea; Michael Snyder Larico Bellido
         </i>
         <span style="color: orange;">No ingresar escritos desde la casilla de la Dra. Lizbet</span>
+    </div>
+
+    <!-- Solo para ver las observaciones del expediente -->
+    <div *ngIf="expediente?.observaciones" class="alert alert-warning" role="alert">
+        <span>
+            {{expediente?.observaciones}}
+        </span>
     </div>
 </div>
 
