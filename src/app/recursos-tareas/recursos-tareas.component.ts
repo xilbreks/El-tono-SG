@@ -92,6 +92,11 @@ export class RecursosTareasComponent {
       { id: 106, pick: true, desc: '106.- GRABACION DE VIDEOS y/o TOMA DE FOTOS' },
       { id: 107, pick: true, desc: '107.- TRANSCRIPCION DE AUDIOS y/o VIDEOS' },
       { id: 110, pick: true, desc: '110.- LLENADO DE RDT' },
+      { id: 111, pick: true, desc: '111.- ARQUEO DE CAJA' },
+      { id: 112, pick: true, desc: '112.- REVISION DE CORREOS' },
+      { id: 113, pick: true, desc: '113.- ATENCION/RECEPCION A CLIENTES VIA WP' },
+      { id: 114, pick: true, desc: '114.- ATENCION/RECEPCION A CLIENTES PRESENCIAL' },
+      { id: 115, pick: true, desc: '115.- REGISTRO DE PAGOS EN EL RDT' },
     ];
   }
 }

@@ -7,48 +7,40 @@ interface Iter {
 }
 
 const lstIterLaboral: Array<Iter> = [
-  { code: '0.1', eligible: true, title: 'Consulta Nueva' },
+  { code: '1.0', eligible: false, title: 'PRIMERA INSTANCIA' },
+  { code: '1.1', eligible: true, title: 'redaccion de demanda' },
+  { code: '1.2', eligible: true, title: 'presentacion de la demanda' },
+  { code: '1.3', eligible: true, title: 'programacion de audiencia / autoadmisorio' },
+  { code: '1.4', eligible: true, title: 'oralización de la audiencia' },
+  { code: '1.5', eligible: true, title: 'en espera de la sentencia' },
+  { code: '1.6', eligible: true, title: 'sentencia de primera instancia' },
 
-  { code: '1.0', eligible: false, title: 'ETAPA I: POSTULATORIA' },
-  { code: '1.1', eligible: true, title: 'Elaboración Demanda' },
-  { code: '1.2', eligible: true, title: 'Presentación Demanda' },
-  { code: '1.3', eligible: true, title: 'Auto Admisorio' },
-  { code: '1.4', eligible: true, title: 'Contestación de demanda' },
+  { code: '2.0', eligible: false, title: 'SEGUNDA INSTANCIA' },
+  { code: '2.1', eligible: true, title: 'redaccion de apelacion' },
+  { code: '2.2', eligible: true, title: 'presentacion de la apelacion' },
+  { code: '2.3', eligible: true, title: 'programacion de la audiencia de vista' },
+  { code: '2.4', eligible: true, title: 'oralizacion de la audiencia de vista' },
+  { code: '2.5', eligible: true, title: 'en espera de la sentencia de vista' },
+  { code: '2.6', eligible: true, title: 'sentencia de vista' },
 
-  { code: '2.0', eligible: false, title: 'ETAPA II: PROBATORIA' },
-  { code: '2.1', eligible: true, title: 'Audiencia de Conciliación' },
-  { code: '2.2', eligible: true, title: 'Audiencia Única' },
-  { code: '2.3', eligible: true, title: 'Audiencia de Juzgamiento' },
+  { code: '3.0', eligible: false, title: 'CASACION' },
+  { code: '3.1', eligible: true, title: 'elaboracion de recurso de casacion' },
+  { code: '3.2', eligible: true, title: 'presentacion del recurso de casacion' },
+  { code: '3.3', eligible: true, title: 'elevacion del recurso de casacion a la corte suprema' },
+  { code: '3.4', eligible: true, title: 'programacion de vista de la causa - corte suprema' },
+  { code: '3.5', eligible: true, title: 'oralizacion de audiencia de vista - corte suprema' },
+  { code: '3.6', eligible: true, title: 'en espera de la sentencia' },
+  { code: '3.7', eligible: true, title: 'ejecutoria suprema final' },
+  { code: '3.8', eligible: true, title: 'bajada de autos al juzgado de origen' },
 
-  { code: '3.0', eligible: false, title: 'ETAPA III: DECISORIA' },
-  { code: '3.1', eligible: true, title: 'Sentencia 1ra instancia' },
-
-  { code: '4.0', eligible: false, title: 'ETAPA IV: MEDIDA CAUTELAR' },
-  { code: '4.1', eligible: true, title: 'Elaboración de la medida cautelar' },
-  { code: '4.2', eligible: true, title: 'Presentación de la medida cautelar' },
-  { code: '4.3', eligible: true, title: 'Resolución - MP' },
-  { code: '4.4', eligible: true, title: 'Recurso de apelación contra resolución' },
-  { code: '4.5', eligible: true, title: 'Auto de Vista - MP' },
-  { code: '4.6', eligible: true, title: 'Ejecución de la medida cautelar' },
-
-  { code: '5.0', eligible: false, title: 'ETAPA V: IMPUGNATORIA' },
-  { code: '5.1', eligible: true, title: 'Recurso apelación' },
-  { code: '5.2', eligible: true, title: 'Audiencia vista de la causa' },
-  { code: '5.3', eligible: true, title: 'Sentencia de vista 2da instancia' },
-
-  { code: '6.0', eligible: false, title: 'ETAPA VI: EJECUCIÓN ANTICIPADA DE SENTENCIA' },
-  { code: '6.1', eligible: true, title: 'Elaboración de la EAS' },
-  { code: '6.2', eligible: true, title: 'Presentación de la EAS' },
-  { code: '6.3', eligible: true, title: 'Resolución - EAS' },
-  { code: '6.4', eligible: true, title: 'Recurso de Apelación contra resolución' },
-  { code: '6.5', eligible: true, title: 'Auto de Vista - EAS' },
-  { code: '6.6', eligible: true, title: 'Ejecución de la EAS' },
-  { code: '6.7', eligible: true, title: 'Recurso de Casación' },
-
-  { code: '7.0', eligible: false, title: 'ETAPA VII: EJECUTORIA' },
-  { code: '7.1', eligible: true, title: 'Ejecución de Sentencia' },
-  { code: '7.2', eligible: true, title: 'Resolución consentida y firme' },
-  { code: '7.3', eligible: true, title: 'Costas y Costos' },
+  { code: '4.0', eligible: false, title: 'EJECUCION' },
+  { code: '4.1', eligible: true, title: 'resolucion consentida y firme' },
+  { code: '4.2', eligible: true, title: 'redaccion de liquidacion de costos y costas' },
+  { code: '4.3', eligible: true, title: 'endose de costos y costas' },
+  { code: '4.4', eligible: true, title: 'cobro efectivo de costos y costas' },
+  { code: '4.5', eligible: true, title: 'redaccion de la solicitud de intereses legales' },
+  { code: '4.6', eligible: true, title: 'endose de los interes legales' },
+  { code: '4.7', eligible: true, title: 'cobro efectivo de intereses legales' },
 ];
 
 const lstIterPenal: Array<Iter> = [
@@ -105,6 +97,7 @@ const lstIterCivil: Array<Iter> = [
   { code: '16', eligible: true, title: 'Audiencia especial y complementaria' },
   { code: '17', eligible: true, title: 'Alegados' },
   { code: '18', eligible: true, title: 'Sentencia' },
+  
   { code: '0', eligible: false, title: 'SEGUNDA INSTANCIA' },
   { code: '19', eligible: true, title: 'Apelar sentencia' },
   { code: '20', eligible: true, title: 'Subsanar el recurso de apelación según el auto que declara la inadmisibilidad' },
@@ -138,10 +131,6 @@ const lstIterNotarial: Array<Iter> = [
 ];
 
 const lstIterFamilia: Array<Iter> = [
-  { code: '0', eligible: false, title: 'ETAPAS PREVIAS O ALTERNAS' },
-  { code: '0.1', eligible: true, title: 'Consulta Nueva' },
-  { code: '0.2', eligible: true, title: 'Invitación a Conciliar' },
-  { code: '0.3', eligible: true, title: 'Audiencia de Conciliación' },
   { code: '1', eligible: false, title: 'PRIMERA INSTANCIA' },
   { code: '1.1', eligible: true, title: 'Recolección de medios probatorios' },
   { code: '1.2', eligible: true, title: 'Preparación de la demanda' },
@@ -152,22 +141,26 @@ const lstIterFamilia: Array<Iter> = [
   { code: '1.7', eligible: true, title: 'Contestación de la demanda' },
   { code: '1.8', eligible: true, title: 'Audiencia' },
   { code: '1.9', eligible: true, title: 'Sentencia de primera instancia' },
+
   { code: '2', eligible: false, title: 'SEGUNDA INSTANCIA' },
   { code: '2.1', eligible: true, title: 'Apelación o absolución de apelación' },
   { code: '2.2', eligible: true, title: 'Elevación del expediente a superior' },
   { code: '2.3', eligible: true, title: 'Audiencia de vista' },
   { code: '2.4', eligible: true, title: 'Sentencia de vista' },
+
   { code: '3', eligible: false, title: 'RECUSOS EXTRAORDINARIOS' },
   { code: '3.1', eligible: true, title: 'Elaboración de casación, queja o amparo' },
   { code: '3.2', eligible: true, title: 'Calificación de recurso' },
   { code: '3.3', eligible: true, title: 'Audiencia de Vista de la causa' },
   { code: '3.4', eligible: true, title: 'Sentencia de casación, queja o amparo' },
+
   { code: '4', eligible: false, title: 'ETAPA EJECUTORIA' },
   { code: '4.1', eligible: true, title: 'Consentimiento de sentencia' },
   { code: '4.2', eligible: true, title: 'Cursar oficios' },
   { code: '4.3', eligible: true, title: 'Presentar o absolver liquidaciones' },
   { code: '4.4', eligible: true, title: 'Requerimiento de pago' },
   { code: '4.5', eligible: true, title: 'Remisión al Ministerio Público' },
+
   { code: '5', eligible: false, title: 'MEDIDAS CAUTELARES' },
   { code: '5.1', eligible: true, title: 'Elaboración de medida cautelar' },
   { code: '5.2', eligible: true, title: 'Presentación de medida cautelar' },

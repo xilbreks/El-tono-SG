@@ -175,7 +175,8 @@
                         <div class="shimmer-wave"></div>
                     </div>
                     <div *ngIf="!encontrando">
-                        <input type="text" class="form-control" id="nivelIter" formControlName="nombreCheckpoint" readonly>
+                        <input type="text" class="form-control" id="nivelIter" formControlName="nombreCheckpoint"
+                            readonly>
                     </div>
                 </div>
                 <div class="col-3 col-md-1">
@@ -814,6 +815,21 @@
                         <option value="110">
                             110.- LLENADO DE RDT
                         </option>
+                        <option value="111">
+                            111.- ARQUEO DE CAJA
+                        </option>
+                        <option value="112">
+                            112.- REVISION DE CORREOS
+                        </option>
+                        <option value="113">
+                            113.- ATENCION/RECEPCION A CLIENTES VIA WP
+                        </option>
+                        <option value="114">
+                            114.- ATENCION/RECEPCION A CLIENTES PRESENCIAL
+                        </option>
+                        <option value="115">
+                            115.- REGISTRO DE PAGOS EN EL RDT
+                        </option>
                     </select>
                 </div>
             </div>
@@ -896,7 +912,8 @@
         </span> -->
     </div>
     <div class="modal-footer">
-        <button *ngIf="!registrando" class="btn btn-primary" [disabled]="!frmNuevaTarea.valid" (click)="concretarNuevaTarea()">
+        <button *ngIf="!registrando" class="btn btn-primary" [disabled]="!frmNuevaTarea.valid"
+            (click)="concretarNuevaTarea()">
             Guardar
         </button>
         <button *ngIf="registrando" class="btn btn-primary">
@@ -936,7 +953,8 @@
                     </div>
                     <div class="col-6 col-md-5">
                         <label for="nivelIter" class="form-label"> ITER Procesal </label>
-                        <input type="text" class="form-control" id="nivelIter" formControlName="nombreCheckpoint" readonly>
+                        <input type="text" class="form-control" id="nivelIter" formControlName="nombreCheckpoint"
+                            readonly>
                     </div>
                     <div class="col-3 col-md-1">
                         <label for="tieneContrato" class="form-label">Contrato</label>
@@ -1531,17 +1549,17 @@
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
-                    <label for="especialidad" class="form-label">Tipo de proceso</label>
-                    <select id="especialidad" class="form-select" formControlName="especialidad">
-                        <option value="laboral">LABORAL</option>
-                        <option value="familia">FAMILIA</option>
-                        <option value="civil">CIVIL</option>
-                        <option value="penal">PENAL</option>
-                        <option value="constitucional">CONSTITUCIONAL</option>
-                        <option value="administrativo">ADMINISTRATIVO</option>
-                        <option value="notarial">NOTARIAL</option>
-                    </select>
-                </div>
+                        <label for="especialidad" class="form-label">Tipo de proceso</label>
+                        <select id="especialidad" class="form-select" formControlName="especialidad">
+                            <option value="laboral">LABORAL</option>
+                            <option value="familia">FAMILIA</option>
+                            <option value="civil">CIVIL</option>
+                            <option value="penal">PENAL</option>
+                            <option value="constitucional">CONSTITUCIONAL</option>
+                            <option value="administrativo">ADMINISTRATIVO</option>
+                            <option value="notarial">NOTARIAL</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div *ngIf="frmEditarTarea.value.idNaturaleza == 'nc'">
@@ -1575,6 +1593,21 @@
                             </option>
                             <option value="110">
                                 110.- LLENADO DE RDT
+                            </option>
+                            <option value="111">
+                                111.- ARQUEO DE CAJA
+                            </option>
+                            <option value="112">
+                                112.- REVISION DE CORREOS
+                            </option>
+                            <option value="113">
+                                113.- ATENCION/RECEPCION A CLIENTES VIA WP
+                            </option>
+                            <option value="114">
+                                114.- ATENCION/RECEPCION A CLIENTES PRESENCIAL
+                            </option>
+                            <option value="115">
+                                115.- REGISTRO DE PAGOS EN EL RDT
                             </option>
                         </select>
                     </div>
@@ -1658,7 +1691,8 @@
         </span> -->
     </div>
     <div class="modal-footer">
-        <button *ngIf="!actualizando" class="btn btn-primary" [disabled]="!frmEditarTarea.valid" (click)="concretarEdicionTarea()">
+        <button *ngIf="!actualizando" class="btn btn-primary" [disabled]="!frmEditarTarea.valid"
+            (click)="concretarEdicionTarea()">
             Actualizar
         </button>
         <button *ngIf="actualizando" class="btn btn-primary">
