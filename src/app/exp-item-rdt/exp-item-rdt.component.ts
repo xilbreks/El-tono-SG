@@ -32,7 +32,7 @@ export class ExpItemRdtComponent implements OnChanges {
     this.lLoading = true;
 
     let query = this.db.collection('tareas', ref => {
-      return ref.where('idExpediente', '==', this.expediente?.idExpediente).orderBy('fechaTarea', 'desc').limit(15);
+      return ref.where('idExpediente', '==', this.expediente?.idExpediente).orderBy('fechaTarea', 'desc').limit(16);
     }).get();
 
     firstValueFrom(query).then(snapshot => {
