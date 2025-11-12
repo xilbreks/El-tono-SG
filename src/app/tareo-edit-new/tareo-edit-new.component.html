@@ -882,13 +882,13 @@
             </div>
         </form>
 
-        <pre>
+        <!-- <pre>
             {{fcQueryBox.value | json}}
             {{frmNuevaTarea.value | json}}
         </pre>
         <span>
             Valido: {{frmNuevaTarea.valid}}
-        </span>
+        </span> -->
     </div>
     <div class="modal-footer">
         <button *ngIf="!registrando" class="btn btn-primary" [disabled]="!frmNuevaTarea.valid" (click)="concretarNuevaTarea()">
@@ -1645,12 +1645,12 @@
                 </div>
             </div>
         </form>
-        <pre>
-        {{frmEditarTarea.value | json}}
-    </pre>
+        <!-- <pre>
+            {{frmEditarTarea.value | json}}
+        </pre>
         <span>
             Valido: {{frmEditarTarea.valid}}
-        </span>
+        </span> -->
     </div>
     <div class="modal-footer">
         <button *ngIf="!actualizando" class="btn btn-primary" [disabled]="!frmEditarTarea.valid" (click)="concretarEdicionTarea()">
