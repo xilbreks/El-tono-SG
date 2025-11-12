@@ -29,7 +29,7 @@ export class TareoViewComponent {
 
     this.titleService.setTitle('RDT ' + this.idTareo);
     this.recuperarDatosTareo();
-    // this.getTareas();
+    this.recuperarTareas();
   }
 
   recuperarDatosTareo() {
@@ -68,6 +68,8 @@ export class TareoViewComponent {
 
       sHoras = Math.floor(nTotalMinutos / 60).toString();
       sMinutos = (nTotalMinutos - Math.floor(nTotalMinutos / 60) * 60).toString();
+
+      this.nSumaTiempoTareas = `${sHoras}:${sMinutos}`;
 
       this.cargando = false;
     })

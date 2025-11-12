@@ -134,7 +134,7 @@ export class TareoEditNewComponent {
         resultados.push(doc.data());
       });
 
-      if(resultados.length > 0) {
+      if (resultados.length > 0) {
         this.tareo = resultados[0];
         this.recuperarTareas();
       } else {
@@ -142,7 +142,7 @@ export class TareoEditNewComponent {
         console.log('No se encontró Tareo')
       }
     })
-    
+
     this.recuperarTareas();
   }
 
@@ -154,8 +154,9 @@ export class TareoEditNewComponent {
     });
   }
   // ok ok
-  cambioTipoFormulario(val: any) {
-    const tipoTarea = val.target.value;
+  cambioTipoFormulario() {
+    // const tipoTarea = val.target.value;
+    const tipoTarea = this.fcTipoTarea.value;
     switch (tipoTarea) {
       case 'con':
         console.log('estamos con expediente en el rdt')
@@ -390,6 +391,8 @@ export class TareoEditNewComponent {
       .then(() => {
         this.modalService.dismissAll();
         this.frmNuevaTarea.reset();
+        this.fcTipoTarea.setValue('con');         
+        this.cambioTipoFormulario();         
         this.recuperarTareas();
       })
       .catch(err => {
@@ -433,93 +436,6 @@ export class TareoEditNewComponent {
     }).finally(() => {
       this.cargando = false;
     })
-
-    // this.tareas = [
-    //   {
-    //     idTarea: '123456789',
-    //     idTareo: '2025-10-15',
-    //     idUsuario: 'jhufo',
-    //     nombreUsuario: 'Jorge Hufo',
-    //     idNaturaleza: 'con',
-    //     idExpediente: 'E001452',
-    //     numero: '20156-2025-0-0401-JR-LA-01',
-    //     demandante: 'juan peres',
-    //     demandado: 'empresita fulanitas',
-    //     especialidad: 'laboral',
-    //     tieneContrato: 'si',
-    //     codigoTarea: '45',
-    //     detalleTarea: 'lorem ipsum lorem ipsum lorem ipsum',
-    //     pendienteTarea: 'pendiente lore ipsum',
-    //     fechaTarea: '2025-10-15',
-    //     idCheckpoint: '69',
-    //     nombreCheckpoint: '3.69.- Audiencia de casacion',
-    //     tipoAtencion: 'presencial',
-    //     delegadoPor: 'Dra. Lizbet Silva',
-    //     horasAtencion: '04',
-    //     minutosAtencion: '10',
-    //     montoPactado: 'tres mil soles',
-    //     abonoTotal: 'dos mil',
-    //     montoUltimoAbono: 'quinientos soles',
-    //     fechaUltimoAbono: 'primero de julio',
-    //     fechaCreacion: '147852369',
-    //   },
-    //   {
-    //     idTarea: '123456790',
-    //     idTareo: '2025-10-15',
-    //     idUsuario: 'jhufo',
-    //     nombreUsuario: 'Jorge Hufo',
-    //     idNaturaleza: 'sin',
-    //     idExpediente: '-',
-    //     numero: '-',
-    //     demandante: 'juan peres',
-    //     demandado: 'empresita fulanitas',
-    //     especialidad: '-',
-    //     tieneContrato: 'no',
-    //     codigoTarea: '27',
-    //     detalleTarea: 'lorem ipsum lorem ipsum lorem ipsum',
-    //     pendienteTarea: '-',
-    //     fechaTarea: '2025-10-15',
-    //     idCheckpoint: '01',
-    //     nombreCheckpoint: '-',
-    //     tipoAtencion: 'presencial',
-    //     delegadoPor: 'Dra. Lizbet Silva',
-    //     horasAtencion: '01',
-    //     minutosAtencion: '30',
-    //     montoPactado: '-',
-    //     abonoTotal: '-',
-    //     montoUltimoAbono: '-',
-    //     fechaUltimoAbono: '-',
-    //     fechaCreacion: '147852369',
-    //   },
-    //   {
-    //     idTarea: '123456791',
-    //     idTareo: '2025-10-15',
-    //     idUsuario: 'jhufo',
-    //     nombreUsuario: 'Jorge Hufo',
-    //     idNaturaleza: 'nc',
-    //     idExpediente: '-',
-    //     numero: '-',
-    //     demandante: '-',
-    //     demandado: '-',
-    //     especialidad: '-',
-    //     tieneContrato: 'no',
-    //     codigoTarea: '105',
-    //     detalleTarea: 'lorem ipsum lorem ipsum lorem ipsum',
-    //     pendienteTarea: '-',
-    //     fechaTarea: '2025-10-15',
-    //     idCheckpoint: '01',
-    //     nombreCheckpoint: '-',
-    //     tipoAtencion: 'presencial',
-    //     delegadoPor: 'Dra. Lizbet Silva',
-    //     horasAtencion: '05',
-    //     minutosAtencion: '40',
-    //     montoPactado: '-',
-    //     abonoTotal: '-',
-    //     montoUltimoAbono: '-',
-    //     fechaUltimoAbono: '-',
-    //     fechaCreacion: '147852369',
-    //   },
-    // ]
   }
 
   // UPDATE - ok ok

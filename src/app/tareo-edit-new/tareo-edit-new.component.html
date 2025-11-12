@@ -19,7 +19,7 @@
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
-            <tr>
+            <tr class="resaltado">
                 <th>#</th>
                 <th>Atencion</th>
                 <th>Delegado por</th>
@@ -79,6 +79,11 @@
                     </button>
                 </td>
             </tr>
+            <tr class="resaltado">
+                <td colspan="9"></td>
+                <td><b>{{tiempoTotalTareas}}</b></td>
+                <td colspan="9"></td>
+            </tr>
         </tbody>
         <tbody *ngIf="!cargando && tareas.length == 0">
             <tr>
@@ -116,17 +121,17 @@
         <!-- Para seleccionar el tipo de formulario -->
         <div>
             <input type="radio" id="con" name="drone" value="con" [formControl]="fcTipoTarea"
-                (change)="cambioTipoFormulario($event)" />
+                (change)="cambioTipoFormulario()" />
             <label for="con">Con expediente en el RDT</label>
         </div>
         <div>
             <input type="radio" id="sin" name="drone" value="sin" [formControl]="fcTipoTarea"
-                (change)="cambioTipoFormulario($event)" />
+                (change)="cambioTipoFormulario()" />
             <label for="sin">Sin expediente en el RDT / Consulta nueva</label>
         </div>
         <div>
             <input type="radio" id="nc" name="drone" value="nc" [formControl]="fcTipoTarea"
-                (change)="cambioTipoFormulario($event)" />
+                (change)="cambioTipoFormulario()" />
             <label for="nc">Actividades varias</label>
         </div>
 

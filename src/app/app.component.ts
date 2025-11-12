@@ -10,17 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   user: any;
-  sversion = '3.0.2';
-
-  lstTareasPenal = [
-    'Simple: Impulso de procesos con seguimiento de casos en poder judicial o fiscalia',
-    'Complejo: Redaccion y revision de proyectos - de medios tecnicos y mecanismos procesales de defecsa',
-    'Complejo: Redaccion y revision de proyectos - de absoluciones y opocisiones',
-    'Complejo: Redaccion y revision de proyectos - de escritos de impuganacion de revision y reconsideracion',
-
-    'Complejo: Oralizar audiencia - de medios tecnicos y mecanismos procesales de defecsa',
-    'Complejo: oralizar audiencia - de absoluciones y opocisiones',
-  ]
+  sversion = '3.0.3';
 
   constructor(
     private router: Router,

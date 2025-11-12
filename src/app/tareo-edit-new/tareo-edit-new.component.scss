@@ -148,3 +148,9 @@ form {
         background-position: -100% 0;
     }
 }
+
+tr.resaltado {
+    td, th {
+        background-color: #ddd;
+    }
+}
