@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   user: any;
-  sversion = '2.7.22';
+  sversion = '3.0.0';
 
   lstTareasPenal = [
     'Simple: Impulso de procesos con seguimiento de casos en poder judicial o fiscalia',

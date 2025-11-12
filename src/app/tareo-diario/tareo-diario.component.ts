@@ -171,92 +171,92 @@ export class TareoDiarioComponent {
    * DESCARGAR EXCEL
    */
 
-  async descargarExcel() {
-    let todo_Excel: Array<any> = [];
-    const fecha = this.fcFecha.value;
+  // async descargarExcel() {
+  //   let todo_Excel: Array<any> = [];
+  //   const fecha = this.fcFecha.value;
 
-    const query = this.db
-      .collection('tareas', (ref) => {
-        return ref.where('sfecha', '==', fecha)
-      }).get();
+  //   const query = this.db
+  //     .collection('tareas', (ref) => {
+  //       return ref.where('sfecha', '==', fecha)
+  //     }).get();
 
-    let tareas = await firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      })
-      return items;
-    }).catch(err => {
-      throw err;
-    });
+  //   let tareas = await firstValueFrom(query).then(snapshot => {
+  //     let items: any[] = [];
+  //     snapshot.forEach(doc => {
+  //       items.push(doc.data())
+  //     })
+  //     return items;
+  //   }).catch(err => {
+  //     throw err;
+  //   });
 
-    // Agregar Hora de entrada y salida del tareo
-    tareas = tareas.map(tarea => {
-      const tareo = this.tareos.find(tareo => tareo.idTareo == tarea.idrdt);
-      const entrada = `${tareo?.entradaHora}:${tareo?.entradaMinuto}`;
-      const salida = `${tareo?.salidaHora}:${tareo?.salidaMinuto}`;
+  //   // Agregar Hora de entrada y salida del tareo
+  //   tareas = tareas.map(tarea => {
+  //     const tareo = this.tareos.find(tareo => tareo.idTareo == tarea.idrdt);
+  //     const entrada = `${tareo?.entradaHora}:${tareo?.entradaMinuto}`;
+  //     const salida = `${tareo?.salidaHora}:${tareo?.salidaMinuto}`;
 
-      return {
-        ...tarea,
-        entrada,
-        salida,
-      }
-    })
+  //     return {
+  //       ...tarea,
+  //       entrada,
+  //       salida,
+  //     }
+  //   })
 
-    tareas.sort((a, b) => {
-      if (a.idrdt > b.idrdt) return 1;
-      else return -1;
-    }).forEach(tarea => {
-      console.log(tarea);
-      const fechaTmp = new Date(Number(tarea.idtarea));
-      const date = fechaTmp.toLocaleDateString();
-      const time = fechaTmp.toLocaleTimeString();
-      const fechaRegistro = `${date} - ${time}`;
+  //   tareas.sort((a, b) => {
+  //     if (a.idrdt > b.idrdt) return 1;
+  //     else return -1;
+  //   }).forEach(tarea => {
+  //     console.log(tarea);
+  //     const fechaTmp = new Date(Number(tarea.idtarea));
+  //     const date = fechaTmp.toLocaleDateString();
+  //     const time = fechaTmp.toLocaleTimeString();
+  //     const fechaRegistro = `${date} - ${time}`;
 
-      todo_Excel.push({
-        "Usuario": tarea['idrdt'],
-        "Hora de entrada": tarea['entrada'],
-        "Hora de salida": tarea['salida'],
-        "Tipo cliente": tarea['stipocliente'],
-        "Tipo de Atencion": tarea['stipoatencion'],
-        "Delegado por": tarea['sdelegadopor'],
-        "Expediente": tarea['sexpediente'],
-        "Tipo de Proceso": tarea['sespecialidad'],
-        "Demandante": tarea['sdemandante'],
-        "Demandado": tarea['sdemandado'],
-        "ITER": tarea['niter'],
-        "Contrato": tarea['lcontrato'],
-        // "Saldo": tarea['nsaldo'],
-        // "Avance": tarea['navance'],
-        // "Cobro de Honorarios": tarea['ncobrohonorario'],
-        // "Ingreso para Aranceles": tarea['ningresoarancel'],
-        // "Salida para Aranceles": tarea['nsalidaarancel'],
-        // "Fecha de culminacion": tarea['sfculminacion'],
-        // "Suma Tiempo Atencion": { t: 'n', f: '=' + tarea['nTiempoTareas'] + '/1440' },
-        "Tiempo de Atencion": tarea['shorasatencion'] + ':' + tarea['sminutosatencion'],
-        "Codigo ejecutivo": tarea['ncodeje'],
-        // "Horas en el estudio": { t: 'n', f: '=' + tarea['nTiempoOficina'] + '/1440' },
-        // "Tiempo real": tarea['srealtime'],
-        // "Prod. Segun RDT": tarea['productidad1'],
-        // "Prod. Segun horario": tarea['productidad2'],
-        // "Hora Entrada": tarea['hentrada'],
-        // "Hora Salida": tarea['hsalida'],
-        "Descripción de la tarea": tarea['sdeseje'].trim().slice(0, 2500),
-        "Acciones por realizar": tarea['sacceje'].trim().slice(0, 2500),
-        "Fecha y Hora de guardado": fechaRegistro,
-        "Monto pactado": tarea['nmontocontrato'],
-        "Pagos realizados": tarea['npagoshechos'],
-        "Ultimo pago": tarea['nmontoultimopago'],
-        "Fecha Ultimo Pago": tarea['sfechaultimopago'],
-      })
-    });
+  //     todo_Excel.push({
+  //       "Usuario": tarea['idrdt'],
+  //       "Hora de entrada": tarea['entrada'],
+  //       "Hora de salida": tarea['salida'],
+  //       "Tipo cliente": tarea['stipocliente'],
+  //       "Tipo de Atencion": tarea['stipoatencion'],
+  //       "Delegado por": tarea['sdelegadopor'],
+  //       "Expediente": tarea['sexpediente'],
+  //       "Tipo de Proceso": tarea['sespecialidad'],
+  //       "Demandante": tarea['sdemandante'],
+  //       "Demandado": tarea['sdemandado'],
+  //       "ITER": tarea['niter'],
+  //       "Contrato": tarea['lcontrato'],
+  //       // "Saldo": tarea['nsaldo'],
+  //       // "Avance": tarea['navance'],
+  //       // "Cobro de Honorarios": tarea['ncobrohonorario'],
+  //       // "Ingreso para Aranceles": tarea['ningresoarancel'],
+  //       // "Salida para Aranceles": tarea['nsalidaarancel'],
+  //       // "Fecha de culminacion": tarea['sfculminacion'],
+  //       // "Suma Tiempo Atencion": { t: 'n', f: '=' + tarea['nTiempoTareas'] + '/1440' },
+  //       "Tiempo de Atencion": tarea['shorasatencion'] + ':' + tarea['sminutosatencion'],
+  //       "Codigo ejecutivo": tarea['ncodeje'],
+  //       // "Horas en el estudio": { t: 'n', f: '=' + tarea['nTiempoOficina'] + '/1440' },
+  //       // "Tiempo real": tarea['srealtime'],
+  //       // "Prod. Segun RDT": tarea['productidad1'],
+  //       // "Prod. Segun horario": tarea['productidad2'],
+  //       // "Hora Entrada": tarea['hentrada'],
+  //       // "Hora Salida": tarea['hsalida'],
+  //       "Descripción de la tarea": tarea['sdeseje'].trim().slice(0, 2500),
+  //       "Acciones por realizar": tarea['sacceje'].trim().slice(0, 2500),
+  //       "Fecha y Hora de guardado": fechaRegistro,
+  //       "Monto pactado": tarea['nmontocontrato'],
+  //       "Pagos realizados": tarea['npagoshechos'],
+  //       "Ultimo pago": tarea['nmontoultimopago'],
+  //       "Fecha Ultimo Pago": tarea['sfechaultimopago'],
+  //     })
+  //   });
 
-    const worksheet = XLSX.utils.json_to_sheet(todo_Excel);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Tareas");
-    XLSX.writeFile(workbook, 'RDTs - fecha ' + this.fcFecha.value + '.xlsx', { compression: true });
+  //   const worksheet = XLSX.utils.json_to_sheet(todo_Excel);
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Tareas");
+  //   XLSX.writeFile(workbook, 'RDTs - fecha ' + this.fcFecha.value + '.xlsx', { compression: true });
 
-  }
+  // }
 
   // Operaciones a la base de datos
 

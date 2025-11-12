@@ -174,17 +174,38 @@ export class ExpedienteRegisterComponent {
     let idExpediente = await this.generarNuevoIdExpediente();
 
     this.guardarExpedienteDB(idExpediente).then(() => {
-      this.router.navigate(['/expedientes-updater/'], {
-        queryParams: {
-          expediente: numeroExp,
-        }
+      // guardar en el changelog un registro
+      let timestamp = (new Date()).getTime();
+      let idGenerado = `ID${timestamp}X`;
+      let fechaInicio = this.frmExpediente.controls['fechaInicio'].value.trim();
+
+      this.db.collection('changelog').doc(idGenerado).set({
+        idChangelog: idGenerado,
+        idExpediente: idExpediente,
+        idCheckpoint: "000",
+        nombreCheckpoint: "Expediente registrado en el sistema",
+        actualizadoPor: "ADMIN",
+        fecha: fechaInicio,
+        fechaCreacion: timestamp,
+      }).then(() => {
+        // Cambiar de vista
+        this.router.navigate(['/expedientes-updater/'], {
+          queryParams: {
+            expediente: numeroExp,
+          }
+        })
+        // console.log('ok')
+      }).catch((err) => {
+        console.log('ocurrio un error', err)
+        window.alert('ocurio un errorx al registrar expediente');
+      }).finally(() => {
+        this.estaGuardando = false;
       })
-      console.log('ok')
     }).catch((err) => {
       console.log('error', err)
       window.alert('ocurio un error al registrar expediente');
     }).finally(() => {
-      this.estaGuardando = false;
+      // this.estaGuardando = false;
     })
   }
 
@@ -267,7 +288,7 @@ export class ExpedienteRegisterComponent {
       numeroPrincipal: this.frmExpediente.controls['numeroPrincipal'].value,
       especialidad: this.frmExpediente.controls['especialidad'].value,
       idCheckpoint: '000',
-      nombreCheckpoint: '0.0.- Expediente registrado en el sistema',
+      nombreCheckpoint: 'Expediente registrado en el sistema',
       demandante: this.frmExpediente.controls['demandante'].value.toUpperCase().trim(),
       demandado: this.frmExpediente.controls['demandado'].value.toUpperCase().trim(),
       materia: this.frmExpediente.controls['materia'].value.toUpperCase().trim(),

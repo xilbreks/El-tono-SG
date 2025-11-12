@@ -11,7 +11,7 @@ import { Expediente } from '../_interfaces/expediente';
 import { Tareo } from '../_interfaces/tareo';
 import { Tarea } from '../_interfaces/tarea';
 
-const URL_TAREAS = 'tareastmp';
+const URL_TAREAS = 'tareas';
 
 @Component({
   selector: 'app-tareo-edit-new',

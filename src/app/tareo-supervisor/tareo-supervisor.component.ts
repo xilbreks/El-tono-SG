@@ -58,12 +58,16 @@ export class TareoSupervisorComponent {
             nombre: 'Stephany',
           },
           {
-            id: 'Leonardo-Flores',
-            nombre: 'Leonardo',
-          },
-          {
             id: 'fespinoza',
             nombre: 'Flavia',
+          },
+          {
+            id: 'michael-vilca',
+            nombre: 'Michael',
+          },
+          {
+            id: 'gchino',
+            nombre: 'Grecia',
           },
         ];
         break;
@@ -98,40 +102,32 @@ export class TareoSupervisorComponent {
             nombre: 'Viameli',
           },
           {
-            id: 'rccuno',
-            nombre: 'Rodrigo',
+            id: 'mcastelo',
+            nombre: 'Mafi',
           },
         ];
         break;
-      case 'Maria-Tunquipa':
+      case 'jmachaca':
         this.usuarios = [
-          {
-            id: 'minfantas',
-            nombre: 'Marisol',
-          },
           {
             id: 'Alisson-Guillen',
             nombre: 'Alisson',
           },
           {
-            id: 'michael-vilca',
-            nombre: 'Michael',
+            id: 'gmoa',
+            nombre: 'Gabriella',
           },
           {
             id: 'azaravia',
             nombre: 'Alejandro',
-          }
-        ];
-        break;
-      case 'Miryam-Huamani':
-        this.usuarios = [
-          {
-            id: '	gmoa',
-            nombre: 'Gabriella',
           },
           {
-            id: 'Jackeline-Huaman',
-            nombre: 'Jacky',
+            id: 'Leonardo-Flores',
+            nombre: 'Leonardo',
+          },
+          {
+            id: 'avargas',
+            nombre: 'Ana',
           },
           {
             id: 'marco-mamani',

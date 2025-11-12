@@ -24,5 +24,5 @@ export interface Tarea {
     abonoTotal: string,             // Abono total sobre el expediente
     montoUltimoAbono: string,       // Monto del ultimo abono
     fechaUltimoAbono: string,       // Fecha del ultimo abono
-    fechaCreacion: string,          // Fecha de creacion de la tarea en timestamp
+    fechaCreacion: number,          // Fecha de creacion de la tarea en timestamp
 }

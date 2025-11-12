@@ -44,8 +44,15 @@ export class TareoDiarioUserComponent {
 
     return firstValueFrom(query).then(snapshot => {
       let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
+      snapshot.forEach((doc: any) => {
+        let obj = doc.data();
+        items.push({
+          ...obj,
+          horaIngreso: obj.entradaHora,
+          minutoIngreso: obj.entradaMinuto,
+          horaSalida: obj.salidaHora,
+          minutoSalida: obj.salidaMinuto,
+        })
       })
       console.log(items)
       return items;

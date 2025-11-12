@@ -1,15 +1,15 @@
 <h4>
-    REPORTE DIARIO DE TRABAJO new
+    REPORTE DIARIO DE TRABAJO view lite
 </h4>
 
 <table class="tbl-cabecera">
     <tr>
         <td>Realizado por:</td>
-        <td class="objrdt">{{objRdt.scolaborador}}</td>
+        <td class="objrdt">{{tareo?.nombreUsuario}}</td>
     </tr>
     <tr>
         <td>Fecha:</td>
-        <td class="objrdt">{{objRdt.sfecha2}}</td>
+        <td class="objrdt">{{tareo?.fecha}}</td>
     </tr>
 </table>
 
@@ -18,7 +18,6 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Cliente</th>
                 <th>Atención</th>
                 <th>Delegado por</th>
                 <th>Expediente</th>
@@ -31,74 +30,67 @@
                 <th>Código de tarea</th>
                 <th>Mención de la tarea</th>
                 <th>Acciones a realizar</th>
-                <!-- <th>Saldo</th> -->
                 <th>Monto pactado</th>
                 <th>Pagos hechos</th>
                 <th>Ultimo pago</th>
                 <th>Fecha ultimo pago</th>
-                <th>Fecha y Hora de guardado</th>
+                <!-- <th>Fecha y Hora de guardado</th> -->
             </tr>
         </thead>
-        <tbody *ngIf="!lLoading">
-            <tr *ngFor="let tarea of lstTareas; let i = index">
+        <tbody *ngIf="!cargando">
+            <tr *ngFor="let tarea of tareas; let i = index">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>
-                    {{ tarea.stipocliente }}
+                    {{ tarea.tipoAtencion }}
                 </td>
                 <td>
-                    {{ tarea.stipoatencion }}
+                    {{ tarea.delegadoPor }}
                 </td>
                 <td>
-                    {{ tarea.sdelegadopor }}
+                    {{ tarea.numero }}
                 </td>
                 <td>
-                    {{ tarea.sexpediente }}
+                    {{ tarea.especialidad }}
                 </td>
                 <td>
-                    {{ tarea.sespecialidad }}
+                    {{ tarea.demandante}}
                 </td>
                 <td>
-                    {{ tarea.sdemandante}}
+                    {{ tarea.demandado }}
                 </td>
                 <td>
-                    {{ tarea.sdemandado }}
+                    {{ tarea.nombreCheckpoint }}
                 </td>
                 <td>
-                    {{ tarea.niter }}
+                    {{ tarea.tieneContrato }}
                 </td>
                 <td>
-                    {{ tarea.lcontrato }}
+                    {{tarea.horasAtencion}}:{{tarea.minutosAtencion}}
                 </td>
                 <td>
-                    {{tarea.shorasatencion}}:{{tarea.sminutosatencion}}
+                    {{ tarea.codigoTarea }}
                 </td>
                 <td>
-                    {{ tarea.ncodeje }}
+                    {{ tarea.detalleTarea }}
                 </td>
                 <td>
-                    {{ tarea.sdeseje }}
+                    {{ tarea.pendienteTarea }}
                 </td>
                 <td>
-                    {{ tarea.sacceje }}
+                    {{ tarea.montoPactado }}
+                </td>
+                <td>
+                    {{ tarea.abonoTotal }}
+                </td>
+                <td>
+                    {{ tarea.montoUltimoAbono }}
+                </td>
+                <td>
+                    {{ tarea.fechaUltimoAbono }}
                 </td>
                 <!-- <td>
-                    {{ tarea.nsaldo }}
+                    {{ tarea.fechaCreacion }}
                 </td> -->
-                <td>
-                    {{ tarea.nmontocontrato }}
-                </td>
-                <td>
-                    {{ tarea.npagoshechos }}
-                </td>
-                <td>
-                    {{ tarea.nmontoultimopago }}
-                </td>
-                <td>
-                    {{ tarea.sfechaultimopago }}
-                </td>
-                <td>
-                    {{ tarea.sfecharegistro }}
-                </td>
             </tr>
             <tr>
                 <th colspan="10" style="text-align: right;">
@@ -111,6 +103,6 @@
                 </th>
             </tr>
         </tbody>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoading"></span>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="cargando"></span>
     </table>
 </div>

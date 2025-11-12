@@ -9,21 +9,21 @@
             style="border-bottom: 1px solid #cccccc; padding-top: 10px; padding-bottom: 10px;">
             <div>
                 <b>
-                    {{tarea.scolaborador}}
+                    {{tarea.nombreUsuario}}
                 </b>
                 <i style="color: grey;">
-                    ({{tarea.sfecha}})
+                    ({{tarea.fechaTarea}})
                 </i>
                 <i style="color: grey;; font-style: italic;">
-                    - ITER: {{tarea.niter}}
+                    - ITER: {{tarea.nombreCheckpoint}}
                 </i>
             </div>
             <div style="padding-left: 25px;">
                 <div>
-                    {{tarea.sdeseje}}
+                    {{tarea.detalleTarea}}
                 </div>
                 <div>
-                    <b><i>Por realizar:</i></b> {{tarea.sacceje}}
+                    <b><i>Por realizar:</i></b> {{tarea.pendienteTarea}}
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Expediente } from './../_interfaces/expediente';
 import { Tarea } from './../_interfaces/tarea';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-exp-item-rdt',
@@ -11,8 +12,8 @@ import { Tarea } from './../_interfaces/tarea';
 })
 export class ExpItemRdtComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
-  
-  lstTareas: Array<any> = [];
+
+  lstTareas: Array<Tarea> = [];
   lhasmore: boolean = false;
   lLoading: boolean = true;
   lLoadingMore = false;
@@ -29,63 +30,48 @@ export class ExpItemRdtComponent implements OnChanges {
 
   getTareas(): void {
     this.lLoading = true;
-    this.lstTareas = [];
-    let numeros = [];
-    numeros.push(this.expediente?.numero);
-    if (this.expediente?.numeroProvisional) {
-      numeros.push(this.expediente?.numeroProvisional);
-    }
 
-    let obs = this.db
-      .collection('tareas', ref => {
-        return ref.where('sexpediente', 'in', numeros).orderBy('sfecha', 'desc').limit(16);
-      })
-      .valueChanges()
-      .subscribe((tareas: any[]) => {
-        if (tareas.length > 15) {
-          this.lhasmore = true;
-        } else {
-          this.lhasmore = false;
-        }
-        this.lstTareas = tareas.slice(0, 15);
-        this.lstTareas = this.lstTareas.map(tar => {
-          return {
-            ...tar,
-            sfecha: tar.sfecha.slice(8, 10) + '/' + tar.sfecha.slice(5, 7) + '/' + tar.sfecha.slice(0, 4)
-          }
-        });
+    let query = this.db.collection('tareas', ref => {
+      return ref.where('idExpediente', '==', this.expediente?.idExpediente).orderBy('fechaTarea', 'desc').limit(15);
+    }).get();
 
-        this.lLoading = false;
-        obs.unsubscribe();
+    firstValueFrom(query).then(snapshot => {
+      let items: Tarea[] = [];
+      snapshot.forEach((doc: any) => {
+        items.push(doc.data())
       });
+
+      this.lstTareas = items;
+
+      if (items.length > 15) {
+        this.lhasmore = true;
+      } else {
+        this.lhasmore = false;
+      }
+
+      this.lLoading = false;
+    })
+
   }
 
   getTareasTodas() {
     this.lLoadingMore = true;
-    let numeros = [];
-    numeros.push(this.expediente?.numero);
-    if (this.expediente?.numeroProvisional) {
-      numeros.push(this.expediente?.numeroProvisional);
-    }
 
-    let obs = this.db
-      .collection('tareas', ref => {
-        return ref.where('sexpediente', 'in', numeros).orderBy('sfecha', 'desc').limit(50);
-      })
-      .valueChanges()
-      .subscribe((tareas: any[]) => {
-        this.lhasmore = false;
+    let query = this.db.collection('tareas', ref => {
+      return ref.where('idExpediente', '==', this.expediente?.idExpediente).orderBy('fechaTarea', 'desc').limit(50);
+    }).get();
 
-        this.lstTareas = tareas;
-        this.lstTareas = this.lstTareas.map(tar => {
-          return {
-            ...tar,
-            sfecha: tar.sfecha.slice(8, 10) + '/' + tar.sfecha.slice(5, 7) + '/' + tar.sfecha.slice(0, 4)
-          }
-        });
+    firstValueFrom(query).then(snapshot => {
+      this.lhasmore = false;
 
-        this.lLoadingMore = false;
-        obs.unsubscribe();
+      let items: Tarea[] = [];
+      snapshot.forEach((doc: any) => {
+        items.push(doc.data())
       });
+
+      this.lstTareas = items;
+
+      this.lLoadingMore = false;
+    })
   }
 }

@@ -117,7 +117,7 @@ export class TareoMensualComponent {
       const rdt = rdts[index];
 
       let query = this.db.collection('tareas', ref => {
-        return ref.where('idrdt', '==', rdt.idTareo)
+        return ref.where('idTareo', '==', rdt.idTareo)
       }).get();
   
       let tareitas = await firstValueFrom(query).then(snap => {
