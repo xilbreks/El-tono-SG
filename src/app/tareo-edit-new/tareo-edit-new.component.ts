@@ -373,7 +373,34 @@ export class TareoEditNewComponent {
     const idGenerado = `ID${timestamp}${letraAleatoria}`;
 
     // Armar la carga de datos
-    let datosFormulario = this.frmNuevaTarea.value;
+    const datosFormulario = {
+      // idTarea: new FormControl(null),
+      // idTareo: new FormControl(null, Validators.required),
+      // idUsuario: new FormControl(null, Validators.required),
+      // nombreUsuario: new FormControl(null, Validators.required),
+      idNaturaleza: this.frmNuevaTarea.controls['idNaturaleza'].value,
+      idExpediente: this.frmNuevaTarea.controls['idExpediente'].value,
+      numero: this.frmNuevaTarea.controls['numero'].value,
+      demandante: this.frmNuevaTarea.controls['demandante'].value.trim().slice(100),
+      demandado: this.frmNuevaTarea.controls['demandado'].value.trim().slice(100),
+      especialidad: this.frmNuevaTarea.controls['especialidad'].value,
+      tieneContrato: this.frmNuevaTarea.controls['tieneContrato'].value,
+      codigoTarea: this.frmNuevaTarea.controls['codigoTarea'].value,
+      detalleTarea: this.frmNuevaTarea.controls['detalleTarea'].value.trim().slice(1500),
+      pendienteTarea: this.frmNuevaTarea.controls['pendienteTarea'].value.trim().slice(1500),
+      // fechaTarea: new FormControl(null, Validators.required),
+      idCheckpoint: this.frmNuevaTarea.controls['idCheckpoint'].value,
+      nombreCheckpoint: this.frmNuevaTarea.controls['nombreCheckpoint'].value,
+      tipoAtencion: this.frmNuevaTarea.controls['tipoAtencion'].value,
+      delegadoPor: this.frmNuevaTarea.controls['delegadoPor'].value.trim().slice(100),
+      horasAtencion: this.frmNuevaTarea.controls['horasAtencion'].value,
+      minutosAtencion: this.frmNuevaTarea.controls['minutosAtencion'].value,
+      montoPactado: this.frmNuevaTarea.controls['montoPactado'].value.trim().slice(100),
+      abonoTotal: this.frmNuevaTarea.controls['abonoTotal'].value.trim().slice(100),
+      montoUltimoAbono: this.frmNuevaTarea.controls['montoUltimoAbono'].value.trim().slice(100),
+      fechaUltimoAbono: this.frmNuevaTarea.controls['fechaUltimoAbono'].value.trim().slice(100),
+      // fechaCreacion: new FormControl(null),
+    }
 
     let payload = {
       ...datosFormulario,
@@ -391,8 +418,8 @@ export class TareoEditNewComponent {
       .then(() => {
         this.modalService.dismissAll();
         this.frmNuevaTarea.reset();
-        this.fcTipoTarea.setValue('con');         
-        this.cambioTipoFormulario();         
+        this.fcTipoTarea.setValue('con');
+        this.cambioTipoFormulario();
         this.recuperarTareas();
       })
       .catch(err => {
@@ -488,24 +515,24 @@ export class TareoEditNewComponent {
       // idNaturaleza: tarea.idNaturaleza,
       // idExpediente: new FormControl(null, Validators.required),
       // numero: tarea.numero,
-      demandante: this.frmEditarTarea.value['demandante'].trim(),
-      demandado: this.frmEditarTarea.value['demandado'].trim(),
+      demandante: this.frmEditarTarea.value['demandante'].trim().slice(100),
+      demandado: this.frmEditarTarea.value['demandado'].trim().slice(100),
       especialidad: this.frmEditarTarea.value['especialidad'],
       // tieneContrato: tarea.tieneContrato,
       codigoTarea: this.frmEditarTarea.value['codigoTarea'],
-      detalleTarea: this.frmEditarTarea.value['detalleTarea'].trim(),
-      pendienteTarea: this.frmEditarTarea.value['pendienteTarea'].trim(),
+      detalleTarea: this.frmEditarTarea.value['detalleTarea'].trim().slice(1500),
+      pendienteTarea: this.frmEditarTarea.value['pendienteTarea'].trim().slice(1500),
       // fechaTarea: new FormControl(null, Validators.required),
       // idCheckpoint: tarea.idCheckpoint,
       // nombreCheckpoint: tarea.nombreCheckpoint,
       tipoAtencion: this.frmEditarTarea.value['tipoAtencion'],
-      delegadoPor: this.frmEditarTarea.value['delegadoPor'],
+      delegadoPor: this.frmEditarTarea.value['delegadoPor'].trim().slice(100),
       horasAtencion: this.frmEditarTarea.value['horasAtencion'],
       minutosAtencion: this.frmEditarTarea.value['minutosAtencion'],
-      montoPactado: this.frmEditarTarea.value['montoPactado'].trim(),
-      abonoTotal: this.frmEditarTarea.value['abonoTotal'].trim(),
-      montoUltimoAbono: this.frmEditarTarea.value['montoUltimoAbono'].trim(),
-      fechaUltimoAbono: this.frmEditarTarea.value['fechaUltimoAbono'].trim(),
+      montoPactado: this.frmEditarTarea.value['montoPactado'].trim().slice(100),
+      abonoTotal: this.frmEditarTarea.value['abonoTotal'].trim().slice(100),
+      montoUltimoAbono: this.frmEditarTarea.value['montoUltimoAbono'].trim().slice(100),
+      fechaUltimoAbono: this.frmEditarTarea.value['fechaUltimoAbono'].trim().slice(100),
       // fechaCreacion: new FormControl(null),
     }
 

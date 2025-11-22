@@ -27,8 +27,8 @@ export class ZDownloaderComponent {
     let final = this.frmData.controls['final'].value;
     let obs = this.db.collection('tareas', ref => {
       return ref
-        .where('sfecha', '>=', inicio)
-        .where('sfecha', '<=', final)
+        .where('fechaTarea', '>=', inicio)
+        .where('fechaTarea', '<=', final)
     })
       .valueChanges()
       .subscribe((res: any) => {
