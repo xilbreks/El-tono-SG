@@ -118,7 +118,7 @@ export class TareoEditNewComponent {
   // Cargar los expedientes completos
   cargarExpedientesCompletos() {
     this.service.expedientes.subscribe(res => {
-      this.expedientesCompletos = res;
+      this.expedientesCompletos = res.filter((e: any) => e.estado == 'EN PROCESO');
     })
   }
 
