@@ -34,7 +34,7 @@
                 <th>Pagos hechos</th>
                 <th>Ultimo pago</th>
                 <th>Fecha ultimo pago</th>
-                <!-- <th>Fecha y Hora de guardado</th> -->
+                <th>Fecha y Hora de guardado</th>
             </tr>
         </thead>
         <tbody *ngIf="!cargando">
@@ -88,9 +88,9 @@
                 <td>
                     {{ tarea.fechaUltimoAbono }}
                 </td>
-                <!-- <td>
-                    {{ tarea.fechaCreacion }}
-                </td> -->
+                <td>
+                    {{ tarea.fechaCreacionString }}
+                </td>
             </tr>
             <tr>
                 <th colspan="9" style="text-align: right;">

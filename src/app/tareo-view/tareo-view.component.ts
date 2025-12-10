@@ -54,7 +54,9 @@ export class TareoViewComponent {
 
       snapshot.forEach((doc: any) => {
         let tar: Tarea = doc.data();
-        tareas.push(tar);
+        let fechaCreacionTarea = new Date(Number(tar.fechaCreacion));
+        let fechaCreacionTareaString = fechaCreacionTarea.toLocaleString();
+        tareas.push({...tar, fechaCreacionString: fechaCreacionTareaString});
 
         horas += Number(tar.horasAtencion);
         minutos += Number(tar.minutosAtencion);
@@ -69,7 +71,7 @@ export class TareoViewComponent {
       sHoras = Math.floor(nTotalMinutos / 60).toString();
       sMinutos = (nTotalMinutos - Math.floor(nTotalMinutos / 60) * 60).toString();
 
-      this.nSumaTiempoTareas = `${sHoras}:${sMinutos}`;
+      this.nSumaTiempoTareas = `${sHoras}h:${sMinutos}m`;
 
       this.cargando = false;
     })

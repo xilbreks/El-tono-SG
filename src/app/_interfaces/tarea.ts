@@ -25,4 +25,6 @@ export interface Tarea {
     montoUltimoAbono: string,       // Monto del ultimo abono
     fechaUltimoAbono: string,       // Fecha del ultimo abono
     fechaCreacion: number,          // Fecha de creacion de la tarea en timestamp
+
+    fechaCreacionString?: string,   // fecha de creacion en formato dd/mm/yyyy - hh:mm:ss
 }
