@@ -34,10 +34,10 @@
                 <th>Codigo tarea</th>
                 <th>Detalle tarea</th>
                 <th>Pendiente tarea</th>
-                <th>Monto pactado</th>
+                <!-- <th>Monto pactado</th>
                 <th>Pagos hechos</th>
                 <th>Ultimo pago</th>
-                <th>Fecha ultimo pago</th>
+                <th>Fecha ultimo pago</th> -->
                 <th></th>
                 <th></th>
             </tr>
@@ -62,10 +62,10 @@
                 <td>{{tarea.codigoTarea}}</td>
                 <td>{{tarea.detalleTarea}}</td>
                 <td>{{tarea.pendienteTarea}}</td>
-                <td>{{tarea.montoPactado}}</td>
+                <!-- <td>{{tarea.montoPactado}}</td>
                 <td>{{tarea.abonoTotal}}</td>
                 <td>{{tarea.montoUltimoAbono}}</td>
-                <td>{{tarea.fechaUltimoAbono}}</td>
+                <td>{{tarea.fechaUltimoAbono}}</td> -->
                 <td>
                     <button class="btn btn-sm btn-outline-dark" (click)="empezarEdicionTarea(tarea, modalEditarTarea)"
                         ngbTooltip="Editar">
@@ -470,7 +470,7 @@
                 </div>
             </div>
 
-            <div class="row mb-2">
+            <!-- <div class="row mb-2">
                 <div class="col-6 col-md-3">
                     <label for="montopactado" class="form-label">
                         Monto pactado
@@ -498,7 +498,7 @@
                     </label>
                     <input type="text" class="form-control" id="fechaUltimoAbono" formControlName="fechaUltimoAbono" />
                 </div>
-            </div>
+            </div> -->
         </form>
 
         <!-- Formulario cuando no hay expediente -->
@@ -1246,7 +1246,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-2">
+                <!-- <div class="row mb-2">
                     <div class="col-6 col-md-3">
                         <label for="montopactado" class="form-label">
                             Monto pactado
@@ -1276,7 +1276,7 @@
                         <input type="text" class="form-control" id="fechaUltimoAbono"
                             formControlName="fechaUltimoAbono" />
                     </div>
-                </div>
+                </div> -->
             </div>
             <div *ngIf="frmEditarTarea.value.idNaturaleza == 'sin'">
                 <div class="row mb-2">

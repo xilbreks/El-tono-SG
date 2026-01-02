@@ -70,10 +70,10 @@ export class TareoEditNewComponent {
       delegadoPor: new FormControl(null, Validators.required),
       horasAtencion: new FormControl(null, Validators.required),
       minutosAtencion: new FormControl(null, Validators.required),
-      montoPactado: new FormControl(null, Validators.required),
-      abonoTotal: new FormControl(null, Validators.required),
-      montoUltimoAbono: new FormControl(null, Validators.required),
-      fechaUltimoAbono: new FormControl(null, Validators.required),
+      // montoPactado: new FormControl(null, Validators.required),
+      // abonoTotal: new FormControl(null, Validators.required),
+      // montoUltimoAbono: new FormControl(null, Validators.required),
+      // fechaUltimoAbono: new FormControl(null, Validators.required),
       // fechaCreacion: new FormControl(null),
     });
 
@@ -102,10 +102,10 @@ export class TareoEditNewComponent {
       delegadoPor: new FormControl(null, Validators.required),
       horasAtencion: new FormControl(null, Validators.required),
       minutosAtencion: new FormControl(null, Validators.required),
-      montoPactado: new FormControl(null, Validators.required),
-      abonoTotal: new FormControl(null, Validators.required),
-      montoUltimoAbono: new FormControl(null, Validators.required),
-      fechaUltimoAbono: new FormControl(null, Validators.required),
+      // montoPactado: new FormControl(null, Validators.required),
+      // abonoTotal: new FormControl(null, Validators.required),
+      // montoUltimoAbono: new FormControl(null, Validators.required),
+      // fechaUltimoAbono: new FormControl(null, Validators.required),
       // fechaCreacion: new FormControl(null),
     });
 
@@ -177,10 +177,10 @@ export class TareoEditNewComponent {
           delegadoPor: null,
           horasAtencion: null,
           minutosAtencion: null,
-          montoPactado: null,
-          abonoTotal: null,
-          montoUltimoAbono: null,
-          fechaUltimoAbono: null,
+          // montoPactado: null,
+          // abonoTotal: null,
+          // montoUltimoAbono: null,
+          // fechaUltimoAbono: null,
         });
         break;
       case 'sin':
@@ -202,10 +202,10 @@ export class TareoEditNewComponent {
           delegadoPor: null,
           horasAtencion: null,
           minutosAtencion: null,
-          montoPactado: '-',
-          abonoTotal: '-',
-          montoUltimoAbono: '-',
-          fechaUltimoAbono: '-',
+          // montoPactado: '-',
+          // abonoTotal: '-',
+          // montoUltimoAbono: '-',
+          // fechaUltimoAbono: '-',
         });
         this.fcQueryBox.reset('');
         break;
@@ -228,10 +228,10 @@ export class TareoEditNewComponent {
           delegadoPor: null,
           horasAtencion: null,
           minutosAtencion: null,
-          montoPactado: '-',
-          abonoTotal: '-',
-          montoUltimoAbono: '-',
-          fechaUltimoAbono: '-',
+          // montoPactado: '-',
+          // abonoTotal: '-',
+          // montoUltimoAbono: '-',
+          // fechaUltimoAbono: '-',
         });
         this.fcQueryBox.reset('');
         break;
@@ -395,10 +395,10 @@ export class TareoEditNewComponent {
       delegadoPor: this.frmNuevaTarea.controls['delegadoPor'].value.trim().slice(0, 100),
       horasAtencion: this.frmNuevaTarea.controls['horasAtencion'].value,
       minutosAtencion: this.frmNuevaTarea.controls['minutosAtencion'].value,
-      montoPactado: this.frmNuevaTarea.controls['montoPactado'].value.trim().slice(0, 100),
-      abonoTotal: this.frmNuevaTarea.controls['abonoTotal'].value.trim().slice(0, 100),
-      montoUltimoAbono: this.frmNuevaTarea.controls['montoUltimoAbono'].value.trim().slice(0, 100),
-      fechaUltimoAbono: this.frmNuevaTarea.controls['fechaUltimoAbono'].value.trim().slice(0, 100),
+      // montoPactado: this.frmNuevaTarea.controls['montoPactado'].value.trim().slice(0, 100),
+      // abonoTotal: this.frmNuevaTarea.controls['abonoTotal'].value.trim().slice(0, 100),
+      // montoUltimoAbono: this.frmNuevaTarea.controls['montoUltimoAbono'].value.trim().slice(0, 100),
+      // fechaUltimoAbono: this.frmNuevaTarea.controls['fechaUltimoAbono'].value.trim().slice(0, 100),
       // fechaCreacion: new FormControl(null),
     }
 
@@ -495,10 +495,10 @@ export class TareoEditNewComponent {
       delegadoPor: tarea.delegadoPor,
       horasAtencion: tarea.horasAtencion,
       minutosAtencion: tarea.minutosAtencion,
-      montoPactado: tarea.montoPactado,
-      abonoTotal: tarea.abonoTotal,
-      montoUltimoAbono: tarea.montoUltimoAbono,
-      fechaUltimoAbono: tarea.fechaUltimoAbono,
+      // montoPactado: tarea.montoPactado,
+      // abonoTotal: tarea.abonoTotal,
+      // montoUltimoAbono: tarea.montoUltimoAbono,
+      // fechaUltimoAbono: tarea.fechaUltimoAbono,
       // fechaCreacion: new FormControl(null),
     })
   }
@@ -529,10 +529,10 @@ export class TareoEditNewComponent {
       delegadoPor: this.frmEditarTarea.value['delegadoPor'].trim().slice(0, 100),
       horasAtencion: this.frmEditarTarea.value['horasAtencion'],
       minutosAtencion: this.frmEditarTarea.value['minutosAtencion'],
-      montoPactado: this.frmEditarTarea.value['montoPactado'].trim().slice(0, 100),
-      abonoTotal: this.frmEditarTarea.value['abonoTotal'].trim().slice(0, 100),
-      montoUltimoAbono: this.frmEditarTarea.value['montoUltimoAbono'].trim().slice(0, 100),
-      fechaUltimoAbono: this.frmEditarTarea.value['fechaUltimoAbono'].trim().slice(0, 100),
+      // montoPactado: this.frmEditarTarea.value['montoPactado'].trim().slice(0, 100),
+      // abonoTotal: this.frmEditarTarea.value['abonoTotal'].trim().slice(0, 100),
+      // montoUltimoAbono: this.frmEditarTarea.value['montoUltimoAbono'].trim().slice(0, 100),
+      // fechaUltimoAbono: this.frmEditarTarea.value['fechaUltimoAbono'].trim().slice(0, 100),
       // fechaCreacion: new FormControl(null),
     }
 
