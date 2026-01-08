@@ -1,8 +1,6 @@
-# Sistema de Administración RDT
+# Sistema de Administración de expedientes RDT
 
-Este sistema ha sido realizo con el framework Angular version 16.1.0.
-
-El objetivo de este sistema es ayudar a la administración de los expedientes de la firma legal Silva Guillen.
+Este sistema ha sido realizo con el objetivo de ayudar a la administración de los expedientes de la firma legal Silva Guillen Abogados SAC.
 
 ## Caracteristicas
 
@@ -20,3 +18,6 @@ Además de esto, el sistema permite el control en cuanto a los RDT, teniendo car
 - Quitar tarea
 - Estadísticas sobre las tareas
 
+Del mismo el sistema permte agendar en el PLANNER integrado las citas y audiencias de los clientes.
+
+Desarrollado por Silva Guillen Abogados S.A.C.
