@@ -124,10 +124,18 @@
     </div>
 
     <!-- Solo para ver las observaciones del expediente -->
-    <div *ngIf="expediente?.observaciones" class="alert alert-warning" role="alert">
-        <span>
-            {{expediente?.observaciones}}
-        </span>
+    <div *ngIf="expediente?.observaciones">
+        <div style="display: flex; flex-direction: row-reverse; margin-top: -25px;">
+            <span role="button" (click)="toggleObservaciones()">
+                <i class="bi bi-box"></i>
+            </span>
+        </div>
+
+        <div *ngIf="mostrarObservaciones" class="alert alert-warning" role="alert">
+            <span>
+                {{expediente?.observaciones}}
+            </span>
+        </div>
     </div>
 </div>
 

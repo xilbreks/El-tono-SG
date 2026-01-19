@@ -15,6 +15,8 @@ export class ExpItemCoverComponent implements OnChanges {
   urlcontrato: string | null = null;
   cuadernos: Expediente[] = [];
 
+  mostrarObservaciones = true;
+
   constructor(
     private storage: AngularFireStorage,
     private db: AngularFirestore,
@@ -46,6 +48,10 @@ export class ExpItemCoverComponent implements OnChanges {
       });
       this.cuadernos.sort((a, b) => a.numero > b.numero ? -1 : 1);
     });
+  }
+
+  toggleObservaciones() {
+    this.mostrarObservaciones = !this.mostrarObservaciones;
   }
 
 }
