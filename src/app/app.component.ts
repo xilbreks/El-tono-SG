@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   user: any;
-  sversion = '3.0.11';
+  sversion = '3.0.12';
 
   constructor(
     private router: Router,

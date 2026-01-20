@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -16,6 +16,7 @@ import { Changelog } from '../_interfaces/changelog';
 })
 export class ExpItemRoadmapComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
+  @ViewChild('modalRevisionCheckpoint', { static: true }) modalTemplate!: TemplateRef<any>;
 
   frmCheckpoint: FormGroup;
   checkpoints: Checkpoint[] = [];
@@ -1177,6 +1178,7 @@ export class ExpItemRoadmapComponent implements OnChanges {
           console.log('f bb')
       }
 
+      this.revisarCheckpoint(this.expediente.nombreCheckpoint, this.expediente.estado);
     }
   }
 
@@ -1248,6 +1250,17 @@ export class ExpItemRoadmapComponent implements OnChanges {
     const letraAleatoria = String.fromCharCode(codigoAleatorio);
 
     return letraAleatoria;
+  }
+
+  revisarCheckpoint(checkpoint: string, estado: string) {
+    if (checkpoint.length <= 5 && estado == 'EN PROCESO') {
+      this.modalService.open(this.modalTemplate, {
+        size: 'md'
+      }).result.then(
+        (result) => console.log('Cerrado:', result),
+        (reason) => console.log('Dissmied:', reason)
+      )
+    }
   }
 
 }

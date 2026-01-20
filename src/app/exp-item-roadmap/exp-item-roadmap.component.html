@@ -55,3 +55,30 @@
         </button>
     </div>
 </ng-template>
+
+
+<!---------------------------------------------------------------
+  ---------------- MODAL REVISION CHECKPOINT  ------------------
+  -------------------------------------------------------------->
+<ng-template #modalRevisionCheckpoint let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">
+            ITER en desuso
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>
+            Es necesario actualizar el nivel del ITER al nuevo formato. Este ya está en desuso.
+        </p>
+        <p style="font-size: 0.75rem;">
+            <i>
+                Desde el 02 de febrero ya no se podrá acceder al expediente si no está con el nuevo ITER.
+            </i>
+        </p>
+    </div>
+    <!-- <div class="modal-footer">
+        
+    </div> -->
+</ng-template>
