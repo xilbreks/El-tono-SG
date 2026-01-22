@@ -1,8 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Expediente } from './../_interfaces/expediente';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { firstValueFrom } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,27 +12,23 @@ import { Router } from '@angular/router';
 })
 export class ExpItemEvolutionComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
-  isConfirming = false;
-  countdown = 5;
-  countdownInterval: any;
-  showVideo = false;
 
-  frmExpediente: FormGroup;
+  fcClase: FormControl = new FormControl(null);   // 'PRINCIPAL' | 'CUADERNO' | 'CF'
+  frmExp: FormGroup;
+  evolucionando = false;
 
   constructor(
-    private storage: AngularFireStorage,
     private db: AngularFirestore,
     private modalService: NgbModal,
     private router: Router,
   ) {
-    let regexp = /^\d{5}-\d{4}-[0]-\d{4}-[A-Z]{2}-[A-Z]{2}-\d{2}$/;
-
-    this.frmExpediente = new FormGroup({
-      'numero': new FormControl(null, Validators.compose([Validators.required, Validators.pattern(regexp)])),
+    this.frmExp = new FormGroup({
+      'titulo': new FormControl(null, Validators.required),
+      'numero': new FormControl(null, Validators.required),
       'demandante': new FormControl(null, Validators.required),
       'demandado': new FormControl(null, Validators.required),
       'juzgado': new FormControl(null, Validators.required),
-    })
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -44,7 +38,6 @@ export class ExpItemEvolutionComponent implements OnChanges {
   }
 
   openModal(modal: any) {
-
     this.modalService.open(modal, {
       windowClass: 'modal-md',
       keyboard: false,
@@ -52,69 +45,79 @@ export class ExpItemEvolutionComponent implements OnChanges {
     });
   }
 
-  startConfirmation() {
-    if (this.isConfirming) {
-      this.confirmAction();
-    } else {
-      this.isConfirming = true;
-      this.countdown = 5;
-      this.countdownInterval = setInterval(() => {
-        this.countdown--;
-        if (this.countdown === 0) {
-          this.resetButton();
-        }
-      }, 1000);
+  cambioClase() {
+    let regexp: RegExp = /REGEX/;
+    let clase = this.fcClase.value;
+    switch (clase) {
+      case 'PRINCIPAL':
+        regexp = /^\d{5}-\d{4}-[0]-\d{4}-[A-Z]{2}-[A-Z]{2}-\d{2}$/;
+        this.frmExp.patchValue({ titulo: 'EXPEDIENTE PRINCIPAL' });
+        break;
+      case 'CUADERNO':
+        regexp = /^\d{5}-\d{4}-([1-9]|[1-9]\d)-\d{4}-[A-Z]{2}-[A-Z]{2}-\d{2}$/;
+        this.frmExp.patchValue({ titulo: 'CUADERNO' });
+        break;
+      case 'CF':
+        regexp = /^\d+(-\d+)*$/;
+        this.frmExp.patchValue({ titulo: 'CARPETA FISCAL' });
+        break;
+      default:
+        console.log('error inesperado');
     }
+
+    this.frmExp.controls['numero'].setValidators([
+      Validators.required,
+      Validators.pattern(regexp)
+    ]);
+    this.frmExp.controls['numero'].updateValueAndValidity();
   }
 
-  confirmAction() {
-    clearInterval(this.countdownInterval);
-    this.showVideo = true;
+  concretarEvolucion() {
+    this.evolucionando = true;
 
-    // Promise para que al menos sea 30 segundos
+    // Promise para que al menos sea 5 segundos
     const promise = new Promise((resolve, reject) => {
-      setTimeout(resolve, 31000, 'foo');
-    })
+      setTimeout(resolve, 5000, 'foo');
+    });
+
+    // Validar que el formulario este completo
+    if (!this.fcClase.valid) {
+      window.alert('Formulario incompleto')
+      this.evolucionando = false;
+      return;
+    }
+    if (!this.frmExp.valid) {
+      window.alert('Formulario incompleto')
+      this.evolucionando = false;
+      return;
+    }
 
     // Update expediente to PRINCIPAL
-    const updater = this.evolucionarExp();
+    let clase = this.fcClase.value;
+    let titulo = this.frmExp.value['titulo'].trim().toUpperCase();
+    let numero = this.frmExp.value['numero'].trim().toUpperCase();
+    let demandante = this.frmExp.value['demandante'].trim().toUpperCase();
+    let demandado = this.frmExp.value['demandado'].trim().toUpperCase();
+    let juzgado = this.frmExp.value['juzgado'].trim().toUpperCase();
 
-    Promise.all([promise, updater]).then(() => {
-      this.showVideo = false;
-      this.modalService.dismissAll();
-      let numeroNuevo = this.frmExpediente.value['numero'].trim().toUpperCase();
-      this.router.navigate(['/expedientes-updater/'], {
-        queryParams: {
-          expediente: numeroNuevo,
-        }
-      })
-      console.log('Digievolucion exitosa');
-    })
-  }
-
-  resetButton() {
-    clearInterval(this.countdownInterval);
-    this.isConfirming = false;
-    this.countdown = 5;
-  }
-
-  /**
-   * Actualiza el numero de expediente a uno principal
-   */
-  evolucionarExp(): Promise<void> {
-    let numero = this.frmExpediente.value['numero'].trim().toUpperCase();
-    let demandante = this.frmExpediente.value['demandante'].trim().toUpperCase();
-    let demandado = this.frmExpediente.value['demandado'].trim().toUpperCase();
-    let juzgado = this.frmExpediente.value['juzgado'].trim().toUpperCase();
-
-    return this.db.collection('expedientes').doc(this.expediente?.idExpediente).update({
-      clase: 'PRINCIPAL',
-      titulo: 'EXPEDIENTE PRINCIPAL',
+    this.db.collection('expedientes').doc(this.expediente?.idExpediente).update({
+      clase: clase,
+      titulo: titulo,
       numero: numero,
       demandante: demandante,
       demandado: demandado,
       juzgado: juzgado,
       numeroProvisional: this.expediente?.numero,
+    }).then(() => {
+      this.router.navigate(['/expedientes-updater/'], {
+        queryParams: {
+          expediente: numero,
+        }
+      }).then(()=>{
+        this.modalService.dismissAll();
+      })
+      console.log('Evolucion exitosa');
     })
   }
+
 }

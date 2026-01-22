@@ -9,7 +9,7 @@
         El expediente <b>provisional</b> pasa a ser expediente <b>principal</b> mediante este proceso.
     </p>
 
-    <button class="btn btn-warning" (click)="openModal(digievolucionModal)">
+    <button class="btn btn-warning" (click)="openModal(modalEvolucion)">
         DIGIEVOLUCIONAR
     </button>
 
@@ -28,55 +28,54 @@
 
 
 <!------------------------------------------------
-  ------------ MODAL DIGIEVOLUCION ---------------
+  -------------- MODAL EVOLUCION -----------------
   ----------------------------------------------->
-<ng-template #digievolucionModal let-modal>
+<ng-template #modalEvolucion let-modal>
     <div class="modal-header">
         <h5 class="modal-title" id="modal-basic-title">
-            <span *ngIf="!showVideo">
-                Digievolucionar
-            </span>
-            <span *ngIf="showVideo">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Digievolucionando...
-            </span>
+            Evolucionar expediente
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')" *ngIf="!showVideo"></button>
+            (click)="modal.dismiss('Cross click')" *ngIf="!evolucionando"></button>
     </div>
     <div class="modal-body">
-        <form class="container" [formGroup]="frmExpediente" *ngIf="!showVideo">
-            <div class="overlay"></div>
-            <div class="content">
-                <p>Se procederá a digievolucionar el expediente, por lo que pasará de PROVISIONAL a PRINCIPAL.</p>
-                <div>
-                    <input type="text" class="form-control" formControlName="numero" placeholder="Número de expediente">
-                </div>
-                <div>
-                    <input type="text" class="form-control" formControlName="demandante" placeholder="Demandante">
-                </div>
-                <div>
-                    <input type="text" class="form-control" formControlName="demandado" placeholder="Demandado">
-                </div>
-                <div>
-                    <input type="text" class="form-control" formControlName="juzgado" placeholder="Juzgado">
-                </div>
-                <br>
-                <button class="btn btn-warning" (click)="startConfirmation()" [disabled]="!frmExpediente.valid">
-                    {{ isConfirming ? 'Confirmar Digievolución (' + countdown + 's)' : 'DIGIEVOLUCIONAR' }}
-                </button>
-                <p>Advertencia. No se puede revertir este proceso</p>
+        <div class="mb-2" *ngIf="!evolucionando">
+            <label for="tipo-exp">Elegir tipo de expediente:</label>
+            <select name="tipo-exp" id="tipo-exp" [formControl]="fcClase" (change)="cambioClase()">
+                <option value="PRINCIPAL">EXPEDIENTE PRINCIPAL - PJ</option>
+                <option value="CUADERNO">EXPEDIENTE CUADERNO - PJ</option>
+                <option value="CF" *ngIf="this.expediente?.especialidad=='PENAL'">CARPETA FISCAL - MP</option>
+            </select>
+        </div>
+        <form class="row" [formGroup]="frmExp" *ngIf="!evolucionando && !!fcClase.value">
+            <!-- <div class="col-12 mb-2">
+                <input type="text" class="form-control" formControlName="titulo" placeholder="Título del expediente">
+            </div> -->
+            <div class="col-12 mb-2">
+                <input type="text" class="form-control" formControlName="numero" placeholder="Número de expediente">
             </div>
+            <div class="col-12 mb-2">
+                <input type="text" class="form-control" formControlName="demandante" placeholder="Demandante">
+            </div>
+            <div class="col-12 mb-2">
+                <input type="text" class="form-control" formControlName="demandado" placeholder="Demandado">
+            </div>
+            <div class="col-12 mb-2">
+                <input type="text" class="form-control" formControlName="juzgado" placeholder="Juzgado">
+            </div>
+            <br>
+            <p><i>Advertencia. No se puede revertir este proceso.</i></p>
         </form>
-        <div *ngIf="showVideo" class="video-container">
-            <!-- <video autoplay>
-                <source src="./../../assets/digievolucion.mp4" type="video/mp4">
-                Tu navegador no soporta la reproducción de videos.
-            </video> -->
+        <div *ngIf="evolucionando" class="video-container">
             <div>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Actualizando expediente, por favor espere (no cierre la ventana)...
+                Evolucionando expediente, por favor espere (no cierre la ventana)...
             </div>
         </div>
+    </div>
+    <div class="modal-footer" *ngIf="!evolucionando">
+        <button type="button" class="btn btn-primary" [disabled]="frmExp.invalid" (click)="concretarEvolucion()">
+            Evolucionar
+        </button>
     </div>
 </ng-template>
