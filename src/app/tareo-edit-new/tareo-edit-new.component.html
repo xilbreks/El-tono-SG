@@ -391,7 +391,8 @@
                     </label>
                     <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea" rows="4">
                     </textarea>
-                    <div *ngIf="frmNuevaTarea.get('detalleTarea')?.errors?.['maxlength']" style="color: #dc3545; font-size: 0.875em;">
+                    <div *ngIf="frmNuevaTarea.get('detalleTarea')?.errors?.['maxlength']"
+                        style="color: #dc3545; font-size: 0.875em;">
                         Has superado el límite de 1500 caracteres.
                         (Actual: {{ frmNuevaTarea.get('detalleTarea')?.errors?.['maxlength'].actualLength }})
                     </div>
@@ -402,7 +403,8 @@
                     </label>
                     <textarea class="form-control" id="pendienteTarea" formControlName="pendienteTarea" rows="4">
                     </textarea>
-                    <div *ngIf="frmNuevaTarea.get('pendienteTarea')?.errors?.['maxlength']" style="color: #dc3545; font-size: 0.875em;">
+                    <div *ngIf="frmNuevaTarea.get('pendienteTarea')?.errors?.['maxlength']"
+                        style="color: #dc3545; font-size: 0.875em;">
                         Has superado el límite de 1500 caracteres.
                         (Actual: {{ frmNuevaTarea.get('pendienteTarea')?.errors?.['maxlength'].actualLength }})
                     </div>
@@ -708,7 +710,12 @@
                         Mención del caso, tarea, trabajo
                     </label>
                     <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea">
-                </textarea>
+                    </textarea>
+                    <div *ngIf="frmNuevaTarea.get('detalleTarea')?.errors?.['maxlength']"
+                        style="color: #dc3545; font-size: 0.875em;">
+                        Has superado el límite de 1500 caracteres.
+                        (Actual: {{ frmNuevaTarea.get('detalleTarea')?.errors?.['maxlength'].actualLength }})
+                    </div>
                 </div>
             </div>
 
@@ -847,7 +854,13 @@
                     <label for="detalleTarea" class="form-label">
                         Mención del caso, tarea, trabajo
                     </label>
-                    <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea"></textarea>
+                    <textarea class="form-control" id="detalleTarea" formControlName="detalleTarea">
+                    </textarea>
+                    <div *ngIf="frmNuevaTarea.get('detalleTarea')?.errors?.['maxlength']"
+                        style="color: #dc3545; font-size: 0.875em;">
+                        Has superado el límite de 1500 caracteres.
+                        (Actual: {{ frmNuevaTarea.get('detalleTarea')?.errors?.['maxlength'].actualLength }})
+                    </div>
                 </div>
             </div>
 

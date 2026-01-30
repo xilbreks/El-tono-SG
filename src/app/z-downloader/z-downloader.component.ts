@@ -178,22 +178,22 @@ export class ZDownloaderComponent {
       });
 
       // Convert JSON to string
-        const data = JSON.stringify(items);
+      const data = JSON.stringify(items);
 
-        // Create a Blob object
-        const blob = new Blob([data], { type: 'application/json' });
+      // Create a Blob object
+      const blob = new Blob([data], { type: 'application/json' });
 
-        // Create an object URL
-        const url = URL.createObjectURL(blob);
+      // Create an object URL
+      const url = URL.createObjectURL(blob);
 
-        // Download file
-        let link = document.createElement('a');
-        link.download = 'abonos.json';
-        link.href = url;
-        link.click();
+      // Download file
+      let link = document.createElement('a');
+      link.download = 'abonos.json';
+      link.href = url;
+      link.click();
 
-        // Release the object URL
-        URL.revokeObjectURL(url);
+      // Release the object URL
+      URL.revokeObjectURL(url);
     })
   }
 
@@ -331,5 +331,34 @@ export class ZDownloaderComponent {
 
         obs.unsubscribe();
       });
+  }
+
+  backupChangelog() {
+    let query = this.db.collection('changelog').get();
+
+    firstValueFrom(query).then(snapshot => {
+      let lista: any[] = [];
+      snapshot.forEach(doc => {
+        lista.push(doc.data())
+      });
+
+      // Convert JSON to string
+      const data = JSON.stringify(lista);
+
+      // Create a Blob object
+      const blob = new Blob([data], { type: 'application/json' });
+
+      // Create an object URL
+      const url = URL.createObjectURL(blob);
+
+      // Download file
+      let link = document.createElement('a');
+      link.download = 'changelog.json';
+      link.href = url;
+      link.click();
+
+      // Release the object URL
+      URL.revokeObjectURL(url);
+    });
   }
 }
