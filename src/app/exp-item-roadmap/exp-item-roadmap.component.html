@@ -58,27 +58,49 @@
 
 
 <!---------------------------------------------------------------
-  ---------------- MODAL REVISION CHECKPOINT  ------------------
+  ---------------- MODAL OBLIGATORIO CHECKPOINT  ------------------
   -------------------------------------------------------------->
-<ng-template #modalRevisionCheckpoint let-modal>
+<ng-template #modalObligatorioCheckpoint let-modal>
     <div class="modal-header">
         <h5 class="modal-title" id="modal-basic-title">
-            ITER en desuso
+            Cambiar checkpoint (ITER) <span (dblclick)="modal.dismiss('Cross click')">-</span> OBLIGATORIO
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <p>
-            Es necesario actualizar el nivel del ITER al nuevo formato. Este ya está en desuso.
-        </p>
-        <p style="font-size: 0.75rem;">
-            <i>
-                Desde el 02 de febrero ya no se podrá acceder al expediente si no está con el nuevo ITER.
-            </i>
-        </p>
+        <span>Expediente: {{expediente?.numero}}</span>
+        <hr>
+        <form [formGroup]="frmCheckpoint" class="row" autocomplete="off">
+            <div class="col-12 mb-3">
+                <label for="checkpointactual">Checkpoint Actual</label>
+                <span id="checkpointactual" class="form-control">
+                    {{expediente?.nombreCheckpoint}}
+                </span>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="idCheckpoint">Nuevo Checkpoint:</label>
+                <select class="form-select" id="idCheckpoint" formControlName="id" (change)="seleccionarCheckpoint()">
+                    <option *ngFor="let checkpoint of checkpoints" [value]="checkpoint.idCheckpoint">
+                        {{checkpoint.nombre}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                <label for="fecha-inicio">Fecha de cambio:</label>
+                <input type="date" class="form-control" id="fecha-inicio" formControlName="fecha">
+            </div>
+        </form>
+        <!-- <pre>
+            {{frmCheckpoint.value | json}}
+        </pre> -->
     </div>
-    <!-- <div class="modal-footer">
-        
-    </div> -->
+    <div class="modal-footer">
+        <button class="btn btn-primary" *ngIf="!actualizando" [disabled]="!frmCheckpoint.valid"
+            (click)="concretarCambioCheckpoint()">
+            Actualizar Checkpoint
+        </button>
+        <button class="btn btn-primary" *ngIf="actualizando" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Actualizando...
+        </button>
+    </div>
 </ng-template>

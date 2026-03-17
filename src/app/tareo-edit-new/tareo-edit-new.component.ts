@@ -316,6 +316,10 @@ export class TareoEditNewComponent {
     firstValueFrom(query).then((snapshot: any) => {
       let exp: Expediente = snapshot.data();
 
+      if (exp.nombreCheckpoint.length <= 5) {
+        window.alert('Es necesario actualizar el ITER de dicho expediente')
+      }
+
       this.frmNuevaTarea.patchValue({
         idCheckpoint: exp.idCheckpoint,
         nombreCheckpoint: exp.nombreCheckpoint,

@@ -16,7 +16,7 @@ import { Changelog } from '../_interfaces/changelog';
 })
 export class ExpItemRoadmapComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
-  @ViewChild('modalRevisionCheckpoint', { static: true }) modalTemplate!: TemplateRef<any>;
+  @ViewChild('modalObligatorioCheckpoint', { static: true }) modalTemplate!: TemplateRef<any>;
 
   frmCheckpoint: FormGroup;
   checkpoints: Checkpoint[] = [];
@@ -1254,12 +1254,20 @@ export class ExpItemRoadmapComponent implements OnChanges {
 
   revisarCheckpoint(checkpoint: string, estado: string) {
     if (checkpoint.length <= 5 && estado == 'EN PROCESO') {
+
+      this.frmCheckpoint.reset();
+      let especialidad = this.expediente?.especialidad.toLocaleLowerCase();
+      let size = especialidad == 'penal' ? 'lg' : 'md';
+
       this.modalService.open(this.modalTemplate, {
-        size: 'md'
-      }).result.then(
-        (result) => console.log('Cerrado:', result),
-        (reason) => console.log('Dissmied:', reason)
-      )
+        size: size,
+        backdrop: 'static',
+        keyboard: false
+      })
+      // .result.then(
+      //   (result) => console.log('Cerrado:', result),
+      //   (reason) => console.log('Dissmied:', reason)
+      // )
     }
   }
 
