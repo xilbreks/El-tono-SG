@@ -7,7 +7,6 @@ import { AuthSignupComponent } from './auth-signup/auth-signup.component';
 import { ExpedienteRegisterComponent } from './expediente-register/expediente-register.component';
 import { ExpItemComponent } from './exp-item/exp-item.component';
 import { RecursosComponent } from './recursos/recursos.component';
-import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
 import { TestingComponent } from './testing/testing.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
@@ -24,9 +23,6 @@ import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/ex
 import { autenticacionGuard } from './autenticacion.guard';
 import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
 import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
-import { SprintsComponent } from './sprints/sprints.component';
-import { SprintNewComponent } from './sprint-new/sprint-new.component';
-import { TicketsMeComponent } from './tickets-me/tickets-me.component';
 import { TareoMensualComponent } from './tareo-mensual/tareo-mensual.component';
 import { TareoDiarioUserComponent } from './tareo-diario-user/tareo-diario-user.component';
 import { TareoDiarioComponent } from './tareo-diario/tareo-diario.component';
@@ -89,10 +85,6 @@ const routes: Routes = [
     component: RecursosComponent
   },
   {
-    path: 'stats-generator',
-    component: StatsGeneratorComponent,
-  },
-  {
     path: 'audiencias',
     component: PlannerAudienciasComponent
   },
@@ -151,18 +143,6 @@ const routes: Routes = [
   {
     path: 'cuotas',
     component: PlannerCuotasComponent
-  },
-  {
-    path: 'sprints',
-    component: SprintsComponent
-  },
-  {
-    path: 'sprint-new',
-    component: SprintNewComponent
-  },
-  {
-    path: 'mis-tickets',
-    component: TicketsMeComponent
   },
   {
     path: 'tareo-mensual',

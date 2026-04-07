@@ -16,7 +16,6 @@ import { ExpedienteRegisterComponent } from './expediente-register/expediente-re
 import { RecursosComponent } from './recursos/recursos.component';
 import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
 import { RecursosTareasComponent } from './recursos-tareas/recursos-tareas.component';
-import { StatsGeneratorComponent } from './stats-generator/stats-generator.component';
 import { TestingComponent } from './testing/testing.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
@@ -47,16 +46,9 @@ import { ExpItemEvolutionComponent } from './exp-item-evolution/exp-item-evoluti
 import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
 import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
 import { ExpItemRecursosComponent } from './exp-item-recursos/exp-item-recursos.component';
-import { TicketsComponent } from './tickets/tickets.component';
-import { SprintsComponent } from './sprints/sprints.component';
-import { SprintNewComponent } from './sprint-new/sprint-new.component';
-import { TicketsMeComponent } from './tickets-me/tickets-me.component';
 import { TareoMensualComponent } from './tareo-mensual/tareo-mensual.component';
 import { TareoDiarioComponent } from './tareo-diario/tareo-diario.component';
 import { TareoDiarioUserComponent } from './tareo-diario-user/tareo-diario-user.component';
-import { SprintComponent } from './sprint/sprint.component';
-import { SprintUserComponent } from './sprint-user/sprint-user.component';
-import { SprintMasterComponent } from './sprint-master/sprint-master.component';
 import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-diario-generator.component';
 import { TareoEditComponent } from './tareo-edit/tareo-edit.component';
 import { TareoViewComponent } from './tareo-view/tareo-view.component';
@@ -94,7 +86,6 @@ const environment = {
     RecursosComponent,
     RecursosItersComponent,
     RecursosTareasComponent,
-    StatsGeneratorComponent,
     TestingComponent,
     UsersComponent,
     UserItemComponent,
@@ -124,16 +115,9 @@ const environment = {
     PlannerAudienciasComponent,
     PlannerCitasComponent,
     ExpItemRecursosComponent,
-    TicketsComponent,
-    SprintsComponent,
-    SprintNewComponent,
-    TicketsMeComponent,
     TareoMensualComponent,
     TareoDiarioComponent,
     TareoDiarioUserComponent,
-    SprintComponent,
-    SprintUserComponent,
-    SprintMasterComponent,
     TareoDiarioGeneratorComponent,
     TareoEditComponent,
     TareoViewComponent,
