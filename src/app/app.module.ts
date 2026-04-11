@@ -65,6 +65,8 @@ import { ExpItemSinoeComponent } from './exp-item-sinoe/exp-item-sinoe.component
 import { PlantillasComponent } from './plantillas/plantillas.component';
 import { ExpItemRoadmapComponent } from './exp-item-roadmap/exp-item-roadmap.component';
 import { TareoEditNewComponent } from './tareo-edit-new/tareo-edit-new.component';
+import { ResolucionesAdminComponent } from './resoluciones-admin/resoluciones-admin.component';
+import { ResolucionesWorkerComponent } from './resoluciones-worker/resoluciones-worker.component';
 
 const environment = {
   production: false,
@@ -134,6 +136,8 @@ const environment = {
     PlantillasComponent,
     ExpItemRoadmapComponent,
     TareoEditNewComponent,
+    ResolucionesAdminComponent,
+    ResolucionesWorkerComponent,
   ],
   imports: [
     BrowserModule,

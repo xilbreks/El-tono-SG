@@ -1,0 +1,47 @@
+.form-control,
+.form-select {
+    background-color: rgb(217, 217, 217);
+    border: 1px solid black;
+}
+
+// ********
+// BUSCADOR
+// ********
+
+.search-box {
+    position: relative;
+    padding-left: 0px;
+}
+
+.result-box {
+    position: absolute;
+    z-index: 3;
+    top: 83px;
+
+    background-color: #fff;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    width: max-content;
+    max-height: 400px;
+
+    .result-item {
+        padding: 0 15px;
+        margin: 5px 0;
+        border-bottom: 1px solid #f3f3f3;
+        font-weight: 400;
+
+        .exp {
+            font-size: 0.95rem;
+        }
+
+        .dte {
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+    }
+
+    .result-item:hover {
+        background-color: #e9f3ff;
+        cursor: pointer;
+    }
+}

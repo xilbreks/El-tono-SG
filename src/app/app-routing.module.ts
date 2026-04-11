@@ -33,6 +33,8 @@ import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.co
 import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.component';
 import { PlantillasComponent } from './plantillas/plantillas.component';
 import { TareoEditNewComponent } from './tareo-edit-new/tareo-edit-new.component';
+import { ResolucionesAdminComponent } from './resoluciones-admin/resoluciones-admin.component';
+import { ResolucionesWorkerComponent } from './resoluciones-worker/resoluciones-worker.component';
 
 const routes: Routes = [
   {
@@ -122,11 +124,13 @@ const routes: Routes = [
   },
   {
     path: 'sinoe-admin',
-    component: SinoeAdminComponent
+    // component: SinoeAdminComponent,
+    component: ResolucionesAdminComponent,
   },
   {
     path: 'sinoe-worker',
-    component: SinoeWorkerComponent
+    // component: SinoeWorkerComponent
+    component: ResolucionesWorkerComponent
   },
   {
     path: 'sign-up',
