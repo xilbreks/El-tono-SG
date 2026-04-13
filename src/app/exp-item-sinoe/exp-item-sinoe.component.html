@@ -14,9 +14,6 @@
                 <th>
                     Tarea
                 </th>
-                <th>
-                    Asignado
-                </th>
                 <th style="text-align: center;">
                     Estado
                 </th>
@@ -37,15 +34,27 @@
                 <td>
                     {{noti.tarea}}
                 </td>
-                <td>
-                    {{noti.idEncargado}}
-                </td>
                 <td style="text-align: center;">
-                    <span *ngIf="noti.cumplimiento" style="color: green;">
-                        <i class="bi bi-check-circle-fill"></i>
-                    </span>
-                    <span *ngIf="!noti.cumplimiento" style="color: darkgreen;">
-                        <i class="bi bi-slash-circle"></i>
+                    <ng-template #popContent>
+                        {{noti.idEncargado}}
+                        <br>
+                        Estado: 
+                        <b *ngIf="noti.cumplimiento" style="color: green;">Completado</b>
+                        <span *ngIf="!noti.cumplimiento">Pendiente</span>
+                        <br>
+                        Fecha limite: {{noti.plazo}}
+                        <br>
+                        Observaciones: {{noti.observaciones}}
+                    </ng-template>
+                    <span placement="start" style="cursor: pointer;"
+                        [ngbPopover]="popContent"
+                        popoverTitle="Encargado">
+                        <span *ngIf="noti.cumplimiento" style="color: green;">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </span>
+                        <span *ngIf="!noti.cumplimiento" style="color: darkgreen;">
+                            <i class="bi bi-slash-circle"></i>
+                        </span>
                     </span>
                 </td>
             </tr>

@@ -40,7 +40,8 @@ export class ExpItemSinoeComponent implements OnChanges {
 
   recuperarNotificaciones(): Promise<any[]> {
     let query = this.db.collection('resoluciones', ref => {
-      return ref.where('numeroExpediente', '==', this.expediente?.numero).limit(10)
+      return ref.where('numeroExpediente', '==', this.expediente?.numero)
+                .orderBy('fechaNotificacion', 'desc').limit(10)
     }).get();
 
     return firstValueFrom(query).then(snapshot => {
