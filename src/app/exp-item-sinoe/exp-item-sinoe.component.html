@@ -1,12 +1,15 @@
 <h5>
-    A partir de las notificaciones del SINOE
+    Notificaciones del SINOE
 </h5>
 <div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    Creado el
+                    Fecha de notificacion
+                </th>
+                <th>
+                    Contenido
                 </th>
                 <th>
                     Tarea
@@ -25,19 +28,23 @@
         <tbody *ngIf="!cargando && notificaciones.length > 0">
             <tr *ngFor="let noti of notificaciones">
                 <td>
-                    {{noti.fecha}}
+                    {{noti.fechaNotificacion}}
                 </td>
                 <td>
-                    {{noti.starea}}
+                    <b>{{noti.titulo}}: </b>
+                    <span>{{noti.contenido}}</span>
                 </td>
                 <td>
-                    {{noti.idencargado}}
+                    {{noti.tarea}}
+                </td>
+                <td>
+                    {{noti.idEncargado}}
                 </td>
                 <td style="text-align: center;">
-                    <span *ngIf="noti.lcumplimiento" style="color: green;">
+                    <span *ngIf="noti.cumplimiento" style="color: green;">
                         <i class="bi bi-check-circle-fill"></i>
                     </span>
-                    <span *ngIf="!noti.lcumplimiento" style="color: darkgreen;">
+                    <span *ngIf="!noti.cumplimiento" style="color: darkgreen;">
                         <i class="bi bi-slash-circle"></i>
                     </span>
                 </td>
