@@ -1,5 +1,5 @@
 <h4 style="text-align: center;">
-    Tareo Diario (RDT) - supervisor
+    Tareo Diario (RDT) - supervisor LTS
 </h4>
 <div>
     <label for="fecha">Fecha: </label>
@@ -32,8 +32,10 @@
                 </th>
             </tr>
         </thead>
-        <tbody *ngIf="!cargando">
-            <tr *ngFor="let tareo of tareos; let i = index">
+        <tbody>
+            @if(!cargando) {
+            @for (tareo of tareos; track tareo.idTareo; let i = $index) {
+            <tr>
                 <td>
                     {{i+1}}
                 </td>
@@ -62,12 +64,15 @@
                     </a>
                 </td>
             </tr>
-        </tbody>
-
-        <tbody *ngIf="cargando">
+            } @empty {
+            <p>RDT sin habilitar</p>
+            }
+            } @else {
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             cargando...
+            }
         </tbody>
+
     </table>
     <div>
         <button (click)="descargarExcel()">

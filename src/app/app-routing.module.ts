@@ -27,7 +27,6 @@ import { TareoMensualComponent } from './tareo-mensual/tareo-mensual.component';
 import { TareoDiarioUserComponent } from './tareo-diario-user/tareo-diario-user.component';
 import { TareoDiarioComponent } from './tareo-diario/tareo-diario.component';
 import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-diario-generator.component';
-import { TareoEditComponent } from './tareo-edit/tareo-edit.component';
 import { TareoViewComponent } from './tareo-view/tareo-view.component';
 import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.component';
 import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.component';
