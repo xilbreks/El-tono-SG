@@ -39,7 +39,6 @@ import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/ex
 import { ExpItemApptComponent } from './exp-item-appt/exp-item-appt.component';
 import { ExpItemRdtComponent } from './exp-item-rdt/exp-item-rdt.component';
 import { ExpItemTrialComponent } from './exp-item-trial/exp-item-trial.component';
-import { ExpItemCallsComponent } from './exp-item-calls/exp-item-calls.component';
 import { ExpItemFilesComponent } from './exp-item-files/exp-item-files.component';
 import { ExpItemKComponent } from './exp-item-k/exp-item-k.component';
 import { ExpItemEvolutionComponent } from './exp-item-evolution/exp-item-evolution.component';
@@ -109,7 +108,6 @@ const environment = {
         ExpItemApptComponent,
         ExpItemRdtComponent,
         ExpItemTrialComponent,
-        ExpItemCallsComponent,
         ExpItemFilesComponent,
         ExpItemKComponent,
         ExpItemEvolutionComponent,
