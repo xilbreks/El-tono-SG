@@ -1,108 +1,114 @@
 <h4>
-    REPORTE DIARIO DE TRABAJO view LTS
+  REPORTE DIARIO DE TRABAJO view LTS
 </h4>
 
 <table class="tbl-cabecera">
-    <tr>
-        <td>Realizado por:</td>
-        <td class="objrdt">{{tareo?.nombreUsuario}}</td>
-    </tr>
-    <tr>
-        <td>Fecha:</td>
-        <td class="objrdt">{{tareo?.fecha}}</td>
-    </tr>
+  <tr>
+    <td>Realizado por:</td>
+    <td class="objrdt">{{tareo?.nombreUsuario}}</td>
+  </tr>
+  <tr>
+    <td>Fecha:</td>
+    <td class="objrdt">{{tareo?.fecha}}</td>
+  </tr>
 </table>
 
 <div class="table-responsive">
-    <table class="table table-bordered" id="tareas_rdt">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Atención</th>
-                <th>Delegado por</th>
-                <th>Expediente</th>
-                <th>Tipo de proceso</th>
-                <th>DTE</th>
-                <th>DDO</th>
-                <th>ITER</th>
-                <th>Contrato</th>
-                <th>T. Atención</th>
-                <th>Código de tarea</th>
-                <th>Mención de la tarea</th>
-                <th>Acciones a realizar</th>
-                <!-- <th>Monto pactado</th>
-                <th>Pagos hechos</th>
-                <th>Ultimo pago</th>
-                <th>Fecha ultimo pago</th> -->
-                <th>Fecha y Hora de guardado</th>
-            </tr>
-        </thead>
-        <tbody *ngIf="!cargando">
-            <tr *ngFor="let tarea of tareas; let i = index">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>
-                    {{ tarea.tipoAtencion }}
-                </td>
-                <td>
-                    {{ tarea.delegadoPor }}
-                </td>
-                <td>
-                    {{ tarea.numero }}
-                </td>
-                <td>
-                    {{ tarea.especialidad }}
-                </td>
-                <td>
-                    {{ tarea.demandante}}
-                </td>
-                <td>
-                    {{ tarea.demandado }}
-                </td>
-                <td>
-                    {{ tarea.nombreCheckpoint }}
-                </td>
-                <td>
-                    {{ tarea.tieneContrato }}
-                </td>
-                <td>
-                    {{tarea.horasAtencion}}:{{tarea.minutosAtencion}}
-                </td>
-                <td>
-                    {{ tarea.codigoTarea }}
-                </td>
-                <td>
-                    {{ tarea.detalleTarea }}
-                </td>
-                <td>
-                    {{ tarea.pendienteTarea }}
-                </td>
-                <!-- <td>
-                    {{ tarea.montoPactado }}
-                </td>
-                <td>
-                    {{ tarea.abonoTotal }}
-                </td>
-                <td>
-                    {{ tarea.montoUltimoAbono }}
-                </td>
-                <td>
-                    {{ tarea.fechaUltimoAbono }}
-                </td> -->
-                <td>
-                    {{ tarea.fechaCreacionString }}
-                </td>
-            </tr>
-            <tr>
-                <th colspan="9" style="text-align: right;">
-                    <b>SUMA TOTAL DE TIEMPO UTILIZADO</b>
-                </th>
-                <th>
-                    <b>{{nSumaTiempoTareas}}</b>
-                </th>
-                <th colspan="9">
-                </th>
-            </tr>
-        </tbody>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="cargando"></span>
-    </table>
+  <table class="table table-bordered" id="tareas_rdt">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Atención</th>
+        <th>Delegado por</th>
+        <th>Expediente</th>
+        <th>Tipo de proceso</th>
+        <th>DTE</th>
+        <th>DDO</th>
+        <th>ITER</th>
+        <th>Contrato</th>
+        <th>T. Atención</th>
+        <th>Código de tarea</th>
+        <th>Mención de la tarea</th>
+        <th>Acciones a realizar</th>
+        <!-- <th>Monto pactado</th>
+        <th>Pagos hechos</th>
+        <th>Ultimo pago</th>
+        <th>Fecha ultimo pago</th> -->
+        <th>Fecha y Hora de guardado</th>
+      </tr>
+    </thead>
+    @if (!cargando) {
+      <tbody>
+        @for (tarea of tareas; track tarea; let i = $index) {
+          <tr>
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              {{ tarea.tipoAtencion }}
+            </td>
+            <td>
+              {{ tarea.delegadoPor }}
+            </td>
+            <td>
+              {{ tarea.numero }}
+            </td>
+            <td>
+              {{ tarea.especialidad }}
+            </td>
+            <td>
+              {{ tarea.demandante}}
+            </td>
+            <td>
+              {{ tarea.demandado }}
+            </td>
+            <td>
+              {{ tarea.nombreCheckpoint }}
+            </td>
+            <td>
+              {{ tarea.tieneContrato }}
+            </td>
+            <td>
+              {{tarea.horasAtencion}}:{{tarea.minutosAtencion}}
+            </td>
+            <td>
+              {{ tarea.codigoTarea }}
+            </td>
+            <td>
+              {{ tarea.detalleTarea }}
+            </td>
+            <td>
+              {{ tarea.pendienteTarea }}
+            </td>
+            <!-- <td>
+            {{ tarea.montoPactado }}
+          </td>
+          <td>
+            {{ tarea.abonoTotal }}
+          </td>
+          <td>
+            {{ tarea.montoUltimoAbono }}
+          </td>
+          <td>
+            {{ tarea.fechaUltimoAbono }}
+          </td> -->
+          <td>
+            {{ tarea.fechaCreacionString }}
+          </td>
+        </tr>
+      }
+      <tr>
+        <th colspan="9" style="text-align: right;">
+          <b>SUMA TOTAL DE TIEMPO UTILIZADO</b>
+        </th>
+        <th>
+          <b>{{nSumaTiempoTareas}}</b>
+        </th>
+        <th colspan="9">
+        </th>
+      </tr>
+    </tbody>
+  }
+  @if (cargando) {
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  }
+</table>
 </div>

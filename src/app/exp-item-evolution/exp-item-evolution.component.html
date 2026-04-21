@@ -1,81 +1,89 @@
-<div *ngIf="expediente?.clase == 'PROVISIONAL'">
+@if (expediente?.clase == 'PROVISIONAL') {
+  <div>
     <h5>
-        <i class="bi bi-lightning"></i>
-        <span>Digievolucionar</span>
-        <i class="bi bi-lightning"></i>
+      <i class="bi bi-lightning"></i>
+      <span>Digievolucionar</span>
+      <i class="bi bi-lightning"></i>
     </h5>
-
     <p>
-        El expediente <b>provisional</b> pasa a ser expediente <b>principal</b> mediante este proceso.
+      El expediente <b>provisional</b> pasa a ser expediente <b>principal</b> mediante este proceso.
     </p>
-
     <button class="btn btn-warning" (click)="openModal(modalEvolucion)">
-        DIGIEVOLUCIONAR
+      DIGIEVOLUCIONAR
     </button>
-
-
-
-
     <div style="margin-top: 50px;">
-        <span style="font-size: 0.75rem;">
-            <i>
-                {{expediente?.numero}}
-            </i>
-        </span>
+      <span style="font-size: 0.75rem;">
+        <i>
+          {{expediente?.numero}}
+        </i>
+      </span>
     </div>
     <hr>
-</div>
+    </div>
+  }
 
 
-<!------------------------------------------------
+  <!------------------------------------------------
   -------------- MODAL EVOLUCION -----------------
   ----------------------------------------------->
-<ng-template #modalEvolucion let-modal>
+  <ng-template #modalEvolucion let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">
-            Evolucionar expediente
-        </h5>
+      <h5 class="modal-title" id="modal-basic-title">
+        Evolucionar expediente
+      </h5>
+      @if (!evolucionando) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')" *ngIf="!evolucionando"></button>
+        (click)="modal.dismiss('Cross click')"></button>
+      }
     </div>
     <div class="modal-body">
-        <div class="mb-2" *ngIf="!evolucionando">
-            <label for="tipo-exp">Elegir tipo de expediente:</label>
-            <select name="tipo-exp" id="tipo-exp" [formControl]="fcClase" (change)="cambioClase()">
-                <option value="PRINCIPAL">EXPEDIENTE PRINCIPAL - PJ</option>
-                <option value="CUADERNO">EXPEDIENTE CUADERNO - PJ</option>
-                <option value="CF" *ngIf="this.expediente?.especialidad=='PENAL'">CARPETA FISCAL - MP</option>
-            </select>
+      @if (!evolucionando) {
+        <div class="mb-2">
+          <label for="tipo-exp">Elegir tipo de expediente:</label>
+          <select name="tipo-exp" id="tipo-exp" [formControl]="fcClase" (change)="cambioClase()">
+            <option value="PRINCIPAL">EXPEDIENTE PRINCIPAL - PJ</option>
+            <option value="CUADERNO">EXPEDIENTE CUADERNO - PJ</option>
+            @if (this.expediente?.especialidad=='PENAL') {
+              <option value="CF">CARPETA FISCAL - MP</option>
+            }
+          </select>
         </div>
-        <form class="row" [formGroup]="frmExp" *ngIf="!evolucionando && !!fcClase.value">
-            <!-- <div class="col-12 mb-2">
-                <input type="text" class="form-control" formControlName="titulo" placeholder="Título del expediente">
-            </div> -->
-            <div class="col-12 mb-2">
-                <input type="text" class="form-control" formControlName="numero" placeholder="Número de expediente">
-            </div>
-            <div class="col-12 mb-2">
-                <input type="text" class="form-control" formControlName="demandante" placeholder="Demandante">
-            </div>
-            <div class="col-12 mb-2">
-                <input type="text" class="form-control" formControlName="demandado" placeholder="Demandado">
-            </div>
-            <div class="col-12 mb-2">
-                <input type="text" class="form-control" formControlName="juzgado" placeholder="Juzgado">
-            </div>
-            <br>
-            <p><i>Advertencia. No se puede revertir este proceso.</i></p>
+      }
+      @if (!evolucionando && !!fcClase.value) {
+        <form class="row" [formGroup]="frmExp">
+          <!-- <div class="col-12 mb-2">
+          <input type="text" class="form-control" formControlName="titulo" placeholder="Título del expediente">
+        </div> -->
+        <div class="col-12 mb-2">
+          <input type="text" class="form-control" formControlName="numero" placeholder="Número de expediente">
+        </div>
+        <div class="col-12 mb-2">
+          <input type="text" class="form-control" formControlName="demandante" placeholder="Demandante">
+        </div>
+        <div class="col-12 mb-2">
+          <input type="text" class="form-control" formControlName="demandado" placeholder="Demandado">
+        </div>
+        <div class="col-12 mb-2">
+          <input type="text" class="form-control" formControlName="juzgado" placeholder="Juzgado">
+        </div>
+        <br>
+          <p><i>Advertencia. No se puede revertir este proceso.</i></p>
         </form>
-        <div *ngIf="evolucionando" class="video-container">
-            <div>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Evolucionando expediente, por favor espere (no cierre la ventana)...
-            </div>
+      }
+      @if (evolucionando) {
+        <div class="video-container">
+          <div>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Evolucionando expediente, por favor espere (no cierre la ventana)...
+          </div>
         </div>
+      }
     </div>
-    <div class="modal-footer" *ngIf="!evolucionando">
+    @if (!evolucionando) {
+      <div class="modal-footer">
         <button type="button" class="btn btn-primary" [disabled]="frmExp.invalid" (click)="concretarEvolucion()">
-            Evolucionar
+          Evolucionar
         </button>
-    </div>
-</ng-template>
+      </div>
+    }
+  </ng-template>

@@ -1,135 +1,148 @@
 <br>
-<div class="container" *ngIf="!lLoading">
-    <ul class="nav nav-tabs" id="myTab" role="tablist" *ngIf="expediente">
-        <li class="nav-item" role="presentation">
+  @if (!lLoading) {
+    <div class="container">
+      @if (expediente) {
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
             <button class="nav-link active" id="expediente-tab" data-bs-toggle="tab"
-                data-bs-target="#expediente-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
-                aria-selected="true">
-                Expediente
+              data-bs-target="#expediente-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+              aria-selected="true">
+              Expediente
             </button>
-        </li>
-        <!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="roadmap-tab" data-bs-toggle="tab" data-bs-target="#roadmap-tab-pane"
-                type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
-                Hoja de Ruta
-            </button>
+          </li>
+          <!-- <li class="nav-item" role="presentation">
+          <button class="nav-link" id="roadmap-tab" data-bs-toggle="tab" data-bs-target="#roadmap-tab-pane"
+            type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
+            Hoja de Ruta
+          </button>
         </li> -->
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="historial-tab" data-bs-toggle="tab" data-bs-target="#historial-tab-pane"
-                type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
-                Historial
-            </button>
+          <button class="nav-link" id="historial-tab" data-bs-toggle="tab" data-bs-target="#historial-tab-pane"
+            type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">
+            Historial
+          </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="sinoe-tab" data-bs-toggle="tab" data-bs-target="#sinoe-tab-pane" type="button"
-                role="tab" aria-controls="sinoe-tab-pane" aria-selected="false">
-                Backlog
-            </button>
+          <button class="nav-link" id="sinoe-tab" data-bs-toggle="tab" data-bs-target="#sinoe-tab-pane" type="button"
+            role="tab" aria-controls="sinoe-tab-pane" aria-selected="false">
+            Backlog
+          </button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="suser == 'admin4' || 
-            suser == 'lizbet-silva' || 
-            suser == 'aaguero' || 
-            suser == 'mcoaquira' || 
-            suser == 'Esmeralda-Aslla' ||
-            suser == 'mcastelo' ||
-            suser == 'tuareg-meza' ||
-            suser == 'Pablo-Calderon' ||
-            suser == 'Alejandra-Chacaltana'">
+        @if (suser == 'admin4' ||
+          suser == 'lizbet-silva' ||
+          suser == 'aaguero' ||
+          suser == 'mcoaquira' ||
+          suser == 'Esmeralda-Aslla' ||
+          suser == 'mcastelo' ||
+          suser == 'tuareg-meza' ||
+          suser == 'Pablo-Calderon' ||
+          suser == 'Alejandra-Chacaltana') {
+          <li class="nav-item" role="presentation">
             <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos-tab-pane" type="button"
-                role="tab" aria-controls="contrato-tab-pane" aria-selected="false">
-                Inf. Economico
+              role="tab" aria-controls="contrato-tab-pane" aria-selected="false">
+              Inf. Economico
             </button>
+          </li>
+        }
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="citas-tab" data-bs-toggle="tab" data-bs-target="#citas-tab-pane" type="button"
+            role="tab" aria-controls="citas-tab-pane" aria-selected="false">
+            Citas
+          </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="citas-tab" data-bs-toggle="tab" data-bs-target="#citas-tab-pane" type="button"
-                role="tab" aria-controls="citas-tab-pane" aria-selected="false">
-                Citas
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="audiencia-tab" data-bs-toggle="tab" data-bs-target="#audiencia-tab-pane"
-                type="button" role="tab" aria-controls="audiencia-tab-pane" aria-selected="false">
-                Audiencias
-            </button>
+          <button class="nav-link" id="audiencia-tab" data-bs-toggle="tab" data-bs-target="#audiencia-tab-pane"
+            type="button" role="tab" aria-controls="audiencia-tab-pane" aria-selected="false">
+            Audiencias
+          </button>
         </li>
         <!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="obs-tab" data-bs-toggle="tab" data-bs-target="#obs-tab-pane" type="button"
-                role="tab" aria-controls="obs-tab-pane" aria-selected="false">
-                Observaciones
-                <span *ngIf="expediente.observaciones.length > 0">*</span>
-            </button>
-        </li> -->
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="files-tab" data-bs-toggle="tab" data-bs-target="#files-tab-pane" type="button"
-                role="tab" aria-controls="files-tab-pane" aria-selected="false">
-                Actuados
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit-tab-pane" type="button"
-                role="tab" aria-controls="edit-tab-pane" aria-selected="false">
-                <i class="bi bi-wrench-adjustable"></i>
-            </button>
-        </li>
+        <button class="nav-link" id="obs-tab" data-bs-toggle="tab" data-bs-target="#obs-tab-pane" type="button"
+          role="tab" aria-controls="obs-tab-pane" aria-selected="false">
+          Observaciones
+          <span *ngIf="expediente.observaciones.length > 0">*</span>
+        </button>
+      </li> -->
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="files-tab" data-bs-toggle="tab" data-bs-target="#files-tab-pane" type="button"
+          role="tab" aria-controls="files-tab-pane" aria-selected="false">
+          Actuados
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit-tab-pane" type="button"
+          role="tab" aria-controls="edit-tab-pane" aria-selected="false">
+          <i class="bi bi-wrench-adjustable"></i>
+        </button>
+      </li>
     </ul>
-    <div class="tab-content" id="myTabContent" *ngIf="expediente">
-        <div class="tab-pane fade show active" id="expediente-tab-pane" role="tabpanel" aria-labelledby="expediente-tab"
-            tabindex="0">
-            <app-exp-item-cover [expediente]="expediente"></app-exp-item-cover>
-        </div>
-        <div class="tab-pane fade" id="historial-tab-pane" role="tabpanel" aria-labelledby="historial-tab" tabindex="0">
-            <app-exp-item-rdt [expediente]="expediente"></app-exp-item-rdt>
-        </div>
-        <!-- <div class="tab-pane fade" id="roadmap-tab-pane" role="tabpanel" aria-labelledby="roadmap-tab" tabindex="0">
-            <app-exp-item-roadmap [expediente]="expediente"></app-exp-item-roadmap>
-        </div> -->
-        <div class="tab-pane fade" id="sinoe-tab-pane" role="tabpanel" aria-labelledby="sinoe-tab" tabindex="0">
-            <!-- <app-exp-item-calls [expediente]="expediente"></app-exp-item-calls> -->
-            <app-exp-item-sinoe [expediente]="expediente"></app-exp-item-sinoe>
-        </div>
-        <div class="tab-pane fade" id="pagos-tab-pane" role="tabpanel" aria-labelledby="pagos-tab" tabindex="0" *ngIf="suser == 'admin4' || 
-            suser == 'lizbet-silva' || 
-            suser == 'aaguero' || 
-            suser == 'mcoaquira' || 
-            suser == 'Esmeralda-Aslla' ||
-            suser == 'mcastelo' ||
-            suser == 'tuareg-meza' ||
-            suser == 'Pablo-Calderon' ||
-            suser == 'Alejandra-Chacaltana'">
-            <app-exp-item-econ [expediente]="expediente"></app-exp-item-econ>
-        </div>
-        <div class="tab-pane fade" id="citas-tab-pane" role="tabpanel" aria-labelledby="citas-tab" tabindex="0">
-            <app-exp-item-appt [expediente]="expediente"></app-exp-item-appt>
-        </div>
-        <div class="tab-pane fade" id="audiencia-tab-pane" role="tabpanel" aria-labelledby="audiencia-tab" tabindex="0">
-            <app-exp-item-trial [expediente]="expediente"></app-exp-item-trial>
-        </div>
-        <!-- <div class="tab-pane fade" id="obs-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
-            <app-exp-item-obs [expediente]="expediente"></app-exp-item-obs>
-        </div> -->
-        <div class="tab-pane fade" id="files-tab-pane" role="tabpanel" aria-labelledby="files-tab" tabindex="0">
-            <app-exp-item-k [expediente]="expediente"></app-exp-item-k>
-            <app-exp-item-files [expediente]="expediente"></app-exp-item-files>
-            <app-exp-item-recursos [expediente]="expediente"></app-exp-item-recursos>
-        </div>
-
-        <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
-            <app-exp-item-edit-data [expediente]="expediente"></app-exp-item-edit-data>
-            <!-- <app-exp-item-edit-match [sexpediente]="expediente.numero"></app-exp-item-edit-match>
-            <app-exp-item-edit-code [sexpediente]="expediente.numero"></app-exp-item-edit-code> -->
-            <app-exp-item-evolution [expediente]="expediente"></app-exp-item-evolution>
-            <app-exp-item-edit-status [expediente]="expediente"></app-exp-item-edit-status>
-        </div>
+  }
+  @if (expediente) {
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="expediente-tab-pane" role="tabpanel" aria-labelledby="expediente-tab"
+        tabindex="0">
+        <app-exp-item-cover [expediente]="expediente"></app-exp-item-cover>
+      </div>
+      <div class="tab-pane fade" id="historial-tab-pane" role="tabpanel" aria-labelledby="historial-tab" tabindex="0">
+        <app-exp-item-rdt [expediente]="expediente"></app-exp-item-rdt>
+      </div>
+      <!-- <div class="tab-pane fade" id="roadmap-tab-pane" role="tabpanel" aria-labelledby="roadmap-tab" tabindex="0">
+      <app-exp-item-roadmap [expediente]="expediente"></app-exp-item-roadmap>
+    </div> -->
+    <div class="tab-pane fade" id="sinoe-tab-pane" role="tabpanel" aria-labelledby="sinoe-tab" tabindex="0">
+      <!-- <app-exp-item-calls [expediente]="expediente"></app-exp-item-calls> -->
+      <app-exp-item-sinoe [expediente]="expediente"></app-exp-item-sinoe>
     </div>
-    <div *ngIf="!expediente">
-        <div style="font-size: 3rem;">
-            <i class="bi bi-capsule-pill"></i>
-        </div>
-        Expediente no Existe
+    @if (suser == 'admin4' ||
+      suser == 'lizbet-silva' ||
+      suser == 'aaguero' ||
+      suser == 'mcoaquira' ||
+      suser == 'Esmeralda-Aslla' ||
+      suser == 'mcastelo' ||
+      suser == 'tuareg-meza' ||
+      suser == 'Pablo-Calderon' ||
+      suser == 'Alejandra-Chacaltana') {
+      <div class="tab-pane fade" id="pagos-tab-pane" role="tabpanel" aria-labelledby="pagos-tab" tabindex="0">
+        <app-exp-item-econ [expediente]="expediente"></app-exp-item-econ>
+      </div>
+    }
+    <div class="tab-pane fade" id="citas-tab-pane" role="tabpanel" aria-labelledby="citas-tab" tabindex="0">
+      <app-exp-item-appt [expediente]="expediente"></app-exp-item-appt>
     </div>
+    <div class="tab-pane fade" id="audiencia-tab-pane" role="tabpanel" aria-labelledby="audiencia-tab" tabindex="0">
+      <app-exp-item-trial [expediente]="expediente"></app-exp-item-trial>
+    </div>
+    <!-- <div class="tab-pane fade" id="obs-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
+    <app-exp-item-obs [expediente]="expediente"></app-exp-item-obs>
+  </div> -->
+  <div class="tab-pane fade" id="files-tab-pane" role="tabpanel" aria-labelledby="files-tab" tabindex="0">
+    <app-exp-item-k [expediente]="expediente"></app-exp-item-k>
+    <app-exp-item-files [expediente]="expediente"></app-exp-item-files>
+    <app-exp-item-recursos [expediente]="expediente"></app-exp-item-recursos>
+  </div>
+  <div class="tab-pane fade" id="edit-tab-pane" role="tabpanel" aria-labelledby="obs-tab" tabindex="0">
+    <app-exp-item-edit-data [expediente]="expediente"></app-exp-item-edit-data>
+    <!-- <app-exp-item-edit-match [sexpediente]="expediente.numero"></app-exp-item-edit-match>
+    <app-exp-item-edit-code [sexpediente]="expediente.numero"></app-exp-item-edit-code> -->
+    <app-exp-item-evolution [expediente]="expediente"></app-exp-item-evolution>
+    <app-exp-item-edit-status [expediente]="expediente"></app-exp-item-edit-status>
+  </div>
 </div>
+}
+@if (!expediente) {
+  <div>
+    <div style="font-size: 3rem;">
+      <i class="bi bi-capsule-pill"></i>
+    </div>
+    Expediente no Existe
+  </div>
+}
+</div>
+}
 
-<div class="container" *ngIf="lLoading">
+@if (lLoading) {
+  <div class="container">
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     Cargando Expediente...
-</div>
+  </div>
+}

@@ -10,25 +10,28 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        <li class="nav-item dropdown" *ngIf="false">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Expedientes
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li>
-              <a class="dropdown-item" routerLink="/expediente-search"> Buscar Expediente </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/expediente-new"> Registrar Expediente </a>
-            </li>
-          </ul>
-        </li>
+        @if (false) {
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Expedientes
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" routerLink="/expediente-search"> Buscar Expediente </a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="/expediente-new"> Registrar Expediente </a>
+              </li>
+            </ul>
+          </li>
+        }
 
         <!-- <li class="nav-item" *ngIf="!!user">
-          <a class="nav-link" routerLink="/recursos"> Recursos </a>
-        </li> -->
-        <li class="nav-item dropdown" *ngIf="!!user">
+        <a class="nav-link" routerLink="/recursos"> Recursos </a>
+      </li> -->
+      @if (!!user) {
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="recursosNav" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             Recursos
@@ -42,8 +45,10 @@
             </li>
           </ul>
         </li>
+      }
 
-        <li class="nav-item dropdown" *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
+      @if (user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén') {
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             Generadores
@@ -53,148 +58,159 @@
               <a class="dropdown-item" routerLink="/expediente-new"> Registrar EXP </a>
             </li>
             <!-- <li>
-              <a class="dropdown-item" routerLink="/expedientes-updater"> Actualizador EXP </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/expediente-search"> Buscador EXP </a>
-            </li> -->
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/rdt-generator"> Generar RDT - diario </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/usuarios"> Usuarios </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/sign-up"> Registrar Usuario </a>
-            </li>
-            <!-- <li>
-              <a class="dropdown-item" routerLink="/stats-generator"> Generar RDT - stats </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/stats-rdt"> Ver RDT - stats </a>
-            </li> -->
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/tareo-mensual"> Tareo </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/pagos-honorarios"> Cobranzas </a>
-            </li>
-          </ul>
+            <a class="dropdown-item" routerLink="/expedientes-updater"> Actualizador EXP </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="/expediente-search"> Buscador EXP </a>
+          </li> -->
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="/rdt-generator"> Generar RDT - diario </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="/usuarios"> Usuarios </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="/sign-up"> Registrar Usuario </a>
+          </li>
+          <!-- <li>
+          <a class="dropdown-item" routerLink="/stats-generator"> Generar RDT - stats </a>
         </li>
-
-        <li class="nav-item" *ngIf="!!user">
-          <a class="nav-link" routerLink="/expedientes-listing">
-            Expedientes
-          </a>
-        </li>
-        <li class="nav-item dropdown" *ngIf="!!user">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            SINOE
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-            <li>
-              <!-- <a class="dropdown-item" routerLink="/sprints"
-                *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
-                <i class="bi bi-flag"></i>
-                <span style="padding-left: 5px;">
-                  Todos los Tickets
-                </span>
-              </a> -->
-              <!-- <a class="dropdown-item" routerLink="/mis-tickets">
-                <i class="bi bi-ticket-perforated"></i>
-                <span style="padding-left: 5px;">
-                  Mis Tickets
-                </span>
-              </a> -->
-              <!-- <a class="dropdown-item" routerLink="/sprint-new" *ngIf="user?.displayName=='ADMIN' && false">
-                <i class="bi bi-node-plus"></i>
-                <span style="padding-left: 5px;">
-                  Tickets
-                </span>
-              </a> -->
-              <a class="dropdown-item" routerLink="/tareo-supervisor">
-                <i class="bi bi-node-plus"></i>
-                <span style="padding-left: 5px;">
-                  Supervisor
-                </span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/sinoe-worker">
-                <i class="bi bi-mailbox"></i>
-                <span style="padding-left: 5px;">
-                  SINOE
-                </span>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="nav-item dropdown" *ngIf="!!user">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="bi bi-calendar4-range"></i>
-            Planners
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-            <li>
-              <a class="dropdown-item" routerLink="/audiencias">
-                Planner de Audiencias
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/citas">
-                Planner de Citas
-              </a>
-            </li>
-            <li *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
-              <a class="dropdown-item" routerLink="/cuotas">
-                Vencimientos
-              </a>
-            </li>
-          </ul>
-        </li>
-
-
-        <!-- <li class="nav-item" *ngIf="!!user && user?.displayName!='Lizbet Silva Guillén' && user?.displayName!='ADMIN'">
-          <a class="nav-link" routerLink="/expediente-search"> Buscador EXP </a>
+        <li>
+          <a class="dropdown-item" routerLink="/stats-rdt"> Ver RDT - stats </a>
         </li> -->
-
-        <li class="nav-item" *ngIf="user?.displayName=='Lizbet Silva Guillén'">
-          <a class="nav-link" routerLink="/admin-rdt"> RDTs </a>
+        <li>
+          <hr class="dropdown-divider">
         </li>
-
+        <li>
+          <a class="dropdown-item" routerLink="/tareo-mensual"> Tareo </a>
+        </li>
+        <li>
+          <a class="dropdown-item" routerLink="/pagos-honorarios"> Cobranzas </a>
+        </li>
       </ul>
+    </li>
+  }
 
-      <ul class="navbar-nav d-flex flex-row ms-auto me-3">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="bi bi-person-circle"></i>
-            {{user?user.displayName:'Identificarse'}}
+  @if (!!user) {
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/expedientes-listing">
+        Expedientes
+      </a>
+    </li>
+  }
+  @if (!!user) {
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        SINOE
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+        <li>
+          <!-- <a class="dropdown-item" routerLink="/sprints"
+          *ngIf="user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén'">
+          <i class="bi bi-flag"></i>
+          <span style="padding-left: 5px;">
+            Todos los Tickets
+          </span>
+        </a> -->
+        <!-- <a class="dropdown-item" routerLink="/mis-tickets">
+        <i class="bi bi-ticket-perforated"></i>
+        <span style="padding-left: 5px;">
+          Mis Tickets
+        </span>
+      </a> -->
+      <!-- <a class="dropdown-item" routerLink="/sprint-new" *ngIf="user?.displayName=='ADMIN' && false">
+      <i class="bi bi-node-plus"></i>
+      <span style="padding-left: 5px;">
+        Tickets
+      </span>
+    </a> -->
+    <a class="dropdown-item" routerLink="/tareo-supervisor">
+      <i class="bi bi-node-plus"></i>
+      <span style="padding-left: 5px;">
+        Supervisor
+      </span>
+    </a>
+  </li>
+  <li>
+    <hr class="dropdown-divider">
+  </li>
+  <li>
+    <a class="dropdown-item" routerLink="/sinoe-worker">
+      <i class="bi bi-mailbox"></i>
+      <span style="padding-left: 5px;">
+        SINOE
+      </span>
+    </a>
+  </li>
+</ul>
+</li>
+}
+
+@if (!!user) {
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      <i class="bi bi-calendar4-range"></i>
+      Planners
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+      <li>
+        <a class="dropdown-item" routerLink="/audiencias">
+          Planner de Audiencias
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" routerLink="/citas">
+          Planner de Citas
+        </a>
+      </li>
+      @if (user?.displayName=='ADMIN' || user?.displayName=='Lizbet Silva Guillén') {
+        <li>
+          <a class="dropdown-item" routerLink="/cuotas">
+            Vencimientos
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li>
-              <a class="dropdown-item" routerLink="/login"> Log-In </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/logout"> Log-out </a>
-            </li>
-          </ul>
         </li>
-      </ul>
-    </div>
-  </div>
+      }
+    </ul>
+  </li>
+}
+
+
+<!-- <li class="nav-item" *ngIf="!!user && user?.displayName!='Lizbet Silva Guillén' && user?.displayName!='ADMIN'">
+<a class="nav-link" routerLink="/expediente-search"> Buscador EXP </a>
+</li> -->
+
+@if (user?.displayName=='Lizbet Silva Guillén') {
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/admin-rdt"> RDTs </a>
+  </li>
+}
+
+</ul>
+
+<ul class="navbar-nav d-flex flex-row ms-auto me-3">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      <i class="bi bi-person-circle"></i>
+      {{user?user.displayName:'Identificarse'}}
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <li>
+        <a class="dropdown-item" routerLink="/login"> Log-In </a>
+      </li>
+      <li>
+        <a class="dropdown-item" routerLink="/logout"> Log-out </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
 </nav>
 
 <router-outlet></router-outlet>

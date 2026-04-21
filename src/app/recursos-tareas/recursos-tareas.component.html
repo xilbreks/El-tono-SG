@@ -1,7 +1,9 @@
 <div>
-    <ol>
-        <li *ngFor="let tarea of lstTareas">
-            {{tarea.desc}}
-        </li>
-    </ol>
+  <ol>
+    @for (tarea of lstTareas; track tarea) {
+      <li>
+        {{tarea.desc}}
+      </li>
+    }
+  </ol>
 </div>

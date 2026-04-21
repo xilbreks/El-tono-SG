@@ -1,473 +1,527 @@
 <p>
-    Listado de todas las resoluciones 
-    <a routerLink="/sinoe-admin">aquí</a>
+  Listado de todas las resoluciones
+  <a routerLink="/sinoe-admin">aquí</a>
 </p>
 
 <h3>Mis Resoluciones de SINOE</h3>
 
 <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>
-                    Cliente
-                </th>
-                <th>
-                    Expediente
-                </th>
-                <th>
-                    Contenido
-                </th>
-                <th>
-                    Tarea
-                </th>
-                <th>
-                    Vence
-                </th>
-                <th>
-                    Estado
-                </th>
-                <th>
-                    Observaciones
-                </th>
-                <th>
-                    Acción
-                </th>
-            </tr>
-        </thead>
-        <tbody *ngIf="!cargando">
-            <tr *ngFor="let t of resoluciones">
-                <td>
-                    {{t.cliente}}
-                </td>
-                <td>
-                    {{t.numeroExpediente}}
-                </td>
-                <td>
-                    <b>{{t.titulo}}: </b>
-                    <span>{{t.contenido}}</span>
-                </td>
-                <td>
-                    {{t.tarea}}
-                </td>
-                <td>
-                    <span *ngIf="t.plazo">
-                        {{t.plazo.slice(8,10)}}/{{t.plazo.slice(5,7)}}/{{t.plazo.slice(0,4)}}
-                    </span>
-                    <span *ngIf="!t.plazo">
-                        <i style="font-size: 0.75rem;">Pendiente delegar</i>
-                    </span>
-                </td>
-                <td style="text-align: center;">
-                    <span *ngIf="t.color == 'green'" style="color: green;">
-                        <i class="bi bi-circle-fill"></i>
-                    </span>
-                    <span *ngIf="t.color == 'gold'" style="color: gold;">
-                        <i class="bi bi-circle-fill"></i>
-                    </span>
-                    <span *ngIf="t.color == 'red'" style="color: red;">
-                        <i class="bi bi-circle-fill"></i>
-                    </span>
-                    <span *ngIf="t.color == 'black'" style="color: black;">
-                        <!-- <i class="bi bi-circle"></i> -->
-                    </span>
-                </td>
-                <td>
-                    {{t.observaciones}}
-                </td>
-                <td>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary btn-sm" type="button" id="dropdownMenu2"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <li *ngIf="!t.tarea">
-                                <button class="dropdown-item"
-                                    (click)="abrirModalDelegarResolucion(modalDelegarResolucion, t)">
-                                    Delegar
-                                </button>
-                            </li>
-                            <li *ngIf="!t.tarea">
-                                <button class="dropdown-item"
-                                    (click)="abrirModalEditarResolucion(modalEditarResolucion, t)">
-                                    Editar
-                                </button>
-                            </li>
-                            <li *ngIf="!!t.tarea">
-                                <button class="dropdown-item"
-                                    (click)="abrirModalConformidadResolucion(modalConformidadResolucion, t)">
-                                    Dar conformidad
-                                </button>
-                            </li>
-                            <li *ngIf="false">
-                                <button class="dropdown-item"
-                                    (click)="abrirModalEliminarResolucion(modalEliminarResolucion, t)">
-                                    Eliminar
-                                </button>
-                            </li>
-                            <li *ngIf="!!t.tarea">
-                                <button class="dropdown-item"
-                                    (click)="abrirModalDelegarResolucion(modalDelegarResolucion, t)">
-                                    Sub delegar
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-        <tbody *ngIf="cargando">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </tbody>
-    </table>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>
+          Cliente
+        </th>
+        <th>
+          Expediente
+        </th>
+        <th>
+          Contenido
+        </th>
+        <th>
+          Tarea
+        </th>
+        <th>
+          Vence
+        </th>
+        <th>
+          Estado
+        </th>
+        <th>
+          Observaciones
+        </th>
+        <th>
+          Acción
+        </th>
+      </tr>
+    </thead>
+    @if (!cargando) {
+      <tbody>
+        @for (t of resoluciones; track t) {
+          <tr>
+            <td>
+              {{t.cliente}}
+            </td>
+            <td>
+              {{t.numeroExpediente}}
+            </td>
+            <td>
+              <b>{{t.titulo}}: </b>
+              <span>{{t.contenido}}</span>
+            </td>
+            <td>
+              {{t.tarea}}
+            </td>
+            <td>
+              @if (t.plazo) {
+                <span>
+                  {{t.plazo.slice(8,10)}}/{{t.plazo.slice(5,7)}}/{{t.plazo.slice(0,4)}}
+                </span>
+              }
+              @if (!t.plazo) {
+                <span>
+                  <i style="font-size: 0.75rem;">Pendiente delegar</i>
+                </span>
+              }
+            </td>
+            <td style="text-align: center;">
+              @if (t.color == 'green') {
+                <span style="color: green;">
+                  <i class="bi bi-circle-fill"></i>
+                </span>
+              }
+              @if (t.color == 'gold') {
+                <span style="color: gold;">
+                  <i class="bi bi-circle-fill"></i>
+                </span>
+              }
+              @if (t.color == 'red') {
+                <span style="color: red;">
+                  <i class="bi bi-circle-fill"></i>
+                </span>
+              }
+              @if (t.color == 'black') {
+                <span style="color: black;">
+                  <!-- <i class="bi bi-circle"></i> -->
+                </span>
+              }
+            </td>
+            <td>
+              {{t.observaciones}}
+            </td>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-outline-secondary btn-sm" type="button" id="dropdownMenu2"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  @if (!t.tarea) {
+                    <li>
+                      <button class="dropdown-item"
+                        (click)="abrirModalDelegarResolucion(modalDelegarResolucion, t)">
+                        Delegar
+                      </button>
+                    </li>
+                  }
+                  @if (!t.tarea) {
+                    <li>
+                      <button class="dropdown-item"
+                        (click)="abrirModalEditarResolucion(modalEditarResolucion, t)">
+                        Editar
+                      </button>
+                    </li>
+                  }
+                  @if (!!t.tarea) {
+                    <li>
+                      <button class="dropdown-item"
+                        (click)="abrirModalConformidadResolucion(modalConformidadResolucion, t)">
+                        Dar conformidad
+                      </button>
+                    </li>
+                  }
+                  @if (false) {
+                    <li>
+                      <button class="dropdown-item"
+                        (click)="abrirModalEliminarResolucion(modalEliminarResolucion, t)">
+                        Eliminar
+                      </button>
+                    </li>
+                  }
+                  @if (!!t.tarea) {
+                    <li>
+                      <button class="dropdown-item"
+                        (click)="abrirModalDelegarResolucion(modalDelegarResolucion, t)">
+                        Sub delegar
+                      </button>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    }
+    @if (cargando) {
+      <tbody>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </tbody>
+    }
+  </table>
 </div>
 
 <!-----------------------------------------------------
-  ----------- MODAL: REGISTRAR RESOLUCION -------------
-  ----------------------------------------------------->
+----------- MODAL: REGISTRAR RESOLUCION -------------
+----------------------------------------------------->
 <ng-template #modalRegistrarResolucion let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Registrar Resolucion</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="frmRegistroResolucion" autocomplete="off">
-            <div class="row mb-1">
-                <div class="col-6">
-                    <label for="fecha-noti">Fecha de notificacion:</label>
-                </div>
-                <div class="col-6">
-                    <input type="date" class="form-control form-control-sm" id="fecha-noti"
-                        formControlName="fechaNotificacion" />
-                </div>
-            </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="numeroExpediente">Expediente:</label>
-                </div>
-                <div class="col-9">
-                    <div class="search-box">
-                        <input type="text" class="form-control form-control-sm" id="numeroExpediente"
-                            formControlName="numeroExpediente" (input)="mostrarAutocompletado()"
-                            (keyup.enter)="pressEnter()" (blur)="desfocusear()" (focus)="mostrarAutocompletado()" />
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Registrar Resolucion</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="frmRegistroResolucion" autocomplete="off">
+      <div class="row mb-1">
+        <div class="col-6">
+          <label for="fecha-noti">Fecha de notificacion:</label>
+        </div>
+        <div class="col-6">
+          <input type="date" class="form-control form-control-sm" id="fecha-noti"
+            formControlName="fechaNotificacion" />
+          </div>
+        </div>
+        <div class="row mb-1">
+          <div class="col-3">
+            <label for="numeroExpediente">Expediente:</label>
+          </div>
+          <div class="col-9">
+            <div class="search-box">
+              <input type="text" class="form-control form-control-sm" id="numeroExpediente"
+                formControlName="numeroExpediente" (input)="mostrarAutocompletado()"
+                (keyup.enter)="pressEnter()" (blur)="desfocusear()" (focus)="mostrarAutocompletado()" />
+              </div>
+              <div class="result-box">
+                @for (expediente of expedientes; track expediente) {
+                  <div class="result-item"
+                    (click)="pickExpediente(expediente)" (mousedown)="prevenir($event)">
+                    <div class="exp">
+                      {{expediente.numero}}
                     </div>
-                    <div class="result-box">
-                        <div class="result-item" *ngFor="let expediente of expedientes"
-                            (click)="pickExpediente(expediente)" (mousedown)="prevenir($event)">
-                            <div class="exp">
-                                {{expediente.numero}}
-                            </div>
-                            <div class="dte">
-                                {{expediente.demandante}}
-                            </div>
-                        </div>
+                    <div class="dte">
+                      {{expediente.demandante}}
                     </div>
-                </div>
+                  </div>
+                }
+              </div>
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="cliente">Cliente:</label>
-                </div>
-                <div class="col-9">
-                    <input type="text" class="form-control form-control-sm" id="cliente" formControlName="cliente" />
-                </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <label for="cliente">Cliente:</label>
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="sencargado" class="form-label">
-                        Encargado:
-                    </label>
-                </div>
-                <div class="col-9">
-                    <select id="sencargado" formControlName="idEncargado" class="form-select form-select-sm">
-                        <option *ngFor="let c of colaboradores" [value]="c.id">
-                            {{c.snombre}}
-                        </option>
-                    </select>
-                </div>
+            <div class="col-9">
+              <input type="text" class="form-control form-control-sm" id="cliente" formControlName="cliente" />
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="titulo">Titulo:</label>
-                </div>
-                <div class="col-9">
-                    <input type="text" class="form-control form-control-sm" id="titulo" formControlName="titulo" />
-                </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <label for="sencargado" class="form-label">
+                Encargado:
+              </label>
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="numeroExpediente">Contenido:</label>
-                </div>
-                <div class="col-9">
-                    <textarea id="contenido" formControlName="contenido" rows="6" class="form-control form-control-sm">
-                    </textarea>
-                </div>
+            <div class="col-9">
+              <select id="sencargado" formControlName="idEncargado" class="form-select form-select-sm">
+                @for (c of colaboradores; track c) {
+                  <option [value]="c.id">
+                    {{c.snombre}}
+                  </option>
+                }
+              </select>
             </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <label for="titulo">Titulo:</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control form-control-sm" id="titulo" formControlName="titulo" />
+            </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <label for="numeroExpediente">Contenido:</label>
+            </div>
+            <div class="col-9">
+              <textarea id="contenido" formControlName="contenido" rows="6" class="form-control form-control-sm">
+              </textarea>
+            </div>
+          </div>
         </form>
         <!-- <pre>
-            {{frmRegistroResolucion.value | json}}
-        </pre> -->
+        {{frmRegistroResolucion.value | json}}
+      </pre> -->
     </div>
     <div class="modal-footer">
+      @if (!registrando) {
         <button class="btn btn-primary" (click)="registrarNuevaResolucion()" [disabled]="!frmRegistroResolucion.valid"
-            *ngIf="!registrando">
-            Registrar
+          >
+          Registrar
         </button>
-        <button class="btn btn-primary" *ngIf="registrando" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-            </span>
-            Registrando...
+      }
+      @if (registrando) {
+        <button class="btn btn-primary" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+          Registrando...
         </button>
+      }
     </div>
-</ng-template>
+  </ng-template>
 
-<!-----------------------------------------------------
+  <!-----------------------------------------------------
   ------------ MODAL: DELEGAR RESOLUCION --------------
   ----------------------------------------------------->
-<ng-template #modalDelegarResolucion let-modal>
+  <ng-template #modalDelegarResolucion let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Delegar resolucion</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
+      <h4 class="modal-title" id="modal-basic-title">Delegar resolucion</h4>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <!-- <p>
-            {{frmDelegarResolucion.value['contenido']}}
-        </p> -->
-        <form [formGroup]="frmDelegarResolucion" autocomplete="off">
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="encargado" class="form-label">
-                        Encargado:
-                    </label>
-                </div>
-                <div class="col-9">
-                    <select id="encargado" formControlName="idEncargado" class="form-select form-select-sm">
-                        <option *ngFor="let c of colaboradores" [value]="c.id">
-                            {{c.snombre}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="tarea" class="form-label">
-                        Tarea:
-                    </label>
-                </div>
-                <div class="col-9">
-                    <textarea id="tarea" formControlName="tarea" class="form-control form-control-sm"
-                        rows="4"></textarea>
-                </div>
-            </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="plazo" class="form-label">
-                        Plazo:
-                    </label>
-                </div>
-                <div class="col-5">
-                    <input type="date" id="plazo" formControlName="plazo" class="form-control form-control-sm">
-                </div>
-            </div>
-        </form>
-        <!-- <pre>
-            {{frmDelegarResolucion.value | json}}
-        </pre> -->
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" (click)="delegarResolucion()" [disabled]="!frmDelegarResolucion.valid"
-            *ngIf="!delegando">
-            Delegar
-        </button>
-        <button class="btn btn-primary" *ngIf="delegando" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-            </span>
-            Delegando...
-        </button>
-    </div>
+      <!-- <p>
+      {{frmDelegarResolucion.value['contenido']}}
+    </p> -->
+    <form [formGroup]="frmDelegarResolucion" autocomplete="off">
+      <div class="row mb-1">
+        <div class="col-3">
+          <label for="encargado" class="form-label">
+            Encargado:
+          </label>
+        </div>
+        <div class="col-9">
+          <select id="encargado" formControlName="idEncargado" class="form-select form-select-sm">
+            @for (c of colaboradores; track c) {
+              <option [value]="c.id">
+                {{c.snombre}}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-3">
+          <label for="tarea" class="form-label">
+            Tarea:
+          </label>
+        </div>
+        <div class="col-9">
+          <textarea id="tarea" formControlName="tarea" class="form-control form-control-sm"
+          rows="4"></textarea>
+        </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-3">
+          <label for="plazo" class="form-label">
+            Plazo:
+          </label>
+        </div>
+        <div class="col-5">
+          <input type="date" id="plazo" formControlName="plazo" class="form-control form-control-sm">
+        </div>
+      </div>
+    </form>
+    <!-- <pre>
+    {{frmDelegarResolucion.value | json}}
+  </pre> -->
+</div>
+<div class="modal-footer">
+  @if (!delegando) {
+    <button class="btn btn-primary" (click)="delegarResolucion()" [disabled]="!frmDelegarResolucion.valid"
+      >
+      Delegar
+    </button>
+  }
+  @if (delegando) {
+    <button class="btn btn-primary" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+      </span>
+      Delegando...
+    </button>
+  }
+</div>
 </ng-template>
 
 <!-----------------------------------------------------
-  ------------ MODAL: EDITAR RESOLUCION --------------
-  ----------------------------------------------------->
+------------ MODAL: EDITAR RESOLUCION --------------
+----------------------------------------------------->
 <ng-template #modalEditarResolucion let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Editar resolucion</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="frmEditarResolucion" autocomplete="off">
-            <div class="row mb-1">
-                <div class="col-6">
-                    <label for="fechaNotificacion" class="form-label">
-                        Fecha de notificacion:
-                    </label>
-                </div>
-                <div class="col-6">
-                    <input type="date" id="fechaNotificacion" formControlName="fechaNotificacion"
-                        class="form-control form-control-sm">
-                </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Editar resolucion</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="frmEditarResolucion" autocomplete="off">
+      <div class="row mb-1">
+        <div class="col-6">
+          <label for="fechaNotificacion" class="form-label">
+            Fecha de notificacion:
+          </label>
+        </div>
+        <div class="col-6">
+          <input type="date" id="fechaNotificacion" formControlName="fechaNotificacion"
+            class="form-control form-control-sm">
+          </div>
+        </div>
+        <div class="row mb-1">
+          <div class="col-3">
+            <label for="expediente" class="form-label">
+              Expediente:
+            </label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="expediente" formControlName="numeroExpediente"
+              class="form-control form-control-sm">
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="expediente" class="form-label">
-                        Expediente:
-                    </label>
-                </div>
-                <div class="col-9">
-                    <input type="text" id="expediente" formControlName="numeroExpediente"
-                        class="form-control form-control-sm">
-                </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <label for="cliente" class="form-label">
+                Cliente:
+              </label>
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="cliente" class="form-label">
-                        Cliente:
-                    </label>
-                </div>
-                <div class="col-9">
-                    <input type="text" id="cliente" formControlName="cliente" class="form-control form-control-sm">
-                </div>
+            <div class="col-9">
+              <input type="text" id="cliente" formControlName="cliente" class="form-control form-control-sm">
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="titulo">Titulo:</label>
-                </div>
-                <div class="col-9">
-                    <input type="text" class="form-control form-control-sm" id="titulo" formControlName="titulo" />
-                </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <label for="titulo">Titulo:</label>
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="contenido" class="form-label">
-                        Contenido:
-                    </label>
-                </div>
-                <div class="col-9">
-                    <textarea id="contenido" formControlName="contenido" class="form-control form-control-sm"
-                        rows="5"></textarea>
-                </div>
+            <div class="col-9">
+              <input type="text" class="form-control form-control-sm" id="titulo" formControlName="titulo" />
             </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <label for="contenido" class="form-label">
+                Contenido:
+              </label>
+            </div>
+            <div class="col-9">
+              <textarea id="contenido" formControlName="contenido" class="form-control form-control-sm"
+              rows="5"></textarea>
+            </div>
+          </div>
         </form>
         <!-- <pre>
-            {{frmEditarResolucion.value | json}}
-        </pre> -->
+        {{frmEditarResolucion.value | json}}
+      </pre> -->
     </div>
     <div class="modal-footer">
+      @if (!actualizando) {
         <button class="btn btn-primary" (click)="editarResolucion()" [disabled]="!frmEditarResolucion.valid"
-            *ngIf="!actualizando">
-            Actualizar
+          >
+          Actualizar
         </button>
-        <button class="btn btn-primary" *ngIf="actualizando" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-            </span>
-            Actualizando...
+      }
+      @if (actualizando) {
+        <button class="btn btn-primary" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+          Actualizando...
         </button>
+      }
     </div>
-</ng-template>
+  </ng-template>
 
-<!-----------------------------------------------------
+  <!-----------------------------------------------------
   -------- MODAL: DAR CONFORMIDAD RESOLUCION ----------
   ----------------------------------------------------->
-<ng-template #modalConformidadResolucion let-modal>
+  <ng-template #modalConformidadResolucion let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Dar conformidad</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
+      <h4 class="modal-title" id="modal-basic-title">Dar conformidad</h4>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="frmConformidadResolucion" autocomplete="off">
-            <!-- <div class="row mb-1">
-                <div class="col-3">
-                    <label for="tarea" class="form-label">
-                        Tarea:
-                    </label>
-                </div>
-                <div class="col-9">
-                    <textarea id="tarea" formControlName="tarea" class="form-control form-control-sm" rows="4"
-                        readonly></textarea>
-                </div>
+      <form [formGroup]="frmConformidadResolucion" autocomplete="off">
+        <!-- <div class="row mb-1">
+        <div class="col-3">
+          <label for="tarea" class="form-label">
+            Tarea:
+          </label>
+        </div>
+        <div class="col-9">
+          <textarea id="tarea" formControlName="tarea" class="form-control form-control-sm" rows="4"
+          readonly></textarea>
+        </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-3">
+          <label for="plazo" class="form-label">
+            Plazo:
+          </label>
+        </div>
+        <div class="col-5">
+          <input type="date" id="plazo" formControlName="plazo" class="form-control form-control-sm" readonly>
+        </div>
+      </div> -->
+      <div class="row mb-1">
+        <div class="col-3">
+          <label for="cumplimiento" class="form-label">
+            Cumplido:
+          </label>
+        </div>
+        <div class="col-9">
+          <div class="form-check form-switch">
+            <input mdbCheckbox id="cumplimiento" class="form-check-input" type="checkbox"
+              formControlName="cumplimiento" />
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="plazo" class="form-label">
-                        Plazo:
-                    </label>
-                </div>
-                <div class="col-5">
-                    <input type="date" id="plazo" formControlName="plazo" class="form-control form-control-sm" readonly>
-                </div>
-            </div> -->
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="cumplimiento" class="form-label">
-                        Cumplido:
-                    </label>
-                </div>
-                <div class="col-9">
-                    <div class="form-check form-switch">
-                        <input mdbCheckbox id="cumplimiento" class="form-check-input" type="checkbox"
-                            formControlName="cumplimiento" />
-                    </div>
-                </div>
+          </div>
+        </div>
+        <div class="row mb-1">
+          <div class="col-3">
+            <label for="observaciones" class="form-label">
+              Observaciones:
+            </label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="observaciones" formControlName="observaciones"
+              class="form-control form-control-sm">
             </div>
-            <div class="row mb-1">
-                <div class="col-3">
-                    <label for="observaciones" class="form-label">
-                        Observaciones:
-                    </label>
-                </div>
-                <div class="col-9">
-                    <input type="text" id="observaciones" formControlName="observaciones"
-                        class="form-control form-control-sm">
-                </div>
-            </div>
+          </div>
         </form>
         <!-- <pre>
-            {{frmConformidadResolucion.value | json}}
-        </pre> -->
+        {{frmConformidadResolucion.value | json}}
+      </pre> -->
     </div>
     <div class="modal-footer">
+      @if (!dandoConformidad) {
         <button class="btn btn-primary" (click)="darConformidadResolucion()"
-            [disabled]="!frmConformidadResolucion.valid" *ngIf="!dandoConformidad">
-            Dar conformidad
+          [disabled]="!frmConformidadResolucion.valid">
+          Dar conformidad
         </button>
-        <button class="btn btn-primary" *ngIf="dandoConformidad" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-            </span>
-            Dando conformidad...
+      }
+      @if (dandoConformidad) {
+        <button class="btn btn-primary" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+          Dando conformidad...
         </button>
+      }
     </div>
-</ng-template>
+  </ng-template>
 
-<!-----------------------------------------------------
+  <!-----------------------------------------------------
   ------------ MODAL: ELIMINAR RESOLUCION --------------
   ----------------------------------------------------->
-<ng-template #modalEliminarResolucion let-modal>
+  <ng-template #modalEliminarResolucion let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Eliminar resolucion</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
+      <h4 class="modal-title" id="modal-basic-title">Eliminar resolucion</h4>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        Se eliminará la resolucion
-        <!-- <pre>
-            {{frmEliminarResolucion.value | json}}
-        </pre> -->
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-danger" (click)="eliminarResolucion()" [disabled]="!frmEliminarResolucion.valid"
-            *ngIf="!eliminando">
-            Eliminar
-        </button>
-        <button class="btn btn-danger" *ngIf="eliminando" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-            </span>
-            Eliminando...
-        </button>
-    </div>
+      Se eliminará la resolucion
+      <!-- <pre>
+      {{frmEliminarResolucion.value | json}}
+    </pre> -->
+  </div>
+  <div class="modal-footer">
+    @if (!eliminando) {
+      <button class="btn btn-danger" (click)="eliminarResolucion()" [disabled]="!frmEliminarResolucion.valid"
+        >
+        Eliminar
+      </button>
+    }
+    @if (eliminando) {
+      <button class="btn btn-danger" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+        </span>
+        Eliminando...
+      </button>
+    }
+  </div>
 </ng-template>

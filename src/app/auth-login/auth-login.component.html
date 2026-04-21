@@ -1,33 +1,41 @@
 <div class="container">
-    <h3>Log In</h3>
-    <div style="width: 400px; margin-top: 10px">
-        <form autocomplete="off">
-            <!-- User input -->
-            <div class="form-outline mb-4">
-                <input type="text" id="form2Example1" class="form-control" #suser />
-                <label class="form-label" for="form2Example1">Usuario</label>
-            </div>
+  <h3>Log In</h3>
+  <div style="width: 400px; margin-top: 10px">
+    <form autocomplete="off">
+      <!-- User input -->
+      <div class="form-outline mb-4">
+        <input type="text" id="form2Example1" class="form-control" #suser />
+        <label class="form-label" for="form2Example1">Usuario</label>
+      </div>
 
-            <!-- Password input -->
-            <div class="form-outline mb-4">
-                <input type="password" id="form2Example2" class="form-control" #spassword />
-                <label class="form-label" for="form2Example2">Contraseña</label>
-            </div>
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <input type="password" id="form2Example2" class="form-control" #spassword />
+        <label class="form-label" for="form2Example2">Contraseña</label>
+      </div>
 
-            <button class="btn btn-primary btn-block mb-4" (click)="login(suser.value,spassword.value)"
-                [disabled]="lLoggin">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lLoggin"></span>
-                <span class="sr-only" *ngIf="!lLoggin">
-                    Identificarse
-                </span>
-                <span class="sr-only" *ngIf="lLoggin">
-                    Identificando...
-                </span>
-            </button>
-        </form>
+      <button class="btn btn-primary btn-block mb-4" (click)="login(suser.value,spassword.value)"
+        [disabled]="lLoggin">
+        @if (lLoggin) {
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        }
+        @if (!lLoggin) {
+          <span class="sr-only">
+            Identificarse
+          </span>
+        }
+        @if (lLoggin) {
+          <span class="sr-only">
+            Identificando...
+          </span>
+        }
+      </button>
+    </form>
 
-        <div *ngIf="sError" class="alert alert-warning" role="alert">
-            {{sError}}
-        </div>
-    </div>
+    @if (sError) {
+      <div class="alert alert-warning" role="alert">
+        {{sError}}
+      </div>
+    }
+  </div>
 </div>

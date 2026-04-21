@@ -1,73 +1,89 @@
 <h5>
-    Notificaciones del SINOE
+  Notificaciones del SINOE
 </h5>
 <div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Fecha de notificacion
-                </th>
-                <th>
-                    Contenido
-                </th>
-                <th>
-                    Tarea
-                </th>
-                <th style="text-align: center;">
-                    Estado
-                </th>
-                <!-- <th>
-                    Observaciones
-                </th> -->
-            </tr>
-        </thead>
-        <tbody *ngIf="!cargando && notificaciones.length > 0">
-            <tr *ngFor="let noti of notificaciones">
-                <td>
-                    {{noti.fechaNotificacion}}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Fecha de notificacion
+        </th>
+        <th>
+          Contenido
+        </th>
+        <th>
+          Tarea
+        </th>
+        <th style="text-align: center;">
+          Estado
+        </th>
+        <!-- <th>
+        Observaciones
+      </th> -->
+    </tr>
+  </thead>
+  @if (!cargando && notificaciones.length > 0) {
+    <tbody>
+      @for (noti of notificaciones; track noti) {
+        <tr>
+          <td>
+            {{noti.fechaNotificacion}}
+          </td>
+          <td>
+            <b>{{noti.titulo}}: </b>
+            <span>{{noti.contenido}}</span>
+          </td>
+          <td>
+            {{noti.tarea}}
+          </td>
+          <td style="text-align: center;">
+            <ng-template #popContent>
+              {{noti.idEncargado}}
+              <br>
+                Estado:
+                @if (noti.cumplimiento) {
+                  <b style="color: green;">Completado</b>
+                }
+                @if (!noti.cumplimiento) {
+                  <span>Pendiente</span>
+                }
+                <br>
+                  Fecha limite: {{noti.plazo}}
+                  <br>
+                    Observaciones: {{noti.observaciones}}
+                  </ng-template>
+                  <span placement="start" style="cursor: pointer;"
+                    [ngbPopover]="popContent"
+                    popoverTitle="Encargado">
+                    @if (noti.cumplimiento) {
+                      <span style="color: green;">
+                        <i class="bi bi-check-circle-fill"></i>
+                      </span>
+                    }
+                    @if (!noti.cumplimiento) {
+                      <span style="color: darkgreen;">
+                        <i class="bi bi-slash-circle"></i>
+                      </span>
+                    }
+                  </span>
                 </td>
-                <td>
-                    <b>{{noti.titulo}}: </b>
-                    <span>{{noti.contenido}}</span>
-                </td>
-                <td>
-                    {{noti.tarea}}
-                </td>
-                <td style="text-align: center;">
-                    <ng-template #popContent>
-                        {{noti.idEncargado}}
-                        <br>
-                        Estado: 
-                        <b *ngIf="noti.cumplimiento" style="color: green;">Completado</b>
-                        <span *ngIf="!noti.cumplimiento">Pendiente</span>
-                        <br>
-                        Fecha limite: {{noti.plazo}}
-                        <br>
-                        Observaciones: {{noti.observaciones}}
-                    </ng-template>
-                    <span placement="start" style="cursor: pointer;"
-                        [ngbPopover]="popContent"
-                        popoverTitle="Encargado">
-                        <span *ngIf="noti.cumplimiento" style="color: green;">
-                            <i class="bi bi-check-circle-fill"></i>
-                        </span>
-                        <span *ngIf="!noti.cumplimiento" style="color: darkgreen;">
-                            <i class="bi bi-slash-circle"></i>
-                        </span>
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-        <tbody *ngIf="!cargando && notificaciones.length == 0">
+              </tr>
+            }
+          </tbody>
+        }
+        @if (!cargando && notificaciones.length == 0) {
+          <tbody>
             Sin registros :/
-        </tbody>
-        <tbody *ngIf="cargando">
+          </tbody>
+        }
+        @if (cargando) {
+          <tbody>
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             cargando...
-        </tbody>
-    </table>
-</div>
-<div style="font-size: 0.85rem;">
-    <i>Ultimos <b>10</b> items del backlog</i>
-</div>
+          </tbody>
+        }
+      </table>
+    </div>
+    <div style="font-size: 0.85rem;">
+      <i>Ultimos <b>10</b> items del backlog</i>
+    </div>

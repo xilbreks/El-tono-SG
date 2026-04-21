@@ -1,117 +1,135 @@
 <h5>
-    <i class="bi bi-folder2"></i>
-    Contrato
+  <i class="bi bi-folder2"></i>
+  Contrato
 </h5>
 
 <p>
-    Documento en PDF escaneado del contrato o compromiso de pago.
+  Documento en PDF escaneado del contrato o compromiso de pago.
 </p>
 
 
-<div *ngIf="!lcontrato">
+@if (!lcontrato) {
+  <div>
     <ul>
-        <li>
-            <span style="color: red;">
-                <strong>Sin Contrato</strong>
-            </span>
-        </li>
+      <li>
+        <span style="color: red;">
+          <strong>Sin Contrato</strong>
+        </span>
+      </li>
     </ul>
-
     <button class="btn btn-primary" (click)="openModalSetTerms(setWithTermsModal)">
-        Subir contrato
+      Subir contrato
     </button>
-</div>
+  </div>
+}
 
-<div *ngIf="lcontrato">
+@if (lcontrato) {
+  <div>
     <ul>
-        <li>
-            <i class="bi bi-file-earmark-pdf"></i>
-            <span> Contrato </span>
-            <a [href]="urlcontrato" target="_blank"> Ver </a>
-        </li>
+      <li>
+        <i class="bi bi-file-earmark-pdf"></i>
+        <span> Contrato </span>
+        <a [href]="urlcontrato" target="_blank"> Ver </a>
+      </li>
     </ul>
-
     <button class="btn btn-primary" (click)="openModalSetTerms(setWithOutTermsModal)">
-        Quitar contrato
+      Quitar contrato
     </button>
-</div>
+  </div>
+}
 
 <div style="margin-top: 50px;">
-    <span style="font-size: 0.75rem;">
-        <i>
-            <!-- {{expediente?.numero}} -->
-        </i>
-    </span>
+  <span style="font-size: 0.75rem;">
+    <i>
+      <!-- {{expediente?.numero}} -->
+    </i>
+  </span>
 </div>
 
 <hr>
 
-<!------------------------------------------------
+  <!------------------------------------------------
   -------------- UPLOAD K MODAL ------------------
   ----------------------------------------------->
-<ng-template #setWithTermsModal let-modal>
+  <ng-template #setWithTermsModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Subir contrato</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
+      <h5 class="modal-title" id="modal-basic-title">Subir contrato</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <p>
-            Se subirá un archivo PDF scaneado del contrato
-        </p>
+      <p>
+        Se subirá un archivo PDF scaneado del contrato
+      </p>
 
-        <input type="file" (change)="onFileSelected($event)" accept="application/pdf" />
+      <input type="file" (change)="onFileSelected($event)" accept="application/pdf" />
 
-        <div *ngIf="uploadProgress >= 0">
-            <p>Progreso: {{ uploadProgress | number: '1.0-0' }}%</p>
-            <progress [value]="uploadProgress" max="100"></progress>
+      @if (uploadProgress >= 0) {
+        <div>
+          <p>Progreso: {{ uploadProgress | number: '1.0-0' }}%</p>
+          <progress [value]="uploadProgress" max="100"></progress>
         </div>
+      }
     </div>
     <div class="modal-footer">
-        <button *ngIf="!lUpdating" [disabled]="!file" class="btn btn-primary" (click)="uploadFile()">
-            <span class="sr-only" *ngIf="!lUpdating">
-                Guardar
-            </span>
-        </button>
-        <button *ngIf="lUpdating" class="btn btn-primary" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      @if (!lUpdating) {
+        <button [disabled]="!file" class="btn btn-primary" (click)="uploadFile()">
+          @if (!lUpdating) {
             <span class="sr-only">
-                Guardando...
+              Guardar
             </span>
+          }
         </button>
+      }
+      @if (lUpdating) {
+        <button class="btn btn-primary" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span class="sr-only">
+            Guardando...
+          </span>
+        </button>
+      }
     </div>
-</ng-template>
+  </ng-template>
 
-<!------------------------------------------------
+  <!------------------------------------------------
   --------------- REMOVE K MODAL -----------------
   ----------------------------------------------->
-<ng-template #setWithOutTermsModal let-modal>
+  <ng-template #setWithOutTermsModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Quitar Contrato</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
+      <h5 class="modal-title" id="modal-basic-title">Quitar Contrato</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <p>
-            Se quitará el contrato PDF
-        </p>
-        <p>
-            <i>
-                ¿Está seguro?
-            </i>
-        </p>
+      <p>
+        Se quitará el contrato PDF
+      </p>
+      <p>
+        <i>
+          ¿Está seguro?
+        </i>
+      </p>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-danger" (click)="marcarSinContrato()" *ngIf="!lUpdating">
-            <span class="sr-only" *ngIf="!lUpdating">
-                Quitar
+      @if (!lUpdating) {
+        <button class="btn btn-danger" (click)="marcarSinContrato()">
+          @if (!lUpdating) {
+            <span class="sr-only">
+              Quitar
             </span>
+          }
         </button>
-        <button class="btn btn-danger" *ngIf="lUpdating" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            <span class="sr-only" *ngIf="lUpdating">
-                Quitando...
+      }
+      @if (lUpdating) {
+        <button class="btn btn-danger" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          @if (lUpdating) {
+            <span class="sr-only">
+              Quitando...
             </span>
+          }
         </button>
+      }
     </div>
-</ng-template>
+  </ng-template>

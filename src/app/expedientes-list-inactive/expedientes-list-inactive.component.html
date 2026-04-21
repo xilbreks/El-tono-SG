@@ -1,77 +1,81 @@
 <h3>Expedientes Depurados</h3>
 
 <div class="container">
-    <div class="input-group">
-        <div class="input-group-text">
-            <i class="bi bi-search">
-            </i>
-        </div>
-        <input type="search" id="texto-busqueda" class="form-control" #fff (input)="filtrar(fff.value)"
-            autocomplete="off" #searchTerm>
-        <div class="input-group-text">
-            <i class="bi bi-search"></i>
-        </div>
+  <div class="input-group">
+    <div class="input-group-text">
+      <i class="bi bi-search">
+      </i>
     </div>
-</div>
+    <input type="search" id="texto-busqueda" class="form-control" #fff (input)="filtrar(fff.value)"
+      autocomplete="off" #searchTerm>
+      <div class="input-group-text">
+        <i class="bi bi-search"></i>
+      </div>
+    </div>
+  </div>
 
-<div class="table-responsive">
+  <div class="table-responsive">
     <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    Expediente
-                </th>
-                <th>
-                    Materia
-                </th>
-                <th>
-                    Especialidad
-                </th>
-                <th>
-                    Demandante
-                </th>
-                <th>
-                    Demandado
-                </th>
-                <th>
-                    Inicio
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let expediente of expedientesFiltrados; let i = index">
-                <td>
-                    {{i+1}}
-                </td>
-                <td>
-                    <a [routerLink]="'/expediente/'+expediente.numero">
-                        {{expediente.numero}}
-                    </a>
-                </td>
-                <td>
-                    {{expediente.materia}}
-                </td>
-                <td>
-                    {{expediente.especialidad}}
-                </td>
-                <td>
-                    {{expediente.demandante}}
-                </td>
-                <td>
-                    {{expediente.demandado}}
-                </td>
-                <td>
-                    {{expediente.fechaInicio}}
-                </td>
-            </tr>
-        </tbody>
+      <thead>
+        <tr>
+          <th>
+            #
+          </th>
+          <th>
+            Expediente
+          </th>
+          <th>
+            Materia
+          </th>
+          <th>
+            Especialidad
+          </th>
+          <th>
+            Demandante
+          </th>
+          <th>
+            Demandado
+          </th>
+          <th>
+            Inicio
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (expediente of expedientesFiltrados; track expediente; let i = $index) {
+          <tr>
+            <td>
+              {{i+1}}
+            </td>
+            <td>
+              <a [routerLink]="'/expediente/'+expediente.numero">
+                {{expediente.numero}}
+              </a>
+            </td>
+            <td>
+              {{expediente.materia}}
+            </td>
+            <td>
+              {{expediente.especialidad}}
+            </td>
+            <td>
+              {{expediente.demandante}}
+            </td>
+            <td>
+              {{expediente.demandado}}
+            </td>
+            <td>
+              {{expediente.fechaInicio}}
+            </td>
+          </tr>
+        }
+      </tbody>
     </table>
-</div>
+  </div>
 
-<div *ngIf="isLoading">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-    Cargando...
-</div>
+  @if (isLoading) {
+    <div>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Cargando...
+    </div>
+  }

@@ -1,170 +1,178 @@
 <h5>
-    <i class="bi bi-journal-text"></i>
-    Información Básica
+  <i class="bi bi-journal-text"></i>
+  Información Básica
 </h5>
 
 <p>
-    Son los datos indispensables que cada expediente
-    debe tener para su correcto almacenamiento en el inventario.
+  Son los datos indispensables que cada expediente
+  debe tener para su correcto almacenamiento en el inventario.
 </p>
 
 <div>
-    Materia:
-    <kbd>
-        {{this.expediente?.materia}}
-    </kbd>
+  Materia:
+  <kbd>
+    {{this.expediente?.materia}}
+  </kbd>
 </div>
 <div>
-    Demandante:
-    <kbd>
-        {{this.expediente?.demandante}}
-    </kbd>
+  Demandante:
+  <kbd>
+    {{this.expediente?.demandante}}
+  </kbd>
 </div>
 <div>
-    Demandado:
-    <kbd>
-        {{this.expediente?.demandado}}
-    </kbd>
+  Demandado:
+  <kbd>
+    {{this.expediente?.demandado}}
+  </kbd>
 </div>
 <div>
-    Fecha inicio:
-    <kbd>
-        {{this.expediente?.fechaInicio}}
-    </kbd>
+  Fecha inicio:
+  <kbd>
+    {{this.expediente?.fechaInicio}}
+  </kbd>
 </div>
 
 <br>
 
-<button class="btn btn-secondary" (click)="openModal(editDataModal)">
+  <button class="btn btn-secondary" (click)="openModal(editDataModal)">
     Editar
-</button>
+  </button>
 
-<div style="margin-top: 50px;">
+  <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
-        <i>
-            {{expediente?.numero}}
-        </i>
+      <i>
+        {{expediente?.numero}}
+      </i>
     </span>
-</div>
+  </div>
 
-<hr>
+  <hr>
 
-<!------------------------------------------------
-  -------------- EDIT DATA MODAL -----------------
-  ----------------------------------------------->
-<ng-template #editDataModal let-modal>
-    <div class="modal-header">
+    <!------------------------------------------------
+    -------------- EDIT DATA MODAL -----------------
+    ----------------------------------------------->
+    <ng-template #editDataModal let-modal>
+      <div class="modal-header">
         <h5 class="modal-title" id="modal-basic-title">EDITAR {{expediente?.clase}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
+        (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
         <form [formGroup]="frmExpediente" autocomplete="off">
-            <table style="width:100%">
-                <tr [ngClass]="{'oculto': expediente?.clase != 'CUADERNO'}">
-                    <td><b>CUADERNO:</b></td>
-                    <td>
-                        <input type="text" class="form-control" formControlName="titulo">
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>MATERIA:</b></td>
-                    <td>
-                        <input type="text" class="form-control" list="materias" formControlName="materia">
-                        <datalist id="materias">
-                            <option *ngFor="let mat of lstMaterias" [value]="mat.smateria"></option>
-                        </datalist>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>JUZGADO:</b></td>
-                    <td>
-                        <input type="text" class="form-control" formControlName="juzgado">
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>DEMANDANTE:</b></td>
-                    <td>
-                        <input type="text" class="form-control" formControlName="demandante">
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>DEMANDADO:</b></td>
-                    <td>
-                        <input type="text" class="form-control" formControlName="demandado">
-                    </td>
-                </tr>
-                <!-- <tr>
-                    <td><b>PRIORIDAD:</b></td>
-                    <td>
-                        <select class="form-control" formControlName="prioridad">
-                            <option value="ALTA">ALTA</option>
-                            <option value="MEDIA">MEDIA</option>
-                            <option value="BAJA">BAJA</option>
-                        </select>
-                    </td>
-                </tr> -->
-                <tr>
-                    <td><b>OBSERVACIONES:</b></td>
-                    <td>
-                        <textarea formControlName="observaciones" rows="3" class="form-control">
-                        </textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>INICIO:</b></td>
-                    <td>
-                        <input type="date" class="form-control" formControlName="fechaInicio">
-                    </td>
-                </tr>
-                <tr>
-                    <input type="checkbox" id="tieneCodigo" [formControl]="fcTieneCodigo"
-                        (change)="setValidatorCodigo()" tabindex="-1" />
-                    <label for="tieneCodigo" style="padding-left: 5px;">
-                        Tiene Codigo
-                    </label>
-                </tr>
-                <tr [ngClass]="{'oculto': expediente?.clase !== 'PRINCIPAL'}">
-                    <input type="checkbox" id="tieneCasacion" [formControl]="fcTieneCasacion"
-                        (change)="setValidatorCasacion()" tabindex="-1" />
-                    <label for="tieneCasacion" style="padding-left: 5px;">
-                        Tiene Casacion
-                    </label>
-                </tr>
-                <tr [ngClass]="{'oculto': !fcTieneCodigo.value}">
-                    <td><b>CODIGO:</b></td>
-                    <td>
-                        <input type="text" class="form-control" formControlName="codigo">
-                    </td>
-                </tr>
-                <tr [ngClass]="{'oculto': !fcTieneCasacion.value}">
-                    <td><b>CASACION:</b></td>
-                    <td>
-                        <input type="text" class="form-control" formControlName="numeroCasacion">
-                    </td>
-                </tr>
-                <tr [ngClass]="{'oculto': !fcTieneCasacion.value}">
-                    <td><b>SALA CASACION:</b></td>
-                    <td>
-                        <select class="form-control" formControlName="salaCasacion">
-                            <option value="2DA SALA">2DA SALA</option>
-                            <option value="4TA SALA">4TA SALA</option>
-                        </select>
-                    </td>
-                </tr>
+          <table style="width:100%">
+            <tr [ngClass]="{'oculto': expediente?.clase != 'CUADERNO'}">
+              <td><b>CUADERNO:</b></td>
+              <td>
+                <input type="text" class="form-control" formControlName="titulo">
+              </td>
+            </tr>
+            <tr>
+              <td><b>MATERIA:</b></td>
+              <td>
+                <input type="text" class="form-control" list="materias" formControlName="materia">
+                <datalist id="materias">
+                  @for (mat of lstMaterias; track mat) {
+                    <option [value]="mat.smateria"></option>
+                  }
+                </datalist>
+              </td>
+            </tr>
+            <tr>
+              <td><b>JUZGADO:</b></td>
+              <td>
+                <input type="text" class="form-control" formControlName="juzgado">
+              </td>
+            </tr>
+            <tr>
+              <td><b>DEMANDANTE:</b></td>
+              <td>
+                <input type="text" class="form-control" formControlName="demandante">
+              </td>
+            </tr>
+            <tr>
+              <td><b>DEMANDADO:</b></td>
+              <td>
+                <input type="text" class="form-control" formControlName="demandado">
+              </td>
+            </tr>
+            <!-- <tr>
+            <td><b>PRIORIDAD:</b></td>
+            <td>
+              <select class="form-control" formControlName="prioridad">
+                <option value="ALTA">ALTA</option>
+                <option value="MEDIA">MEDIA</option>
+                <option value="BAJA">BAJA</option>
+              </select>
+            </td>
+          </tr> -->
+          <tr>
+            <td><b>OBSERVACIONES:</b></td>
+            <td>
+              <textarea formControlName="observaciones" rows="3" class="form-control">
+              </textarea>
+            </td>
+          </tr>
+          <tr>
+            <td><b>INICIO:</b></td>
+            <td>
+              <input type="date" class="form-control" formControlName="fechaInicio">
+            </td>
+          </tr>
+          <tr>
+            <input type="checkbox" id="tieneCodigo" [formControl]="fcTieneCodigo"
+              (change)="setValidatorCodigo()" tabindex="-1" />
+              <label for="tieneCodigo" style="padding-left: 5px;">
+                Tiene Codigo
+              </label>
+            </tr>
+            <tr [ngClass]="{'oculto': expediente?.clase !== 'PRINCIPAL'}">
+              <input type="checkbox" id="tieneCasacion" [formControl]="fcTieneCasacion"
+                (change)="setValidatorCasacion()" tabindex="-1" />
+                <label for="tieneCasacion" style="padding-left: 5px;">
+                  Tiene Casacion
+                </label>
+              </tr>
+              <tr [ngClass]="{'oculto': !fcTieneCodigo.value}">
+                <td><b>CODIGO:</b></td>
+                <td>
+                  <input type="text" class="form-control" formControlName="codigo">
+                </td>
+              </tr>
+              <tr [ngClass]="{'oculto': !fcTieneCasacion.value}">
+                <td><b>CASACION:</b></td>
+                <td>
+                  <input type="text" class="form-control" formControlName="numeroCasacion">
+                </td>
+              </tr>
+              <tr [ngClass]="{'oculto': !fcTieneCasacion.value}">
+                <td><b>SALA CASACION:</b></td>
+                <td>
+                  <select class="form-control" formControlName="salaCasacion">
+                    <option value="2DA SALA">2DA SALA</option>
+                    <option value="4TA SALA">4TA SALA</option>
+                  </select>
+                </td>
+              </tr>
             </table>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="updateExpediente()" [disabled]="!(frmExpediente.valid && !lUpdating)">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
-            </span>
-            <span class="sr-only" *ngIf="!lUpdating">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateExpediente()" [disabled]="!(frmExpediente.valid && !lUpdating)">
+            @if (lUpdating) {
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+              </span>
+            }
+            @if (!lUpdating) {
+              <span class="sr-only">
                 Guardar
-            </span>
-            <span class="sr-only" *ngIf="lUpdating">
+              </span>
+            }
+            @if (lUpdating) {
+              <span class="sr-only">
                 Guardando...
-            </span>
-        </button>
-    </div>
-</ng-template>
+              </span>
+            }
+          </button>
+        </div>
+      </ng-template>

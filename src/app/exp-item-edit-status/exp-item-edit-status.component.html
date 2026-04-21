@@ -1,125 +1,137 @@
 <h5>
-    <i class="bi bi-exclamation-triangle"></i>
-    Estado
+  <i class="bi bi-exclamation-triangle"></i>
+  Estado
 </h5>
 
 <p>
-    Dependiendo del estado de expediente, este se mostrará o no en el listado.
+  Dependiendo del estado de expediente, este se mostrará o no en el listado.
 </p>
 
 <div>
-    Estado actual:
-    <kbd *ngIf="lStatus" style="background-color: #28b131;">
-        <span>·</span>
-        ACTIVO
-        <span>·</span>
+  Estado actual:
+  @if (lStatus) {
+    <kbd style="background-color: #28b131;">
+      <span>·</span>
+      ACTIVO
+      <span>·</span>
     </kbd>
-    <kbd *ngIf="!lStatus" style="background-color: red;">
-        <span>·</span>
-        DEPURADO
-        <span>·</span>
+  }
+  @if (!lStatus) {
+    <kbd style="background-color: red;">
+      <span>·</span>
+      DEPURADO
+      <span>·</span>
     </kbd>
+  }
 </div>
 
 <br />
 
-<div *ngIf="!lStatus">
-
+@if (!lStatus) {
+  <div>
     <button class="btn btn-danger" (click)="openModalSetStatus(setActiveModal)">
-        Activar
+      Activar
     </button>
+  </div>
+}
 
-</div>
-
-<div *ngIf="lStatus">
-
+@if (lStatus) {
+  <div>
     <button class="btn btn-danger" (click)="openModalSetStatus(setNotActiveModal)">
-        Depurar
+      Depurar
     </button>
-
-</div>
+  </div>
+}
 
 
 
 <div style="margin-top: 50px;">
-    <span style="font-size: 0.75rem;">
-        <i>
-            {{expediente?.numero}}
-        </i>
-    </span>
+  <span style="font-size: 0.75rem;">
+    <i>
+      {{expediente?.numero}}
+    </i>
+  </span>
 </div>
 
 
 <!------------------------------------------------
-  -------------- ENABLE EXP MODAL ----------------
-  ----------------------------------------------->
+-------------- ENABLE EXP MODAL ----------------
+----------------------------------------------->
 <ng-template #setActiveModal let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Dar de Alta</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <p>
-            Se dará de alta el expediente
-        </p>
-        <p>
-            <i>
-                ¿Está seguro?
-            </i>
-        </p>
-    </div>
-    <div class="modal-footer">
-        <div *ngIf="!lUpdating">
-            <button type="button" class="btn btn-danger" (click)="enableExp()">
-                <span class="sr-only">
-                    Dar de alta
-                </span>
-            </button>
-        </div>
-        <div *ngIf="lUpdating">
-            <button type="button" class="btn btn-danger">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-                </span>
-                <span class="sr-only">
-                    Dando de alta...
-                </span>
-            </button>
-        </div>
-    </div>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Dar de Alta</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Se dará de alta el expediente
+    </p>
+    <p>
+      <i>
+        ¿Está seguro?
+      </i>
+    </p>
+  </div>
+  <div class="modal-footer">
+    @if (!lUpdating) {
+      <div>
+        <button type="button" class="btn btn-danger" (click)="enableExp()">
+          <span class="sr-only">
+            Dar de alta
+          </span>
+        </button>
+      </div>
+    }
+    @if (lUpdating) {
+      <div>
+        <button type="button" class="btn btn-danger">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+          <span class="sr-only">
+            Dando de alta...
+          </span>
+        </button>
+      </div>
+    }
+  </div>
 </ng-template>
 
 <!------------------------------------------------
-  ------------- DISABLE EXP MODAL ----------------
-  ----------------------------------------------->
+------------- DISABLE EXP MODAL ----------------
+----------------------------------------------->
 <ng-template #setNotActiveModal let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Dar de Baja</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <p>
-            Detalle el motivo para depurar y quien le dio autorización.
-        </p>
-        <input type="text" [formControl]="fcMotivo" class="form-control" placeholder="..."/>
-    </div>
-    <div class="modal-footer">
-        <div *ngIf="!lUpdating">
-            <button type="button" class="btn btn-danger" (click)="disableExp()" [disabled]="!fcMotivo.valid">
-                <span class="sr-only">
-                    Dar de baja
-                </span>
-            </button>
-        </div>
-        <div *ngIf="lUpdating">
-            <button type="button" class="btn btn-danger">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-                </span>
-                <span class="sr-only">
-                    Dando de baja...
-                </span>
-            </button>
-        </div>
-    </div>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Dar de Baja</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Detalle el motivo para depurar y quien le dio autorización.
+    </p>
+    <input type="text" [formControl]="fcMotivo" class="form-control" placeholder="..."/>
+  </div>
+  <div class="modal-footer">
+    @if (!lUpdating) {
+      <div>
+        <button type="button" class="btn btn-danger" (click)="disableExp()" [disabled]="!fcMotivo.valid">
+          <span class="sr-only">
+            Dar de baja
+          </span>
+        </button>
+      </div>
+    }
+    @if (lUpdating) {
+      <div>
+        <button type="button" class="btn btn-danger">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+          <span class="sr-only">
+            Dando de baja...
+          </span>
+        </button>
+      </div>
+    }
+  </div>
 </ng-template>

@@ -1,97 +1,101 @@
 <div class="container">
-    <h4>Descargar JSON de tareas del RDT</h4>
+  <h4>Descargar JSON de tareas del RDT</h4>
 
-    <div>
-        <form [formGroup]="frmData">
-            <div>
-                <label for="inicio">Inicio</label>
-                <input type="date" id="inicio" formControlName="inicio">
-            </div>
-            <div>
-                <label for="final">Final</label>
-                <input type="date" id="final" formControlName="final">
-            </div>
-        </form>
-    </div>
+  <div>
+    <form [formGroup]="frmData">
+      <div>
+        <label for="inicio">Inicio</label>
+        <input type="date" id="inicio" formControlName="inicio">
+      </div>
+      <div>
+        <label for="final">Final</label>
+        <input type="date" id="final" formControlName="final">
+      </div>
+    </form>
+  </div>
 
-    <pre>
-        {{frmData.value | json}}
-    </pre>
+  <pre>
+    {{frmData.value | json}}
+  </pre>
 </div>
 
 <div>
-    <button class="btn btn-primary" *ngIf="!lLoading" (click)="downloadBackUpTareas()">
-        Descargar BackUp Tareas
+  @if (!lLoading) {
+    <button class="btn btn-primary" (click)="downloadBackUpTareas()">
+      Descargar BackUp Tareas
     </button>
-    
-    <button class="btn btn-primary" *ngIf="lLoading">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Descargando...
+  }
+
+  @if (lLoading) {
+    <button class="btn btn-primary">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Descargando...
     </button>
+  }
 </div>
- aea causa
+aea causa
 <button (click)="backUpColaboradores()">
-    Descargar colaboradores
+  Descargar colaboradores
 </button>
 
 <div>
-    <p>
-        Para hacer BackUp
-    </p>
-    <div>
-        <button class="btn btn-danger" (click)="backUpExpedientes()">
-            BackUp Expedientes
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-danger" (click)="backUpChats()">
-            BackUp Chats
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-danger" (click)="backUpColaboradores()">
-            BackUp Colaboradores
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-warning" (click)="backUpCuotas()">
-            BackUp Cuotas
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-warning" (click)="backUpAbonos()">
-            BackUp Abonos
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-danger" (click)="backUpMaterias()">
-            BackUp Materias
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-danger" (click)="backUpRDTs()">
-            BackUp RDTs
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-danger" (click)="backUpTareas()">
-            BackUp Tareas
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-danger" (click)="backUpTareasG()">
-            BackUp Tareas G
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-danger" (click)="backUpVersionado()">
-            BackUp Versionado
-        </button>
-    </div>
+  <p>
+    Para hacer BackUp
+  </p>
+  <div>
+    <button class="btn btn-danger" (click)="backUpExpedientes()">
+      BackUp Expedientes
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-danger" (click)="backUpChats()">
+      BackUp Chats
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-danger" (click)="backUpColaboradores()">
+      BackUp Colaboradores
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-warning" (click)="backUpCuotas()">
+      BackUp Cuotas
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-warning" (click)="backUpAbonos()">
+      BackUp Abonos
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-danger" (click)="backUpMaterias()">
+      BackUp Materias
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-danger" (click)="backUpRDTs()">
+      BackUp RDTs
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-danger" (click)="backUpTareas()">
+      BackUp Tareas
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-danger" (click)="backUpTareasG()">
+      BackUp Tareas G
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-danger" (click)="backUpVersionado()">
+      BackUp Versionado
+    </button>
+  </div>
 
-    <div>
-        <button class="btn btn-danger" (click)="backupChangelog()">
-            Descargar Backup Changelog
-        </button>
-    </div>
+  <div>
+    <button class="btn btn-danger" (click)="backupChangelog()">
+      Descargar Backup Changelog
+    </button>
+  </div>
 </div>

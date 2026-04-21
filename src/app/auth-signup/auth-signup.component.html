@@ -1,57 +1,61 @@
 <div class="container" style="margin-bottom: 20px;">
-    <div class="alert alert-warning" role="alert">
-        <p>
-            OJO: Una vez registrado el usuario <b>NO</b> se podrá editar ni modificar.
-        </p>
+  <div class="alert alert-warning" role="alert">
+    <p>
+      OJO: Una vez registrado el usuario <b>NO</b> se podrá editar ni modificar.
+    </p>
 
-        RECOMENDACIÓN: Lea atentamente los datos a registrar.
+    RECOMENDACIÓN: Lea atentamente los datos a registrar.
 
-    </div>
+  </div>
 </div>
 
 <div class="container formulario">
-    <h4>
-        Registro de Nuevo Usuario
-    </h4>
-    <form [formGroup]="frmUsuario" autocomplete="off">
-        <div class="row mb-3">
-            <label for="sname" class="form-label">
-                Nombre:
-            </label>
-            <input type="text" class="form-control" id="sname" formControlName="sname" placeholder="Richard Scruggs" />
-        </div>
-        <div class="row mb-3">
-            <label for="idcolaborador" class="form-label">
-                ID Usuario:
-            </label>
-            <input type="text" class="form-control" id="idcolaborador" formControlName="id"
-                placeholder="richard-scruggs" />
-        </div>
-        <!-- <div class="row mb-3">
-            <label for="scargo" class="form-label">
-                Cargo
-            </label>
-            <select id="scargo" class="form-control" formControlName="scargo">
-                <option value="abogado">Abogado</option>
-                <option value="asistente">Asistente</option>
-            </select>
-        </div> -->
-        <div class="row mb-3">
-            <label for="spassword" class="form-label">
-                Contraseña:
-            </label>
-            <input type="text" class="form-control" id="spassword" formControlName="spassword"
-                placeholder="xyz123XZY" />
-        </div>
+  <h4>
+    Registro de Nuevo Usuario
+  </h4>
+  <form [formGroup]="frmUsuario" autocomplete="off">
+    <div class="row mb-3">
+      <label for="sname" class="form-label">
+        Nombre:
+      </label>
+      <input type="text" class="form-control" id="sname" formControlName="sname" placeholder="Richard Scruggs" />
+    </div>
+    <div class="row mb-3">
+      <label for="idcolaborador" class="form-label">
+        ID Usuario:
+      </label>
+      <input type="text" class="form-control" id="idcolaborador" formControlName="id"
+        placeholder="richard-scruggs" />
+      </div>
+      <!-- <div class="row mb-3">
+      <label for="scargo" class="form-label">
+        Cargo
+      </label>
+      <select id="scargo" class="form-control" formControlName="scargo">
+        <option value="abogado">Abogado</option>
+        <option value="asistente">Asistente</option>
+      </select>
+    </div> -->
+    <div class="row mb-3">
+      <label for="spassword" class="form-label">
+        Contraseña:
+      </label>
+      <input type="text" class="form-control" id="spassword" formControlName="spassword"
+        placeholder="xyz123XZY" />
+      </div>
     </form>
     <div>
-        <button class="btn btn-primary" (click)="registrarUsuario()" [disabled]="!frmUsuario.valid" *ngIf="!lCreating">
-            Registrar
+      @if (!lCreating) {
+        <button class="btn btn-primary" (click)="registrarUsuario()" [disabled]="!frmUsuario.valid">
+          Registrar
         </button>
-        <button class="btn btn-primary" *ngIf="lCreating">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Registrando...
+      }
+      @if (lCreating) {
+        <button class="btn btn-primary">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Registrando...
         </button>
+      }
     </div>
 
-</div>
+  </div>

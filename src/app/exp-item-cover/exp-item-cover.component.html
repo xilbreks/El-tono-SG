@@ -1,152 +1,173 @@
-<div *ngIf="expediente?.estado == 'FINALIZADO'" style="color: red;">
+@if (expediente?.estado == 'FINALIZADO') {
+  <div style="color: red;">
     <i class="bi bi-exclamation-triangle"></i>
     Depurado - {{expediente?.motivoFinalizacion}}
-</div>
+  </div>
+}
 <div class="container expediente">
-    <h4>
-        {{expediente?.titulo}}
-    </h4>
-    <h4 id="sexpediente">
-        {{expediente?.numero}}
-    </h4>
-    <h6>
-        <app-exp-item-roadmap [expediente]="expediente"></app-exp-item-roadmap>
-    </h6>
-    <hr />
-    <table style="width: 100%;">
-        <tr>
-            <td>
-                <b>MATERIA:</b>
-            </td>
-            <td>
-                {{expediente?.materia}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>JUZGADO:</b>
-            </td>
-            <td>
-                {{expediente?.juzgado}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>ESPECIALIDAD:</b>
-            </td>
-            <td>
-                {{expediente?.especialidad}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>DEMANDANTE:</b>
-            </td>
-            <td>
-                {{expediente?.demandante}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>DEMANDADO:</b>
-            </td>
-            <td>
-                {{expediente?.demandado}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>CONTRATO:</b>
-            </td>
-            <td>
-                <span *ngIf="expediente?.tieneContrato">
-                    OK
-                    <a [href]="urlcontrato" target="_blank" *ngIf="urlcontrato">
-                        ver contrato
-                    </a>
-                </span>
-                <span *ngIf="!expediente?.tieneContrato" style="color: red;">
-                    <b>SIN CONTRATO</b>
-                </span>
-            </td>
-        </tr>
-        <tr *ngIf="expediente?.codigo != null">
-            <td>
-                <b>CÓDIGO:</b>
-            </td>
-            <td>
-                <span style="background-color: lightgrey; border-radius: 4px;">
-                    {{expediente?.codigo}}
-                </span>
-            </td>
-        </tr>
-        <hr *ngIf="expediente?.numeroCasacion != null || cuadernos.length > 0" />
-        <tr *ngIf="expediente?.numeroCasacion != null">
-            <td>
-                <b>CASACION:</b>
-            </td>
-            <td>
-                <span>
-                    {{expediente?.numeroCasacion}}
-                </span>
-                <span>
-                    ({{expediente?.salaCasacion}})
-                </span>
-            </td>
-        </tr>
-        <tr *ngIf="cuadernos.length > 0">
-            <td>
-                <b>CUADERNOS:</b>
-            </td>
-            <td>
-                <ul>
-                    <li *ngFor="let cuaderno of cuadernos">
-                        <a [routerLink]="'/expediente/'+cuaderno.numero" style="text-decoration: none;">
-                            {{cuaderno.numero}}
-                        </a>
-                        ({{cuaderno.titulo}})
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    </table>
-    <hr />
-    <div class="row">
-        <div class="col-3">
-        </div>
-        <div class="col-6">
-            <h6>
-                AREQUIPA, {{expediente?.fechaInicio}}
-            </h6>
-        </div>
-        <div class="col-3">
-        </div>
+  <h4>
+    {{expediente?.titulo}}
+  </h4>
+  <h4 id="sexpediente">
+    {{expediente?.numero}}
+  </h4>
+  <h6>
+    <app-exp-item-roadmap [expediente]="expediente"></app-exp-item-roadmap>
+  </h6>
+  <hr />
+  <table style="width: 100%;">
+    <tr>
+      <td>
+        <b>MATERIA:</b>
+      </td>
+      <td>
+        {{expediente?.materia}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>JUZGADO:</b>
+      </td>
+      <td>
+        {{expediente?.juzgado}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>ESPECIALIDAD:</b>
+      </td>
+      <td>
+        {{expediente?.especialidad}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>DEMANDANTE:</b>
+      </td>
+      <td>
+        {{expediente?.demandante}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>DEMANDADO:</b>
+      </td>
+      <td>
+        {{expediente?.demandado}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>CONTRATO:</b>
+      </td>
+      <td>
+        @if (expediente?.tieneContrato) {
+          <span>
+            OK
+            @if (urlcontrato) {
+              <a [href]="urlcontrato" target="_blank">
+                ver contrato
+              </a>
+            }
+          </span>
+        }
+        @if (!expediente?.tieneContrato) {
+          <span style="color: red;">
+            <b>SIN CONTRATO</b>
+          </span>
+        }
+      </td>
+    </tr>
+    @if (expediente?.codigo != null) {
+      <tr>
+        <td>
+          <b>CÓDIGO:</b>
+        </td>
+        <td>
+          <span style="background-color: lightgrey; border-radius: 4px;">
+            {{expediente?.codigo}}
+          </span>
+        </td>
+      </tr>
+    }
+    @if (expediente?.numeroCasacion != null || cuadernos.length > 0) {
+      <hr />
+    }
+    @if (expediente?.numeroCasacion != null) {
+      <tr>
+        <td>
+          <b>CASACION:</b>
+        </td>
+        <td>
+          <span>
+            {{expediente?.numeroCasacion}}
+          </span>
+          <span>
+            ({{expediente?.salaCasacion}})
+          </span>
+        </td>
+      </tr>
+    }
+    @if (cuadernos.length > 0) {
+      <tr>
+        <td>
+          <b>CUADERNOS:</b>
+        </td>
+        <td>
+          <ul>
+            @for (cuaderno of cuadernos; track cuaderno) {
+              <li>
+                <a [routerLink]="'/expediente/'+cuaderno.numero" style="text-decoration: none;">
+                  {{cuaderno.numero}}
+                </a>
+                ({{cuaderno.titulo}})
+              </li>
+            }
+          </ul>
+        </td>
+      </tr>
+    }
+  </table>
+  <hr />
+  <div class="row">
+    <div class="col-3">
     </div>
-
-    <!-- Solo para ver las observaciones del expediente -->
-    <div *ngIf="expediente?.observaciones">
-        <div style="display: flex; flex-direction: row-reverse; margin-top: -25px;">
-            <span role="button" (click)="toggleObservaciones()">
-                <i class="bi bi-box"></i>
-            </span>
-        </div>
-
-        <div *ngIf="mostrarObservaciones" class="alert alert-warning" role="alert">
-            <span>
-                {{expediente?.observaciones}}
-            </span>
-        </div>
+    <div class="col-6">
+      <h6>
+        AREQUIPA, {{expediente?.fechaInicio}}
+      </h6>
     </div>
+    <div class="col-3">
+    </div>
+  </div>
+
+  <!-- Solo para ver las observaciones del expediente -->
+  @if (expediente?.observaciones) {
+    <div>
+      <div style="display: flex; flex-direction: row-reverse; margin-top: -25px;">
+        <span role="button" (click)="toggleObservaciones()">
+          <i class="bi bi-box"></i>
+        </span>
+      </div>
+      @if (mostrarObservaciones) {
+        <div class="alert alert-warning" role="alert">
+          <span>
+            {{expediente?.observaciones}}
+          </span>
+        </div>
+      }
+    </div>
+  }
 </div>
 
 <div style="margin-top: 50px;">
-    <span style="font-size: 0.75rem;">
-        <i>
-            {{expediente?.idExpediente}}
-        </i>
-        <br>
-        <i>
-            {{expediente?.numero}}
-        </i>
+  <span style="font-size: 0.75rem;">
+    <i>
+      {{expediente?.idExpediente}}
+    </i>
+    <br>
+      <i>
+        {{expediente?.numero}}
+      </i>
     </span>
-</div>
+  </div>

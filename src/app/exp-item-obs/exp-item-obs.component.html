@@ -1,50 +1,56 @@
 <h3>
-    Observaciones
+  Observaciones
 </h3>
 
 <div>
-    <pre>
-        {{expediente?.observaciones}}
-    </pre>
+  <pre>
+    {{expediente?.observaciones}}
+  </pre>
 
-    <button (click)="openModal(editObsModal)" class="btn btn-secondary">
-        Editar
-    </button>
+  <button (click)="openModal(editObsModal)" class="btn btn-secondary">
+    Editar
+  </button>
 </div>
 
 <br>
 
-<div style="margin-top: 50px;">
+  <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
-        <i>
-            {{expediente?.numero}}
-        </i>
+      <i>
+        {{expediente?.numero}}
+      </i>
     </span>
-</div>
+  </div>
 
-<!------------------------------------------------
+  <!------------------------------------------------
   --------------- EDIT OBS MODAL -----------------
   ----------------------------------------------->
-<ng-template #editObsModal let-modal>
+  <ng-template #editObsModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Editar Observaciones</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
+      <h5 class="modal-title" id="modal-basic-title">Editar Observaciones</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <textarea cols="30" rows="10" [formControl]="fcObs" class="form-control">
-        </textarea>
+      <textarea cols="30" rows="10" [formControl]="fcObs" class="form-control">
+      </textarea>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="updateObs()" [disabled]="!(fcObs.valid && !lUpdating)">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
-            </span>
-            <span class="sr-only" *ngIf="!lUpdating">
-                Guardar
-            </span>
-            <span class="sr-only" *ngIf="lUpdating">
-                Guardando...
-            </span>
-        </button>
+      <button type="button" class="btn btn-primary" (click)="updateObs()" [disabled]="!(fcObs.valid && !lUpdating)">
+        @if (lUpdating) {
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+        }
+        @if (!lUpdating) {
+          <span class="sr-only">
+            Guardar
+          </span>
+        }
+        @if (lUpdating) {
+          <span class="sr-only">
+            Guardando...
+          </span>
+        }
+      </button>
     </div>
-</ng-template>
+  </ng-template>

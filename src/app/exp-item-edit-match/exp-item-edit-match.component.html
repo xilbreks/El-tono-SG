@@ -1,122 +1,136 @@
 <h5>
-    <i class="bi bi-link"></i> 
-    Vinculación
+  <i class="bi bi-link"></i>
+  Vinculación
 </h5>
 
 <p>
-    Los expedientes vinculados comparten cierta información.
-    Estos son:
+  Los expedientes vinculados comparten cierta información.
+  Estos son:
 </p>
 <ul>
-    <li>Historial de RDT</li>
-    <li>Detalle del contrato</li>
-    <li>Pagos por honorarios</li>
-    <li>Comunicación con el cliente</li>
+  <li>Historial de RDT</li>
+  <li>Detalle del contrato</li>
+  <li>Pagos por honorarios</li>
+  <li>Comunicación con el cliente</li>
 </ul>
 
 <!---------- NO MATCH ---------->
-<div *ngIf="smatchexp == 'no-match'">
-    
+@if (smatchexp == 'no-match') {
+  <div>
     <div>
-        Vinculación actual: 
-        <kbd>
-            <span>·</span>
-            sin vinculación
-            <span>·</span>
-        </kbd>
+      Vinculación actual:
+      <kbd>
+        <span>·</span>
+        sin vinculación
+        <span>·</span>
+      </kbd>
     </div>
     <br>
-    <div>
+      <div>
         <button class="btn btn-secondary" (click)="openModalSetMatch(setMatchModal)">
-            Vincular
+          Vincular
         </button>
+      </div>
     </div>
-</div>
-<!---------- -- -- -- ---------->
-<!---------- DO MATCH ---------->
-<div *ngIf="smatchexp != 'no-match'">
-    
+  }
+  <!---------- -- -- -- ---------->
+  <!---------- DO MATCH ---------->
+  @if (smatchexp != 'no-match') {
     <div>
-        Vinculación actual: 
+      <div>
+        Vinculación actual:
         <kbd>
-            {{smatchexp}}
+          {{smatchexp}}
         </kbd>
-    </div>
-    <br>
-    <div>
-        <button class="btn btn-secondary" (click)="openModalUnMatch(unMatchModal)">
+      </div>
+      <br>
+        <div>
+          <button class="btn btn-secondary" (click)="openModalUnMatch(unMatchModal)">
             Desvincular
-        </button>
-    </div>
-</div>
-<!---------- -- -- -- ---------->
+          </button>
+        </div>
+      </div>
+    }
+    <!---------- -- -- -- ---------->
 
 
-<div style="margin-top: 50px;">
-    <span style="font-size: 0.75rem;">
+    <div style="margin-top: 50px;">
+      <span style="font-size: 0.75rem;">
         <i>
-            {{sexpediente}}
+          {{sexpediente}}
         </i>
-    </span>
-</div>
-
-<hr>
-
-<!------------------------------------------------
-  -------------- SET MATCH MODAL -----------------
-  ----------------------------------------------->
-<ng-template #setMatchModal let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Vincular Expediente</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
+      </span>
     </div>
-    <div class="modal-body">
-        <input type="text" [formControl]="fcMatch" class="form-control" placeholder="00000-0000-0-0000-00-00-00">
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="setMatch()" [disabled]="!(fcMatch.valid && !lUpdating)">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
-            </span>
-            <span class="sr-only" *ngIf="!lUpdating">
+
+    <hr>
+
+      <!------------------------------------------------
+      -------------- SET MATCH MODAL -----------------
+      ----------------------------------------------->
+      <ng-template #setMatchModal let-modal>
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-basic-title">Vincular Expediente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" [formControl]="fcMatch" class="form-control" placeholder="00000-0000-0-0000-00-00-00">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="setMatch()" [disabled]="!(fcMatch.valid && !lUpdating)">
+            @if (lUpdating) {
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+              </span>
+            }
+            @if (!lUpdating) {
+              <span class="sr-only">
                 Vincular
-            </span>
-            <span class="sr-only" *ngIf="lUpdating">
+              </span>
+            }
+            @if (lUpdating) {
+              <span class="sr-only">
                 Vinculando...
-            </span>
-        </button>
-    </div>
-</ng-template>
+              </span>
+            }
+          </button>
+        </div>
+      </ng-template>
 
-<!------------------------------------------------
-  --------------- UN-MATCH MODAL -----------------
-  ----------------------------------------------->
-<ng-template #unMatchModal let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title" id="modal-basic-title">Desvincular Expediente</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <p>
+      <!------------------------------------------------
+      --------------- UN-MATCH MODAL -----------------
+      ----------------------------------------------->
+      <ng-template #unMatchModal let-modal>
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-basic-title">Desvincular Expediente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <p>
             Se desvinculará el expediente.
-        </p>
-        <p>
+          </p>
+          <p>
             <i>
-                ¿Está seguro?
+              ¿Está seguro?
             </i>
-        </p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="unMatch()">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lUpdating">
-            </span>
-            <span class="sr-only" *ngIf="!lUpdating">
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="unMatch()">
+            @if (lUpdating) {
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+              </span>
+            }
+            @if (!lUpdating) {
+              <span class="sr-only">
                 Desvincular
-            </span>
-            <span class="sr-only" *ngIf="lUpdating">
+              </span>
+            }
+            @if (lUpdating) {
+              <span class="sr-only">
                 Desvinculando...
-            </span>
-        </button>
-    </div>
-</ng-template>
+              </span>
+            }
+          </button>
+        </div>
+      </ng-template>
