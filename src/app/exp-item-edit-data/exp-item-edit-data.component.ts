@@ -133,7 +133,7 @@ export class ExpItemEditDataComponent implements OnChanges {
         this.expediente.fechaInicio = this.frmExpediente.value['fechaInicio'].trim().toUpperCase();
         this.expediente.codigo = this.frmExpediente.value['codigo'];
         this.expediente.numeroCasacion = this.frmExpediente.value['numeroCasacion'];
-        this.expediente.salaCasacion = this.frmExpediente.value['salaCasacion'].trim().toUpperCase();
+        this.expediente.salaCasacion = this.frmExpediente.value['salaCasacion'] ? this.frmExpediente.value['salaCasacion'].trim().toUpperCase() : null;
       }
     }).catch(err => {
       // error
@@ -161,7 +161,7 @@ export class ExpItemEditDataComponent implements OnChanges {
         fechaInicio: this.frmExpediente.value['fechaInicio'].trim().toUpperCase(),
         codigo: this.frmExpediente.value['codigo'],
         numeroCasacion: this.frmExpediente.value['numeroCasacion'],
-        salaCasacion: this.frmExpediente.value['salaCasacion'].trim().toUpperCase(),
+        salaCasacion: this.frmExpediente.value['salaCasacion'] ? this.frmExpediente.value['salaCasacion'].trim().toUpperCase() : null,
       })
 
   }
