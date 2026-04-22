@@ -1,1 +1,18 @@
-{{text}}
+<div class="container">
+    <h2>Lista de Elementos Activos</h2>
+
+    @if (loading) {
+    <p>Cargando datos desde Firebase...</p>
+    } @else {
+    <ul>
+        @for (item of items; track item) {
+        <li>
+            <strong>ID:</strong> {{ item['id'] }} -
+            <strong>Nombre:</strong> {{ item['snombre'] }}
+        </li>
+        } @empty {
+        <li>No se encontraron documentos con lactive: true.</li>
+        }
+    </ul>
+    }
+</div>

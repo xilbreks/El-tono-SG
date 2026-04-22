@@ -3,11 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+// Importaciones FIREBASE COMPAT
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+// Importaciones FIREBASE modernas v18
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -79,71 +85,83 @@ const environment = {
   },
 };
 
-@NgModule({ declarations: [
-        AppComponent,
-        ExpedienteRegisterComponent,
-        RecursosComponent,
-        RecursosItersComponent,
-        RecursosTareasComponent,
-        TestingComponent,
-        UsersComponent,
-        UserItemComponent,
-        ReportePagosComponent,
-        PagosHonorariosComponent,
-        ExpedientesUpdaterComponent,
-        ExpedientesListComponent,
-        NotFoundComponent,
-        SinoeWorkerComponent,
-        SinoeAdminComponent,
-        ExpItemComponent,
-        ExpItemCoverComponent,
-        ExpItemEditCodeComponent,
-        ExpItemEditDataComponent,
-        ExpItemEditMatchComponent,
-        ExpItemEditStatusComponent,
-        ExpItemObsComponent,
-        ZDownloaderComponent,
-        ExpedientesListInactiveComponent,
-        ExpItemApptComponent,
-        ExpItemRdtComponent,
-        ExpItemTrialComponent,
-        ExpItemFilesComponent,
-        ExpItemKComponent,
-        ExpItemEvolutionComponent,
-        PlannerAudienciasComponent,
-        PlannerCitasComponent,
-        ExpItemRecursosComponent,
-        TareoMensualComponent,
-        TareoDiarioComponent,
-        TareoDiarioUserComponent,
-        TareoDiarioGeneratorComponent,
-        TareoViewComponent,
-        TareoSupervisorComponent,
-        AuthLoginComponent,
-        AuthLogoutComponent,
-        AuthSignupComponent,
-        ExpItemEconAbonComponent,
-        ExpItemEconAranComponent,
-        ExpItemEconCuotComponent,
-        ExpItemEconComponent,
-        PlannerCuotasComponent,
-        ExpItemSinoeComponent,
-        PlantillasComponent,
-        ExpItemRoadmapComponent,
-        TareoEditNewComponent,
-        ResolucionesAdminComponent,
-        ResolucionesWorkerComponent,
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        NgbModule,
-        ReactiveFormsModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireDatabaseModule,
-        AngularFirestoreModule,
-        AngularFireStorageModule,
-        AngularFireAuthModule,
-        AppRoutingModule], providers: [
-        AppService,
-        provideHttpClient(withInterceptorsFromDi())
-    ] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    ExpedienteRegisterComponent,
+    RecursosComponent,
+    RecursosItersComponent,
+    RecursosTareasComponent,
+    UsersComponent,
+    UserItemComponent,
+    ReportePagosComponent,
+    PagosHonorariosComponent,
+    ExpedientesUpdaterComponent,
+    ExpedientesListComponent,
+    NotFoundComponent,
+    SinoeWorkerComponent,
+    SinoeAdminComponent,
+    ExpItemComponent,
+    ExpItemCoverComponent,
+    ExpItemEditCodeComponent,
+    ExpItemEditDataComponent,
+    ExpItemEditMatchComponent,
+    ExpItemEditStatusComponent,
+    ExpItemObsComponent,
+    ZDownloaderComponent,
+    ExpedientesListInactiveComponent,
+    ExpItemApptComponent,
+    ExpItemRdtComponent,
+    ExpItemTrialComponent,
+    ExpItemFilesComponent,
+    ExpItemKComponent,
+    ExpItemEvolutionComponent,
+    PlannerAudienciasComponent,
+    PlannerCitasComponent,
+    ExpItemRecursosComponent,
+    TareoMensualComponent,
+    TareoDiarioComponent,
+    TareoDiarioUserComponent,
+    TareoDiarioGeneratorComponent,
+    TareoViewComponent,
+    TareoSupervisorComponent,
+    AuthLoginComponent,
+    AuthLogoutComponent,
+    AuthSignupComponent,
+    ExpItemEconAbonComponent,
+    ExpItemEconAranComponent,
+    ExpItemEconCuotComponent,
+    ExpItemEconComponent,
+    PlannerCuotasComponent,
+    ExpItemSinoeComponent,
+    PlantillasComponent,
+    ExpItemRoadmapComponent,
+    TareoEditNewComponent,
+    ResolucionesAdminComponent,
+    ResolucionesWorkerComponent,
+  ],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
+    AppRoutingModule,
+    // v18
+    TestingComponent,
+  ],
+  providers: [
+    AppService,
+    provideHttpClient(withInterceptorsFromDi()),
+    // v18
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    provideAuth(() => getAuth()),
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+  ]
+})
 export class AppModule { }

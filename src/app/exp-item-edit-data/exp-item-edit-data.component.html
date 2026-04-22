@@ -142,16 +142,13 @@
               <tr [ngClass]="{'oculto': !fcTieneCasacion.value}">
                 <td><b>CASACION:</b></td>
                 <td>
-                  <input type="text" class="form-control" formControlName="numeroCasacion">
+                  <input type="text" class="form-control" formControlName="numeroCasacion" placeholder="00000-0000-0-5001-SU-DC-00">
                 </td>
               </tr>
               <tr [ngClass]="{'oculto': !fcTieneCasacion.value}">
                 <td><b>SALA CASACION:</b></td>
                 <td>
-                  <select class="form-control" formControlName="salaCasacion">
-                    <option value="2DA SALA">2DA SALA</option>
-                    <option value="4TA SALA">4TA SALA</option>
-                  </select>
+                  <input type="text" class="form-control" formControlName="salaCasacion">
                 </td>
               </tr>
             </table>
