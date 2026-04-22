@@ -25,7 +25,6 @@ import { RecursosTareasComponent } from './recursos-tareas/recursos-tareas.compo
 import { TestingComponent } from './testing/testing.component';
 import { UsersComponent } from './users/users.component';
 import { UserItemComponent } from './user-item/user-item.component';
-import { ReportePagosComponent } from './reporte-pagos/reporte-pagos.component';
 import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.component';
 import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component';
 import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
@@ -34,11 +33,8 @@ import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { ExpItemComponent } from './exp-item/exp-item.component';
 import { ExpItemCoverComponent } from './exp-item-cover/exp-item-cover.component';
-import { ExpItemEditCodeComponent } from './exp-item-edit-code/exp-item-edit-code.component';
 import { ExpItemEditDataComponent } from './exp-item-edit-data/exp-item-edit-data.component';
-import { ExpItemEditMatchComponent } from './exp-item-edit-match/exp-item-edit-match.component';
 import { ExpItemEditStatusComponent } from './exp-item-edit-status/exp-item-edit-status.component';
-import { ExpItemObsComponent } from './exp-item-obs/exp-item-obs.component';
 
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
@@ -94,7 +90,6 @@ const environment = {
     RecursosTareasComponent,
     UsersComponent,
     UserItemComponent,
-    ReportePagosComponent,
     PagosHonorariosComponent,
     ExpedientesUpdaterComponent,
     ExpedientesListComponent,
@@ -103,11 +98,8 @@ const environment = {
     SinoeAdminComponent,
     ExpItemComponent,
     ExpItemCoverComponent,
-    ExpItemEditCodeComponent,
     ExpItemEditDataComponent,
-    ExpItemEditMatchComponent,
     ExpItemEditStatusComponent,
-    ExpItemObsComponent,
     ZDownloaderComponent,
     ExpedientesListInactiveComponent,
     ExpItemApptComponent,
