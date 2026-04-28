@@ -1,53 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { firstValueFrom } from 'rxjs';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  Firestore,
+  collection,
+  getDocs,
+  query,
+  where,
+  limit,
+} from '@angular/fire/firestore';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
-interface Trial {
-  idaudiencia: string;
-  sexpediente: string;
-  sespecialidad: string;
-  sdemandante: string;
-  sdemandado: string;
-  sfecha: string;
-  shora: string;
-  stipo: string;
-  sencargados: string;
-  surl: string;
-
-  // Solo para vistas
-  sfechauser: string;
-  sprefijolink: string;
-  ssufijolink: string;
-  scuerpolink: string;
-  nombreDia: string;      // Dia de la semana, ej: "Lunes", "Martes", ...
-  nombreMes: string;      // Mes del año, ej: "Enero", "Febrero", ...
-  numeroDia: string;      // Numero del dia del mes
-  numeroAnio: number;     // Numero de año
-}
+import { Audiencia } from '../_interfaces/audiencia';
 
 @Component({
   selector: 'app-planner-audiencias',
   templateUrl: './planner-audiencias.component.html',
-  styleUrl: './planner-audiencias.component.scss'
+  styleUrl: './planner-audiencias.component.scss',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink]
 })
-export class PlannerAudienciasComponent {
-  lstAudiencias: Trial[] = [];
-  lstAudLaboral: Trial[] = [];
-  lstAudFamilia: Trial[] = [];
-  lstAudCivil: Trial[] = [];
-  lstAudPenal: Trial[] = [];
+export class PlannerAudienciasComponent implements OnInit {
+  private db = inject(Firestore);
+
+  lstAudiencias: Audiencia[] = [];
+  lstAudLaboral: Audiencia[] = [];
+  lstAudFamilia: Audiencia[] = [];
+  lstAudCivil: Audiencia[] = [];
+  lstAudPenal: Audiencia[] = [];
   lLoading = false;
 
   frmDate: FormGroup;
 
   today: string = '';
 
-  constructor(
-    private db: AngularFirestore,
-    private modalService: NgbModal,
-  ) {
+  constructor() {
     /*******************************
      ******* FORM DATE RANGE *******
      *******************************/
@@ -105,20 +92,24 @@ export class PlannerAudienciasComponent {
     let inicio = this.frmDate.controls['sinicio'].value;
     let final = this.frmDate.controls['sfinal'].value;
 
-    let audiencias = await this.getTrialsDB(inicio, final);
-
-    this.lstAudiencias = audiencias.map(aud => {
+    const colRef = collection(this.db, 'audiencias');
+    const q = query(colRef, where('sfecha', '>=', inicio), where('sfecha', '<=', final));
+    const querySnapshot = await getDocs(q);
+    
+    this.lstAudiencias = querySnapshot.docs.map(doc => {
+      const audiencia: any = doc.data();
+      
       // Fecha mas legible
-      let sDay = aud.sfecha.slice(8, 10);
-      let sMonth = aud.sfecha.slice(5, 7);
-      let sYear = aud.sfecha.slice(0, 4);
+      let sDay = audiencia.sfecha.slice(8, 10);
+      let sMonth = audiencia.sfecha.slice(5, 7);
+      let sYear = audiencia.sfecha.slice(0, 4);
 
       // Detecion de enlace meet en el url
       const regexMeet = /meet\.google\.com\/[a-z]{3}-{0,1}[a-z]{4}-{0,1}[a-z]{3}/i;
-      let prefijo = aud.surl;
+      let prefijo = audiencia.surl;
       let cuerpo = '';
       let sufijo = '';
-      const texto: string = aud.surl;
+      const texto: string = audiencia.surl;
       const enlace: RegExpMatchArray | null = texto.match(regexMeet);
 
       // Existe link
@@ -133,7 +124,7 @@ export class PlannerAudienciasComponent {
       // Dia de la semana y mes del año
       let dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
       let meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
-      let fecha = new Date(`${aud.sfecha}T00:00`);
+      let fecha = new Date(`${audiencia.sfecha}T00:00`);
       let numeroDiaSemana = fecha.getUTCDay();
       let numeroMes = fecha.getMonth();
       let nombreDia = dias[numeroDiaSemana];
@@ -142,7 +133,7 @@ export class PlannerAudienciasComponent {
       let numeroAnio = fecha.getFullYear();
 
       return {
-        ...aud,
+        ...audiencia,
         sfechauser: sDay + '/' + sMonth + '/' + sYear,
         sprefijolink: prefijo,
         scuerpolink: cuerpo,
@@ -167,24 +158,4 @@ export class PlannerAudienciasComponent {
     this.lLoading = false;
   }
 
-  // Operaciones a la base de datos
-
-  /**
-   * Obtiene el listado de audiencias de una fecha determinada, mes
-   * @param inicio primer dia del mes
-   * @param final ultimo dia del mes
-   */
-  getTrialsDB(inicio: string, final: string): Promise<any[]> {
-    let obs = this.db.collection('audiencias', ref => {
-      return ref.where('sfecha', '>=', inicio)
-        .where('sfecha', '<=', final)
-    }).get();
-
-    return firstValueFrom(obs).then(snapshot => {
-      let audiencias: any[] = [];
-      snapshot.forEach(doc => audiencias.push(doc.data()));
-
-      return audiencias;
-    });
-  }
 }

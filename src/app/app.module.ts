@@ -108,8 +108,6 @@ const environment = {
     ExpItemFilesComponent,
     ExpItemKComponent,
     ExpItemEvolutionComponent,
-    PlannerAudienciasComponent,
-    PlannerCitasComponent,
     ExpItemRecursosComponent,
     TareoMensualComponent,
     TareoDiarioComponent,
@@ -144,6 +142,8 @@ const environment = {
     AppRoutingModule,
     // v18
     TestingComponent,
+    PlannerCitasComponent,
+    PlannerAudienciasComponent,
   ],
   providers: [
     AppService,

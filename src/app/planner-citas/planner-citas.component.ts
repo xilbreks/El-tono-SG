@@ -1,34 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Firestore,
+  collection,
+  getDocs,
+  query,
+  where,
+  limit,
+  doc,
+  updateDoc
+} from '@angular/fire/firestore';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
-interface Appointment {
-  idcita: string;
-  sexpediente: string;
-  sespecialidad: string;
-  sdemandante: string;
-  sdemandado: string;
-  scliente: string;
-  sfecha: string;
-  shora: string;
-  stipo: string;
-  sencargados: string;
-  sacuerdos: string;
-  stema: string;
-  sfechauser: string;
-  nombreDia: string;
-  numeroDia: string;
-  nombreMes: string;
-}
+import { Cita } from '../_interfaces/cita';
 
 @Component({
   selector: 'app-planner-citas',
   templateUrl: './planner-citas.component.html',
-  styleUrl: './planner-citas.component.scss'
+  styleUrl: './planner-citas.component.scss',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink]
 })
-export class PlannerCitasComponent {
-  lstCitas: Appointment[] = [];
+export class PlannerCitasComponent implements OnInit {
+  private db = inject(Firestore);
+
+  lstCitas: Cita[] = [];
   lLoading = false;
   lUpdating = false;
 
@@ -38,7 +36,6 @@ export class PlannerCitasComponent {
   today: string = '';
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
     /*******************************
@@ -68,7 +65,7 @@ export class PlannerCitasComponent {
     const dHoy = new Date();
     const time = (dHoy.getTime() - 18000000);
     this.today = (new Date(time)).toISOString().slice(0, 10);
-    console.log(this.today)
+    // console.log(this.today)
 
     const nYear = dHoy.getFullYear();
     let nMonth: any = dHoy.getMonth() + 1;
@@ -100,47 +97,45 @@ export class PlannerCitasComponent {
     this.getCitas(true);
   }
 
-  getCitas(indicator: boolean) {
+  async getCitas(indicator: boolean) {
     this.lLoading = indicator;
     let sinicio = this.frmDate.controls['sinicio'].value;
     let sfinal = this.frmDate.controls['sfinal'].value;
 
-    let obs = this.db.collection('citas', ref => {
-      return ref.where('sfecha', '>=', sinicio)
-        .where('sfecha', '<=', sfinal)
-    }).valueChanges()
-      .subscribe((res: Array<any>) => {
-        this.lstCitas = res.map(cita => {
-          let sDay = cita.sfecha.slice(8, 10);
-          let sMonth = cita.sfecha.slice(5, 7);
-          let sYear = cita.sfecha.slice(0, 4);
+    const colRef = collection(this.db, 'citas');
+    const q = query(colRef, where('sfecha', '>=', sinicio), where('sfecha', '<=', sfinal));
+    const querySnapshot = await getDocs(q);
 
-          // Colocar nombre a los dias y el mes
-          let dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-          let meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
-          let fecha = new Date(`${cita.sfecha}T00:00`);
-          let numeroDiaSemana = fecha.getUTCDay();
-          let numeroMes = fecha.getMonth();
-          let nombreDia = dias[numeroDiaSemana];
-          let nombreMes = meses[numeroMes];
+    this.lstCitas = querySnapshot.docs.map(doc => {
+      const cita: any = doc.data();
+      let sDay = cita.sfecha.slice(8, 10);
+      let sMonth = cita.sfecha.slice(5, 7);
+      let sYear = cita.sfecha.slice(0, 4);
 
-          return {
-            ...cita,
-            sfechauser: sDay + '/' + sMonth + '/' + sYear,
-            scliente: cita.scliente.toUpperCase(),
-            nombreDia,
-            numeroDia: sDay,
-            nombreMes,
-          }
-        }).sort((a, b) => {
-          let sfecha1 = a.sfecha + '-' + a.shora;
-          let sfecha2 = b.sfecha + '-' + b.shora;
-          return sfecha1 < sfecha2 ? -1 : 1;
-        });
+      // Colocar nombre a los dias y el mes
+      let dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      let meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+      let fecha = new Date(`${cita.sfecha}T00:00`);
+      let numeroDiaSemana = fecha.getUTCDay();
+      let numeroMes = fecha.getMonth();
+      let nombreDia = dias[numeroDiaSemana];
+      let nombreMes = meses[numeroMes];
 
-        this.lLoading = false;
-        obs.unsubscribe();
-      })
+      return {
+        ...cita,
+        sfechauser: sDay + '/' + sMonth + '/' + sYear,
+        scliente: cita.scliente.toUpperCase(),
+        nombreDia,
+        numeroDia: sDay,
+        nombreMes,
+      }
+    }).sort((a, b) => {
+      let sfecha1 = a.sfecha + '-' + a.shora;
+      let sfecha2 = b.sfecha + '-' + b.shora;
+      return sfecha1 < sfecha2 ? -1 : 1;
+    });
+
+    this.lLoading = false;
   }
 
   openModalAcuerdos(idcita: string, sacuerdos: string, modal: any) {
@@ -154,19 +149,24 @@ export class PlannerCitasComponent {
     });
   }
 
-  updateAcuerdos() {
+  async updateAcuerdos() {
     this.lUpdating = true;
     let idcita = this.frmAcuerdos.value['idcita'];
     let sacuerdos = this.frmAcuerdos.value['sacuerdos'].trim();
 
-    this.db.collection('citas').doc(idcita).update({
-      sacuerdos: sacuerdos
-    }).then(() => {
+    const docRef = doc(this.db, `citas/${idcita}`);
+
+    try {
+      await updateDoc(docRef, {
+        sacuerdos: sacuerdos
+      })
       this.modalService.dismissAll();
       this.lUpdating = false;
       this.getCitas(false);
-    }).catch(err => {
-      window.alert('ocurrió un error');
-    })
+
+    } catch (err) {
+      this.lUpdating = false;
+      console.log(err);
+    }
   }
 }
