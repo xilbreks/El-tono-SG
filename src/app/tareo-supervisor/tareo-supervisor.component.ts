@@ -63,6 +63,38 @@ export class TareoSupervisorComponent {
           },
         ];
         break;
+      case 'Alejandra-Chacaltana':
+        this.usuarios = [
+          {
+            id: 'Alisson-Guillen',
+            nombre: 'Alisson',
+          },
+          {
+            id: 'azaravia',
+            nombre: 'Alejandro',
+          },
+          {
+            id: 'Pablo-Calderon',
+            nombre: 'Pablo',
+          },
+          {
+            id: 'Shaunny-Fernandez',
+            nombre: 'Shaunny',
+          },
+          {
+            id: 'Angelly-Castillo',
+            nombre: 'Angelly',
+          },
+          {
+            id: 'Esmeralda-Aslla',
+            nombre: 'Esmeralda',
+          },
+          {
+            id: 'mcastelo',
+            nombre: 'Mafi',
+          },
+        ];
+        break;
       case 'Pablo-Calderon':
         this.usuarios = [
           {
