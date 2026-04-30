@@ -51,35 +51,27 @@ export class TareoSupervisorComponent {
     console.log('soy: ', usuario);
     // usuario = 'Maria-Tunquipa';  // Quitar luego
     switch (usuario) {
-      case 'Crishtian-Paucar':
+      case 'tuareg-meza':
         this.usuarios = [
           {
-            id: 'spuma',
-            nombre: 'Stephany',
+            id: 'Leonardo-Flores',
+            nombre: 'Leonardo',
           },
           {
-            id: 'fespinoza',
-            nombre: 'Flavia',
-          },
-          {
-            id: 'michael-vilca',
-            nombre: 'Michael',
-          },
-          {
-            id: 'gchino',
-            nombre: 'Grecia',
+            id: 'javier-mendoza',
+            nombre: 'Javier',
           },
         ];
         break;
-      case 'Huander-Montoya':
+      case 'Pablo-Calderon':
         this.usuarios = [
           {
-            id: 'Paola-Guzman',
-            nombre: 'Paola',
+            id: 'Alisson-Guillen',
+            nombre: 'Alisson',
           },
           {
-            id: 'wilson-apaza',
-            nombre: 'Wilson',
+            id: 'azaravia',
+            nombre: 'Alejandro',
           },
           {
             id: 'Alejandra-Chacaltana',
@@ -98,40 +90,36 @@ export class TareoSupervisorComponent {
             nombre: 'Esmeralda',
           },
           {
-            id: 'Viameli-Ccama',
-            nombre: 'Viameli',
-          },
-          {
             id: 'mcastelo',
             nombre: 'Mafi',
           },
         ];
         break;
-      case 'jmachaca':
+      case 'mcoaquira':
         this.usuarios = [
           {
-            id: 'Alisson-Guillen',
-            nombre: 'Alisson',
+            id: 'sperca',
+            nombre: 'Sara',
           },
           {
-            id: 'gmoa',
-            nombre: 'Gabriella',
+            id: 'ahuamani',
+            nombre: 'Angela',
           },
           {
-            id: 'azaravia',
-            nombre: 'Alejandro',
+            id: 'Antonella-Flores',
+            nombre: 'Antonella',
           },
           {
-            id: 'Leonardo-Flores',
-            nombre: 'Leonardo',
+            id: 'enayda-puco',
+            nombre: 'Enayda',
           },
           {
-            id: 'avargas',
-            nombre: 'Ana',
+            id: 'michael-vilca',
+            nombre: 'Michael',
           },
           {
-            id: 'marco-mamani',
-            nombre: 'Marco',
+            id: 'Sebastian-Rodriguez',
+            nombre: 'Sebastian',
           },
         ];
         break;
