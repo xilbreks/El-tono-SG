@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, inject, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Auth } from '@angular/fire/auth';
 
 import { Expediente } from './../_interfaces/expediente';
 import { Checkpoint } from '../_interfaces/checkpoint';
@@ -17,6 +18,8 @@ import { Changelog } from '../_interfaces/changelog';
 export class ExpItemRoadmapComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
   @ViewChild('modalObligatorioCheckpoint', { static: true }) modalTemplate!: TemplateRef<any>;
+
+  private auth = inject(Auth);
 
   frmCheckpoint: FormGroup;
   checkpoints: Checkpoint[] = [];
@@ -1212,7 +1215,9 @@ export class ExpItemRoadmapComponent implements OnChanges {
     const timestamp = (new Date()).getTime();
     const letraAleatoria = this.generarLetraAleatoria();
     const idGenerado = `ID${timestamp}${letraAleatoria}`;
-    const usuario = localStorage.getItem('nombre');
+    const usuarioActivo = this.auth.currentUser;
+    // const usuario = localStorage.getItem('nombre');
+    const usuario = usuarioActivo?.displayName;
 
     this.db.collection('changelog').doc(idGenerado).set({
       idChangelog: idGenerado,

@@ -15,16 +15,16 @@
       </div>
 
       <button class="btn btn-primary btn-block mb-4" (click)="login(suser.value,spassword.value)"
-        [disabled]="lLoggin">
-        @if (lLoggin) {
+        [disabled]="lLoggin()">
+        @if (lLoggin()) {
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         }
-        @if (!lLoggin) {
+        @if (!lLoggin()) {
           <span class="sr-only">
             Identificarse
           </span>
         }
-        @if (lLoggin) {
+        @if (lLoggin()) {
           <span class="sr-only">
             Identificando...
           </span>
@@ -32,9 +32,9 @@
       </button>
     </form>
 
-    @if (sError) {
+    @if (sError()) {
       <div class="alert alert-warning" role="alert">
-        {{sError}}
+        {{sError()}}
       </div>
     }
   </div>
