@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
+import { Audiencia } from '../_interfaces/audiencia';
 
 @Component({
   selector: 'app-exp-item-trial',
@@ -12,7 +13,7 @@ import { Expediente } from './../_interfaces/expediente';
 })
 export class ExpItemTrialComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
-  lstAudiencias: any[] = [];
+  lstAudiencias: Audiencia[] = [];
   lViewMode = true;
 
   lLoading = false;
@@ -36,6 +37,7 @@ export class ExpItemTrialComponent implements OnChanges {
       shora: new FormControl(null, Validators.required),
       stipo: new FormControl(null, Validators.required),
       sencargados: new FormControl(null, Validators.required),
+      sasistente: new FormControl(null, Validators.required),
       surl: new FormControl(null, Validators.required),
     });
 
@@ -48,6 +50,7 @@ export class ExpItemTrialComponent implements OnChanges {
       shora: new FormControl(null, Validators.required),
       stipo: new FormControl(null, Validators.required),
       sencargados: new FormControl(null, Validators.required),
+      sasistente: new FormControl(null, Validators.required),
       surl: new FormControl(null, Validators.required),
     });
 
@@ -110,6 +113,7 @@ export class ExpItemTrialComponent implements OnChanges {
       shora: audiencia.shora,
       stipo: audiencia.stipo,
       sencargados: audiencia.sencargados,
+      sasistente: audiencia.sasistente ? audiencia.sasistente : null,
       surl: audiencia.surl,
     })
 
@@ -151,9 +155,10 @@ export class ExpItemTrialComponent implements OnChanges {
         sdemandado: this.expediente?.demandado,
         sfecha: this.frmNewAudience.value['sfecha'],
         shora: this.frmNewAudience.value['shora'],
-        stipo: this.frmNewAudience.value['stipo'],
-        sencargados: this.frmNewAudience.value['sencargados'],
-        surl: this.frmNewAudience.value['surl'],
+        stipo: this.frmNewAudience.value['stipo'].trim(),
+        sencargados: this.frmNewAudience.value['sencargados'].trim(),
+        sasistente: this.frmNewAudience.value['sasistente'].trim(),
+        surl: this.frmNewAudience.value['surl'].trim(),
       })
       .then((x) => {
         this.getAudiencias();
@@ -178,9 +183,10 @@ export class ExpItemTrialComponent implements OnChanges {
       .update({
         sfecha: this.frmEditAudience.value['sfecha'],
         shora: this.frmEditAudience.value['shora'],
-        stipo: this.frmEditAudience.value['stipo'],
-        sencargados: this.frmEditAudience.value['sencargados'],
-        surl: this.frmEditAudience.value['surl'],
+        stipo: this.frmEditAudience.value['stipo'].trim(),
+        sencargados: this.frmEditAudience.value['sencargados'].trim(),
+        sasistente: this.frmEditAudience.value['sasistente'].trim(),
+        surl: this.frmEditAudience.value['surl'].trim(),
       })
       .then((x) => {
         this.getAudiencias();

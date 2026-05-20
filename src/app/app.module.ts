@@ -67,6 +67,7 @@ import { ExpItemRoadmapComponent } from './exp-item-roadmap/exp-item-roadmap.com
 import { TareoEditNewComponent } from './tareo-edit-new/tareo-edit-new.component';
 import { ResolucionesAdminComponent } from './resoluciones-admin/resoluciones-admin.component';
 import { ResolucionesWorkerComponent } from './resoluciones-worker/resoluciones-worker.component';
+import { PlannerAudienciaItemComponent } from './planner-audiencia-item/planner-audiencia-item.component';
 
 const environment = {
   production: false,
@@ -144,6 +145,7 @@ const environment = {
     TestingComponent,
     PlannerCitasComponent,
     PlannerAudienciasComponent,
+    PlannerAudienciaItemComponent,
   ],
   providers: [
     AppService,

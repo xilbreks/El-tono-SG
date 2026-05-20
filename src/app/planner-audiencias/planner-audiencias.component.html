@@ -33,20 +33,20 @@
 <div class="container">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="todos-tab" data-bs-toggle="tab" data-bs-target="#todos-tab-pane"
-        type="button" role="tab" aria-controls="todos-tab-pane" aria-selected="true">
+      <button class="nav-link active" id="todos-tab" data-bs-toggle="tab" data-bs-target="#todos-tab-pane" type="button"
+        role="tab" aria-controls="todos-tab-pane" aria-selected="true">
         Todos ({{lstAudiencias.length}})
       </button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="laboral-tab" data-bs-toggle="tab" data-bs-target="#laboral-tab-pane"
-        type="button" role="tab" aria-controls="laboral-tab-pane" aria-selected="false">
+      <button class="nav-link" id="laboral-tab" data-bs-toggle="tab" data-bs-target="#laboral-tab-pane" type="button"
+        role="tab" aria-controls="laboral-tab-pane" aria-selected="false">
         Laboral ({{lstAudLaboral.length}})
       </button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="familia-tab" data-bs-toggle="tab" data-bs-target="#familia-tab-pane"
-        type="button" role="tab" aria-controls="familia-tab-pane" aria-selected="false">
+      <button class="nav-link" id="familia-tab" data-bs-toggle="tab" data-bs-target="#familia-tab-pane" type="button"
+        role="tab" aria-controls="familia-tab-pane" aria-selected="false">
         Familia ({{lstAudFamilia.length}})
       </button>
     </li>
@@ -65,10 +65,9 @@
   </ul>
 
   <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="todos-tab-pane" role="tabpanel" aria-labelledby="todos-tab"
-      tabindex="0">
+    <div class="tab-pane fade show active" id="todos-tab-pane" role="tabpanel" aria-labelledby="todos-tab" tabindex="0">
       <!-- Listado de todas las audiencias -->
-      <div class="row cabecera">
+      <div class="row cabecera general">
         <div class="col-2">
           Fecha
         </div>
@@ -79,419 +78,130 @@
           Anotaciones
         </div>
       </div>
-      @for (audiencia of lstAudiencias; track audiencia) {
-        <div class="row cuerpo">
-          <div class="col-2 fecha" [ngClass]="{'hoy': audiencia.sfecha == today}">
-            {{audiencia.nombreDia}}, <br /> {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
-          </div>
-          <div class="col-5 bbb">
-            <ul>
-              <li>AREA: <span
-              class="tipo-audiencia {{audiencia.sespecialidad}}">{{audiencia.sespecialidad}}</span>
-            </li>
-            <li>DTE: {{audiencia.sdemandante}}</li>
-            <li>DDO: {{audiencia.sdemandado}}</li>
-            <li>EXP: <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}</a>
-          </li>
-        </ul>
+      @for (audiencia of lstAudiencias; track audiencia.idaudiencia) {
+      <app-planner-audiencia-item [audienciaI]="audiencia" [today]="today"></app-planner-audiencia-item>
+      }
+      @if (lLoading) {
+      <div>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Cargando...
       </div>
-      <div class="col-5 ccc">
-        <ul>
-          <li>Hora: {{audiencia.shora}}</li>
-          <li>Tipo: {{audiencia.stipo}}</li>
-          <li>Encargados: {{audiencia.sencargados}}</li>
-          <li>Link:
-            <span>
-              {{audiencia.sprefijolink}}
-            </span>
-            <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
-              {{audiencia.scuerpolink}}
-            </a>
-            <span>
-              {{audiencia.ssufijolink}}
-            </span>
-          </li>
-        </ul>
+      }
+      @if (!lLoading && lstAudiencias.length == 0) {
+      <div>
+        No hay audiencias en este mes.
       </div>
+      }
+      <br><br><br>
     </div>
-  }
-  @if (lLoading) {
-    <div>
-      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Cargando...
+    <div class="tab-pane fade" id="laboral-tab-pane" role="tabpanel" aria-labelledby="laboral-tab" tabindex="0">
+      <div class="row cabecera laboral">
+        <div class="col-2">
+          Fecha
+        </div>
+        <div class="col-5">
+          Expediente
+        </div>
+        <div class="col-5">
+          Anotaciones
+        </div>
+      </div>
+      @for (audiencia of lstAudLaboral; track audiencia.idaudiencia) {
+      <app-planner-audiencia-item [audienciaI]="audiencia" [today]="today"></app-planner-audiencia-item>
+      }
+      @if (lLoading) {
+      <div>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Cargando...
+      </div>
+      }
+      @if (!lLoading && lstAudLaboral.length == 0) {
+      <div>
+        No hay audiencias en este mes.
+      </div>
+      }
     </div>
-  }
-  @if (!lLoading && lstAudiencias.length == 0) {
-    <div>
-      No hay audiencias en este mes.
+    <div class="tab-pane fade" id="familia-tab-pane" role="tabpanel" aria-labelledby="familia-tab" tabindex="0">
+      <div class="row cabecera familia">
+        <div class="col-2">
+          Fecha
+        </div>
+        <div class="col-5">
+          Expediente
+        </div>
+        <div class="col-5">
+          Anotaciones
+        </div>
+      </div>
+      @for (audiencia of lstAudFamilia; track audiencia.idaudiencia) {
+      <app-planner-audiencia-item [audienciaI]="audiencia" [today]="today"></app-planner-audiencia-item>
+      }
+      @if (lLoading) {
+      <div>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Cargando...
+      </div>
+      }
+      @if (!lLoading && lstAudFamilia.length == 0) {
+      <div>
+        No hay audiencias en este mes.
+      </div>
+      }
     </div>
-  }
-  <br><br><br>
-</div>
-<div class="tab-pane fade" id="laboral-tab-pane" role="tabpanel" aria-labelledby="laboral-tab" tabindex="0">
-  <table class="table table">
-    <thead>
-      <tr>
-        <th style="width: 10%;">
+    <div class="tab-pane fade" id="civil-tab-pane" role="tabpanel" aria-labelledby="civil-tab" tabindex="0">
+      <div class="row cabecera civil">
+        <div class="col-2">
           Fecha
-        </th>
-        <th style="width: 40%;">
+        </div>
+        <div class="col-5">
           Expediente
-        </th>
-        <th style="width: 50%;">
+        </div>
+        <div class="col-5">
           Anotaciones
-        </th>
-      </tr>
-    </thead>
-    @if (!lLoading && lstAudLaboral.length > 0) {
-      <tbody>
-        @for (audiencia of lstAudLaboral; track audiencia) {
-          <tr>
-            <td>
-              <div>
-                {{audiencia.nombreDia}},
-              </div>
-              <div>
-                {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
-              </div>
-            </td>
-            <td>
-              <ul>
-                <li>
-                  AREA:
-                  <span class="tipo-audiencia {{audiencia.sespecialidad}}">
-                    {{audiencia.sespecialidad}}
-                  </span>
-                </li>
-                <li>
-                  DTE: <span>{{audiencia.sdemandante}}</span>
-                </li>
-                <li>
-                  DDO: <span>{{audiencia.sdemandado}}</span>
-                </li>
-                <li>
-                  EXP:
-                  <span>
-                    <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
-                    </a>
-                  </span>
-                </li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>
-                  Hora: {{audiencia.shora}}
-                </li>
-                <li>
-                  Tipo: {{audiencia.stipo}}
-                </li>
-                <li>
-                  Encargados: {{audiencia.sencargados}}
-                </li>
-                <li>
-                  <span>
-                    Link: {{audiencia.sprefijolink}}
-                  </span>
-                  <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
-                    {{audiencia.scuerpolink}}
-                  </a>
-                  <span>
-                    {{audiencia.ssufijolink}}
-                  </span>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        }
-      </tbody>
-    }
-    @if (!lLoading && lstAudLaboral.length == 0) {
-      <tbody>
-        No hay audiencias en el mes
-      </tbody>
-    }
-    @if (lLoading) {
-      <tbody>
+        </div>
+      </div>
+      @for (audiencia of lstAudCivil; track audiencia.idaudiencia) {
+      <app-planner-audiencia-item [audienciaI]="audiencia" [today]="today"></app-planner-audiencia-item>
+      }
+      @if (lLoading) {
+      <div>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Cargando...
-      </tbody>
-    }
-  </table>
-</div>
-<div class="tab-pane fade" id="familia-tab-pane" role="tabpanel" aria-labelledby="familia-tab" tabindex="0">
-  <table class="table table">
-    <thead>
-      <tr>
-        <th style="width: 10%;">
+      </div>
+      }
+      @if (!lLoading && lstAudCivil.length == 0) {
+      <div>
+        No hay audiencias en este mes.
+      </div>
+      }
+    </div>
+    <div class="tab-pane fade" id="penal-tab-pane" role="tabpanel" aria-labelledby="penal-tab" tabindex="0">
+      <div class="row cabecera penal">
+        <div class="col-2">
           Fecha
-        </th>
-        <th style="width: 40%;">
+        </div>
+        <div class="col-5">
           Expediente
-        </th>
-        <th style="width: 50%;">
+        </div>
+        <div class="col-5">
           Anotaciones
-        </th>
-      </tr>
-    </thead>
-    @if (!lLoading && lstAudFamilia.length > 0) {
-      <tbody>
-        @for (audiencia of lstAudFamilia; track audiencia) {
-          <tr>
-            <td>
-              <div>
-                {{audiencia.nombreDia}},
-              </div>
-              <div>
-                {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
-              </div>
-            </td>
-            <td>
-              <ul>
-                <li>
-                  AREA:
-                  <span class="tipo-audiencia {{audiencia.sespecialidad}}">
-                    {{audiencia.sespecialidad}}
-                  </span>
-                </li>
-                <li>
-                  DTE: <span>{{audiencia.sdemandante}}</span>
-                </li>
-                <li>
-                  DDO: <span>{{audiencia.sdemandado}}</span>
-                </li>
-                <li>
-                  EXP:
-                  <span>
-                    <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
-                    </a>
-                  </span>
-                </li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>
-                  Hora: {{audiencia.shora}}
-                </li>
-                <li>
-                  Tipo: {{audiencia.stipo}}
-                </li>
-                <li>
-                  Encargados: {{audiencia.sencargados}}
-                </li>
-                <li>
-                  <span>
-                    Link: {{audiencia.sprefijolink}}
-                  </span>
-                  <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
-                    {{audiencia.scuerpolink}}
-                  </a>
-                  <span>
-                    {{audiencia.ssufijolink}}
-                  </span>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        }
-      </tbody>
-    }
-    @if (!lLoading && lstAudFamilia.length == 0) {
-      <tbody>
-        No hay audiencias en el mes
-      </tbody>
-    }
-    @if (lLoading) {
-      <tbody>
+        </div>
+      </div>
+      @for (audiencia of lstAudPenal; track audiencia.idaudiencia) {
+      <app-planner-audiencia-item [audienciaI]="audiencia" [today]="today"></app-planner-audiencia-item>
+      }
+      @if (lLoading) {
+      <div>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Cargando...
-      </tbody>
-    }
-  </table>
-</div>
-<div class="tab-pane fade" id="civil-tab-pane" role="tabpanel" aria-labelledby="civil-tab" tabindex="0">
-  <table class="table table">
-    <thead>
-      <tr>
-        <th style="width: 10%;">
-          Fecha
-        </th>
-        <th style="width: 40%;">
-          Expediente
-        </th>
-        <th style="width: 50%;">
-          Anotaciones
-        </th>
-      </tr>
-    </thead>
-    @if (!lLoading && lstAudCivil.length > 0) {
-      <tbody>
-        @for (audiencia of lstAudCivil; track audiencia) {
-          <tr>
-            <td>
-              <div>
-                {{audiencia.nombreDia}},
-              </div>
-              <div>
-                {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
-              </div>
-            </td>
-            <td>
-              <ul>
-                <li>
-                  AREA:
-                  <span class="tipo-audiencia {{audiencia.sespecialidad}}">
-                    {{audiencia.sespecialidad}}
-                  </span>
-                </li>
-                <li>
-                  DTE: <span>{{audiencia.sdemandante}}</span>
-                </li>
-                <li>
-                  DDO: <span>{{audiencia.sdemandado}}</span>
-                </li>
-                <li>
-                  EXP:
-                  <span>
-                    <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
-                    </a>
-                  </span>
-                </li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>
-                  Hora: {{audiencia.shora}}
-                </li>
-                <li>
-                  Tipo: {{audiencia.stipo}}
-                </li>
-                <li>
-                  Encargados: {{audiencia.sencargados}}
-                </li>
-                <li>
-                  <span>
-                    Link: {{audiencia.sprefijolink}}
-                  </span>
-                  <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
-                    {{audiencia.scuerpolink}}
-                  </a>
-                  <span>
-                    {{audiencia.ssufijolink}}
-                  </span>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        }
-      </tbody>
-    }
-    @if (!lLoading && lstAudCivil.length == 0) {
-      <tbody>
-        No hay audiencias en el mes
-      </tbody>
-    }
-    @if (lLoading) {
-      <tbody>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Cargando...
-      </tbody>
-    }
-  </table>
-</div>
-<div class="tab-pane fade" id="penal-tab-pane" role="tabpanel" aria-labelledby="penal-tab" tabindex="0">
-  <table class="table table">
-    <thead>
-      <tr>
-        <th style="width: 10%;">
-          Fecha
-        </th>
-        <th style="width: 40%;">
-          Expediente
-        </th>
-        <th style="width: 50%;">
-          Anotaciones
-        </th>
-      </tr>
-    </thead>
-    @if (!lLoading && lstAudPenal.length > 0) {
-      <tbody>
-        @for (audiencia of lstAudPenal; track audiencia) {
-          <tr>
-            <td>
-              <div>
-                {{audiencia.nombreDia}},
-              </div>
-              <div>
-                {{audiencia.numeroDia}} de {{audiencia.nombreMes}}
-              </div>
-            </td>
-            <td>
-              <ul>
-                <li>
-                  AREA:
-                  <span class="tipo-audiencia {{audiencia.sespecialidad}}">
-                    {{audiencia.sespecialidad}}
-                  </span>
-                </li>
-                <li>
-                  DTE: <span>{{audiencia.sdemandante}}</span>
-                </li>
-                <li>
-                  DDO: <span>{{audiencia.sdemandado}}</span>
-                </li>
-                <li>
-                  EXP:
-                  <span>
-                    <a [routerLink]="'/expediente/'+audiencia.sexpediente">{{audiencia.sexpediente}}
-                    </a>
-                  </span>
-                </li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>
-                  Hora: {{audiencia.shora}}
-                </li>
-                <li>
-                  Tipo: {{audiencia.stipo}}
-                </li>
-                <li>
-                  Encargados: {{audiencia.sencargados}}
-                </li>
-                <li>
-                  <span>
-                    Link: {{audiencia.sprefijolink}}
-                  </span>
-                  <a [href]="'https://'+audiencia.scuerpolink" target="_blank">
-                    {{audiencia.scuerpolink}}
-                  </a>
-                  <span>
-                    {{audiencia.ssufijolink}}
-                  </span>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        }
-      </tbody>
-    }
-    @if (!lLoading && lstAudPenal.length == 0) {
-      <tbody>
-        No hay audiencias en el mes
-      </tbody>
-    }
-    @if (lLoading) {
-      <tbody>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Cargando...
-      </tbody>
-    }
-  </table>
-</div>
-</div>
+      </div>
+      }
+      @if (!lLoading && lstAudPenal.length == 0) {
+      <div>
+        No hay audiencias en este mes.
+      </div>
+      }
+    </div>
+  </div>
 
 </div>

@@ -11,32 +11,13 @@ ul.nav {
 }
 
 .cabecera {
-
+    background-color: #0077b6;
     color: #ffffff;
     text-align: center;
 
     font-size: 15px;
     border-radius: 10px;
 
-    &.general {
-        background-color: #0077b6;
-    }
-
-    &.laboral {
-        background-color: rgb(25, 135, 84);
-    }
-
-    &.familia {
-        background-color: #ff66cc;
-    }
-
-    &.civil {
-        background-color: #dbc033;
-    }
-
-    &.penal {
-        background-color: rgb(108, 117, 125);
-    }
 }
 
 .cuerpo {
@@ -114,4 +95,14 @@ ul.nav {
     padding: 9px 0px 11px 0px;
     color: white;
     font-weight: bold;
+}
+
+.enlace {
+    text-decoration: none;
+}
+
+span.texto-lanzador:hover {
+    color: rgb(100, 100, 100);
+    // font-weight: bold;
+    cursor: pointer;
 }

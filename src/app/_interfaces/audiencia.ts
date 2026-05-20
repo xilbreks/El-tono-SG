@@ -7,7 +7,8 @@ export interface Audiencia {
     sfecha: string;
     shora: string;
     stipo: string;
-    sencargados: string;
+    sencargados: string;    // Abogado
+    sasistente: string;
     surl: string;
 
     // Solo para vistas

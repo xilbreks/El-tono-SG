@@ -10,6 +10,7 @@ import {
 } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { PlannerAudienciaItemComponent } from '../planner-audiencia-item/planner-audiencia-item.component';
 
 import { Audiencia } from '../_interfaces/audiencia';
 
@@ -18,7 +19,8 @@ import { Audiencia } from '../_interfaces/audiencia';
   templateUrl: './planner-audiencias.component.html',
   styleUrl: './planner-audiencias.component.scss',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink,
+    PlannerAudienciaItemComponent]
 })
 export class PlannerAudienciasComponent implements OnInit {
   private db = inject(Firestore);

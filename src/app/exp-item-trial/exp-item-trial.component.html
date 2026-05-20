@@ -5,14 +5,14 @@
 <div style="display: flex;">
   <span>
     @if (lViewMode) {
-      <button (click)="cambiarModo()" class="btn btn-secondary btn-sm">
-        <i class="bi bi-lock-fill"></i>
-      </button>
+    <button (click)="cambiarModo()" class="btn btn-secondary btn-sm">
+      <i class="bi bi-lock-fill"></i>
+    </button>
     }
     @if (!lViewMode) {
-      <button (click)="cambiarModo()" class="btn btn-outline-success btn-sm">
-        <i class="bi bi-unlock-fill"></i>
-      </button>
+    <button (click)="cambiarModo()" class="btn btn-outline-success btn-sm">
+      <i class="bi bi-unlock-fill"></i>
+    </button>
     }
   </span>
   <span style="flex: auto 1; font-size: 1.5rem;"></span>
@@ -20,9 +20,9 @@
 
 <div class="table-responsive">
   @if (!lViewMode) {
-    <button (click)="openModalAddAudiencia(addAudienciaModal)" class="btn btn-success btn-sm">
-      + Add
-    </button>
+  <button (click)="openModalAddAudiencia(addAudienciaModal)" class="btn btn-success btn-sm">
+    + Add
+  </button>
   }
   <table class="table table-bordered">
     <thead>
@@ -34,70 +34,71 @@
           Anotaciones
         </th>
         @if (!lViewMode) {
-          <th>
-            Editar
-          </th>
+        <th>
+          Editar
+        </th>
         }
         @if (!lViewMode) {
-          <th>
-            Quitar
-          </th>
+        <th>
+          Quitar
+        </th>
         }
       </tr>
     </thead>
     @if (!lLoading && lstAudiencias.length > 0) {
-      <tbody>
-        @for (audiencia of lstAudiencias; track audiencia) {
-          <tr>
-            <td>
-              {{audiencia.sfechauser}}
-            </td>
-            <td>
-              <ul>
-                <li>
-                  Hora: {{audiencia.shora}}
-                </li>
-                <li>
-                  Tipo: {{audiencia.stipo}}
-                </li>
-                <li>
-                  Encargados: {{audiencia.sencargados}}
-                </li>
-                <li>
-                  Link: {{audiencia.surl}}
-                </li>
-              </ul>
-            </td>
-            @if (!lViewMode) {
-              <td>
-                <button (click)="openModalEditAudiencia(audiencia, editAudienciaModal)"
-                  class="btn btn-warning btn-sm">
-                  <i class="bi bi-pencil-fill"></i>
-                </button>
-              </td>
-            }
-            @if (!lViewMode) {
-              <td>
-                <button (click)="openModalDeleteAudiencia(audiencia, deleteAudienciaModal)"
-                  class="btn btn-danger btn-sm">
-                  <i class="bi bi-trash-fill"></i>
-                </button>
-              </td>
-            }
-          </tr>
+    <tbody>
+      @for (audiencia of lstAudiencias; track audiencia) {
+      <tr>
+        <td>
+          {{audiencia.sfechauser}}
+        </td>
+        <td>
+          <ul>
+            <li>
+              Hora: {{audiencia.shora}}
+            </li>
+            <li>
+              Tipo: {{audiencia.stipo}}
+            </li>
+            <li>
+              Oraliza: {{audiencia.sencargados}}
+            </li>
+            <li>
+              Asistente: {{audiencia.sasistente}}
+            </li>
+            <li>
+              Link: {{audiencia.surl}}
+            </li>
+          </ul>
+        </td>
+        @if (!lViewMode) {
+        <td>
+          <button (click)="openModalEditAudiencia(audiencia, editAudienciaModal)" class="btn btn-warning btn-sm">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+        </td>
         }
-      </tbody>
+        @if (!lViewMode) {
+        <td>
+          <button (click)="openModalDeleteAudiencia(audiencia, deleteAudienciaModal)" class="btn btn-danger btn-sm">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
     }
     @if (!lLoading && lstAudiencias.length == 0) {
-      <tbody>
-        No hay audiencias
-      </tbody>
+    <tbody>
+      No hay audiencias
+    </tbody>
     }
     @if (lLoading) {
-      <tbody>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Cargando...
-      </tbody>
+    <tbody>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Cargando...
+    </tbody>
     }
   </table>
 
@@ -119,7 +120,7 @@
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Registrar Audiencia</h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-    (click)="modal.dismiss('Cross click')"></button>
+      (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="frmNewAudience" autocomplete="off">
@@ -143,11 +144,19 @@
         </label>
         <input type="text" class="form-control" id="stipo" formControlName="stipo" />
       </div>
-      <div>
-        <label for="sencargados" class="form-label">
-          Encargados:
-        </label>
-        <input type="text" class="form-control" id="sencargados" formControlName="sencargados" />
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="sencargados" class="form-label">
+            Oraliza:
+          </label>
+          <input type="text" class="form-control" id="sencargados" formControlName="sencargados" />
+        </div>
+        <div class="col-sm-6">
+          <label for="sasistente" class="form-label">
+            Asistente:
+          </label>
+          <input type="text" class="form-control" id="sasistente" formControlName="sasistente" />
+        </div>
       </div>
       <div>
         <label for="surl" class="form-label">
@@ -160,19 +169,17 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="addAudiencia()"
       [disabled]="!(frmNewAudience.valid && !lAdding)">
-      @if (lAdding) {
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-        </span>
-      }
       @if (!lAdding) {
-        <span class="sr-only">
-          Guardar
-        </span>
+      <span class="sr-only">
+        Guardar
+      </span>
       }
       @if (lAdding) {
-        <span class="sr-only">
-          Guardando...
-        </span>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+      </span>
+      <span class="sr-only">
+        Guardando...
+      </span>
       }
     </button>
   </div>
@@ -185,7 +192,7 @@
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Editar Audiencia</h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-    (click)="modal.dismiss('Cross click')"></button>
+      (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="frmEditAudience" autocomplete="off">
@@ -209,11 +216,19 @@
         </label>
         <input type="text" class="form-control" id="stipo" formControlName="stipo" />
       </div>
-      <div>
-        <label for="sencargados" class="form-label">
-          Encargados
-        </label>
-        <input type="text" class="form-control" id="sencargados" formControlName="sencargados" />
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="sencargados" class="form-label">
+            Oraliza:
+          </label>
+          <input type="text" class="form-control" id="sencargados" formControlName="sencargados" />
+        </div>
+        <div class="col-sm-6">
+          <label for="sasistente" class="form-label">
+            Asistente:
+          </label>
+          <input type="text" class="form-control" id="sasistente" formControlName="sasistente" />
+        </div>
       </div>
       <div>
         <label for="surl" class="form-label">
@@ -226,19 +241,17 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="editAudiencia()"
       [disabled]="!(frmEditAudience.valid && !lUpdating)">
-      @if (lUpdating) {
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-        </span>
-      }
       @if (!lUpdating) {
-        <span class="sr-only">
-          Actualizar
-        </span>
+      <span class="sr-only">
+        Actualizar
+      </span>
       }
       @if (lUpdating) {
-        <span class="sr-only">
-          Actualizando...
-        </span>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+      </span>
+      <span class="sr-only">
+        Actualizando...
+      </span>
       }
     </button>
   </div>
@@ -252,7 +265,7 @@
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Quitar Audiencia</h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-    (click)="modal.dismiss('Cross click')"></button>
+      (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <div>
@@ -265,19 +278,17 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="deleteAudiencia()" [disabled]="lDeleting">
-      @if (lDeleting) {
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-        </span>
-      }
       @if (!lDeleting) {
-        <span class="sr-only">
-          Quitar
-        </span>
+      <span class="sr-only">
+        Quitar
+      </span>
       }
       @if (lDeleting) {
-        <span class="sr-only">
-          Quitando...
-        </span>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+      </span>
+      <span class="sr-only">
+        Quitando...
+      </span>
       }
     </button>
   </div>

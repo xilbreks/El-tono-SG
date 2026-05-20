@@ -1,0 +1,244 @@
+<div class="row cuerpo">
+    <div class="col-2 fecha" [ngClass]="{'hoy': audiencia().sfecha == today()}">
+        {{audiencia().nombreDia}}, <br /> {{audiencia().numeroDia}} de {{audiencia().nombreMes}}
+    </div>
+    <div class="col-5 bbb">
+        <ul>
+            <li>AREA: <span class="tipo-audiencia {{audiencia().sespecialidad}}">{{audiencia().sespecialidad}}</span>
+            </li>
+            <li>DTE: {{audiencia().sdemandante}}</li>
+            <li>DDO: {{audiencia().sdemandado}}</li>
+            <li>EXP: <a [routerLink]="'/expediente/'+audiencia().sexpediente">{{audiencia().sexpediente}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-5 ccc">
+        <ul>
+            <li>
+                Hora: {{audiencia().shora}}
+            </li>
+            <li>
+                Tipo: {{audiencia().stipo}}
+            </li>
+            <li>
+                <span class="texto-lanzador" (click)="abrirModalEditar(audiencia(), editAudienciaModal)">Oraliza: </span> {{audiencia().sencargados}} | 
+                <span class="texto-lanzador" (click)="abrirModalEditar(audiencia(), editAudienciaModal)">Asistente: </span> {{audiencia().sasistente}}
+            </li>
+            <li>Link:
+                <span>
+                    {{audiencia().sprefijolink}}
+                </span>
+                <a [href]="'https://'+audiencia().scuerpolink" target="_blank">
+                    {{audiencia().scuerpolink}}
+                </a>
+                <span>
+                    {{audiencia().ssufijolink}}
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<!-------------------------------------------------
+------------- DETALLE DE AUDIENCIA ----------------
+------------------------------------------------>
+<ng-template #modalDetalleAudiencia let-modal>
+
+    <!-- Cabecera del Modal -->
+    <div class="modal-header bg-light border-bottom-0 py-3 px-4"
+        style="border-top-left-radius: 16px; border-top-right-radius: 16px;">
+        <div class="d-flex align-items-center">
+            <div>
+                <span class="text-uppercase text-muted fw-bold small tracking-wider">Detalles de la Audiencia</span>
+                <!-- Aquí usas tus variables o tu objeto de datos -->
+                <h5 class="modal-title fw-bold text-dark m-0">Expediente: {{ audiencia().sexpediente }}</h5>
+            </div>
+        </div>
+        <!-- modal.dismiss() cierra el modal indicando que fue cancelado/descartado -->
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <!-- Cuerpo del Modal -->
+    <div class="modal-body p-3">
+
+        <!-- Alerta Superior: Tipo de Audiencia y Especialidad -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <div class="p-3 bg-light rounded-3 h-100">
+                    <small class="text-muted d-block mb-1 text-uppercase fw-semibold" style="font-size: 0.75rem;">Tipo
+                        de Audiencia</small>
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-2 fw-semibold fs-6">
+                        {{ audiencia().stipo }}
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light rounded-3 h-100">
+                    <small class="text-muted d-block mb-1 text-uppercase fw-semibold"
+                        style="font-size: 0.75rem;">Especialidad</small>
+                    <span class="text-dark fw-bold d-block fs-5">{{ audiencia().sespecialidad }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de las Partes -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <div class="card border border-light-subtle rounded-3 h-100 shadow-sm">
+                    <div class="card-body p-3 border-start border-success border-4 rounded-start-1">
+                        <small class="text-success fw-bold text-uppercase d-block mb-1"
+                            style="font-size: 0.7rem;">Demandante</small>
+                        <p class="card-text text-dark fw-semibold m-0 fs-6">{{ audiencia().sdemandante }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border border-light-subtle rounded-3 h-100 shadow-sm">
+                    <div class="card-body p-3 border-start border-danger border-4 rounded-start-1">
+                        <small class="text-danger fw-bold text-uppercase d-block mb-1"
+                            style="font-size: 0.7rem;">Demandado</small>
+                        <p class="card-text text-dark fw-semibold m-0 fs-6">{{ audiencia().sdemandado }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información de Tiempo -->
+        <h6 class="text-uppercase text-muted fw-bold small mb-3">Programación</h6>
+        <div class="card border border-light-subtle rounded-3 shadow-sm mb-3">
+            <div class="card-body p-0">
+                <div class="row g-0">
+                    <div class="col-sm-3 p-3 border-end border-bottom border-sm-bottom-0 border-light-subtle">
+                        <small class="text-muted d-block mb-1 text-uppercase fw-semibold"
+                            style="font-size: 0.72rem;">Fecha</small>
+                        <span class="fw-semibold text-dark">{{ audiencia().sfecha }}</span>
+                    </div>
+                    <div class="col-sm-3 p-3 border-end border-bottom border-sm-bottom-0 border-light-subtle">
+                        <small class="text-muted d-block mb-1 text-uppercase fw-semibold"
+                            style="font-size: 0.72rem;">Hora Programada</small>
+                        <span class="fw-semibold text-dark">{{ audiencia().shora }}</span>
+                    </div>
+                    <div class="col-sm-6 p-3">
+                        <small class="text-muted d-block mb-1 text-uppercase fw-semibold" style="font-size: 0.72rem;">
+                            Link
+                        </small>
+                        <span class="font-monospace text-secondary small bg-light px-2 py-1 rounded">
+                            <span>
+                                {{audiencia().sprefijolink}}
+                            </span>
+                            <a [href]="'https://'+audiencia().scuerpolink" target="_blank" class="enlace">
+                                {{audiencia().scuerpolink}}
+                            </a>
+                            <span>
+                                {{audiencia().ssufijolink}}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Encargados -->
+        <div class="row g-3 mb-0">
+            <div class="col-md-6">
+                <div class="p-3 bg-light rounded-3 h-100">
+                    <small class="text-muted d-block mb-1 text-uppercase fw-semibold" style="font-size: 0.75rem;">
+                        Abogado
+                    </small>
+                    <span class="text-dark fw-medium">{{ audiencia().sencargados }}</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light rounded-3 h-100">
+                    <small class="text-muted d-block mb-1 text-uppercase fw-semibold"
+                        style="font-size: 0.75rem;">
+                        Asistente
+                    </small>
+                    <span class="text-dark fw-medium">{{ audiencia().sasistente }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie del Modal -->
+    <!-- <div class="modal-footer bg-light border-top-0 py-3 px-4 d-flex justify-content-between" style="border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;">
+    
+    <a [href]="audiencia()?.surl" target="_blank" class="btn btn-primary px-4 fw-semibold rounded-2 d-inline-flex align-items-center shadow-sm">
+      <span>Ingresar a la Audiencia Virtual</span>
+    </a>
+  </div> -->
+</ng-template>
+
+
+<!-------------------------------------------------
+------------- EDIT AUDIENCIA MODAL --------------
+------------------------------------------------>
+<ng-template #editAudienciaModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Editar Audiencia</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="frmEditAudience" autocomplete="off">
+      <!-- <div class="row">
+        <div class="col-sm-6">
+          <label for="sfecha" class="form-label">
+            Fecha:
+          </label>
+          <input type="date" id="sfecha" class="form-control" formControlName="sfecha">
+        </div>
+        <div class="col-sm-6">
+          <label for="shora" class="form-label">
+            Hora:
+          </label>
+          <input type="time" id="shora" class="form-control" formControlName="shora">
+        </div>
+      </div> -->
+      <div>
+        <label for="stipo" class="form-label">
+          Tipo de audiencia
+        </label>
+        <input type="text" class="form-control" id="stipo" formControlName="stipo" />
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="sencargados" class="form-label">
+            Oraliza:
+          </label>
+          <input type="text" class="form-control" id="sencargados" formControlName="sencargados" />
+        </div>
+        <div class="col-sm-6">
+          <label for="sasistente" class="form-label">
+            Asistente:
+          </label>
+          <input type="text" class="form-control" id="sasistente" formControlName="sasistente" />
+        </div>
+      </div>
+      <div>
+        <label for="surl" class="form-label">
+          Link
+        </label>
+        <input type="text" class="form-control" id="surl" formControlName="surl" />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="editAudiencia()"
+      [disabled]="!(frmEditAudience.valid && !lUpdating)">
+      @if (!lUpdating) {
+      <span class="sr-only">
+        Actualizar
+      </span>
+      }
+      @if (lUpdating) {
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+      </span>
+      <span class="sr-only">
+        Actualizando...
+      </span>
+      }
+    </button>
+  </div>
+</ng-template>
