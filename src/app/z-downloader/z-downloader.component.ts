@@ -109,9 +109,9 @@ export class ZDownloaderComponent {
       });
   }
 
-  backUpColaboradores() {
-    let obs = this.db.collection('colaboradores', ref => {
-      return ref.where('lactive', '==', true)
+  backUpUsuarios() {
+    let obs = this.db.collection('usuarios', ref => {
+      return ref.where('activo', '==', true)
     })
       .valueChanges()
       .subscribe(res => {
@@ -126,7 +126,7 @@ export class ZDownloaderComponent {
 
         // Download file
         let link = document.createElement('a');
-        link.download = 'colaboradores.json';
+        link.download = 'usuarios.json';
         link.href = url;
         link.click();
 

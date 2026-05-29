@@ -69,8 +69,8 @@ export class TareoDiarioGeneratorComponent {
     let limiteContador = this.usuarios.length;
 
     this.usuarios.forEach(async (u) => {
-      let idUsuario = u.id;
-      let nombreUsuario = u.snombre;
+      let idUsuario = u.nick;
+      let nombreUsuario = u.nombre;
 
       const tareo: any = {
         idTareo: `${fecha}-${idUsuario}`,
@@ -98,8 +98,8 @@ export class TareoDiarioGeneratorComponent {
   // Operaciones a la base de datos
 
   recuperarUsuarios(): Promise<any[]> {
-    const query = this.db.collection('colaboradores', ref => {
-      return ref.where('lactive', '==', true)
+    const query = this.db.collection('usuarios', ref => {
+      return ref.where('activo', '==', true)
     }).get();
 
     return firstValueFrom(query).then(snapshot => {

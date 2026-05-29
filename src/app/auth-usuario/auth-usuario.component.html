@@ -1,0 +1,220 @@
+<div class="container card mt-2 p-3" style="max-width: 700px;">
+    <h4 style="display: flex">
+        <span style="width: 100%; text-align: center;" >Perfil de usuario</span>
+        <span style="font-size: 2rem;"><i class="bi bi-person-bounding-box"></i></span>
+    </h4>
+
+    @if (!cargando) {
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><b>Nombre:</b></td>
+                <td>{{usuario?.nombre}}</td>
+                <td class="celda-edit">
+                    <span class="boton-edit">
+                        <button class="btn btn-sm" (click)="abrirModalConfirmacion(modalCambiarNombre)">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Nick:</b></td>
+                <td colspan="2">{{usuario?.nick}}</td>
+            </tr>
+            <tr>
+                <td><b>Email:</b></td>
+                <td colspan="2">{{usuario?.email}}</td>
+            </tr>
+            <tr>
+                <td><b>Rol:</b></td>
+                <td>{{usuario?.rol}} {{usuario?.departamento}}</td>
+                <td class="celda-edit">
+                    <span class="boton-edit">
+                        <button class="btn btn-sm" (click)="abrirModalCambiarRol(modalCambiarRol)">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Estado:</b></td>
+                <td colspan="2">
+                    @if(usuario?.activo) {
+                    <span style="color: green;"><b>Activo</b></span>
+                    } @else {
+                    <span style="color: red;"><b>Desactivado</b></span>
+                    <span style="color: darkgrey;"><i>
+                            (Dado de baja el {{usuario?.fechaRetiro | date:'dd/MM/yyyy HH:mm'}} hs)
+                        </i></span>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+    <div>
+        @if(usuario?.activo) {
+        <button class="btn btn-danger" (click)="abrirModalConfirmacion(modalConfirmarBaja)">
+            Dar de baja
+        </button>
+        } @else {
+        <button class="btn btn-success" (click)="abrirModalConfirmacion(modalConfirmarAlta)">
+            Dar de alta
+        </button>
+        }
+    </div>
+    } @else {
+    Cargando ...
+    }
+</div>
+
+
+<!------------------------------------------------
+------------- MODAL CAMBIAR DE ROL ---------------
+-------------------------------------------------->
+<ng-template #modalCambiarRol let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Cambiar Rol</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form class="row" [formGroup]="frmUsuario">
+            <div class="col-12 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Nuevo Rol:</span>
+                    <select formControlName="rol" class="form-select">
+                        <option value="lider">Líder</option>
+                        <option value="asistente">Asistente</option>
+                        <option value="recepcionista">Recepcionista</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-12 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">Nueva área:</span>
+                    <select formControlName="departamento" class="form-select">
+                        <option value="laboral">Laboral</option>
+                        <option value="familia">Familia</option>
+                        <option value="civil">Civil</option>
+                        <option value="penal">Penal</option>
+                        <option value="administracion">Administracion</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        @if (!actualizando) {
+        <button class="btn btn-warning" [disabled]="!frmUsuario.valid" (click)="modificarRol()">
+            <i class="bi bi-floppy-fill"></i>
+            Actualizar rol
+        </button>
+        }
+        @if (actualizando) {
+        <button class="btn btn-warning" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Actualizando rol...
+        </button>
+        }
+    </div>
+</ng-template>
+
+
+<!------------------------------------------------
+------------- MODAL CONFIRMAR ALTA ---------------
+-------------------------------------------------->
+<ng-template #modalConfirmarAlta let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Confirmar</h4>
+        <button type="button" class="btn-close" aria-label="Cerrar" (click)="modal.dismiss('click-x')">
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <p><strong>¿Seguro que quiere dar de alta este usuario?</strong></p>
+        <!-- <p class="text-danger"><small>Esta acción no se puede deshacer.</small></p> -->
+    </div>
+
+    <div class="modal-footer">
+        @if (!actualizando) {
+        <button type="button" class="btn btn-success" (click)="darDeAlta()">
+            Dar de Alta
+        </button>
+        } @else {
+        <button type="button" class="btn btn-success" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Dando de Alta...
+        </button>
+        }
+
+    </div>
+</ng-template>
+
+<!------------------------------------------------
+------------- MODAL CONFIRMAR BAJA ---------------
+-------------------------------------------------->
+<ng-template #modalConfirmarBaja let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Confirmar</h4>
+        <button type="button" class="btn-close" aria-label="Cerrar" (click)="modal.dismiss('click-x')">
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <p><strong>¿Seguro que quiere dar de baja este usuario?</strong></p>
+        <!-- <p class="text-danger"><small>Esta acción no se puede deshacer.</small></p> -->
+    </div>
+
+    <div class="modal-footer">
+        @if(!actualizando){
+        <button type="button" class="btn btn-danger" (click)="darDeBaja()">
+            Dar de Baja
+        </button>
+        } @else {
+        <button type="button" class="btn btn-danger" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Dando de Baja...
+        </button>
+        }
+
+    </div>
+</ng-template>
+
+
+<!------------------------------------------------
+------------- MODAL CAMBIAR NOMBRE ---------------
+-------------------------------------------------->
+<ng-template #modalCambiarNombre let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Cambiar nombre</h4>
+        <button type="button" class="btn-close" aria-label="Cerrar" (click)="modal.dismiss('click-x')">
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <form autocomplete="off">
+            <div>
+                <label for="nuevo-nombre">Nuevo nombre:</label>
+                <input type="text" id="nuevo-nombre" #nuevoNombre class="form-control" />
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        @if(!actualizando){
+        <button type="button" class="btn btn-danger" (click)="cambiarNombre(nuevoNombre)">
+            <i class="bi bi-floppy-fill"></i>
+            Guardar
+        </button>
+        } @else {
+        <button type="button" class="btn btn-danger" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Guardando...
+        </button>
+        }
+
+    </div>
+</ng-template>

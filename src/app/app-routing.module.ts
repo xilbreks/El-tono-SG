@@ -8,14 +8,10 @@ import { ExpedienteRegisterComponent } from './expediente-register/expediente-re
 import { ExpItemComponent } from './exp-item/exp-item.component';
 import { RecursosComponent } from './recursos/recursos.component';
 import { TestingComponent } from './testing/testing.component';
-import { UsersComponent } from './users/users.component';
-import { UserItemComponent } from './user-item/user-item.component';
 import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.component';
 import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component'
 import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
-import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
 import { ZDownloaderComponent } from './z-downloader/z-downloader.component';
 import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/expedientes-list-inactive.component';
 
@@ -33,6 +29,9 @@ import { PlantillasComponent } from './plantillas/plantillas.component';
 import { TareoEditNewComponent } from './tareo-edit-new/tareo-edit-new.component';
 import { ResolucionesAdminComponent } from './resoluciones-admin/resoluciones-admin.component';
 import { ResolucionesWorkerComponent } from './resoluciones-worker/resoluciones-worker.component';
+import { AuthUsuariosComponent } from './auth-usuarios/auth-usuarios.component';
+import { AuthUsuariosInactiveComponent } from './auth-usuarios-inactive/auth-usuarios-inactive.component';
+import { AuthUsuarioComponent } from './auth-usuario/auth-usuario.component';
 
 const routes: Routes = [
   {
@@ -92,13 +91,25 @@ const routes: Routes = [
     path: 'testing',
     component: TestingComponent
   },
+  // {
+  //   path: 'usuarios',
+  //   component: UsersComponent
+  // },
   {
     path: 'usuarios',
-    component: UsersComponent
+    component: AuthUsuariosComponent
   },
   {
+    path: 'usuarios-cesados',
+    component: AuthUsuariosInactiveComponent
+  },
+  // {
+  //   path: 'usuario/:id',
+  //   component: UserItemComponent
+  // },
+  {
     path: 'usuario/:id',
-    component: UserItemComponent
+    component: AuthUsuarioComponent
   },
   {
     path: 'pagos-honorarios',

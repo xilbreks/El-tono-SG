@@ -1,89 +1,79 @@
-import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Firestore } from '@angular/fire/firestore';
+import { JsonPipe } from '@angular/common';
+
+import { Usuario } from '../_interfaces/usuario';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-auth-signup',
   templateUrl: './auth-signup.component.html',
-  styleUrl: './auth-signup.component.scss'
+  styleUrl: './auth-signup.component.scss',
+  standalone: true,
+  imports: [ReactiveFormsModule, JsonPipe]
 })
 export class AuthSignupComponent {
-  lCreating = false;
+  // Injecciones
+  db = inject(Firestore);
+  authService = inject(AuthService);
+  router = inject(Router)
+
+  registrando = false;
   frmUsuario: FormGroup;
 
-  constructor(
-    private db: AngularFirestore,
-    private router: Router,
-    private afAuth: AngularFireAuth,
-  ) {
+  constructor() {
     this.frmUsuario = new FormGroup({
-      id: new FormControl(null, Validators.compose([
+      nombre: new FormControl(null, Validators.required),
+      nick: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.pattern(/^\S*$/)
+        Validators.pattern(/^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$/)
       ])),
-      sname: new FormControl(null, Validators.required),
-      scargo: new FormControl('asistente', Validators.required),
-      spassword: new FormControl(null, Validators.compose([
+      email: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.pattern(/^\S*$/)
+        Validators.email
       ])),
+      pass: new FormControl(null, Validators.compose([
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9!"#$%&'()*+,-./:;<=>?@[\]^_{|}~]+$/)
+      ])),
+      departamento: new FormControl(null, Validators.required),
+      rol: new FormControl(null, Validators.required),
     });
   }
 
-  registrarUsuario() {
-    this.lCreating = true;
-    let id: string = this.frmUsuario.controls['id'].value;
-    let spassword: string = this.frmUsuario.controls['spassword'].value;
+  async registrarUsuario() {
+    try {
+      this.registrando = true;
 
-    this.afAuth.createUserWithEmailAndPassword(id + '@silvaguillenabogados.com', spassword)
-      .then(newuser => {
-        this.registrarDatosUsuario(newuser);
-      })
-      .catch(err => {
-        // ERROR
-        console.log(err);
-      });
-  }
+      let nombre: string = this.frmUsuario.controls['nombre'].value.trim();
+      let nick: string = this.frmUsuario.controls['nick'].value.trim();
+      let email: string = this.frmUsuario.controls['email'].value.trim();
+      let pass: string = this.frmUsuario.controls['pass'].value.trim();
+      
+      let departamento: string = this.frmUsuario.controls['departamento'].value;
+      let rol: string = this.frmUsuario.controls['rol'].value;
 
-  registrarDatosUsuario(newuser: any) {
-    let id: string = this.frmUsuario.controls['id'].value;
-    let snombre: string = this.frmUsuario.controls['sname'].value.trim();
-    let scargo: string = this.frmUsuario.controls['scargo'].value;
-    let spassword: string = this.frmUsuario.controls['spassword'].value;
+      await this.authService.registrarUsuario(
+        nombre,
+        nick,
+        email,
+        pass,
 
-    var letters = '0123456789ABCDEF';
-    var scolor = '#';
-    for (var i = 0; i < 6; i++) {
-      scolor += letters[Math.floor(Math.random() * 16)];
+        departamento,
+        rol
+      );
+
+      alert('Se registró correctamente.\nVuelva a iniciar sesion.');
+
+      this.router.navigate(['/logout']);
+    } catch (error) {
+      alert('Error al registra nuevo usuario: ' + error);
+    } finally {
+      this.registrando = false;
     }
 
-    newuser.user?.updateProfile({
-      displayName: snombre,
-    });
-
-    this.db.collection('colaboradores')
-      .doc(id)
-      .set({
-        id: id,
-        snombre: snombre,
-        scargo: scargo,
-        scolor: scolor,
-        spassword: spassword,
-        lactive: true,
-      })
-      .then(() => {
-        // SUCCESS
-        window.alert('Se registró correctamente.\nVuelva a iniciar sesion.');
-        this.router.navigate(['/', 'logout']);
-      })
-      .catch(err => {
-        // ERROR
-        console.log(err);
-      })
-      .finally(() => {
-        this.lCreating = false;
-      });
   }
+
 }

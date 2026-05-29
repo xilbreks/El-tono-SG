@@ -23,14 +23,10 @@ import { RecursosComponent } from './recursos/recursos.component';
 import { RecursosItersComponent } from './recursos-iters/recursos-iters.component';
 import { RecursosTareasComponent } from './recursos-tareas/recursos-tareas.component';
 import { TestingComponent } from './testing/testing.component';
-import { UsersComponent } from './users/users.component';
-import { UserItemComponent } from './user-item/user-item.component';
 import { PagosHonorariosComponent } from './pagos-honorarios/pagos-honorarios.component';
 import { ExpedientesUpdaterComponent } from './expedientes-updater/expedientes-updater.component';
 import { ExpedientesListComponent } from './expedientes-list/expedientes-list.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { SinoeWorkerComponent } from './sinoe-worker/sinoe-worker.component';
-import { SinoeAdminComponent } from './sinoe-admin/sinoe-admin.component';
 import { ExpItemComponent } from './exp-item/exp-item.component';
 import { ExpItemCoverComponent } from './exp-item-cover/exp-item-cover.component';
 import { ExpItemEditDataComponent } from './exp-item-edit-data/exp-item-edit-data.component';
@@ -68,6 +64,9 @@ import { TareoEditNewComponent } from './tareo-edit-new/tareo-edit-new.component
 import { ResolucionesAdminComponent } from './resoluciones-admin/resoluciones-admin.component';
 import { ResolucionesWorkerComponent } from './resoluciones-worker/resoluciones-worker.component';
 import { PlannerAudienciaItemComponent } from './planner-audiencia-item/planner-audiencia-item.component';
+import { AuthUsuariosComponent } from './auth-usuarios/auth-usuarios.component';
+import { AuthUsuarioComponent } from './auth-usuario/auth-usuario.component';
+import { AuthUsuariosInactiveComponent } from './auth-usuarios-inactive/auth-usuarios-inactive.component';
 
 const environment = {
   production: false,
@@ -89,14 +88,10 @@ const environment = {
     RecursosComponent,
     RecursosItersComponent,
     RecursosTareasComponent,
-    UsersComponent,
-    UserItemComponent,
     PagosHonorariosComponent,
     ExpedientesUpdaterComponent,
     ExpedientesListComponent,
     NotFoundComponent,
-    SinoeWorkerComponent,
-    SinoeAdminComponent,
     ExpItemComponent,
     ExpItemCoverComponent,
     ExpItemEditDataComponent,
@@ -118,7 +113,6 @@ const environment = {
     TareoSupervisorComponent,
     AuthLoginComponent,
     AuthLogoutComponent,
-    AuthSignupComponent,
     ExpItemEconAbonComponent,
     ExpItemEconAranComponent,
     ExpItemEconCuotComponent,
@@ -146,6 +140,10 @@ const environment = {
     PlannerCitasComponent,
     PlannerAudienciasComponent,
     PlannerAudienciaItemComponent,
+    AuthUsuariosComponent,
+    AuthUsuarioComponent,
+    AuthSignupComponent,
+    AuthUsuariosInactiveComponent,
   ],
   providers: [
     AppService,

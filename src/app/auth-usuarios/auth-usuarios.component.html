@@ -1,0 +1,47 @@
+<div>
+    <a [routerLink]="'/usuarios-cesados'">Ver usuarios cesados</a>
+</div>
+<div class="container">
+    <h4>
+        Usuarios activos
+    </h4>
+    <div>
+        <a routerLink="/sign-up" class="btn btn-success btn-sm">+ Registrar nuevo</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>Rol</th>
+            </tr>
+        </thead>
+        @if (!cargando) {
+        <tbody>
+            @for (usuario of usuarios; track usuario.uid; let i = $index) {
+            <tr>
+                <td>
+                    {{i + 1}}
+                </td>
+                <td>
+                    <a [routerLink]="'/usuario/'+usuario.uid">
+                        {{usuario.nombre}}
+                    </a>
+                </td>
+                <td>
+                    {{usuario.email}}
+                </td>
+                <td>
+                    {{usuario.rol}} {{usuario.departamento}}
+                </td>
+            </tr>
+            }
+        </tbody>
+        } @else {
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Cargando...
+        }
+
+    </table>
+</div>

@@ -4,16 +4,22 @@ export interface Usuario {
 
     // Datos personales
     nombre: string;             // Nombre completo
-    departamento: string;       // Área/Departamento (para empresas)
-    rol: 'admin' | 'usuario';   // Roles base
+    nick: string;               // Alias (debe ser único)
+    departamento: 'admin' |
+    'laboral' | 'familia' |
+    'civil' | 'penal' |
+    'administracion';           // Área/Departamento (para empresas)
+    rol: 'admin' | 'lider'
+    | 'asistente'
+    | 'recepcionista';          // Roles base
 
     // Autenticación
     email: string;              // Email (debe ser único)
     emailVerificado: boolean;   // Si verificó su email
-    password: string;           // Solo para formularios de creación
+    pass: string;               // Solo para formularios de creación
 
     // Estado
-    esTrabajador: boolean;      // Cuenta habilitada/deshabilitada
+    activo: boolean;            // Cuenta habilitada/deshabilitada
     fechaRegistro: Date;        // Fecha de registro
-    fechaRetiro: Date | null;   // Fecha de desactivacion de cuenta
+    fechaRetiro: number | null; // Fecha de desactivacion de cuenta en formato Timestamp
 }

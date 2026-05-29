@@ -13,8 +13,8 @@
     <select id="scol" formControlName="idcolaborador">
       <option value="all">TODOS</option>
       @for (c of colaboradores; track c) {
-        <option [value]="c.id">
-          {{c.snombre}}
+        <option [value]="c.nick">
+          {{c.nombre}}
         </option>
       }
     </select>
@@ -226,8 +226,8 @@
             <div class="col-9">
               <select id="sencargado" formControlName="idEncargado" class="form-select form-select-sm">
                 @for (c of colaboradores; track c) {
-                  <option [value]="c.id">
-                    {{c.snombre}}
+                  <option [value]="c.nick">
+                    {{c.nombre}}
                   </option>
                 }
               </select>
@@ -295,8 +295,8 @@
         <div class="col-9">
           <select id="encargado" formControlName="idEncargado" class="form-select form-select-sm">
             @for (c of colaboradores; track c) {
-              <option [value]="c.id">
-                {{c.snombre}}
+              <option [value]="c.nick">
+                {{c.nombre}}
               </option>
             }
           </select>

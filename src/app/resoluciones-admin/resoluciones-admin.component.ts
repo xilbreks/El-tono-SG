@@ -6,10 +6,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Resolucion } from './../_interfaces/resolucion';
 import { Expediente } from './../_interfaces/expediente';
-import { Colaborador } from './../__clases/colaborador';
 
 import { AppService } from './../app.service';
 import { firstValueFrom } from 'rxjs';
+import { Usuario } from '../_interfaces/usuario';
 
 @Component({
   selector: 'app-resoluciones-admin',
@@ -18,7 +18,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ResolucionesAdminComponent {
   resoluciones: Resolucion[] = [];
-  colaboradores: Array<Colaborador> = [];
+  colaboradores: Array<Usuario> = [];
   cargando = false;
   registrando = false;
   delegando = false;
@@ -157,8 +157,8 @@ export class ResolucionesAdminComponent {
   }
 
   obtenerColaboradores() {
-    let query = this.db.collection('colaboradores', ref => {
-      return ref.where('lactive', '==', true)
+    let query = this.db.collection('usuarios', ref => {
+      return ref.where('activo', '==', true)
     }).get();
     firstValueFrom(query).then(snapshot => {
       let items: any[] = [];

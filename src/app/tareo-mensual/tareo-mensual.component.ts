@@ -67,7 +67,7 @@ export class TareoMensualComponent {
       final: '2026-11-30'
     },
     {
-      nombre: 'Dociembre',
+      nombre: 'Diciembre',
       inicio: '2026-12-01',
       final: '2026-12-31'
     },
@@ -88,8 +88,8 @@ export class TareoMensualComponent {
 
   // Recuperar usuarios 
   recuperarUsuarios() {
-    let obs = this.db.collection('colaboradores', ref => {
-      return ref.where('lactive', '==', true)
+    let obs = this.db.collection('usuarios', ref => {
+      return ref.where('activo', '==', true)
     }).get();
     firstValueFrom(obs).then((snapshot) => {
       let items: any[] = [];

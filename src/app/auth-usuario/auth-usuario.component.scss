@@ -1,0 +1,19 @@
+.boton-edit {
+    opacity: 0;
+    /* Inicialmente invisible */
+    transition: opacity 0.3s ease;
+    /* Transición suave */
+    display: flex;
+    flex-flow: row-reverse;
+}
+.celda-edit {
+    width: 50px;
+    button {
+        border: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+.celda-edit:hover .boton-edit {
+    opacity: 1;
+}

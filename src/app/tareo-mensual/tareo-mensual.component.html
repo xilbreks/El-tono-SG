@@ -16,8 +16,8 @@
     <label>Usuario:</label>
     <select [formControl]="fcUsuario">
       @for (usuario of usuarios; track usuario) {
-        <option [value]="usuario.id">
-          {{usuario.snombre}}
+        <option [value]="usuario.nick">
+          {{usuario.nombre}}
         </option>
       }
     </select>
