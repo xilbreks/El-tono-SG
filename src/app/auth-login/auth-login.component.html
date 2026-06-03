@@ -1,41 +1,79 @@
-<div class="container">
-  <h3>Log In</h3>
-  <div style="width: 400px; margin-top: 10px">
-    <form autocomplete="off">
-      <!-- User input -->
-      <div class="form-outline mb-4">
-        <input type="text" id="form2Example1" class="form-control" #suser />
-        <label class="form-label" for="form2Example1">Usuario</label>
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="row w-100 justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4">
+
+      <div class="card shadow-sm border-0 rounded-3 px-4 py-3 bg-white">
+
+        <div class="text-center mb-4">
+          <div class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle mb-3"
+            style="width: 60px; height: 60px;">
+            <i class="bi bi-shield-lock-fill fs-3"></i>
+          </div>
+          <h2 class="fw-bold text-dark mb-1">Iniciar Sesión</h2>
+          <p class="text-muted small">Ingresa tus credenciales para acceder</p>
+        </div>
+
+        <form autocomplete="off">
+
+          <div class="mb-3">
+            <label for="email" class="form-label text-secondary small fw-semibold">Correo Electrónico</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0 text-muted">
+                <i class="bi bi-envelope"></i>
+              </span>
+              <input type="email" id="email" class="form-control bg-light border-start-0"
+                placeholder="nombre@ejemplo.com" #email required>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label for="password" class="form-label text-secondary small fw-semibold mb-0">Contraseña</label>
+            </div>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0 text-muted">
+                <i class="bi bi-lock"></i>
+              </span>
+              <input type="password" id="password" class="form-control bg-light border-start-0" placeholder="****"
+                #password required>
+            </div>
+          </div>
+
+          <div class="d-grid mb-3">
+            @if (!lLoggin()) {
+            <button type="submit" class="btn btn-primary fw-semibold py-2 shadow-sm"
+              (click)="login(email.value, password.value)">
+              Ingresar al Sistema
+            </button>
+
+            } @else {
+            <button type="submit" class="btn btn-primary fw-semibold py-2 shadow-sm" disabled>
+              Identificando...
+            </button>
+            }
+          </div>
+        </form>
+
+        @if (sError()) {
+        <div class="mt-2 animate__animated animate__fadeIn">
+          <div class="alert alert-danger d-flex align-items-center border-0 small py-2 px-3 rounded-2 mb-0"
+            role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2 fs-6 flex-shrink-0"></i>
+            <div>
+              {{sError()}}
+            </div>
+          </div>
+        </div>
+        }
+
+
       </div>
 
-      <!-- Password input -->
-      <div class="form-outline mb-4">
-        <input type="password" id="form2Example2" class="form-control" #spassword />
-        <label class="form-label" for="form2Example2">Contraseña</label>
+      <div class="text-center mt-4">
+        <p class="text-muted small">© 2026</p>
       </div>
 
-      <button class="btn btn-primary btn-block mb-4" (click)="login(suser.value,spassword.value)"
-        [disabled]="lLoggin()">
-        @if (lLoggin()) {
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        }
-        @if (!lLoggin()) {
-          <span class="sr-only">
-            Identificarse
-          </span>
-        }
-        @if (lLoggin()) {
-          <span class="sr-only">
-            Identificando...
-          </span>
-        }
-      </button>
-    </form>
-
-    @if (sError()) {
-      <div class="alert alert-warning" role="alert">
-        {{sError()}}
-      </div>
-    }
+    </div>
   </div>
 </div>
+

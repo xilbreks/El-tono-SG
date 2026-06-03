@@ -67,6 +67,7 @@ import { PlannerAudienciaItemComponent } from './planner-audiencia-item/planner-
 import { AuthUsuariosComponent } from './auth-usuarios/auth-usuarios.component';
 import { AuthUsuarioComponent } from './auth-usuario/auth-usuario.component';
 import { AuthUsuariosInactiveComponent } from './auth-usuarios-inactive/auth-usuarios-inactive.component';
+import { ZlayoutComponent } from './zlayout/zlayout.component';
 
 const environment = {
   production: false,
@@ -124,6 +125,7 @@ const environment = {
     TareoEditNewComponent,
     ResolucionesAdminComponent,
     ResolucionesWorkerComponent,
+    ZlayoutComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

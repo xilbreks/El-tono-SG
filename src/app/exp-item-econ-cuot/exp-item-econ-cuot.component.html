@@ -7,7 +7,7 @@
       <span style="color: grey; font-size: 14px;">
         {{expediente?.numero}}
       </span>
-      @if (idusuario == 'admin4' || idusuario == 'lizbet-silva') {
+      @if (rol == 'admin' || nick == 'lizbet-silva' || rol == 'recepcionista') {
         <span class="card-btn">
           @if (!esEditable) {
             <label role="button" (click)="cambiarEstadoEditable()">

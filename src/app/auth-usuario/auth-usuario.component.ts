@@ -60,10 +60,6 @@ export class AuthUsuarioComponent implements OnInit {
     }
   }
 
-
-
-
-
   abrirModalCambiarRol(modal: any) {
     this.modalService.open(modal, {
       size: 'md',
@@ -79,7 +75,7 @@ export class AuthUsuarioComponent implements OnInit {
 
       const rol = this.frmUsuario.controls['rol'].value;
       const departamento = this.frmUsuario.controls['departamento'].value;
-      await this.authService.modificarDatos(this.uid, rol, departamento);
+      await this.authService.modificarDatos(this.uid, {rol, departamento});
 
       // console.log('se modificó los datos exitosamente')
       this.getUsuario();

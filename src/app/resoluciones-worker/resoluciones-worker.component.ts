@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -17,8 +17,12 @@ import { Usuario } from '../_interfaces/usuario';
   styleUrl: './resoluciones-worker.component.scss'
 })
 export class ResolucionesWorkerComponent {
+  appService = inject(AppService);
+
+  usuarios$ = this.appService.obtenerUsuariosActivos();
+
   resoluciones: Resolucion[] = [];
-  colaboradores: Array<Usuario> = [];
+  // colaboradores: Array<Usuario> = [];
   cargando = false;
   registrando = false;
   delegando = false;
@@ -37,16 +41,15 @@ export class ResolucionesWorkerComponent {
   expedientesCompletos: any[] = [];
 
   // ID del colaborador -> ahora: Nick
-  idColaborador: any = '';
+  nick: any = '';
 
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
     private modalService: NgbModal,
-    private service: AppService,
   ) {
     this.titleService.setTitle('Tareas y Diligencias');
-    this.idColaborador = localStorage.getItem('idusuario') || '';
+    this.nick = localStorage.getItem('nick') || '';
     // this.idColaborador = 'Alisson-Guillen';
 
     /********************
@@ -152,26 +155,26 @@ export class ResolucionesWorkerComponent {
       // fechaCreacion: new FormControl(null, Validators.required),
     });
 
-    this.obtenerColaboradores();
+    // this.obtenerColaboradores();
     this.obtenerResoluciones();
     // this.obtenerExpedientesCompletos();
   }
 
-  obtenerColaboradores() {
-    let query = this.db.collection('usuarios', ref => {
-      return ref.where('activo', '==', true)
-    }).get();
-    firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      })
-      this.colaboradores = items;
-    }).catch(err => {
-      console.log('error al recuperar colaboradores')
-      this.colaboradores = [];
-    })
-  }
+  // obtenerColaboradores() {
+  //   let query = this.db.collection('usuarios', ref => {
+  //     return ref.where('activo', '==', true)
+  //   }).get();
+  //   firstValueFrom(query).then(snapshot => {
+  //     let items: any[] = [];
+  //     snapshot.forEach(doc => {
+  //       items.push(doc.data())
+  //     })
+  //     this.colaboradores = items;
+  //   }).catch(err => {
+  //     console.log('error al recuperar colaboradores')
+  //     this.colaboradores = [];
+  //   })
+  // }
 
   obtenerResoluciones() {
     this.cargando = true;
@@ -180,7 +183,7 @@ export class ResolucionesWorkerComponent {
     let query: any;
     // resoluciones delegadas para mi
     query = this.db.collection('resoluciones', ref => {
-      return ref.where('idEncargado', '==', this.idColaborador).orderBy('fechaCreacion', 'desc').limit(25);
+      return ref.where('idEncargado', '==', this.nick).orderBy('fechaCreacion', 'desc').limit(25);
     }).get();
 
     firstValueFrom(query).then((snapshot: any) => {
@@ -223,7 +226,7 @@ export class ResolucionesWorkerComponent {
   }
 
   obtenerExpedientesCompletos() {
-    this.service.expedientes.subscribe(res => {
+    this.appService.expedientes.subscribe(res => {
       this.expedientesCompletos = res.filter((e: any) => e.estado == 'EN PROCESO');
     })
   }

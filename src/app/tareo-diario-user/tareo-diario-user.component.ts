@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { firstValueFrom } from 'rxjs';
 import { Tareo } from '../_interfaces/tareo';
@@ -8,18 +8,20 @@ import { Tareo } from '../_interfaces/tareo';
   templateUrl: './tareo-diario-user.component.html',
   styleUrl: './tareo-diario-user.component.scss'
 })
-export class TareoDiarioUserComponent {
-  idUsuario: string = 'null';
+export class TareoDiarioUserComponent implements OnInit {
+  nick: string = 'null';
   tareos: Tareo[] = [];
 
   cargando = false;
 
   constructor(
     private db: AngularFirestore,
-  ) {
-    let idusuario: any = localStorage.getItem('idusuario');
-    this.idUsuario = idusuario;
+  ) { }
 
+  ngOnInit(): void {
+    let nick: any = localStorage.getItem('nick');
+    this.nick = nick;
+    // console.log('User nick:', nick)
     this.obtenerTareos();
   }
 
@@ -28,7 +30,7 @@ export class TareoDiarioUserComponent {
   async obtenerTareos() {
     this.cargando = true;
 
-    let idUsuario = this.idUsuario;
+    let idUsuario = this.nick;
     let tareos = await this.recuperarTareos(idUsuario);
     this.tareos = tareos;
 

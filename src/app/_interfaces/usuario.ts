@@ -19,7 +19,7 @@ export interface Usuario {
     pass: string;               // Solo para formularios de creación
 
     // Estado
-    activo: boolean;            // Cuenta habilitada/deshabilitada
+    esActivo: boolean;            // Cuenta habilitada/deshabilitada
     fechaRegistro: Date;        // Fecha de registro
     fechaRetiro: number | null; // Fecha de desactivacion de cuenta en formato Timestamp
 }

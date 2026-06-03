@@ -3,7 +3,7 @@
     <h5 class="m-0">
       II. Gastos Complementarios
     </h5>
-    @if (idusuario == 'admin4' || idusuario == 'lizbet-silva') {
+    @if (rol == 'admin' || nick == 'lizbet-silva' || rol == 'recepcionista') {
       <div>
         @if (!esEditable) {
           <label role="button" (click)="cambiarEstadoEditable()">

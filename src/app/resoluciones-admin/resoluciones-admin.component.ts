@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -17,8 +17,12 @@ import { Usuario } from '../_interfaces/usuario';
   styleUrl: './resoluciones-admin.component.scss'
 })
 export class ResolucionesAdminComponent {
+  appService = inject(AppService);
+
+  usuarios$ = this.appService.obtenerUsuariosActivos();
+
   resoluciones: Resolucion[] = [];
-  colaboradores: Array<Usuario> = [];
+  // colaboradores: Usuario[] = [];
   cargando = false;
   registrando = false;
   delegando = false;
@@ -37,16 +41,15 @@ export class ResolucionesAdminComponent {
   expedientesCompletos: any[] = [];
 
   // solo para testing
-  idusuario: string;
+  nick: string;
 
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
     private modalService: NgbModal,
-    private service: AppService,
   ) {
     this.titleService.setTitle('Tareas y Diligencias');
-    this.idusuario = localStorage.getItem('idusuario') || '';
+    this.nick = localStorage.getItem('nick') || '';
 
     /********************
      * INIT FORM FILTER *
@@ -151,26 +154,26 @@ export class ResolucionesAdminComponent {
       // fechaCreacion: new FormControl(null, Validators.required),
     });
 
-    this.obtenerColaboradores();
+    // this.obtenerColaboradores();
     this.obtenerResoluciones();
     this.obtenerExpedientesCompletos();
   }
 
-  obtenerColaboradores() {
-    let query = this.db.collection('usuarios', ref => {
-      return ref.where('activo', '==', true)
-    }).get();
-    firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      })
-      this.colaboradores = items;
-    }).catch(err => {
-      console.log('error al recuperar colaboradores')
-      this.colaboradores = [];
-    })
-  }
+  // obtenerColaboradores() {
+  //   let query = this.db.collection('usuarios', ref => {
+  //     return ref.where('activo', '==', true)
+  //   }).get();
+  //   firstValueFrom(query).then(snapshot => {
+  //     let items: any[] = [];
+  //     snapshot.forEach(doc => {
+  //       items.push(doc.data())
+  //     })
+  //     this.colaboradores = items;
+  //   }).catch(err => {
+  //     console.log('error al recuperar colaboradores')
+  //     this.colaboradores = [];
+  //   })
+  // }
 
   obtenerResoluciones() {
     this.cargando = true;
@@ -249,7 +252,7 @@ export class ResolucionesAdminComponent {
   }
 
   obtenerExpedientesCompletos() {
-    this.service.expedientes.subscribe(res => {
+    this.appService.expedientes.subscribe(res => {
       this.expedientesCompletos = res.filter((e: any) => e.estado == 'EN PROCESO');
     })
   }
@@ -366,7 +369,7 @@ export class ResolucionesAdminComponent {
     const letraAleatoria = this.generarLetraAleatoria();
     const idGenerado = `ID${timestamp.toString()}${letraAleatoria}`;
     // Recuperar usuario actual
-    let usuario: string = localStorage.getItem('nombre') || 'nulo';
+    let usuario: string = localStorage.getItem('nick') || 'nulo';
 
     this.db.collection('resoluciones').doc(idGenerado)
       .set({

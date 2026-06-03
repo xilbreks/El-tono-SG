@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Tareo } from '../_interfaces/tareo';
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-tareo-supervisor',
@@ -10,6 +11,8 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './tareo-supervisor.component.scss'
 })
 export class TareoSupervisorComponent {
+  authService = inject(AuthService);
+
   tareos: Tareo[] = [];
   usuarios: any[] = [];
 
@@ -46,116 +49,18 @@ export class TareoSupervisorComponent {
     this.fcFecha.setValue(s);
   }
 
-  saberQuienSoy() {
-    let usuario = localStorage.getItem('idusuario');
-    console.log('soy: ', usuario);
-    // usuario = 'Maria-Tunquipa';  // Quitar luego
-    switch (usuario) {
-      case 'tuareg-meza':
-        this.usuarios = [
-          {
-            id: 'Leonardo-Flores',
-            nombre: 'Leonardo',
-          },
-          {
-            id: 'javier-mendoza',
-            nombre: 'Javier',
-          },
-        ];
-        break;
-      case 'Alejandra-Chacaltana':
-        this.usuarios = [
-          {
-            id: 'Alisson-Guillen',
-            nombre: 'Alisson',
-          },
-          {
-            id: 'azaravia',
-            nombre: 'Alejandro',
-          },
-          {
-            id: 'Pablo-Calderon',
-            nombre: 'Pablo',
-          },
-          {
-            id: 'Shaunny-Fernandez',
-            nombre: 'Shaunny',
-          },
-          {
-            id: 'Angelly-Castillo',
-            nombre: 'Angelly',
-          },
-          {
-            id: 'Esmeralda-Aslla',
-            nombre: 'Esmeralda',
-          },
-          {
-            id: 'mcastelo',
-            nombre: 'Mafi',
-          },
-        ];
-        break;
-      case 'Pablo-Calderon':
-        this.usuarios = [
-          {
-            id: 'Alisson-Guillen',
-            nombre: 'Alisson',
-          },
-          {
-            id: 'azaravia',
-            nombre: 'Alejandro',
-          },
-          {
-            id: 'Alejandra-Chacaltana',
-            nombre: 'Gabylu',
-          },
-          {
-            id: 'Shaunny-Fernandez',
-            nombre: 'Shaunny',
-          },
-          {
-            id: 'Angelly-Castillo',
-            nombre: 'Angelly',
-          },
-          {
-            id: 'Esmeralda-Aslla',
-            nombre: 'Esmeralda',
-          },
-          {
-            id: 'mcastelo',
-            nombre: 'Mafi',
-          },
-        ];
-        break;
-      case 'mcoaquira':
-        this.usuarios = [
-          {
-            id: 'sperca',
-            nombre: 'Sara',
-          },
-          {
-            id: 'ahuamani',
-            nombre: 'Angela',
-          },
-          {
-            id: 'Antonella-Flores',
-            nombre: 'Antonella',
-          },
-          {
-            id: 'enayda-puco',
-            nombre: 'Enayda',
-          },
-          {
-            id: 'michael-vilca',
-            nombre: 'Michael',
-          },
-          {
-            id: 'Sebastian-Rodriguez',
-            nombre: 'Sebastian',
-          },
-        ];
-        break;
-    }
+  async saberQuienSoy() {
+    let nick: any = localStorage.getItem('nick');
+    let rol: any = localStorage.getItem('rol');
+    let area: any = localStorage.getItem('departamento');
+    // console.log('soy: ', nick);
+
+    if (rol != 'lider') return;
+
+    // console.log('con rol de: ', rol, 'del area: ', area);
+    const querySnapshot = await this.authService.getUsuariosAsistentes(area)
+    this.usuarios = querySnapshot.docs.map((doc: any) => ({ ...doc.data() }))
+    // console.log(this.usuarios)
   }
 
   // Acciones de usuario

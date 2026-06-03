@@ -12,6 +12,32 @@ export class TareoMensualComponent {
   usuarios: any[] = [];
   meses = [
     {
+      nombre: 'Junio 2025',
+      inicio: '2025-06-01',
+      final: '2025-06-30'
+    },
+    {
+      nombre: 'Julio 2025',
+      inicio: '2025-07-01',
+      final: '2025-07-31'
+    },
+    {
+      nombre: 'Agosto 2025',
+      inicio: '2025-08-01',
+      final: '2025-08-31'
+    },
+    {
+      nombre: 'Septiembre 2025',
+      inicio: '2025-09-01',
+      final: '2025-09-30'
+    },
+    {
+      nombre: 'Octubre 2025',
+      inicio: '2025-10-01',
+      final: '2025-10-31'
+    },
+
+    {
       nombre: 'Enero',
       inicio: '2026-01-01',
       final: '2026-01-31'
@@ -88,6 +114,9 @@ export class TareoMensualComponent {
 
   // Recuperar usuarios 
   recuperarUsuarios() {
+    // let obs = this.db.collection('colaboradores', ref => {
+    //   return ref.where('lactive', '==', true)
+    // }).get();
     let obs = this.db.collection('usuarios', ref => {
       return ref.where('activo', '==', true)
     }).get();
@@ -97,6 +126,7 @@ export class TareoMensualComponent {
         items.push(doc.data())
       });
       this.usuarios = items;
+      // console.log(this.usuarios)
     })
   }
 

@@ -14,7 +14,8 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ExpItemEconCuotComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
-  idusuario: string | null;
+  nick: string | null;
+  rol: string | null;
 
   cuotas: Cuota[] = [];
   sumaCuotas: number = 0;
@@ -36,7 +37,8 @@ export class ExpItemEconCuotComponent implements OnChanges {
     private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
-    this.idusuario = localStorage.getItem('idusuario');
+    this.nick = localStorage.getItem('nick');
+    this.rol = localStorage.getItem('rol');
 
     this.frmNuevaCuota = new FormGroup({
       numero: new FormControl(null, Validators.required),

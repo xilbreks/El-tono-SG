@@ -1,30 +1,27 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auth, signOut } from '@angular/fire/auth';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-auth-logout',
   templateUrl: './auth-logout.component.html',
   styleUrl: './auth-logout.component.scss'
 })
-export class AuthLogoutComponent  {
-  private auth = inject(Auth);
+export class AuthLogoutComponent implements OnInit {
+  private authService = inject(AuthService);
   private router = inject(Router);
 
-  constructor() {
-    this.salir();
-  }
+  constructor() { }
 
-  async salir() {
+  ngOnInit(): void {
     try {
-      await signOut(this.auth);
-      localStorage.clear();
-      this.router.navigate(['/', 'login']);
-      // console.log('Cierre de sesecion exitoso');
-    } catch (error: any) {
-      // console.error('Error al cerrar sesión:', error);
-      window.alert('No se pudo cerrar la sesión: ' + error.message);
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    } catch (error) {
+      console.log('error en log out' ,error)
+      this.router.navigate(['/login']);
     }
+
   }
 
-}
+} 

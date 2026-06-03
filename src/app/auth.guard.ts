@@ -10,8 +10,24 @@ export const authGuard: CanActivateFn = (route, state) => {
   return authService.user$.pipe(
     take(1),
     map(user => {
-      if (user) return true; // Si hay sesión iniciada, adelante
-      return router.createUrlTree(['/login']); // Si no, patitas a la calle (al login)
+      if (user) return true;
+      return router.createUrlTree(['/login']); 
+    })
+  );
+};
+
+export const guestGuard: CanActivateFn = (route, state) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  return authService.user$.pipe(
+    take(1),
+    map(user => {
+      if (user) {
+        return router.createUrlTree(['recursos']);
+      } else {
+        return true;
+      }
     })
   );
 };

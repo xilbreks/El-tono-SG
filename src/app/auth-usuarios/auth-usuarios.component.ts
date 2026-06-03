@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -27,14 +27,14 @@ export class AuthUsuariosComponent implements OnInit {
 
   async getUsuarios() {
     try {
-      const usuarios = await this.authService.getUsuariosActivos();
+      const querySnapshot = await this.authService.getUsuariosActivos();
 
-      this.usuarios = usuarios.docs.map((doc: any) => ({
-        ...doc.data(),
-        id: doc.id,
-      }))
+      this.usuarios = querySnapshot.docs.map((doc: any) => ({ ...doc.data() }))
+
+      console.log(this.usuarios)
     } catch (error) {
-
+      console.log('ocurrio un error al leer usuarios')
+      throw error
     } finally {
       this.cargando = false;
     }

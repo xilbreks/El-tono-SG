@@ -27,12 +27,10 @@ export class AuthUsuariosInactiveComponent implements OnInit {
 
   async getUsuariosInactivos() {
     try {
-      const usuariosInactivos = await this.authService.getUsuariosInactivos();
+      const querySnapshot = await this.authService.getUsuariosInactivos();
 
-      this.usuarios = usuariosInactivos.docs.map((doc: any) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
+      this.usuarios = querySnapshot.docs.map((doc: any) => ({ ...doc.data() }));
+      // console.log(this.usuarios)
     } catch (error) {
       console.log('ocurrio un error al recuperar usuarios inactivos')
       throw error;

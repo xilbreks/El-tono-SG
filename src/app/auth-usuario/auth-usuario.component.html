@@ -40,7 +40,7 @@
             <tr>
                 <td><b>Estado:</b></td>
                 <td colspan="2">
-                    @if(usuario?.activo) {
+                    @if(usuario?.esActivo) {
                     <span style="color: green;"><b>Activo</b></span>
                     } @else {
                     <span style="color: red;"><b>Desactivado</b></span>
@@ -55,7 +55,7 @@
 
     <br />
     <div>
-        @if(usuario?.activo) {
+        @if(usuario?.esActivo) {
         <button class="btn btn-danger" (click)="abrirModalConfirmacion(modalConfirmarBaja)">
             Dar de baja
         </button>
@@ -108,13 +108,13 @@
     </div>
     <div class="modal-footer">
         @if (!actualizando) {
-        <button class="btn btn-warning" [disabled]="!frmUsuario.valid" (click)="modificarRol()">
+        <button class="btn btn-success" [disabled]="!frmUsuario.valid" (click)="modificarRol()">
             <i class="bi bi-floppy-fill"></i>
             Actualizar rol
         </button>
         }
         @if (actualizando) {
-        <button class="btn btn-warning" disabled>
+        <button class="btn btn-success" disabled>
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Actualizando rol...
         </button>
@@ -205,12 +205,12 @@
 
     <div class="modal-footer">
         @if(!actualizando){
-        <button type="button" class="btn btn-danger" (click)="cambiarNombre(nuevoNombre)">
+        <button type="button" class="btn btn-success" (click)="cambiarNombre(nuevoNombre)">
             <i class="bi bi-floppy-fill"></i>
             Guardar
         </button>
         } @else {
-        <button type="button" class="btn btn-danger" disabled>
+        <button type="button" class="btn btn-success" disabled>
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Guardando...
         </button>

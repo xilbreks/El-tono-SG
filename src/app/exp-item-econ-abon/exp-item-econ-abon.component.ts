@@ -14,7 +14,8 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ExpItemEconAbonComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
-  idusuario: string | null;
+  nick: string | null;
+  rol: string | null;
 
   abonos: Abono[] = [];
   sumaAbonos: number = 0;
@@ -33,7 +34,8 @@ export class ExpItemEconAbonComponent implements OnChanges {
     private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
-    this.idusuario = localStorage.getItem('idusuario');
+    this.nick = localStorage.getItem('nick');
+    this.rol = localStorage.getItem('rol');
 
     this.frmNuevoAbono = new FormGroup({
       fecha: new FormControl(null, Validators.required),

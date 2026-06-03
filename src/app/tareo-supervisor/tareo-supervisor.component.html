@@ -9,7 +9,7 @@
   <select id="usuario" [formControl]="fcUsuario" (change)="obtenerTareos()">
     <option value="null">- Seleccione -</option>
     @for (usuario of usuarios; track usuario) {
-      <option [value]="usuario.id">
+      <option [value]="usuario.nick">
         {{usuario.nombre}}
       </option>
     }
@@ -19,24 +19,12 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>
-          Nombre
-        </th>
-        <th>
-          Fecha
-        </th>
-        <th>
-          Hora entrada
-        </th>
-        <th>
-          Hora salida
-        </th>
-        <th>
-          Observaciones
-        </th>
-        <th>
-          Acciones
-        </th>
+        <th>Nombre</th>
+        <th>Fecha</th>
+        <th>Hora entrada</th>
+        <th>Hora salida</th>
+        <th>Observaciones</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     @if (!cargando && tareos.length > 0) {

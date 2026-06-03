@@ -15,14 +15,16 @@ export class ExpItemComponent implements OnInit {
   expediente: Expediente | null = null;
   lLoading: boolean = true;
 
-  suser: string | null = '';
+  nick: string | null = null;
+  rol: string | null = null;
 
   constructor(
     private db: AngularFirestore,
     private titleService: Title,
     private route: ActivatedRoute,
   ) {
-    this.suser = localStorage.getItem('idusuario');
+    this.nick = localStorage.getItem('nick');
+    this.rol = localStorage.getItem('rol');
   }
 
   ngOnInit(): void {

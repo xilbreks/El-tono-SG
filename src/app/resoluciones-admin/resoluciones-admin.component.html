@@ -12,7 +12,7 @@
     <label for="scol">Colaborador: </label>
     <select id="scol" formControlName="idcolaborador">
       <option value="all">TODOS</option>
-      @for (c of colaboradores; track c) {
+      @for (c of usuarios$ | async; track c) {
         <option [value]="c.nick">
           {{c.nombre}}
         </option>
@@ -55,7 +55,7 @@
         <th>
           Observaciones
         </th>
-        @if (idusuario == 'admin4') {
+        @if (nick == 'admin') {
           <th>
             Acción
           </th>
@@ -116,7 +116,7 @@
             <td>
               {{t.observaciones}}
             </td>
-            @if (idusuario == 'admin4') {
+            @if (nick == 'admin') {
               <td>
                 <div class="dropdown">
                   <button class="btn btn-outline-secondary btn-sm" type="button" id="dropdownMenu2"
@@ -225,7 +225,7 @@
             </div>
             <div class="col-9">
               <select id="sencargado" formControlName="idEncargado" class="form-select form-select-sm">
-                @for (c of colaboradores; track c) {
+                @for (c of usuarios$ | async; track c) {
                   <option [value]="c.nick">
                     {{c.nombre}}
                   </option>
@@ -294,7 +294,7 @@
         </div>
         <div class="col-9">
           <select id="encargado" formControlName="idEncargado" class="form-select form-select-sm">
-            @for (c of colaboradores; track c) {
+            @for (c of usuarios$ | async; track c) {
               <option [value]="c.nick">
                 {{c.nombre}}
               </option>

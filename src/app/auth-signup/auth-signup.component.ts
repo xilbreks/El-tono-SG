@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Firestore } from '@angular/fire/firestore';
 import { JsonPipe } from '@angular/common';
 
 import { Usuario } from '../_interfaces/usuario';
@@ -16,7 +15,6 @@ import { AuthService } from '../auth.service';
 })
 export class AuthSignupComponent {
   // Injecciones
-  db = inject(Firestore);
   authService = inject(AuthService);
   router = inject(Router)
 
@@ -50,20 +48,20 @@ export class AuthSignupComponent {
       let nombre: string = this.frmUsuario.controls['nombre'].value.trim();
       let nick: string = this.frmUsuario.controls['nick'].value.trim();
       let email: string = this.frmUsuario.controls['email'].value.trim();
-      let pass: string = this.frmUsuario.controls['pass'].value.trim();
-      
+      let password: string = this.frmUsuario.controls['pass'].value.trim();
+
       let departamento: string = this.frmUsuario.controls['departamento'].value;
       let rol: string = this.frmUsuario.controls['rol'].value;
 
-      await this.authService.registrarUsuario(
+      await this.authService.registrarUsuario({
         nombre,
         nick,
         email,
-        pass,
+        password,
 
         departamento,
         rol
-      );
+      });
 
       alert('Se registró correctamente.\nVuelva a iniciar sesion.');
 

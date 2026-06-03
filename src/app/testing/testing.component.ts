@@ -8,6 +8,8 @@ import {
   getDocs,
   DocumentData
 } from '@angular/fire/firestore';
+import { AppService } from '../app.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-testing',
@@ -17,13 +19,12 @@ import {
   imports: [CommonModule]
 })
 export class TestingComponent implements OnInit {
-  private firestore = inject(Firestore);
+  appService = inject(AppService);
 
-  items: DocumentData[] = [];
-  loading: boolean = true;
+  constructor() { }
 
-  async ngOnInit() {
-    
+  ngOnInit(): void {
+
   }
 
 }

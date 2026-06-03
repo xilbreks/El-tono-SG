@@ -1216,8 +1216,8 @@ export class ExpItemRoadmapComponent implements OnChanges {
     const letraAleatoria = this.generarLetraAleatoria();
     const idGenerado = `ID${timestamp}${letraAleatoria}`;
     const usuarioActivo = this.auth.currentUser;
-    // const usuario = localStorage.getItem('nombre');
-    const usuario = usuarioActivo?.displayName;
+    const usuario = localStorage.getItem('nombre');
+    // const usuario = usuarioActivo?.displayName;
 
     this.db.collection('changelog').doc(idGenerado).set({
       idChangelog: idGenerado,

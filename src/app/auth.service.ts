@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   Auth, user, signInWithEmailAndPassword,
   signOut, createUserWithEmailAndPassword
@@ -9,9 +9,7 @@ import {
   query, where, orderBy,
   getDoc, getDocs
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-
-import { Usuario } from './_interfaces/usuario';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +20,9 @@ export class AuthService {
 
   user$ = user(this.auth);
 
-  constructor() { }
+  constructor() {
+    // console.log('soy el servicio')
+  }
 
   // 1. Login
 
@@ -38,29 +38,29 @@ export class AuthService {
 
   // 3. Registro y Dar de Alta
 
-  async registrarUsuario(
+  async registrarUsuario(data: {
     nombre: string,
     nick: string,
     email: string,
-    pass: string,
+    password: string,
 
-    departamento: string,
     rol: string,
-  ) {
-    const credencial = await createUserWithEmailAndPassword(this.auth, email, pass);
+    departamento: string,
+  }) {
+    const credencial = await createUserWithEmailAndPassword(this.auth, data.email, data.password);
     const uid = credencial.user.uid;
     const docRef = doc(this.db, `usuarios/${uid}`);
 
     await setDoc(docRef, {
       uid,
-      nombre,
-      nick,
-      departamento,
-      rol,
-      email,
+      nombre: data.nombre,
+      nick: data.nick,
+      rol: data.rol,
+      departamento: data.departamento,
+      email: data.email,
       emailVerificado: false,
-      pass,
-      activo: true,
+      password: data.password,
+      esActivo: true,
       fechaRegistro: new Date().getTime(),
       fechaRetiro: null,
     });
@@ -71,7 +71,7 @@ export class AuthService {
   getUsuariosActivos() {
     const usuariosRef = collection(this.db, 'usuarios');
     const q = query(usuariosRef,
-      where('activo', '==', true),
+      where('esActivo', '==', true),
       orderBy('nombre', 'asc')
     );
     return getDocs(q);
@@ -86,7 +86,7 @@ export class AuthService {
 
     const usuariosRef = collection(this.db, 'usuarios');
     const q = query(usuariosRef,
-      where('activo', '==', false),
+      where('esActivo', '==', false),
       where('fechaRetiro', '>=', tiempoLimite),
       orderBy('fechaRetiro', 'desc')
     );
@@ -106,7 +106,7 @@ export class AuthService {
   async darDeBaja(uid: string) {
     const docRef = doc(this.db, `usuarios/${uid}`);
     await updateDoc(docRef, {
-      activo: false,
+      esActivo: false,
       fechaRetiro: new Date().getTime(),
     })
   }
@@ -116,18 +116,18 @@ export class AuthService {
   async darDeAlta(uid: string) {
     const docRef = doc(this.db, `usuarios/${uid}`);
     await updateDoc(docRef, {
-      activo: true,
+      esActivo: true,
       fechaRetiro: null
     })
   }
 
   // 9. Modificar Datos: Rol y Departamento
 
-  async modificarDatos(uid: string, rol: string, departamento: string) {
+  async modificarDatos(uid: string, data: { rol: string, departamento: string }) {
     const docRef = doc(this.db, `usuarios/${uid}`);
     await updateDoc(docRef, {
-      rol: rol,
-      departamento: departamento
+      rol: data.rol,
+      departamento: data.departamento
     })
   }
 
@@ -138,6 +138,19 @@ export class AuthService {
     await updateDoc(docRef, {
       nombre: nuevoNombre,
     })
+  }
+
+  // 11. Listado de usuario activos de un area
+
+  getUsuariosAsistentes(departamento: string) {
+    const usuariosRef = collection(this.db, 'usuarios');
+    const q = query(usuariosRef,
+      where('esActivo', '==', true),
+      where('departamento', '==', departamento),
+      where('rol', '==', 'asistente'),
+      orderBy('nombre', 'asc')
+    );
+    return getDocs(q);
   }
 
 }
