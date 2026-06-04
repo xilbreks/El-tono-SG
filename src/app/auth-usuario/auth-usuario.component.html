@@ -1,15 +1,16 @@
 <div class="container card mt-2 p-3" style="max-width: 700px;">
     <h4 style="display: flex">
-        <span style="width: 100%; text-align: center;" >Perfil de usuario</span>
+        <span style="width: 100%; text-align: center;">Perfil de usuario</span>
         <span style="font-size: 2rem;"><i class="bi bi-person-bounding-box"></i></span>
     </h4>
 
     @if (!cargando) {
+    @if (usuario) {
     <table class="table">
         <tbody>
             <tr>
                 <td><b>Nombre:</b></td>
-                <td>{{usuario?.nombre}}</td>
+                <td>{{usuario.nombre}}</td>
                 <td class="celda-edit">
                     <span class="boton-edit">
                         <button class="btn btn-sm" (click)="abrirModalConfirmacion(modalCambiarNombre)">
@@ -20,15 +21,15 @@
             </tr>
             <tr>
                 <td><b>Nick:</b></td>
-                <td colspan="2">{{usuario?.nick}}</td>
+                <td colspan="2">{{usuario.nick}}</td>
             </tr>
             <tr>
                 <td><b>Email:</b></td>
-                <td colspan="2">{{usuario?.email}}</td>
+                <td colspan="2">{{usuario.email}}</td>
             </tr>
             <tr>
                 <td><b>Rol:</b></td>
-                <td>{{usuario?.rol}} {{usuario?.departamento}}</td>
+                <td>{{usuario.rol}} {{usuario.departamento}}</td>
                 <td class="celda-edit">
                     <span class="boton-edit">
                         <button class="btn btn-sm" (click)="abrirModalCambiarRol(modalCambiarRol)">
@@ -40,12 +41,12 @@
             <tr>
                 <td><b>Estado:</b></td>
                 <td colspan="2">
-                    @if(usuario?.esActivo) {
+                    @if(usuario.esActivo) {
                     <span style="color: green;"><b>Activo</b></span>
                     } @else {
                     <span style="color: red;"><b>Desactivado</b></span>
                     <span style="color: darkgrey;"><i>
-                            (Dado de baja el {{usuario?.fechaRetiro | date:'dd/MM/yyyy HH:mm'}} hs)
+                            (Dado de baja el {{usuario.fechaRetiro | date:'dd/MM/yyyy HH:mm'}} hs)
                         </i></span>
                     }
                 </td>
@@ -55,7 +56,7 @@
 
     <br />
     <div>
-        @if(usuario?.esActivo) {
+        @if(usuario.esActivo) {
         <button class="btn btn-danger" (click)="abrirModalConfirmacion(modalConfirmarBaja)">
             Dar de baja
         </button>
@@ -65,6 +66,9 @@
         </button>
         }
     </div>
+    } @else if(!usuario) {
+    <span>Usuario no existe</span>
+    }
     } @else {
     Cargando ...
     }

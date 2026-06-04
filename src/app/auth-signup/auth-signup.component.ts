@@ -3,8 +3,7 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angula
 import { Router } from '@angular/router';
 import { JsonPipe } from '@angular/common';
 
-import { Usuario } from '../_interfaces/usuario';
-import { AuthService } from '../auth.service';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-auth-signup',
@@ -15,7 +14,7 @@ import { AuthService } from '../auth.service';
 })
 export class AuthSignupComponent {
   // Injecciones
-  authService = inject(AuthService);
+  appService = inject(AppService);
   router = inject(Router)
 
   registrando = false;
@@ -53,7 +52,7 @@ export class AuthSignupComponent {
       let departamento: string = this.frmUsuario.controls['departamento'].value;
       let rol: string = this.frmUsuario.controls['rol'].value;
 
-      await this.authService.registrarUsuario({
+      await this.appService.registrarUsuario({
         nombre,
         nick,
         email,

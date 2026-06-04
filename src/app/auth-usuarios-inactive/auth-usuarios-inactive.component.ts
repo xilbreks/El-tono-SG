@@ -2,8 +2,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
-import { AuthService } from '../auth.service';
 import { Usuario } from '../_interfaces/usuario';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-auth-usuarios-inactive',
@@ -13,7 +13,7 @@ import { Usuario } from '../_interfaces/usuario';
   imports: [RouterLink, DatePipe]
 })
 export class AuthUsuariosInactiveComponent implements OnInit {
-  authService = inject(AuthService);
+  appService = inject(AppService);
 
   usuarios: Usuario[] = [];
 
@@ -26,16 +26,8 @@ export class AuthUsuariosInactiveComponent implements OnInit {
   }
 
   async getUsuariosInactivos() {
-    try {
-      const querySnapshot = await this.authService.getUsuariosInactivos();
-
-      this.usuarios = querySnapshot.docs.map((doc: any) => ({ ...doc.data() }));
-      // console.log(this.usuarios)
-    } catch (error) {
-      console.log('ocurrio un error al recuperar usuarios inactivos')
-      throw error;
-    } finally {
-      this.cargando = false;
-    }
+    this.cargando = true;
+    this.usuarios = await this.appService.usuariosInactivos();
+    this.cargando = false;
   }
 }

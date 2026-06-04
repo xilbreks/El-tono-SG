@@ -1,13 +1,13 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AppService } from './app.service';
 import { map, take } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
+  const appService = inject(AppService);
   const router = inject(Router);
 
-  return authService.user$.pipe(
+  return appService.usuario$.pipe(
     take(1),
     map(user => {
       if (user) return true;
@@ -17,10 +17,10 @@ export const authGuard: CanActivateFn = (route, state) => {
 };
 
 export const guestGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
+  const appService = inject(AppService);
   const router = inject(Router);
 
-  return authService.user$.pipe(
+  return appService.usuario$.pipe(
     take(1),
     map(user => {
       if (user) {

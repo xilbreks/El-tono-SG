@@ -19,7 +19,7 @@ import { Usuario } from '../_interfaces/usuario';
 export class ResolucionesAdminComponent {
   appService = inject(AppService);
 
-  usuarios$ = this.appService.obtenerUsuariosActivos();
+  usuarios$ = this.appService.usuariosActivosStream();
 
   resoluciones: Resolucion[] = [];
   // colaboradores: Usuario[] = [];

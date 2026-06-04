@@ -32,7 +32,7 @@ import { AuthUsuariosComponent } from './auth-usuarios/auth-usuarios.component';
 import { AuthUsuariosInactiveComponent } from './auth-usuarios-inactive/auth-usuarios-inactive.component';
 import { AuthUsuarioComponent } from './auth-usuario/auth-usuario.component';
 import { AppComponent } from './app.component';
-import { authGuard, guestGuard } from './auth.guard';
+import { authGuard, guestGuard } from './app.guard';
 import { ZlayoutComponent } from './zlayout/zlayout.component';
 
 const routes: Routes = [

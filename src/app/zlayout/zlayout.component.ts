@@ -1,9 +1,9 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Usuario } from './../_interfaces/usuario';
-import { AuthService } from './../auth.service';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
-import { Observable, map, tap, filter } from 'rxjs';
+import { map, tap, filter } from 'rxjs';
+import { AppService } from '../app.service';
+import { Usuario } from './../_interfaces/usuario';
 
 interface Version {
   version: string,
@@ -14,8 +14,8 @@ interface Version {
   templateUrl: './zlayout.component.html',
   styleUrl: './zlayout.component.scss'
 })
-export class ZlayoutComponent implements OnDestroy {
-  authService = inject(AuthService);
+export class ZlayoutComponent implements OnInit, OnDestroy {
+  appService = inject(AppService);
   db = inject(Firestore);
   router = inject(Router);
 
@@ -41,27 +41,33 @@ export class ZlayoutComponent implements OnDestroy {
       }
     });
 
-    // Leer usuario
-    this.usuarioObs = this.authService.user$
+    // Leer usuario y acceso
+    this.usuarioObs = this.appService.usuario$
       .pipe(
-        // tap((u) => console.log('current user: ', u)),
-        filter((u) => u ? true : false),
-        map((u: any) => u?.uid)
-      )
-      .subscribe((uid: string) => {
-        console.log('user: ', uid)
-        this.getCurrentUser(uid);
-      });
+      // filter((u) => u ? true : false),
+      // map((u: any) => u?.uid)
+    ).subscribe((user: any) => {
+      if (!user) {
+        console.log('user en el layout: ', user, 'ir al login');
+        // mandar al login
+        this.router.navigate(['/logout']);
+      }
+
+      // Activar escucha del permiso de usuario
+      console.log('user en el layout: ', user.uid, 'mantenerse aqui');
+      this.getCurrentUser(user.uid);
+    });
+  }
+
+  ngOnInit(): void {
+    
   }
 
   async getCurrentUser(uid: string) {
-    const userSnapshot = await this.authService.getUsuario(uid);
-    if (userSnapshot.exists()) {
-      const datosUsuario: any = userSnapshot.data();
-      this.usuarioApp = datosUsuario;
-      // console.log({ datosUsuario });
-    } else {
-      console.log('No existe usuario')
+    this.usuarioApp = await this.appService.usuario(uid);
+    if (!this.usuarioApp?.esActivo) {
+      console.log('te quitaron el permiso papu');
+      this.router.navigate(['/logout']);
     }
   }
 

@@ -1,10 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { Usuario } from '../_interfaces/usuario';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators, FormArrayName } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { AppService } from '../app.service';
+import { Usuario } from '../_interfaces/usuario';
 
 @Component({
   selector: 'app-auth-usuario',
@@ -14,9 +14,9 @@ import { DatePipe } from '@angular/common';
   imports: [ReactiveFormsModule, DatePipe]
 })
 export class AuthUsuarioComponent implements OnInit {
-  private route = inject(ActivatedRoute);
-  private authService = inject(AuthService);
-  private modalService = inject(NgbModal)
+  route = inject(ActivatedRoute);
+  appService = inject(AppService);
+  modalService = inject(NgbModal)
 
   uid!: string | null;
   usuario: Usuario | null = null;
@@ -35,29 +35,18 @@ export class AuthUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.uid = this.route.snapshot.paramMap.get('id');
-    this.getUsuario();
+    if (this.uid) {
+      this.getUsuario();
+    } else {
+      alert('id de usuario invalido')
+    }
   }
 
   async getUsuario() {
-    try {
-      this.cargando = true;
-      const uid = this.uid;
-      if (!uid) {
-        console.log('No existe usuario')
-        return;
-      }
-      const docSnap = await this.authService.getUsuario(uid);
-      if (docSnap.exists()) {
-        const datosUsuario: any = docSnap.data();
-        this.usuario = datosUsuario;
-      } else {
-        console.log('No existe usuario')
-      }
-    } catch (error) {
-      console.log('ocurrio un error al ller usuario')
-    } finally {
-      this.cargando = false;
-    }
+    this.cargando = true;
+    const uid: any = this.uid;
+    this.usuario = await this.appService.usuario(uid);
+    this.cargando = false;
   }
 
   abrirModalCambiarRol(modal: any) {
@@ -68,23 +57,16 @@ export class AuthUsuarioComponent implements OnInit {
   }
 
   async modificarRol() {
-    try {
-      this.actualizando = true;
+    this.actualizando = true;
+    const uid: any = this.uid;
+    const rol = this.frmUsuario.controls['rol'].value;
+    const departamento = this.frmUsuario.controls['departamento'].value;
 
-      if (!this.uid) return;
+    await this.appService.modificarRol(uid, { rol, departamento });
+    this.getUsuario();
 
-      const rol = this.frmUsuario.controls['rol'].value;
-      const departamento = this.frmUsuario.controls['departamento'].value;
-      await this.authService.modificarDatos(this.uid, {rol, departamento});
-
-      // console.log('se modificó los datos exitosamente')
-      this.getUsuario();
-    } catch (error) {
-      console.log('ocurrio un error al modificar datos', error)
-    } finally {
-      this.modalService.dismissAll();
-      this.actualizando = false;
-    }
+    this.modalService.dismissAll();
+    this.actualizando = false;
   }
 
   abrirModalConfirmacion(modal: any) {
@@ -95,35 +77,21 @@ export class AuthUsuarioComponent implements OnInit {
   }
 
   async darDeAlta() {
-    try {
-      this.actualizando = true;
-      const uid = this.uid;
-      if (!uid) return;
-      await this.authService.darDeAlta(uid);
-      // console.log('se dio de alta con exito')
-      this.getUsuario();
-    } catch (error) {
-      console.log('ocurrio un error al car de alta', error)
-    } finally {
-      this.modalService.dismissAll();
-      this.actualizando = false;
-    }
+    this.actualizando = true;
+    const uid: any = this.uid;
+    await this.appService.darDeAlta(uid);
+    this.getUsuario();
+    this.modalService.dismissAll();
+    this.actualizando = false;
   }
 
   async darDeBaja() {
-    try {
-      this.actualizando = true;
-      const uid = this.uid;
-      if (!uid) return;
-      await this.authService.darDeBaja(uid);
-      // console.log('se dio de baja con exito')
-      this.getUsuario();
-    } catch (error) {
-      console.log('ocurrio un error al car de baja', error)
-    } finally {
-      this.modalService.dismissAll();
-      this.actualizando = false;
-    }
+    this.actualizando = true;
+    const uid: any = this.uid;
+    await this.appService.darDeBaja(uid);
+    this.getUsuario();
+    this.modalService.dismissAll();
+    this.actualizando = false;
   }
 
   async cambiarNombre(input: HTMLInputElement) {
@@ -138,20 +106,12 @@ export class AuthUsuarioComponent implements OnInit {
       return;
     }
 
-    try {
-      this.actualizando = true;
-      const uid = this.uid;
-      if (!uid) return;
-      await this.authService.cambiarNombre(uid, nombre)
-      this.getUsuario();
-      // console.log('Se cambio correctamente el nombre')
-    } catch (error) {
-      console.log('Ocurrio un error al cambiar el nombre')
-    } finally {
-      this.modalService.dismissAll();
-      this.actualizando = true;
-    }
-
+    this.actualizando = true;
+    const uid: any = this.uid;
+    await this.appService.cambiarNombre(uid, nombre)
+    this.getUsuario();
+    this.modalService.dismissAll();
+    this.actualizando = false;
   }
 
 }

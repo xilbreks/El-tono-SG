@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Tareo } from '../_interfaces/tareo';
 import { firstValueFrom } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-tareo-supervisor',
@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
   styleUrl: './tareo-supervisor.component.scss'
 })
 export class TareoSupervisorComponent {
-  authService = inject(AuthService);
+  appService = inject(AppService);
 
   tareos: Tareo[] = [];
   usuarios: any[] = [];
@@ -58,8 +58,7 @@ export class TareoSupervisorComponent {
     if (rol != 'lider') return;
 
     // console.log('con rol de: ', rol, 'del area: ', area);
-    const querySnapshot = await this.authService.getUsuariosAsistentes(area)
-    this.usuarios = querySnapshot.docs.map((doc: any) => ({ ...doc.data() }))
+    this.usuarios = await this.appService.usuariosAsistentes(area)
     // console.log(this.usuarios)
   }
 

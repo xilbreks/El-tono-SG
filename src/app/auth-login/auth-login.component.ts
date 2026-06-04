@@ -1,55 +1,43 @@
-import { Component, OnDestroy, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { signInWithEmailAndPassword, user, User } from '@angular/fire/auth';
-import { Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-auth-login',
   templateUrl: './auth-login.component.html',
   styleUrl: './auth-login.component.scss'
 })
-export class AuthLoginComponent implements OnDestroy {
-  private authService = inject(AuthService);
-  private router: Router = inject(Router);
+export class AuthLoginComponent {
+  appService = inject(AppService);
+  router = inject(Router);
 
   lLoggin = signal<boolean>(false);
   sError = signal<string | null>(null);
 
-  constructor() {
-    /////////////////////////////////////////////
-    ////////////  VERIFICAR USUARIO /////////////
-    /////////////////////////////////////////////
-    // this.userSubscription = user(this.auth).subscribe((u: User | null) => {
-    //   if (u) {
-    //     this.redirectUser(u.displayName, '');
-    //   }
-    // })
-  }
+  constructor() { }
 
   async login(email: any, password: any) {
     this.lLoggin.set(true);
     this.sError.set(null);
 
     try {
-      const userCredential = await this.authService.login(email, password);
+      const userCredential = await this.appService.login(email, password);
 
-      const docSnap = await this.authService.getUsuario(userCredential.user.uid);
-      if (!docSnap.exists()) {
+      const usuario = await this.appService.usuario(userCredential.user.uid);
+      if (!usuario) {
         console.log('No existe usuario');
         return;
       }
 
-      const datosUsuario: any = docSnap.data();
-      console.log('log in exitoso', datosUsuario)
+      console.log('log in exitoso', usuario)
       // Guardar en localStorage
-      localStorage.setItem('nick', datosUsuario.nick);
-      localStorage.setItem('nombre', datosUsuario.nombre);
-      localStorage.setItem('rol', datosUsuario.rol);
-      localStorage.setItem('departamento', datosUsuario.departamento);
+      localStorage.setItem('nick', usuario.nick);
+      localStorage.setItem('nombre', usuario.nombre);
+      localStorage.setItem('rol', usuario.rol);
+      localStorage.setItem('departamento', usuario.departamento);
 
       // redireccionar al dashboar o al rdt
-      this.redirectUser(datosUsuario.rol, datosUsuario.esActivo);
+      this.redirectUser(usuario.rol, usuario.esActivo);
 
     } catch (error: any) {
       this.sError.set(error.code);
@@ -68,13 +56,10 @@ export class AuthLoginComponent implements OnDestroy {
         this.router.navigate(['/colaborador-rdt']);
       } else {
         this.sError.set('Permisos insuficientes');
-        this.authService.logout();
+        this.appService.logout();
       }
 
     }
   }
 
-  ngOnDestroy(): void {
-    // this.userSubscription?.unsubscribe();
-  }
 }
