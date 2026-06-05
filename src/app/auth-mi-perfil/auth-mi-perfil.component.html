@@ -1,0 +1,57 @@
+<div class="profile-container d-flex justify-content-center align-items-center py-5">
+    <div class="card profile-card border-0 shadow">
+
+        <!-- Encabezado con tu color corporativo sutil -->
+        <div class="card-header-custom d-flex align-items-center p-4 border-bottom">
+            <div class="avatar-icon d-flex align-items-center justify-content-center rounded-circle me-3">
+                <i class="bi bi-person-badge text-white fs-3"></i>
+            </div>
+            <div>
+                <h4 class="m-0 fw-bold title-text">Mi Perfil</h4>
+                <p class="text-muted small m-0">Información de tu cuenta en la plataforma</p>
+            </div>
+        </div>
+
+        <!-- Cuerpo con los datos limpios -->
+        <div class="card-body p-4">
+            <div class="d-flex flex-column gap-4">
+
+                <!-- Campo: Nombre -->
+                <div class="profile-field">
+                    <label class="text-uppercase tracking-wider text-muted small fw-semibold mb-1">Nombre visible
+                        </label>
+                    <div class="field-value d-flex align-items-center">
+                        <i class="bi bi-person me-2 field-icon"></i>
+                        <span class="fw-medium">{{usuarioApp?.nombre}}</span>
+                    </div>
+                </div>
+
+                <!-- Campo: Correo -->
+                <div class="profile-field">
+                    <label class="text-uppercase tracking-wider text-muted small fw-semibold mb-1">Correo
+                        Electrónico</label>
+                    <div class="field-value d-flex align-items-center">
+                        <i class="bi bi-envelope me-2 field-icon"></i>
+                        <span>{{usuarioApp?.email}}</span>
+                        <!-- Asegúrate de que se llame .correo o .email en tu objeto -->
+                    </div>
+                </div>
+
+                <!-- Campo: Rol -->
+                <div class="profile-field">
+                    <label class="text-uppercase tracking-wider text-muted small fw-semibold mb-1">Rol y area
+                        </label>
+                    <div class="field-value d-flex align-items-center mt-1">
+                        <!-- Badge elegante usando tu color esmeralda si es admin, o uno neutro si es colaborador -->
+                        <span
+                            class="badge badge-role rounded-pill px-3 py-2 text-uppercase font-monospace fs-7 shadow-sm">
+                            <i class="bi bi-shield-lock me-1"></i> {{usuarioApp?.rol}} {{usuarioApp?.departamento}}
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

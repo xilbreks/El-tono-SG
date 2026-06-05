@@ -68,6 +68,7 @@ import { AuthUsuariosComponent } from './auth-usuarios/auth-usuarios.component';
 import { AuthUsuarioComponent } from './auth-usuario/auth-usuario.component';
 import { AuthUsuariosInactiveComponent } from './auth-usuarios-inactive/auth-usuarios-inactive.component';
 import { ZlayoutComponent } from './zlayout/zlayout.component';
+import { AuthMiPerfilComponent } from './auth-mi-perfil/auth-mi-perfil.component';
 
 const environment = {
   production: false,
@@ -146,6 +147,7 @@ const environment = {
     AuthUsuarioComponent,
     AuthSignupComponent,
     AuthUsuariosInactiveComponent,
+    AuthMiPerfilComponent,
   ],
   providers: [
     AppService,

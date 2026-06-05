@@ -1,13 +1,93 @@
-nav{
-    padding: 0;
-}
-.container-fluid {
-    background-color: #087060;
+// ===== VARIABLES LOCALES BASADAS EN TU COLOR CORPORATIVO =====
+$verde-base: #087060;       // ¡Tu color exacto!
+$verde-light: #0b8c78;      // Un tono más claro para hovers y enlaces activos
+$verde-dark: #054d42;       // Un tono más oscuro para la píldora de usuario y contrastes
+$verde-pastel: #e6f3f1;     // Fondo pastel muy suave para los elementos del menú desplegable
+$blanco-puro: #ffffff;
 
-    a{
-        color: #fff;
+// ===== ESTILOS DE LA BARRA DE NAVEGACIÓN =====
+.navbar-custom {
+  background-color: $verde-base;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); // Sombra sutil para dar profundidad
+}
+
+// Pantalla de carga
+.bg-verde-app {
+  background-color: $verde-base;
+}
+
+// Logo y Marca
+.brand-text {
+  font-size: 1.35rem;
+  letter-spacing: -0.3px;
+  
+  .brand-highlight {
+    color: rgba($blanco-puro, 0.75);
+    font-weight: 300;
+  }
+}
+
+// Links de Navegación del Menú Superior
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba($blanco-puro, 0.85) !important;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover, &:focus {
+    color: $blanco-puro !important;
+    background-color: $verde-light;
+  }
+}
+
+// Estilo para Menús Desplegables (Dropdowns)
+.custom-dropdown {
+  background-color: $blanco-puro;
+  border-radius: 8px !important;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0;
+
+  .dropdown-item {
+    color: #2c3e50;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $verde-pastel;
+      color: $verde-base;
     }
-    a.dropdown-item {
-        color: #000;
-    }
+  }
+
+  // Destacar el botón "Registrar EXP" dentro de los dropdowns con tu identidad
+  .text-accent {
+    color: $verde-base !important;
+  }
+}
+
+// Píldora del Perfil de Usuario (Lado derecho)
+.user-pill {
+  background-color: $verde-dark;
+  border-radius: 50px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: lighten($verde-dark, 3%);
+  }
+
+  .text-brand-light {
+    color: rgba($blanco-puro, 0.9);
+  }
+}
+
+.user-name-trim {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+// Corrección para el menú hamburguesa móvil en fondo oscuro
+.navbar-toggler {
+  &:focus {
+    box-shadow: none;
+  }
 }

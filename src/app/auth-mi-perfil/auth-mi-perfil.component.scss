@@ -1,0 +1,62 @@
+// ===== VARIABLES LOCALES (TU COLOR CORPORATIVO) =====
+$verde-empresa: #087060;
+$verde-pastel: #e6f3f1;
+$blanco: #ffffff;
+$text-dark: #2c3e50;
+
+// Contenedor principal para centrar la tarjeta con aire visual
+.profile-container {
+  min-height: calc(100vh - 70px); // Ajusta según el alto de tu navbar
+  background-color: #f8f9fa;       // Fondo gris limpio para que resalte la tarjeta blanca
+}
+
+// Estructura de la Tarjeta Premium
+.profile-card {
+  width: 100%;
+  max-width: 500px; // Tamaño perfecto para que no se vea vacía la info
+  background-color: $blanco;
+  border-radius: 16px !important; // Bordes muy suavizados modernos
+  overflow: hidden;
+}
+
+// Icono circular superior
+.avatar-icon {
+  width: 54px;
+  height: 54px;
+  background-color: $verde-empresa;
+}
+
+.title-text {
+  color: $text-dark;
+  letter-spacing: -0.5px;
+}
+
+// Estructura de filas de información
+.profile-field {
+  label {
+    font-size: 0.75rem;
+    letter-spacing: 0.8px;
+    display: block;
+  }
+
+  .field-value {
+    font-size: 1.1rem;
+    color: $text-dark;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #f1f3f5; // Línea base sutil inferior para encuadrar la info
+  }
+
+  .field-icon {
+    color: lighten($verde-empresa, 10%);
+  }
+}
+
+// Badge personalizado del ROL
+.badge-role {
+  background-color: $verde-pastel !important;
+  color: $verde-empresa !important;
+  border: 1px solid rgba($verde-empresa, 0.15);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}

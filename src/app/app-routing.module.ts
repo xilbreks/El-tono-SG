@@ -34,6 +34,7 @@ import { AuthUsuarioComponent } from './auth-usuario/auth-usuario.component';
 import { AppComponent } from './app.component';
 import { authGuard, guestGuard } from './app.guard';
 import { ZlayoutComponent } from './zlayout/zlayout.component';
+import { AuthMiPerfilComponent } from './auth-mi-perfil/auth-mi-perfil.component';
 
 const routes: Routes = [
   // ── Ruta raíz → redirige al login ───────────────────────
@@ -177,6 +178,10 @@ const routes: Routes = [
       {
         path: 'plantillas',
         component: PlantillasComponent
+      },
+      {
+        path: 'mi-perfil',
+        component: AuthMiPerfilComponent
       },
     ]
   },
