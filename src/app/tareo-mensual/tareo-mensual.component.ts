@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-tareo-mensual',
@@ -9,34 +10,11 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './tareo-mensual.component.scss'
 })
 export class TareoMensualComponent {
-  usuarios: any[] = [];
-  meses = [
-    {
-      nombre: 'Junio 2025',
-      inicio: '2025-06-01',
-      final: '2025-06-30'
-    },
-    {
-      nombre: 'Julio 2025',
-      inicio: '2025-07-01',
-      final: '2025-07-31'
-    },
-    {
-      nombre: 'Agosto 2025',
-      inicio: '2025-08-01',
-      final: '2025-08-31'
-    },
-    {
-      nombre: 'Septiembre 2025',
-      inicio: '2025-09-01',
-      final: '2025-09-30'
-    },
-    {
-      nombre: 'Octubre 2025',
-      inicio: '2025-10-01',
-      final: '2025-10-31'
-    },
+  appService = inject(AppService);
+  db = inject(AngularFirestore);
 
+  usuarios$ = this.appService.usuariosActivosStream();
+  meses = [
     {
       nombre: 'Enero',
       inicio: '2026-01-01',
@@ -106,29 +84,7 @@ export class TareoMensualComponent {
   rdts: any[] = [];
   tareasRdt: any[] = [];
 
-  constructor(
-    private db: AngularFirestore,
-  ) {
-    this.recuperarUsuarios();
-  }
-
-  // Recuperar usuarios 
-  recuperarUsuarios() {
-    // let obs = this.db.collection('colaboradores', ref => {
-    //   return ref.where('lactive', '==', true)
-    // }).get();
-    let obs = this.db.collection('usuarios', ref => {
-      return ref.where('activo', '==', true)
-    }).get();
-    firstValueFrom(obs).then((snapshot) => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      });
-      this.usuarios = items;
-      // console.log(this.usuarios)
-    })
-  }
+  constructor() { }
 
   // Recuperar rdts
   async recuperarRdts() {
@@ -179,13 +135,13 @@ export class TareoMensualComponent {
       let query = this.db.collection('tareas', ref => {
         return ref.where('idTareo', '==', rdt.idTareo)
       }).get();
-  
+
       let tareitas = await firstValueFrom(query).then(snap => {
         let list: any[] = [];
         snap.forEach(d => {
           list.push(d.data())
         })
-  
+
         return list;
       })
 

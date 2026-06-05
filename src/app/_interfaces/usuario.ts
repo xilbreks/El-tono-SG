@@ -16,7 +16,7 @@ export interface Usuario {
     // Autenticación
     email: string;              // Email (debe ser único)
     emailVerificado: boolean;   // Si verificó su email
-    pass: string;               // Solo para formularios de creación
+    password: string;           // Solo para formularios de creación
 
     // Estado
     esActivo: boolean;            // Cuenta habilitada/deshabilitada
