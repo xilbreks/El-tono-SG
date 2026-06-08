@@ -6,11 +6,10 @@ import { Usuario } from '../_interfaces/usuario';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-auth-usuarios',
-  templateUrl: './auth-usuarios.component.html',
-  styleUrl: './auth-usuarios.component.scss',
-  standalone: true,
-  imports: [AsyncPipe, RouterLink]
+    selector: 'app-auth-usuarios',
+    templateUrl: './auth-usuarios.component.html',
+    styleUrl: './auth-usuarios.component.scss',
+    imports: [AsyncPipe, RouterLink]
 })
 export class AuthUsuariosComponent implements OnInit {
   appService = inject(AppService);

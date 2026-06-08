@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 
 interface Iter {
@@ -97,7 +98,7 @@ const lstIterCivil: Array<Iter> = [
   { code: '16', eligible: true, title: 'Audiencia especial y complementaria' },
   { code: '17', eligible: true, title: 'Alegados' },
   { code: '18', eligible: true, title: 'Sentencia' },
-  
+
   { code: '0', eligible: false, title: 'SEGUNDA INSTANCIA' },
   { code: '19', eligible: true, title: 'Apelar sentencia' },
   { code: '20', eligible: true, title: 'Subsanar el recurso de apelación según el auto que declara la inadmisibilidad' },
@@ -198,7 +199,10 @@ const lstIterConstitucional: Array<Iter> = [
 @Component({
   selector: 'app-recursos-iters',
   templateUrl: './recursos-iters.component.html',
-  styleUrls: ['./recursos-iters.component.scss']
+  styleUrls: ['./recursos-iters.component.scss'],
+  imports: [
+    NgClass
+  ]
 })
 export class RecursosItersComponent {
   lstIterLaboral: Array<Iter> = lstIterLaboral;

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { AppService } from './../app.service';
 
@@ -7,9 +7,12 @@ import { Expediente } from '../_interfaces/expediente';
 import { filter, firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-expedientes-list',
-  templateUrl: './expedientes-list.component.html',
-  styleUrls: ['./expedientes-list.component.scss']
+    selector: 'app-expedientes-list',
+    templateUrl: './expedientes-list.component.html',
+    styleUrls: ['./expedientes-list.component.scss'],
+    imports: [
+      RouterLink,
+    ]
 })
 export class ExpedientesListComponent implements AfterViewInit, OnInit {
   isReady: boolean = false;

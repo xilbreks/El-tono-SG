@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 
 import { AppService } from './../app.service';
@@ -16,7 +16,10 @@ const URL_TAREAS = 'tareas';
 @Component({
   selector: 'app-tareo-edit-new',
   templateUrl: './tareo-edit-new.component.html',
-  styleUrl: './tareo-edit-new.component.scss'
+  styleUrl: './tareo-edit-new.component.scss',
+  imports: [
+    ReactiveFormsModule,
+  ]
 })
 export class TareoEditNewComponent {
   idTareo: string = '';

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
@@ -9,7 +9,10 @@ import { Audiencia } from '../_interfaces/audiencia';
 @Component({
   selector: 'app-exp-item-trial',
   templateUrl: './exp-item-trial.component.html',
-  styleUrl: './exp-item-trial.component.scss'
+  styleUrl: './exp-item-trial.component.scss',
+  imports: [
+    ReactiveFormsModule,
+  ]
 })
 export class ExpItemTrialComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

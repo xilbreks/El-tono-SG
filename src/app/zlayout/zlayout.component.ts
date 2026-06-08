@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { map, tap, filter } from 'rxjs';
 import { AppService } from '../app.service';
@@ -12,7 +12,11 @@ interface Version {
 @Component({
   selector: 'app-zlayout',
   templateUrl: './zlayout.component.html',
-  styleUrl: './zlayout.component.scss'
+  styleUrl: './zlayout.component.scss',
+  imports: [
+    RouterLink,
+    RouterOutlet
+  ]
 })
 export class ZlayoutComponent implements OnInit, OnDestroy {
   appService = inject(AppService);
@@ -60,7 +64,7 @@ export class ZlayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   async getCurrentUser(uid: string) {

@@ -4,12 +4,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 import { Expediente } from './../_interfaces/expediente';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-exp-item-edit-status',
   templateUrl: './exp-item-edit-status.component.html',
-  styleUrls: ['./exp-item-edit-status.component.scss']
+  styleUrls: ['./exp-item-edit-status.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+  ]
 })
 export class ExpItemEditStatusComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

@@ -3,11 +3,17 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Expediente } from './../_interfaces/expediente';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { firstValueFrom } from 'rxjs';
+import { ExpItemRoadmapComponent } from '../exp-item-roadmap/exp-item-roadmap.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-exp-item-cover',
   templateUrl: './exp-item-cover.component.html',
-  styleUrls: ['./exp-item-cover.component.scss']
+  styleUrls: ['./exp-item-cover.component.scss'],
+  imports: [
+    ExpItemRoadmapComponent,
+    RouterLink,
+  ]
 })
 export class ExpItemCoverComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

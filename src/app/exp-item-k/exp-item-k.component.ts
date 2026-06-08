@@ -4,11 +4,15 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { finalize, firstValueFrom } from 'rxjs';
 import { Expediente } from './../_interfaces/expediente';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-exp-item-k',
   templateUrl: './exp-item-k.component.html',
-  styleUrl: './exp-item-k.component.scss'
+  styleUrl: './exp-item-k.component.scss',
+  imports: [
+    DecimalPipe,
+  ]
 })
 export class ExpItemKComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

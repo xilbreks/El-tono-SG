@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
@@ -8,7 +8,10 @@ import { Expediente } from './../_interfaces/expediente';
 @Component({
   selector: 'app-exp-item-appt',
   templateUrl: './exp-item-appt.component.html',
-  styleUrl: './exp-item-appt.component.scss'
+  styleUrl: './exp-item-appt.component.scss',
+  imports: [
+    ReactiveFormsModule,
+  ]
 })
 export class ExpItemApptComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

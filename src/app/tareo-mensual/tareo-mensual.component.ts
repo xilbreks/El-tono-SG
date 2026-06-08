@@ -1,13 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { AppService } from '../app.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-tareo-mensual',
   templateUrl: './tareo-mensual.component.html',
-  styleUrl: './tareo-mensual.component.scss'
+  styleUrl: './tareo-mensual.component.scss',
+  imports: [
+    ReactiveFormsModule,
+    AsyncPipe,
+  ]
 })
 export class TareoMensualComponent {
   appService = inject(AppService);

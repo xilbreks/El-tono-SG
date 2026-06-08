@@ -12,11 +12,10 @@ import { AppService } from '../app.service';
 import { tap } from 'rxjs';
 
 @Component({
-  selector: 'app-testing',
-  templateUrl: './testing.component.html',
-  styleUrls: ['./testing.component.scss'],
-  standalone: true,
-  imports: [CommonModule]
+    selector: 'app-testing',
+    templateUrl: './testing.component.html',
+    styleUrls: ['./testing.component.scss'],
+    imports: [CommonModule]
 })
 export class TestingComponent implements OnInit {
   appService = inject(AppService);

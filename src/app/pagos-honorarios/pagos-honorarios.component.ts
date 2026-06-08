@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { Abono } from '../_interfaces/abono';
 import { Chart } from 'chart.js/auto';
 import { firstValueFrom } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-pagos-honorarios',
   templateUrl: './pagos-honorarios.component.html',
-  styleUrls: ['./pagos-honorarios.component.scss']
+  styleUrls: ['./pagos-honorarios.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    DecimalPipe
+  ]
 })
 export class PagosHonorariosComponent implements OnInit {
   frmPagos: FormGroup;

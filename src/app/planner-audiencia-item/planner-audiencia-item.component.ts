@@ -8,11 +8,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Audiencia } from '../_interfaces/audiencia';
 
 @Component({
-  selector: 'app-planner-audiencia-item',
-  templateUrl: './planner-audiencia-item.component.html',
-  styleUrl: './planner-audiencia-item.component.scss',
-  standalone: true,
-  imports: [NgClass, RouterLink, ReactiveFormsModule]
+    selector: 'app-planner-audiencia-item',
+    templateUrl: './planner-audiencia-item.component.html',
+    styleUrl: './planner-audiencia-item.component.scss',
+    imports: [NgClass, RouterLink, ReactiveFormsModule]
 })
 export class PlannerAudienciaItemComponent implements OnInit {
   // Injecciones

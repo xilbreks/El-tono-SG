@@ -5,11 +5,15 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Expediente } from './../_interfaces/expediente';
 import { finalize } from 'rxjs';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-exp-item-recursos',
   templateUrl: './exp-item-recursos.component.html',
-  styleUrl: './exp-item-recursos.component.scss'
+  styleUrl: './exp-item-recursos.component.scss',
+  imports: [
+    DecimalPipe,
+  ]
 })
 export class ExpItemRecursosComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

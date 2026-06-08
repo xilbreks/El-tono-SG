@@ -2,11 +2,15 @@ import { Component } from '@angular/core';
 import { AppService } from './../app.service';
 
 import { Expediente } from '../_interfaces/expediente';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-expedientes-list-inactive',
-  templateUrl: './expedientes-list-inactive.component.html',
-  styleUrl: './expedientes-list-inactive.component.scss'
+    selector: 'app-expedientes-list-inactive',
+    templateUrl: './expedientes-list-inactive.component.html',
+    styleUrl: './expedientes-list-inactive.component.scss',
+    imports: [
+      RouterLink,
+    ]
 })
 export class ExpedientesListInactiveComponent {
   isLoading = false;

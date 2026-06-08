@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { firstValueFrom } from 'rxjs';
 
 import { Cuota } from '../_interfaces/cuota';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-planner-cuotas',
   templateUrl: './planner-cuotas.component.html',
-  styleUrl: './planner-cuotas.component.scss'
+  styleUrl: './planner-cuotas.component.scss',
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+  ]
 })
 export class PlannerCuotasComponent implements OnInit {
   cuotas: Cuota[] = [];

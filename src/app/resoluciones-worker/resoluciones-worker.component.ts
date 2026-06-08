@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,11 +10,18 @@ import { Expediente } from './../_interfaces/expediente';
 import { AppService } from './../app.service';
 import { firstValueFrom } from 'rxjs';
 import { Usuario } from '../_interfaces/usuario';
+import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-resoluciones-worker',
   templateUrl: './resoluciones-worker.component.html',
-  styleUrl: './resoluciones-worker.component.scss'
+  styleUrl: './resoluciones-worker.component.scss',
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    RouterLink,
+  ]
 })
 export class ResolucionesWorkerComponent {
   appService = inject(AppService);
@@ -216,13 +223,13 @@ export class ResolucionesWorkerComponent {
         }
       })
     })
-    .catch(err => {
-      console.log(err)
-      throw err;
-    })
-    .finally(() => {
-      this.cargando = false;
-    })
+      .catch(err => {
+        console.log(err)
+        throw err;
+      })
+      .finally(() => {
+        this.cargando = false;
+      })
   }
 
   obtenerExpedientesCompletos() {

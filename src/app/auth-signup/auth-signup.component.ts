@@ -6,11 +6,10 @@ import { JsonPipe } from '@angular/common';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-auth-signup',
-  templateUrl: './auth-signup.component.html',
-  styleUrl: './auth-signup.component.scss',
-  standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe]
+    selector: 'app-auth-signup',
+    templateUrl: './auth-signup.component.html',
+    styleUrl: './auth-signup.component.scss',
+    imports: [ReactiveFormsModule, JsonPipe]
 })
 export class AuthSignupComponent {
   // Injecciones

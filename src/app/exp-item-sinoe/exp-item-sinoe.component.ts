@@ -4,11 +4,15 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Expediente } from './../_interfaces/expediente';
 import { Resolucion } from '../_interfaces/resolucion';
 import { firstValueFrom } from 'rxjs';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-exp-item-sinoe',
   templateUrl: './exp-item-sinoe.component.html',
-  styleUrl: './exp-item-sinoe.component.scss'
+  styleUrl: './exp-item-sinoe.component.scss',
+  imports: [
+    NgbPopoverModule
+  ]
 })
 export class ExpItemSinoeComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
@@ -41,7 +45,7 @@ export class ExpItemSinoeComponent implements OnChanges {
   recuperarNotificaciones(): Promise<any[]> {
     let query = this.db.collection('resoluciones', ref => {
       return ref.where('numeroExpediente', '==', this.expediente?.numero)
-                .orderBy('fechaNotificacion', 'desc').limit(10)
+        .orderBy('fechaNotificacion', 'desc').limit(10)
     }).get();
 
     return firstValueFrom(query).then(snapshot => {
@@ -49,14 +53,14 @@ export class ExpItemSinoeComponent implements OnChanges {
       snapshot.forEach(doc => {
         items.push(doc.data())
       });
-      
+
       return items.map(r => {
         if (r.fechaNotificacion.length == 10) {
           let year = r.fechaNotificacion.slice(0, 4);
           let month = r.fechaNotificacion.slice(5, 7);
           let day = r.fechaNotificacion.slice(8, 10);
           let fecha = `${day}/${month}/${year}`
-          return {...r, fechaNotificacion: fecha};
+          return { ...r, fechaNotificacion: fecha };
         }
         return r;
       })

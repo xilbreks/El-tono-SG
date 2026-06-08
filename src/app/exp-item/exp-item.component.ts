@@ -5,11 +5,37 @@ import { Title } from '@angular/platform-browser';
 import { firstValueFrom } from 'rxjs';
 
 import { Expediente } from './../_interfaces/expediente';
+import { ExpItemCoverComponent } from '../exp-item-cover/exp-item-cover.component';
+import { ExpItemRdtComponent } from '../exp-item-rdt/exp-item-rdt.component';
+import { ExpItemSinoeComponent } from '../exp-item-sinoe/exp-item-sinoe.component';
+import { ExpItemEconComponent } from '../exp-item-econ/exp-item-econ.component';
+import { ExpItemApptComponent } from '../exp-item-appt/exp-item-appt.component';
+import { ExpItemTrialComponent } from '../exp-item-trial/exp-item-trial.component';
+import { ExpItemKComponent } from '../exp-item-k/exp-item-k.component';
+import { ExpItemFilesComponent } from '../exp-item-files/exp-item-files.component';
+import { ExpItemRecursosComponent } from '../exp-item-recursos/exp-item-recursos.component';
+import { ExpItemEditDataComponent } from '../exp-item-edit-data/exp-item-edit-data.component';
+import { ExpItemEvolutionComponent } from '../exp-item-evolution/exp-item-evolution.component';
+import { ExpItemEditStatusComponent } from '../exp-item-edit-status/exp-item-edit-status.component';
 
 @Component({
   selector: 'app-exp-item',
   templateUrl: './exp-item.component.html',
-  styleUrls: ['./exp-item.component.scss']
+  styleUrls: ['./exp-item.component.scss'],
+  imports: [
+    ExpItemCoverComponent,
+    ExpItemRdtComponent,
+    ExpItemSinoeComponent,
+    ExpItemEconComponent,
+    ExpItemApptComponent,
+    ExpItemTrialComponent,
+    ExpItemKComponent,
+    ExpItemFilesComponent,
+    ExpItemRecursosComponent,
+    ExpItemEditDataComponent,
+    ExpItemEvolutionComponent,
+    ExpItemEditStatusComponent,
+  ]
 })
 export class ExpItemComponent implements OnInit {
   expediente: Expediente | null = null;

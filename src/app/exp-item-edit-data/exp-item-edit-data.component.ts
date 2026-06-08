@@ -1,10 +1,11 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from '../_interfaces/expediente';
 import { firstValueFrom } from 'rxjs';
+import { NgClass } from '@angular/common';
 
 class ObjMateria {
   idmateria: string = '';
@@ -16,7 +17,11 @@ class ObjMateria {
 @Component({
   selector: 'app-exp-item-edit-data',
   templateUrl: './exp-item-edit-data.component.html',
-  styleUrls: ['./exp-item-edit-data.component.scss']
+  styleUrls: ['./exp-item-edit-data.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    NgClass,
+  ]
 })
 export class ExpItemEditDataComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

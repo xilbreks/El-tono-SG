@@ -5,11 +5,15 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Expediente } from './../_interfaces/expediente';
 import { finalize } from 'rxjs';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-exp-item-files',
   templateUrl: './exp-item-files.component.html',
-  styleUrl: './exp-item-files.component.scss'
+  styleUrl: './exp-item-files.component.scss',
+  imports: [
+    DecimalPipe,
+  ]
 })
 export class ExpItemFilesComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
@@ -24,7 +28,7 @@ export class ExpItemFilesComponent implements OnChanges {
     private db: AngularFirestore,
     private storage: AngularFireStorage,
     private modalService: NgbModal,
-  ){
+  ) {
 
   }
 
@@ -45,7 +49,7 @@ export class ExpItemFilesComponent implements OnChanges {
       const fileDetails = await Promise.all(
         result.items.map(async (itemRef) => {
           const url = await itemRef.getDownloadURL();
-          return { name: itemRef.name, removing: false, size: (await itemRef.getMetadata()).size , url };
+          return { name: itemRef.name, removing: false, size: (await itemRef.getMetadata()).size, url };
         })
       );
 
@@ -98,7 +102,7 @@ export class ExpItemFilesComponent implements OnChanges {
       .subscribe();
   }
 
-  quitarAnexo(ruta: any){
+  quitarAnexo(ruta: any) {
     ruta.removing = true;
     const fileRef = this.storage.ref(`actuados/${this.expediente?.idExpediente}/${ruta.name}`);
     const obs = fileRef.delete().subscribe(res => {

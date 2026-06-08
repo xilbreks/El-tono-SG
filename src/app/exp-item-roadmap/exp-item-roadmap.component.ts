@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges, inject, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Auth } from '@angular/fire/auth';
 
@@ -13,7 +13,10 @@ import { Changelog } from '../_interfaces/changelog';
 @Component({
   selector: 'app-exp-item-roadmap',
   templateUrl: './exp-item-roadmap.component.html',
-  styleUrl: './exp-item-roadmap.component.scss'
+  styleUrl: './exp-item-roadmap.component.scss',
+  imports: [
+    ReactiveFormsModule,
+  ]
 })
 export class ExpItemRoadmapComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

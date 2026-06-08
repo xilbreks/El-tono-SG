@@ -9,9 +9,9 @@ import { AppService } from '../app.service';
 import { Expediente } from '../_interfaces/expediente';
 
 @Component({
-  selector: 'app-expedientes-updater',
-  templateUrl: './expedientes-updater.component.html',
-  styleUrls: ['./expedientes-updater.component.scss']
+    selector: 'app-expedientes-updater',
+    templateUrl: './expedientes-updater.component.html',
+    styleUrls: ['./expedientes-updater.component.scss'],
 })
 export class ExpedientesUpdaterComponent implements OnInit {
   numeroExpediente: string = '';

@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-auth-logout',
-  templateUrl: './auth-logout.component.html',
-  styleUrl: './auth-logout.component.scss'
+    selector: 'app-auth-logout',
+    templateUrl: './auth-logout.component.html',
+    styleUrl: './auth-logout.component.scss',
 })
 export class AuthLogoutComponent implements OnInit {
   appService = inject(AppService);

@@ -2,13 +2,16 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Expediente } from './../_interfaces/expediente';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-exp-item-evolution',
   templateUrl: './exp-item-evolution.component.html',
-  styleUrl: './exp-item-evolution.component.scss'
+  styleUrl: './exp-item-evolution.component.scss',
+  imports: [
+    ReactiveFormsModule,
+  ]
 })
 export class ExpItemEvolutionComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
@@ -113,7 +116,7 @@ export class ExpItemEvolutionComponent implements OnChanges {
         queryParams: {
           expediente: numero,
         }
-      }).then(()=>{
+      }).then(() => {
         this.modalService.dismissAll();
       })
       console.log('Evolucion exitosa');

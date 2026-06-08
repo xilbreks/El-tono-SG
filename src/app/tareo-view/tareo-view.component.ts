@@ -11,7 +11,7 @@ const URL_TAREAS = 'tareas';
 @Component({
   selector: 'app-tareo-view',
   templateUrl: './tareo-view.component.html',
-  styleUrl: './tareo-view.component.scss'
+  styleUrl: './tareo-view.component.scss',
 })
 export class TareoViewComponent {
   idTareo: string;
@@ -56,7 +56,7 @@ export class TareoViewComponent {
         let tar: Tarea = doc.data();
         let fechaCreacionTarea = new Date(Number(tar.fechaCreacion));
         let fechaCreacionTareaString = fechaCreacionTarea.toLocaleString();
-        tareas.push({...tar, fechaCreacionString: fechaCreacionTareaString});
+        tareas.push({ ...tar, fechaCreacionString: fechaCreacionTareaString });
 
         horas += Number(tar.horasAtencion);
         minutos += Number(tar.minutosAtencion);

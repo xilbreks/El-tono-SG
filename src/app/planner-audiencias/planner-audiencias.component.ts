@@ -15,12 +15,11 @@ import { PlannerAudienciaItemComponent } from '../planner-audiencia-item/planner
 import { Audiencia } from '../_interfaces/audiencia';
 
 @Component({
-  selector: 'app-planner-audiencias',
-  templateUrl: './planner-audiencias.component.html',
-  styleUrl: './planner-audiencias.component.scss',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink,
-    PlannerAudienciaItemComponent]
+    selector: 'app-planner-audiencias',
+    templateUrl: './planner-audiencias.component.html',
+    styleUrl: './planner-audiencias.component.scss',
+    imports: [CommonModule, ReactiveFormsModule,
+        PlannerAudienciaItemComponent]
 })
 export class PlannerAudienciasComponent implements OnInit {
   private db = inject(Firestore);

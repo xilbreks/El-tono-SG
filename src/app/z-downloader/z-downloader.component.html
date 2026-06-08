@@ -21,16 +21,16 @@
 
 <div>
   @if (!lLoading) {
-    <button class="btn btn-primary" (click)="downloadBackUpTareas()">
-      Descargar BackUp Tareas
-    </button>
+  <button class="btn btn-primary" (click)="downloadBackUpTareas()">
+    Descargar BackUp Tareas
+  </button>
   }
 
   @if (lLoading) {
-    <button class="btn btn-primary">
-      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Descargando...
-    </button>
+  <button class="btn btn-primary">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Descargando...
+  </button>
   }
 </div>
 aea causa
@@ -38,25 +38,8 @@ aea causa
   Descargar colaboradores
 </button>
 
+
 <div>
-  <p>
-    Para hacer BackUp
-  </p>
-  <div>
-    <button class="btn btn-danger" (click)="backUpExpedientes()">
-      BackUp Expedientes
-    </button>
-  </div>
-  <div>
-    <button class="btn btn-danger" (click)="backUpChats()">
-      BackUp Chats
-    </button>
-  </div>
-  <div>
-    <button class="btn btn-danger" (click)="backUpUsuarios()">
-      BackUp Colaboradores
-    </button>
-  </div>
   <div>
     <button class="btn btn-warning" (click)="backUpCuotas()">
       BackUp Cuotas
@@ -67,31 +50,11 @@ aea causa
       BackUp Abonos
     </button>
   </div>
-  <div>
-    <button class="btn btn-danger" (click)="backUpMaterias()">
-      BackUp Materias
-    </button>
-  </div>
-  <div>
+  <!-- <div>
     <button class="btn btn-danger" (click)="backUpRDTs()">
       BackUp RDTs
     </button>
-  </div>
-  <div>
-    <button class="btn btn-danger" (click)="backUpTareas()">
-      BackUp Tareas
-    </button>
-  </div>
-  <div>
-    <button class="btn btn-danger" (click)="backUpTareasG()">
-      BackUp Tareas G
-    </button>
-  </div>
-  <div>
-    <button class="btn btn-danger" (click)="backUpVersionado()">
-      BackUp Versionado
-    </button>
-  </div>
+  </div> -->
 
   <div>
     <button class="btn btn-danger" (click)="backupChangelog()">

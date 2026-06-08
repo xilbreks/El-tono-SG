@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { firstValueFrom } from 'rxjs';
 import { Tareo } from '../_interfaces/tareo';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tareo-diario-user',
   templateUrl: './tareo-diario-user.component.html',
-  styleUrl: './tareo-diario-user.component.scss'
+  styleUrl: './tareo-diario-user.component.scss',
+  imports: [
+    RouterLink
+  ]
 })
 export class TareoDiarioUserComponent implements OnInit {
   nick: string = 'null';

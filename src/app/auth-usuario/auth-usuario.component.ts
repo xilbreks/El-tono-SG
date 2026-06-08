@@ -7,11 +7,10 @@ import { AppService } from '../app.service';
 import { Usuario } from '../_interfaces/usuario';
 
 @Component({
-  selector: 'app-auth-usuario',
-  templateUrl: './auth-usuario.component.html',
-  styleUrl: './auth-usuario.component.scss',
-  standalone: true,
-  imports: [ReactiveFormsModule, DatePipe]
+    selector: 'app-auth-usuario',
+    templateUrl: './auth-usuario.component.html',
+    styleUrl: './auth-usuario.component.scss',
+    imports: [ReactiveFormsModule, DatePipe]
 })
 export class AuthUsuarioComponent implements OnInit {
   route = inject(ActivatedRoute);

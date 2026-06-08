@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { concatAll, firstValueFrom } from 'rxjs';
@@ -23,7 +23,10 @@ class ObjMateria {
 @Component({
   selector: 'app-expediente-register',
   templateUrl: './expediente-register.component.html',
-  styleUrls: ['./expediente-register.component.scss']
+  styleUrls: ['./expediente-register.component.scss'],
+  imports: [
+    ReactiveFormsModule
+  ]
 })
 export class ExpedienteRegisterComponent {
   expedientes: Expediente[] = [];

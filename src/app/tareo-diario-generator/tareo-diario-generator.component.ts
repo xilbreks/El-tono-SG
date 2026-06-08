@@ -7,7 +7,7 @@ import { Tareo } from '../_interfaces/tareo';
 @Component({
   selector: 'app-tareo-diario-generator',
   templateUrl: './tareo-diario-generator.component.html',
-  styleUrl: './tareo-diario-generator.component.scss'
+  styleUrl: './tareo-diario-generator.component.scss',
 })
 export class TareoDiarioGeneratorComponent {
   usuarios: any[] = [];
@@ -85,7 +85,7 @@ export class TareoDiarioGeneratorComponent {
         observaciones: '',
       };
 
-      await this.grabarNuevoTareo(tareo.idTareo, tareo).finally(()=>{
+      await this.grabarNuevoTareo(tareo.idTareo, tareo).finally(() => {
         contadorOks = contadorOks + 1;
 
         if (contadorOks == limiteContador) {

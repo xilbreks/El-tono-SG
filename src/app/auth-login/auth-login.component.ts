@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-auth-login',
-  templateUrl: './auth-login.component.html',
-  styleUrl: './auth-login.component.scss'
+    selector: 'app-auth-login',
+    templateUrl: './auth-login.component.html',
+    styleUrl: './auth-login.component.scss',
 })
 export class AuthLoginComponent {
   appService = inject(AppService);

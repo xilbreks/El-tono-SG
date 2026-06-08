@@ -1,14 +1,19 @@
 import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Tareo } from '../_interfaces/tareo';
 import { firstValueFrom } from 'rxjs';
 import { AppService } from '../app.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tareo-supervisor',
   templateUrl: './tareo-supervisor.component.html',
-  styleUrl: './tareo-supervisor.component.scss'
+  styleUrl: './tareo-supervisor.component.scss',
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+  ]
 })
 export class TareoSupervisorComponent {
   appService = inject(AppService);

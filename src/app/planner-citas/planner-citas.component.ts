@@ -17,11 +17,10 @@ import { RouterLink } from '@angular/router';
 import { Cita } from '../_interfaces/cita';
 
 @Component({
-  selector: 'app-planner-citas',
-  templateUrl: './planner-citas.component.html',
-  styleUrl: './planner-citas.component.scss',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink]
+    selector: 'app-planner-citas',
+    templateUrl: './planner-citas.component.html',
+    styleUrl: './planner-citas.component.scss',
+    imports: [CommonModule, ReactiveFormsModule, RouterLink]
 })
 export class PlannerCitasComponent implements OnInit {
   private db = inject(Firestore);

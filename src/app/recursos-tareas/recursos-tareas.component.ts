@@ -16,7 +16,7 @@ class ObjTarea {
 @Component({
   selector: 'app-recursos-tareas',
   templateUrl: './recursos-tareas.component.html',
-  styleUrls: ['./recursos-tareas.component.scss']
+  styleUrls: ['./recursos-tareas.component.scss'],
 })
 export class RecursosTareasComponent {
   lstTareas: Array<ObjTarea> = [];

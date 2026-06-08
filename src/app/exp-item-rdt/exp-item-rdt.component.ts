@@ -8,7 +8,10 @@ import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-exp-item-rdt',
   templateUrl: './exp-item-rdt.component.html',
-  styleUrl: './exp-item-rdt.component.scss'
+  styleUrl: './exp-item-rdt.component.scss',
+  imports: [
+    
+  ]
 })
 export class ExpItemRdtComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,11 +10,16 @@ import { Expediente } from './../_interfaces/expediente';
 import { AppService } from './../app.service';
 import { firstValueFrom } from 'rxjs';
 import { Usuario } from '../_interfaces/usuario';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-resoluciones-admin',
-  templateUrl: './resoluciones-admin.component.html',
-  styleUrl: './resoluciones-admin.component.scss'
+    selector: 'app-resoluciones-admin',
+    templateUrl: './resoluciones-admin.component.html',
+    styleUrl: './resoluciones-admin.component.scss',
+    imports: [
+      AsyncPipe,
+      ReactiveFormsModule,
+    ]
 })
 export class ResolucionesAdminComponent {
   appService = inject(AppService);

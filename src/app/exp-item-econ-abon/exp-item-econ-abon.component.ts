@@ -1,16 +1,21 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
 import { Abono } from '../_interfaces/abono';
 import { firstValueFrom } from 'rxjs';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-exp-item-econ-abon',
   templateUrl: './exp-item-econ-abon.component.html',
-  styleUrl: './exp-item-econ-abon.component.scss'
+  styleUrl: './exp-item-econ-abon.component.scss',
+  imports: [
+    DecimalPipe,
+    ReactiveFormsModule,
+  ]
 })
 export class ExpItemEconAbonComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;

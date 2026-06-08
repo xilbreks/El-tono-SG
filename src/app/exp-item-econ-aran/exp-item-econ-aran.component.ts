@@ -1,16 +1,21 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
 import { Arancel } from '../_interfaces/arancel';
 import { firstValueFrom } from 'rxjs';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-exp-item-econ-aran',
   templateUrl: './exp-item-econ-aran.component.html',
-  styleUrl: './exp-item-econ-aran.component.scss'
+  styleUrl: './exp-item-econ-aran.component.scss',
+  imports: [
+    DecimalPipe,
+    ReactiveFormsModule,
+  ]
 })
 export class ExpItemEconAranComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
@@ -80,13 +85,13 @@ export class ExpItemEconAranComponent implements OnChanges {
   }
 
   // MODAL ACCIONES DEL USUARIO
-  
+
   abrirModalAgregarGasto(modal: any) {
     this.modalService.open(modal, {
       size: 'md'
     });
   }
-  
+
   abrirModalEditarGasto(gasto: Arancel, modal: any) {
     this.frmEditaGasto.setValue({
       idArancel: gasto.idArancel,
@@ -99,7 +104,7 @@ export class ExpItemEconAranComponent implements OnChanges {
       size: 'md'
     });
   }
-  
+
   abrirModalQuitarGasto(gasto: Arancel, modal: any) {
     this.frmQuitaGasto.setValue({
       idArancel: gasto.idArancel,

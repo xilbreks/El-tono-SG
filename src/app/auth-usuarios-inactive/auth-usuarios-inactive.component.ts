@@ -6,11 +6,10 @@ import { Usuario } from '../_interfaces/usuario';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-auth-usuarios-inactive',
-  templateUrl: './auth-usuarios-inactive.component.html',
-  styleUrl: './auth-usuarios-inactive.component.scss',
-  standalone: true,
-  imports: [RouterLink, DatePipe]
+    selector: 'app-auth-usuarios-inactive',
+    templateUrl: './auth-usuarios-inactive.component.html',
+    styleUrl: './auth-usuarios-inactive.component.scss',
+    imports: [RouterLink, DatePipe]
 })
 export class AuthUsuariosInactiveComponent implements OnInit {
   appService = inject(AppService);
