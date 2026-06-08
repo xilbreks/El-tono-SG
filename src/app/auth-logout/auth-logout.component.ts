@@ -16,6 +16,7 @@ export class AuthLogoutComponent implements OnInit {
   ngOnInit(): void {
     try {
       this.appService.logout();
+      localStorage.clear();
       this.router.navigate(['/login']);
     } catch (error) {
       console.log('error en log out' ,error)

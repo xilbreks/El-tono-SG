@@ -99,7 +99,7 @@ export class TareoDiarioGeneratorComponent {
 
   recuperarUsuarios(): Promise<any[]> {
     const query = this.db.collection('usuarios', ref => {
-      return ref.where('activo', '==', true)
+      return ref.where('esActivo', '==', true)
     }).get();
 
     return firstValueFrom(query).then(snapshot => {
