@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Tareo } from '../_interfaces/tareo';
 import { firstValueFrom } from 'rxjs';
@@ -26,9 +25,7 @@ export class TareoSupervisorComponent {
 
   cargando = false;
 
-  constructor(
-    private db: AngularFirestore,
-  ) {
+  constructor() {
     this.colocarFechaHoy();
     this.saberQuienSoy();
   }
@@ -73,28 +70,14 @@ export class TareoSupervisorComponent {
     this.cargando = true;
     let fecha = this.fcFecha.value;
     let idUsuario = this.fcUsuario.value;
-    let tareos = await this.recuperarTareo(fecha, idUsuario);
-    this.tareos = tareos;
+    const idTareo = `${fecha}-${idUsuario}`;
+    
+    const tareo = await this.appService.tareo(idTareo);
+    this.tareos = [];
+    if (!tareo) return;
+    this.tareos.push(tareo);
 
     this.cargando = false;
   }
 
-  // Operaciones a la base de datos
-
-  recuperarTareo(fecha: string, idUsuario: string): Promise<any[]> {
-    const idTareo = `${fecha}-${idUsuario}`;
-    const query = this.db.collection('tareo', ref => {
-      return ref.where('idTareo', '==', idTareo)
-    }).get();
-
-    return firstValueFrom(query).then(snapshot => {
-      let items: any = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      })
-      return items;
-    }).catch(err => {
-      throw err;
-    })
-  }
 }

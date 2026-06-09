@@ -1,12 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Title } from '@angular/platform-browser';
-import { firstValueFrom } from 'rxjs';
 import { Tareo } from '../_interfaces/tareo';
 import { Tarea } from '../_interfaces/tarea';
-
-const URL_TAREAS = 'tareas';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-tareo-view',
@@ -14,6 +10,8 @@ const URL_TAREAS = 'tareas';
   styleUrl: './tareo-view.component.scss',
 })
 export class TareoViewComponent {
+  appService = inject(AppService);
+
   idTareo: string;
   tareo: Tareo | null = null;
   tareas: Tarea[] = [];
@@ -21,59 +19,50 @@ export class TareoViewComponent {
   cargando = false;
 
   constructor(
-    private db: AngularFirestore,
-    private titleService: Title,
     route: ActivatedRoute
   ) {
     this.idTareo = `${route.snapshot.paramMap.get('id')}`;
 
-    this.titleService.setTitle('RDT ' + this.idTareo);
     this.recuperarDatosTareo();
+  }
+
+  async recuperarDatosTareo() {
+    const tareo = await this.appService.tareo(this.idTareo);
+    if (!tareo) return;
+    this.tareo = tareo;
     this.recuperarTareas();
   }
 
-  recuperarDatosTareo() {
-    const query = this.db.collection('tareo').doc(this.idTareo).get();
-    firstValueFrom(query).then((snapshot: any) => {
-      let tareo: Tareo = snapshot.data();
-
-      this.tareo = tareo;
-    })
-  }
-
-  recuperarTareas() {
+  async recuperarTareas() {
     this.cargando = true;
 
-    let query = this.db.collection(`${URL_TAREAS}`, ref => {
-      return ref.where('idTareo', '==', `${this.idTareo}`)
-    }).get();
+    const tareas = await this.appService.tareas(this.idTareo);
+    let horas = 0, minutos = 0;
 
-    firstValueFrom(query).then(snapshot => {
-      let tareas: Tarea[] = [];
-      let horas = 0, minutos = 0;
+    tareas.forEach(t => {
+      horas += Number(t.horasAtencion);
+      minutos += Number(t.minutosAtencion);
+    });
 
-      snapshot.forEach((doc: any) => {
-        let tar: Tarea = doc.data();
-        let fechaCreacionTarea = new Date(Number(tar.fechaCreacion));
-        let fechaCreacionTareaString = fechaCreacionTarea.toLocaleString();
-        tareas.push({ ...tar, fechaCreacionString: fechaCreacionTareaString });
+    this.tareas = tareas.map(t => {
+      let fechaCreacion = new Date(Number(t.fechaCreacion));
+      let fechaCreacionString = fechaCreacion.toLocaleString();
 
-        horas += Number(tar.horasAtencion);
-        minutos += Number(tar.minutosAtencion);
-      })
-
-      this.tareas = tareas;
-
-      let nTotalMinutos = horas * 60 + minutos;
-      let sHoras = '';
-      let sMinutos = '';
-
-      sHoras = Math.floor(nTotalMinutos / 60).toString();
-      sMinutos = (nTotalMinutos - Math.floor(nTotalMinutos / 60) * 60).toString();
-
-      this.nSumaTiempoTareas = `${sHoras}h:${sMinutos}m`;
-
-      this.cargando = false;
+      return {
+        ...t,
+        fechaCreacionString,
+      }
     })
+
+    let nTotalMinutos = horas * 60 + minutos;
+    let sHoras = '';
+    let sMinutos = '';
+
+    sHoras = Math.floor(nTotalMinutos / 60).toString();
+    sMinutos = (nTotalMinutos - Math.floor(nTotalMinutos / 60) * 60).toString();
+
+    this.nSumaTiempoTareas = `${sHoras}h:${sMinutos}m`;
+
+    this.cargando = false;
   }
 }

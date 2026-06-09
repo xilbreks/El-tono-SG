@@ -1,19 +1,20 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Expediente } from './../_interfaces/expediente';
 import { Tarea } from './../_interfaces/tarea';
 import { firstValueFrom } from 'rxjs';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-rdt',
   templateUrl: './exp-item-rdt.component.html',
   styleUrl: './exp-item-rdt.component.scss',
   imports: [
-    
+
   ]
 })
 export class ExpItemRdtComponent implements OnChanges {
+  appService = inject(AppService);
   @Input('expediente') expediente: Expediente | null = null;
 
   lstTareas: Array<Tarea> = [];
@@ -21,9 +22,7 @@ export class ExpItemRdtComponent implements OnChanges {
   lLoading: boolean = true;
   lLoadingMore = false;
 
-  constructor(
-    private db: AngularFirestore
-  ) { }
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.expediente) {
@@ -31,50 +30,33 @@ export class ExpItemRdtComponent implements OnChanges {
     }
   }
 
-  getTareas(): void {
+  async getTareas() {
+    if (!this.expediente) return;
+
     this.lLoading = true;
+    const idExpediente = this.expediente.idExpediente;
+    const tareas = await this.appService.tareasExpediente(idExpediente, 16);
 
-    let query = this.db.collection('tareas', ref => {
-      return ref.where('idExpediente', '==', this.expediente?.idExpediente).orderBy('fechaTarea', 'desc').limit(16);
-    }).get();
+    this.lstTareas = tareas;
 
-    firstValueFrom(query).then(snapshot => {
-      let items: Tarea[] = [];
-      snapshot.forEach((doc: any) => {
-        items.push(doc.data())
-      });
+    if (tareas.length > 15) {
+      this.lhasmore = true;
+    } else {
+      this.lhasmore = false;
+    }
 
-      this.lstTareas = items;
-
-      if (items.length > 15) {
-        this.lhasmore = true;
-      } else {
-        this.lhasmore = false;
-      }
-
-      this.lLoading = false;
-    })
-
+    this.lLoading = false;
   }
 
-  getTareasTodas() {
+  async getTareasTodas() {
+    if (!this.expediente) return;
+
     this.lLoadingMore = true;
+    const idExpediente = this.expediente.idExpediente;
+    const tareas = await this.appService.tareasExpediente(idExpediente, 50);
 
-    let query = this.db.collection('tareas', ref => {
-      return ref.where('idExpediente', '==', this.expediente?.idExpediente).orderBy('fechaTarea', 'desc').limit(50);
-    }).get();
-
-    firstValueFrom(query).then(snapshot => {
-      this.lhasmore = false;
-
-      let items: Tarea[] = [];
-      snapshot.forEach((doc: any) => {
-        items.push(doc.data())
-      });
-
-      this.lstTareas = items;
-
-      this.lLoadingMore = false;
-    })
+    this.lhasmore = false;
+    this.lstTareas = tareas;
+    this.lLoadingMore = false;
   }
 }

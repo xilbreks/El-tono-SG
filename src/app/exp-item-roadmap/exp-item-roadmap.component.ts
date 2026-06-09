@@ -1,14 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges, inject, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Auth } from '@angular/fire/auth';
-
 import { Expediente } from './../_interfaces/expediente';
 import { Checkpoint } from '../_interfaces/checkpoint';
-import { Changelog } from '../_interfaces/changelog';
-
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-roadmap',
@@ -19,10 +14,10 @@ import { Changelog } from '../_interfaces/changelog';
   ]
 })
 export class ExpItemRoadmapComponent implements OnChanges {
+  appService = inject(AppService);
+
   @Input('expediente') expediente: Expediente | null = null;
   @ViewChild('modalObligatorioCheckpoint', { static: true }) modalTemplate!: TemplateRef<any>;
-
-  private auth = inject(Auth);
 
   frmCheckpoint: FormGroup;
   checkpoints: Checkpoint[] = [];
@@ -30,7 +25,6 @@ export class ExpItemRoadmapComponent implements OnChanges {
   actualizando = false;
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
     this.frmCheckpoint = new FormGroup({
@@ -1207,7 +1201,9 @@ export class ExpItemRoadmapComponent implements OnChanges {
     })
   }
 
-  concretarCambioCheckpoint() {
+  async concretarCambioCheckpoint() {
+    if (!this.expediente) return;
+
     this.actualizando = true;
 
     let idCheckpoint = this.frmCheckpoint.controls['id'].value;
@@ -1215,37 +1211,36 @@ export class ExpItemRoadmapComponent implements OnChanges {
     let fechaCheckpoint = this.frmCheckpoint.controls['fecha'].value;
 
     // agregar el nuevo checkpoint
-    const timestamp = (new Date()).getTime();
+    const timestamp = Date.now();
     const letraAleatoria = this.generarLetraAleatoria();
     const idGenerado = `ID${timestamp}${letraAleatoria}`;
-    const usuarioActivo = this.auth.currentUser;
-    const usuario = localStorage.getItem('nombre');
+    // const usuarioActivo = this.auth.currentUser;
+    const usuario = localStorage.getItem('nombre') ?? 'Usuario anonimo';
     // const usuario = usuarioActivo?.displayName;
 
-    this.db.collection('changelog').doc(idGenerado).set({
+    const payload = {
       idChangelog: idGenerado,
-      idExpediente: this.expediente?.idExpediente,
+      idExpediente: this.expediente.idExpediente,
+
       idCheckpoint: idCheckpoint,
       nombreCheckpoint: nombreCheckpoint,
       fecha: fechaCheckpoint,
 
       actualizadoPor: usuario,
       fechaCreacion: timestamp,
-    }).then(() => {
-      this.frmCheckpoint.reset();
-      this.modalService.dismissAll();
+    };
 
-      this.db.collection('expedientes').doc(this.expediente?.idExpediente).update({
-        idCheckpoint: idCheckpoint,
-        nombreCheckpoint: nombreCheckpoint,
-      });
-      if (this.expediente)
-        this.expediente.nombreCheckpoint = nombreCheckpoint;
-    }).catch(err => {
-      console.log(err)
-    }).finally(() => {
-      this.actualizando = false;
-    })
+    await this.appService.registrarChangelog(idGenerado, payload);
+
+    await this.appService.actualizarExpediente(this.expediente.idExpediente, {
+      idCheckpoint: idCheckpoint,
+      nombreCheckpoint: nombreCheckpoint,
+    });
+
+    this.expediente.nombreCheckpoint = nombreCheckpoint;
+    this.frmCheckpoint.reset();
+    this.modalService.dismissAll();
+    this.actualizando = false;
   }
 
   generarLetraAleatoria() {

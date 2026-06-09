@@ -1,10 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 import { Expediente } from './../_interfaces/expediente';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-edit-status',
@@ -15,6 +15,8 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   ]
 })
 export class ExpItemEditStatusComponent implements OnChanges {
+  appService = inject(AppService);
+
   @Input('expediente') expediente: Expediente | null = null;
 
   fcMotivo: FormControl;
@@ -22,7 +24,6 @@ export class ExpItemEditStatusComponent implements OnChanges {
   lUpdating = false;
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
     private router: Router,
   ) {
@@ -44,60 +45,47 @@ export class ExpItemEditStatusComponent implements OnChanges {
   /**
    * Depura un expediente
    */
-  disableExp() {
+  async disableExp() {
+    if (!this.expediente) return;
+
     this.lUpdating = true;
-    let motivoF = this.fcMotivo.value;
-    this.finalizar(motivoF).then(() => {
-      this.modalService.dismissAll();
-      this.router.navigate(['/expedientes-updater/'], {
-        queryParams: {
-          expediente: this.expediente?.numero,
-        }
-      })
-    }).catch(() => {
-      window.alert('error status');
-    }).finally(() => {
-      this.lUpdating = false;
+    let motivo = this.fcMotivo.value;
+
+    const ok = await this.appService.actualizarExpediente(this.expediente.idExpediente, {
+      estado: 'FINALIZADO',
+      motivoFinalizacion: motivo,
     });
+
+    this.modalService.dismissAll();
+
+    this.router.navigate(['/expedientes-updater/'], {
+      queryParams: {
+        expediente: this.expediente.numero,
+      }
+    })
+    this.lUpdating = false;
   }
 
   /**
    * Vuelve activo un expediente depurado
    */
-  enableExp() {
+  async enableExp() {
+    if (!this.expediente) return;
+
     this.lUpdating = true;
-    this.reActivar().then(() => {
-      this.modalService.dismissAll();
-      this.router.navigate(['/expedientes-updater/'], {
-        queryParams: {
-          expediente: this.expediente?.numero,
-        }
-      })
-    }).catch(() => {
-      window.alert('error status');
-    }).finally(() => {
-      this.lUpdating = false;
+
+    const ok = await this.appService.actualizarExpediente(this.expediente.idExpediente, {
+      estado: 'EN PROCESO'
     });
+
+    this.modalService.dismissAll();
+
+    this.router.navigate(['/expedientes-updater/'], {
+      queryParams: {
+        expediente: this.expediente.numero,
+      }
+    })
+    this.lUpdating = false;
   }
 
-  // Consultas a la base de datos
-
-  finalizar(motivo: string): Promise<void> {
-    return this.db
-      .collection('expedientes')
-      .doc(this.expediente?.idExpediente)
-      .update({
-        estado: 'FINALIZADO',
-        motivoFinalizacion: motivo,
-      });
-  }
-
-  reActivar(): Promise<void> {
-    return this.db
-      .collection('expedientes')
-      .doc(this.expediente?.idExpediente)
-      .update({
-        estado: 'EN PROCESO'
-      });
-  }
 }

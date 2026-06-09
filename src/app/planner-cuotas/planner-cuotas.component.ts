@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { firstValueFrom } from 'rxjs';
 
 import { Cuota } from '../_interfaces/cuota';
 import { RouterLink } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-planner-cuotas',
@@ -17,6 +16,8 @@ import { RouterLink } from '@angular/router';
   ]
 })
 export class PlannerCuotasComponent implements OnInit {
+  appService = inject(AppService);
+
   cuotas: Cuota[] = [];
   frmDate: FormGroup;
   cargando: boolean = true;
@@ -24,7 +25,6 @@ export class PlannerCuotasComponent implements OnInit {
   today: string = '';
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
     this.frmDate = new FormGroup({
@@ -79,33 +79,12 @@ export class PlannerCuotasComponent implements OnInit {
     let inicio = this.frmDate.controls['inicio'].value;
     let final = this.frmDate.controls['final'].value;
 
-    console.log(`Desde ${inicio} hasta ${final}`);
-    this.cuotas = await this.recuperarCuotas(inicio, final);
+    // console.log(`Desde ${inicio} hasta ${final}`);
+
+    const cuotas = await this.appService.plannerVencimientos(inicio, final);
+    this.cuotas = cuotas;
 
     this.cargando = false;
-  }
-
-  // Operaciones a la base de datos
-
-  /**
-   * Obtiene el listado de cobranzas de una fecha determinada, mes
-   * @param inicio primer dia del mes
-   * @param final ultimo dia del mes
-   */
-  recuperarCuotas(inicio: string, final: string): Promise<Cuota[]> {
-    let query = this.db.collection('cuotas', ref => {
-      return ref.where('vencimiento', '>=', inicio)
-        .where('vencimiento', '<=', final)
-    }).get();
-
-    return firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data());
-      });
-
-      return items;
-    });
   }
 
 }

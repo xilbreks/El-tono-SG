@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
-import { firstValueFrom } from 'rxjs';
 
 import { Expediente } from './../_interfaces/expediente';
 import { ExpItemCoverComponent } from '../exp-item-cover/exp-item-cover.component';
@@ -17,6 +15,7 @@ import { ExpItemRecursosComponent } from '../exp-item-recursos/exp-item-recursos
 import { ExpItemEditDataComponent } from '../exp-item-edit-data/exp-item-edit-data.component';
 import { ExpItemEvolutionComponent } from '../exp-item-evolution/exp-item-evolution.component';
 import { ExpItemEditStatusComponent } from '../exp-item-edit-status/exp-item-edit-status.component';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item',
@@ -38,6 +37,8 @@ import { ExpItemEditStatusComponent } from '../exp-item-edit-status/exp-item-edi
   ]
 })
 export class ExpItemComponent implements OnInit {
+  appService = inject(AppService);
+
   expediente: Expediente | null = null;
   lLoading: boolean = true;
 
@@ -45,7 +46,6 @@ export class ExpItemComponent implements OnInit {
   rol: string | null = null;
 
   constructor(
-    private db: AngularFirestore,
     private titleService: Title,
     private route: ActivatedRoute,
   ) {
@@ -67,8 +67,8 @@ export class ExpItemComponent implements OnInit {
     this.lLoading = true;
 
     // Consultar a la Base de datos por el expediente
-    let p1 = this.consultarNumeroPrincipal(sexpediente);
-    let p2 = this.consultarNumeroProvisional(sexpediente);
+    let p1 = this.appService.expedientePorNumero(sexpediente);
+    let p2 = this.appService.expedientePorNumeroProvisional(sexpediente);
     Promise.all([p1, p2]).then((res: any) => {
       if (res[0].length > 0) {
         this.expediente = res[0][0];
@@ -85,32 +85,6 @@ export class ExpItemComponent implements OnInit {
         // Indicador de carga
         this.lLoading = false;
       }
-    });
-  }
-
-  /****************************************************
-   ********** CONSULTAS A LA BASE DE DATOS ************
-   ****************************************************/
-
-  consultarNumeroPrincipal(numero: string): Promise<any[]> {
-    const obs = this.db.collection('expedientes', ref => {
-      return ref.where('numero', '==', numero)
-    }).get();
-    return firstValueFrom(obs).then(snapshot => {
-      let listado: any[] = [];
-      snapshot.forEach((doc: any) => listado.push(doc.data()))
-      return listado;
-    });
-  }
-
-  consultarNumeroProvisional(numero: string): Promise<any[]> {
-    const obs = this.db.collection('expedientes', ref => {
-      return ref.where('numeroProvisional', '==', numero)
-    }).get();
-    return firstValueFrom(obs).then(snapshot => {
-      let listado: any[] = [];
-      snapshot.forEach((doc: any) => listado.push(doc.data()))
-      return listado;
     });
   }
 

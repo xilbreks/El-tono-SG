@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { AppService } from '../app.service';
 import { AsyncPipe } from '@angular/common';
+import { Tareo } from '../_interfaces/tareo';
 
 @Component({
   selector: 'app-tareo-mensual',
@@ -16,7 +16,6 @@ import { AsyncPipe } from '@angular/common';
 })
 export class TareoMensualComponent {
   appService = inject(AppService);
-  db = inject(AngularFirestore);
 
   usuarios$ = this.appService.usuariosActivosStream();
   meses = [
@@ -102,56 +101,21 @@ export class TareoMensualComponent {
 
     console.log(`query: ${inicioMes} hasta ${finalMes} del usuario ${usuario}`);
 
-    let query = this.db.collection('tareo', ref => {
-      return ref.where('fecha', '>=', inicioMes)
-        .where('fecha', '<=', finalMes)
-        .where('idUsuario', '==', usuario)
-    }).get();
+    let rdts: Tareo[] = await this.appService.tareos(inicioMes, finalMes, usuario);
 
-    let rdts: any[] = await firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        let document: any = doc.data();
-        items.push(document)
-      });
+    const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    rdts = rdts.map(doc => {
 
-      const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+      const [anio, mes, dia] = doc.fecha.split('-').map(Number);
+      const fechaUTC = new Date(Date.UTC(anio, mes - 1, dia));
+      const numeroDia = fechaUTC.getUTCDay();
+      const nombreDia = diasSemana[numeroDia];
 
-      items = items.map(i => {
-        const [anio, mes, dia] = i.fecha.split('-').map(Number);
-        const fechaUTC = new Date(Date.UTC(anio, mes - 1, dia));
-        const numeroDia = fechaUTC.getUTCDay();
-        const nombreDia = diasSemana[numeroDia];
-
-        return {
-          ...i,
-          diaSemana: nombreDia
-        };
-      })
-
-      return items;
-    }).catch(err => {
-      throw err;
+      return {
+        ...doc,
+        diaSemana: nombreDia
+      };
     })
-
-    for (let index = 0; index < rdts.length; index++) {
-      const rdt = rdts[index];
-
-      let query = this.db.collection('tareas', ref => {
-        return ref.where('idTareo', '==', rdt.idTareo)
-      }).get();
-
-      let tareitas = await firstValueFrom(query).then(snap => {
-        let list: any[] = [];
-        snap.forEach(d => {
-          list.push(d.data())
-        })
-
-        return list;
-      })
-
-      rdt.tareas = tareitas;
-    }
 
     this.rdts = rdts;
 

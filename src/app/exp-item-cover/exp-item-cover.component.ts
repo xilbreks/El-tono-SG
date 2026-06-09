@@ -1,10 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Expediente } from './../_interfaces/expediente';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { firstValueFrom } from 'rxjs';
 import { ExpItemRoadmapComponent } from '../exp-item-roadmap/exp-item-roadmap.component';
 import { RouterLink } from '@angular/router';
+import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-cover',
@@ -16,6 +15,9 @@ import { RouterLink } from '@angular/router';
   ]
 })
 export class ExpItemCoverComponent implements OnChanges {
+  appService = inject(AppService);
+  storage = inject(Storage);
+
   @Input('expediente') expediente: Expediente | null = null;
 
   urlcontrato: string | null = null;
@@ -23,10 +25,7 @@ export class ExpItemCoverComponent implements OnChanges {
 
   mostrarObservaciones = true;
 
-  constructor(
-    private storage: AngularFireStorage,
-    private db: AngularFirestore,
-  ) { }
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.expediente) {
@@ -35,25 +34,24 @@ export class ExpItemCoverComponent implements OnChanges {
     }
   }
 
-  colocarLinkContrato() {
-    if (!this.expediente?.tieneContrato) return;
+  async colocarLinkContrato() {
+    if (!this.expediente?.idExpediente) return;
 
-    this.storage.ref(`contratos/${this.expediente?.idExpediente}.pdf`)
-      .getDownloadURL().subscribe(url => this.urlcontrato = url);
+    try {
+      const contratoRef = ref(this.storage, `contratos/${this.expediente.idExpediente}.pdf`);
+      this.urlcontrato = await getDownloadURL(contratoRef);
+    } catch (error) {
+      console.error('Error al obtener la URL del contrato:', error);
+      this.urlcontrato = null;
+    }
   }
 
-  buscarCuadernos() {
-    let obs = this.db.collection('expedientes', ref => {
-      return ref.where('numeroPrincipal', '==', this.expediente?.numero);
-    }).get();
+  async buscarCuadernos() {
+    if (!this.expediente) return;
 
-    firstValueFrom(obs).then(snapshot => {
-      this.cuadernos = [];
-      snapshot.forEach((doc: any) => {
-        this.cuadernos.push(doc.data())
-      });
-      this.cuadernos.sort((a, b) => a.numero > b.numero ? -1 : 1);
-    });
+    const cuadernos = await this.appService.expedientesAsociados(this.expediente.numero);
+
+    this.cuadernos = cuadernos;
   }
 
   toggleObservaciones() {

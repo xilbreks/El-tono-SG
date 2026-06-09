@@ -1,13 +1,11 @@
 export interface Changelog {
     idChangelog: string;
     idExpediente: string;
-    idCheckpoint: string;
 
+    idCheckpoint: string;
     nombreCheckpoint: string;
+    fecha: string;
     
-    fechaInicio: string;
-    fechaFin: string | null;
-    duracion: string | null;
     actualizadoPor: string;
-    fechaCreacion: string;
+    fechaCreacion: number;
 }

@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { Abono } from '../_interfaces/abono';
-import { Chart } from 'chart.js/auto';
-import { firstValueFrom } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-pagos-honorarios',
@@ -19,15 +17,15 @@ import { DecimalPipe } from '@angular/common';
   ]
 })
 export class PagosHonorariosComponent implements OnInit {
+  appService = inject(AppService);
+
   frmPagos: FormGroup;
   abonos: Array<Abono> = [];
   cargando = false;
   pagosChart: any;
   sumaAbonos = 0;
 
-  constructor(
-    private db: AngularFirestore,
-  ) {
+  constructor() {
     /************************
      * INIT FORM DATE RANGE *
      ************************/
@@ -53,31 +51,23 @@ export class PagosHonorariosComponent implements OnInit {
     this.obtenerAbonos()
   }
 
-  obtenerAbonos() {
+  async obtenerAbonos() {
     this.cargando = true;
     let inicio = this.frmPagos.controls['inicio'].value;
     let final = this.frmPagos.controls['final'].value;
-    let obs = this.db.collection('abonos', ref => {
-      return ref
-        .where('fecha', '>=', inicio)
-        .where('fecha', '<=', final);
-    }).get();
 
-    firstValueFrom(obs).then(snapshot => {
-      let abonos: any = [];
-      this.sumaAbonos = 0;
+    const abonos = await this.appService.abonosRangoFecha(inicio, final);
+    let sumaAbonos = 0;
 
-      snapshot.forEach(doc => {
-        let data: any = doc.data();
-        abonos.push(data);
-        this.sumaAbonos += data.monto;
-      });
-
-      this.abonos = abonos;
-
-      this.cargando = false;
-      // this.armarChart();
+    abonos.forEach(doc => {
+      sumaAbonos += doc.monto;
     })
+
+    this.abonos = abonos;
+    this.sumaAbonos = sumaAbonos;
+
+    this.cargando = false;
+    // this.armarChart();
   }
 
   // armarChart() {
