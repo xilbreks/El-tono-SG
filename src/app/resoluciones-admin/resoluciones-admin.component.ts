@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AsyncPipe } from '@angular/common';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,18 +8,15 @@ import { Resolucion } from './../_interfaces/resolucion';
 import { Expediente } from './../_interfaces/expediente';
 
 import { AppService } from './../app.service';
-import { firstValueFrom } from 'rxjs';
-import { Usuario } from '../_interfaces/usuario';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-resoluciones-admin',
-    templateUrl: './resoluciones-admin.component.html',
-    styleUrl: './resoluciones-admin.component.scss',
-    imports: [
-      AsyncPipe,
-      ReactiveFormsModule,
-    ]
+  selector: 'app-resoluciones-admin',
+  templateUrl: './resoluciones-admin.component.html',
+  styleUrl: './resoluciones-admin.component.scss',
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+  ]
 })
 export class ResolucionesAdminComponent {
   appService = inject(AppService);
@@ -49,7 +46,6 @@ export class ResolucionesAdminComponent {
   nick: string;
 
   constructor(
-    private db: AngularFirestore,
     private titleService: Title,
     private modalService: NgbModal,
   ) {
@@ -180,80 +176,16 @@ export class ResolucionesAdminComponent {
   //   })
   // }
 
-  obtenerResoluciones() {
+  async obtenerResoluciones() {
     this.cargando = true;
     let lcumplimiento = this.frmFiltros.controls['lcumplimiento'].value;
     let idcolaborador = this.frmFiltros.controls['idcolaborador'].value;
-    let query: any;
 
-    // POSIBILIDADES DE SUCESOS EN EL FILTRO
-    if (lcumplimiento == 'all' && idcolaborador == 'all') {
-      query = this.db.collection('resoluciones', ref => {
-        return ref.orderBy('fechaCreacion', 'desc').limit(25);
-      }).get();
-    } else if (lcumplimiento == 'all' && idcolaborador != 'all') {
-      query = this.db.collection('resoluciones', ref => {
-        return ref.where('idEncargado', '==', idcolaborador)
-          .orderBy('fechaCreacion', 'desc').limit(25);
-      }).get();
-    } else if (lcumplimiento != 'all' && idcolaborador == 'all') {
-      query = this.db.collection('resoluciones', ref => {
-        return ref.where('cumplimiento', '==', /^true$/i.test(lcumplimiento))
-          .orderBy('fechaCreacion', 'desc').limit(25);
-      }).get();
-    } else if (lcumplimiento != 'all' && idcolaborador != 'all') {
-      query = this.db.collection('resoluciones', ref => {
-        return ref.where('cumplimiento', '==', /^true$/i.test(lcumplimiento))
-          .where('idEncargado', '==', idcolaborador)
-          .orderBy('fechaCreacion', 'desc').limit(25);
-      }).get();
-    } else {
-      console.log('filtros incorrectos')
-      this.cargando = false;
-      return;
-    }
+    const resoluciones = await this.appService.resolucionesPorCumplimientoYColaborador(
+      lcumplimiento, idcolaborador
+    );
 
-    // SIN CONSIDERAR LAS POSIBILIDADES DE LOS FILTROS
-    // query = this.db.collection('resoluciones', ref => {
-    //   return ref.orderBy('fechaCreacion', 'desc').limit(25);
-    // }).get();
-
-    firstValueFrom(query).then((snapshot: any) => {
-      let items: any[] = [];
-      snapshot.forEach((doc: any) => {
-        items.push(doc.data())
-      })
-      this.resoluciones = items.map((t: Resolucion) => {
-        let scolor = 'black';
-        if (t.plazo) {
-          let year = Number(t.plazo.slice(0, 4));
-          let month = Number(t.plazo.slice(5, 7));
-          let day = Number(t.plazo.slice(8, 10));
-          let dPlazo = new Date(year, month - 1, day + 1);
-          let dToday = new Date();
-          let diff = dPlazo.getTime() - dToday.getTime();
-
-          if (t.cumplimiento) {
-            scolor = 'green'
-          } else if (diff > 0) {
-            scolor = 'gold'
-          } else if (diff < 0) {
-            scolor = 'red'
-          }
-        }
-
-        return {
-          ...t,
-          color: scolor
-        }
-      })
-    })
-    .catch(err => {
-      console.log(err);
-    })
-    .finally(() => {
-      this.cargando = false;
-    })
+    this.resoluciones = resoluciones;
   }
 
   obtenerExpedientesCompletos() {
@@ -352,7 +284,7 @@ export class ResolucionesAdminComponent {
     });
   }
 
-  registrarNuevaResolucion() {
+  async registrarNuevaResolucion() {
     this.registrando = true;
 
     // let idResolucion = this.frmRegistroResolucion.controls['idResolucion'].value;
@@ -376,37 +308,33 @@ export class ResolucionesAdminComponent {
     // Recuperar usuario actual
     let usuario: string = localStorage.getItem('nick') || 'nulo';
 
-    this.db.collection('resoluciones').doc(idGenerado)
-      .set({
-        idResolucion: idGenerado,
-        numeroExpediente: numeroExpediente,
-        fechaNotificacion: fechaNotificacion,
-        cliente: cliente,
-        titulo: titulo,
-        contenido: contenido,
-        tarea: null,
-        plazo: null,
-        cumplimiento: false,
-        observaciones: null,
-        nombreCreador: usuario,
-        idEncargado: idEncargado,
-        fechaCreacion: timestamp,
-      })
-      .then(() => {
-        this.modalService.dismissAll();
-        this.frmRegistroResolucion.reset();
-        this.frmRegistroResolucion.patchValue({numeroExpediente: ''})
-        this.obtenerResoluciones();
-      })
-      .catch(err => {
-        window.alert('ERROR al registrar')
-      })
-      .finally(() => {
-        this.registrando = false;
-      })
+    const payload = {
+      idResolucion: idGenerado,
+      numeroExpediente: numeroExpediente,
+      fechaNotificacion: fechaNotificacion,
+      cliente: cliente,
+      titulo: titulo,
+      contenido: contenido,
+      tarea: null,
+      plazo: null,
+      cumplimiento: false,
+      observaciones: null,
+      nombreCreador: usuario,
+      idEncargado: idEncargado,
+      fechaCreacion: timestamp,
+    }
+
+    const ok = await this.appService.registrarResolucion(idGenerado, payload);
+
+    this.modalService.dismissAll();
+    this.frmRegistroResolucion.reset();
+    this.frmRegistroResolucion.patchValue({ numeroExpediente: '' })
+    this.obtenerResoluciones();
+
+    this.registrando = false;
   }
 
-  delegarResolucion() {
+  async delegarResolucion() {
     this.delegando = true;
 
     let idResolucion = this.frmDelegarResolucion.controls['idResolucion'].value;
@@ -423,35 +351,31 @@ export class ResolucionesAdminComponent {
     let idEncargado = this.frmDelegarResolucion.controls['idEncargado'].value;
     // let fechaCreacion = this.frmDelegarResolucion.controls['fechaCreacion'].value;
 
-    this.db.collection('resoluciones').doc(idResolucion)
-      .update({
-        // idResolucion,
-        // numeroExpediente,
-        // fechaNotificacion: fechaNotificacion,
-        // cliente: cliente,
-        // titulo: titulo,
-        // contenido: contenido,
-        tarea: tarea,
-        plazo: plazo,
-        // cumplimiento: cumplimiento,
-        // observaciones: observaciones,
-        // nombreCreador,
-        idEncargado: idEncargado,
-        // fechaCreacion,
-      })
-      .then(() => {
-        this.modalService.dismissAll();
-        this.obtenerResoluciones();
-      })
-      .catch(err => {
-        window.alert('ERROR al delegar')
-      })
-      .finally(() => {
-        this.delegando = false;
-      });
+    const payload = {
+      // idResolucion,
+      // numeroExpediente,
+      // fechaNotificacion: fechaNotificacion,
+      // cliente: cliente,
+      // titulo: titulo,
+      // contenido: contenido,
+      tarea: tarea,
+      plazo: plazo,
+      // cumplimiento: cumplimiento,
+      // observaciones: observaciones,
+      // nombreCreador,
+      idEncargado: idEncargado,
+      // fechaCreacion,
+    }
+
+    const ok = await this.appService.actualizarResolucion(idResolucion, payload);
+
+    this.modalService.dismissAll();
+    this.obtenerResoluciones();
+
+    this.delegando = false;
   }
 
-  editarResolucion() {
+  async editarResolucion() {
     this.actualizando = true;
 
     let idResolucion = this.frmEditarResolucion.controls['idResolucion'].value;
@@ -468,35 +392,31 @@ export class ResolucionesAdminComponent {
     // let idEncargado = this.frmEditarResolucion.controls['idEncargado'].value;
     // let fechaCreacion = this.frmEditarResolucion.controls['fechaCreacion'].value;
 
-    this.db.collection('resoluciones').doc(idResolucion)
-      .update({
-        // idResolucion,
-        numeroExpediente: numeroExpediente,
-        fechaNotificacion: fechaNotificacion,
-        cliente: cliente,
-        titulo: titulo,
-        contenido: contenido,
-        // tarea: tarea,
-        // plazo: plazo,
-        // cumplimiento: cumplimiento,
-        // observaciones: observaciones,
-        // nombreCreador,
-        // idEncargado: idEncargado,
-        // fechaCreacion,
-      })
-      .then(() => {
-        this.modalService.dismissAll();
-        this.obtenerResoluciones();
-      })
-      .catch(err => {
-        window.alert('ERROR al actualizar')
-      })
-      .finally(() => {
-        this.actualizando = false;
-      });
+    const payload = {
+      // idResolucion,
+      numeroExpediente: numeroExpediente,
+      fechaNotificacion: fechaNotificacion,
+      cliente: cliente,
+      titulo: titulo,
+      contenido: contenido,
+      // tarea: tarea,
+      // plazo: plazo,
+      // cumplimiento: cumplimiento,
+      // observaciones: observaciones,
+      // nombreCreador,
+      // idEncargado: idEncargado,
+      // fechaCreacion,
+    }
+
+    const ok = await this.appService.actualizarResolucion(idResolucion, payload);
+
+    this.modalService.dismissAll();
+    this.obtenerResoluciones();
+
+    this.actualizando = false;
   }
 
-  darConformidadResolucion() {
+  async darConformidadResolucion() {
     this.dandoConformidad = true;
 
     let idResolucion = this.frmConformidadResolucion.controls['idResolucion'].value;
@@ -513,35 +433,31 @@ export class ResolucionesAdminComponent {
     // let idEncargado = this.frmConformidadResolucion.controls['idEncargado'].value;
     // let fechaCreacion = this.frmConformidadResolucion.controls['fechaCreacion'].value;
 
-    this.db.collection('resoluciones').doc(idResolucion)
-      .update({
-        // idResolucion,
-        // numeroExpediente: numeroExpediente,
-        // fechaNotificacion: fechaNotificacion,
-        // cliente: cliente,
-        // titulo: titulo,
-        // contenido: contenido,
-        // tarea: tarea,
-        // plazo: plazo,
-        cumplimiento: cumplimiento,
-        observaciones: observaciones,
-        // nombreCreador,
-        // idEncargado: idEncargado,
-        // fechaCreacion,
-      })
-      .then(() => {
-        this.modalService.dismissAll();
-        this.obtenerResoluciones();
-      })
-      .catch(err => {
-        window.alert('ERROR al dar conformidad')
-      })
-      .finally(() => {
-        this.dandoConformidad = false;
-      })
+    const payload = {
+      // idResolucion,
+      // numeroExpediente: numeroExpediente,
+      // fechaNotificacion: fechaNotificacion,
+      // cliente: cliente,
+      // titulo: titulo,
+      // contenido: contenido,
+      // tarea: tarea,
+      // plazo: plazo,
+      cumplimiento: cumplimiento,
+      observaciones: observaciones,
+      // nombreCreador,
+      // idEncargado: idEncargado,
+      // fechaCreacion,
+    }
+
+    const ok = await this.appService.actualizarResolucion(idResolucion, payload);
+
+    this.modalService.dismissAll();
+    this.obtenerResoluciones();
+
+    this.dandoConformidad = false;
   }
 
-  eliminarResolucion() {
+  async eliminarResolucion() {
     this.eliminando = true;
 
     let idResolucion = this.frmEliminarResolucion.controls['idResolucion'].value;
@@ -558,18 +474,12 @@ export class ResolucionesAdminComponent {
     // let idEncargado = this.frmEliminarResolucion.controls['idEncargado'].value;
     // let fechaCreacion = this.frmEliminarResolucion.controls['fechaCreacion'].value;
 
-    this.db.collection('resoluciones').doc(idResolucion)
-      .delete()
-      .then(() => {
-        this.modalService.dismissAll();
-        this.obtenerResoluciones();
-      })
-      .catch(err => {
-        window.alert('ERROR al eliminar')
-      })
-      .finally(() => {
-        this.eliminando = false;
-      });
+    const ok = await this.appService.eliminarResolucion(idResolucion);
+
+    this.modalService.dismissAll();
+    this.obtenerResoluciones();
+
+    this.eliminando = false;
   }
 
   // Codigo para generar letra random - ok ok

@@ -1,10 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
 import { Audiencia } from '../_interfaces/audiencia';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-trial',
@@ -15,6 +15,7 @@ import { Audiencia } from '../_interfaces/audiencia';
   ]
 })
 export class ExpItemTrialComponent implements OnChanges {
+  appService = inject(AppService);
   @Input('expediente') expediente: Expediente | null = null;
   lstAudiencias: Audiencia[] = [];
   lViewMode = true;
@@ -29,7 +30,6 @@ export class ExpItemTrialComponent implements OnChanges {
   frmDeleteAudience: FormGroup;
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
     /*******************************
@@ -74,31 +74,17 @@ export class ExpItemTrialComponent implements OnChanges {
     }
   }
 
-  getAudiencias() {
+  async getAudiencias() {
+    if (!this.expediente) return;
+
     this.lLoading = true;
     this.lstAudiencias = [];
 
-    let obs = this.db.collection('audiencias', ref => {
-      return ref.where('sexpediente', '==', this.expediente?.numero)
-    }).valueChanges()
-      .subscribe((res: Array<any>) => {
-        this.lstAudiencias = res.map(aud => {
-          let sDay = aud.sfecha.slice(8, 10);
-          let sMonth = aud.sfecha.slice(5, 7);
-          let sYear = aud.sfecha.slice(0, 4);
-          return {
-            ...aud,
-            sfechauser: sDay + '/' + sMonth + '/' + sYear
-          }
-        }).sort((a, b) => {
-          let sfecha1 = a.sfecha + '-' + a.shora;
-          let sfecha2 = b.sfecha + '-' + b.shora;
-          return sfecha1 > sfecha2 ? -1 : 1;
-        });
+    const audiencias = await this.appService.audienciasPorExpediente(this.expediente.numero);
 
-        this.lLoading = false;
-        obs.unsubscribe();
-      })
+    this.lstAudiencias = audiencias;
+
+    this.lLoading = false;
   }
 
   // Funciones para iniciar los Modals
@@ -140,88 +126,69 @@ export class ExpItemTrialComponent implements OnChanges {
 
   // Funciones para ejecutar cambios en la base de datos
 
-  addAudiencia() {
+  async addAudiencia() {
+    if (!this.expediente) return;
+
     this.lAdding = true;
 
     let sfecha = this.frmNewAudience.value['sfecha'];
     const sid = (new Date().getTime()).toString().slice(7);
     const idaudiencia = [sfecha, sid].join('-');
+    const payload = {
+      idaudiencia: idaudiencia,
+      sexpediente: this.expediente.numero,
+      sespecialidad: this.expediente.especialidad,
+      sdemandante: this.expediente.demandante,
+      sdemandado: this.expediente.demandado,
+      sfecha: this.frmNewAudience.value['sfecha'],
+      shora: this.frmNewAudience.value['shora'],
+      stipo: this.frmNewAudience.value['stipo'].trim(),
+      sencargados: this.frmNewAudience.value['sencargados'].trim(),
+      sasistente: this.frmNewAudience.value['sasistente'].trim(),
+      surl: this.frmNewAudience.value['surl'].trim(),
+    }
 
-    this.db
-      .collection('audiencias')
-      .doc(idaudiencia)
-      .set({
-        idaudiencia: idaudiencia,
-        sexpediente: this.expediente?.numero,
-        sespecialidad: this.expediente?.especialidad,
-        sdemandante: this.expediente?.demandante,
-        sdemandado: this.expediente?.demandado,
-        sfecha: this.frmNewAudience.value['sfecha'],
-        shora: this.frmNewAudience.value['shora'],
-        stipo: this.frmNewAudience.value['stipo'].trim(),
-        sencargados: this.frmNewAudience.value['sencargados'].trim(),
-        sasistente: this.frmNewAudience.value['sasistente'].trim(),
-        surl: this.frmNewAudience.value['surl'].trim(),
-      })
-      .then((x) => {
-        this.getAudiencias();
-        this.modalService.dismissAll();
-        this.frmNewAudience.reset();
-      })
-      .catch(() => {
-        window.alert('ERROR al registrar audiencia')
-      })
-      .finally(() => {
-        this.lAdding = false;
-      })
+    const ok = await this.appService.registrarAudiencia(idaudiencia, payload);
+
+    this.getAudiencias();
+    this.modalService.dismissAll();
+    this.frmNewAudience.reset();
+
+    this.lAdding = false;
   }
 
-  editAudiencia() {
+  async editAudiencia() {
     this.lUpdating = true;
     let idaudiencia = this.frmEditAudience.value['idaudiencia'];
+    const payload = {
+      sfecha: this.frmEditAudience.value['sfecha'],
+      shora: this.frmEditAudience.value['shora'],
+      stipo: this.frmEditAudience.value['stipo'].trim(),
+      sencargados: this.frmEditAudience.value['sencargados'].trim(),
+      sasistente: this.frmEditAudience.value['sasistente'].trim(),
+      surl: this.frmEditAudience.value['surl'].trim(),
+    }
 
-    this.db
-      .collection('audiencias')
-      .doc(idaudiencia)
-      .update({
-        sfecha: this.frmEditAudience.value['sfecha'],
-        shora: this.frmEditAudience.value['shora'],
-        stipo: this.frmEditAudience.value['stipo'].trim(),
-        sencargados: this.frmEditAudience.value['sencargados'].trim(),
-        sasistente: this.frmEditAudience.value['sasistente'].trim(),
-        surl: this.frmEditAudience.value['surl'].trim(),
-      })
-      .then((x) => {
-        this.getAudiencias();
-        this.modalService.dismissAll();
-        this.frmEditAudience.reset();
-      })
-      .catch(() => {
-        window.alert('ERROR al actualizar pago')
-      })
-      .finally(() => {
-        this.lUpdating = false;
-      })
+    const ok = await this.appService.actualizarAudiencia(idaudiencia, payload);
+
+    this.getAudiencias();
+    this.modalService.dismissAll();
+    this.frmEditAudience.reset();
+
+    this.lUpdating = false;
   }
 
-  deleteAudiencia() {
+  async deleteAudiencia() {
     this.lDeleting = true;
     let idaudiencia = this.frmDeleteAudience.value['idaudiencia'];
 
-    this.db.collection('audiencias')
-      .doc(idaudiencia)
-      .delete()
-      .then(() => {
-        this.getAudiencias();
-        this.modalService.dismissAll();
-        this.frmDeleteAudience.reset();
-      })
-      .catch(err => {
-        window.alert('ERROR al quitar audiencia')
-      })
-      .finally(() => {
-        this.lDeleting = false;
-      })
+    const ok = await this.appService.eliminarAudiencia(idaudiencia);
+
+    this.getAudiencias();
+    this.modalService.dismissAll();
+    this.frmDeleteAudience.reset();
+
+    this.lDeleting = false;
   }
 
   // Cambia de modo

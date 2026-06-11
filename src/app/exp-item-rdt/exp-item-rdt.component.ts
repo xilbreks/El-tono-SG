@@ -1,8 +1,6 @@
 import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
-
 import { Expediente } from './../_interfaces/expediente';
 import { Tarea } from './../_interfaces/tarea';
-import { firstValueFrom } from 'rxjs';
 import { AppService } from '../app.service';
 
 @Component({
@@ -35,7 +33,7 @@ export class ExpItemRdtComponent implements OnChanges {
 
     this.lLoading = true;
     const idExpediente = this.expediente.idExpediente;
-    const tareas = await this.appService.tareasExpediente(idExpediente, 16);
+    const tareas = await this.appService.tareasPorExpediente(idExpediente, 16);
 
     this.lstTareas = tareas;
 
@@ -53,7 +51,7 @@ export class ExpItemRdtComponent implements OnChanges {
 
     this.lLoadingMore = true;
     const idExpediente = this.expediente.idExpediente;
-    const tareas = await this.appService.tareasExpediente(idExpediente, 50);
+    const tareas = await this.appService.tareasPorExpediente(idExpediente, 50);
 
     this.lhasmore = false;
     this.lstTareas = tareas;

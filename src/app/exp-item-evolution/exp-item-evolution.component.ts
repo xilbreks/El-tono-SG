@@ -1,9 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Expediente } from './../_interfaces/expediente';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-evolution',
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
   ]
 })
 export class ExpItemEvolutionComponent implements OnChanges {
+  appService = inject(AppService);
   @Input('expediente') expediente: Expediente | null = null;
 
   fcClase: FormControl = new FormControl(null);   // 'PRINCIPAL' | 'CUADERNO' | 'CF'
@@ -21,7 +22,6 @@ export class ExpItemEvolutionComponent implements OnChanges {
   evolucionando = false;
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
     private router: Router,
   ) {
@@ -75,7 +75,8 @@ export class ExpItemEvolutionComponent implements OnChanges {
     this.frmExp.controls['numero'].updateValueAndValidity();
   }
 
-  concretarEvolucion() {
+  async concretarEvolucion() {
+    if (!this.expediente) return;
     this.evolucionando = true;
 
     // Promise para que al menos sea 5 segundos
@@ -102,25 +103,23 @@ export class ExpItemEvolutionComponent implements OnChanges {
     let demandante = this.frmExp.value['demandante'].trim().toUpperCase();
     let demandado = this.frmExp.value['demandado'].trim().toUpperCase();
     let juzgado = this.frmExp.value['juzgado'].trim().toUpperCase();
-
-    this.db.collection('expedientes').doc(this.expediente?.idExpediente).update({
+    const payload = {
       clase: clase,
       titulo: titulo,
       numero: numero,
       demandante: demandante,
       demandado: demandado,
       juzgado: juzgado,
-      numeroProvisional: this.expediente?.numero,
-    }).then(() => {
-      this.router.navigate(['/expedientes-updater/'], {
-        queryParams: {
-          expediente: numero,
-        }
-      }).then(() => {
-        this.modalService.dismissAll();
-      })
-      console.log('Evolucion exitosa');
-    })
-  }
+      numeroProvisional: this.expediente.numero,
+    }
 
+    const ok = await this.appService.actualizarExpediente(this.expediente.idExpediente, payload);
+
+    this.router.navigate(['/expedientes-updater/'], {
+      queryParams: {
+        expediente: numero,
+      }
+    })
+    this.modalService.dismissAll();
+  }
 }

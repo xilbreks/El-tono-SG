@@ -1,29 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  Firestore,
-  collection,
-  getDocs,
-  query,
-  where,
-  limit,
-  doc,
-  updateDoc
-} from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { Cita } from '../_interfaces/cita';
+import { AppService } from '../app.service';
 
 @Component({
-    selector: 'app-planner-citas',
-    templateUrl: './planner-citas.component.html',
-    styleUrl: './planner-citas.component.scss',
-    imports: [CommonModule, ReactiveFormsModule, RouterLink]
+  selector: 'app-planner-citas',
+  templateUrl: './planner-citas.component.html',
+  styleUrl: './planner-citas.component.scss',
+  imports: [CommonModule, ReactiveFormsModule, RouterLink]
 })
 export class PlannerCitasComponent implements OnInit {
-  private db = inject(Firestore);
+  appService = inject(AppService);
 
   lstCitas: Cita[] = [];
   lLoading = false;
@@ -101,39 +92,9 @@ export class PlannerCitasComponent implements OnInit {
     let sinicio = this.frmDate.controls['sinicio'].value;
     let sfinal = this.frmDate.controls['sfinal'].value;
 
-    const colRef = collection(this.db, 'citas');
-    const q = query(colRef, where('sfecha', '>=', sinicio), where('sfecha', '<=', sfinal));
-    const querySnapshot = await getDocs(q);
+    const citas = await this.appService.citasPorRangoFecha(sinicio, sfinal);
 
-    this.lstCitas = querySnapshot.docs.map(doc => {
-      const cita: any = doc.data();
-      let sDay = cita.sfecha.slice(8, 10);
-      let sMonth = cita.sfecha.slice(5, 7);
-      let sYear = cita.sfecha.slice(0, 4);
-
-      // Colocar nombre a los dias y el mes
-      let dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      let meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
-      let fecha = new Date(`${cita.sfecha}T00:00`);
-      let numeroDiaSemana = fecha.getUTCDay();
-      let numeroMes = fecha.getMonth();
-      let nombreDia = dias[numeroDiaSemana];
-      let nombreMes = meses[numeroMes];
-
-      return {
-        ...cita,
-        sfechauser: sDay + '/' + sMonth + '/' + sYear,
-        scliente: cita.scliente.toUpperCase(),
-        nombreDia,
-        numeroDia: sDay,
-        nombreMes,
-      }
-    }).sort((a, b) => {
-      let sfecha1 = a.sfecha + '-' + a.shora;
-      let sfecha2 = b.sfecha + '-' + b.shora;
-      return sfecha1 < sfecha2 ? -1 : 1;
-    });
-
+    this.lstCitas = citas;
     this.lLoading = false;
   }
 
@@ -152,20 +113,14 @@ export class PlannerCitasComponent implements OnInit {
     this.lUpdating = true;
     let idcita = this.frmAcuerdos.value['idcita'];
     let sacuerdos = this.frmAcuerdos.value['sacuerdos'].trim();
-
-    const docRef = doc(this.db, `citas/${idcita}`);
-
-    try {
-      await updateDoc(docRef, {
-        sacuerdos: sacuerdos
-      })
-      this.modalService.dismissAll();
-      this.lUpdating = false;
-      this.getCitas(false);
-
-    } catch (err) {
-      this.lUpdating = false;
-      console.log(err);
+    const payload = {
+      sacuerdos: sacuerdos,
     }
+
+    const ok = await this.appService.actualizarCita(idcita, payload);
+
+    this.modalService.dismissAll();
+    this.lUpdating = false;
+    this.getCitas(false);
   }
 }

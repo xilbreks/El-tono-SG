@@ -243,4 +243,37 @@ export class ZDownloaderComponent {
     // Release the object URL
     URL.revokeObjectURL(url);
   }
+
+  //
+
+  async backupMaterias() {
+    const changelogRef = collection(this.db, 'materias');
+
+    const q = query(changelogRef);
+
+    const querySnapshot = await getDocs(q);
+
+    const lista = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+
+    // Convert JSON to string
+    const data = JSON.stringify(lista);
+
+    // Create a Blob object
+    const blob = new Blob([data], { type: 'application/json' });
+
+    // Create an object URL
+    const url = URL.createObjectURL(blob);
+
+    // Download file
+    let link = document.createElement('a');
+    link.download = 'materias.json';
+    link.href = url;
+    link.click();
+
+    // Release the object URL
+    URL.revokeObjectURL(url);
+  }
 }

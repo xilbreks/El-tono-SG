@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { JsonPipe } from '@angular/common';
 
 import { AppService } from '../app.service';
 
@@ -9,7 +8,7 @@ import { AppService } from '../app.service';
     selector: 'app-auth-signup',
     templateUrl: './auth-signup.component.html',
     styleUrl: './auth-signup.component.scss',
-    imports: [ReactiveFormsModule, JsonPipe]
+    imports: [ReactiveFormsModule]
 })
 export class AuthSignupComponent {
   // Injecciones

@@ -1,11 +1,13 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-
+import {
+  Storage, ref, listAll, getDownloadURL,
+  getMetadata, uploadBytesResumable, deleteObject
+} from '@angular/fire/storage';
 import { Expediente } from './../_interfaces/expediente';
 import { finalize } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-recursos',
@@ -16,6 +18,8 @@ import { DecimalPipe } from '@angular/common';
   ]
 })
 export class ExpItemRecursosComponent implements OnChanges {
+  appService = inject(AppService);
+  storage = inject(Storage);
   @Input('expediente') expediente: Expediente | null = null;
 
   lstAnexos: any = [];
@@ -25,8 +29,6 @@ export class ExpItemRecursosComponent implements OnChanges {
   lUpdating = false;
 
   constructor(
-    private db: AngularFirestore,
-    private storage: AngularFireStorage,
     private modalService: NgbModal,
   ) {
   }
@@ -41,20 +43,32 @@ export class ExpItemRecursosComponent implements OnChanges {
     });
   }
 
-  listFiles() {
-    const storageRef = this.storage.storage.ref(`recursos/${this.expediente?.idExpediente}`);
+  async listFiles() {
+    if (!this.expediente) return;
 
-    storageRef.listAll().then(async (result) => {
+    try {
+      const storageRef = ref(this.storage, `recursos/${this.expediente.idExpediente}`);
+
+      const result = await listAll(storageRef);
+
       const fileDetails = await Promise.all(
         result.items.map(async (itemRef) => {
-          const url = await itemRef.getDownloadURL();
-          return { name: itemRef.name, removing: false, size: (await itemRef.getMetadata()).size, url };
+          const url = await getDownloadURL(itemRef);
+          const metadata = await getMetadata(itemRef);
+
+          return {
+            name: itemRef.name,
+            removing: false,
+            size: metadata.size,
+            url
+          };
         })
       );
 
-      // console.log('Archivos con URLs:', fileDetails);
       this.lstAnexos = fileDetails;
-    })
+    } catch (error) {
+      console.error('Error al listar archivos:', error);
+    }
   }
 
   onFileSelected(event: Event) {
@@ -80,35 +94,44 @@ export class ExpItemRecursosComponent implements OnChanges {
     this.lUpdating = true;
 
     const filePath = `recursos/${this.expediente?.idExpediente}/${this.file.name}`;
-    const fileRef = this.storage.ref(filePath);
-    const task = this.storage.upload(filePath, this.file);
+    const storageRef = ref(this.storage, filePath);
+    const task = uploadBytesResumable(storageRef, this.file);
 
     // Monitorea el progreso
-    task.percentageChanges().subscribe((progress) => {
-      this.uploadProgress = progress || 0;
-    });
-
-    // Obtén la URL del archivo al finalizar
-    task.snapshotChanges()
-      .pipe(finalize(() => {
-        fileRef.getDownloadURL().subscribe((url) => {
-          // console.log('Archivo subido con éxito. URL:', url);
-          this.listFiles();
-          this.uploadProgress = -1; // Reinicia el progreso
-          this.file = null; // reinicia el file
-        });
-      }))
-      .subscribe();
+    task.on('state_changed',
+      (snapshot) => {
+        this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+      (error) => {
+        console.error('Error al subir archivo:', error);
+        this.lUpdating = false;
+        this.uploadProgress = -1;
+      },
+      async () => {
+        const url = await getDownloadURL(task.snapshot.ref);
+        // console.log('Archivo subido con éxito. URL:', url);
+        this.uploadProgress = -1;
+        this.listFiles();
+        this.file = null;
+      }
+    );
   }
 
-  quitarAnexo(ruta: any) {
-    ruta.removing = true;
-    const fileRef = this.storage.ref(`recursos/${this.expediente?.idExpediente}/${ruta.name}`);
-    const obs = fileRef.delete().subscribe(res => {
-      console.log('eliminado: ', res);
+  async quitarAnexo(ruta: any) {
+    if (!this.expediente?.idExpediente) return;
 
-      this.listFiles();
-      obs.unsubscribe();
-    });
+    ruta.removing = true;
+
+    const fileRef = ref(this.storage, `recursos/${this.expediente.idExpediente}/${ruta.name}`);
+
+    try {
+      await deleteObject(fileRef);
+
+      // console.log('eliminado con éxito');
+      this.listFiles(); // Refrescamos la lista de archivos
+    } catch (error) {
+      console.error('Error al eliminar el archivo: ', error);
+      ruta.removing = false;
+    }
   }
 }

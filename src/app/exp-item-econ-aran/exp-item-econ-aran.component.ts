@@ -1,12 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
 import { Arancel } from '../_interfaces/arancel';
-import { firstValueFrom } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-econ-aran',
@@ -18,6 +17,7 @@ import { DecimalPipe } from '@angular/common';
   ]
 })
 export class ExpItemEconAranComponent implements OnChanges {
+  appService = inject(AppService);
   @Input('expediente') expediente: Expediente | null = null;
   nick: string | null;
   rol: string | null;
@@ -36,7 +36,6 @@ export class ExpItemEconAranComponent implements OnChanges {
   quitando: boolean = false;
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
     this.nick = localStorage.getItem('nick');
@@ -71,8 +70,10 @@ export class ExpItemEconAranComponent implements OnChanges {
   }
 
   async obtenerGastosComplementarios() {
+    if (!this.expediente) return;
     this.cargando = true;
-    this.gastosComplementarios = await this.recuperarGastos(this.expediente?.idExpediente);
+    const aranceles = await this.appService.arancelesPorExpediente(this.expediente?.idExpediente);
+    this.gastosComplementarios = aranceles;
     this.sumaGastosComplementarios = 0;
     this.gastosComplementarios.forEach(gasto => {
       this.sumaGastosComplementarios += gasto.monto;
@@ -122,7 +123,7 @@ export class ExpItemEconAranComponent implements OnChanges {
 
     const idArancel = (new Date()).getTime().toString();
 
-    let gasto: Arancel = {
+    let payload = {
       idArancel: idArancel,
       idExpediente: this.expediente ? this.expediente.idExpediente : 'void',
       concepto: this.frmNuevoGasto.value['concepto'].trim(),
@@ -136,7 +137,7 @@ export class ExpItemEconAranComponent implements OnChanges {
       materia: this.expediente ? this.expediente.materia : 'void',
     }
 
-    await this.registrarNuevoGasto(idArancel, gasto);
+    const ok = await this.appService.registrarArancel(idArancel, payload);
 
     this.guardando = false;
     this.modalService.dismissAll();
@@ -149,9 +150,9 @@ export class ExpItemEconAranComponent implements OnChanges {
     this.actualizando = true;
 
     let idArancel = this.frmEditaGasto.value['idArancel'];
-    const gasto = this.frmEditaGasto.value;
+    const payload = this.frmEditaGasto.value;
 
-    await this.actualizarGasto(idArancel, gasto);
+    const ok = await this.appService.actualizarArancel(idArancel, payload);
 
     this.actualizando = false;
     this.modalService.dismissAll();
@@ -165,52 +166,13 @@ export class ExpItemEconAranComponent implements OnChanges {
 
     let idArancel = this.frmQuitaGasto.value['idArancel'];
 
-    await this.quitarGasto(idArancel);
+    const ok = await this.appService.eliminarArancel(idArancel);
 
     this.quitando = false;
     this.modalService.dismissAll();
     this.frmQuitaGasto.reset()
 
     this.obtenerGastosComplementarios();
-  }
-
-  // OPERACIONES A LA BASE DE DATOS
-
-  recuperarGastos(idExpediente: string | undefined): Promise<any[]> {
-    let query = this.db.collection('aranceles', ref => {
-      return ref.where('idExpediente', '==', idExpediente);
-    }).get();
-
-    return firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      });
-
-      items = items.sort((a, b) => a.fecha < b.fecha ? -1 : 1);
-
-      return items;
-    }).catch(err => {
-      throw err;
-    });
-  }
-
-  registrarNuevoGasto(idGasto: string, gasto: Arancel): Promise<any> {
-    let query = this.db.collection('aranceles').doc(idGasto).set(gasto);
-
-    return query;
-  }
-
-  actualizarGasto(idgasto: string, gasto: Arancel): Promise<void> {
-    let query = this.db.collection('aranceles').doc(idgasto).update(gasto);
-
-    return query;
-  }
-
-  quitarGasto(idGasto: string): Promise<void> {
-    let query = this.db.collection('aranceles').doc(idGasto).delete();
-
-    return query;
   }
 
 }

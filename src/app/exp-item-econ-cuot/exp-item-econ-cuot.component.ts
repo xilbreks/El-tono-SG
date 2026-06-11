@@ -1,5 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -7,6 +6,7 @@ import { Expediente } from './../_interfaces/expediente';
 import { Cuota } from '../_interfaces/cuota';
 import { firstValueFrom } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-econ-cuot',
@@ -18,6 +18,7 @@ import { DecimalPipe } from '@angular/common';
   ]
 })
 export class ExpItemEconCuotComponent implements OnChanges {
+  appService = inject(AppService);
   @Input('expediente') expediente: Expediente | null = null;
   nick: string | null;
   rol: string | null;
@@ -39,7 +40,6 @@ export class ExpItemEconCuotComponent implements OnChanges {
   quitando: boolean = false;
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
     this.nick = localStorage.getItem('nick');
@@ -85,8 +85,10 @@ export class ExpItemEconCuotComponent implements OnChanges {
   }
 
   async obtenerCuotas() {
+    if (!this.expediente) return;
     this.cargando = true;
-    this.cuotas = await this.recuperarCuotas(this.expediente?.idExpediente);
+    const cuotas = await this.appService.cuotasPorExpediente(this.expediente.idExpediente);
+    this.cuotas = cuotas;
     this.sumaCuotas = 0;
     this.cuotas.forEach(cuota => {
       this.sumaCuotas += cuota.monto;
@@ -165,7 +167,12 @@ export class ExpItemEconCuotComponent implements OnChanges {
     const celular = this.frmCliente.value['celular'].trim();
     const detalleContrato = this.frmCliente.value['detalleContrato'].trim();
 
-    await this.actualizarDatosCliente(idExpediente, nombreCliente, dni, celular, detalleContrato);
+    const ok = await this.appService.actualizarExpediente(idExpediente, {
+      nombreCliente,
+      dni,
+      celular,
+      detalleContrato,
+    })
     if (this.expediente) {
       this.expediente.nombreCliente = nombreCliente;
       this.expediente.dni = dni;
@@ -179,11 +186,12 @@ export class ExpItemEconCuotComponent implements OnChanges {
   }
 
   async guardarNuevaCuota() {
+    if (!this.expediente) return;
     this.guardando = true;
 
     const idCuota = (new Date()).getTime().toString();
 
-    let cuota: Cuota = {
+    const payload = {
       idCuota: idCuota,
       idExpediente: this.expediente ? this.expediente.idExpediente : 'void',
       numero: this.frmNuevaCuota.value['numero'],
@@ -199,7 +207,7 @@ export class ExpItemEconCuotComponent implements OnChanges {
       materia: this.expediente ? this.expediente.materia : 'void',
     }
 
-    await this.registrarNuevaCuota(idCuota, cuota);
+    const ok = await this.appService.registrarCuota(idCuota, payload);
 
     this.guardando = false;
     this.modalService.dismissAll();
@@ -212,9 +220,9 @@ export class ExpItemEconCuotComponent implements OnChanges {
     this.actualizando = true;
 
     let idCuota = this.frmEditaCuota.value['idCuota'];
-    const cuota = this.frmEditaCuota.value;
+    const payload = this.frmEditaCuota.value;
 
-    await this.actualizarCuota(idCuota, cuota);
+    const ok = await this.appService.actualizarCuota(idCuota, payload);
 
     this.actualizando = false;
     this.modalService.dismissAll();
@@ -228,7 +236,7 @@ export class ExpItemEconCuotComponent implements OnChanges {
 
     let idCuota = this.frmQuitaCuota.value['idCuota'];
 
-    await this.quitarCuota(idCuota);
+    const ok = await this.appService.eliminarCuota(idCuota);
 
     this.quitando = false;
     this.modalService.dismissAll();
@@ -261,61 +269,6 @@ export class ExpItemEconCuotComponent implements OnChanges {
       this.frmEditaCuota.controls['vencimiento'].setValidators(Validators.required);
       this.frmEditaCuota.controls['vencimiento'].updateValueAndValidity();
     }
-  }
-
-  // OPERACIONES A LA BASE DE DATOS
-
-  recuperarCuotas(idExpediente: string | undefined): Promise<any[]> {
-    let query = this.db.collection('cuotas', ref => {
-      return ref.where('idExpediente', '==', idExpediente).orderBy('numero', 'asc');
-    }).get();
-
-    return firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      });
-
-      // console.log(items)
-      return items;
-    }).catch(err => {
-      throw err;
-    });
-  }
-
-  registrarNuevaCuota(idCuota: string, cuota: Cuota): Promise<any> {
-    let query = this.db.collection('cuotas').doc(idCuota).set(cuota);
-
-    return query;
-  }
-
-  actualizarCuota(idCuota: string, cuota: Cuota): Promise<void> {
-    let query = this.db.collection('cuotas').doc(idCuota).update(cuota);
-
-    return query;
-  }
-
-  quitarCuota(idCuota: string): Promise<void> {
-    let query = this.db.collection('cuotas').doc(idCuota).delete();
-
-    return query;
-  }
-
-  actualizarDatosCliente(
-    idExpediente: string,
-    nombreCliente: string,
-    dni: string,
-    celular: string,
-    detalleContrato: string,
-  ) {
-    let query = this.db.collection('expedientes').doc(idExpediente).update({
-      nombreCliente: nombreCliente,
-      dni: dni,
-      celular: celular,
-      detalleContrato: detalleContrato,
-    });
-
-    return query;
   }
 
 }

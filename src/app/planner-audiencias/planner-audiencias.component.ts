@@ -1,18 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import {
-  Firestore,
-  collection,
-  getDocs,
-  query,
-  where,
-  limit,
-} from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { PlannerAudienciaItemComponent } from '../planner-audiencia-item/planner-audiencia-item.component';
 
 import { Audiencia } from '../_interfaces/audiencia';
+import { AppService } from '../app.service';
 
 @Component({
     selector: 'app-planner-audiencias',
@@ -22,7 +14,7 @@ import { Audiencia } from '../_interfaces/audiencia';
         PlannerAudienciaItemComponent]
 })
 export class PlannerAudienciasComponent implements OnInit {
-  private db = inject(Firestore);
+  appService = inject(AppService);
 
   lstAudiencias: Audiencia[] = [];
   lstAudLaboral: Audiencia[] = [];
@@ -93,62 +85,9 @@ export class PlannerAudienciasComponent implements OnInit {
     let inicio = this.frmDate.controls['sinicio'].value;
     let final = this.frmDate.controls['sfinal'].value;
 
-    const colRef = collection(this.db, 'audiencias');
-    const q = query(colRef, where('sfecha', '>=', inicio), where('sfecha', '<=', final));
-    const querySnapshot = await getDocs(q);
+    const audiencias = await this.appService.audienciasPorRangoFecha(inicio, final);
     
-    this.lstAudiencias = querySnapshot.docs.map(doc => {
-      const audiencia: any = doc.data();
-      
-      // Fecha mas legible
-      let sDay = audiencia.sfecha.slice(8, 10);
-      let sMonth = audiencia.sfecha.slice(5, 7);
-      let sYear = audiencia.sfecha.slice(0, 4);
-
-      // Detecion de enlace meet en el url
-      const regexMeet = /meet\.google\.com\/[a-z]{3}-{0,1}[a-z]{4}-{0,1}[a-z]{3}/i;
-      let prefijo = audiencia.surl;
-      let cuerpo = '';
-      let sufijo = '';
-      const texto: string = audiencia.surl;
-      const enlace: RegExpMatchArray | null = texto.match(regexMeet);
-
-      // Existe link
-      if (enlace) {
-        let indiceInicio: number = texto.indexOf(enlace[0])
-
-        prefijo = texto.slice(0, indiceInicio);
-        cuerpo = texto.slice(indiceInicio, indiceInicio + 28).toLowerCase();
-        sufijo = texto.slice(indiceInicio + 29);
-      }
-
-      // Dia de la semana y mes del año
-      let dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      let meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
-      let fecha = new Date(`${audiencia.sfecha}T00:00`);
-      let numeroDiaSemana = fecha.getUTCDay();
-      let numeroMes = fecha.getMonth();
-      let nombreDia = dias[numeroDiaSemana];
-      let nombreMes = meses[numeroMes];
-      let numeroDia = fecha.getDate();
-      let numeroAnio = fecha.getFullYear();
-
-      return {
-        ...audiencia,
-        sfechauser: sDay + '/' + sMonth + '/' + sYear,
-        sprefijolink: prefijo,
-        scuerpolink: cuerpo,
-        ssufijolink: sufijo,
-        nombreDia,
-        nombreMes,
-        numeroDia: sDay,
-        numeroAnio,
-      }
-    }).sort((a, b) => {
-      let sfecha1 = a.sfecha + '-' + a.shora;
-      let sfecha2 = b.sfecha + '-' + b.shora;
-      return sfecha1 < sfecha2 ? -1 : 1;
-    });
+    this.lstAudiencias = audiencias;
 
     // Crear las lista filtrando segun area de la audiencia
     this.lstAudLaboral = this.lstAudiencias.filter(a => a.sespecialidad == 'LABORAL' || a.sespecialidad == 'CONSTITUCIONAL');

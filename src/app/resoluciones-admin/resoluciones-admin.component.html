@@ -12,7 +12,7 @@
     <label for="scol">Colaborador: </label>
     <select id="scol" formControlName="idcolaborador">
       <option value="all">TODOS</option>
-      @for (c of usuarios$ | async; track c) {
+      @for (c of usuarios$ | async; track c.nick) {
         <option [value]="c.nick">
           {{c.nombre}}
         </option>

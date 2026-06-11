@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { firstValueFrom } from 'rxjs';
+import { Component, inject, OnInit } from '@angular/core';
 import { Tareo } from '../_interfaces/tareo';
 import { RouterLink } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-tareo-diario-user',
@@ -13,14 +12,13 @@ import { RouterLink } from '@angular/router';
   ]
 })
 export class TareoDiarioUserComponent implements OnInit {
+  appService = inject(AppService);
   nick: string = 'null';
   tareos: Tareo[] = [];
 
   cargando = false;
 
-  constructor(
-    private db: AngularFirestore,
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     let nick: any = localStorage.getItem('nick');
@@ -35,35 +33,9 @@ export class TareoDiarioUserComponent implements OnInit {
     this.cargando = true;
 
     let idUsuario = this.nick;
-    let tareos = await this.recuperarTareos(idUsuario);
+    const tareos = await this.appService.tareosPorUsuario(idUsuario);
     this.tareos = tareos;
 
     this.cargando = false;
-  }
-
-  // Operaciones a la base de datos
-
-  recuperarTareos(idUsuario: string): Promise<any[]> {
-    const query = this.db.collection('tareo', ref => {
-      return ref.where('idUsuario', '==', idUsuario).orderBy('fecha', 'desc').limit(25)
-    }).get();
-
-    return firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach((doc: any) => {
-        let obj = doc.data();
-        items.push({
-          ...obj,
-          horaIngreso: obj.entradaHora,
-          minutoIngreso: obj.entradaMinuto,
-          horaSalida: obj.salidaHora,
-          minutoSalida: obj.salidaMinuto,
-        })
-      })
-      console.log(items)
-      return items;
-    }).catch(err => {
-      throw err;
-    })
   }
 }

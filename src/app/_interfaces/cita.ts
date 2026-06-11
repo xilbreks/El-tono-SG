@@ -11,8 +11,9 @@ export interface Cita {
     sencargados: string;
     sacuerdos: string;
     stema: string;
-    sfechauser: string;
-    nombreDia: string;
-    numeroDia: string;
-    nombreMes: string;
+    // Solo para vista
+    sfechauser?: string;
+    nombreDia?: string;
+    numeroDia?: string;
+    nombreMes?: string;
 }

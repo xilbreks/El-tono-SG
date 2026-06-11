@@ -20,11 +20,12 @@ export interface Tarea {
     delegadoPor: string,            // Supervisor quien asigno la tarea
     horasAtencion: string,          // Numero de horas demandadas por la tarea
     minutosAtencion: string,        // Numero de minutos demandados por la tarea
+    
     montoPactado: string,           // Monto pactado del expediente
     abonoTotal: string,             // Abono total sobre el expediente
     montoUltimoAbono: string,       // Monto del ultimo abono
     fechaUltimoAbono: string,       // Fecha del ultimo abono
+    
     fechaCreacion: number,          // Fecha de creacion de la tarea en timestamp
-
     fechaCreacionString?: string,   // fecha de creacion en formato dd/mm/yyyy - hh:mm:ss
 }

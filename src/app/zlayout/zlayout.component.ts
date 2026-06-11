@@ -1,7 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { Firestore, doc, docData } from '@angular/fire/firestore';
-import { map, tap, filter } from 'rxjs';
+import { Firestore, doc, onSnapshot } from '@angular/fire/firestore';
 import { AppService } from '../app.service';
 import { Usuario } from './../_interfaces/usuario';
 
@@ -29,35 +28,36 @@ export class ZlayoutComponent implements OnInit, OnDestroy {
   usuarioObs;
 
   constructor() {
-    // Verificar que la version sea la correcta
-    const docRef = doc(this.db, 'versionado/master');
-    this.versionObs = docData(docRef).pipe(
-      tap((v: any) => console.log('version: ', v.version)),
-    ).subscribe((data: any) => {
-      const version = data as Version;
-      if (version.version == this.versionApp) {
-        // todo ok
-        // console.log('todo ok con la version')
-      } else {
-        // recargar pagina
-        this.recargarPagina();
-        console.log('hay nueva actualizacion, recargar pagina')
+    // 2. La referencia al documento está perfecta separada por comas
+    const docRef = doc(this.db, 'versionado', 'master');
+
+    // 3. Usamos onSnapshot directamente en lugar de docData().subscribe()
+    // onSnapshot se encarga de escuchar los cambios en tiempo real sin romper los tipos
+    this.versionObs = onSnapshot(docRef, (snapshot) => {
+      const data = snapshot.data() as Version;
+
+      if (data) {
+        console.log('version: ', data.version);
+
+        if (data.version === this.versionApp) {
+          // todo ok
+        } else {
+          // recargar pagina
+          this.recargarPagina();
+          console.log('hay nueva actualizacion, recargar pagina');
+        }
       }
+    }, (error) => {
+      console.error("Error al obtener la versión:", error);
     });
 
-    // Leer usuario y acceso
-    this.usuarioObs = this.appService.usuario$
-      .pipe(
-      // filter((u) => u ? true : false),
-      // map((u: any) => u?.uid)
-    ).subscribe((user: any) => {
+    // Leer usuario y acceso (Tu código de abajo se queda exactamente igual)
+    this.usuarioObs = this.appService.usuario$.subscribe((user: any) => {
       if (!user) {
         console.log('user en el layout: ', user, 'ir al login');
-        // mandar al login
         this.router.navigate(['/logout']);
+        return;
       }
-
-      // Activar escucha del permiso de usuario
       console.log('user en el layout: ', user.uid, 'mantenerse aqui');
       this.getCurrentUser(user.uid);
     });
@@ -82,7 +82,7 @@ export class ZlayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.versionObs.unsubscribe();
+    if (this.versionObs) this.versionObs();
     this.usuarioObs.unsubscribe();
   }
 }

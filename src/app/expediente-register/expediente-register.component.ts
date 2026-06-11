@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +28,8 @@ class ObjMateria {
   ]
 })
 export class ExpedienteRegisterComponent {
+  appService = inject(AppService);
+
   expedientes: Expediente[] = [];
   expedientesFiltrados: Expediente[] = [];
   frmExpediente: FormGroup;
@@ -39,7 +40,6 @@ export class ExpedienteRegisterComponent {
   materiasFiltradas: Array<ObjMateria> = [];
 
   constructor(
-    private db: AngularFirestore,
     private titleService: Title,
     private router: Router,
     private service: AppService,
@@ -65,13 +65,9 @@ export class ExpedienteRegisterComponent {
   }
 
   getMaterias() {
-    let obs = this.db.collection('materias').get();
+    const materias = this.appService.materias();
 
-    firstValueFrom(obs).then(snapshot => {
-      snapshot.forEach(doc => {
-        this.materias.push(new ObjMateria(doc.data()));
-      })
-    })
+    this.materias = materias;
   }
 
   setLstMaterias() {
@@ -166,7 +162,7 @@ export class ExpedienteRegisterComponent {
   async guardarExpediente() {
     this.estaGuardando = true;
     let numeroExp = this.frmExpediente.controls['numero'].value.toUpperCase().trim();
-    let existeExp = await this.existeExpediente(numeroExp);
+    const existeExp = await this.appService.existeExpediente(numeroExp);
 
     if (existeExp) {
       window.alert('Numero de expediente ya existe');
@@ -174,115 +170,11 @@ export class ExpedienteRegisterComponent {
       return;
     }
 
-    let idExpediente = await this.generarNuevoIdExpediente();
+    let idExpediente = await this.appService.generarNuevoIdExpediente();
 
-    this.guardarExpedienteDB(idExpediente).then(() => {
-      // guardar en el changelog un registro
-      let timestamp = (new Date()).getTime();
-      let idGenerado = `ID${timestamp}X`;
-      let fechaInicio = this.frmExpediente.controls['fechaInicio'].value.trim();
+    const timestamp = Date.now();
 
-      this.db.collection('changelog').doc(idGenerado).set({
-        idChangelog: idGenerado,
-        idExpediente: idExpediente,
-        idCheckpoint: "000",
-        nombreCheckpoint: "Expediente registrado en el sistema",
-        actualizadoPor: "ADMIN",
-        fecha: fechaInicio,
-        fechaCreacion: timestamp,
-      }).then(() => {
-        // Cambiar de vista
-        this.router.navigate(['/expedientes-updater/'], {
-          queryParams: {
-            expediente: numeroExp,
-          }
-        })
-        // console.log('ok')
-      }).catch((err) => {
-        console.log('ocurrio un error', err)
-        window.alert('ocurio un errorx al registrar expediente');
-      }).finally(() => {
-        this.estaGuardando = false;
-      })
-    }).catch((err) => {
-      console.log('error', err)
-      window.alert('ocurio un error al registrar expediente');
-    }).finally(() => {
-      // this.estaGuardando = false;
-    })
-  }
-
-  //
-  // OPERACIONES A LA BASE DE DATOS
-  //
-
-  /**
-   * Verifica si un expediente existe en la Base de Datos
-   * @numero Numero del expediente
-   * @returns True si existe, false si no existe
-   */
-  existeExpediente(numero: string): Promise<boolean> {
-    let obs = this.db.collection('expedientes', ref => {
-      return ref.where('numero', '==', numero);
-    }).get();
-    return firstValueFrom(obs).then(snapshot => {
-      let contador = 0;
-      snapshot.forEach(doc => {
-        contador = contador + 1;
-      })
-      if (contador > 0) {
-        return true;
-      } else {
-        return false;
-      }
-    })
-  }
-
-  /**
-   * Generar el nuevo ID del expediente
-   * @returns Un codigo con el formato E000001
-   */
-  generarNuevoIdExpediente(): Promise<string> {
-    const obs = this.db.collection('expedientes', ref => {
-      return ref.orderBy('idExpediente', 'desc').limit(1)
-    }).get();
-
-    return firstValueFrom(obs).then(snapshot => {
-      let lista: any[] = [];
-      snapshot.forEach(doc => {
-        lista.push(doc.data())
-      })
-
-      let contador = Number(lista[0].idExpediente.slice(1, 7));
-      contador = contador + 1;
-      let idExpediente = '';
-
-      if (contador <= 9) {
-        idExpediente = `E00000${contador}`;
-      } else if (contador <= 99) {
-        idExpediente = `E0000${contador}`;
-      } else if (contador <= 999) {
-        idExpediente = `E000${contador}`;
-      } else if (contador <= 9999) {
-        idExpediente = `E00${contador}`;
-      } else if (contador <= 99999) {
-        idExpediente = `E0${contador}`;
-      } else if (contador <= 999999) {
-        idExpediente = `E${contador}`;
-      }
-
-      return idExpediente;
-    });
-  }
-
-  /**
-   * Registra un nuevo Expediente
-   * @idExpediente Identificador unico del expediente
-   */
-  guardarExpedienteDB(idExpediente: string): Promise<void> {
-    const timestamp: number = (new Date()).getTime();
-
-    const expediente = {
+    const payload = {
       idExpediente: idExpediente,
       clase: this.frmExpediente.controls['clase'].value,
       titulo: this.frmExpediente.controls['titulo'].value.toUpperCase().trim(),
@@ -313,7 +205,31 @@ export class ExpedienteRegisterComponent {
       detalleContrato: '-',
     }
 
-    return this.db.collection('expedientes').doc(idExpediente).set(expediente);
+    const ok = await this.appService.registrarExpediente(idExpediente, payload);
+
+    // Registro del Changelog inicial
+
+    const idGenerado = `ID${timestamp}X`;
+    const fechaInicio = this.frmExpediente.controls['fechaInicio'].value.trim();
+    const payload2 = {
+      idChangelog: idGenerado,
+      idExpediente: idExpediente,
+      idCheckpoint: "000",
+      nombreCheckpoint: "Expediente registrado en el sistema",
+      actualizadoPor: "ADMIN",
+      fecha: fechaInicio,
+      fechaCreacion: timestamp,
+    }
+
+    const ok2 = await this.appService.registrarChangelog(idGenerado, payload2);
+
+    this.router.navigate(['/expedientes-updater/'], {
+      queryParams: {
+        expediente: numeroExp,
+      }
+    })
+
+    this.estaGuardando = false;
   }
 
 }

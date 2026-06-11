@@ -1,17 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
 
 import { AppService } from './../app.service';
 import { Expediente } from '../_interfaces/expediente';
 import { Tareo } from '../_interfaces/tareo';
 import { Tarea } from '../_interfaces/tarea';
-
-const URL_TAREAS = 'tareas';
 
 @Component({
   selector: 'app-tareo-edit-new',
@@ -22,6 +18,7 @@ const URL_TAREAS = 'tareas';
   ]
 })
 export class TareoEditNewComponent {
+  appService = inject(AppService);
   idTareo: string = '';
   tareo: Tareo | null = null;
   tareas: Tarea[] = [];
@@ -42,7 +39,6 @@ export class TareoEditNewComponent {
   expedientesCompletos: any[] = [];
 
   constructor(
-    private db: AngularFirestore,
     private titleService: Title,
     private modalService: NgbModal,
     private service: AppService,
@@ -126,26 +122,9 @@ export class TareoEditNewComponent {
   }
 
   // Detalle del Tareo - ok
-  recuperarTareo() {
-    let query = this.db.collection('tareo', ref => {
-      return ref.where('idTareo', '==', this.idTareo)
-    }).get();
-
-    firstValueFrom(query).then(snapshot => {
-      let resultados: Tareo[] = [];
-      snapshot.forEach((doc: any) => {
-        resultados.push(doc.data());
-      });
-
-      if (resultados.length > 0) {
-        this.tareo = resultados[0];
-        this.recuperarTareas();
-      } else {
-        this.tareo = null;
-        console.log('No se encontró Tareo')
-      }
-    })
-
+  async recuperarTareo() {
+    const tareo = await this.appService.tareo(this.idTareo);
+    this.tareo = tareo;
     this.recuperarTareas();
   }
 
@@ -312,26 +291,21 @@ export class TareoEditNewComponent {
     this.obtenerNivelIter(exp.idExpediente);
   }
   // ok ok
-  obtenerNivelIter(idExpediente: string) {
+  async obtenerNivelIter(idExpediente: string) {
     this.encontrando = true;
-    let query = this.db.collection('expedientes').doc(idExpediente).get();
 
-    firstValueFrom(query).then((snapshot: any) => {
-      let exp: Expediente = snapshot.data();
+    const expedienteTemporal = await this.appService.expedientePorID(idExpediente);
 
-      if (exp.nombreCheckpoint.length <= 5) {
-        window.alert('Es necesario actualizar el ITER de dicho expediente')
-      }
+    if (expedienteTemporal[0].nombreCheckpoint.length <= 5) {
+      window.alert('Es necesario actualizar el ITER de dicho expediente')
+    }
 
-      this.frmNuevaTarea.patchValue({
-        idCheckpoint: exp.idCheckpoint,
-        nombreCheckpoint: exp.nombreCheckpoint,
-      })
-    }).catch(err => {
-      console.log('ocurrio un error', err);
-    }).finally(() => {
-      this.encontrando = false;
+    this.frmNuevaTarea.patchValue({
+      idCheckpoint: expedienteTemporal[0].idCheckpoint,
+      nombreCheckpoint: expedienteTemporal[0].nombreCheckpoint,
     })
+
+    this.encontrando = false;
   }
   // ok ok
   desfocusear() {
@@ -366,7 +340,9 @@ export class TareoEditNewComponent {
     this.fcQueryBox.reset('');
   }
   // ok ok
-  concretarNuevaTarea() {
+  async concretarNuevaTarea() {
+    if (!this.tareo) return;
+
     this.registrando = true;
     // Validar formulario
     if (!this.frmNuevaTarea.valid) {
@@ -375,7 +351,7 @@ export class TareoEditNewComponent {
     }
 
     // Generar ID de la tarea
-    const timestamp = (new Date()).getTime().toString();
+    const timestamp = Date.now();
     const letraAleatoria = this.generarLetraAleatoria();
     const idGenerado = `ID${timestamp}${letraAleatoria}`;
 
@@ -413,63 +389,50 @@ export class TareoEditNewComponent {
       ...datosFormulario,
       idTareo: this.idTareo,
       idTarea: idGenerado,
-      idUsuario: this.tareo?.idUsuario,
-      nombreUsuario: this.tareo?.nombreUsuario,
-      fechaTarea: this.tareo?.fecha,
+      idUsuario: this.tareo.idUsuario,
+      nombreUsuario: this.tareo.nombreUsuario,
+      fechaTarea: this.tareo.fecha,
       fechaCreacion: timestamp,
+
+      // Antiguos datos
+      montoPactado: '',
+      abonoTotal: '',
+      montoUltimoAbono: '',
+      fechaUltimoAbono: '',
     }
 
-    // Grabar los datos en la base de datos
-    this.db.collection(`${URL_TAREAS}`).doc(idGenerado)
-      .set(payload)
-      .then(() => {
-        this.modalService.dismissAll();
-        this.frmNuevaTarea.reset();
-        this.fcTipoTarea.setValue('con');
-        this.cambioTipoFormulario();
-        this.recuperarTareas();
-      })
-      .catch(err => {
-        // err
-        console.log('error al registrar la nueva tarea');
-      })
-      .finally(() => {
-        this.registrando = false;
-      });
+    const ok = await this.appService.registrarTarea(idGenerado, payload);
+
+    this.modalService.dismissAll();
+    this.frmNuevaTarea.reset();
+    this.fcTipoTarea.setValue('con');
+    this.cambioTipoFormulario();
+    this.recuperarTareas();
+
+    this.registrando = false;
   }
 
   // READ - ok ok
-  recuperarTareas() {
+  async recuperarTareas() {
     this.cargando = true;
-    let query = this.db.collection(`${URL_TAREAS}`, ref => {
-      return ref.where('idTareo', '==', this.idTareo);
-    }).get();
 
-    firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      let horas = 0;
-      let minutos = 0;
-      snapshot.forEach((doc: any) => {
-        let datos: Tarea = doc.data();
-        items.push(datos)
-        horas += Number(datos.horasAtencion);
-        minutos += Number(datos.minutosAtencion);
-      })
+    const tareas = await this.appService.tareasPorTareo(this.idTareo);
+    let horas = 0, minutos = 0;
 
-      let totalMinutos = horas * 60 + minutos;
-      let sHoras = '', sMinutos = '';
-
-      sHoras = Math.floor(totalMinutos / 60).toString();
-      sMinutos = (totalMinutos - Math.floor(totalMinutos / 60) * 60).toString();
-
-      this.tareas = items;
-      this.tiempoTotalTareas = sHoras + 'h ' + sMinutos + 'm';
-    }).catch(err => {
-      window.alert(err);
-      throw (err);
-    }).finally(() => {
-      this.cargando = false;
+    tareas.forEach(t => {
+      horas += Number(t.horasAtencion);
+      minutos += Number(t.minutosAtencion);
     })
+
+    let totalMinutos = horas * 60 + minutos;
+    let sHoras = '', sMinutos = '';
+
+    sHoras = Math.floor(totalMinutos / 60).toString();
+    sMinutos = (totalMinutos - Math.floor(totalMinutos / 60) * 60).toString();
+
+    this.tareas = tareas;
+    this.tiempoTotalTareas = sHoras + 'h ' + sMinutos + 'm';
+    this.cargando = false;
   }
 
   // UPDATE - ok ok
@@ -510,7 +473,7 @@ export class TareoEditNewComponent {
     })
   }
   // ok ok
-  concretarEdicionTarea() {
+  async concretarEdicionTarea() {
     this.actualizando = true;
 
     let idTarea = this.frmEditarTarea.value['idTarea'];
@@ -543,33 +506,22 @@ export class TareoEditNewComponent {
       // fechaCreacion: new FormControl(null),
     }
 
-    this.db.collection(`${URL_TAREAS}`).doc(idTarea).update(payload).then(() => {
-      // correcto
-      this.modalService.dismissAll();
-      this.recuperarTareas();
-    }).catch(err => {
-      console.log(err);
-      window.alert('ocurrio un error');
-    }).finally(() => {
-      this.actualizando = false;
-    })
+    const ok = await this.appService.actualizarTarea(idTarea, payload);
+
+    this.modalService.dismissAll();
+    this.recuperarTareas();
+
+    this.actualizando = false;
   }
 
   // DELETE - ok ok
-  empezarEliminacionTarea(tarea: Tarea) {
+  async empezarEliminacionTarea(tarea: Tarea) {
     let confirmacion = window.confirm('¿Esta seguro de borrar?');
 
-    if (confirmacion) {
-      this.db.collection(`${URL_TAREAS}`).doc(tarea.idTarea)
-        .delete()
-        .then(() => {
-          // correcto
-          this.recuperarTareas();
-        })
-        .catch(err => {
-          window.alert('ocurrio un error')
-        });
-    }
+    if (!confirmacion) return;
+    const ok = await this.appService.eliminarTarea(tarea.idTarea);
+
+    this.recuperarTareas();
   }
 
   // Codigo para generar letra random - ok ok

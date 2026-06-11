@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { Usuario } from '../_interfaces/usuario';
@@ -9,7 +8,7 @@ import { AppService } from '../app.service';
     selector: 'app-auth-usuarios',
     templateUrl: './auth-usuarios.component.html',
     styleUrl: './auth-usuarios.component.scss',
-    imports: [AsyncPipe, RouterLink]
+    imports: [RouterLink]
 })
 export class AuthUsuariosComponent implements OnInit {
   appService = inject(AppService);

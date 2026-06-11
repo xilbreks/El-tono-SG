@@ -1,22 +1,21 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Tareo } from '../_interfaces/tareo';
-import { firstValueFrom } from 'rxjs';
 import * as XLSX from 'xlsx';
 import { RouterLink } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-tareo-diario',
   templateUrl: './tareo-diario.component.html',
   styleUrl: './tareo-diario.component.scss',
-  imports: [ 
+  imports: [
     ReactiveFormsModule,
     RouterLink,
   ]
 })
 export class TareoDiarioComponent {
+  appService = inject(AppService);
   fcFecha: FormControl = new FormControl(null);
   tareos: any[] = [];
 
@@ -28,7 +27,6 @@ export class TareoDiarioComponent {
   guardando = false;
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
     this.frmEntrada = new FormGroup({
@@ -113,7 +111,7 @@ export class TareoDiarioComponent {
     this.cargando = true;
 
     let fecha = this.fcFecha.value;
-    let tareos = await this.recuperarTareos(fecha);
+    const tareos = await this.appService.tareosPorFecha(fecha);
     this.tareos = tareos;
 
     this.cargando = false;
@@ -125,8 +123,12 @@ export class TareoDiarioComponent {
     let idTareo = this.frmEntrada.value['idTareo'];
     let hora = this.frmEntrada.value['hora'];
     let minuto = this.frmEntrada.value['minuto'];
+    const payload = {
+      entradaHora: hora,
+      entradaMinuto: minuto,
+    }
 
-    await this.grabarEntrada(idTareo, hora, minuto);
+    const ok = await this.appService.actualizarTareo(idTareo, payload);
 
     let tareo = this.tareos.find(t => t.idTareo == idTareo);
     if (tareo) {
@@ -144,8 +146,12 @@ export class TareoDiarioComponent {
     let idTareo = this.frmSalida.value['idTareo'];
     let hora = this.frmSalida.value['hora'];
     let minuto = this.frmSalida.value['minuto'];
+    const payload = {
+      salidaHora: hora,
+      salidaMinuto: minuto,
+    }
 
-    await this.grabarSalida(idTareo, hora, minuto);
+    const ok = await this.appService.actualizarTareo(idTareo, payload);
 
     let tareo = this.tareos.find(t => t.idTareo == idTareo);
     if (tareo) {
@@ -162,8 +168,11 @@ export class TareoDiarioComponent {
 
     let idTareo = this.frmObserv.value['idTareo'];
     let observacion = this.frmObserv.value['observaciones'];
+    const payload = {
+      observaciones: observacion,
+    }
 
-    await this.grabarObservacion(idTareo, observacion);
+    const ok = await this.appService.actualizarTareo(idTareo, payload);
 
     let tareo = this.tareos.find(t => t.idTareo == idTareo);
     if (tareo) tareo.observaciones = observacion
@@ -180,38 +189,14 @@ export class TareoDiarioComponent {
     let todo_Excel: Array<any> = [];
     const fecha = this.fcFecha.value;
 
-    const query = this.db
-      .collection('tareas', (ref) => {
-        return ref.where('fechaTarea', '==', fecha)
-      }).get();
+    let tareas = await this.appService.tareasPorFecha(fecha);
 
-    let tareas = await firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      })
-      return items;
-    }).catch(err => {
-      throw err;
-    });
-
-    // Agregar Hora de entrada y salida del tareo
-    tareas = tareas.map(tarea => {
-      const tareo = this.tareos.find(tareo => tareo.idTareo == tarea.idTareo);
-      const entrada = `${tareo?.entradaHora}:${tareo?.entradaMinuto}`;
-      const salida = `${tareo?.salidaHora}:${tareo?.salidaMinuto}`;
-
-      return {
-        ...tarea,
-        entrada,
-        salida,
-      }
-    })
-
-    tareas.sort((a, b) => {
+    tareas = tareas.sort((a, b) => {
       if (a.idUsuario > b.idUsuario) return 1;
       else return -1;
-    }).forEach(tarea => {
+    });
+    
+    tareas.forEach(tarea => {
       console.log(tarea);
       const fechaTmp = new Date(Number(tarea.fechaCreacion));
       const date = fechaTmp.toLocaleDateString();
@@ -220,8 +205,6 @@ export class TareoDiarioComponent {
 
       todo_Excel.push({
         "Usuario": tarea['nombreUsuario'],
-        "Hora de entrada": tarea['entrada'],
-        "Hora de salida": tarea['salida'],
         "Tipo de Atencion": tarea['tipoAtencion'],
         "Delegado por": tarea['delegadoPor'],
         "Expediente": tarea['numero'],
@@ -254,54 +237,6 @@ export class TareoDiarioComponent {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Tareas");
     XLSX.writeFile(workbook, 'RDTs - fecha ' + this.fcFecha.value + '.xlsx', { compression: true });
 
-  }
-
-  // Operaciones a la base de datos
-
-  recuperarTareos(fecha: string): Promise<any[]> {
-    const query = this.db.collection('tareo', (ref) => {
-      return ref.where('fecha', '==', fecha)
-    }).get();
-
-    return firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data());
-      });
-
-      return items;
-    }).catch(err => {
-      throw err;
-    })
-  }
-
-  grabarEntrada(idTareo: string, hora: string, minuto: string): Promise<void> {
-    const query = this.db.collection('tareo').doc(idTareo)
-      .update({
-        entradaHora: hora,
-        entradaMinuto: minuto,
-      });
-
-    return query;
-  }
-
-  grabarSalida(idTareo: string, hora: string, minuto: string): Promise<void> {
-    const query = this.db.collection('tareo').doc(idTareo)
-      .update({
-        salidaHora: hora,
-        salidaMinuto: minuto,
-      });
-
-    return query;
-  }
-
-  grabarObservacion(idTareo: string, observacion: string): Promise<void> {
-    const query = this.db.collection('tareo').doc(idTareo)
-      .update({
-        observaciones: observacion,
-      });
-
-    return query;
   }
 
 }

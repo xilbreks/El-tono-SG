@@ -5,13 +5,13 @@ export interface Resolucion {
     cliente: string;                    // Nombre del Cliente o patrocinado
     titulo: string;                     // Titulo de la resolucion
     contenido: string;                  // Contenido de la resolucion
-    tarea: string;                      // Tarea derivada de la resolucion
-    plazo: string;                      // Plazo a cumplir su ubiera en la resolucion
+    tarea: string | null;               // Tarea derivada de la resolucion
+    plazo: string | null;               // Plazo a cumplir su ubiera en la resolucion
     cumplimiento: boolean;              // Indicador de cumplimiento
-    observaciones: string;              // Observaciones si hubiera
+    observaciones: string | null;       // Observaciones si hubiera
     nombreCreador: string;              // Nombre del usuario creador de la resolucion
     idEncargado: string;                // ID del encargado o asignado
     fechaCreacion: number;              // Fecha en formato timestamp de la creacion
     
-    color: string;                      // Indicador de color, solo para visualizacion
+    color?: string;                      // Indicador de color, solo para visualizacion
 }

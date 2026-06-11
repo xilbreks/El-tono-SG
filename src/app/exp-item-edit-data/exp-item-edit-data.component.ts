@@ -1,11 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from '../_interfaces/expediente';
 import { firstValueFrom } from 'rxjs';
 import { NgClass } from '@angular/common';
+import { AppService } from '../app.service';
 
 class ObjMateria {
   idmateria: string = '';
@@ -24,6 +24,7 @@ class ObjMateria {
   ]
 })
 export class ExpItemEditDataComponent implements OnChanges {
+  appService = inject(AppService);
   @Input('expediente') expediente: Expediente | null = null;
 
   frmExpediente: FormGroup;
@@ -33,7 +34,6 @@ export class ExpItemEditDataComponent implements OnChanges {
   lstMaterias: Array<ObjMateria> = [];
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
     this.frmExpediente = new FormGroup({
@@ -57,16 +57,9 @@ export class ExpItemEditDataComponent implements OnChanges {
   }
 
   getMaterias() {
-    let obs = this.db.collection('materias').get();
+    const materias = this.appService.materias();
 
-    firstValueFrom(obs).then(snapshot => {
-      let materias: any[] = [];
-      snapshot.forEach(doc => {
-        materias.push(doc.data());
-      });
-
-      this.lstMaterias = materias.filter(m => m.sespecialidad == this.expediente?.especialidad);
-    })
+    this.lstMaterias = materias.filter(m => m.sespecialidad == this.expediente?.especialidad);
   }
 
   openModal(modal: any) {
@@ -124,50 +117,38 @@ export class ExpItemEditDataComponent implements OnChanges {
     this.frmExpediente.controls['codigo'].updateValueAndValidity();
   }
 
-  updateExpediente() {
+  async updateExpediente() {
+    if (!this.expediente) return;
+
     this.lUpdating = true;
-    this.updateExpedienteDB().then(() => {
-      if (this.expediente) {
-        this.expediente.titulo = this.frmExpediente.value['titulo'].trim().toUpperCase();
-        this.expediente.materia = this.frmExpediente.value['materia'].trim().toUpperCase();
-        this.expediente.demandado = this.frmExpediente.value['demandado'].trim().toUpperCase();
-        this.expediente.demandante = this.frmExpediente.value['demandante'].trim().toUpperCase();
-        this.expediente.juzgado = this.frmExpediente.value['juzgado'].trim().toUpperCase();
-        this.expediente.prioridad = this.frmExpediente.value['prioridad'];
-        this.expediente.observaciones = this.frmExpediente.value['observaciones'].trim();
-        this.expediente.fechaInicio = this.frmExpediente.value['fechaInicio'].trim().toUpperCase();
-        this.expediente.codigo = this.frmExpediente.value['codigo'];
-        this.expediente.numeroCasacion = this.frmExpediente.value['numeroCasacion'];
-        this.expediente.salaCasacion = this.frmExpediente.value['salaCasacion'] ? this.frmExpediente.value['salaCasacion'].trim().toUpperCase() : null;
-      }
-    }).catch(err => {
-      // error
-      window.alert('Error al actualizar' + err)
-    }).finally(() => {
-      this.modalService.dismissAll();
-      this.lUpdating = false;
-    })
-  }
+    const payload = {
+      titulo: this.frmExpediente.value['titulo'].trim().toUpperCase(),
+      materia: this.frmExpediente.value['materia'].trim().toUpperCase(),
+      demandado: this.frmExpediente.value['demandado'].trim().toUpperCase(),
+      demandante: this.frmExpediente.value['demandante'].trim().toUpperCase(),
+      juzgado: this.frmExpediente.value['juzgado'].trim().toUpperCase(),
+      prioridad: this.frmExpediente.value['prioridad'],
+      observaciones: this.frmExpediente.value['observaciones'].trim(),
+      fechaInicio: this.frmExpediente.value['fechaInicio'].trim().toUpperCase(),
+      codigo: this.frmExpediente.value['codigo'],
+      numeroCasacion: this.frmExpediente.value['numeroCasacion'],
+      salaCasacion: this.frmExpediente.value['salaCasacion'] ? this.frmExpediente.value['salaCasacion'].trim().toUpperCase() : null,
+    }
+    const ok = await this.appService.actualizarExpediente(this.expediente.idExpediente, payload);
 
-  // OPERACIONES A LA BASE DE DATOS
+    this.expediente.titulo = this.frmExpediente.value['titulo'].trim().toUpperCase();
+    this.expediente.materia = this.frmExpediente.value['materia'].trim().toUpperCase();
+    this.expediente.demandado = this.frmExpediente.value['demandado'].trim().toUpperCase();
+    this.expediente.demandante = this.frmExpediente.value['demandante'].trim().toUpperCase();
+    this.expediente.juzgado = this.frmExpediente.value['juzgado'].trim().toUpperCase();
+    this.expediente.prioridad = this.frmExpediente.value['prioridad'];
+    this.expediente.observaciones = this.frmExpediente.value['observaciones'].trim();
+    this.expediente.fechaInicio = this.frmExpediente.value['fechaInicio'].trim().toUpperCase();
+    this.expediente.codigo = this.frmExpediente.value['codigo'];
+    this.expediente.numeroCasacion = this.frmExpediente.value['numeroCasacion'];
+    this.expediente.salaCasacion = this.frmExpediente.value['salaCasacion'] ? this.frmExpediente.value['salaCasacion'].trim().toUpperCase() : null;
 
-  updateExpedienteDB(): Promise<void> {
-    return this.db
-      .collection('expedientes')
-      .doc(this.expediente?.idExpediente)
-      .update({
-        titulo: this.frmExpediente.value['titulo'].trim().toUpperCase(),
-        materia: this.frmExpediente.value['materia'].trim().toUpperCase(),
-        demandado: this.frmExpediente.value['demandado'].trim().toUpperCase(),
-        demandante: this.frmExpediente.value['demandante'].trim().toUpperCase(),
-        juzgado: this.frmExpediente.value['juzgado'].trim().toUpperCase(),
-        prioridad: this.frmExpediente.value['prioridad'],
-        observaciones: this.frmExpediente.value['observaciones'].trim(),
-        fechaInicio: this.frmExpediente.value['fechaInicio'].trim().toUpperCase(),
-        codigo: this.frmExpediente.value['codigo'],
-        numeroCasacion: this.frmExpediente.value['numeroCasacion'],
-        salaCasacion: this.frmExpediente.value['salaCasacion'] ? this.frmExpediente.value['salaCasacion'].trim().toUpperCase() : null,
-      })
-
+    this.lUpdating = false;
+    this.modalService.dismissAll();
   }
 }

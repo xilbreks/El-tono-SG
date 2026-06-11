@@ -1,10 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { finalize, firstValueFrom } from 'rxjs';
 import { Expediente } from './../_interfaces/expediente';
 import { DecimalPipe } from '@angular/common';
+import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-k',
@@ -15,6 +14,8 @@ import { DecimalPipe } from '@angular/common';
   ]
 })
 export class ExpItemKComponent implements OnChanges {
+  appService = inject(AppService);
+  storage = inject(Storage);
   @Input('expediente') expediente: Expediente | null = null;
 
   lcontrato: boolean = false;
@@ -24,8 +25,6 @@ export class ExpItemKComponent implements OnChanges {
   uploadProgress = -1;
 
   constructor(
-    private db: AngularFirestore,
-    private storage: AngularFireStorage,
     private modalService: NgbModal,
   ) {
   }
@@ -43,16 +42,18 @@ export class ExpItemKComponent implements OnChanges {
   /**
    * Obtiene la url de descarga del contrato
    */
-  getUrlDescarga() {
-    let obs = this.storage.ref(`contratos/${this.expediente?.idExpediente}.pdf`).getDownloadURL()
+  async getUrlDescarga() {
+    if (!this.expediente) return;
+    if (!this.expediente.tieneContrato) return;
 
-    firstValueFrom(obs).then((url) => {
-      this.urlcontrato = url;
-    }).catch(() => {
-      window.alert('error al recuperar contrato')
-    });
+    try {
+      const contratoRef = ref(this.storage, `contratos/${this.expediente.idExpediente}.pdf`);
+      this.urlcontrato = await getDownloadURL(contratoRef);
+    } catch (error) {
+      console.error('Error al obtener la URL del contrato:', error);
+      this.urlcontrato = '';
+    }
   }
-
 
   openModalSetTerms(modal: any) {
     this.modalService.open(modal, {
@@ -63,35 +64,39 @@ export class ExpItemKComponent implements OnChanges {
   /**
    * Quita el contrato del expediente
    */
-  marcarSinContrato() {
+  async marcarSinContrato() {
+    if (!this.expediente) return;
     this.lUpdating = true;
-    this.setK(false).then(() => {
-      this.lcontrato = false;
-      this.urlcontrato = '';
-      if (this.expediente) this.expediente.tieneContrato = false;
-      this.modalService.dismissAll();
-    }).catch(err => {
-      window.alert('Error al quitar contrato');
-    }).finally(() => {
-      this.lUpdating = false;
-    });
+
+    const ok = await this.appService.actualizarExpediente(this.expediente.idExpediente, {
+      tieneContrato: false,
+    })
+
+    this.lcontrato = false;
+    this.urlcontrato = '';
+    this.expediente.tieneContrato = false;
+    this.modalService.dismissAll();
+
+    this.lUpdating = false;
   }
 
   /**
    * Sube el contrato del expediente
    */
-  marcarContrato() {
+  async marcarContrato() {
+    if (!this.expediente) return;
     this.lUpdating = true;
-    this.setK(true).then(() => {
-      this.lcontrato = true;
-      this.getUrlDescarga();
-      if (this.expediente) this.expediente.tieneContrato = true;
-      this.modalService.dismissAll();
-    }).catch(err => {
-      window.alert('Error al subir contrato');
-    }).finally(() => {
-      this.lUpdating = false;
-    });
+
+    const ok = await this.appService.actualizarExpediente(this.expediente.idExpediente, {
+      tieneContrato: true,
+    })
+
+    this.lcontrato = true;
+    this.getUrlDescarga();
+    this.expediente.tieneContrato = true;
+    this.modalService.dismissAll();
+
+    this.lUpdating = false;
   }
 
   /**
@@ -122,37 +127,26 @@ export class ExpItemKComponent implements OnChanges {
     this.lUpdating = true;
 
     const filePath = `contratos/${this.expediente?.idExpediente}.pdf`;
-    const fileRef = this.storage.ref(filePath);
-    const task = this.storage.upload(filePath, this.file);
+    const storageRef = ref(this.storage, filePath);
+    const task = uploadBytesResumable(storageRef, this.file);
 
-    // Monitorea el progreso
-    task.percentageChanges().subscribe((progress) => {
-      this.uploadProgress = progress || 0;
-    });
-
-    // Obtén la URL del archivo al finalizar
-    task.snapshotChanges()
-      .pipe(finalize(() => {
-        fileRef.getDownloadURL().subscribe((url) => {
-          console.log('Archivo subido con éxito. URL:', url);
-          this.marcarContrato(); // Marcar true que tiene pdf del contrato
-          this.uploadProgress = -1; // Reinicia el progreso
-        });
-      }))
-      .subscribe();
+    // Monitorea el progreso y obtén la URL al finalizar
+    task.on('state_changed',
+      (snapshot) => {
+        this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+      (error) => {
+        console.error('Error al subir archivo:', error);
+        this.lUpdating = false;
+        this.uploadProgress = -1;
+      },
+      async () => {
+        const url = await getDownloadURL(task.snapshot.ref);
+        console.log('Archivo subido con éxito. URL:', url);
+        this.marcarContrato();
+        this.uploadProgress = -1;
+      }
+    );
   }
 
-  // Operaciones en la base de datos
-
-  /**
-   * Establece el estado del expediente sobre su contrato
-   * @param status Indicador del estado de contrato
-   */
-  setK(status: boolean): Promise<void> {
-    return this.db.collection('expedientes')
-      .doc(this.expediente?.idExpediente)
-      .update({
-        tieneContrato: status
-      });
-  }
 }

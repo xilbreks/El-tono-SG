@@ -35,7 +35,8 @@ export class ExpItemCoverComponent implements OnChanges {
   }
 
   async colocarLinkContrato() {
-    if (!this.expediente?.idExpediente) return;
+    if (!this.expediente) return;
+    if (!this.expediente.tieneContrato) return;
 
     try {
       const contratoRef = ref(this.storage, `contratos/${this.expediente.idExpediente}.pdf`);

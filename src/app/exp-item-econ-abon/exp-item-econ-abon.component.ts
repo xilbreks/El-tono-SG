@@ -1,5 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -7,6 +6,7 @@ import { Expediente } from './../_interfaces/expediente';
 import { Abono } from '../_interfaces/abono';
 import { firstValueFrom } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-econ-abon',
@@ -18,6 +18,7 @@ import { DecimalPipe } from '@angular/common';
   ]
 })
 export class ExpItemEconAbonComponent implements OnChanges {
+  appService = inject(AppService);
   @Input('expediente') expediente: Expediente | null = null;
   nick: string | null;
   rol: string | null;
@@ -36,7 +37,6 @@ export class ExpItemEconAbonComponent implements OnChanges {
   quitando: boolean = false;
 
   constructor(
-    private db: AngularFirestore,
     private modalService: NgbModal,
   ) {
     this.nick = localStorage.getItem('nick');
@@ -73,8 +73,10 @@ export class ExpItemEconAbonComponent implements OnChanges {
   }
 
   async obtenerAbonos() {
+    if (!this.expediente) return;
     this.cargando = true;
-    this.abonos = await this.recuperarAbonos(this.expediente?.idExpediente);
+    const abonos = await this.appService.abonosPorExpediente(this.expediente.idExpediente);
+    this.abonos = abonos;
     this.sumaAbonos = 0;
     this.abonos.forEach(abono => {
       this.sumaAbonos += abono.monto;
@@ -125,7 +127,7 @@ export class ExpItemEconAbonComponent implements OnChanges {
 
     const idAbono = (new Date()).getTime().toString();
 
-    let abono: Abono = {
+    let payload = {
       idAbono: idAbono,
       idExpediente: this.expediente ? this.expediente.idExpediente : 'void',
       fecha: this.frmNuevoAbono.value['fecha'],
@@ -140,7 +142,7 @@ export class ExpItemEconAbonComponent implements OnChanges {
       materia: this.expediente ? this.expediente.materia : 'void',
     }
 
-    await this.registrarNuevoAbono(idAbono, abono);
+    const ok = await this.appService.registrarAbono(idAbono, payload);
 
     this.guardando = false;
     this.modalService.dismissAll();
@@ -153,9 +155,9 @@ export class ExpItemEconAbonComponent implements OnChanges {
     this.actualizando = true;
 
     let idAbono = this.frmEditaAbono.value['idAbono'];
-    const abono = this.frmEditaAbono.value;
+    const payload = this.frmEditaAbono.value;
 
-    await this.actualizarAbono(idAbono, abono);
+    const ok = await this.appService.actualizarAbono(idAbono, payload);
 
     this.actualizando = false;
     this.modalService.dismissAll();
@@ -169,51 +171,13 @@ export class ExpItemEconAbonComponent implements OnChanges {
 
     let idAbono = this.frmQuitaAbono.value['idAbono'];
 
-    await this.quitarAbono(idAbono);
+    const ok = await this.appService.eliminarAbono(idAbono);
 
     this.quitando = false;
     this.modalService.dismissAll();
     this.frmQuitaAbono.reset()
 
     this.obtenerAbonos();
-  }
-
-  // OPERACIONES A LA BASE DE DATOS
-
-  recuperarAbonos(idExpediente: string | undefined): Promise<any[]> {
-    let query = this.db.collection('abonos', ref => {
-      return ref.where('idExpediente', '==', idExpediente).orderBy('fecha', 'asc');
-    }).get();
-
-    return firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      });
-
-      // console.log(items)
-      return items;
-    }).catch(err => {
-      throw err;
-    });
-  }
-
-  registrarNuevoAbono(idAbono: string, abono: Abono): Promise<any> {
-    let query = this.db.collection('abonos').doc(idAbono).set(abono);
-
-    return query;
-  }
-
-  actualizarAbono(idAbono: string, abono: Abono): Promise<void> {
-    let query = this.db.collection('abonos').doc(idAbono).update(abono);
-
-    return query;
-  }
-
-  quitarAbono(idAbono: string): Promise<void> {
-    let query = this.db.collection('abonos').doc(idAbono).delete();
-
-    return query;
   }
 
 }

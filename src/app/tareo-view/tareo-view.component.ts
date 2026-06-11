@@ -36,7 +36,7 @@ export class TareoViewComponent {
   async recuperarTareas() {
     this.cargando = true;
 
-    const tareas = await this.appService.tareas(this.idTareo);
+    const tareas = await this.appService.tareasPorTareo(this.idTareo);
     let horas = 0, minutos = 0;
 
     tareas.forEach(t => {

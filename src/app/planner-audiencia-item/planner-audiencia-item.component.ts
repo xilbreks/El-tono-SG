@@ -1,11 +1,11 @@
 import { Component, inject, input, signal, TemplateRef, OnInit } from '@angular/core';
-import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Audiencia } from '../_interfaces/audiencia';
+import { AppService } from '../app.service';
 
 @Component({
     selector: 'app-planner-audiencia-item',
@@ -14,13 +14,13 @@ import { Audiencia } from '../_interfaces/audiencia';
     imports: [NgClass, RouterLink, ReactiveFormsModule]
 })
 export class PlannerAudienciaItemComponent implements OnInit {
+  appService = inject(AppService);
   // Injecciones
   audienciaI = input.required<Audiencia>();           // Audiencia desde el input
   audiencia = signal<Audiencia>(undefined as any);    // Copia local
 
   today = input.required<string>();
   modalService = inject(NgbModal);
-  db = inject(Firestore);
 
   frmEditAudience: FormGroup;
   lUpdating = false;
@@ -92,8 +92,7 @@ export class PlannerAudienciaItemComponent implements OnInit {
 
     // console.log('actualizacion de audiencia', payload)
 
-    const docRef = doc(this.db, 'audiencias', idaudiencia);
-    await updateDoc(docRef, payload);
+    const ok = await this.appService.actualizarAudiencia(idaudiencia, payload);
 
     // Detecion de enlace meet en el url
     const regexMeet = /meet\.google\.com\/[a-z]{3}-{0,1}[a-z]{4}-{0,1}[a-z]{3}/i;

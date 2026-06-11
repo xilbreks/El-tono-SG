@@ -1,10 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Expediente } from './../_interfaces/expediente';
 import { Resolucion } from '../_interfaces/resolucion';
-import { firstValueFrom } from 'rxjs';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-exp-item-sinoe',
@@ -15,14 +14,13 @@ import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
   ]
 })
 export class ExpItemSinoeComponent implements OnChanges {
+  appService = inject(AppService);
   @Input('expediente') expediente: Expediente | null = null;
 
   notificaciones: Resolucion[] = [];
   cargando: boolean = false;
 
-  constructor(
-    private db: AngularFirestore
-  ) { }
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.expediente) {
@@ -31,41 +29,12 @@ export class ExpItemSinoeComponent implements OnChanges {
   }
 
   async obtenerNotificaciones() {
+    if (!this.expediente) return;
     this.cargando = true;
-
-    this.notificaciones = await this.recuperarNotificaciones();
-
+    
+    const notificaciones = await this.appService.resolucionesPorExpediente(this.expediente.numero);
+    this.notificaciones = notificaciones;
+    
     this.cargando = false;
-  }
-
-  /**
-   * OPERACIONES A LA BASE DE DATOS
-   */
-
-  recuperarNotificaciones(): Promise<any[]> {
-    let query = this.db.collection('resoluciones', ref => {
-      return ref.where('numeroExpediente', '==', this.expediente?.numero)
-        .orderBy('fechaNotificacion', 'desc').limit(10)
-    }).get();
-
-    return firstValueFrom(query).then(snapshot => {
-      let items: any[] = [];
-      snapshot.forEach(doc => {
-        items.push(doc.data())
-      });
-
-      return items.map(r => {
-        if (r.fechaNotificacion.length == 10) {
-          let year = r.fechaNotificacion.slice(0, 4);
-          let month = r.fechaNotificacion.slice(5, 7);
-          let day = r.fechaNotificacion.slice(8, 10);
-          let fecha = `${day}/${month}/${year}`
-          return { ...r, fechaNotificacion: fecha };
-        }
-        return r;
-      })
-    }).catch(err => {
-      throw err;
-    })
   }
 }
