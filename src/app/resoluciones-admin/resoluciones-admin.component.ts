@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,23 +7,22 @@ import { Resolucion } from './../_interfaces/resolucion';
 import { Expediente } from './../_interfaces/expediente';
 
 import { AppService } from './../app.service';
+import { Usuario } from '../_interfaces/usuario';
 
 @Component({
   selector: 'app-resoluciones-admin',
   templateUrl: './resoluciones-admin.component.html',
   styleUrl: './resoluciones-admin.component.scss',
   imports: [
-    AsyncPipe,
     ReactiveFormsModule,
   ]
 })
 export class ResolucionesAdminComponent {
   appService = inject(AppService);
 
-  usuarios$ = this.appService.usuariosActivosStream();
-
+  usuarios: Usuario[] = [];
   resoluciones: Resolucion[] = [];
-  // colaboradores: Usuario[] = [];
+  
   cargando = false;
   registrando = false;
   delegando = false;
@@ -155,26 +153,16 @@ export class ResolucionesAdminComponent {
       // fechaCreacion: new FormControl(null, Validators.required),
     });
 
-    // this.obtenerColaboradores();
+    this.obtenerColaboradores();
     this.obtenerResoluciones();
     this.obtenerExpedientesCompletos();
   }
 
-  // obtenerColaboradores() {
-  //   let query = this.db.collection('usuarios', ref => {
-  //     return ref.where('activo', '==', true)
-  //   }).get();
-  //   firstValueFrom(query).then(snapshot => {
-  //     let items: any[] = [];
-  //     snapshot.forEach(doc => {
-  //       items.push(doc.data())
-  //     })
-  //     this.colaboradores = items;
-  //   }).catch(err => {
-  //     console.log('error al recuperar colaboradores')
-  //     this.colaboradores = [];
-  //   })
-  // }
+  async obtenerColaboradores() {
+    const usuarios = await this.appService.usuariosActivos();
+
+    this.usuarios = usuarios;
+  }
 
   async obtenerResoluciones() {
     this.cargando = true;
@@ -186,6 +174,7 @@ export class ResolucionesAdminComponent {
     );
 
     this.resoluciones = resoluciones;
+    this.cargando = false;
   }
 
   obtenerExpedientesCompletos() {

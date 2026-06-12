@@ -29,7 +29,7 @@ export class AuthLoginComponent {
         return;
       }
 
-      console.log('log in exitoso', usuario)
+      // console.log('log in exitoso', usuario)
       // Guardar en localStorage
       localStorage.setItem('nick', usuario.nick);
       localStorage.setItem('nombre', usuario.nombre);

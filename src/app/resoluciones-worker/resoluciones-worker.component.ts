@@ -7,9 +7,7 @@ import { Resolucion } from './../_interfaces/resolucion';
 import { Expediente } from './../_interfaces/expediente';
 
 import { AppService } from './../app.service';
-import { firstValueFrom } from 'rxjs';
 import { Usuario } from '../_interfaces/usuario';
-import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -17,7 +15,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './resoluciones-worker.component.html',
   styleUrl: './resoluciones-worker.component.scss',
   imports: [
-    AsyncPipe,
     ReactiveFormsModule,
     RouterLink,
   ]
@@ -25,10 +22,9 @@ import { RouterLink } from '@angular/router';
 export class ResolucionesWorkerComponent {
   appService = inject(AppService);
 
-  usuarios$ = this.appService.usuariosActivosStream();
-
   resoluciones: Resolucion[] = [];
-  // colaboradores: Array<Usuario> = [];
+  usuarios: Usuario[] = [];
+
   cargando = false;
   registrando = false;
   delegando = false;
@@ -160,26 +156,16 @@ export class ResolucionesWorkerComponent {
       // fechaCreacion: new FormControl(null, Validators.required),
     });
 
-    // this.obtenerColaboradores();
+    this.obtenerColaboradores();
     this.obtenerResoluciones();
     // this.obtenerExpedientesCompletos();
   }
 
-  // obtenerColaboradores() {
-  //   let query = this.db.collection('usuarios', ref => {
-  //     return ref.where('activo', '==', true)
-  //   }).get();
-  //   firstValueFrom(query).then(snapshot => {
-  //     let items: any[] = [];
-  //     snapshot.forEach(doc => {
-  //       items.push(doc.data())
-  //     })
-  //     this.colaboradores = items;
-  //   }).catch(err => {
-  //     console.log('error al recuperar colaboradores')
-  //     this.colaboradores = [];
-  //   })
-  // }
+  async obtenerColaboradores() {
+    const usuarios = await this.appService.usuariosActivos();
+
+    this.usuarios = usuarios;
+  }
 
   async obtenerResoluciones() {
     this.cargando = true;

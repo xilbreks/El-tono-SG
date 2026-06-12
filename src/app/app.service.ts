@@ -1327,7 +1327,7 @@ export class AppService {
 
   // M.3 - Leer resoluciones por nick del encargado
 
-  async resolucionesPorCumplimientoYColaborador(cumplimiento: string, nick: string): Promise<Resolucion[]> {
+  async resolucionesPorCumplimientoYColaborador(cumplimiento: string, nick: string): Promise<Resolucion[]> {    
     const ref = collection(this.db, 'resoluciones');
     let q;
     // POSIBILIDADES DE SUCESOS EN EL FILTRO
@@ -1504,6 +1504,7 @@ export class AppService {
     const ref = collection(this.db, 'tareas');
     const q = query(ref,
       where('idExpediente', '==', idExpediente),
+      orderBy('fechaTarea', 'desc'),
       limit(limite),
     )
 

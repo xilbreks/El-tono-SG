@@ -1,9 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
 import { AppService } from '../app.service';
-import { AsyncPipe } from '@angular/common';
 import { Tareo } from '../_interfaces/tareo';
+import { Usuario } from '../_interfaces/usuario';
 
 @Component({
   selector: 'app-tareo-mensual',
@@ -11,13 +10,12 @@ import { Tareo } from '../_interfaces/tareo';
   styleUrl: './tareo-mensual.component.scss',
   imports: [
     ReactiveFormsModule,
-    AsyncPipe,
   ]
 })
-export class TareoMensualComponent {
+export class TareoMensualComponent implements OnInit {
   appService = inject(AppService);
 
-  usuarios$ = this.appService.usuariosActivosStream();
+  usuarios: Usuario[] = [];
   meses = [
     {
       nombre: 'Enero',
@@ -89,6 +87,15 @@ export class TareoMensualComponent {
   tareasRdt: any[] = [];
 
   constructor() { }
+
+  ngOnInit(): void {
+    this.recuperarUsuarios();
+  }
+
+  async recuperarUsuarios() {
+    const usuarios = await this.appService.usuariosActivos();
+    this.usuarios = usuarios;
+  }
 
   // Recuperar rdts
   async recuperarRdts() {

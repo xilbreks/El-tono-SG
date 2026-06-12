@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -23,7 +23,7 @@ class ObjMateria {
     NgClass,
   ]
 })
-export class ExpItemEditDataComponent implements OnChanges {
+export class ExpItemEditDataComponent implements OnInit {
   appService = inject(AppService);
   @Input('expediente') expediente: Expediente | null = null;
 
@@ -50,10 +50,10 @@ export class ExpItemEditDataComponent implements OnChanges {
       salaCasacion: new FormControl(null, Validators.required),
     });
 
-    this.getMaterias();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnInit(): void {
+    this.getMaterias();
   }
 
   getMaterias() {
