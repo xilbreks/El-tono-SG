@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { PlannerAudienciaItemComponent } from '../planner-audiencia-item/planner-audiencia-item.component';
 
 import { Audiencia } from '../_interfaces/audiencia';
@@ -10,8 +10,7 @@ import { AppService } from '../app.service';
     selector: 'app-planner-audiencias',
     templateUrl: './planner-audiencias.component.html',
     styleUrl: './planner-audiencias.component.scss',
-    imports: [CommonModule, ReactiveFormsModule,
-        PlannerAudienciaItemComponent]
+    imports: [ReactiveFormsModule, PlannerAudienciaItemComponent]
 })
 export class PlannerAudienciasComponent implements OnInit {
   appService = inject(AppService);

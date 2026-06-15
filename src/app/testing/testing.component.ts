@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   Firestore,
   collection,
@@ -15,7 +15,7 @@ import { tap } from 'rxjs';
     selector: 'app-testing',
     templateUrl: './testing.component.html',
     styleUrls: ['./testing.component.scss'],
-    imports: [CommonModule]
+    imports: []
 })
 export class TestingComponent implements OnInit {
   appService = inject(AppService);

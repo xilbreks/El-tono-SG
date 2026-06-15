@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as XLSX from 'xlsx';
 import { RouterLink } from '@angular/router';
 import { AppService } from '../app.service';
 
@@ -182,9 +181,8 @@ export class TareoDiarioComponent {
   }
 
   /**
-   * DESCARGAR EXCEL
+   * DESCARGAR CSV (NATIVO - SINOPSIS DE EXCEL)
    */
-
   async descargarExcel() {
     let todo_Excel: Array<any> = [];
     const fecha = this.fcFecha.value;
@@ -195,13 +193,20 @@ export class TareoDiarioComponent {
       if (a.idUsuario > b.idUsuario) return 1;
       else return -1;
     });
-    
+
     tareas.forEach(tarea => {
       console.log(tarea);
       const fechaTmp = new Date(Number(tarea.fechaCreacion));
       const date = fechaTmp.toLocaleDateString();
       const time = fechaTmp.toLocaleTimeString();
       const fechaRegistro = `${date} - ${time}`;
+
+      // Aseguramos limpiar textos para que no rompan las columnas del CSV
+      const limpiarTexto = (texto: any) => {
+        if (!texto) return '';
+        // Quitamos saltos de línea y escapamos comillas dobles
+        return String(texto).replace(/[\r\n]+/g, ' ').replace(/"/g, '""');
+      };
 
       todo_Excel.push({
         "Usuario": tarea['nombreUsuario'],
@@ -213,30 +218,44 @@ export class TareoDiarioComponent {
         "Demandado": tarea['demandado'],
         "ITER": tarea['nombreCheckpoint'],
         "Contrato": tarea['tieneContrato'],
-        // "Suma Tiempo Atencion": { t: 'n', f: '=' + tarea['nTiempoTareas'] + '/1440' },
         "Tiempo de Atencion": tarea['horasAtencion'] + ':' + tarea['minutosAtencion'],
         "Codigo tarea": tarea['codigoTarea'],
-        // "Horas en el estudio": { t: 'n', f: '=' + tarea['nTiempoOficina'] + '/1440' },
-        // "Tiempo real": tarea['srealtime'],
-        // "Prod. Segun RDT": tarea['productidad1'],
-        // "Prod. Segun horario": tarea['productidad2'],
-        // "Hora Entrada": tarea['hentrada'],
-        // "Hora Salida": tarea['hsalida'],
-        "Descripción de la tarea": tarea['detalleTarea'].trim().slice(0, 2500),
-        "Acciones por realizar": tarea['pendienteTarea'].trim().slice(0, 2500),
+        "Descripción de la tarea": limpiarTexto(tarea['detalleTarea']).slice(0, 2500),
+        "Acciones por realizar": limpiarTexto(tarea['pendienteTarea']).slice(0, 2500),
         "Fecha y Hora de guardado": fechaRegistro,
         "Monto pactado": tarea['montoPactado'],
         "Pagos realizados": tarea['abonoTotal'],
         "Ultimo pago": tarea['montoUltimoAbono'],
         "Fecha Ultimo Pago": tarea['fechaUltimoAbono'],
-      })
+      });
     });
 
-    const worksheet = XLSX.utils.json_to_sheet(todo_Excel);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Tareas");
-    XLSX.writeFile(workbook, 'RDTs - fecha ' + this.fcFecha.value + '.xlsx', { compression: true });
+    if (todo_Excel.length === 0) return;
 
+    // 1. Obtener las cabeceras (las llaves del primer objeto)
+    const headers = Object.keys(todo_Excel[0]);
+
+    // 2. Construir las filas del CSV envolviendo cada celda en comillas dobles y separando por punto y coma (;)
+    // El punto y coma ayuda a que Excel en español reconozca las columnas directamente
+    const rows = todo_Excel.map(obj =>
+      headers.map(header => `"${obj[header] ?? ''}"`).join(';')
+    );
+
+    // 3. Unir cabeceras y filas con saltos de línea
+    const csvContent = [headers.join(';'), ...rows].join('\n');
+
+    // 4. Crear el archivo Blob agregando el BOM (\uFEFF) para soporte de tildes y eñes en Excel
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+
+    // 5. Crear un enlace de descarga invisible en el navegador y dispararlo
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'RDTs - fecha ' + fecha + '.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
 }
