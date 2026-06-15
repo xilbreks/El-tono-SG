@@ -6,6 +6,7 @@ import { Expediente } from '../_interfaces/expediente';
 import { firstValueFrom } from 'rxjs';
 import { NgClass } from '@angular/common';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 class ObjMateria {
   idmateria: string = '';
@@ -21,6 +22,7 @@ class ObjMateria {
   imports: [
     ReactiveFormsModule,
     NgClass,
+    NgIcon,
   ]
 })
 export class ExpItemEditDataComponent implements OnInit {

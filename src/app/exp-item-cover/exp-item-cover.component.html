@@ -1,6 +1,7 @@
 @if (expediente?.estado == 'FINALIZADO') {
   <div style="color: red;">
-    <i class="bi bi-exclamation-triangle"></i>
+    <!-- <i class="bi bi-exclamation-triangle"></i> -->
+    <ng-icon name="bootstrapExclamationTriangle"></ng-icon>
     Depurado - {{expediente?.motivoFinalizacion}}
   </div>
 }
@@ -146,7 +147,8 @@
     <div>
       <div style="display: flex; flex-direction: row-reverse; margin-top: -25px;">
         <span role="button" (click)="toggleObservaciones()">
-          <i class="bi bi-box"></i>
+          <!-- <i class="bi bi-box"></i> -->
+          <ng-icon name="bootstrapBox"></ng-icon>
         </span>
       </div>
       @if (mostrarObservaciones) {

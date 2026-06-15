@@ -6,6 +6,7 @@ import { Expediente } from './../_interfaces/expediente';
 import { Arancel } from '../_interfaces/arancel';
 import { DecimalPipe } from '@angular/common';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-econ-aran',
@@ -14,6 +15,7 @@ import { AppService } from '../app.service';
   imports: [
     DecimalPipe,
     ReactiveFormsModule,
+    NgIcon,
   ]
 })
 export class ExpItemEconAranComponent implements OnChanges {

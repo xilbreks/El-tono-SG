@@ -8,6 +8,7 @@ import { AppService } from './../app.service';
 import { Expediente } from '../_interfaces/expediente';
 import { Tareo } from '../_interfaces/tareo';
 import { Tarea } from '../_interfaces/tarea';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-tareo-edit-new',
@@ -15,6 +16,7 @@ import { Tarea } from '../_interfaces/tarea';
   styleUrl: './tareo-edit-new.component.scss',
   imports: [
     ReactiveFormsModule,
+    NgIcon,
   ]
 })
 export class TareoEditNewComponent {

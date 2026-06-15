@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { concatAll, firstValueFrom } from 'rxjs';
 import { AppService } from '../app.service';
 import { Expediente } from '../_interfaces/expediente';
+import { NgIcon } from '@ng-icons/core';
 
 class ObjMateria {
   idmateria: string;
@@ -24,7 +25,8 @@ class ObjMateria {
   templateUrl: './expediente-register.component.html',
   styleUrls: ['./expediente-register.component.scss'],
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIcon,
   ]
 })
 export class ExpedienteRegisterComponent {

@@ -8,6 +8,7 @@ import { Expediente } from './../_interfaces/expediente';
 
 import { AppService } from './../app.service';
 import { Usuario } from '../_interfaces/usuario';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-resoluciones-admin',
@@ -15,6 +16,7 @@ import { Usuario } from '../_interfaces/usuario';
   styleUrl: './resoluciones-admin.component.scss',
   imports: [
     ReactiveFormsModule,
+    NgIcon,
   ]
 })
 export class ResolucionesAdminComponent {

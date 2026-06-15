@@ -9,6 +9,7 @@ import { Expediente } from './../_interfaces/expediente';
 import { AppService } from './../app.service';
 import { Usuario } from '../_interfaces/usuario';
 import { RouterLink } from '@angular/router';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-resoluciones-worker',
@@ -17,6 +18,7 @@ import { RouterLink } from '@angular/router';
   imports: [
     ReactiveFormsModule,
     RouterLink,
+    NgIcon,
   ]
 })
 export class ResolucionesWorkerComponent {

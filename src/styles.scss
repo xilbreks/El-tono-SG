@@ -2,3 +2,22 @@
 table {
     font-size: 13.5px;
 }
+
+
+/* Fuerza la alineación vertical de los iconos */
+ng-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important; 
+  transform: translateY(-0.0625rem) !important; 
+  color: inherit; /* <--- CRÍTICO: Esto hace que herede 'text-white', 'text-primary', etc. */
+  font-size: inherit; /* <--- CRÍTICO: Esto hace que responda a 'fs-3', 'fs-5', etc. */
+  line-height: 1;
+}
+
+/* Si el icono está dentro de un botón o elemento con texto */
+ng-icon svg {
+  display: inline-block !important;
+  vertical-align: middle !important;
+}

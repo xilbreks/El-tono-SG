@@ -4,6 +4,7 @@ import { ExpItemRoadmapComponent } from '../exp-item-roadmap/exp-item-roadmap.co
 import { RouterLink } from '@angular/router';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-cover',
@@ -12,6 +13,7 @@ import { AppService } from '../app.service';
   imports: [
     ExpItemRoadmapComponent,
     RouterLink,
+    NgIcon,
   ]
 })
 export class ExpItemCoverComponent implements OnChanges {

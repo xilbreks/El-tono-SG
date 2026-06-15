@@ -14,7 +14,8 @@
                 <td class="celda-edit">
                     <span class="boton-edit">
                         <button class="btn btn-sm" (click)="abrirModalConfirmacion(modalCambiarNombre)">
-                            <i class="bi bi-pencil-fill"></i>
+                            <!-- <i class="bi bi-pencil-fill"></i> -->
+                            <ng-icon name="bootstrapPencilFill"></ng-icon>
                         </button>
                     </span>
                 </td>
@@ -33,7 +34,8 @@
                 <td class="celda-edit">
                     <span class="boton-edit">
                         <button class="btn btn-sm" (click)="abrirModalCambiarRol(modalCambiarRol)">
-                            <i class="bi bi-pencil-fill"></i>
+                            <!-- <i class="bi bi-pencil-fill"></i> -->
+                            <ng-icon name="bootstrapPencilFill"></ng-icon>
                         </button>
                     </span>
                 </td>
@@ -117,7 +119,8 @@
     <div class="modal-footer">
         @if (!actualizando) {
         <button class="btn btn-success" [disabled]="!frmUsuario.valid" (click)="modificarRol()">
-            <i class="bi bi-floppy-fill"></i>
+            <!-- <i class="bi bi-floppy-fill"></i> -->
+            <ng-icon name="bootstrapFloppyFill"></ng-icon>
             Actualizar rol
         </button>
         }
@@ -214,7 +217,8 @@
     <div class="modal-footer">
         @if(!actualizando){
         <button type="button" class="btn btn-success" (click)="cambiarNombre(nuevoNombre)">
-            <i class="bi bi-floppy-fill"></i>
+            <!-- <i class="bi bi-floppy-fill"></i> -->
+            <ng-icon name="bootstrapFloppyFill"></ng-icon>
             Guardar
         </button>
         } @else {

@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { AppService } from '../app.service';
 import { Usuario } from '../_interfaces/usuario';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-auth-mi-perfil',
   templateUrl: './auth-mi-perfil.component.html',
   styleUrl: './auth-mi-perfil.component.scss',
-  standalone: true,
+  imports: [NgIcon]
 })
 export class AuthMiPerfilComponent {
   appService = inject(AppService);

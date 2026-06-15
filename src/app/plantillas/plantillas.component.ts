@@ -1,10 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-plantillas',
   templateUrl: './plantillas.component.html',
   styleUrl: './plantillas.component.scss',
+  imports: [
+    NgIcon,
+  ]
 })
 export class PlantillasComponent {
   private storage: Storage = inject(Storage);

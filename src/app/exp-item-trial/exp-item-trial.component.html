@@ -6,12 +6,14 @@
   <span>
     @if (lViewMode) {
     <button (click)="cambiarModo()" class="btn btn-secondary btn-sm">
-      <i class="bi bi-lock-fill"></i>
+      <!-- <i class="bi bi-lock-fill"></i> -->
+      <ng-icon name="bootstrapLockFill"></ng-icon>
     </button>
     }
     @if (!lViewMode) {
     <button (click)="cambiarModo()" class="btn btn-outline-success btn-sm">
-      <i class="bi bi-unlock-fill"></i>
+      <!-- <i class="bi bi-unlock-fill"></i> -->
+      <ng-icon name="bootstrapUnlockFill"></ng-icon>
     </button>
     }
   </span>
@@ -74,14 +76,16 @@
         @if (!lViewMode) {
         <td>
           <button (click)="openModalEditAudiencia(audiencia, editAudienciaModal)" class="btn btn-warning btn-sm">
-            <i class="bi bi-pencil-fill"></i>
+            <!-- <i class="bi bi-pencil-fill"></i> -->
+            <ng-icon name="bootstrapPencil"></ng-icon>
           </button>
         </td>
         }
         @if (!lViewMode) {
         <td>
           <button (click)="openModalDeleteAudiencia(audiencia, deleteAudienciaModal)" class="btn btn-danger btn-sm">
-            <i class="bi bi-trash-fill"></i>
+            <!-- <i class="bi bi-trash-fill"></i> -->
+            <ng-icon name="bootstrapTrash"></ng-icon>
           </button>
         </td>
         }

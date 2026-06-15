@@ -7,12 +7,14 @@
       <div>
         @if (!esEditable) {
           <label role="button" (click)="cambiarEstadoEditable()">
-            <i class="bi bi-lock-fill"></i>
+            <!-- <i class="bi bi-lock-fill"></i> -->
+            <ng-icon name="bootstrapLockFill"></ng-icon>
           </label>
         }
         @if (esEditable) {
           <label role="button" (click)="cambiarEstadoEditable()">
-            <i class="bi bi-unlock-fill"></i>
+            <!-- <i class="bi bi-unlock-fill"></i> -->
+            <ng-icon name="bootstrapUnlockFill"></ng-icon>
           </label>
         }
       </div>
@@ -77,14 +79,16 @@
               @if (esEditable) {
                 <td>
                   <button class="btn btn-warning btn-sm" (click)="abrirModalEditarAbono(abono, modalEditarAbono)">
-                    <i class="bi bi-pencil"></i>
+                    <!-- <i class="bi bi-pencil"></i> -->
+                    <ng-icon name="bootstrapPencil"></ng-icon>
                   </button>
                 </td>
               }
               @if (esEditable) {
                 <td>
                   <button class="btn btn-danger btn-sm" (click)="abrirModalQuitarAbono(abono, modalQuitarAbono)">
-                    <i class="bi bi-trash"></i>
+                    <!-- <i class="bi bi-trash"></i> -->
+                    <ng-icon name="bootstrapTrash"></ng-icon>
                   </button>
                 </td>
               }

@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-evolution',
@@ -11,6 +12,7 @@ import { AppService } from '../app.service';
   styleUrl: './exp-item-evolution.component.scss',
   imports: [
     ReactiveFormsModule,
+    NgIcon,
   ]
 })
 export class ExpItemEvolutionComponent implements OnChanges {

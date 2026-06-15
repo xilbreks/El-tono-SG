@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from './../_interfaces/expediente';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-appt',
@@ -11,6 +12,7 @@ import { AppService } from '../app.service';
   styleUrl: './exp-item-appt.component.scss',
   imports: [
     ReactiveFormsModule,
+    NgIcon,
   ]
 })
 export class ExpItemApptComponent implements OnChanges {

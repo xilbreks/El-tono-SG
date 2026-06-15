@@ -5,6 +5,7 @@ import { AppService } from './../app.service';
 
 import { Expediente } from '../_interfaces/expediente';
 import { filter, firstValueFrom } from 'rxjs';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
     selector: 'app-expedientes-list',
@@ -12,6 +13,7 @@ import { filter, firstValueFrom } from 'rxjs';
     styleUrls: ['./expedientes-list.component.scss'],
     imports: [
       RouterLink,
+      NgIcon,
     ]
 })
 export class ExpedientesListComponent implements AfterViewInit, OnInit {

@@ -8,6 +8,7 @@ import { Expediente } from './../_interfaces/expediente';
 import { finalize } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-files',
@@ -15,6 +16,7 @@ import { AppService } from '../app.service';
   styleUrl: './exp-item-files.component.scss',
   imports: [
     DecimalPipe,
+    NgIcon,
   ]
 })
 export class ExpItemFilesComponent implements OnChanges {

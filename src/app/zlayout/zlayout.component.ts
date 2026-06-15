@@ -1,6 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Firestore, doc, onSnapshot } from '@angular/fire/firestore';
+import { NgIcon } from '@ng-icons/core';
 import { AppService } from '../app.service';
 import { Usuario } from './../_interfaces/usuario';
 
@@ -14,7 +15,8 @@ interface Version {
   styleUrl: './zlayout.component.scss',
   imports: [
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    NgIcon,
   ]
 })
 export class ZlayoutComponent implements OnInit, OnDestroy {

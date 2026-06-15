@@ -5,12 +5,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { AppService } from '../app.service';
 import { Usuario } from '../_interfaces/usuario';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
     selector: 'app-auth-usuario',
     templateUrl: './auth-usuario.component.html',
     styleUrl: './auth-usuario.component.scss',
-    imports: [ReactiveFormsModule, DatePipe]
+    imports: [ReactiveFormsModule, DatePipe, NgIcon]
 })
 export class AuthUsuarioComponent implements OnInit {
   route = inject(ActivatedRoute);

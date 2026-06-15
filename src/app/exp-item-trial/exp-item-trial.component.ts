@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Expediente } from './../_interfaces/expediente';
 import { Audiencia } from '../_interfaces/audiencia';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-trial',
@@ -12,6 +13,7 @@ import { AppService } from '../app.service';
   styleUrl: './exp-item-trial.component.scss',
   imports: [
     ReactiveFormsModule,
+    NgIcon,
   ]
 })
 export class ExpItemTrialComponent implements OnChanges {

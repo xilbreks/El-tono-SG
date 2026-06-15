@@ -4,13 +4,15 @@ import { Expediente } from './../_interfaces/expediente';
 import { Resolucion } from '../_interfaces/resolucion';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-sinoe',
   templateUrl: './exp-item-sinoe.component.html',
   styleUrl: './exp-item-sinoe.component.scss',
   imports: [
-    NgbPopoverModule
+    NgbPopoverModule,
+    NgIcon,
   ]
 })
 export class ExpItemSinoeComponent implements OnChanges {

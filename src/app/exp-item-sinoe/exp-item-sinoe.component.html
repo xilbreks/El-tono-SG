@@ -57,12 +57,14 @@
                     popoverTitle="Encargado">
                     @if (noti.cumplimiento) {
                       <span style="color: green;">
-                        <i class="bi bi-check-circle-fill"></i>
+                        <!-- <i class="bi bi-check-circle-fill"></i> -->
+                        <ng-icon name="bootstrapCheckCircleFill"></ng-icon>
                       </span>
                     }
                     @if (!noti.cumplimiento) {
                       <span style="color: darkgreen;">
-                        <i class="bi bi-slash-circle"></i>
+                        <!-- <i class="bi bi-slash-circle"></i> -->
+                        <ng-icon name="bootstrapSlashCircle"></ng-icon>
                       </span>
                     }
                   </span>

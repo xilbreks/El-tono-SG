@@ -7,6 +7,7 @@ import { Cuota } from '../_interfaces/cuota';
 import { firstValueFrom } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-econ-cuot',
@@ -15,6 +16,7 @@ import { AppService } from '../app.service';
   imports: [
     ReactiveFormsModule,
     DecimalPipe,
+    NgIcon,
   ]
 })
 export class ExpItemEconCuotComponent implements OnChanges {

@@ -4,6 +4,7 @@ import { Expediente } from './../_interfaces/expediente';
 import { DecimalPipe } from '@angular/common';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-k',
@@ -11,6 +12,7 @@ import { AppService } from '../app.service';
   styleUrl: './exp-item-k.component.scss',
   imports: [
     DecimalPipe,
+    NgIcon,
   ]
 })
 export class ExpItemKComponent implements OnChanges {

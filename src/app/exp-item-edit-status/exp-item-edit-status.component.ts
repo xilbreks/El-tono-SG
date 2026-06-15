@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Expediente } from './../_interfaces/expediente';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-edit-status',
@@ -12,6 +13,7 @@ import { AppService } from '../app.service';
   styleUrls: ['./exp-item-edit-status.component.scss'],
   imports: [
     ReactiveFormsModule,
+    NgIcon,
   ]
 })
 export class ExpItemEditStatusComponent implements OnChanges {

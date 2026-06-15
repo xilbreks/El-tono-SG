@@ -1,11 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
     selector: 'app-auth-login',
     templateUrl: './auth-login.component.html',
     styleUrl: './auth-login.component.scss',
+    imports: [NgIcon]
 })
 export class AuthLoginComponent {
   appService = inject(AppService);

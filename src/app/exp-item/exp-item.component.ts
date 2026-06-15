@@ -16,6 +16,7 @@ import { ExpItemEditDataComponent } from '../exp-item-edit-data/exp-item-edit-da
 import { ExpItemEvolutionComponent } from '../exp-item-evolution/exp-item-evolution.component';
 import { ExpItemEditStatusComponent } from '../exp-item-edit-status/exp-item-edit-status.component';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item',
@@ -34,6 +35,7 @@ import { AppService } from '../app.service';
     ExpItemEditDataComponent,
     ExpItemEvolutionComponent,
     ExpItemEditStatusComponent,
+    NgIcon,
   ]
 })
 export class ExpItemComponent implements OnInit {

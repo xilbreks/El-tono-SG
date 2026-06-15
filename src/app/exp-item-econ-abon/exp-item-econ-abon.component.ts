@@ -7,6 +7,7 @@ import { Abono } from '../_interfaces/abono';
 import { firstValueFrom } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-exp-item-econ-abon',
@@ -15,6 +16,7 @@ import { AppService } from '../app.service';
   imports: [
     DecimalPipe,
     ReactiveFormsModule,
+    NgIcon,
   ]
 })
 export class ExpItemEconAbonComponent implements OnChanges {

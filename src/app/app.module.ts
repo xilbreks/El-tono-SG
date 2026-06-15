@@ -64,19 +64,57 @@ import { AuthUsuarioComponent } from './auth-usuario/auth-usuario.component';
 import { AuthUsuariosInactiveComponent } from './auth-usuarios-inactive/auth-usuarios-inactive.component';
 import { ZlayoutComponent } from './zlayout/zlayout.component';
 import { AuthMiPerfilComponent } from './auth-mi-perfil/auth-mi-perfil.component';
+import { environment } from './../environments/environment';
 
-const environment = {
-  production: false,
-  firebase: {
-    apiKey: 'AIzaSyBW8YhaHNOOBCB-FMYkoZ4OoL5OwhLqgo4',
-    authDomain: 'expedientes-guillen.firebaseapp.com',
-    projectId: 'expedientes-guillen',
-    storageBucket: 'expedientes-guillen.appspot.com',
-    messagingSenderId: '1093881940766',
-    appId: '1:1093881940766:web:f92a758b8b65856aec570f',
-    measurementId: 'G-2D04DF7DNM',
-  },
-};
+// Librería de iconos
+import { provideIcons } from '@ng-icons/core';
+import {
+  bootstrapPerson,
+  bootstrapPersonBadge,
+  bootstrapFolder2,
+  bootstrapFolder2Open,
+  bootstrapGear,
+  bootstrapPlusCircle,
+  bootstrapFileEarmarkText,
+  bootstrapPeople,
+  bootstrapCalendarCheck,
+  bootstrapCashStack,
+  bootstrapFileEarmarkMedical,
+  bootstrapShieldCheck,
+  bootstrapNodePlus,
+  bootstrapMailbox,
+  bootstrapCalendar4Range,
+  bootstrapExclamationCircle,
+  bootstrapPersonCircle,
+  bootstrapPersonVcard,
+  bootstrapBoxArrowRight,
+  bootstrapPencil,
+  bootstrapTrash,
+  bootstrapCircleFill,
+  bootstrapCircle,
+  bootstrapThreeDotsVertical,
+  bootstrapFilter,
+  bootstrapFileWordFill,
+  bootstrapCupHot,
+  bootstrapSearch,
+  bootstrapCheckCircleFill,
+  bootstrapLockFill,
+  bootstrapUnlockFill,
+  bootstrapSlashCircle,
+  bootstrapFileEarmarkPdf,
+  bootstrapLightning,
+  bootstrapExclamationTriangle,
+  bootstrapJournalText,
+  bootstrapTelephone,
+  bootstrapBox,
+  bootstrapCapsulePill,
+  bootstrapFloppyFill,
+  bootstrapEnvelope,
+  bootstrapShieldLock,
+  bootstrapExclamationTriangleFill,
+  bootstrapWrenchAdjustable,
+  bootstrapPencilFill,
+} from '@ng-icons/bootstrap-icons';
 
 @NgModule({
   declarations: [
@@ -148,7 +186,56 @@ const environment = {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+
+    // Iconos
+    provideIcons({
+      bootstrapPerson,
+      bootstrapPersonBadge,
+      bootstrapFolder2,
+      bootstrapFolder2Open,
+      bootstrapGear,
+      bootstrapPlusCircle,
+      bootstrapFileEarmarkText,
+      bootstrapPeople,
+      bootstrapCalendarCheck,
+      bootstrapCashStack,
+      bootstrapFileEarmarkMedical,
+      bootstrapShieldCheck,
+      bootstrapNodePlus,
+      bootstrapMailbox,
+      bootstrapCalendar4Range,
+      bootstrapExclamationCircle,
+      bootstrapPersonCircle,
+      bootstrapPersonVcard,
+      bootstrapBoxArrowRight,
+      bootstrapPencil,
+      bootstrapTrash,
+      bootstrapCircleFill,
+      bootstrapCircle,
+      bootstrapThreeDotsVertical,
+      bootstrapFilter,
+      bootstrapFileWordFill,
+      bootstrapCupHot,
+      bootstrapSearch,
+      bootstrapCheckCircleFill,
+      bootstrapLockFill,
+      bootstrapUnlockFill,
+      bootstrapSlashCircle,
+      bootstrapFileEarmarkPdf,
+      bootstrapLightning,
+      bootstrapExclamationTriangle,
+      bootstrapJournalText,
+      bootstrapTelephone,
+      bootstrapBox,
+      bootstrapCapsulePill,
+      bootstrapFloppyFill,
+      bootstrapEnvelope,
+      bootstrapShieldLock,
+      bootstrapExclamationTriangleFill,
+      bootstrapWrenchAdjustable,
+      bootstrapPencilFill,
+    })
   ]
 })
 export class AppModule { }
