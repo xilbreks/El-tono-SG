@@ -4,22 +4,22 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
-import { AppService } from './../app.service';
+import { AppService } from '../app.service';
 import { Expediente } from '../_interfaces/expediente';
 import { Tareo } from '../_interfaces/tareo';
 import { Tarea } from '../_interfaces/tarea';
 import { NgIcon } from '@ng-icons/core';
 
 @Component({
-  selector: 'app-tareo-edit-new',
-  templateUrl: './tareo-edit-new.component.html',
-  styleUrl: './tareo-edit-new.component.scss',
+  selector: 'app-tareo-diario-edit',
+  templateUrl: './tareo-diario-edit.component.html',
+  styleUrl: './tareo-diario-edit.component.scss',
   imports: [
     ReactiveFormsModule,
     NgIcon,
   ]
 })
-export class TareoEditNewComponent {
+export class TareoDiarioEditComponent {
   appService = inject(AppService);
   idTareo: string = '';
   tareo: Tareo | null = null;

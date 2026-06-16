@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TareoDiarioComponent } from './tareo-diario.component';
+import { TareoDiarioAdminComponent } from './tareo-diario-admin.component';
 
 describe('TareoDiarioComponent', () => {
-  let component: TareoDiarioComponent;
-  let fixture: ComponentFixture<TareoDiarioComponent>;
+  let component: TareoDiarioAdminComponent;
+  let fixture: ComponentFixture<TareoDiarioAdminComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TareoDiarioComponent]
+      declarations: [TareoDiarioAdminComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(TareoDiarioComponent);
+    fixture = TestBed.createComponent(TareoDiarioAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -4,14 +4,14 @@ import { RouterLink } from '@angular/router';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-tareo-diario-user',
-  templateUrl: './tareo-diario-user.component.html',
-  styleUrl: './tareo-diario-user.component.scss',
+  selector: 'app-tareo-mensual-user',
+  templateUrl: './tareo-mensual-user.component.html',
+  styleUrl: './tareo-mensual-user.component.scss',
   imports: [
     RouterLink
   ]
 })
-export class TareoDiarioUserComponent implements OnInit {
+export class TareoMensualUserComponent implements OnInit {
   appService = inject(AppService);
   nick: string = 'null';
   tareos: Tareo[] = [];

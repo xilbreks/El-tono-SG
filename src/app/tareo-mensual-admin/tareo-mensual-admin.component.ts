@@ -5,14 +5,14 @@ import { Tareo } from '../_interfaces/tareo';
 import { Usuario } from '../_interfaces/usuario';
 
 @Component({
-  selector: 'app-tareo-mensual',
-  templateUrl: './tareo-mensual.component.html',
-  styleUrl: './tareo-mensual.component.scss',
+  selector: 'app-tareo-mensual-admin',
+  templateUrl: './tareo-mensual-admin.component.html',
+  styleUrl: './tareo-mensual-admin.component.scss',
   imports: [
     ReactiveFormsModule,
   ]
 })
-export class TareoMensualComponent implements OnInit {
+export class TareoMensualAdminComponent implements OnInit {
   appService = inject(AppService);
 
   usuarios: Usuario[] = [];

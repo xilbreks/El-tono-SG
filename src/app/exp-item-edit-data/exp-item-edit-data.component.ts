@@ -87,7 +87,7 @@ export class ExpItemEditDataComponent implements OnInit {
     });
 
     this.modalService.open(modal, {
-      windowClass: 'modal-md',
+      size: 'lg',
     });
   }
 

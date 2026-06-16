@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TareoMensualComponent } from './tareo-mensual.component';
+import { TareoViewComponent } from './tareo-diario-view.component';
 
-describe('TareoMensualComponent', () => {
-  let component: TareoMensualComponent;
-  let fixture: ComponentFixture<TareoMensualComponent>;
+describe('TareoViewComponent', () => {
+  let component: TareoViewComponent;
+  let fixture: ComponentFixture<TareoViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TareoMensualComponent]
+      declarations: [TareoViewComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(TareoMensualComponent);
+    fixture = TestBed.createComponent(TareoViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

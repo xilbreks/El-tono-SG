@@ -17,15 +17,15 @@ import { ExpedientesListInactiveComponent } from './expedientes-list-inactive/ex
 
 import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
 import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
-import { TareoMensualComponent } from './tareo-mensual/tareo-mensual.component';
-import { TareoDiarioUserComponent } from './tareo-diario-user/tareo-diario-user.component';
-import { TareoDiarioComponent } from './tareo-diario/tareo-diario.component';
+import { TareoMensualAdminComponent } from './tareo-mensual-admin/tareo-mensual-admin.component';
+import { TareoMensualUserComponent } from './tareo-mensual-user/tareo-mensual-user.component';
+import { TareoDiarioAdminComponent } from './tareo-diario-admin/tareo-diario-admin.component';
 import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-diario-generator.component';
-import { TareoViewComponent } from './tareo-view/tareo-view.component';
+import { TareoDiarioViewComponent } from './tareo-diario-view/tareo-diario-view.component';
 import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.component';
 import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.component';
 import { PlantillasComponent } from './plantillas/plantillas.component';
-import { TareoEditNewComponent } from './tareo-edit-new/tareo-edit-new.component';
+import { TareoDiarioEditComponent } from './tareo-diario-edit/tareo-diario-edit.component';
 import { ResolucionesAdminComponent } from './resoluciones-admin/resoluciones-admin.component';
 import { ResolucionesWorkerComponent } from './resoluciones-worker/resoluciones-worker.component';
 import { AuthUsuariosComponent } from './auth-usuarios/auth-usuarios.component';
@@ -61,12 +61,12 @@ const routes: Routes = [
     children: [
       {
         path: 'admin-rdt',
-        component: TareoDiarioComponent,
+        component: TareoDiarioAdminComponent,
         title: 'Admin RDT'
       },
       {
         path: 'colaborador-rdt',
-        component: TareoDiarioUserComponent,
+        component: TareoMensualUserComponent,
         title: 'Mi RDT'
       },
       {
@@ -79,7 +79,7 @@ const routes: Routes = [
       },
       {
         path: 'rdt/:id',
-        component: TareoViewComponent,
+        component: TareoDiarioViewComponent,
       },
       // {
       //   path: 'rdt-edit/:id',
@@ -87,7 +87,7 @@ const routes: Routes = [
       // },
       {
         path: 'rdt-edit/:id',
-        component: TareoEditNewComponent,
+        component: TareoDiarioEditComponent,
       },
       {
         path: 'rdt-generator',
@@ -169,7 +169,7 @@ const routes: Routes = [
       },
       {
         path: 'tareo-mensual',
-        component: TareoMensualComponent
+        component: TareoMensualAdminComponent
       },
       {
         path: 'tareo-supervisor',

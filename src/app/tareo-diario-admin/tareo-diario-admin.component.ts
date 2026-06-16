@@ -5,15 +5,15 @@ import { RouterLink } from '@angular/router';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-tareo-diario',
-  templateUrl: './tareo-diario.component.html',
-  styleUrl: './tareo-diario.component.scss',
+  selector: 'app-tareo-diario-admin',
+  templateUrl: './tareo-diario-admin.component.html',
+  styleUrl: './tareo-diario-admin.component.scss',
   imports: [
     ReactiveFormsModule,
     RouterLink,
   ]
 })
-export class TareoDiarioComponent {
+export class TareoDiarioAdminComponent {
   appService = inject(AppService);
   fcFecha: FormControl = new FormControl(null);
   tareos: any[] = [];

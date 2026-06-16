@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TareoDiarioUserComponent } from './tareo-diario-user.component';
+import { TareoDiarioUserComponent } from './tareo-mensual-user.component';
 
 describe('TareoDiarioUserComponent', () => {
   let component: TareoDiarioUserComponent;

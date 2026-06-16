@@ -5,11 +5,11 @@ import { Tarea } from '../_interfaces/tarea';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-tareo-view',
-  templateUrl: './tareo-view.component.html',
-  styleUrl: './tareo-view.component.scss',
+  selector: 'app-tareo-diario-view',
+  templateUrl: './tareo-diario-view.component.html',
+  styleUrl: './tareo-diario-view.component.scss',
 })
-export class TareoViewComponent {
+export class TareoDiarioViewComponent {
   appService = inject(AppService);
 
   idTareo: string;

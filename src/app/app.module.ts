@@ -38,11 +38,11 @@ import { ExpItemEvolutionComponent } from './exp-item-evolution/exp-item-evoluti
 import { PlannerAudienciasComponent } from './planner-audiencias/planner-audiencias.component';
 import { PlannerCitasComponent } from './planner-citas/planner-citas.component';
 import { ExpItemRecursosComponent } from './exp-item-recursos/exp-item-recursos.component';
-import { TareoMensualComponent } from './tareo-mensual/tareo-mensual.component';
-import { TareoDiarioComponent } from './tareo-diario/tareo-diario.component';
-import { TareoDiarioUserComponent } from './tareo-diario-user/tareo-diario-user.component';
+import { TareoMensualAdminComponent } from './tareo-mensual-admin/tareo-mensual-admin.component';
+import { TareoDiarioAdminComponent } from './tareo-diario-admin/tareo-diario-admin.component';
+import { TareoMensualUserComponent } from './tareo-mensual-user/tareo-mensual-user.component';
 import { TareoDiarioGeneratorComponent } from './tareo-diario-generator/tareo-diario-generator.component';
-import { TareoViewComponent } from './tareo-view/tareo-view.component';
+import { TareoDiarioViewComponent } from './tareo-diario-view/tareo-diario-view.component';
 import { TareoSupervisorComponent } from './tareo-supervisor/tareo-supervisor.component';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { AuthLogoutComponent } from './auth-logout/auth-logout.component';
@@ -55,7 +55,7 @@ import { PlannerCuotasComponent } from './planner-cuotas/planner-cuotas.componen
 import { ExpItemSinoeComponent } from './exp-item-sinoe/exp-item-sinoe.component';
 import { PlantillasComponent } from './plantillas/plantillas.component';
 import { ExpItemRoadmapComponent } from './exp-item-roadmap/exp-item-roadmap.component';
-import { TareoEditNewComponent } from './tareo-edit-new/tareo-edit-new.component';
+import { TareoDiarioEditComponent } from './tareo-diario-edit/tareo-diario-edit.component';
 import { ResolucionesAdminComponent } from './resoluciones-admin/resoluciones-admin.component';
 import { ResolucionesWorkerComponent } from './resoluciones-worker/resoluciones-worker.component';
 import { PlannerAudienciaItemComponent } from './planner-audiencia-item/planner-audiencia-item.component';
@@ -153,13 +153,13 @@ import {
     ResolucionesAdminComponent,
     ResolucionesWorkerComponent,
     ZlayoutComponent,
-    TareoMensualComponent,
-    TareoDiarioComponent,
-    TareoDiarioUserComponent,
+    TareoMensualAdminComponent,
+    TareoDiarioAdminComponent,
+    TareoMensualUserComponent,
     TareoDiarioGeneratorComponent,
-    TareoViewComponent,
+    TareoDiarioViewComponent,
     TareoSupervisorComponent,
-    TareoEditNewComponent,
+    TareoDiarioEditComponent,
     ExpItemRoadmapComponent,
     ExpItemCoverComponent,
     ExpItemSinoeComponent,
