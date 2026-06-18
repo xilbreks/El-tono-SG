@@ -33,7 +33,7 @@ export class TareoMensualUserComponent implements OnInit {
     this.cargando = true;
 
     let idUsuario = this.nick;
-    const tareos = await this.appService.tareosPorUsuario(idUsuario);
+    const tareos = await this.appService.tareosPorUsuario(idUsuario, 6);
     this.tareos = tareos;
 
     this.cargando = false;

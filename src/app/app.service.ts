@@ -347,12 +347,12 @@ export class AppService {
 
   // B.3 Leer lista de tareos de un usuario
 
-  async tareosPorUsuario(nick: string): Promise<Tareo[]> {
+  async tareosPorUsuario(nick: string, maximo: number): Promise<Tareo[]> {
     const ref = collection(this.db, 'tareo');
     const q = query(ref,
       where('idUsuario', '==', nick),
       orderBy('fecha', 'desc'),
-      limit(25),
+      limit(maximo),
     );
 
     try {

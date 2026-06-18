@@ -69,7 +69,7 @@ $blanco-puro: #ffffff;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: lighten($verde-dark, 3%);
+    background-color: $verde-dark;
   }
 
   .text-brand-light {

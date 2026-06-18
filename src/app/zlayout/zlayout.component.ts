@@ -24,7 +24,7 @@ export class ZlayoutComponent implements OnInit, OnDestroy {
   db = inject(Firestore);
   router = inject(Router);
 
-  versionApp = '3.3.1';
+  versionApp = '3.3.2';
   versionObs;
   usuarioApp: Usuario | null = null;
   usuarioObs;
