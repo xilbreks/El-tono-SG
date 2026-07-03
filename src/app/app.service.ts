@@ -873,6 +873,7 @@ export class AppService {
     const ref = collection(this.db, 'audiencias');
     const q = query(ref,
       where('sexpediente', '==', numero),
+      orderBy('sfecha','desc'),
       limit(10),
     )
 
