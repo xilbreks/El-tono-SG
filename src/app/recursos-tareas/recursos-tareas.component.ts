@@ -82,6 +82,7 @@ export class RecursosTareasComponent {
       { id: 52, pick: true, desc: '52.- ATENCIÓN CLIENTES VÍA CELULAR' },
       { id: 53, pick: true, desc: '53.- ORGANIZAR ASAMBLEAS, REUNIONES VIRTUALES' },
       { id: 54, pick: true, desc: '54.- COBRAR CLIENTES (HACERLAS EFECTIVAS)' },
+      { id: 55, pick: true, desc: '55.- COMUNICACIÓN CON EL CLIENTE' },
       { id: 0, pick: false, desc: '------------------------------' },
       { id: 100, pick: true, desc: '100.- SESIONES SEMANALES' },
       { id: 101, pick: true, desc: '101.- ALMUERZO' },

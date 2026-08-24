@@ -1276,12 +1276,12 @@ export class AppService {
 
   // M.2 - Leer resoluciones por nick del encargado
 
-  async resolucionesPorEncargado(nick: string): Promise<Resolucion[]> {
+  async resolucionesPorEncargado(nick: string, limite: number): Promise<Resolucion[]> {
     const ref = collection(this.db, 'resoluciones');
     const q = query(ref,
       where('idEncargado', '==', nick),
       orderBy('fechaCreacion', 'desc'),
-      limit(25),
+      limit(limite),
     )
 
     try {

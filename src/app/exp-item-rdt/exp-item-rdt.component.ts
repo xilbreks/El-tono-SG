@@ -16,9 +16,11 @@ export class ExpItemRdtComponent implements OnChanges {
   @Input('expediente') expediente: Expediente | null = null;
 
   lstTareas: Array<Tarea> = [];
-  lhasmore: boolean = false;
+  lhasmore: boolean = false;          // Cargar hasta 50 registros
+  lHasEvenMore: boolean = false;     // Cargas desde el inicio
   lLoading: boolean = true;
   lLoadingMore = false;
+  lLoadingEvenMore = false;
 
   constructor() { }
 
@@ -28,6 +30,7 @@ export class ExpItemRdtComponent implements OnChanges {
     }
   }
 
+  // Recuperar primeras 16 tareas
   async getTareas() {
     if (!this.expediente) return;
 
@@ -46,15 +49,36 @@ export class ExpItemRdtComponent implements OnChanges {
     this.lLoading = false;
   }
 
-  async getTareasTodas() {
+  // Recuperar primeras 51 tareas
+  async getMasTareas() {
     if (!this.expediente) return;
 
     this.lLoadingMore = true;
     const idExpediente = this.expediente.idExpediente;
-    const tareas = await this.appService.tareasPorExpediente(idExpediente, 50);
+    const tareas = await this.appService.tareasPorExpediente(idExpediente, 51);
+
+    this.lstTareas = tareas;
 
     this.lhasmore = false;
-    this.lstTareas = tareas;
+    if (tareas.length > 50) {
+      this.lHasEvenMore = true;
+    }
+
     this.lLoadingMore = false;
+  }
+
+  // Recuperar todas las tareas
+  async getTareasTodas() {
+    if (!this.expediente) return;
+
+    this.lLoadingEvenMore = true;
+    const idExpediente = this.expediente.idExpediente;
+    const tareas = await this.appService.tareasPorExpediente(idExpediente, 500);
+
+    this.lstTareas = tareas;
+
+    this.lHasEvenMore = false;
+
+    this.lLoadingEvenMore = false;
   }
 }

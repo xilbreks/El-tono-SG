@@ -33,22 +33,33 @@
         </div>
       }
     </div>
-    @if (!lLoadingMore) {
-      <div>
-        @if (lhasmore) {
-          <button class="btn btn-primary" (click)="getTareasTodas()">
-            Cargar Todo
-          </button>
-        }
-      </div>
-    }
-    @if (lLoadingMore) {
-      <div>
-        <button class="btn btn-primary">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-          Cargando...
+
+    <!-- Existen mas de 15 registros -->
+    @if (lhasmore) {
+      @if (!lLoadingMore) {
+        <button class="btn btn-primary" (click)="getMasTareas()">
+          Cargar más registros
         </button>
-      </div>
+      } @else {
+        <button class="btn btn-primary" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Cargando más registros...
+        </button>
+      }
+    }
+
+    <!-- Existen mas de 50 registros -->
+    @if (lHasEvenMore) {
+      @if (!lLoadingEvenMore) {
+        <button class="btn btn-primary" (click)="getTareasTodas()">
+          Cargar todos los registros (desde el inicio)
+        </button>
+      } @else {
+        <button class="btn btn-primary" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Cargando todos los registros...
+        </button>
+      }
     }
   </div>
 }

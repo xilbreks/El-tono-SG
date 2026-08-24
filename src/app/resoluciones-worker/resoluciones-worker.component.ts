@@ -28,6 +28,8 @@ export class ResolucionesWorkerComponent {
   usuarios: Usuario[] = [];
 
   cargando = false;
+  tieneMas = false;
+  cargandoMas = false;
   registrando = false;
   delegando = false;
   actualizando = false;
@@ -173,10 +175,26 @@ export class ResolucionesWorkerComponent {
     this.cargando = true;
 
     // resoluciones delegadas para mi
-    const resoluciones = await this.appService.resolucionesPorEncargado(this.nick);
+    const resoluciones = await this.appService.resolucionesPorEncargado(this.nick, 26);
     this.resoluciones = resoluciones;
 
+    if (this.resoluciones.length > 25) {
+      this.tieneMas = true;
+    }
+
     this.cargando = false;
+  }
+
+  async obtenerMasResoluciones() {
+    this.cargandoMas = true;
+
+    // resoluciones delegadas para mi
+    const resoluciones = await this.appService.resolucionesPorEncargado(this.nick, 100);
+    this.resoluciones = resoluciones;
+    console.log(this.resoluciones)
+    this.tieneMas = false;
+
+    this.cargandoMas = false;
   }
 
   obtenerExpedientesCompletos() {
