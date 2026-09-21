@@ -21,19 +21,17 @@
         <th>Atención</th>
         <th>Delegado por</th>
         <th>Expediente</th>
-        <th>Tipo de proceso</th>
+        <th>Área</th>
         <th>DTE</th>
         <th>DDO</th>
         <th>ITER</th>
         <th>Contrato</th>
         <th>T. Atención</th>
         <th>Código de tarea</th>
-        <th>Mención de la tarea</th>
+        <th style="min-width: 200px;">Mención de la tarea</th>
         <th>Acciones a realizar</th>
-        <!-- <th>Monto pactado</th>
-        <th>Pagos hechos</th>
-        <th>Ultimo pago</th>
-        <th>Fecha ultimo pago</th> -->
+        <th style="font-size: 0.75rem;">Es cobranza?</th>
+        <th style="font-size: 0.75rem;">Es comunicación con cliente?</th>
         <th>Fecha y Hora de guardado</th>
       </tr>
     </thead>
@@ -42,54 +40,36 @@
         @for (tarea of tareas; track tarea; let i = $index) {
           <tr>
             <th scope="row">{{ i + 1 }}</th>
-            <td>
-              {{ tarea.tipoAtencion }}
+            <td>{{ tarea.tipoAtencion }}</td>
+            <td>{{ tarea.delegadoPor }}</td>
+            <td>{{ tarea.numero }}</td>
+            <td>{{ tarea.especialidad }}</td>
+            <td>{{ tarea.demandante}}</td>
+            <td>{{ tarea.demandado }}</td>
+            <td>{{ tarea.nombreCheckpoint }}</td>
+            <td style="text-align: center;">{{ tarea.tieneContrato }}</td>
+            <td>{{tarea.horasAtencion}}:{{tarea.minutosAtencion}}</td>
+            <td>{{ tarea.codigoTarea }}</td>
+            <td>{{ tarea.detalleTarea }}</td>
+            <td>{{ tarea.pendienteTarea }}</td>
+            <td style="text-align: center;">
+              @if(tarea.esCobranza == true){
+                Si
+              } @else if (tarea.esCobranza == false) {
+                No
+              } @else {
+                -
+              }
             </td>
-            <td>
-              {{ tarea.delegadoPor }}
+            <td style="text-align: center;">
+              @if(tarea.esComunicacionCliente == true) {
+                Si
+              } @else if (tarea.esComunicacionCliente == false) {
+                No
+              } @else {
+                -
+              }
             </td>
-            <td>
-              {{ tarea.numero }}
-            </td>
-            <td>
-              {{ tarea.especialidad }}
-            </td>
-            <td>
-              {{ tarea.demandante}}
-            </td>
-            <td>
-              {{ tarea.demandado }}
-            </td>
-            <td>
-              {{ tarea.nombreCheckpoint }}
-            </td>
-            <td>
-              {{ tarea.tieneContrato }}
-            </td>
-            <td>
-              {{tarea.horasAtencion}}:{{tarea.minutosAtencion}}
-            </td>
-            <td>
-              {{ tarea.codigoTarea }}
-            </td>
-            <td>
-              {{ tarea.detalleTarea }}
-            </td>
-            <td>
-              {{ tarea.pendienteTarea }}
-            </td>
-            <!-- <td>
-            {{ tarea.montoPactado }}
-          </td>
-          <td>
-            {{ tarea.abonoTotal }}
-          </td>
-          <td>
-            {{ tarea.montoUltimoAbono }}
-          </td>
-          <td>
-            {{ tarea.fechaUltimoAbono }}
-          </td> -->
           <td>
             {{ tarea.fechaCreacionString }}
           </td>

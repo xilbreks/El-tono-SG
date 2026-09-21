@@ -20,6 +20,8 @@ export interface Tarea {
     delegadoPor: string,            // Supervisor quien asigno la tarea
     horasAtencion: string,          // Numero de horas demandadas por la tarea
     minutosAtencion: string,        // Numero de minutos demandados por la tarea
+    esCobranza?: boolean;            // Indicador si tarea fue para cobranza
+    esComunicacionCliente?: boolean; // Indicador si la tarea es comunicacion con cliente
     
     montoPactado: string,           // Monto pactado del expediente
     abonoTotal: string,             // Abono total sobre el expediente

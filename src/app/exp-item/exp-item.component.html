@@ -21,6 +21,18 @@
         Backlog
       </button>
     </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="comunicacion-tab" data-bs-toggle="tab" data-bs-target="#comunicacion-tab-pane" type="button"
+        role="tab" aria-controls="comunicacion-tab-pane" aria-selected="false">
+        Comunicaciones
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="cobranza-tab" data-bs-toggle="tab" data-bs-target="#cobranza-tab-pane" type="button"
+        role="tab" aria-controls="cobranza-tab-pane" aria-selected="false">
+        Cobranza
+      </button>
+    </li>
     @if (rol == 'admin' ||
     nick == 'lizbet-silva' ||
     rol == 'lider' ||
@@ -80,8 +92,13 @@
       <app-exp-item-roadmap [expediente]="expediente"></app-exp-item-roadmap>
     </div> -->
     <div class="tab-pane fade" id="sinoe-tab-pane" role="tabpanel" aria-labelledby="sinoe-tab" tabindex="0">
-      <!-- <app-exp-item-calls [expediente]="expediente"></app-exp-item-calls> -->
       <app-exp-item-sinoe [expediente]="expediente"></app-exp-item-sinoe>
+    </div>
+    <div class="tab-pane fade" id="comunicacion-tab-pane" role="tabpanel" aria-labelledby="comunicacion-tab" tabindex="0">
+      <app-exp-item-comunicacion [expediente]="expediente"></app-exp-item-comunicacion>
+    </div>
+    <div class="tab-pane fade" id="cobranza-tab-pane" role="tabpanel" aria-labelledby="cobranza-tab" tabindex="0">
+      <app-exp-item-cobranzas [expediente]="expediente"></app-exp-item-cobranzas>
     </div>
     @if (rol == 'admin' ||
     nick == 'lizbet-silva' ||

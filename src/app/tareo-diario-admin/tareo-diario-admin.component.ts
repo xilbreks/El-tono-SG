@@ -213,7 +213,7 @@ export class TareoDiarioAdminComponent {
         "Tipo de Atencion": tarea['tipoAtencion'],
         "Delegado por": tarea['delegadoPor'],
         "Expediente": tarea['numero'],
-        "Tipo de Proceso": tarea['especialidad'],
+        "Area": tarea['especialidad'],
         "Demandante": tarea['demandante'],
         "Demandado": tarea['demandado'],
         "ITER": tarea['nombreCheckpoint'],
@@ -222,11 +222,9 @@ export class TareoDiarioAdminComponent {
         "Codigo tarea": tarea['codigoTarea'],
         "Descripción de la tarea": limpiarTexto(tarea['detalleTarea']).slice(0, 2500),
         "Acciones por realizar": limpiarTexto(tarea['pendienteTarea']).slice(0, 2500),
+        "Cobranza": tarea['esCobranza'] == true ? 'Si' : '-',
+        "Comunicacion": tarea['esComunicacionCliente'] == true ? 'Si' : '-',
         "Fecha y Hora de guardado": fechaRegistro,
-        "Monto pactado": tarea['montoPactado'],
-        "Pagos realizados": tarea['abonoTotal'],
-        "Ultimo pago": tarea['montoUltimoAbono'],
-        "Fecha Ultimo Pago": tarea['fechaUltimoAbono'],
       });
     });
 

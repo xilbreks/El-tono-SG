@@ -1542,7 +1542,7 @@ export class AppService {
     }
   }
 
-  // H.3 - Actualizar tarea
+  // N.5 - Actualizar tarea
 
   async actualizarTarea(idTarea: string, payload: Partial<Tarea>): Promise<boolean> {
     const ref = doc(this.db, 'tareas', idTarea);
@@ -1556,7 +1556,7 @@ export class AppService {
     }
   }
 
-  // H.4 - Eliminar Tarea
+  // N.6 - Eliminar Tarea
 
   async eliminarTarea(idTarea: string): Promise<boolean> {
     const ref = doc(this.db, 'tareas', idTarea);
@@ -1567,6 +1567,66 @@ export class AppService {
     } catch (error) {
       console.log('error al eliminar tarea');
       return false;
+    }
+  }
+
+  // N.7.- Listado de tareas por expediente con cobranza
+
+  async tareasPorExpedienteCobranza(idExpediente: string, limite: number): Promise<Tarea[]> {
+    const ref = collection(this.db, 'tareas');
+    const q = query(ref,
+      where('idExpediente', '==', idExpediente),
+      where('esCobranza', '==', true),
+      orderBy('fechaTarea', 'desc'),
+      limit(limite),
+    )
+
+    try {
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) return [];
+
+      return snapshot.docs
+        .map((doc: QueryDocumentSnapshot) => {
+          return {
+            // id: doc.id,
+            ...doc.data()
+          } as Tarea;
+        })
+
+    } catch (error) {
+      console.log('Error buscando tareas', error);
+      return [];
+    }
+  }
+
+  // N.8.- Listado de tareas por expediente con comunicacion cliente
+
+  async tareasPorExpedienteComunicacion(idExpediente: string, limite: number): Promise<Tarea[]> {
+    const ref = collection(this.db, 'tareas');
+    const q = query(ref,
+      where('idExpediente', '==', idExpediente),
+      where('esComunicacionCliente', '==', true),
+      orderBy('fechaTarea', 'desc'),
+      limit(limite),
+    )
+
+    try {
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) return [];
+
+      return snapshot.docs
+        .map((doc: QueryDocumentSnapshot) => {
+          return {
+            // id: doc.id,
+            ...doc.data()
+          } as Tarea;
+        })
+
+    } catch (error) {
+      console.log('Error buscando tareas', error);
+      return [];
     }
   }
 
@@ -2293,4 +2353,5 @@ export class AppService {
 
     return letraAleatoria;
   }
+
 }

@@ -32,12 +32,10 @@
         <th>Contrato</th>
         <th>T. Atencion</th>
         <th>Codigo tarea</th>
-        <th>Detalle tarea</th>
-        <th>Pendiente tarea</th>
-        <!-- <th>Monto pactado</th>
-        <th>Pagos hechos</th>
-        <th>Ultimo pago</th>
-        <th>Fecha ultimo pago</th> -->
+        <th style="min-width: 200px;">Mención de la tarea</th>
+        <th>Acciones a realizar</th>
+        <th style="font-size: 0.75rem;">Es cobranza?</th>
+        <th style="font-size: 0.75rem;">Es comunicación con cliente?</th>
         <th></th>
         <th></th>
       </tr>
@@ -64,10 +62,24 @@
         <td>{{tarea.codigoTarea}}</td>
         <td>{{tarea.detalleTarea}}</td>
         <td>{{tarea.pendienteTarea}}</td>
-        <!-- <td>{{tarea.montoPactado}}</td>
-          <td>{{tarea.abonoTotal}}</td>
-          <td>{{tarea.montoUltimoAbono}}</td>
-          <td>{{tarea.fechaUltimoAbono}}</td> -->
+        <td style="text-align: center;">
+          @if(tarea.esCobranza == true){
+            Si
+          } @else if (tarea.esCobranza == false) {
+            No
+          } @else {
+            -
+          }
+        </td>
+        <td style="text-align: center;">
+          @if(tarea.esComunicacionCliente == true) {
+            Si
+          } @else if (tarea.esComunicacionCliente == false) {
+            No
+          } @else {
+            -
+          }
+        </td>
         <td>
           <button class="btn btn-sm btn-outline-dark" (click)="empezarEdicionTarea(tarea, modalEditarTarea)"
             ngbTooltip="Editar">
@@ -441,20 +453,8 @@
         <div class="col-6 col-md-3">
           <label for="delegadoPor" class="form-label"> Delegado por </label>
           <input type="text" class="form-control" id="delegadoPor" formControlName="delegadoPor">
-          <!-- <select class="form-select" id="delegadoPor" formControlName="delegadoPor">
-                          <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
-                          <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
-                          <option value="Abg. Paola Mendoza">Abg. Paola Mendoza</option>
-                          <option value="Abg. Huander Montoya">Abg. Huander Montoya</option>
-                          <option value="Abg. Maria Tunquipa">Abg. Maria Tunquipa</option>
-                          <option value="Abg. Yajayra Portocarrero">Abg. Yajayra Portocarrero</option>
-                          <option value="Abg. Miryam Huamani">Abg. Miryam Huamani</option>
-                          <option value="Bach. Gabylu Siu. ">Bach. Gabylu Siu.</option>
-                          <option value="ing-wilber">Ing. Wilber</option>
-                          <option value="iniciativa-propia">Iniciativa Propia</option>
-                        </select> -->
         </div>
-        <div class="col-6 col-md-3">
+        <div class="col-6 col-md-2">
           <label for="tiempoAtencion" class="form-label">
             Tiempo de Atención
           </label>
@@ -492,35 +492,33 @@
             </select>
           </div>
         </div>
-        <div class="col-6 col-md-3">
+        <div class="col-6 col-md-2">
+          <label class="form-label d-block">
+            ¿Es cobranza?
+          </label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="p1Si" [value]="true" formControlName="esCobranza">
+            <label class="form-check-label" for="p1Si">Sí</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="p1No" [value]="false" formControlName="esCobranza">
+            <label class="form-check-label" for="p1No">No</label>
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <label class="form-label d-block">
+            ¿Es comunicación con cliente?
+          </label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="p2Si" [value]="true" formControlName="esComunicacionCliente">
+            <label class="form-check-label" for="p2Si">Sí</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="p2No" [value]="false" formControlName="esComunicacionCliente">
+            <label class="form-check-label" for="p2No">No</label>
+          </div>
         </div>
       </div>
-      <!-- <div class="row mb-2">
-                    <div class="col-6 col-md-3">
-                      <label for="montopactado" class="form-label">
-                        Monto pactado
-                      </label>
-                      <input type="text" class="form-control" id="montopactado" formControlName="montoPactado" />
-                    </div>
-                    <div class="col-6 col-md-3">
-                      <label for="abonoTotal" class="form-label">
-                        Pagos hechos hasta la fecha
-                      </label>
-                      <input type="text" class="form-control" id="abonoTotal" formControlName="abonoTotal" />
-                    </div>
-                    <div class="col-6 col-md-3">
-                      <label for="montoUltimoAbono" class="form-label">
-                        Monto del último pago
-                      </label>
-                      <input type="text" class="form-control" id="montoUltimoAbono" formControlName="montoUltimoAbono" />
-                    </div>
-                    <div class="col-6 col-md-3">
-                      <label for="fechaUltimoAbono" class="form-label">
-                        Fecha del último pago
-                      </label>
-                      <input type="text" class="form-control" id="fechaUltimoAbono" formControlName="fechaUltimoAbono" />
-                    </div>
-                  </div> -->
     </form>
     }
 
@@ -1222,20 +1220,8 @@
           <div class="col-6 col-md-3">
             <label for="delegadoPor" class="form-label"> Delegado por </label>
             <input type="text" class="form-control" id="delegadoPor" formControlName="delegadoPor">
-            <!-- <select class="form-select" id="delegadoPor" formControlName="delegadoPor">
-              <option value="Dra. Lizbet Silva">Dra. Lizbet Silva</option>
-              <option value="Abg. Crishtian Paucar">Abg. Crishtian Paucar</option>
-              <option value="Abg. Paola Mendoza">Abg. Paola Mendoza</option>
-              <option value="Abg. Huander Montoya">Abg. Huander Montoya</option>
-              <option value="Abg. Maria Tunquipa">Abg. Maria Tunquipa</option>
-              <option value="Abg. Yajayra Portocarrero">Abg. Yajayra Portocarrero</option>
-              <option value="Abg. Miryam Huamani">Abg. Miryam Huamani</option>
-              <option value="Bach. Gabylu Siu. ">Bach. Gabylu Siu.</option>
-              <option value="ing-wilber">Ing. Wilber</option>
-              <option value="iniciativa-propia">Iniciativa Propia</option>
-            </select> -->
           </div>
-          <div class="col-6 col-md-3">
+          <div class="col-6 col-md-2">
             <label for="tiempoAtencion" class="form-label">
               Tiempo de Atención
             </label>
@@ -1273,37 +1259,33 @@
               </select>
             </div>
           </div>
-          <div class="col-6 col-md-3">
+          <div class="col-6 col-md-2">
+            <label class="form-label d-block">
+              ¿Es cobranza?
+            </label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="p1Si" [value]="true" formControlName="esCobranza">
+              <label class="form-check-label" for="p1Si">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="p1No" [value]="false" formControlName="esCobranza">
+              <label class="form-check-label" for="p1No">No</label>
+            </div>
+          </div>
+          <div class="col-6 col-md-2">
+            <label class="form-label d-block">
+              ¿Es comunicación con cliente?
+            </label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="p2Si" [value]="true" formControlName="esComunicacionCliente">
+              <label class="form-check-label" for="p2Si">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="p2No" [value]="false" formControlName="esComunicacionCliente">
+              <label class="form-check-label" for="p2No">No</label>
+            </div>
           </div>
         </div>
-        <!-- <div class="row mb-2">
-          <div class="col-6 col-md-3">
-            <label for="montopactado" class="form-label">
-              Monto pactado
-            </label>
-            <input type="text" class="form-control" id="montopactado" formControlName="montoPactado" />
-          </div>
-          <div class="col-6 col-md-3">
-            <label for="abonoTotal" class="form-label">
-              Pagos hechos hasta la fecha
-            </label>
-            <input type="text" class="form-control" id="abonoTotal" formControlName="abonoTotal" />
-          </div>
-          <div class="col-6 col-md-3">
-            <label for="montoUltimoAbono" class="form-label">
-              Monto del último pago
-            </label>
-            <input type="text" class="form-control" id="montoUltimoAbono"
-              formControlName="montoUltimoAbono" />
-            </div>
-            <div class="col-6 col-md-3">
-              <label for="fechaUltimoAbono" class="form-label">
-                Fecha del último pago
-              </label>
-              <input type="text" class="form-control" id="fechaUltimoAbono"
-                formControlName="fechaUltimoAbono" />
-              </div>
-            </div> -->
       </div>
       }
       @if (frmEditarTarea.value.idNaturaleza == 'sin') {

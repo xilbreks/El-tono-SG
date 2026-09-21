@@ -9,6 +9,7 @@ import { Expediente } from '../_interfaces/expediente';
 import { Tareo } from '../_interfaces/tareo';
 import { Tarea } from '../_interfaces/tarea';
 import { NgIcon } from '@ng-icons/core';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-tareo-diario-edit',
@@ -17,6 +18,7 @@ import { NgIcon } from '@ng-icons/core';
   imports: [
     ReactiveFormsModule,
     NgIcon,
+    JsonPipe
   ]
 })
 export class TareoDiarioEditComponent {
@@ -71,6 +73,9 @@ export class TareoDiarioEditComponent {
       delegadoPor: new FormControl(null, Validators.required),
       horasAtencion: new FormControl(null, Validators.required),
       minutosAtencion: new FormControl(null, Validators.required),
+      esCobranza: new FormControl(false, Validators.required),
+      esComunicacionCliente: new FormControl(false, Validators.required),
+
       // montoPactado: new FormControl(null, Validators.required),
       // abonoTotal: new FormControl(null, Validators.required),
       // montoUltimoAbono: new FormControl(null, Validators.required),
@@ -94,8 +99,8 @@ export class TareoDiarioEditComponent {
       especialidad: new FormControl(null, Validators.required),
       tieneContrato: new FormControl(null, Validators.required),
       codigoTarea: new FormControl(null, Validators.required),
-      detalleTarea: new FormControl(null, Validators.required),
-      pendienteTarea: new FormControl(null, Validators.required),
+      detalleTarea: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(1500)])),
+      pendienteTarea: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(1500)])),
       // fechaTarea: new FormControl(null, Validators.required),
       idCheckpoint: new FormControl(null),
       nombreCheckpoint: new FormControl(null, Validators.required),
@@ -103,6 +108,9 @@ export class TareoDiarioEditComponent {
       delegadoPor: new FormControl(null, Validators.required),
       horasAtencion: new FormControl(null, Validators.required),
       minutosAtencion: new FormControl(null, Validators.required),
+      esCobranza: new FormControl(null, Validators.required),
+      esComunicacionCliente: new FormControl(null, Validators.required),
+
       // montoPactado: new FormControl(null, Validators.required),
       // abonoTotal: new FormControl(null, Validators.required),
       // montoUltimoAbono: new FormControl(null, Validators.required),
@@ -161,6 +169,9 @@ export class TareoDiarioEditComponent {
           delegadoPor: null,
           horasAtencion: null,
           minutosAtencion: null,
+          esCobranza: false,
+          esComunicacionCliente: false,
+
           // montoPactado: null,
           // abonoTotal: null,
           // montoUltimoAbono: null,
@@ -186,6 +197,9 @@ export class TareoDiarioEditComponent {
           delegadoPor: null,
           horasAtencion: null,
           minutosAtencion: null,
+          esCobranza: '-',
+          esComunicacionCliente: '-',
+
           // montoPactado: '-',
           // abonoTotal: '-',
           // montoUltimoAbono: '-',
@@ -212,6 +226,9 @@ export class TareoDiarioEditComponent {
           delegadoPor: null,
           horasAtencion: null,
           minutosAtencion: null,
+          esCobranza: '-',
+          esComunicacionCliente: '-',
+
           // montoPactado: '-',
           // abonoTotal: '-',
           // montoUltimoAbono: '-',
@@ -380,6 +397,9 @@ export class TareoDiarioEditComponent {
       delegadoPor: this.frmNuevaTarea.controls['delegadoPor'].value.trim().slice(0, 100),
       horasAtencion: this.frmNuevaTarea.controls['horasAtencion'].value,
       minutosAtencion: this.frmNuevaTarea.controls['minutosAtencion'].value,
+      esCobranza: this.frmNuevaTarea.controls['esCobranza'].value,
+      esComunicacionCliente: this.frmNuevaTarea.controls['esComunicacionCliente'].value,
+
       // montoPactado: this.frmNuevaTarea.controls['montoPactado'].value.trim().slice(0, 100),
       // abonoTotal: this.frmNuevaTarea.controls['abonoTotal'].value.trim().slice(0, 100),
       // montoUltimoAbono: this.frmNuevaTarea.controls['montoUltimoAbono'].value.trim().slice(0, 100),
@@ -410,6 +430,9 @@ export class TareoDiarioEditComponent {
     this.fcTipoTarea.setValue('con');
     this.cambioTipoFormulario();
     this.recuperarTareas();
+
+    // Reiniciar la caja de busquedas
+    this.fcQueryBox.reset('');
 
     this.registrando = false;
   }
@@ -467,6 +490,9 @@ export class TareoDiarioEditComponent {
       delegadoPor: tarea.delegadoPor,
       horasAtencion: tarea.horasAtencion,
       minutosAtencion: tarea.minutosAtencion,
+      esCobranza: tarea.esCobranza,
+      esComunicacionCliente: tarea.esComunicacionCliente,
+
       // montoPactado: tarea.montoPactado,
       // abonoTotal: tarea.abonoTotal,
       // montoUltimoAbono: tarea.montoUltimoAbono,
@@ -501,6 +527,9 @@ export class TareoDiarioEditComponent {
       delegadoPor: this.frmEditarTarea.value['delegadoPor'].trim().slice(0, 100),
       horasAtencion: this.frmEditarTarea.value['horasAtencion'],
       minutosAtencion: this.frmEditarTarea.value['minutosAtencion'],
+      esCobranza: this.frmEditarTarea.value['esCobranza'],
+      esComunicacionCliente: this.frmEditarTarea.value['esComunicacionCliente'],
+
       // montoPactado: this.frmEditarTarea.value['montoPactado'].trim().slice(0, 100),
       // abonoTotal: this.frmEditarTarea.value['abonoTotal'].trim().slice(0, 100),
       // montoUltimoAbono: this.frmEditarTarea.value['montoUltimoAbono'].trim().slice(0, 100),
