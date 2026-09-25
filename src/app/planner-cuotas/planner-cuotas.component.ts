@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Cuota } from '../_interfaces/cuota';
 import { RouterLink } from '@angular/router';
 import { AppService } from '../app.service';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-planner-cuotas',
@@ -13,6 +14,7 @@ import { AppService } from '../app.service';
   imports: [
     ReactiveFormsModule,
     RouterLink,
+    NgIcon,
   ]
 })
 export class PlannerCuotasComponent implements OnInit {
@@ -81,10 +83,79 @@ export class PlannerCuotasComponent implements OnInit {
 
     // console.log(`Desde ${inicio} hasta ${final}`);
 
-    const cuotas = await this.appService.plannerVencimientos(inicio, final);
+    let cuotas = await this.appService.plannerVencimientos(inicio, final);
+
+    // Verificar el estado de vencimiento de las cuotas
+    cuotas = cuotas.map(cuota => {
+      if (cuota.estado == 'PAGADA') {
+        return cuota;
+      }
+      if (!cuota.vencimiento) {
+        return cuota;
+      }
+      const estado = cuota.vencimiento < this.today ? 'VENCIDA' : 'EN-PLAZO';
+      return {
+        ...cuota,
+        estado,
+      }
+      
+    })
+
     this.cuotas = cuotas;
 
     this.cargando = false;
+  }
+
+  /**
+   * DESCARGAR CSV (NATIVO - SINOPSIS DE EXCEL)
+   */
+  async descargarExcel() {
+    let todo_Excel: Array<any> = [];
+    
+
+    this.cuotas.forEach(cuota => {
+      
+
+      todo_Excel.push({
+        "Expediente": cuota['numeroExpediente'],
+        "Area": cuota['especialidad'],
+        "Demandante": cuota['demandante'],
+        "Demandado": cuota['demandado'],
+        "Materia": cuota['materia'],
+        "Nro de cuota": cuota['numero'],
+        "F.V.": cuota['vencimiento'],
+        "Estado": cuota['estado'],
+        "Monto": cuota['monto'],
+        "Observaciones": ` ${cuota['observaciones']}`,
+      });
+    });
+
+    if (todo_Excel.length === 0) return;
+
+    // 1. Obtener las cabeceras (las llaves del primer objeto)
+    const headers = Object.keys(todo_Excel[0]);
+
+    // 2. Construir las filas del CSV envolviendo cada celda en comillas dobles y separando por punto y coma (;)
+    // El punto y coma ayuda a que Excel en español reconozca las columnas directamente
+    const rows = todo_Excel.map(obj =>
+      headers.map(header => `"${obj[header] ?? ''}"`).join(';')
+    );
+
+    // 3. Unir cabeceras y filas con saltos de línea
+    const csvContent = [headers.join(';'), ...rows].join('\n');
+
+    // 4. Crear el archivo Blob agregando el BOM (\uFEFF) para soporte de tildes y eñes en Excel
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+
+    // 5. Crear un enlace de descarga invisible en el navegador y dispararlo
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'Planner cobranzas ' + this.today + '.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
 }

@@ -1630,6 +1630,40 @@ export class AppService {
     }
   }
 
+  // N.9.- Listado de tareas por por comunicacion cliente
+
+  async tareasPorComunicacionSemana(): Promise<Tarea[]> {
+    // calcular una semana atras desde hoy
+    const fechaHoy = new Date();
+    const haceUnaSemana = new Date(fechaHoy.getTime() - (7 * 24 * 60 * 60 * 1000));
+    const resultado = haceUnaSemana.toLocaleDateString('en-CA'); // yyyy-mm-dd
+
+    const ref = collection(this.db, 'tareas');
+    const q = query(ref,
+      where('esComunicacionCliente', '==', true),
+      where('fechaTarea', '>=', resultado),
+      orderBy('fechaTarea', 'desc'),
+    )
+
+    try {
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) return [];
+
+      return snapshot.docs
+        .map((doc: QueryDocumentSnapshot) => {
+          return {
+            // id: doc.id,
+            ...doc.data()
+          } as Tarea;
+        })
+
+    } catch (error) {
+      console.log('Error buscando tareas', error);
+      return [];
+    }
+  }
+
   // O.1 - Lista de las Materias
 
   materias() {

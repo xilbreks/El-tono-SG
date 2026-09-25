@@ -89,7 +89,22 @@ export class ExpItemEconCuotComponent implements OnChanges {
   async obtenerCuotas() {
     if (!this.expediente) return;
     this.cargando = true;
-    const cuotas = await this.appService.cuotasPorExpediente(this.expediente.idExpediente);
+    const hoyPeru = new Date().toLocaleDateString('en-CA'); // yyyy-mm-dd
+    let cuotas = await this.appService.cuotasPorExpediente(this.expediente.idExpediente);
+    // Modificar el estado de EN-PLAZO a VENCIDA a los que vencieron
+    cuotas = cuotas.map(cuota => {
+      if (cuota.estado == 'PAGADA') {
+        return cuota;
+      }
+      if (!cuota.vencimiento) {
+        return cuota;
+      }
+      const estado = cuota.vencimiento < hoyPeru ? 'VENCIDA' : 'EN-PLAZO';
+      return {
+        ...cuota,
+        estado,
+      }
+    })
     this.cuotas = cuotas;
     this.sumaCuotas = 0;
     this.cuotas.forEach(cuota => {

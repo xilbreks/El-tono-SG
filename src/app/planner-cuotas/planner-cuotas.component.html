@@ -23,6 +23,9 @@
       <option value="2025">2025</option>
       <option value="2026">2026</option>
       <option value="2027">2027</option>
+      <option value="2028">2028</option>
+      <option value="2029">2029</option>
+      <option value="2030">2030</option>
     </select>
   </form>
 </div>
@@ -35,7 +38,7 @@
         <th>Expediente</th>
         <th>Demandante</th>
         <th>Demandado</th>
-        <th>Proceso</th>
+        <th>Materia</th>
         <th>Cuota</th>
         <th style="text-align: center;" class="no-wrap">F. V.</th>
         <th>Estado</th>
@@ -106,6 +109,13 @@
   </table>
 </div>
 @if (!cargando) {
+  <div>
+    <button class="btn btn-primary mb-3" (click)="descargarExcel()">
+      <ng-icon name="bootstrapArrowBarDown"></ng-icon>
+      Descargar Excel
+    </button>
+  </div>
+
   <div style="font-size: 12px;">
     <strong>NOTA:</strong>
     <p>

@@ -114,6 +114,7 @@ import {
   bootstrapExclamationTriangleFill,
   bootstrapWrenchAdjustable,
   bootstrapPencilFill,
+  bootstrapArrowBarDown,
 } from '@ng-icons/bootstrap-icons';
 
 @NgModule({
@@ -235,6 +236,7 @@ import {
       bootstrapExclamationTriangleFill,
       bootstrapWrenchAdjustable,
       bootstrapPencilFill,
+      bootstrapArrowBarDown,
     })
   ]
 })
