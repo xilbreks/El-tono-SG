@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { AppService } from './../app.service';
 
 import { Expediente } from '../_interfaces/expediente';
-import { filter, firstValueFrom } from 'rxjs';
+import { filter, firstValueFrom, Observable } from 'rxjs';
 import { NgIcon } from '@ng-icons/core';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
     selector: 'app-expedientes-list',
@@ -14,6 +15,8 @@ import { NgIcon } from '@ng-icons/core';
     imports: [
       RouterLink,
       NgIcon,
+      AsyncPipe,
+      JsonPipe,
     ]
 })
 export class ExpedientesListComponent implements AfterViewInit, OnInit {
@@ -24,8 +27,6 @@ export class ExpedientesListComponent implements AfterViewInit, OnInit {
   limitSearch: number = 15;
 
   viewMode = true;
-  casaciones2da: Expediente[] = [];
-  casaciones4ta: Expediente[] = [];
   laborales: Expediente[] = [];
   familias: Expediente[] = [];
   civiles: Expediente[] = [];
@@ -35,11 +36,15 @@ export class ExpedientesListComponent implements AfterViewInit, OnInit {
   carpetas: Expediente[] = [];
   curadurias: Expediente[] = [];
 
+  usuario$: Observable<any | null>;
+
   constructor(
     private service: AppService,
     private route: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {
+    this.usuario$ = service.usuario$;
+  }
 
   async ngOnInit() {
     const query = this.route.snapshot.queryParams['q'];
@@ -65,9 +70,6 @@ export class ExpedientesListComponent implements AfterViewInit, OnInit {
   }
 
   separarAreas() {
-    // this.casaciones2da = this.expedientes.filter(e => e.numeroCasacion != null).filter(e => e.salaCasacion == '2DA SALA');
-    // this.casaciones4ta = this.expedientes.filter(e => e.numeroCasacion != null).filter(e => e.salaCasacion == '4TA SALA');
-    // this.laborales = this.expedientes.filter(e => e.numeroCasacion == null).filter(e => e.especialidad == 'LABORAL');
     this.laborales = this.expedientes.filter(e => e.especialidad == 'LABORAL');
     this.familias = this.expedientes.filter(e => e.especialidad == 'FAMILIA');
     this.civiles = this.expedientes.filter(e => e.especialidad == 'CIVIL');
@@ -137,6 +139,62 @@ export class ExpedientesListComponent implements AfterViewInit, OnInit {
 
         return lMatch;
       }).filter((v, i) => i < this.limitSearch);
+  }
+
+  /**
+   * DESCARGAR CSV (NATIVO - SINOPSIS DE EXCEL)
+   */
+  async descargarExcel() {
+    let todo_Excel: Array<any> = [];
+
+    this.expedientes.forEach(expediente => {
+      const fechaTmp = new Date(expediente['fechaCreacion']);
+      const dia = String(fechaTmp.getDate()).padStart(2, '0');
+      const mes = String(fechaTmp.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
+      const anio = fechaTmp.getFullYear();
+      const fechaFormateada = `${dia}/${mes}/${anio}`;
+
+      todo_Excel.push({
+        "Expediente": expediente['numero'],
+        "Clase": expediente['clase'],
+        "Area": expediente['especialidad'],
+        "Materia": expediente['materia'],
+        "Demandante": expediente['demandante'],
+        "Demandado": expediente['demandado'],
+        "ITER": expediente['nombreCheckpoint'],
+        "Fecha creacion": fechaFormateada,
+        "Tiene contrato?": expediente['tieneContrato'] ? 'Si' : null,
+        "Casacion": expediente['numeroCasacion'],
+        "Sala casacion": expediente['salaCasacion'],
+      });
+    });
+
+    if (todo_Excel.length === 0) return;
+
+    // 1. Obtener las cabeceras (las llaves del primer objeto)
+    const headers = Object.keys(todo_Excel[0]);
+
+    // 2. Construir las filas del CSV envolviendo cada celda en comillas dobles y separando por punto y coma (;)
+    // El punto y coma ayuda a que Excel en español reconozca las columnas directamente
+    const rows = todo_Excel.map(obj =>
+      headers.map(header => `"${obj[header] ?? ''}"`).join(';')
+    );
+
+    // 3. Unir cabeceras y filas con saltos de línea
+    const csvContent = [headers.join(';'), ...rows].join('\n');
+
+    // 4. Crear el archivo Blob agregando el BOM (\uFEFF) para soporte de tildes y eñes en Excel
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+
+    // 5. Crear un enlace de descarga invisible en el navegador y dispararlo
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'Cartera de expedientes ' + '.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
 }

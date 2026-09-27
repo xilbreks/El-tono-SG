@@ -58,6 +58,9 @@ export class ExpItemEditStatusComponent implements OnChanges {
       motivoFinalizacion: motivo,
     });
 
+    await this.toogleCuotas(this.expediente.idExpediente, true);
+    await this.toogleAbonos(this.expediente.idExpediente, true);
+
     this.modalService.dismissAll();
 
     this.router.navigate(['/expedientes-updater/'], {
@@ -80,6 +83,9 @@ export class ExpItemEditStatusComponent implements OnChanges {
       estado: 'EN PROCESO'
     });
 
+    await this.toogleCuotas(this.expediente.idExpediente, false);
+    await this.toogleAbonos(this.expediente.idExpediente, false);
+
     this.modalService.dismissAll();
 
     this.router.navigate(['/expedientes-updater/'], {
@@ -88,6 +94,34 @@ export class ExpItemEditStatusComponent implements OnChanges {
       }
     })
     this.lUpdating = false;
+  }
+
+  // Desactivar/Activar sus CUOTAS para el planner
+
+  async toogleCuotas(idExpediente: string, nuevoEstado: boolean) {
+    const cuotas = await this.appService.cuotasPorExpediente(idExpediente);
+
+    const promesasActualizacion = cuotas.map((cuota) => {
+      return this.appService.actualizarCuota(cuota.idCuota, {
+        estaDepurado: nuevoEstado,
+      });
+    });
+    
+    await Promise.all(promesasActualizacion);
+  }
+
+  // Desactivar/Activar sus ABONOS para el reporte
+
+  async toogleAbonos(idExpediente: string, nuevoEstado: boolean) {
+    const abonos = await this.appService.abonosPorExpediente(idExpediente);
+
+    const promesasActualizacion = abonos.map((abono) => {
+      return this.appService.actualizarAbono(abono.idAbono, {
+        estaDepurado: nuevoEstado,
+      });
+    });
+    
+    await Promise.all(promesasActualizacion);
   }
 
 }

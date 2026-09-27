@@ -11,4 +11,6 @@ export interface Abono {
     demandado: string;          // Nombre del demandado
     especialidad: string;       // Area de especialidad
     materia: string;            // Materia del expediente
+
+    estaDepurado: boolean;      // Indicador si el abono del expediente esta depurado
 }

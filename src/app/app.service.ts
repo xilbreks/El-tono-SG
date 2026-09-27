@@ -449,7 +449,8 @@ export class AppService {
     const ref = collection(this.db, 'cuotas');
     const q = query(ref,
       where('vencimiento', '>=', inicio),
-      where('vencimiento', '<=', final)
+      where('vencimiento', '<=', final),
+      where('estaDepurado', '==', false),
     )
 
     try {

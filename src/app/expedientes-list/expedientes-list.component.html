@@ -15,6 +15,15 @@
     </div>
 </div>
 
+@if (usuario$ | async; as dato) {
+    @if (dato.email == 'admsilvaguillenabogados@gmail.com') {
+        <button class="btn btn-primary" (click)="descargarExcel()">
+            Descargar Excel
+        </button>
+    }
+}
+
+
 @if(!isReady) {
 <div>
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

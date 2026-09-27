@@ -142,6 +142,8 @@ export class ExpItemEconAbonComponent implements OnChanges {
       demandado: this.expediente ? this.expediente.demandado : 'void',
       especialidad: this.expediente ? this.expediente.especialidad : 'void',
       materia: this.expediente ? this.expediente.materia : 'void',
+
+      estaDepurado: false,
     }
 
     const ok = await this.appService.registrarAbono(idAbono, payload);

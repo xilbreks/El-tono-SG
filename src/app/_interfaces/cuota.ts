@@ -12,4 +12,6 @@ export interface Cuota {
     demandado: string;          // Nombre del demandado
     especialidad: string;       // Area de especialidad
     materia: string;            // Materia del expediente
+
+    estaDepurado: boolean;      // Indicador si la cuota esta activo o no para el planner
 }
