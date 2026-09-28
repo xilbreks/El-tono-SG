@@ -15,14 +15,6 @@
     </div>
 </div>
 
-@if (usuario$ | async; as dato) {
-    @if (dato.email == 'admsilvaguillenabogados@gmail.com') {
-        <button class="btn btn-primary" (click)="descargarExcel()">
-            Descargar Excel
-        </button>
-    }
-}
-
 
 @if(!isReady) {
 <div>
@@ -632,4 +624,39 @@
         </div>
     </div>
 </div>
+
+
+    @if (usuario$ | async; as dato) {
+    @if (dato.email == 'admsilvaguillenabogados@gmail.com') {
+        <button class="btn btn-primary" (click)="descargarExcelSimple()">
+            Descargar Excel Simple
+        </button>
+
+        <div class="mt-3 mb-3">
+        @if (habilitarDescarga) {
+            @if (!descargando) {
+                <div>
+                    <button class="btn btn-primary" (click)="descargarExcelCompleto()">
+                        Descargar Excel Completo
+                    </button>
+                </div>
+            } @else if (descargando) {
+            <div>
+                <button class="btn btn-primary" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Descargargando Excel Completo...
+                </button>
+            </div>
+            }
+        } @else if (!habilitarDescarga) {
+            <button class="btn" disabled>
+                {{textoBotonDescarga}}
+            </button>
+        }
+        </div>
+
+    }
+    }
+
+
 }

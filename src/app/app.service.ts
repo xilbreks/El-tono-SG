@@ -714,6 +714,34 @@ export class AppService {
     }
   }
 
+  // F.2 Leer todos los abonos no depurados
+
+  async abonosTodosNoDepurados(): Promise<Abono[]> {
+    const ref = collection(this.db, 'abonos');
+    const q = query(ref,
+      where('estaDepurado', '==', false),
+      orderBy('fecha', 'asc'),
+    )
+
+    try {
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) return [];
+
+      return snapshot.docs
+        .map((doc: QueryDocumentSnapshot) => {
+          return {
+            // id: doc.id,
+            ...doc.data()
+          } as Abono;
+        })
+
+    } catch (error) {
+      console.log('Error obteniendo abonos', error);
+      return [];
+    }
+  }
+
   // G.1 - Registrar nuevo documento de Changelog, true = ok, false = error
 
   async registrarChangelog(idChangelog: string, payload: Changelog): Promise<boolean> {
@@ -1166,6 +1194,32 @@ export class AppService {
     } catch (error) {
       console.log('error al eliminar cuota');
       return false;
+    }
+  }
+
+  // K.5 - Leer todas las cuotas no depuradas
+
+  async cuotasTodasNoDepuradas(): Promise<Cuota[]> {
+    const ref = collection(this.db, 'cuotas');
+    const q = query(ref,
+      where('estaDepurado', '==', false),
+    )
+
+    try {
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) return [];
+
+      return snapshot.docs
+        .map((doc: QueryDocumentSnapshot) => {
+          return {
+            // id: doc.id,
+            ...doc.data()
+          } as Cuota;
+        })
+    } catch (error) {
+      console.log('Error buscando cuotas', error);
+      return [];
     }
   }
 
@@ -2387,6 +2441,47 @@ export class AppService {
     const letraAleatoria = String.fromCharCode(codigoAleatorio);
 
     return letraAleatoria;
+  }
+
+  // Q.1 - Obtener fecha de ultima descarga del excel completo de expedientes
+
+  async obtenerUltimaDescargaExcel(): Promise<any | null> {
+    const docRef = doc(this.db, 'versionado', 'ultimaDescarga');
+
+    try {
+      const docSnap = await getDoc(docRef);
+      // const docSnap = await runInInjectionContext(this.injector, () => getDoc(docRef));
+
+      if (docSnap.exists()) {
+        return docSnap.data();
+      }
+
+      console.warn(`Error al obtener fecha.`);
+      return null;
+
+    } catch (error) {
+      console.error('Error al obtener el fecha:', error);
+      return null;
+    }
+  }
+
+  // Q.2 - Actualizar fecha ultima descarga
+
+  async actualizarFechaUltimaDescarga(timestamp: number): Promise<boolean> {
+    const ref = doc(this.db, 'versionado', 'ultimaDescarga');
+
+    try {
+      const fecha = (new Date(timestamp)).toLocaleDateString('en-CA');
+
+      await updateDoc(ref, {
+        fecha: fecha,
+        timestamp: timestamp,
+      });
+      return true;
+    } catch (error) {
+      console.log('error al actualizar fecha');
+      return false;
+    }
   }
 
 }
