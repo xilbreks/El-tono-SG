@@ -106,6 +106,7 @@ import {
   bootstrapExclamationTriangle,
   bootstrapJournalText,
   bootstrapTelephone,
+  bootstrapTelephoneFill,
   bootstrapBox,
   bootstrapCapsulePill,
   bootstrapFloppyFill,
@@ -115,6 +116,7 @@ import {
   bootstrapWrenchAdjustable,
   bootstrapPencilFill,
   bootstrapArrowBarDown,
+  bootstrapDownload,
 } from '@ng-icons/bootstrap-icons';
 
 @NgModule({
@@ -228,6 +230,7 @@ import {
       bootstrapExclamationTriangle,
       bootstrapJournalText,
       bootstrapTelephone,
+      bootstrapTelephoneFill,
       bootstrapBox,
       bootstrapCapsulePill,
       bootstrapFloppyFill,
@@ -237,6 +240,7 @@ import {
       bootstrapWrenchAdjustable,
       bootstrapPencilFill,
       bootstrapArrowBarDown,
+      bootstrapDownload,
     })
   ]
 })

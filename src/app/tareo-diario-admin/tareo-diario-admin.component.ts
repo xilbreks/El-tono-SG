@@ -195,7 +195,6 @@ export class TareoDiarioAdminComponent {
     });
 
     tareas.forEach(tarea => {
-      console.log(tarea);
       const fechaTmp = new Date(Number(tarea.fechaCreacion));
       const date = fechaTmp.toLocaleDateString();
       const time = fechaTmp.toLocaleTimeString();

@@ -1685,18 +1685,44 @@ export class AppService {
     }
   }
 
-  // N.9.- Listado de tareas por por comunicacion cliente
+  // N.9.- Listado de tareas de comunicacion cliente por rango de fecha
 
-  async tareasPorComunicacionSemana(): Promise<Tarea[]> {
-    // calcular una semana atras desde hoy
-    const fechaHoy = new Date();
-    const haceUnaSemana = new Date(fechaHoy.getTime() - (7 * 24 * 60 * 60 * 1000));
-    const resultado = haceUnaSemana.toLocaleDateString('en-CA'); // yyyy-mm-dd
-
+  async tareasPorComunicacionRangoFecha(inicio: string, final: string): Promise<Tarea[]> {
     const ref = collection(this.db, 'tareas');
     const q = query(ref,
       where('esComunicacionCliente', '==', true),
-      where('fechaTarea', '>=', resultado),
+      where('fechaTarea', '>=', inicio),
+      where('fechaTarea', '<=', final),
+      orderBy('fechaTarea', 'desc'),
+    )
+
+    try {
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) return [];
+
+      return snapshot.docs
+        .map((doc: QueryDocumentSnapshot) => {
+          return {
+            // id: doc.id,
+            ...doc.data()
+          } as Tarea;
+        })
+
+    } catch (error) {
+      console.log('Error buscando tareas', error);
+      return [];
+    }
+  }
+
+  // N.10.- Listado de tareas de cobranza cliente por rango de fecha
+
+  async tareasPorCobranzaRangoFecha(inicio: string, final: string): Promise<Tarea[]> {
+    const ref = collection(this.db, 'tareas');
+    const q = query(ref,
+      where('esCobranza', '==', true),
+      where('fechaTarea', '>=', inicio),
+      where('fechaTarea', '<=', final),
       orderBy('fechaTarea', 'desc'),
     )
 
