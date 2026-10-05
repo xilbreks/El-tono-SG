@@ -2,6 +2,30 @@
 <app-exp-item-econ-aran [expediente]="expediente"></app-exp-item-econ-aran>
 <app-exp-item-econ-abon [expediente]="expediente"></app-exp-item-econ-abon>
 
+<div>
+    @if (nick == 'admin' || nick == 'lizbet-silva') {
+    <div>
+        @if (!cargandoLog) {
+        <button class="btn btn-sm btn-secondary" (click)="cargarLogAuditoria()">
+            Ver Auditoria de cambios
+        </button>
+        } @else {
+        <button class="btn btn-sm btn-secondary" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Cargando ...
+        </button>
+        }
+    </div>
+    <ul>
+        @for (log of logAuditoria; track $index) {
+        <li style="font-size: .9rem;">
+            {{log.descripcion}}
+        </li>
+        }
+    </ul>
+    }
+</div>
+
 <div style="margin-top: 50px;">
     <span style="font-size: 0.75rem;">
         <i>

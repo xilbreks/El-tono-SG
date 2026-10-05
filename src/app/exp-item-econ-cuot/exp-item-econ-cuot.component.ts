@@ -8,6 +8,7 @@ import { firstValueFrom } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { AppService } from '../app.service';
 import { NgIcon } from '@ng-icons/core';
+import { Log } from '../_interfaces/log';
 
 @Component({
   selector: 'app-exp-item-econ-cuot',
@@ -227,6 +228,7 @@ export class ExpItemEconCuotComponent implements OnChanges {
     }
 
     const ok = await this.appService.registrarCuota(idCuota, payload);
+    await this.registrarLogAuditoria(idCuota, 'CREACION');
 
     this.guardando = false;
     this.modalService.dismissAll();
@@ -242,6 +244,7 @@ export class ExpItemEconCuotComponent implements OnChanges {
     const payload = this.frmEditaCuota.value;
 
     const ok = await this.appService.actualizarCuota(idCuota, payload);
+    await this.registrarLogAuditoria(idCuota, 'ACTUALIZACION');
 
     this.actualizando = false;
     this.modalService.dismissAll();
@@ -256,6 +259,7 @@ export class ExpItemEconCuotComponent implements OnChanges {
     let idCuota = this.frmQuitaCuota.value['idCuota'];
 
     const ok = await this.appService.eliminarCuota(idCuota);
+    await this.registrarLogAuditoria(idCuota, 'ELIMINACION');
 
     this.quitando = false;
     this.modalService.dismissAll();
@@ -288,6 +292,56 @@ export class ExpItemEconCuotComponent implements OnChanges {
       this.frmEditaCuota.controls['vencimiento'].setValidators(Validators.required);
       this.frmEditaCuota.controls['vencimiento'].updateValueAndValidity();
     }
+  }
+
+  // LOG de AUDITORIA para cada cambio
+
+  async registrarLogAuditoria(idCuota: string, accion: 'CREACION' | 'ACTUALIZACION' | 'ELIMINACION') {
+    const nombreUsuario = localStorage.getItem('nombre');
+
+    const fecha = new Date();
+    const formatoLegible = new Intl.DateTimeFormat('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).format(fecha);
+
+    const timestamp = fecha.getTime().toString();
+    const idLog = `ID${timestamp}`;
+
+    let descripcion = '';
+
+    switch (accion) {
+      case 'CREACION':
+        descripcion = `${nombreUsuario} registró nueva cuota el ${formatoLegible}`;
+        break;
+      case 'ACTUALIZACION':
+        descripcion = `${nombreUsuario} actualizó una cuota el ${formatoLegible}`;
+        break;
+      case 'ELIMINACION':
+        descripcion = `${nombreUsuario} eliminó una cuota el ${formatoLegible}`;
+        break;
+    }
+
+    const payload: Log = {
+      idLog: idLog,
+      idExpediente: this.expediente ? this.expediente.idExpediente : 'void',
+      modulo: 'ECONOMIA',
+      coleccion: 'cuotas',
+      idDocumento: idCuota,
+
+      nombreUsuario: nombreUsuario,
+
+      tipoAccion: accion,
+      descripcion: descripcion,
+
+      fechaCreacion: timestamp,
+    }
+
+    await this.appService.registrarLogAuditoria(idLog, payload);
   }
 
 }

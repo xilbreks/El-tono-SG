@@ -7,6 +7,7 @@ import { Arancel } from '../_interfaces/arancel';
 import { DecimalPipe } from '@angular/common';
 import { AppService } from '../app.service';
 import { NgIcon } from '@ng-icons/core';
+import { Log } from '../_interfaces/log';
 
 @Component({
   selector: 'app-exp-item-econ-aran',
@@ -140,6 +141,7 @@ export class ExpItemEconAranComponent implements OnChanges {
     }
 
     const ok = await this.appService.registrarArancel(idArancel, payload);
+    await this.registrarLogAuditoria(idArancel, 'CREACION');
 
     this.guardando = false;
     this.modalService.dismissAll();
@@ -155,6 +157,7 @@ export class ExpItemEconAranComponent implements OnChanges {
     const payload = this.frmEditaGasto.value;
 
     const ok = await this.appService.actualizarArancel(idArancel, payload);
+    await this.registrarLogAuditoria(idArancel, 'ACTUALIZACION');
 
     this.actualizando = false;
     this.modalService.dismissAll();
@@ -169,12 +172,63 @@ export class ExpItemEconAranComponent implements OnChanges {
     let idArancel = this.frmQuitaGasto.value['idArancel'];
 
     const ok = await this.appService.eliminarArancel(idArancel);
+    await this.registrarLogAuditoria(idArancel, 'ELIMINACION');
 
     this.quitando = false;
     this.modalService.dismissAll();
     this.frmQuitaGasto.reset()
 
     this.obtenerGastosComplementarios();
+  }
+
+  // LOG de AUDITORIA para cada cambio
+
+  async registrarLogAuditoria(idArancel: string, accion: 'CREACION' | 'ACTUALIZACION' | 'ELIMINACION') {
+    const nombreUsuario = localStorage.getItem('nombre');
+
+    const fecha = new Date();
+    const formatoLegible = new Intl.DateTimeFormat('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).format(fecha);
+
+    const timestamp = fecha.getTime().toString();
+    const idLog = `ID${timestamp}`;
+
+    let descripcion = '';
+
+    switch (accion) {
+      case 'CREACION':
+        descripcion = `${nombreUsuario} registró nuevo arancel el ${formatoLegible}`;
+        break;
+      case 'ACTUALIZACION':
+        descripcion = `${nombreUsuario} actualizó un arancel el ${formatoLegible}`;
+        break;
+      case 'ELIMINACION':
+        descripcion = `${nombreUsuario} eliminó un arancel el ${formatoLegible}`;
+        break;
+    }
+
+    const payload: Log = {
+      idLog: idLog,
+      idExpediente: this.expediente ? this.expediente.idExpediente : 'void',
+      modulo: 'ECONOMIA',
+      coleccion: 'aranceles',
+      idDocumento: idArancel,
+
+      nombreUsuario: nombreUsuario,
+
+      tipoAccion: accion,
+      descripcion: descripcion,
+
+      fechaCreacion: timestamp,
+    }
+
+    await this.appService.registrarLogAuditoria(idLog, payload);
   }
 
 }

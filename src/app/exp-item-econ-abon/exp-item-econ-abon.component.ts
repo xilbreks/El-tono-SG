@@ -8,6 +8,7 @@ import { firstValueFrom } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { AppService } from '../app.service';
 import { NgIcon } from '@ng-icons/core';
+import { Log } from '../_interfaces/log';
 
 @Component({
   selector: 'app-exp-item-econ-abon',
@@ -147,6 +148,7 @@ export class ExpItemEconAbonComponent implements OnChanges {
     }
 
     const ok = await this.appService.registrarAbono(idAbono, payload);
+    await this.registrarLogAuditoria(idAbono, 'CREACION');
 
     this.guardando = false;
     this.modalService.dismissAll();
@@ -162,6 +164,7 @@ export class ExpItemEconAbonComponent implements OnChanges {
     const payload = this.frmEditaAbono.value;
 
     const ok = await this.appService.actualizarAbono(idAbono, payload);
+    await this.registrarLogAuditoria(idAbono, 'ACTUALIZACION');
 
     this.actualizando = false;
     this.modalService.dismissAll();
@@ -176,12 +179,63 @@ export class ExpItemEconAbonComponent implements OnChanges {
     let idAbono = this.frmQuitaAbono.value['idAbono'];
 
     const ok = await this.appService.eliminarAbono(idAbono);
+    await this.registrarLogAuditoria(idAbono, 'ELIMINACION');
 
     this.quitando = false;
     this.modalService.dismissAll();
     this.frmQuitaAbono.reset()
 
     this.obtenerAbonos();
+  }
+
+  // LOG de AUDITORIA para cada cambio
+
+  async registrarLogAuditoria(idAbono: string, accion: 'CREACION' | 'ACTUALIZACION' | 'ELIMINACION') {
+    const nombreUsuario = localStorage.getItem('nombre');
+
+    const fecha = new Date();
+    const formatoLegible = new Intl.DateTimeFormat('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).format(fecha);
+
+    const timestamp = fecha.getTime().toString();
+    const idLog = `ID${timestamp}`;
+
+    let descripcion = '';
+
+    switch (accion) {
+      case 'CREACION':
+        descripcion = `${nombreUsuario} registró nuevo abono el ${formatoLegible}`;
+        break;
+      case 'ACTUALIZACION':
+        descripcion = `${nombreUsuario} actualizó un abono el ${formatoLegible}`;
+        break;
+      case 'ELIMINACION':
+        descripcion = `${nombreUsuario} eliminó un abono el ${formatoLegible}`;
+        break;
+    }
+
+    const payload: Log = {
+      idLog: idLog,
+      idExpediente: this.expediente ? this.expediente.idExpediente : 'void',
+      modulo: 'ECONOMIA',
+      coleccion: 'abonos',
+      idDocumento: idAbono,
+
+      nombreUsuario: nombreUsuario,
+
+      tipoAccion: accion,
+      descripcion: descripcion,
+
+      fechaCreacion: timestamp,
+    }
+
+    await this.appService.registrarLogAuditoria(idLog, payload);
   }
 
 }

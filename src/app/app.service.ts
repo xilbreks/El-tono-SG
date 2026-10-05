@@ -27,6 +27,7 @@ import { Cita } from './_interfaces/cita';
 import { Audiencia } from './_interfaces/audiencia';
 import { Arancel } from './_interfaces/arancel';
 import { Resolucion } from './_interfaces/resolucion';
+import { Log } from './_interfaces/log';
 
 @Injectable({
   providedIn: 'root'
@@ -2507,6 +2508,50 @@ export class AppService {
     } catch (error) {
       console.log('error al actualizar fecha');
       return false;
+    }
+  }
+
+  // Z.901 - Registral log de auditoria
+
+  async registrarLogAuditoria(idLog: string, payload: Log): Promise<boolean> {
+    const ref = doc(this.db, 'auditoria', idLog);
+
+    try {
+      // console.log('guardar: ', {idLog}, {payload});
+      await setDoc(ref, payload);
+      // console.log('exito al registrar log de auditoria');
+      return true;
+    } catch (error) {
+      console.log('ocurrio un error al registrar log de auditoria');
+      return false;
+    }
+  }
+
+  // Z.902 - Leer Auditorias x expediente
+  async logAuditoriaPorExpediente(idExpediente: string, limite: number): Promise<Log[]> {
+    const ref = collection(this.db, 'auditoria');
+    const q = query(ref,
+      where('idExpediente', '==', idExpediente),
+      orderBy('fechaCreacion', 'desc'),
+      limit(limite),
+    )
+
+    try {
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) return [];
+
+      return snapshot.docs
+        .map((doc: QueryDocumentSnapshot) => {
+          return {
+            // id: doc.id,
+            ...doc.data()
+          } as Log;
+        })
+
+    } catch (error) {
+      console.log('Error buscando log', error);
+      return [];
     }
   }
 
