@@ -52,86 +52,92 @@
     </div>
 
     <!-- Controles dinámicos según la selección -->
-    <div class="card shadow-sm border-0 bg-light p-4 mb-4 fade-in-section">
+    <div class="card shadow-sm border-0 bg-light p-4 mb-4">
         @switch (fcTipoFecha.value) {
         @case ('a') {
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
-            <h5 class="fw-bold mb-0"><i class="bi bi-calendar-day me-2"></i>Reporte Diario</h5>
-            <div class="text-secondary small bg-white px-3 py-1 rounded border shadow-sm">
-                <span><strong>Inicio:</strong> {{ inicio || 'N/A' }}</span>
-                <span class="ms-3"><strong>Final:</strong> {{ final || 'N/A' }}</span>
+        <div class="fade-in-section">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
+                <h5 class="fw-bold mb-0"><i class="bi bi-calendar-day me-2"></i>Reporte Diario</h5>
+                <div class="text-secondary small bg-white px-3 py-1 rounded border shadow-sm">
+                    <span><strong>Inicio:</strong> {{ inicio || 'N/A' }}</span>
+                    <span class="ms-3"><strong>Final:</strong> {{ final || 'N/A' }}</span>
+                </div>
             </div>
-        </div>
-        <div class="row g-3 align-items-end">
-            <div class="col-md-6">
-                <label class="form-label text-muted small">Selecciona el día:</label>
-                <input type="date" class="form-control" [formControl]="fcDia" (change)="cambiarDia()">
-            </div>
-            <div class="col-md-6">
-                @if (!generando) {
-                <button class="btn btn-primary w-100" (click)="obtenerReporte()" [disabled]="!fcDia.value">
-                    Generar Reporte x día
-                </button>
-                } @else {
-                <button class="btn btn-primary w-100" disabled>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Generando Reporte ...
-                </button>
-                }
+            <div class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label class="form-label text-muted small">Selecciona el día:</label>
+                    <input type="date" class="form-control" [formControl]="fcDia" (change)="cambiarDia()">
+                </div>
+                <div class="col-md-6">
+                    @if (!generando) {
+                    <button class="btn btn-primary w-100" (click)="obtenerReporte()" [disabled]="!fcDia.value">
+                        Generar Reporte x día
+                    </button>
+                    } @else {
+                    <button class="btn btn-primary w-100" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Generando Reporte ...
+                    </button>
+                    }
+                </div>
             </div>
         </div>
         }
         @case ('b') {
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
-            <h5 class="fw-bold mb-0"><i class="bi bi-calendar-week me-2"></i>Reporte Semanal</h5>
-            <div class="text-secondary small bg-white px-3 py-1 rounded border shadow-sm">
-                <span><strong>Inicio:</strong> {{ inicio || 'N/A' }}</span>
-                <span class="ms-3"><strong>Final:</strong> {{ final || 'N/A' }}</span>
+        <div class="fade-in-section">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
+                <h5 class="fw-bold mb-0"><i class="bi bi-calendar-week me-2"></i>Reporte Semanal</h5>
+                <div class="text-secondary small bg-white px-3 py-1 rounded border shadow-sm">
+                    <span><strong>Inicio:</strong> {{ inicio || 'N/A' }}</span>
+                    <span class="ms-3"><strong>Final:</strong> {{ final || 'N/A' }}</span>
+                </div>
             </div>
-        </div>
-        <div class="row g-3 align-items-end">
-            <div class="col-md-6">
-                <label class="form-label text-muted small">Selecciona la semana:</label>
-                <input type="week" class="form-control" [formControl]="fcSemana" (change)="cambiarSemana()">
-            </div>
-            <div class="col-md-6">
-                @if (!generando) {
-                <button class="btn btn-primary w-100" (click)="obtenerReporte()" [disabled]="!fcSemana.value">
-                    Generar Reporte x semana
-                </button>
-                } @else {
-                <button class="btn btn-primary w-100" disabled>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Generando Reporte ...
-                </button>
-                }
+            <div class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label class="form-label text-muted small">Selecciona la semana:</label>
+                    <input type="week" class="form-control" [formControl]="fcSemana" (change)="cambiarSemana()">
+                </div>
+                <div class="col-md-6">
+                    @if (!generando) {
+                    <button class="btn btn-primary w-100" (click)="obtenerReporte()" [disabled]="!fcSemana.value">
+                        Generar Reporte x semana
+                    </button>
+                    } @else {
+                    <button class="btn btn-primary w-100" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Generando Reporte ...
+                    </button>
+                    }
+                </div>
             </div>
         </div>
         }
         @case ('c') {
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
-            <h5 class="fw-bold mb-0"><i class="bi bi-calendar-month me-2"></i>Reporte Mensual</h5>
-            <div class="text-secondary small bg-white px-3 py-1 rounded border shadow-sm">
-                <span><strong>Inicio:</strong> {{ inicio || 'N/A' }}</span>
-                <span class="ms-3"><strong>Final:</strong> {{ final || 'N/A' }}</span>
+        <div class="fade-in-section">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
+                <h5 class="fw-bold mb-0"><i class="bi bi-calendar-month me-2"></i>Reporte Mensual</h5>
+                <div class="text-secondary small bg-white px-3 py-1 rounded border shadow-sm">
+                    <span><strong>Inicio:</strong> {{ inicio || 'N/A' }}</span>
+                    <span class="ms-3"><strong>Final:</strong> {{ final || 'N/A' }}</span>
+                </div>
             </div>
-        </div>
-        <div class="row g-3 align-items-end">
-            <div class="col-md-6">
-                <label class="form-label text-muted small">Selecciona el mes:</label>
-                <input type="month" class="form-control" [formControl]="fcMes" (change)="cambiarMes()">
-            </div>
-            <div class="col-md-6">
-                @if (!generando) {
-                <button class="btn btn-primary w-100" (click)="obtenerReporte()" [disabled]="!fcMes.value">
-                    Generar Reporte x mes
-                </button>
-                } @else {
-                <button class="btn btn-primary w-100" disabled>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Generando Reporte ...
-                </button>
-                }
+            <div class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label class="form-label text-muted small">Selecciona el mes:</label>
+                    <input type="month" class="form-control" [formControl]="fcMes" (change)="cambiarMes()">
+                </div>
+                <div class="col-md-6">
+                    @if (!generando) {
+                    <button class="btn btn-primary w-100" (click)="obtenerReporte()" [disabled]="!fcMes.value">
+                        Generar Reporte x mes
+                    </button>
+                    } @else {
+                    <button class="btn btn-primary w-100" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Generando Reporte ...
+                    </button>
+                    }
+                </div>
             </div>
         </div>
         }
@@ -162,6 +168,7 @@
                     <tr>
                         <th scope="col" class="py-3 ps-4">Fecha</th>
                         <th scope="col" class="py-3">Expediente</th>
+                        <th scope="col" class="py-3">Área</th>
                         <th scope="col" class="py-3">Demandante</th>
                         <th scope="col" class="py-3">Demandado</th>
                         <th scope="col" class="py-3">Detalle comunicación</th>
@@ -179,18 +186,21 @@
                             {{tarea.numero}}
                         </td>
                         <td class="text-muted">
+                            {{tarea.especialidad}}
+                        </td>
+                        <td class="text-muted">
                             {{tarea.demandante}}
                         </td>
                         <td class="text-muted">
                             {{tarea.demandado}}
                         </td>
-                        <td>
+                        <td style="min-width: 250px; text-align: justify;">
                             {{tarea.detalleTarea}}
                         </td>
-                        <td>
+                        <td style="min-width: 200px; text-align: justify;">
                             {{tarea.pendienteTarea}}
                         </td>
-                        <td>
+                        <td class="text-center">
                             <span class="badge bg-success-subtle text-success px-2 py-1">
                                 {{tarea.nombreUsuario}}
                             </span>

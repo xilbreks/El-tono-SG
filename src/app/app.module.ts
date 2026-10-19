@@ -117,6 +117,8 @@ import {
   bootstrapPencilFill,
   bootstrapArrowBarDown,
   bootstrapDownload,
+  bootstrapReceipt,
+  bootstrapClock,
 } from '@ng-icons/bootstrap-icons';
 
 @NgModule({
@@ -241,6 +243,8 @@ import {
       bootstrapPencilFill,
       bootstrapArrowBarDown,
       bootstrapDownload,
+      bootstrapReceipt,
+      bootstrapClock,
     })
   ]
 })

@@ -1746,6 +1746,35 @@ export class AppService {
     }
   }
 
+  // N.11.- Listado de tareas, todas, por rango de fecha
+
+  async tareasTodasPorRangoFecha(inicio: string, final: string): Promise<Tarea[]> {
+    const ref = collection(this.db, 'tareas');
+    const q = query(ref,
+      where('fechaTarea', '>=', inicio),
+      where('fechaTarea', '<=', final),
+      orderBy('fechaTarea', 'asc'),
+    )
+
+    try {
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) return [];
+
+      return snapshot.docs
+        .map((doc: QueryDocumentSnapshot) => {
+          return {
+            // id: doc.id,
+            ...doc.data()
+          } as Tarea;
+        })
+
+    } catch (error) {
+      console.log('Error buscando tareas', error);
+      return [];
+    }
+  }
+
   // O.1 - Lista de las Materias
 
   materias() {

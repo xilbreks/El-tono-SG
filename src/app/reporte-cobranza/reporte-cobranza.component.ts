@@ -4,12 +4,21 @@ import { NgIconsModule } from '@ng-icons/core';
 
 import { AppService } from '../app.service';
 import { Tarea } from '../_interfaces/tarea';
+import { DecimalPipe } from '@angular/common';
+
+interface TareaConPagos extends Tarea {
+  montoContrato: number;
+  montoCancelado: number;
+  montoUltimoPago: number | null;
+  fechaUltimoPago: string | null;
+}
 
 @Component({
   selector: 'app-reporte-cobranza',
   imports: [
     ReactiveFormsModule,
     NgIconsModule,
+    DecimalPipe,
   ],
   templateUrl: './reporte-cobranza.component.html',
   styleUrl: './reporte-cobranza.component.scss',
@@ -25,7 +34,7 @@ export class ReporteCobranzaComponent {
   inicio: string = '--';
   final: string = '--';
 
-  tareas: Tarea[] = [];
+  tareas: TareaConPagos[] = [];
   generando = false;
   tituloDatos = '';
 
@@ -144,12 +153,39 @@ export class ReporteCobranzaComponent {
       return;
     }
 
-    // Obtener tareas con comunicacion
+    // Obtener tareas con cobranza
     this.generando = true;
     const tareas = await this.appService.tareasPorCobranzaRangoFecha(fechaInicio, fechaFinal);
     console.log(tareas);
 
-    this.tareas = tareas;
+    // Obtener datos economicos de los expedientes
+    const tareasConEconomia: TareaConPagos[] = await Promise.all(
+      tareas.map(async (tarea) => {
+        // Consultamos ambos servicios en paralelo para esta tarea
+        const [cuotas, abonos] = await Promise.all([
+          this.appService.cuotasPorExpediente(tarea['idExpediente']),
+          this.appService.abonosPorExpediente(tarea['idExpediente'])
+        ]);
+
+        // Sumas usando reduce (más declarativo)
+        const sumaCuotas = cuotas.reduce((acc, c) => acc + c.monto, 0);
+        const sumaAbonos = abonos.reduce((acc, a) => acc + a.monto, 0);
+
+        // Obtenemos el último abono si el array no está vacío
+        const ultimoAbono = abonos.length > 0 ? abonos[abonos.length - 1] : null;
+
+        return {
+          ...tarea,
+          montoContrato: sumaCuotas,
+          montoCancelado: sumaAbonos,
+          montoUltimoPago: ultimoAbono ? ultimoAbono.monto : null,
+          fechaUltimoPago: ultimoAbono ? ultimoAbono.fecha : null,
+        };
+      })
+    );
+    // console.log(tareasConEconomia);
+
+    this.tareas = tareasConEconomia;
     this.tituloDatos = `Vista general de los datos encontrados desde: ${fechaInicio} hasta ${fechaFinal}. Total ${tareas.length} registros.`;
     this.inicio = '';
     this.final = '';
@@ -174,13 +210,17 @@ export class ReporteCobranzaComponent {
       todo_Excel.push({
         "Fecha": tarea['fechaTarea'],
         "Expediente": tarea['numero'],
-        // "Area": tarea['especialidad'],
+        "Area": tarea['especialidad'],
         "Demandante": tarea['demandante'],
         "Demandado": tarea['demandado'],
-        "Detalle comunicación": tarea['detalleTarea'],
-        "Pendiente": tarea['pendienteTarea'],
+        "Detalle comunicación": ' ' + tarea['detalleTarea'],
+        "Pendiente": ' ' + tarea['pendienteTarea'],
         "Encargado": tarea['nombreUsuario'],
         "Fecha registro en el RDT": fechaRegistro,
+        "Monto contratado": tarea['montoContrato'],
+        "Monto cancelado": tarea['montoCancelado'],
+        "Monto ultimo pago": tarea['montoUltimoPago'],
+        "Fecha ultimo pago": tarea['fechaUltimoPago'],
       });
     });
 

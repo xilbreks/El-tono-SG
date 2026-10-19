@@ -37,6 +37,7 @@ import { ZlayoutComponent } from './zlayout/zlayout.component';
 import { AuthMiPerfilComponent } from './auth-mi-perfil/auth-mi-perfil.component';
 import { ReporteComunicacionComponent } from './reporte-comunicacion/reporte-comunicacion.component';
 import { ReporteCobranzaComponent } from './reporte-cobranza/reporte-cobranza.component';
+import { ReporteTareasComponent } from './reporte-tareas/reporte-tareas.component';
 
 const routes: Routes = [
   // ── Ruta raíz → redirige al login ───────────────────────
@@ -192,6 +193,10 @@ const routes: Routes = [
       {
         path: 'reporte-cobranza',
         component: ReporteCobranzaComponent
+      },
+      {
+        path: 'reporte-tareas',
+        component: ReporteTareasComponent
       },
     ]
   },

@@ -162,11 +162,16 @@
                     <tr>
                         <th scope="col" class="py-3 ps-4">Fecha</th>
                         <th scope="col" class="py-3">Expediente</th>
+                        <th scope="col" class="py-3">Área</th>
                         <th scope="col" class="py-3">Demandante</th>
                         <th scope="col" class="py-3">Demandado</th>
                         <th scope="col" class="py-3">Detalle cobranza</th>
                         <th scope="col" class="py-3">Pendiente</th>
                         <th scope="col" class="py-3">Encargado</th>
+                        <th scope="col" class="py-3">Monto contratado</th>
+                        <th scope="col" class="py-3">Monto cancelado</th>
+                        <th scope="col" class="py-3">Monto último pago</th>
+                        <th scope="col" class="py-3">Fecha último pago</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -179,21 +184,36 @@
                             {{tarea.numero}}
                         </td>
                         <td class="text-muted">
+                            {{tarea.especialidad}}
+                        </td>
+                        <td class="text-muted">
                             {{tarea.demandante}}
                         </td>
                         <td class="text-muted">
                             {{tarea.demandado}}
                         </td>
-                        <td>
+                        <td style="min-width: 250px; text-align: justify;">
                             {{tarea.detalleTarea}}
                         </td>
-                        <td>
+                        <td style="min-width: 200px; text-align: justify;">
                             {{tarea.pendienteTarea}}
                         </td>
-                        <td>
+                        <td class="text-center">
                             <span class="badge bg-success-subtle text-success px-2 py-1">
                                 {{tarea.nombreUsuario}}
                             </span>
+                        </td>
+                        <td>
+                            {{tarea.montoContrato | number:'2.2-2'}}
+                        </td>
+                        <td>
+                            {{tarea.montoCancelado | number:'2.2-2'}}
+                        </td>
+                        <td>
+                            {{tarea.montoUltimoPago | number:'2.2-2'}}
+                        </td>
+                        <td style="white-space: nowrap;">
+                            {{tarea.fechaUltimoPago}}
                         </td>
                     </tr>
                     } @empty {

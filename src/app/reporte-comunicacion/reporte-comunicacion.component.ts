@@ -147,7 +147,7 @@ export class ReporteComunicacionComponent {
     // Obtener tareas con comunicacion
     this.generando = true;
     const tareas = await this.appService.tareasPorComunicacionRangoFecha(fechaInicio, fechaFinal);
-    console.log(tareas);
+    // console.log(tareas);
 
     this.tareas = tareas;
     this.tituloDatos = `Vista general de los datos encontrados desde: ${fechaInicio} hasta ${fechaFinal}. Total ${tareas.length} registros.`;
@@ -174,11 +174,11 @@ export class ReporteComunicacionComponent {
       todo_Excel.push({
         "Fecha": tarea['fechaTarea'],
         "Expediente": tarea['numero'],
-        // "Area": tarea['especialidad'],
+        "Area": tarea['especialidad'],
         "Demandante": tarea['demandante'],
         "Demandado": tarea['demandado'],
-        "Detalle comunicación": tarea['detalleTarea'],
-        "Pendiente": tarea['pendienteTarea'],
+        "Detalle comunicación": ' ' + tarea['detalleTarea'],
+        "Pendiente": ' ' + tarea['pendienteTarea'],
         "Encargado": tarea['nombreUsuario'],
         "Fecha registro en el RDT": fechaRegistro,
       });
