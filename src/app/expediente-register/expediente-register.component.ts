@@ -4,20 +4,19 @@ import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { concatAll, firstValueFrom } from 'rxjs';
 import { AppService } from '../app.service';
 import { Expediente } from '../_interfaces/expediente';
 import { NgIcon } from '@ng-icons/core';
 
-class ObjMateria {
+interface Materia {
   idmateria: string;
   smateria: string;
   sespecialidad: string;
-  constructor(data: any) {
-    this.idmateria = data.idmateria;
-    this.smateria = data.smateria;
-    this.sespecialidad = data.sespecialidad;
-  }
+}
+
+interface Proceso {
+  especialidad: string;
+  nombre: string;
 }
 
 @Component({
@@ -38,8 +37,11 @@ export class ExpedienteRegisterComponent {
   estaGuardando: boolean = false;
   esCuaderno: boolean = false;
 
-  materias: Array<ObjMateria> = [];
-  materiasFiltradas: Array<ObjMateria> = [];
+  materias: Array<Materia> = [];
+  materiasFiltradas: Array<Materia> = [];
+
+  procesos: Proceso[];
+  procesosFiltrados: Proceso[] = [];
 
   constructor(
     private titleService: Title,
@@ -55,12 +57,25 @@ export class ExpedienteRegisterComponent {
       numero: new FormControl(null, Validators.required),
       numeroPrincipal: new FormControl(null),
       especialidad: new FormControl(null, Validators.required),
+      proceso: new FormControl(null, Validators.required),
       materia: new FormControl(null, Validators.required),
       demandante: new FormControl(null, Validators.required),
       demandado: new FormControl(null, Validators.required),
       juzgado: new FormControl(null, Validators.required),
       fechaInicio: new FormControl(null, Validators.required),
     });
+
+    this.procesos = [
+      { especialidad: 'LABORAL', nombre: 'LABORAL' },
+      { especialidad: 'FAMILIA', nombre: 'FAMILIA' },
+      { especialidad: 'CIVIL', nombre: 'CIVIL_ABREVIADO' },
+      { especialidad: 'CIVIL', nombre: 'CIVIL_CONOCIMIENTO' },
+      { especialidad: 'CIVIL', nombre: 'CIVIL_SUMARISIMO' },
+      { especialidad: 'PENAL', nombre: 'PENAL' },
+      { especialidad: 'CONSTITUCIONAL', nombre: 'CONSTITUCIONAL' },
+      { especialidad: 'NOTARIAL', nombre: 'NOTARIAL' },
+      { especialidad: 'ADMINISTRATIVO', nombre: 'ADMINISTRATIVO' },
+    ];
 
     this.getMaterias();
     this.getExpedientes();
@@ -73,8 +88,20 @@ export class ExpedienteRegisterComponent {
   }
 
   setLstMaterias() {
+    // Filtrar las materias
     let sespecialidad = this.frmExpediente.controls['especialidad'].value;
     this.materiasFiltradas = this.materias.filter(a => a.sespecialidad == sespecialidad);
+
+    // Limpiar valor anterior
+    this.frmExpediente.patchValue({ proceso: null });
+
+    // Filtrar los tipos de procesos
+    this.procesosFiltrados = this.procesos.filter(a => a.especialidad == sespecialidad);
+    if (this.procesosFiltrados.length == 1) {
+      this.frmExpediente.patchValue({
+        proceso: this.procesosFiltrados[0].nombre
+      })
+    }
   }
 
   getExpedientes() {

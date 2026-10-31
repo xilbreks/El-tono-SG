@@ -6,159 +6,144 @@
       <option value="PROVISIONAL">EXPEDIENTE PROVISIONAL</option>
       <option value="CUADERNO">CUADERNO</option>
       <option value="CF">CARPETA FISCAL</option>
-      <!-- <option value="CURADURIA">CURADURIA</option> -->
     </select>
   </h4>
   <h4>
     <input type="text" placeholder="Número de Expediente" class="form-control numero-expediente"
       formControlName="numero">
-    </h4>
-    <hr />
-    <table style="width:100%">
-      @if (esCuaderno) {
-        <tr>
-          <td>
-            <b>NOMBRE DEL CUADERNO</b>
-          </td>
-          <td>
-            <input type="text" class="form-control" formControlName="titulo">
-          </td>
-        </tr>
-      }
-      @if (esCuaderno) {
-        <tr>
-          <td>
-            <b>EXPEDIENTE PRINCIPAL</b>
-          </td>
-          <td>
-            <input type="text" class="form-control" formControlName="numeroPrincipal"
-              (click)="abrirModal(findExpModal)" readonly>
-            </td>
-          </tr>
-        }
-        <tr>
-          <td>
-            <b>ESPECIALIDAD:</b>
-          </td>
-          <td>
-            <select class="form-select" formControlName="especialidad" (change)="setLstMaterias()">
-              <option value="LABORAL">LABORAL</option>
-              <option value="FAMILIA">FAMILIA</option>
-              <option value="CIVIL">CIVIL</option>
-              <option value="PENAL">PENAL</option>
-              <option value="CONSTITUCIONAL">CONSTITUCIONAL</option>
-              <option value="NOTARIAL">NOTARIAL</option>
-              <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <b>MATERIA:</b>
-          </td>
-          <td>
-            <input type="text" class="form-control" list="materias" formControlName="materia">
-            <datalist id="materias">
-              @for (mat of materiasFiltradas; track mat) {
-                <option [value]="mat.smateria"></option>
-              }
-            </datalist>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <b>JUZGADO:</b>
-          </td>
-          <td>
-            <input type="text" class="form-control" autocapitalize="characters" formControlName="juzgado">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <b>DEMANDANTE:</b>
-          </td>
-          <td>
-            <input type="text" class="form-control" formControlName="demandante">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <b>DEMANDADO:</b>
-          </td>
-          <td>
-            <input type="text" class="form-control" formControlName="demandado">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <b>INICIO:</b>
-          </td>
-          <td>
-            <input type="date" class="form-control" formControlName="fechaInicio">
-          </td>
-        </tr>
-      </table>
-      <hr />
-      <div class="row">
-        <div class="col-3"></div>
-        <div class="col-6">
-          <h6>
-            AREQUIPA
-          </h6>
-        </div>
-        <div class="col-3">
-          <div style="display: flex; flex-direction: row-reverse;">
-            <button class="btn btn-success" (click)="guardarExpediente()"
-              [disabled]="!(frmExpediente.valid && !estaGuardando)">
-              @if (estaGuardando) {
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                  >
-                </span>
-              }
-              @if (!estaGuardando) {
-                <span class="sr-only">
-                  Registrar
-                </span>
-              }
-              @if (estaGuardando) {
-                <span class="sr-only">
-                  Registrando...
-                </span>
-              }
-            </button>
-          </div>
-        </div>
+  </h4>
+  <hr />
+  <table style="width:100%">
+    @if (esCuaderno) {
+    <tr>
+      <td><b>NOMBRE DEL CUADERNO</b></td>
+      <td><input type="text" class="form-control" formControlName="titulo"></td>
+    </tr>
+    <tr>
+      <td><b>EXPEDIENTE PRINCIPAL</b></td>
+      <td><input type="text" class="form-control" formControlName="numeroPrincipal" (click)="abrirModal(findExpModal)"
+          readonly></td>
+    </tr>
+    }
+    <tr>
+      <td><b>ESPECIALIDAD:</b></td>
+      <td>
+        <select class="form-select" formControlName="especialidad" (change)="setLstMaterias()">
+          <option value="LABORAL">LABORAL</option>
+          <option value="FAMILIA">FAMILIA</option>
+          <option value="CIVIL">CIVIL</option>
+          <option value="PENAL">PENAL</option>
+          <option value="CONSTITUCIONAL">CONSTITUCIONAL</option>
+          <option value="NOTARIAL">NOTARIAL</option>
+          <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><b>PROCESO:</b></td>
+      <td>
+        <select class="form-select" formControlName="proceso">
+          @for (p of procesosFiltrados; track $index) {
+            <option [value]="p.nombre">{{p.nombre}}</option>
+          }
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><b>MATERIA:</b></td>
+      <td>
+        <input type="text" class="form-control" list="materias" formControlName="materia">
+        <datalist id="materias">
+          @for (mat of materiasFiltradas; track mat) {
+          <option [value]="mat.smateria"></option>
+          }
+        </datalist>
+      </td>
+    </tr>
+    <tr>
+      <td><b>JUZGADO:</b></td>
+      <td>
+        <input type="text" class="form-control" autocapitalize="characters" formControlName="juzgado">
+      </td>
+    </tr>
+    <tr>
+      <td><b>DEMANDANTE:</b></td>
+      <td>
+        <input type="text" class="form-control" formControlName="demandante">
+      </td>
+    </tr>
+    <tr>
+      <td><b>DEMANDADO:</b></td>
+      <td>
+        <input type="text" class="form-control" formControlName="demandado">
+      </td>
+    </tr>
+    <tr>
+      <td><b>INICIO:</b></td>
+      <td>
+        <input type="date" class="form-control" formControlName="fechaInicio">
+      </td>
+    </tr>
+  </table>
+  <hr />
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <h6>
+        AREQUIPA
+      </h6>
+    </div>
+    <div class="col-3">
+      <div style="display: flex; flex-direction: row-reverse;">
+        <button class="btn btn-success" (click)="guardarExpediente()"
+          [disabled]="!(frmExpediente.valid && !estaGuardando)">
+          @if (estaGuardando) {
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+          }
+          @if (!estaGuardando) {
+          <span class="sr-only">
+            Registrar
+          </span>
+          }
+          @if (estaGuardando) {
+          <span class="sr-only">
+            Registrando...
+          </span>
+          }
+        </button>
       </div>
-    </form>
+    </div>
+  </div>
+</form>
 
-    <!-----------------------------------------------
+<!-----------------------------------------------
     --- MODAL PARA BUSCAR EXPEDIENTE PRINCIPAL ----
     ----------------------------------------------->
-    <ng-template #findExpModal let-modal>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Encontrar Expediente</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-        (click)="modal.dismiss('Cross click')"></button>
+<ng-template #findExpModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Encontrar Expediente</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <input type="text" class="form-control" #query (keyup)="onCambioQuery(query)" placeholder="Número del expediente"
+        id="querybox">
+      <br>
+    </div>
+    <div class="lista-grupo">
+      @for (exp of expedientesFiltrados; track exp) {
+      <div class="lista-item" (click)="onSelectExp(exp)" style="cursor: pointer;">
+        <span style="color: green;">
+          <!-- <i class="bi bi-check-circle-fill"></i> -->
+          <ng-icon name="bootstrapCheckCircleFill"></ng-icon>
+        </span>
+        <span>
+          {{exp.numero}}
+        </span>
       </div>
-      <div class="modal-body">
-        <div>
-          <input type="text" class="form-control" #query (keyup)="onCambioQuery(query)"
-            placeholder="Número del expediente" id="querybox">
-            <br>
-            </div>
-            <div class="lista-grupo">
-              @for (exp of expedientesFiltrados; track exp) {
-                <div class="lista-item" (click)="onSelectExp(exp)"
-                  style="cursor: pointer;">
-                  <span style="color: green;">
-                    <!-- <i class="bi bi-check-circle-fill"></i> -->
-                    <ng-icon name="bootstrapCheckCircleFill"></ng-icon>
-                  </span>
-                  <span>
-                    {{exp.numero}}
-                  </span>
-                </div>
-              }
-            </div>
-          </div>
-        </ng-template>
+      }
+    </div>
+  </div>
+</ng-template>
