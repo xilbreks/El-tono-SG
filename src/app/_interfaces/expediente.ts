@@ -4,6 +4,7 @@ export interface Expediente {
     titulo: string;                 // Título del expediente
     numero: string;                 // Número alfanumérico del expediente
     especialidad: string;           // Área de especialidad: "LABORAL", "FAMILIA", "CIVIL", "PENAL", "CONSTITUCIONAL", "ADMINISTRATIVO", "NOTARIAL"    
+    proceso: string;                // Tipo de proceso: "LABORAL", "CIVIL_CONOCIMIENTO", "CIVIL_ABREVIADO", ...
     idCheckpoint: string;           // ID del checkpoint actual
     nombreCheckpoint: string;       // Nombre del checkpoint actual
     demandante: string;             // Nombres completos de la parte demandante

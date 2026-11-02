@@ -211,6 +211,7 @@ export class ExpedienteRegisterComponent {
       numeroProvisional: null,
       numeroPrincipal: this.frmExpediente.controls['numeroPrincipal'].value,
       especialidad: this.frmExpediente.controls['especialidad'].value,
+      proceso: this.frmExpediente.controls['proceso'].value,
       idCheckpoint: '000',
       nombreCheckpoint: 'Expediente registrado en el sistema',
       demandante: this.frmExpediente.controls['demandante'].value.toUpperCase().trim(),
