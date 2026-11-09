@@ -1,200 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
-
-interface Iter {
-  code: string,
-  eligible: boolean,
-  title: string
-}
-
-const lstIterLaboral: Array<Iter> = [
-  { code: '1.0', eligible: false, title: 'PRIMERA INSTANCIA' },
-  { code: '1.1', eligible: true, title: 'redaccion de demanda' },
-  { code: '1.2', eligible: true, title: 'presentacion de la demanda' },
-  { code: '1.3', eligible: true, title: 'programacion de audiencia / autoadmisorio' },
-  { code: '1.4', eligible: true, title: 'oralización de la audiencia' },
-  { code: '1.5', eligible: true, title: 'en espera de la sentencia' },
-  { code: '1.6', eligible: true, title: 'sentencia de primera instancia' },
-
-  { code: '2.0', eligible: false, title: 'SEGUNDA INSTANCIA' },
-  { code: '2.1', eligible: true, title: 'redaccion de apelacion' },
-  { code: '2.2', eligible: true, title: 'presentacion de la apelacion' },
-  { code: '2.3', eligible: true, title: 'programacion de la audiencia de vista' },
-  { code: '2.4', eligible: true, title: 'oralizacion de la audiencia de vista' },
-  { code: '2.5', eligible: true, title: 'en espera de la sentencia de vista' },
-  { code: '2.6', eligible: true, title: 'sentencia de vista' },
-
-  { code: '3.0', eligible: false, title: 'CASACION' },
-  { code: '3.1', eligible: true, title: 'elaboracion de recurso de casacion' },
-  { code: '3.2', eligible: true, title: 'presentacion del recurso de casacion' },
-  { code: '3.3', eligible: true, title: 'elevacion del recurso de casacion a la corte suprema' },
-  { code: '3.4', eligible: true, title: 'programacion de vista de la causa - corte suprema' },
-  { code: '3.5', eligible: true, title: 'oralizacion de audiencia de vista - corte suprema' },
-  { code: '3.6', eligible: true, title: 'en espera de la sentencia' },
-  { code: '3.7', eligible: true, title: 'ejecutoria suprema final' },
-  { code: '3.8', eligible: true, title: 'bajada de autos al juzgado de origen' },
-
-  { code: '4.0', eligible: false, title: 'EJECUCION' },
-  { code: '4.1', eligible: true, title: 'resolucion consentida y firme' },
-  { code: '4.2', eligible: true, title: 'redaccion de liquidacion de costos y costas' },
-  { code: '4.3', eligible: true, title: 'endose de costos y costas' },
-  { code: '4.4', eligible: true, title: 'cobro efectivo de costos y costas' },
-  { code: '4.5', eligible: true, title: 'redaccion de la solicitud de intereses legales' },
-  { code: '4.6', eligible: true, title: 'endose de los interes legales' },
-  { code: '4.7', eligible: true, title: 'cobro efectivo de intereses legales' },
-];
-
-const lstIterPenal: Array<Iter> = [
-  { code: '0', eligible: false, title: 'ETAPA I: DENUNCIA' },
-  { code: '1', eligible: true, title: 'Denuncia' },
-  { code: '0', eligible: false, title: 'ETAPA II: INVESTIGACIÓN PREPARATORIA PRELIMINAR' },
-  { code: '2', eligible: true, title: 'Solicitar diligencias y/o presentar medios de prueba' },
-  { code: '3', eligible: true, title: 'Solicitar el archivo de la investigación (INVESTIGADO) / Solicitar que se formalice la investigación (AGRAVIADO)' },
-  { code: '4', eligible: true, title: 'Tutela de derechos/audiencia tutela de derechos' },
-  { code: '5', eligible: true, title: 'Control de plazos/audiencia de control de plazos' },
-  { code: '6', eligible: true, title: 'Elevación de actuados' },
-  { code: '7', eligible: true, title: 'Oposición de Incoación de Proceso Inmediato/Audiencia de Incoación de Proceso Inmediato' },
-  { code: '0', eligible: false, title: 'ETAPA III: INVESTIGACIÓN PREPARATORIA FORMALIZADA' },
-  { code: '8', eligible: true, title: 'Solicitar diligencias y/o presentar medios de prueba' },
-  { code: '9', eligible: true, title: 'Tutela de derechos/audiencia tutela de derechos' },
-  { code: '10', eligible: true, title: 'Control de plazos/audiencia de control de plazos' },
-  { code: '11', eligible: true, title: 'Solicitar Prisión Preventiva (AGRAVIADO) / Absolver requerimiento de prisión preventiva (IMPUTADO). AUDIENCIA' },
-  { code: '12', eligible: true, title: 'Solicitar Prorroga de Prisión Preventiva (AGRAVIADO) / Solicitar Cesación de prisión preventiva (IMPUTADO). AUDIENCIA' },
-  { code: '13', eligible: true, title: 'Solicitar Constitución en Actor Civil y/o Tercero Civil (AGRAVIADO) / Oponerse a solicitud de Actor Civil y/o Tercero Civil (IMPUTADO)' },
-  { code: '0', eligible: false, title: 'ETAPA IV: ETAPA INTERMEDIA' },
-  { code: '14', eligible: true, title: 'Absolución de la Acusación y/o Sobreseimiento / Audiencia de Control' },
-  { code: '0', eligible: false, title: 'ETAPA V: ETAPA DE JUICIO ORAL' },
-  { code: '15', eligible: true, title: 'Audiencia de Juicio' },
-  { code: '16', eligible: true, title: 'Sentencia 1° Instancia' },
-  { code: '0', eligible: false, title: 'ETAPA VI: IMPUGNATORIA' },
-  { code: '17', eligible: true, title: 'Apelación Auto/Sentencia' },
-  { code: '18', eligible: true, title: 'Recurso de Reposición' },
-  { code: '19', eligible: true, title: 'Audiencia de Apelación' },
-  { code: '20', eligible: true, title: 'Sentencia de Vista' },
-  { code: '21', eligible: true, title: 'Casación' },
-  { code: '0', eligible: false, title: 'ETAPA VII: ETAPA EJECUTORA' },
-  { code: '22', eligible: true, title: 'Solicitar al PJ se ejecute la sentencia' },
-  { code: '23', eligible: true, title: 'Solicitar al Ministerio Publico Revocatoria de pena' },
-  { code: '24', eligible: true, title: 'Audiencia de Revocatoria de Pena Suspendida' },
-];
-
-const lstIterCivil: Array<Iter> = [
-  { code: '0', eligible: false, title: 'PRIMERA INSTANCIA' },
-  { code: '1', eligible: true, title: 'Conciliación Extrajudicial' },
-  { code: '2', eligible: true, title: 'Interposición de la demanda' },
-  { code: '3', eligible: true, title: 'Calificación de la demanda' },
-  { code: '4', eligible: true, title: 'Subsanar de acuerdo al auto de inadmisibilidad de la demanda' },
-  { code: '5', eligible: true, title: 'Emplazamiento de la demanda' },
-  { code: '6', eligible: true, title: 'Interponer tachas u oposiciones a las pruebas' },
-  { code: '7', eligible: true, title: 'Absolver tachas u oposiciones' },
-  { code: '8', eligible: true, title: 'Interponer excepciones o defensas previas' },
-  { code: '9', eligible: true, title: 'Absolver el traslado de las excepciones o defensas previas' },
-  { code: '10', eligible: true, title: 'Contestar la demanda y reconvenir' },
-  { code: '11', eligible: true, title: 'Ofrecimiento de medios probatorios si en la contestación se invoca hechos no expuestos en la demanda o en la reconvención' },
-  { code: '12', eligible: true, title: 'Absolver el traslado de la reconvención' },
-  { code: '13', eligible: true, title: 'Saneamiento' },
-  { code: '14', eligible: true, title: 'Fijación de puntos controvertidos' },
-  { code: '15', eligible: true, title: 'Realización de la audiencia de pruebas' },
-  { code: '16', eligible: true, title: 'Audiencia especial y complementaria' },
-  { code: '17', eligible: true, title: 'Alegados' },
-  { code: '18', eligible: true, title: 'Sentencia' },
-
-  { code: '0', eligible: false, title: 'SEGUNDA INSTANCIA' },
-  { code: '19', eligible: true, title: 'Apelar sentencia' },
-  { code: '20', eligible: true, title: 'Subsanar el recurso de apelación según el auto que declara la inadmisibilidad' },
-  { code: '21', eligible: true, title: 'Elevar el expediente' },
-  { code: '22', eligible: true, title: 'Traslado para absolver el escrito el escrito de apelación o adherirse al mismo' },
-  { code: '23', eligible: true, title: 'Traslado al apelante para absolver la adhesión' },
-  { code: '24', eligible: true, title: 'Audiencia de pruebas' },
-  { code: '25', eligible: true, title: 'Vista de la causa' },
-  { code: '26', eligible: true, title: 'Solicitar informe oral contado desde la notificación de la resolución que fija fecha para la vista de causa' },
-  { code: '0', eligible: false, title: 'CASACION' },
-  { code: '27', eligible: true, title: 'Interposición de casación' },
-  { code: '28', eligible: true, title: 'Vista de la causa' },
-  { code: '29', eligible: true, title: 'Solicitar informe oral por parte de las partes' },
-  { code: '30', eligible: true, title: 'Sentencia de casación' },
-];
-
-const lstIterNotarial: Array<Iter> = [
-  { code: '1.0', eligible: false, title: 'ETAPAS NOTARIALES' },
-  { code: '1.1', eligible: true, title: 'Solicitud de requisitos' },
-  { code: '1.2', eligible: true, title: 'Citas con el modulo especializado' },
-  { code: '1.3', eligible: true, title: 'Firmas de escritura' },
-  { code: '1.4', eligible: true, title: 'Publicacion en edictos' },
-  { code: '1.5', eligible: true, title: 'Entrega de escrituras' },
-  { code: '2.0', eligible: false, title: 'ETAPAS REGISTRALES' },
-  { code: '2.1', eligible: true, title: 'Inscripcion en Registros Publicos' },
-  { code: '2.2', eligible: true, title: 'Observaciones en Registros Publicos' },
-  { code: '2.3', eligible: true, title: 'Subsanacion de observaciones' },
-  { code: '2.4', eligible: true, title: 'Cita con registrador' },
-  { code: '2.5', eligible: true, title: 'Inscripcion preventiva con publicacion' },
-  { code: '2.6', eligible: true, title: 'Inscripcion definitiva' },
-];
-
-const lstIterFamilia: Array<Iter> = [
-  { code: '1', eligible: false, title: 'PRIMERA INSTANCIA' },
-  { code: '1.1', eligible: true, title: 'Recolección de medios probatorios' },
-  { code: '1.2', eligible: true, title: 'Preparación de la demanda' },
-  { code: '1.3', eligible: true, title: 'Presentación de la demanda' },
-  { code: '1.4', eligible: true, title: 'Calificación de la demanda' },
-  { code: '1.5', eligible: true, title: 'Subsanación de la demanda (si aplica)' },
-  { code: '1.6', eligible: true, title: 'Traslado de la demanda' },
-  { code: '1.7', eligible: true, title: 'Contestación de la demanda' },
-  { code: '1.8', eligible: true, title: 'Audiencia' },
-  { code: '1.9', eligible: true, title: 'Sentencia de primera instancia' },
-
-  { code: '2', eligible: false, title: 'SEGUNDA INSTANCIA' },
-  { code: '2.1', eligible: true, title: 'Apelación o absolución de apelación' },
-  { code: '2.2', eligible: true, title: 'Elevación del expediente a superior' },
-  { code: '2.3', eligible: true, title: 'Audiencia de vista' },
-  { code: '2.4', eligible: true, title: 'Sentencia de vista' },
-
-  { code: '3', eligible: false, title: 'RECUSOS EXTRAORDINARIOS' },
-  { code: '3.1', eligible: true, title: 'Elaboración de casación, queja o amparo' },
-  { code: '3.2', eligible: true, title: 'Calificación de recurso' },
-  { code: '3.3', eligible: true, title: 'Audiencia de Vista de la causa' },
-  { code: '3.4', eligible: true, title: 'Sentencia de casación, queja o amparo' },
-
-  { code: '4', eligible: false, title: 'ETAPA EJECUTORIA' },
-  { code: '4.1', eligible: true, title: 'Consentimiento de sentencia' },
-  { code: '4.2', eligible: true, title: 'Cursar oficios' },
-  { code: '4.3', eligible: true, title: 'Presentar o absolver liquidaciones' },
-  { code: '4.4', eligible: true, title: 'Requerimiento de pago' },
-  { code: '4.5', eligible: true, title: 'Remisión al Ministerio Público' },
-
-  { code: '5', eligible: false, title: 'MEDIDAS CAUTELARES' },
-  { code: '5.1', eligible: true, title: 'Elaboración de medida cautelar' },
-  { code: '5.2', eligible: true, title: 'Presentación de medida cautelar' },
-  { code: '5.3', eligible: true, title: 'Calificación de medida cautelar' },
-  { code: '5.4', eligible: true, title: 'Ejecución de medida cautelar' },
-  { code: '5.5', eligible: true, title: 'Levantamiento de medida cautelar' },
-];
-
-const lstIterConstitucional: Array<Iter> = [
-  { code: '1.0', eligible: false, title: 'ETAPA I: POSTULATORIA' },
-  { code: '1.1', eligible: true, title: 'Elaboración Demanda' },
-  { code: '1.2', eligible: true, title: 'Presentación Demanda' },
-  { code: '1.3', eligible: true, title: 'Auto Admisorio' },
-  { code: '1.4', eligible: true, title: 'Contestación de demanda' },
-
-  { code: '2.0', eligible: false, title: 'ETAPA II: PROBATORIA' },
-  { code: '2.1', eligible: true, title: 'Audiencia Única' },
-
-  { code: '3.0', eligible: false, title: 'ETAPA III: DECISORIA' },
-  { code: '3.1', eligible: true, title: 'Sentencia 1ra instancia' },
-
-  { code: '4.0', eligible: false, title: 'ETAPA IV: IMPUGNATORIA' },
-  { code: '4.1', eligible: true, title: 'Recurso apelación' },
-  { code: '4.2', eligible: true, title: 'Audiencia vista de la causa' },
-  { code: '4.3', eligible: true, title: 'Sentencia de vista 2da instancia' },
-  { code: '4.4', eligible: true, title: 'Recurso de Agravio Constitucional' },
-  { code: '4.5', eligible: true, title: 'Sentencia del Tribunal Constitucional' },
-
-  { code: '5.0', eligible: false, title: 'ETAPA V: EJECUTORIA' },
-  { code: '5.1', eligible: true, title: 'Ejecución de Sentencia' },
-  { code: '5.2', eligible: true, title: 'Resolución concentida y firme' },
-  { code: '5.3', eligible: true, title: 'Costas y Costos' },
-];
+import { Component, inject, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import * as Papa from 'papaparse';
+import { Checkpoint } from '../_interfaces/checkpoint';
 
 @Component({
   selector: 'app-recursos-iters',
@@ -204,14 +12,74 @@ const lstIterConstitucional: Array<Iter> = [
     NgClass
   ]
 })
-export class RecursosItersComponent {
-  lstIterLaboral: Array<Iter> = lstIterLaboral;
-  lstIterFamilia: Array<Iter> = lstIterFamilia;
-  lstIterCivil: Array<Iter> = lstIterCivil;
-  lstIterPenal: Array<Iter> = lstIterPenal;
-  lstIterConstitucional: Array<Iter> = lstIterConstitucional;
-  lstIterNotarial: Array<Iter> = lstIterNotarial;
+export class RecursosItersComponent implements OnInit {
+  http = inject(HttpClient);
+
+  checkpoints: Checkpoint[] = [];
+
+  lstIterLaboral: Checkpoint[] = [];
+  lstIterFamilia: Checkpoint[] = [];
+  lstIterCivilConocimiento: Checkpoint[] = [];
+  lstIterCivilAbreviado: Checkpoint[] = [];
+  lstIterCivilSumarisimo: Checkpoint[] = [];
+  lstIterPenal: Checkpoint[] = [];
+  lstIterConstitucional: Checkpoint[] = [];
+  lstIterNotarial: Checkpoint[] = [];
+  lstIterAdministrativo: Checkpoint[] = [];
 
   constructor() { }
+
+  ngOnInit(): void {
+    this.cargarIters();
+  }
+
+  cargarIters() {
+    this.http.get('assets/iters.csv', { responseType: 'text' }).subscribe({
+      next: (csvText) => {
+        Papa.parse<Checkpoint>(csvText, {
+          header: true,
+          dynamicTyping: function (field) {
+            if (field === "elegible" || field === "mostrar") {
+              return true;
+            }
+
+            if (field === 'orden') {
+              return true;
+            }
+
+            return false;
+          },
+          skipEmptyLines: true,
+          complete: (result) => {
+            let checkpoints = result.data;
+
+            let iters = checkpoints.filter(a => a.mostrar)
+
+            this.checkpoints = iters;
+
+            this.separarPorProceso();
+          },
+          error: (error: any) => {
+            console.error('Error al parsear el CSV:', error);
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error al cargar el archivo CSV:', error);
+      }
+    });
+  }
+
+  separarPorProceso() {
+    this.lstIterLaboral = this.checkpoints.filter(c => c.proceso == 'LABORAL').sort((a, b) => a.orden - b.orden);
+    this.lstIterFamilia = this.checkpoints.filter(c => c.proceso == 'FAMILIA').sort((a, b) => a.orden - b.orden);
+    this.lstIterCivilConocimiento = this.checkpoints.filter(c => c.proceso == 'CIVIL_CONOCIMIENTO').sort((a, b) => a.orden - b.orden);
+    this.lstIterCivilAbreviado = this.checkpoints.filter(c => c.proceso == 'CIVIL_ABREVIADO').sort((a, b) => a.orden - b.orden);
+    this.lstIterCivilSumarisimo = this.checkpoints.filter(c => c.proceso == 'CIVIL_SUMARISIMO').sort((a, b) => a.orden - b.orden);
+    this.lstIterPenal = this.checkpoints.filter(c => c.proceso == 'PENAL').sort((a, b) => a.orden - b.orden);
+    this.lstIterConstitucional = this.checkpoints.filter(c => c.proceso == 'CONSTITUCIONAL').sort((a, b) => a.orden - b.orden);
+    this.lstIterNotarial = this.checkpoints.filter(c => c.proceso == 'NOTARIAL').sort((a, b) => a.orden - b.orden);
+    this.lstIterAdministrativo = this.checkpoints.filter(c => c.proceso == 'ADMINISTRATIVO').sort((a, b) => a.orden - b.orden);
+  }
 
 }

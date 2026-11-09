@@ -65,17 +65,18 @@ export class ExpedienteRegisterComponent {
       fechaInicio: new FormControl(null, Validators.required),
     });
 
-    this.procesos = [
-      { especialidad: 'LABORAL', nombre: 'LABORAL' },
-      { especialidad: 'FAMILIA', nombre: 'FAMILIA' },
-      { especialidad: 'CIVIL', nombre: 'CIVIL_ABREVIADO' },
-      { especialidad: 'CIVIL', nombre: 'CIVIL_CONOCIMIENTO' },
-      { especialidad: 'CIVIL', nombre: 'CIVIL_SUMARISIMO' },
-      { especialidad: 'PENAL', nombre: 'PENAL' },
-      { especialidad: 'CONSTITUCIONAL', nombre: 'CONSTITUCIONAL' },
-      { especialidad: 'NOTARIAL', nombre: 'NOTARIAL' },
-      { especialidad: 'ADMINISTRATIVO', nombre: 'ADMINISTRATIVO' },
-    ];
+    // this.procesos = [
+    //   { especialidad: 'LABORAL', nombre: 'LABORAL' },
+    //   { especialidad: 'FAMILIA', nombre: 'FAMILIA' },
+    //   { especialidad: 'CIVIL', nombre: 'CIVIL_ABREVIADO' },
+    //   { especialidad: 'CIVIL', nombre: 'CIVIL_CONOCIMIENTO' },
+    //   { especialidad: 'CIVIL', nombre: 'CIVIL_SUMARISIMO' },
+    //   { especialidad: 'PENAL', nombre: 'PENAL' },
+    //   { especialidad: 'CONSTITUCIONAL', nombre: 'CONSTITUCIONAL' },
+    //   { especialidad: 'NOTARIAL', nombre: 'NOTARIAL' },
+    //   { especialidad: 'ADMINISTRATIVO', nombre: 'ADMINISTRATIVO' },
+    // ];
+    this.procesos = this.appService.procesos();
 
     this.getMaterias();
     this.getExpedientes();

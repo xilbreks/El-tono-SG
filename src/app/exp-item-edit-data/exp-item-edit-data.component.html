@@ -16,6 +16,12 @@
   </kbd>
 </div>
 <div>
+  Proceso:
+  <kbd>
+    {{this.expediente?.proceso}}
+  </kbd>
+</div>
+<div>
   Demandante:
   <kbd>
     {{this.expediente?.demandante}}
@@ -77,6 +83,18 @@
               <option [value]="mat.smateria"></option>
               }
             </datalist>
+          </td>
+        </tr>
+        <tr>
+          <td><b>PROCESO:</b></td>
+          <td>
+            <select class="form-select" formControlName="proceso">
+              @for (item of lstProcesos; track $index) {
+                <option [value]="item.nombre">
+                  {{item.nombre}}
+                </option>
+              }
+            </select>
           </td>
         </tr>
         <tr>
@@ -155,6 +173,9 @@
         </tr>
       </table>
     </form>
+    <!-- <pre>
+      {{frmExpediente.value | json}}
+    </pre> -->
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="updateExpediente()"

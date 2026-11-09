@@ -903,7 +903,7 @@ export class AppService {
     const ref = collection(this.db, 'audiencias');
     const q = query(ref,
       where('sexpediente', '==', numero),
-      orderBy('sfecha','desc'),
+      orderBy('sfecha', 'desc'),
       limit(10),
     )
 
@@ -1384,7 +1384,7 @@ export class AppService {
 
   // M.3 - Leer resoluciones por nick del encargado
 
-  async resolucionesPorCumplimientoYColaborador(cumplimiento: string, nick: string): Promise<Resolucion[]> {    
+  async resolucionesPorCumplimientoYColaborador(cumplimiento: string, nick: string): Promise<Resolucion[]> {
     const ref = collection(this.db, 'resoluciones');
     let q;
     // POSIBILIDADES DE SUCESOS EN EL FILTRO
@@ -2582,6 +2582,22 @@ export class AppService {
       console.log('Error buscando log', error);
       return [];
     }
+  }
+
+  // AA. Lista de procesos
+  procesos() {
+    const procesos: { especialidad: string, nombre: string }[] = [
+      { especialidad: 'LABORAL', nombre: 'LABORAL' },
+      { especialidad: 'FAMILIA', nombre: 'FAMILIA' },
+      { especialidad: 'CIVIL', nombre: 'CIVIL_ABREVIADO' },
+      { especialidad: 'CIVIL', nombre: 'CIVIL_CONOCIMIENTO' },
+      { especialidad: 'CIVIL', nombre: 'CIVIL_SUMARISIMO' },
+      { especialidad: 'PENAL', nombre: 'PENAL' },
+      { especialidad: 'CONSTITUCIONAL', nombre: 'CONSTITUCIONAL' },
+      { especialidad: 'NOTARIAL', nombre: 'NOTARIAL' },
+      { especialidad: 'ADMINISTRATIVO', nombre: 'ADMINISTRATIVO' },
+    ];
+    return procesos;
   }
 
 }

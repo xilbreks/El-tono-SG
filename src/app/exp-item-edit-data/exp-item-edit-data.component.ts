@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Expediente } from '../_interfaces/expediente';
 import { firstValueFrom } from 'rxjs';
-import { NgClass } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 import { AppService } from '../app.service';
 import { NgIcon } from '@ng-icons/core';
 
@@ -23,6 +23,7 @@ class ObjMateria {
     ReactiveFormsModule,
     NgClass,
     NgIcon,
+    JsonPipe
   ]
 })
 export class ExpItemEditDataComponent implements OnInit {
@@ -34,6 +35,7 @@ export class ExpItemEditDataComponent implements OnInit {
   fcTieneCodigo: FormControl = new FormControl(false);
   lUpdating: boolean = false;
   lstMaterias: Array<ObjMateria> = [];
+  lstProcesos: any[] = [];
 
   constructor(
     private modalService: NgbModal,
@@ -41,11 +43,12 @@ export class ExpItemEditDataComponent implements OnInit {
     this.frmExpediente = new FormGroup({
       titulo: new FormControl(null, Validators.required),
       materia: new FormControl(null, Validators.required),
+      proceso: new FormControl(null, Validators.required),
       demandado: new FormControl(null, Validators.required),
       demandante: new FormControl(null, Validators.required),
       juzgado: new FormControl(null, Validators.required),
       prioridad: new FormControl(null, Validators.required),
-      observaciones: new FormControl(null, Validators.required),
+      observaciones: new FormControl(null),
       fechaInicio: new FormControl(null, Validators.required),
       codigo: new FormControl(null, Validators.required),
       numeroCasacion: new FormControl(null, Validators.required),
@@ -62,6 +65,7 @@ export class ExpItemEditDataComponent implements OnInit {
     const materias = this.appService.materias();
 
     this.lstMaterias = materias.filter(m => m.sespecialidad == this.expediente?.especialidad);
+    this.lstProcesos = this.appService.procesos().filter(p => p.especialidad == this.expediente?.especialidad);
   }
 
   openModal(modal: any) {
@@ -75,6 +79,7 @@ export class ExpItemEditDataComponent implements OnInit {
     this.frmExpediente.setValue({
       titulo: this.expediente?.titulo,
       materia: this.expediente?.materia,
+      proceso: this.expediente?.proceso,
       demandado: this.expediente?.demandado,
       demandante: this.expediente?.demandante,
       juzgado: this.expediente?.juzgado,
@@ -126,11 +131,12 @@ export class ExpItemEditDataComponent implements OnInit {
     const payload = {
       titulo: this.frmExpediente.value['titulo'].trim().toUpperCase(),
       materia: this.frmExpediente.value['materia'].trim().toUpperCase(),
+      proceso: this.frmExpediente.value['proceso'].trim().toUpperCase(),
       demandado: this.frmExpediente.value['demandado'].trim().toUpperCase(),
       demandante: this.frmExpediente.value['demandante'].trim().toUpperCase(),
       juzgado: this.frmExpediente.value['juzgado'].trim().toUpperCase(),
       prioridad: this.frmExpediente.value['prioridad'],
-      observaciones: this.frmExpediente.value['observaciones'].trim(),
+      observaciones: this.frmExpediente.value['observaciones'] ? this.frmExpediente.value['observaciones'].trim() : '',
       fechaInicio: this.frmExpediente.value['fechaInicio'].trim().toUpperCase(),
       codigo: this.frmExpediente.value['codigo'],
       numeroCasacion: this.frmExpediente.value['numeroCasacion'],
@@ -140,11 +146,12 @@ export class ExpItemEditDataComponent implements OnInit {
 
     this.expediente.titulo = this.frmExpediente.value['titulo'].trim().toUpperCase();
     this.expediente.materia = this.frmExpediente.value['materia'].trim().toUpperCase();
+    this.expediente.proceso = this.frmExpediente.value['proceso'].trim().toUpperCase();
     this.expediente.demandado = this.frmExpediente.value['demandado'].trim().toUpperCase();
     this.expediente.demandante = this.frmExpediente.value['demandante'].trim().toUpperCase();
     this.expediente.juzgado = this.frmExpediente.value['juzgado'].trim().toUpperCase();
     this.expediente.prioridad = this.frmExpediente.value['prioridad'];
-    this.expediente.observaciones = this.frmExpediente.value['observaciones'].trim();
+    this.expediente.observaciones = this.frmExpediente.value['observaciones'] ? this.frmExpediente.value['observaciones'].trim() : '';
     this.expediente.fechaInicio = this.frmExpediente.value['fechaInicio'].trim().toUpperCase();
     this.expediente.codigo = this.frmExpediente.value['codigo'];
     this.expediente.numeroCasacion = this.frmExpediente.value['numeroCasacion'];

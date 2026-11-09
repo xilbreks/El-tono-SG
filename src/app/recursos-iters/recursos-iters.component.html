@@ -1,168 +1,214 @@
 <br>
-  <div class="container">
-    <table class="table table-bordered">
-      <thead>
-        <tr class="table-info">
-          <th colspan="2" style="text-align: center;">
-            ITER LABORAL
-          </th>
-        </tr>
-        <tr class="table-info">
-          <th style="text-align: center;">CÓDIGO</th>
-          <th>DESCRIPCIÓN</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (iter of lstIterLaboral; track iter) {
-          <tr [ngClass]="{'table-info': !iter.eligible}">
-            <td style="text-align: center;">
-              {{iter.code}}
-            </td>
-            <td [ngClass]="{'centrado': !iter.eligible}">
-              {{iter.title}}
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+<div class="container" style="max-width: 720px;">
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-info">
+        <th style="text-align: center;">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <span>ITER LABORAL</span>
+            <a [href]="'/assets/iter-laboral.pdf'" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-1">
+              Ver PDF
+            </a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (iter of lstIterLaboral; track $index) {
+      <tr [ngClass]="{'table-info': !iter.elegible}">
+        <td [ngClass]="{'centrado': !iter.elegible}">
+          {{iter.nombre}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 
-    <hr>
+  <hr>
 
-      <table class="table table-bordered">
-        <thead>
-          <tr class="table-danger">
-            <th colspan="2" style="text-align: center;">
-              ITER FAMILIA
-            </th>
-          </tr>
-          <tr class="table-danger">
-            <th style="text-align: center;">CÓDIGO</th>
-            <th>DESCRIPCIÓN</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (iter of lstIterFamilia; track iter) {
-            <tr [ngClass]="{'table-danger': !iter.eligible}">
-              <td style="text-align: center;">
-                {{iter.code}}
-              </td>
-              <td [ngClass]="{'centrado': !iter.eligible}">
-                {{iter.title}}
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-danger">
+        <th style="text-align: center;">
+          ITER FAMILIA
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (iter of lstIterFamilia; track iter) {
+      <tr [ngClass]="{'table-danger': !iter.elegible}">
+        <td [ngClass]="{'centrado': !iter.elegible}">
+          {{iter.nombre}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 
-      <hr>
+  <hr>
 
-        <table class="table table-bordered">
-          <thead>
-            <tr class="table-warning">
-              <th colspan="2" style="text-align: center;">
-                ITER CIVIL
-              </th>
-            </tr>
-            <tr class="table-warning">
-              <th style="text-align: center;">CÓDIGO</th>
-              <th>DESCRIPCIÓN</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (iter of lstIterCivil; track iter) {
-              <tr [ngClass]="{'table-warning': !iter.eligible}">
-                <td style="text-align: center;">
-                  {{iter.code}}
-                </td>
-                <td [ngClass]="{'centrado': !iter.eligible}">
-                  {{iter.title}}
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-warning">
+        <th style="text-align: center;">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <span>CIVIL CONOCIMIENTO</span>
+            <a [href]="'/assets/iter-civil-conocimiento.pdf'" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-1">
+              Ver PDF
+            </a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (iter of lstIterCivilConocimiento; track iter) {
+      <tr [ngClass]="{'table-warning': !iter.elegible}">
+        <td [ngClass]="{'centrado': !iter.elegible}">
+          {{iter.nombre}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 
-        <hr>
+  <hr>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr class="table-warning">
-                <th colspan="2" style="text-align: center;">
-                  ITER NOTARIAL - REGISTRAL
-                </th>
-              </tr>
-              <tr class="table-warning">
-                <th style="text-align: center;">CÓDIGO</th>
-                <th>DESCRIPCIÓN</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (iter of lstIterNotarial; track iter) {
-                <tr [ngClass]="{'table-warning': !iter.eligible}">
-                  <td style="text-align: center;">
-                    {{iter.code}}
-                  </td>
-                  <td [ngClass]="{'centrado': !iter.eligible}">
-                    {{iter.title}}
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-warning">
+        <th style="text-align: center;">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <span>ITER CIVIL ABREVIADO</span>
+            <a [href]="'/assets/iter-civil-abreviado.pdf'" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-1">
+              Ver PDF
+            </a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (iter of lstIterCivilAbreviado; track iter) {
+      <tr [ngClass]="{'table-warning': !iter.elegible}">
+        <td [ngClass]="{'centrado': !iter.elegible}">
+          {{iter.nombre}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 
-          <hr>
+  <hr>
 
-            <table class="table table-bordered">
-              <thead>
-                <tr class="table-secondary">
-                  <th colspan="2" style="text-align: center;">
-                    ITER PENAL
-                  </th>
-                </tr>
-                <tr class="table-secondary">
-                  <th style="text-align: center;">CÓDIGO</th>
-                  <th>DESCRIPCIÓN</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (iter of lstIterPenal; track iter) {
-                  <tr [ngClass]="{'table-secondary': !iter.eligible}">
-                    <td style="text-align: center;">
-                      {{iter.code}}
-                    </td>
-                    <td [ngClass]="{'centrado': !iter.eligible}">
-                      {{iter.title}}
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-warning">
+        <th style="text-align: center;">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <span>ITER CIVIL SUMARISIMO</span>
+            <a [href]="'/assets/iter-civil-sumarisimo.pdf'" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-1">
+              Ver PDF
+            </a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (iter of lstIterCivilSumarisimo; track iter) {
+      <tr [ngClass]="{'table-warning': !iter.elegible}">
+        <td [ngClass]="{'centrado': !iter.elegible}">
+          {{iter.nombre}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 
-            <hr>
+  <hr>
 
-              <table class="table table-bordered">
-                <thead>
-                  <tr class="table-info">
-                    <th colspan="2" style="text-align: center;">
-                      ITER CONSTITUCIONAL
-                    </th>
-                  </tr>
-                  <tr class="table-info">
-                    <th style="text-align: center;">CÓDIGO</th>
-                    <th>DESCRIPCIÓN</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (iter of lstIterConstitucional; track iter) {
-                    <tr [ngClass]="{'table-info': !iter.eligible}">
-                      <td style="text-align: center;">
-                        {{iter.code}}
-                      </td>
-                      <td [ngClass]="{'centrado': !iter.eligible}">
-                        {{iter.title}}
-                      </td>
-                    </tr>
-                  }
-                </tbody>
-              </table>
-            </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-warning">
+        <th style="text-align: center;">
+          ITER NOTARIAL - REGISTRAL
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (iter of lstIterNotarial; track iter) {
+      <tr [ngClass]="{'table-warning': !iter.elegible}">
+        <td [ngClass]="{'centrado': !iter.elegible}">
+          {{iter.nombre}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <hr>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-secondary">
+        <th style="text-align: center;">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <span>ITER PENAL</span>
+            <a [href]="'/assets/iter-penal.pdf'" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-1">
+              Ver PDF
+            </a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (iter of lstIterPenal; track iter) {
+      <tr [ngClass]="{'table-secondary': !iter.elegible}">
+        <td [ngClass]="{'centrado': !iter.elegible}">
+          {{iter.nombre}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <hr>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-info">
+        <th style="text-align: center;">
+          ITER CONSTITUCIONAL
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (iter of lstIterConstitucional; track iter) {
+      <tr [ngClass]="{'table-info': !iter.elegible}">
+        <td [ngClass]="{'centrado': !iter.elegible}">
+          {{iter.nombre}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <hr>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-warning">
+        <th style="text-align: center;">
+          ITER ADMINISTRATIVO
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (iter of lstIterAdministrativo; track iter) {
+      <tr [ngClass]="{'table-warning': !iter.elegible}">
+        <td [ngClass]="{'centrado': !iter.elegible}">
+          {{iter.nombre}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

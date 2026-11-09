@@ -4,14 +4,16 @@ type EspecialidadLegal =
     'FAMILIA' |
     'PENAL' |
     'CONSTITUCIONAL' |
-    'NOTARIAL';
+    'NOTARIAL' |
+    'ADMINISTRATIVO';
 type TipoProceso =
     'LABORAL' |
     'CIVIL_ABREVIADO' | 'CIVIL_CONOCIMIENTO' | 'CIVIL_SUMARISIMO' |
     'FAMILIA' |
     'PENAL' |
     'CONSTITUCIONAL' |
-    'NOTARIAL';
+    'NOTARIAL' |
+    'ADMINISTRATIVO';
 
 export interface Checkpoint {
     idCheckpoint: string;           // ID unico del checkpoint
