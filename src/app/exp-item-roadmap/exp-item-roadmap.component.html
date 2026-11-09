@@ -1,7 +1,7 @@
 <div>
   <div class="dropstart">
     <span>Iter actual: </span>
-    <b role="button" (click)="iniciarCambioCheckpoint(modalCambioCheckpoint)">
+    <b role="button" (click)="mostrarModalAvance()">
       {{expediente?.nombreCheckpoint}}
     </b>
   </div>
@@ -14,26 +14,26 @@
 <ng-template #modalCambioCheckpoint let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="modal-basic-title">
-      Cambiar checkpoint (ITER)
+      Cambiar ITER
     </h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-    (click)="modal.dismiss('Cross click')"></button>
+      (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="frmCheckpoint" class="row" autocomplete="off">
-      <div class="col-12 mb-3">
+      <!-- <div class="col-12 mb-3">
         <label for="checkpointactual">Checkpoint Actual</label>
         <span id="checkpointactual" class="form-control">
           {{expediente?.nombreCheckpoint}}
         </span>
-      </div>
+      </div> -->
       <div class="col-12 mb-3">
-        <label for="idCheckpoint">Nuevo Checkpoint:</label>
+        <label for="idCheckpoint">Nuevo iter:</label>
         <select class="form-select" id="idCheckpoint" formControlName="id" (change)="seleccionarCheckpoint()">
           @for (checkpoint of checkpoints; track checkpoint) {
-            <option [value]="checkpoint.idCheckpoint">
-              {{checkpoint.nombre}}
-            </option>
+          <option [value]="checkpoint.idCheckpoint" [disabled]="!checkpoint.elegible">
+            {{checkpoint.nombre}}
+          </option>
           }
         </select>
       </div>
@@ -45,74 +45,67 @@
     <!-- <pre>
     {{frmCheckpoint.value | json}}
   </pre> -->
-</div>
-<div class="modal-footer">
-  @if (!actualizando) {
-    <button class="btn btn-primary" [disabled]="!frmCheckpoint.valid"
-      (click)="concretarCambioCheckpoint()">
-      Actualizar Checkpoint
+  </div>
+  <div class="modal-footer">
+    @if (!actualizando) {
+    <button type="button" class="btn btn-success" (click)="mostrarModalAvance()">Volver</button>
+    <button class="btn btn-primary" [disabled]="!frmCheckpoint.valid" (click)="concretarCambioCheckpoint()">
+      Actualizar iter
     </button>
-  }
-  @if (actualizando) {
+    }
+    @if (actualizando) {
     <button class="btn btn-primary" disabled>
       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Actualizando...
     </button>
-  }
-</div>
+    }
+  </div>
 </ng-template>
 
 
-<!---------------------------------------------------------------
----------------- MODAL OBLIGATORIO CHECKPOINT  ------------------
+<!------------------------------------------------------------
+--------------- MODAL DE AVANCE CHECKPOINTS  -----------------
 -------------------------------------------------------------->
-<ng-template #modalObligatorioCheckpoint let-modal>
+<ng-template #modalAvanceCheckpoint let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="modal-basic-title">
-      Cambiar checkpoint (ITER) <span (dblclick)="modal.dismiss('Cross click')">-</span> OBLIGATORIO
+      Progreso General del Expediente
     </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
   </div>
-  <div class="modal-body">
-    <span>Expediente: {{expediente?.numero}}</span>
-    <hr>
-      <form [formGroup]="frmCheckpoint" class="row" autocomplete="off">
-        <div class="col-12 mb-3">
-          <label for="checkpointactual">Checkpoint Actual</label>
-          <span id="checkpointactual" class="form-control">
-            {{expediente?.nombreCheckpoint}}
-          </span>
+  <div class="modal-body ps-4">
+    <div class="vertical-stepper">
+
+      @for (checkpoint of checkpoints; track $index) {
+      @if(!checkpoint.elegible) {
+      <div class="step-group-title">{{checkpoint.nombre}}</div>
+      }@else {
+      <div class="stepper-item" [class.completed]="checkpoint.pintar">
+        <div class="step-counter">
+          @if(checkpoint.pintar){
+          <ng-icon name="bootstrapCheck" class="fs-5"></ng-icon>
+          }@else {
+          -
+          }
         </div>
-        <div class="col-12 mb-3">
-          <label for="idCheckpoint">Nuevo Checkpoint:</label>
-          <select class="form-select" id="idCheckpoint" formControlName="id" (change)="seleccionarCheckpoint()">
-            @for (checkpoint of checkpoints; track checkpoint) {
-              <option [value]="checkpoint.idCheckpoint">
-                {{checkpoint.nombre}}
-              </option>
-            }
-          </select>
+        <div class="step-content-wrapper">
+          <div class="step-thumbnail">
+            <img [src]="'assets/'+checkpoint.thumbnail" alt="Thumbnail tarea 1" class="rounded">
+          </div>
+          <div class="step-content">
+            <!-- <div class="step-name">01. Definición de Requerimientos</div> -->
+            <div class="step-desc">{{checkpoint.nombre}}</div>
+          </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-          <label for="fecha-inicio">Fecha de cambio:</label>
-          <input type="date" class="form-control" id="fecha-inicio" formControlName="fecha">
-        </div>
-      </form>
-      <!-- <pre>
-      {{frmCheckpoint.value | json}}
-    </pre> -->
+      </div>
+      }
+      }
+
+    </div>
   </div>
   <div class="modal-footer">
-    @if (!actualizando) {
-      <button class="btn btn-primary" [disabled]="!frmCheckpoint.valid"
-        (click)="concretarCambioCheckpoint()">
-        Actualizar Checkpoint
-      </button>
-    }
-    @if (actualizando) {
-      <button class="btn btn-primary" disabled>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Actualizando...
-      </button>
-    }
+    <button type="button" class="btn btn-success" (click)="iniciarCambioCheckpoint()">Editar</button>
+    <button type="button" class="btn btn-warning" (click)="modal.close('Save click')">Cerrar</button>
   </div>
 </ng-template>

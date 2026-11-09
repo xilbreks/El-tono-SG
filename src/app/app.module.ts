@@ -119,6 +119,8 @@ import {
   bootstrapDownload,
   bootstrapReceipt,
   bootstrapClock,
+  bootstrapCheck,
+  bootstrapCheckAll,
 } from '@ng-icons/bootstrap-icons';
 
 @NgModule({
@@ -245,6 +247,8 @@ import {
       bootstrapDownload,
       bootstrapReceipt,
       bootstrapClock,
+      bootstrapCheck,
+      bootstrapCheckAll,
     })
   ]
 })

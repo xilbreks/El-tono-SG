@@ -1,9 +1,9 @@
 @if (expediente?.estado == 'FINALIZADO') {
-  <div style="color: red;">
-    <!-- <i class="bi bi-exclamation-triangle"></i> -->
-    <ng-icon name="bootstrapExclamationTriangle"></ng-icon>
-    Depurado - {{expediente?.motivoFinalizacion}}
-  </div>
+<div style="color: red;">
+  <!-- <i class="bi bi-exclamation-triangle"></i> -->
+  <ng-icon name="bootstrapExclamationTriangle"></ng-icon>
+  Depurado - {{expediente?.motivoFinalizacion}}
+</div>
 }
 <div class="container expediente">
   <h4>
@@ -63,70 +63,70 @@
       </td>
       <td>
         @if (expediente?.tieneContrato) {
-          <span>
-            OK
-            @if (urlcontrato) {
-              <a [href]="urlcontrato" target="_blank">
-                ver contrato
-              </a>
-            }
-          </span>
+        <span>
+          OK
+          @if (urlcontrato) {
+          <a [href]="urlcontrato" target="_blank">
+            ver contrato
+          </a>
+          }
+        </span>
         }
         @if (!expediente?.tieneContrato) {
-          <span style="color: red;">
-            <b>SIN CONTRATO</b>
-          </span>
+        <span style="color: red;">
+          <b>SIN CONTRATO</b>
+        </span>
         }
       </td>
     </tr>
     @if (expediente?.codigo != null) {
-      <tr>
-        <td>
-          <b>CÓDIGO:</b>
-        </td>
-        <td>
-          <span style="background-color: lightgrey; border-radius: 4px;">
-            {{expediente?.codigo}}
-          </span>
-        </td>
-      </tr>
+    <tr>
+      <td>
+        <b>CÓDIGO:</b>
+      </td>
+      <td>
+        <span style="background-color: lightgrey; border-radius: 4px;">
+          {{expediente?.codigo}}
+        </span>
+      </td>
+    </tr>
     }
     @if (expediente?.numeroCasacion != null || cuadernos.length > 0) {
-      <hr />
+    <hr />
     }
     @if (expediente?.numeroCasacion != null) {
-      <tr>
-        <td>
-          <b>CASACION:</b>
-        </td>
-        <td>
-          <span>
-            {{expediente?.numeroCasacion}}
-          </span>
-          <span>
-            ({{expediente?.salaCasacion}})
-          </span>
-        </td>
-      </tr>
+    <tr>
+      <td>
+        <b>CASACION:</b>
+      </td>
+      <td>
+        <span>
+          {{expediente?.numeroCasacion}}
+        </span>
+        <span>
+          ({{expediente?.salaCasacion}})
+        </span>
+      </td>
+    </tr>
     }
     @if (cuadernos.length > 0) {
-      <tr>
-        <td>
-          <b>CUADERNOS:</b>
-        </td>
-        <td>
-          <ul>
-            @for (cuaderno of cuadernos; track cuaderno) {
-              <li>
-                <a [routerLink]="'/expediente/'+cuaderno.numero" style="text-decoration: none;">
-                  {{cuaderno.numero}}
-                </a>
-                ({{cuaderno.titulo}})
-              </li>
-            }
-          </ul>
-        </td>
-      </tr>
+    <tr>
+      <td>
+        <b>CUADERNOS:</b>
+      </td>
+      <td>
+        <ul>
+          @for (cuaderno of cuadernos; track cuaderno) {
+          <li>
+            <a [routerLink]="'/expediente/'+cuaderno.numero" style="text-decoration: none;">
+              {{cuaderno.numero}}
+            </a>
+            ({{cuaderno.titulo}})
+          </li>
+          }
+        </ul>
+      </td>
+    </tr>
     }
   </table>
   <hr />
@@ -144,21 +144,21 @@
 
   <!-- Solo para ver las observaciones del expediente -->
   @if (expediente?.observaciones) {
-    <div>
-      <div style="display: flex; flex-direction: row-reverse; margin-top: -25px;">
-        <span role="button" (click)="toggleObservaciones()">
-          <!-- <i class="bi bi-box"></i> -->
-          <ng-icon name="bootstrapBox"></ng-icon>
-        </span>
-      </div>
-      @if (mostrarObservaciones) {
-        <div class="alert alert-warning" role="alert">
-          <span>
-            {{expediente?.observaciones}}
-          </span>
-        </div>
-      }
+  <div>
+    <div style="display: flex; flex-direction: row-reverse; margin-top: -25px;">
+      <span role="button" (click)="toggleObservaciones()">
+        <!-- <i class="bi bi-box"></i> -->
+        <ng-icon name="bootstrapBox"></ng-icon>
+      </span>
     </div>
+    @if (mostrarObservaciones) {
+    <div class="alert alert-warning" role="alert">
+      <span>
+        {{expediente?.observaciones}}
+      </span>
+    </div>
+    }
+  </div>
   }
 </div>
 
@@ -168,8 +168,8 @@
       {{expediente?.idExpediente}}
     </i>
     <br>
-      <i>
-        {{expediente?.numero}}
-      </i>
-    </span>
-  </div>
+    <i>
+      {{expediente?.numero}}
+    </i>
+  </span>
+</div>

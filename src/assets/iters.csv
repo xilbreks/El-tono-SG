@@ -1,160 +1,253 @@
-idCheckpoint,especialidad,proceso,orden,nombre,elegible,mostrar
-001,laboral,LABORAL,1,PRIMERA INSTANCIA,true,true
-002,laboral,LABORAL,2,1.1.- redaccion de demanda,true,true
-003,laboral,LABORAL,3,1.2.- presentacion de la demanda,true,true
-004,laboral,LABORAL,4,1.3.- programacion de audiencia / autoadmisorio,true,true
-005,laboral,LABORAL,5,1.4.- oralización de la audiencia,true,true
-006,laboral,LABORAL,6,1.5.- en espera de la sentencia,true,true
-007,laboral,LABORAL,7,1.6.- sentencia de primera instancia,true,true
-008,laboral,LABORAL,8,SEGUNDA INSTANCIA,true,true
-009,laboral,LABORAL,9,2.1.- redaccion de apelacion,true,true
-010,laboral,LABORAL,10,2.2.- presentacion de la apelacion,true,true
-011,laboral,LABORAL,11,2.3.- programacion de la audiencia de vista,true,true
-012,laboral,LABORAL,12,2.4.- oralizacion de la audiencia de vista,true,true
-013,laboral,LABORAL,13,2.5.- en espera de la sentencia de vista,true,true
-014,laboral,LABORAL,14,2.6.- sentencia de vista,true,true
-015,laboral,LABORAL,15,CASACION,true,true
-016,laboral,LABORAL,16,3.1.- elaboracion de recurso de casacion,true,true
-017,laboral,LABORAL,17,3.2.- presentacion del recurso de casacion,true,true
-018,laboral,LABORAL,18,3.3.- elevacion del recurso de casacion a la corte suprema,true,true
-019,laboral,LABORAL,19,3.4.- programacion de vista de la causa - corte suprema,true,true
-020,laboral,LABORAL,20,3.5.- oralizacion de audiencia de vista - corte suprema,true,true
-021,laboral,LABORAL,21,3.6.- en espera de la sentencia,true,true
-022,laboral,LABORAL,22,3.7.- ejecutoria suprema final,true,true
-023,laboral,LABORAL,23,3.8.- bajada de autos al juzgado de origen,true,true
-024,laboral,LABORAL,24,EJECUCION,true,true
-025,laboral,LABORAL,25,4.1.- resolucion consentida y firme,true,true
-026,laboral,LABORAL,26,4.2.- redaccion de liquidacion de costos y costas,true,true
-027,laboral,LABORAL,27,4.3.- endose de costos y costas,true,true
-028,laboral,LABORAL,28,4.4.- cobro efectivo de costos y costas,true,true
-029,laboral,LABORAL,29,4.5.- redaccion de la solicitud de intereses legales,true,true
-030,laboral,LABORAL,30,4.6.- endose de los interes legales,true,true
-031,laboral,LABORAL,31,4.7.- cobro efectivo de intereses legales,true,true
-032,familia,FAMILIA,1,PRIMERA INSTANCIA,true,true
-033,familia,FAMILIA,2,1.1.- Recolección de medios probatorios,true,true
-034,familia,FAMILIA,3,1.2.- Preparación de la demanda,true,true
-035,familia,FAMILIA,4,1.3.- Presentación de la demanda,true,true
-036,familia,FAMILIA,5,1.4.- Calificación de la demanda,true,true
-037,familia,FAMILIA,6,1.5.- Subsanación de la demanda (si aplica),true,true
-038,familia,FAMILIA,7,1.6.- Traslado de la demanda,true,true
-039,familia,FAMILIA,8,1.7.- Contestación de la demanda,true,true
-040,familia,FAMILIA,9,1.8.- Audiencia,true,true
-041,familia,FAMILIA,10,1.9.- Sentencia de primera instancia,true,true
-042,familia,FAMILIA,11,SEGUNDA INSTANCIA,true,true
-043,familia,FAMILIA,12,2.1.- Apelación o absolución de apelación,true,true
-044,familia,FAMILIA,13,2.2.- Elevación del expediente a superior,true,true
-045,familia,FAMILIA,14,2.3.- Audiencia de vista,true,true
-046,familia,FAMILIA,15,2.4.- Sentencia de vista,true,true
-047,familia,FAMILIA,16,RECUSOS EXTRAORDINARIOS,true,true
-048,familia,FAMILIA,17,"3.1.- Elaboración de casación, queja o amparo",true,true
-049,familia,FAMILIA,18,3.2.- Calificación de recurso,true,true
-050,familia,FAMILIA,19,3.3.- Audiencia de Vista de la causa,true,true
-051,familia,FAMILIA,20,"3.4.- Sentencia de casación, queja o amparo",true,true
-052,familia,FAMILIA,21,ETAPA EJECUTORIA,true,true
-053,familia,FAMILIA,22,4.1.- Consentimiento de sentencia,true,true
-054,familia,FAMILIA,23,4.2.- Cursar oficios,true,true
-055,familia,FAMILIA,24,4.3.- Presentar o absolver liquidaciones,true,true
-056,familia,FAMILIA,25,4.4.- Requerimiento de pago,true,true
-057,familia,FAMILIA,26,4.5.- Remisión al Ministerio Público,true,true
-058,familia,FAMILIA,27,MEDIDAS CAUTELARES,true,true
-059,familia,FAMILIA,28,5.1.- Elaboración de medida cautelar,true,true
-060,familia,FAMILIA,29,5.2.- Presentación de medida cautelar,true,true
-061,familia,FAMILIA,30,5.3.- Calificación de medida cautelar,true,true
-062,familia,FAMILIA,31,5.4.- Ejecución de medida cautelar,true,true
-063,familia,FAMILIA,32,5.5.- Levantamiento de medida cautelar,true,true
-064,civil,CIVIL,1,PRIMERA INSTANCIA,true,true
-065,civil,CIVIL,2,1.- Conciliación Extrajudicial,true,true
-066,civil,CIVIL,3,2.- Interposición de la demanda,true,true
-067,civil,CIVIL,4,3.- Calificación de la demanda,true,true
-068,civil,CIVIL,5,4.- Subsanar de acuerdo al auto de inadmisibilidad de la demanda,true,true
-069,civil,CIVIL,6,5.- Emplazamiento de la demanda,true,true
-070,civil,CIVIL,7,6.- Interponer tachas u oposiciones a las pruebas,true,true
-071,civil,CIVIL,8,7.- Absolver tachas u oposiciones,true,true
-072,civil,CIVIL,9,8.- Interponer excepciones o defensas previas,true,true
-073,civil,CIVIL,10,9.- Absolver el traslado de las excepciones o defensas previas,true,true
-074,civil,CIVIL,11,10.- Contestar la demanda y reconvenir,true,true
-075,civil,CIVIL,12,11.- Ofrecimiento de medios probatorios si en la contestación se invoca hechos no expuestos en la demanda o en la reconvención,true,true
-076,civil,CIVIL,13,12.- Absolver el traslado de la reconvención,true,true
-077,civil,CIVIL,14,13.- Saneamiento,true,true
-078,civil,CIVIL,15,14.- Fijación de puntos controvertidos,true,true
-079,civil,CIVIL,16,15.- Realización de la audiencia de pruebas,true,true
-080,civil,CIVIL,17,16.- Audiencia especial y complementaria,true,true
-081,civil,CIVIL,18,17.- Alegados,true,true
-082,civil,CIVIL,19,18.- Sentencia,true,true
-083,civil,CIVIL,20,SEGUNDA INSTANCIA,true,true
-084,civil,CIVIL,21,19.- Apelar sentencia,true,true
-085,civil,CIVIL,22,20.- Subsanar el recurso de apelación según el auto que declara la inadmisibilidad,true,true
-086,civil,CIVIL,23,21.- Elevar el expediente,true,true
-087,civil,CIVIL,24,22.- Traslado para absolver el escrito el escrito de apelación o adherirse al mismo,true,true
-088,civil,CIVIL,25,23.- Traslado al apelante para absolver la adhesión,true,true
-089,civil,CIVIL,26,24.- Audiencia de pruebas,true,true
-090,civil,CIVIL,27,25.- Vista de la causa,true,true
-091,civil,CIVIL,28,26.- Solicitar informe oral contado desde la notificación de la resolución que fija fecha para la vista de causa,true,true
-092,civil,CIVIL,29,CASACION,true,true
-093,civil,CIVIL,30,27.- Interposición de casación,true,true
-094,civil,CIVIL,31,28.- Vista de la causa,true,true
-095,civil,CIVIL,32,29.- Solicitar informe oral por parte de las partes,true,true
-096,civil,CIVIL,33,30.- Sentencia de casación,true,true
-097,notarial,NOTARIAL,1,ETAPAS NOTARIALES,true,true
-098,notarial,NOTARIAL,2,1.1.- Solicitud de requisitos,true,true
-099,notarial,NOTARIAL,3,1.2.- Citas con el modulo especializado,true,true
-100,notarial,NOTARIAL,4,1.3.- Firmas de escritura,true,true
-101,notarial,NOTARIAL,5,1.4.- Publicacion en edictos,true,true
-102,notarial,NOTARIAL,6,1.5.- Entrega de escrituras,true,true
-103,notarial,NOTARIAL,7,ETAPAS REGISTRALES,true,true
-104,notarial,NOTARIAL,8,2.1.- Inscripcion en Registros Publicos,true,true
-105,notarial,NOTARIAL,9,2.2.- Observaciones en Registros Publicos,true,true
-106,notarial,NOTARIAL,10,2.3.- Subsanacion de observaciones,true,true
-107,notarial,NOTARIAL,11,2.4.- Cita con registrador,true,true
-108,notarial,NOTARIAL,12,2.5.- Inscripcion preventiva con publicacion,true,true
-109,notarial,NOTARIAL,13,2.6.- Inscripcion definitiva,true,true
-110,penal,PENAL,1,ETAPA I: DENUNCIA,true,true
-111,penal,PENAL,2,1.- Denuncia,true,true
-112,penal,PENAL,3,ETAPA II: INVESTIGACIÓN PREPARATORIA PRELIMINAR,true,true
-113,penal,PENAL,4,2.- Solicitar diligencias y/o presentar medios de prueba,true,true
-114,penal,PENAL,5,3.- Solicitar el archivo de la investigación (INVESTIGADO) / Solicitar que se formalice la investigación (AGRAVIADO),true,true
-115,penal,PENAL,6,4.- Tutela de derechos/audiencia tutela de derechos,true,true
-116,penal,PENAL,7,5.- Control de plazos/audiencia de control de plazos,true,true
-117,penal,PENAL,8,6.- Elevación de actuados,true,true
-118,penal,PENAL,9,7.- Oposición de Incoación de Proceso Inmediato/Audiencia de Incoación de Proceso Inmediato,true,true
-119,penal,PENAL,10,ETAPA III: INVESTIGACIÓN PREPARATORIA FORMALIZADA,true,true
-120,penal,PENAL,11,8.- Solicitar diligencias y/o presentar medios de prueba,true,true
-121,penal,PENAL,12,9.- Tutela de derechos/audiencia tutela de derechos,true,true
-122,penal,PENAL,13,10.- Control de plazos/audiencia de control de plazos,true,true
-123,penal,PENAL,14,11.- Solicitar Prisión Preventiva (AGRAVIADO) / Absolver requerimiento de prisión preventiva (IMPUTADO). AUDIENCIA,true,true
-124,penal,PENAL,15,12.- Solicitar Prorroga de Prisión Preventiva (AGRAVIADO) / Solicitar Cesación de prisión preventiva (IMPUTADO). AUDIENCIA,true,true
-125,penal,PENAL,16,13.- Solicitar Constitución en Actor Civil y/o Tercero Civil (AGRAVIADO) / Oponerse a solicitud de Actor Civil y/o Tercero Civil (IMPUTADO),true,true
-126,penal,PENAL,17,ETAPA IV: ETAPA INTERMEDIA,true,true
-127,penal,PENAL,18,14.- Absolución de la Acusación y/o Sobreseimiento / Audiencia de Control,true,true
-128,penal,PENAL,19,ETAPA V: ETAPA DE JUICIO ORAL,true,true
-129,penal,PENAL,20,15.- Audiencia de Juicio,true,true
-130,penal,PENAL,21,16.- Sentencia 1° Instancia,true,true
-131,penal,PENAL,22,ETAPA VI: IMPUGNATORIA,true,true
-132,penal,PENAL,23,17.- Apelación Auto/Sentencia,true,true
-133,penal,PENAL,24,18.- Recurso de Reposición,true,true
-134,penal,PENAL,25,19.- Audiencia de Apelación,true,true
-135,penal,PENAL,26,20.- Sentencia de Vista,true,true
-136,penal,PENAL,27,21.- Casación,true,true
-137,penal,PENAL,28,ETAPA VII: ETAPA EJECUTORA,true,true
-138,penal,PENAL,29,22.- Solicitar al PJ se ejecute la sentencia,true,true
-139,penal,PENAL,30,23.- Solicitar al Ministerio Publico Revocatoria de pena,true,true
-140,penal,PENAL,31,24.- Audiencia de Revocatoria de Pena Suspendida,true,true
-141,constitucional,CONSTITUCIONAL,1,ETAPA I: POSTULATORIA,true,true
-142,constitucional,CONSTITUCIONAL,2,1.1.- Elaboración Demanda,true,true
-143,constitucional,CONSTITUCIONAL,3,1.2- Presentación Demanda,true,true
-144,constitucional,CONSTITUCIONAL,4,1.3.- Auto Admisorio,true,true
-145,constitucional,CONSTITUCIONAL,5,1.4.- Contestación de demanda,true,true
-146,constitucional,CONSTITUCIONAL,6,ETAPA II: PROBATORIA,true,true
-147,constitucional,CONSTITUCIONAL,7,2.1.- Audiencia Única,true,true
-148,constitucional,CONSTITUCIONAL,8,ETAPA III: DECISORIA,true,true
-149,constitucional,CONSTITUCIONAL,9,3.1.- Sentencia 1ra instancia,true,true
-150,constitucional,CONSTITUCIONAL,10,ETAPA IV: IMPUGNATORIA,true,true
-151,constitucional,CONSTITUCIONAL,11,4.1.- Recurso apelación,true,true
-152,constitucional,CONSTITUCIONAL,12,4.2.- Audiencia vista de la causa,true,true
-153,constitucional,CONSTITUCIONAL,13,4.3.- Sentencia de vista 2da instancia,true,true
-154,constitucional,CONSTITUCIONAL,14,4.4.- Recurso de Agravio Constitucional,true,true
-155,constitucional,CONSTITUCIONAL,15,4.5.- Sentencia del Tribunal Constitucional,true,true
-156,constitucional,CONSTITUCIONAL,16,ETAPA V: EJECUTORIA,true,true
-157,constitucional,CONSTITUCIONAL,17,5.1.- Ejecución de Sentencia,true,true
-158,constitucional,CONSTITUCIONAL,18,5.2.- Resolución concentida y firme,true,true
-159,constitucional,CONSTITUCIONAL,19,5.3.- Costas y Costos,true,true
+idCheckpoint,orden,nombre,especialidad,proceso,thumbnail,elegible,mostrar
+029,32,4.5.- redaccion de la solicitud de intereses legales,laboral,LABORAL,,true,false
+001,1.0,1.0 PRIMERA INSTANCIA,laboral,LABORAL,,false,true
+002,1.1,1.1 Redaccion de demanda,laboral,LABORAL,2.jpg,true,true
+160,1.2,1.2 Revisión de demanda,laboral,LABORAL,0.png,true,true
+003,1.3,1.3 Presentación de demanda / calificación,laboral,LABORAL,8.png,true,true
+004,1.4,1.4 Programacion de audiencia / autoadmisorio,laboral,LABORAL,17.jpg,true,true
+005,1.5,1.5 Oralización Audiencia de Conciliación,laboral,LABORAL,3.jpg,true,true
+161,1.6,1.6 Oralización Audiencia de Juzgamiento ,laboral,LABORAL,18.jpg,true,true
+162,1.7,1.7 Oralización Audiencia Única,laboral,LABORAL,4.jpg,true,true
+006,1.8,1.8 En espera de la notificación de la Sentencia,laboral,LABORAL,9.png,true,true
+007,1.9,1.9 Emisión de Sentencia,laboral,LABORAL,1.jpg,true,true
+008,2.0,2.0 SEGUNDA INSTANCIA,laboral,LABORAL,,false,true
+009,2.1,2.1 Redacción del recurso de apelación,laboral,LABORAL,10.jpg,true,true
+163,2.2,2.2 Revisión del recurso de apelación,laboral,LABORAL,0.png,true,true
+010,2.3,2.3 Presentación del recurso de apelación,laboral,LABORAL,8.png,true,true
+164,2.4,2.4 Elevación del recurso de apelación,laboral,LABORAL,11.png,true,true
+011,2.5,2.5 Programación de Audiencia de Vista de la Causa,laboral,LABORAL,17.jpg,true,true
+012,2.6,2.6 Oralización Audiencia de Vista de la Causa,laboral,LABORAL,18.jpg,true,true
+013,2.7,2.7 En espera de la notificación de la Sentencia de Vista,laboral,LABORAL,9.png,true,true
+014,2.8,2.8 Emisión de Sentencia de vista,laboral,LABORAL,1.jpg,true,true
+015,3.0,3.0 CASACION,laboral,LABORAL,,false,true
+016,3.1,3.1 Redacción del recurso de casación,laboral,LABORAL,10.jpg,true,true
+165,3.2,3.2 Revisión del recurso de casación ,laboral,LABORAL,0.png,true,true
+017,3.3,3.3 Presentación del recurso de casación,laboral,LABORAL,8.png,true,true
+166,3.4,3.4 Rechazo del recurso de casación,laboral,LABORAL,12.png,true,true
+168,3.41,3.4.1 Redacción de recurso de queja,laboral,LABORAL,10.jpg,true,true
+169,3.42,3.4.2 Revisión de recurso de queja,laboral,LABORAL,0.png,true,true
+170,3.43,3.4.3 Presentación de recurso de queja,laboral,LABORAL,8.png,true,true
+171,3.44,3.4.4 Elevación del recurso de queja a la Corte Suprema,laboral,LABORAL,11.png,true,true
+172,3.45,3.4.5 En espera de la notificación de la Ejecutoria Suprema,laboral,LABORAL,9.png,true,true
+173,3.46,3.4.6 Emisión de la Ejecutoria Suprema,laboral,LABORAL,1.jpg,true,true
+032,1,PRIMERA INSTANCIA,familia,FAMILIA,,false,true
+033,2,1.1.- Recolección de medios probatorios,familia,FAMILIA,0.png,true,true
+034,3,1.2.- Preparación de la demanda,familia,FAMILIA,0.png,true,true
+035,4,1.3.- Presentación de la demanda,familia,FAMILIA,0.png,true,true
+036,5,1.4.- Calificación de la demanda,familia,FAMILIA,0.png,true,true
+037,6,1.5.- Subsanación de la demanda (si aplica),familia,FAMILIA,0.png,true,true
+038,7,1.6.- Traslado de la demanda,familia,FAMILIA,0.png,true,true
+039,8,1.7.- Contestación de la demanda,familia,FAMILIA,0.png,true,true
+040,9,1.8.- Audiencia,familia,FAMILIA,0.png,true,true
+041,10,1.9.- Sentencia de primera instancia,familia,FAMILIA,0.png,true,true
+042,11,SEGUNDA INSTANCIA,familia,FAMILIA,,false,true
+043,12,2.1.- Apelación o absolución de apelación,familia,FAMILIA,0.png,true,true
+044,13,2.2.- Elevación del expediente a superior,familia,FAMILIA,0.png,true,true
+045,14,2.3.- Audiencia de vista,familia,FAMILIA,0.png,true,true
+046,15,2.4.- Sentencia de vista,familia,FAMILIA,0.png,true,true
+047,16,RECUSOS EXTRAORDINARIOS,familia,FAMILIA,,false,true
+048,17,"3.1.- Elaboración de casación, queja o amparo",familia,FAMILIA,0.png,true,true
+049,18,3.2.- Calificación de recurso,familia,FAMILIA,0.png,true,true
+050,19,3.3.- Audiencia de Vista de la causa,familia,FAMILIA,0.png,true,true
+051,20,"3.4.- Sentencia de casación, queja o amparo",familia,FAMILIA,0.png,true,true
+052,21,ETAPA EJECUTORIA,familia,FAMILIA,,false,true
+053,22,4.1.- Consentimiento de sentencia,familia,FAMILIA,0.png,true,true
+054,23,4.2.- Cursar oficios,familia,FAMILIA,0.png,true,true
+055,24,4.3.- Presentar o absolver liquidaciones,familia,FAMILIA,0.png,true,true
+056,25,4.4.- Requerimiento de pago,familia,FAMILIA,0.png,true,true
+057,26,4.5.- Remisión al Ministerio Público,familia,FAMILIA,0.png,true,true
+058,27,MEDIDAS CAUTELARES,familia,FAMILIA,,false,true
+059,28,5.1.- Elaboración de medida cautelar,familia,FAMILIA,0.png,true,true
+060,29,5.2.- Presentación de medida cautelar,familia,FAMILIA,0.png,true,true
+061,30,5.3.- Calificación de medida cautelar,familia,FAMILIA,0.png,true,true
+062,31,5.4.- Ejecución de medida cautelar,familia,FAMILIA,0.png,true,true
+063,32,5.5.- Levantamiento de medida cautelar,familia,FAMILIA,0.png,true,true
+064,1,PRIMERA INSTANCIA,civil,CIVIL,,false,false
+065,2,1.- Conciliación Extrajudicial,civil,CIVIL,,true,false
+184,1.00,PROCESO DE CONOCIMIENTO,civil,CIVIL_CONOCIMIENTO,,false,true
+066,1.01,1.1 Presentación de la demanda.,civil,CIVIL_CONOCIMIENTO,2.jpg,true,true
+068,5,4.- Subsanar de acuerdo al auto de inadmisibilidad de la demanda,civil,CIVIL,,true,false
+069,6,5.- Emplazamiento de la demanda,civil,CIVIL,,true,false
+070,7,6.- Interponer tachas u oposiciones a las pruebas,civil,CIVIL,,true,false
+071,8,7.- Absolver tachas u oposiciones,civil,CIVIL,,true,false
+072,9,8.- Interponer excepciones o defensas previas,civil,CIVIL,,true,false
+073,10,9.- Absolver el traslado de las excepciones o defensas previas,civil,CIVIL,,true,false
+067,1.02,"1.2 Calificación de la demanda (Admisión, inadmisibilidad o improcedencia).",civil,CIVIL_CONOCIMIENTO,0.png,true,true
+075,12,11.- Ofrecimiento de medios probatorios si en la contestación se invoca hechos no expuestos en la demanda o en la reconvención,civil,CIVIL,,true,false
+074,1.03,1.3 Contestación de la demanda.,civil,CIVIL_CONOCIMIENTO,8.png,true,true
+077,14,13.- Saneamiento,civil,CIVIL,,true,false
+078,15,14.- Fijación de puntos controvertidos,civil,CIVIL,,true,false
+185,1.04,1.4 Planteamiento de excepciones y defensas previas. ,civil,CIVIL_CONOCIMIENTO,42.jpg,true,true
+080,17,16.- Audiencia especial y complementaria,civil,CIVIL,,true,false
+186,1.05,1.5 Absolución de excepciones y defensas previas.,civil,CIVIL_CONOCIMIENTO,43.jpg,true,true
+187,1.06,1.6 Reconvención (Si corresponde a la estrategia).,civil,CIVIL_CONOCIMIENTO,44.jpg,true,true
+083,20,SEGUNDA INSTANCIA,civil,CIVIL,,false,false
+084,21,19.- Apelar sentencia,civil,CIVIL,,true,false
+085,22,20.- Subsanar el recurso de apelación según el auto que declara la inadmisibilidad,civil,CIVIL,,true,false
+086,23,21.- Elevar el expediente,civil,CIVIL,,true,false
+087,24,22.- Traslado para absolver el escrito el escrito de apelación o adherirse al mismo,civil,CIVIL,,true,false
+088,25,23.- Traslado al apelante para absolver la adhesión,civil,CIVIL,,true,false
+089,26,24.- Audiencia de pruebas,civil,CIVIL,,true,false
+090,27,25.- Vista de la causa,civil,CIVIL,,true,false
+091,28,26.- Solicitar informe oral contado desde la notificación de la resolución que fija fecha para la vista de causa,civil,CIVIL,,true,false
+092,29,CASACION,civil,CIVIL,,false,false
+076,1.07,1.7 Absolución de la reconvención.,civil,CIVIL_CONOCIMIENTO,45.jpg,true,true
+094,31,28.- Vista de la causa,civil,CIVIL,,true,false
+095,32,29.- Solicitar informe oral por parte de las partes,civil,CIVIL,,true,false
+096,33,30.- Sentencia de casación,civil,CIVIL,,true,false
+097,1,ETAPAS NOTARIALES,notarial,NOTARIAL,,false,true
+098,2,1.1.- Solicitud de requisitos,notarial,NOTARIAL,0.png,true,true
+099,3,1.2.- Citas con el modulo especializado,notarial,NOTARIAL,0.png,true,true
+100,4,1.3.- Firmas de escritura,notarial,NOTARIAL,0.png,true,true
+101,5,1.4.- Publicacion en edictos,notarial,NOTARIAL,0.png,true,true
+102,6,1.5.- Entrega de escrituras,notarial,NOTARIAL,0.png,true,true
+103,7,ETAPAS REGISTRALES,notarial,NOTARIAL,,false,true
+104,8,2.1.- Inscripcion en Registros Publicos,notarial,NOTARIAL,0.png,true,true
+105,9,2.2.- Observaciones en Registros Publicos,notarial,NOTARIAL,0.png,true,true
+106,10,2.3.- Subsanacion de observaciones,notarial,NOTARIAL,0.png,true,true
+107,11,2.4.- Cita con registrador,notarial,NOTARIAL,0.png,true,true
+108,12,2.5.- Inscripcion preventiva con publicacion,notarial,NOTARIAL,0.png,true,true
+109,13,2.6.- Inscripcion definitiva,notarial,NOTARIAL,0.png,true,true
+110,1.00,ETAPA I DENUNCIA,penal,PENAL,,false,true
+111,1.10,1.- Denuncia,penal,PENAL,21.png,true,true
+112,2.00,ETAPA II INVESTIGACION PREPARATORIA PRELIMINAR,penal,PENAL,,false,true
+113,2.01,2.1 Disposición de Apertura (solicitar diligencias y/o presentar medios de prueba),penal,PENAL,0.png,true,true
+114,2.04,2.4 Solicitar el archivo de la investigación (investigado),penal,PENAL,12.png,true,true
+115,2.06,2.6 Tutela de derechos / audiencia,penal,PENAL,25.jpg,true,true
+116,2.07,2.7 Control de plazos / audiencia,penal,PENAL,17.jpg,true,true
+117,2.08,2.8 Elevación de actuados EN CONSULTA con fiscal superior,penal,PENAL,20.png,true,true
+118,2.09,2.9 Oposición de incoación de proceso inmediato/audiencia,penal,PENAL,21.png,true,true
+119,4.00,ETAPA IV INVESTIGACION PREPARATORIA FORMALIZADA,penal,PENAL,,false,true
+120,4.01,4.1 Solicitar diligencias/impulso procesal,penal,PENAL,40.png,true,true
+121,4.02,4.2 Tutela de derechos /audiencia,penal,PENAL,25.jpg,true,true
+122,4.03,4.3 Control de plazos /audiencia,penal,PENAL,17.jpg,true,true
+123,4.04,4.4 Solicitar prisión preventiva,penal,PENAL,1.jpg,true,true
+124,4.08,4.8 Solicitar prorroga de prisión preventiva/audiencia,penal,PENAL,30.jpg,true,true
+125,4.10,4.10 Solicitar constitución en actor civil y/o tercero civil,penal,PENAL,31.jpg,true,true
+126,6.00,ETAPA VI ETAPA INTERMEDIA - ACUSACION FISCAL,penal,PENAL,,false,true
+127,6.10,6.1 Absolución de la Acusación,penal,PENAL,8.png,true,true
+128,7.00,ETAPA VII JUICIO ORAL,penal,PENAL,,false,true
+129,7.10,7.1 Audiencia de Juicio oral,penal,PENAL,33.jpg,true,true
+130,7.20,7.2 Sentencia 1ra instancia,penal,PENAL,1.jpg,true,true
+131,8.00,ETAPA VIII IMPUGNATORIA,penal,PENAL,,false,true
+132,8.10,8.1 Apelación de Auto/Sentencia,penal,PENAL,33.jpg,true,true
+133,8.20,8.2 Recurso de Reposición,penal,PENAL,34.jpg,true,true
+134,8.30,8.3 Audiencia de Apelación,penal,PENAL,1.jpg,true,true
+135,8.40,8.4 Sentencia de Vista,penal,PENAL,32.jpg,true,true
+136,8.50,8.5 Casación,penal,PENAL,41.png,true,true
+137,9.00,ETAPA IX EJECUCION,penal,PENAL,,false,true
+138,9.10,9.1 Solicitar al PJ se ejecute la sentencia,penal,PENAL,1.jpg,true,true
+139,9.20,9.2 Solicitar al MP revocatoria de pena,penal,PENAL,37.jpg,true,true
+140,9.30,9.3 Audiencia de Revocatoria de pena,penal,PENAL,32.jpg,true,true
+141,1,ETAPA I: POSTULATORIA,constitucional,CONSTITUCIONAL,,false,true
+142,2,1.1.- Elaboración Demanda,constitucional,CONSTITUCIONAL,0.png,true,true
+143,3,1.2- Presentación Demanda,constitucional,CONSTITUCIONAL,0.png,true,true
+144,4,1.3.- Auto Admisorio,constitucional,CONSTITUCIONAL,0.png,true,true
+145,5,1.4.- Contestación de demanda,constitucional,CONSTITUCIONAL,0.png,true,true
+146,6,ETAPA II: PROBATORIA,constitucional,CONSTITUCIONAL,,false,true
+147,7,2.1.- Audiencia Única,constitucional,CONSTITUCIONAL,0.png,true,true
+148,8,ETAPA III: DECISORIA,constitucional,CONSTITUCIONAL,,false,true
+149,9,3.1.- Sentencia 1ra instancia,constitucional,CONSTITUCIONAL,0.png,true,true
+150,10,ETAPA IV: IMPUGNATORIA,constitucional,CONSTITUCIONAL,,false,true
+151,11,4.1.- Recurso apelación,constitucional,CONSTITUCIONAL,0.png,true,true
+152,12,4.2.- Audiencia vista de la causa,constitucional,CONSTITUCIONAL,0.png,true,true
+153,13,4.3.- Sentencia de vista 2da instancia,constitucional,CONSTITUCIONAL,0.png,true,true
+154,14,4.4.- Recurso de Agravio Constitucional,constitucional,CONSTITUCIONAL,0.png,true,true
+155,15,4.5.- Sentencia del Tribunal Constitucional,constitucional,CONSTITUCIONAL,0.png,true,true
+156,16,ETAPA V: EJECUTORIA,constitucional,CONSTITUCIONAL,,false,true
+157,17,5.1.- Ejecución de Sentencia,constitucional,CONSTITUCIONAL,0.png,true,true
+158,18,5.2.- Resolución concentida y firme,constitucional,CONSTITUCIONAL,0.png,true,true
+159,19,5.3.- Costas y Costos,constitucional,CONSTITUCIONAL,0.png,true,true
+167,3.5,3.5 Admisión del recurso de casación,laboral,LABORAL,19.png,true,true
+018,3.51,3.5.1 Elevación del recurso de casación a la Corte Suprema,laboral,LABORAL,20.png,true,true
+019,3.52,3.5.2 Programación de Audiencia de Vista de la Causa - Corte Suprema,laboral,LABORAL,17.jpg,true,true
+020,3.53,3.5.3 Oralización Audiencia de Vista de la Causa - Corte Suprema,laboral,LABORAL,18.jpg,true,true
+021,3.54,3.5.4 En espera de la notificación de la Ejecutoria Suprema,laboral,LABORAL,9.png,true,true
+022,3.55,3.5.5 Emisión de la Ejecutoria Suprema,laboral,LABORAL,1.jpg,true,true
+023,3.6,3.6 Bajada de autos al juzgado de origen,laboral,LABORAL,15.jpg,true,true
+024,4.0,4.0 EJECUCION,laboral,LABORAL,,false,true
+025,4.01,4.1 Resolución consentida y firme,laboral,LABORAL,5.jpg,true,true
+174,4.02,4.2 Redacción de Ejecución de Sentencia,laboral,LABORAL,10.jpg,true,true
+175,4.03,4.3 Revisión de Ejecución de Sentencia,laboral,LABORAL,0.png,true,true
+176,4.04,4.4 Presentación de Ejecución de Sentencia,laboral,LABORAL,8.png,true,true
+026,4.05,"4.5 Redacción de liquidación de costos, costas e intereses legales",laboral,LABORAL,6.jpg,true,true
+177,4.06,"4.6 Revisión de liquidación de costos, costas e intereses legales",laboral,LABORAL,0.png,true,true
+178,4.07,"4.7 Presentación de liquidación de costos, costas e intereses legales",laboral,LABORAL,8.png,true,true
+179,4.08,4.8 Apelación de costos y costas,laboral,LABORAL,7.jpg,true,true
+180,4.09,4.9 Observación de intereses legales,laboral,LABORAL,13.jpg,true,true
+181,4.10,4.10 Redacción de solicitud de pago y endose,laboral,LABORAL,10.jpg,true,true
+182,4.11,4.11 Revisión de solicitud de pago y endose,laboral,LABORAL,0.png,true,true
+183,4.12,4.12 Presentación de solicitud de pago y endose,laboral,LABORAL,8.png,true,true
+027,4.13,4.13 Endose de costas y/o costos,laboral,LABORAL,14.jpg,true,true
+030,4.14,4.14 Endose de intereses legales,laboral,LABORAL,14.jpg,true,true
+028,4.15,4.15 Cobro efectivo de costos y/o costas,laboral,LABORAL,16.jpg,true,true
+031,4.16,4.16 Cobro efectivo de intereses legales,laboral,LABORAL,16.jpg,true,true
+188,1.08,1.8 Formulación de tachas y oposiciones.,civil,CIVIL_CONOCIMIENTO,46.jpg,true,true
+189,1.09,1.9 Absolución de tachas y oposiciones.,civil,CIVIL_CONOCIMIENTO,47.jpg,true,true
+190,1.10,1.10 Audiencia Preliminar.,civil,CIVIL_CONOCIMIENTO,18.jpg,true,true
+079,1.11,1.11 Audiencia de pruebas.,civil,CIVIL_CONOCIMIENTO,4.jpg,true,true
+081,1.12,1.12 Alegatos o Informe final.,civil,CIVIL_CONOCIMIENTO,48.jpg,true,true
+082,1.13,1.13 Sentencia de primera instancia.,civil,CIVIL_CONOCIMIENTO,1.jpg,true,true
+093,1.14,1.14 Casación.,civil,CIVIL_CONOCIMIENTO,20.png,true,true
+191,1.15,1.15 Ejecución de sentencia.,civil,CIVIL_CONOCIMIENTO,15.jpg,true,true
+192,2.00,PROCESO ABREVIADO,civil,CIVIL_ABREVIADO,,false,true
+193,2.01,2.1 Presentación de la demanda.,civil,CIVIL_ABREVIADO,2.jpg,true,true
+194,2.02,"2.2 Calificación de la demanda (Admisión, inadmisibilidad o improcedencia).",civil,CIVIL_ABREVIADO,0.png,true,true
+195,2.03,2.3 Contestación de la demanda. ,civil,CIVIL_ABREVIADO,8.png,true,true
+196,2.04,2.4 Planteamiento de excepciones y defensas previas.,civil,CIVIL_ABREVIADO,42.jpg,true,true
+197,2.05,2.5 Absolución de excepciones y defensas previas. ,civil,CIVIL_ABREVIADO,43.jpg,true,true
+198,2.06,2.6 Reconvención,civil,CIVIL_ABREVIADO,44.jpg,true,true
+199,2.07,2.7 Absolución de la reconvención.,civil,CIVIL_ABREVIADO,45.jpg,true,true
+200,2.08,2.8 Formulación de tachas y oposiciones.,civil,CIVIL_ABREVIADO,46.jpg,true,true
+201,2.09,2.9 Absolución de tachas y oposiciones.,civil,CIVIL_ABREVIADO,47.jpg,true,true
+202,2.10,2.10 Audiencia preliminar,civil,CIVIL_ABREVIADO,18.jpg,true,true
+203,2.11,2.11 Audiencia de pruebas (Actuación probatoria).,civil,CIVIL_ABREVIADO,4.jpg,true,true
+204,2.12,2.12 Alegatos o Informe final. ,civil,CIVIL_ABREVIADO,48.jpg,true,true
+205,2.13,2.13 Sentencia de primera instancia.,civil,CIVIL_ABREVIADO,1.jpg,true,true
+206,2.14,2.14 Apelación.,civil,CIVIL_ABREVIADO,49.jpg,true,true
+207,2.15,2.15 Casación (Si corresponde según cuantía y materia).,civil,CIVIL_ABREVIADO,20.png,true,true
+208,2.16,2.16 Ejecución de sentencia.,civil,CIVIL_ABREVIADO,15.jpg,true,true
+209,3.00,PROCESO SUMARISIMO,civil,CIVIL_SUMARISIMO,,false,true
+210,3.01,3.1 Presentación de la demanda.,civil,CIVIL_SUMARISIMO,2.jpg,true,true
+211,3.02,3.2 Calificación de la demanda (Trámite de urgencia).,civil,CIVIL_SUMARISIMO,0.png,true,true
+212,3.03,"3.3 Contestación de la demanda (Debe incluir conjuntamente las excepciones, defensas previas, tachas u oposiciones si las hubiera).",civil,CIVIL_SUMARISIMO,8.png,true,true
+213,3.04,3.4 Programación y citación a Audiencia Única.,civil,CIVIL_SUMARISIMO,17.jpg,true,true
+214,3.05,3.5 Audiencia Única: Etapa de Saneamiento Procesal.,civil,CIVIL_SUMARISIMO,18.jpg,true,true
+215,3.06,3.6 Audiencia Única: Etapa de Fijación de Puntos Controvertidos y Saneamiento Probatorio.,civil,CIVIL_SUMARISIMO,51.jpg,true,true
+216,3.07,3.7 Audiencia Única: Etapa de Actuación de Medios Probatorios y Alegatos.,civil,CIVIL_SUMARISIMO,52.jpg,true,true
+217,3.08,3.8 Sentencia de primera instancia (Emitida en la misma audiencia o excepcionalmente diferida).,civil,CIVIL_SUMARISIMO,1.jpg,true,true
+218,3.09,3.9 Apelación. ,civil,CIVIL_SUMARISIMO,49.jpg,true,true
+219,3.10,"3.10 Casación (Excepcional, estrictamente según normativa).",civil,CIVIL_SUMARISIMO,20.png,true,true
+220,3.11,3.11 Ejecución de sentencia. ,civil,CIVIL_SUMARISIMO,15.jpg,true,true
+221,2.02,2.2 Disposición de Ampliación,penal,PENAL,22.png,true,true
+222,2.03,2.3 Disposición de Caso Complejo,penal,PENAL,23.png,true,true
+223,2.05,2.5 Solicitar que se formalice la investigación (agraviado),penal,PENAL,24.png,true,true
+224,3.00,ETAPA III ARCHIVO,penal,PENAL,,false,true
+225,3.10,3.1 Disposición de Archivo,penal,PENAL,23.png,true,true
+226,3.20,3.2 Disposición de Consentimiento,penal,PENAL,19.png,true,true
+227,3.30,3.3 Apelación de Archivo,penal,PENAL,26.png,true,true
+228,3.40,3.4 Confirmación de Archivo por el Fiscal Superior,penal,PENAL,27.jpg,true,true
+229,3.50,3.5 Nulo el Archivo y ampliar investigación,penal,PENAL,28.png,true,true
+230,3.60,3.6 Anulación de anotación en el SGF,penal,PENAL,39.jpg,true,true
+231,4.05,4.5 Absolver requerimiento de prisión preventiva,penal,PENAL,8.png,true,true
+232,4.06,4.6 Audiencia de prisión preventiva,penal,PENAL,15.jpg,true,true
+233,4.07,4.7 Disposición de caso complejo,penal,PENAL,29.png,true,true
+234,4.09,4.9 Solicitar cese de prisión preventiva/audiencia,penal,PENAL,12.png,true,true
+235,4.11,4.11 Oponerse a solicitud de Actor civil y/o tercero civil,penal,PENAL,23.png,true,true
+236,5.00,ETAPA V SOBRESEIMIENTO,penal,PENAL,,false,true
+237,5.10,5.1 Absolución de Sobreseimiento,penal,PENAL,19.png,true,true
+238,5.20,5.2 Audiencia de Sobreseimiento penal,penal,PENAL,32.jpg,true,true
+239,6.20,6.2 Audiencia de control de acusación,penal,PENAL,32.jpg,true,true
+240,8.60,8.6 Audiencia de Casación,penal,PENAL,26.png,true,true
+241,9.40,9.4 Cumplimiento de jornadas/reglas de conducta,penal,PENAL,36.jpg,true,true
+242,9.50,9.5 Cumplimiento de pago de reparación civil en partes,penal,PENAL,16.jpg,true,true
+243,9.60,9.6 Cumplimiento de inhabilitación,penal,PENAL,35.png,true,true
+244,10.00,ETAPA X ANULACION DE ANTECEDENTES,penal,PENAL,,false,true
+245,10.10,10.1 Solicitar al PJ la rehabilitación por cumplimiento de pena,penal,PENAL,27.jpg,true,true
+246,10.20,10.2 Solicitar al PJ prescripción de la acción penal,penal,PENAL,9.png,true,true
+247,10.30,"10.3 Solicitar al PJ la anulación de antecedentes penales, judiciales y policiales",penal,PENAL,38.jpg,true,true
+248,1.00,ADMINISTRATIVO,administrativo,ADMINISTRATIVO,,false,true
+249,1.10,1. Iniciando 0-25%,administrativo,ADMINISTRATIVO,0.png,true,true
+250,1.20,2. Con avances 26-50%,administrativo,ADMINISTRATIVO,0.png,true,true
+251,1.30,3. Excelente progreso 51-75%,administrativo,ADMINISTRATIVO,0.png,true,true
+252,1.40,4. Casi finalizando 76-100%,administrativo,ADMINISTRATIVO,0.png,true,true
