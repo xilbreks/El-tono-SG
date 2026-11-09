@@ -121,6 +121,7 @@ import {
   bootstrapClock,
   bootstrapCheck,
   bootstrapCheckAll,
+  bootstrapCheckCircle,
 } from '@ng-icons/bootstrap-icons';
 
 @NgModule({
@@ -249,6 +250,7 @@ import {
       bootstrapClock,
       bootstrapCheck,
       bootstrapCheckAll,
+      bootstrapCheckCircle,
     })
   ]
 })

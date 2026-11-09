@@ -1,0 +1,105 @@
+<div class="container py-1">
+    <!-- Tarjeta contenedora principal -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-md-4">
+            
+            <!-- Encabezado del módulo -->
+            <div class="mb-4">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <h4 class="fw-bold mb-0 text-dark">Módulo para descargar listado de expedientes</h4>
+                </div>
+            </div>
+
+            <hr class="text-muted opacity-25 my-4"/>
+
+            <!-- Contenedor de bloques -->
+            <div class="row g-4">
+                
+                <!-- OPCIÓN 1: Excel Simple -->
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 border border-1 shadow-sm rounded-4 p-4 d-flex flex-column justify-content-between bg-white transition-card">
+                        <div>
+                            <h5 class="fw-bold text-dark mb-3">Excel Simple</h5>
+                            
+                            <p class="text-muted small mb-4">
+                                Permite obtener una descarga rápida con los datos principales y básicos de todos los expedientes registrados en el sistema.
+                            </p>
+
+                            <!-- Características con un solo estilo de check -->
+                            <ul class="list-unstyled text-muted small mb-4">
+                                <li class="mb-2 d-flex align-items-center gap-2">
+                                    <ng-icon name="bootstrapCheckCircle" class="text-success flex-shrink-0" size="16"></ng-icon>
+                                    <span>Datos básicos.</span>
+                                </li>
+                                <li class="mb-2 d-flex align-items-center gap-2">
+                                    <ng-icon name="bootstrapCheckCircle" class="text-success flex-shrink-0" size="16"></ng-icon>
+                                    <span>Descargas ilimitadas.</span>
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <ng-icon name="bootstrapCheckCircle" class="text-success flex-shrink-0" size="16"></ng-icon>
+                                    <span>Incluye expedientes depurados.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Botón sin icono -->
+                        <button class="btn btn-outline-success btn-lg w-100 py-3 rounded-pill fw-semibold shadow-sm" (click)="descargarExcelSimple()">
+                            Descargar Excel Simple
+                        </button>
+                    </div>
+                </div>
+
+                <!-- OPCIÓN 2: Excel Completo -->
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 border border-1 shadow-sm rounded-4 p-4 d-flex flex-column justify-content-between bg-white transition-card position-relative overflow-hidden">
+                        <div>
+                            <h5 class="fw-bold text-dark mb-3">Excel Completo</h5>
+                            
+                            <p class="text-muted small mb-4">
+                                Genera un reporte detallado que incluye campos del informe económico disponibles de los expedientes.
+                            </p>
+
+                            <!-- Características con un solo estilo de check -->
+                            <ul class="list-unstyled text-muted small mb-4">
+                                <li class="mb-2 d-flex align-items-center gap-2">
+                                    <ng-icon name="bootstrapCheckCircle" class="text-primary flex-shrink-0" size="16"></ng-icon>
+                                    <span>Incluye informe económico.</span>
+                                </li>
+                                <li class="mb-2 d-flex align-items-center gap-2">
+                                    <ng-icon name="bootstrapCheckCircle" class="text-primary flex-shrink-0" size="16"></ng-icon>
+                                    <span>Descarga solo una vez al día.</span>
+                                </li>
+                                <li class="mb-2 d-flex align-items-center gap-2">
+                                    <ng-icon name="bootstrapCheckCircle" class="text-primary flex-shrink-0" size="16"></ng-icon>
+                                    <span>Solo expedientes activos.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Bloque dinámico para la descarga completa -->
+                        <div>
+                            @if (habilitarDescarga) {
+                                @if (!descargando) {
+                                    <button class="btn btn-primary btn-lg w-100 py-3 rounded-pill fw-semibold shadow-sm" (click)="descargarExcelCompleto()">
+                                        Descargar Excel Completo
+                                    </button>
+                                } @else {
+                                    <button class="btn btn-primary btn-lg w-100 py-3 rounded-pill fw-semibold shadow-sm" disabled>
+                                        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                        Descargando Completo...
+                                    </button>
+                                }
+                            } @else {
+                                <button class="btn btn-light text-muted border btn-lg w-100 py-3 rounded-pill fw-semibold" disabled>
+                                    {{textoBotonDescarga}}
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

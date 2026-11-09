@@ -38,6 +38,7 @@ import { AuthMiPerfilComponent } from './auth-mi-perfil/auth-mi-perfil.component
 import { ReporteComunicacionComponent } from './reporte-comunicacion/reporte-comunicacion.component';
 import { ReporteCobranzaComponent } from './reporte-cobranza/reporte-cobranza.component';
 import { ReporteTareasComponent } from './reporte-tareas/reporte-tareas.component';
+import { ReporteExpedientesComponent } from './reporte-expedientes/reporte-expedientes.component';
 
 const routes: Routes = [
   // ── Ruta raíz → redirige al login ───────────────────────
@@ -197,6 +198,10 @@ const routes: Routes = [
       {
         path: 'reporte-tareas',
         component: ReporteTareasComponent
+      },
+      {
+        path: 'reporte-expedientes',
+        component: ReporteExpedientesComponent
       },
     ]
   },
